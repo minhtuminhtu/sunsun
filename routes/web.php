@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('/pay', 'Sunsun\Front\BookingController@index');
 Route::get('/', function () {
     return view('sunsun.front.index');
 });
