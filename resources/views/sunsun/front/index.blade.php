@@ -2,7 +2,6 @@
 
 @section('head')
     @parent
-
 @endsection
 
 @section('main')
@@ -107,7 +106,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -117,15 +116,16 @@
                         <p class="text-md-left mt-3 pt-2">【予約日】</p>
                     </div>
                     <div class="col-7">
-                        <div class="row">
+                        <div class="row carousel-warp" id="datetimepicker">
                             <div class="col-10">
-                                <input type="text" class="form-control mt-3" id="pwd" value="2019/9/20(金)" />
+                                <input data-format="yyyy/MM/dd" type="text" class="form-control mt-3" id="pwd" value="2019/9/20(金)" />
                             </div>
-                            
+
                             <div class="col-2 pl-0 ">
-                                <button  class="btn mt-3 p-0">
-                                    <i class="fa fa-calendar-alt fa-2x"></i> 
-                                </button>
+                                 <span class="add-on">
+                                  <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt fa-2x  mt-3">
+                                  </i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                             <div class="col-10">
                                 <input type="text" class="form-control mt-3" id="pwd" value="13:45" />
                             </div>
-                            
+
                             <div class="col-2">
                             </div>
                         </div>
@@ -215,6 +215,7 @@
 
 @section('script')
     @parent
+    <script src="{{asset('sunsun/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
 
 @endsection
 
