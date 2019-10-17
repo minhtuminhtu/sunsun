@@ -10,6 +10,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <title>@yield('title')</title>
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <script>
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
+    </script>
 @yield('admincss')
 @endsection
 
@@ -21,5 +25,7 @@
 @section("footer")
     @include('sunsun.front.layouts.footer')
 @endsection
-
+@section('script')
+    <script src="{{mix('js/app.js')}}"></script>
+@endsection
 
