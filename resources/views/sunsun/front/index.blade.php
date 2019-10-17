@@ -250,7 +250,7 @@
 
         
         $('#transportation').on('change', function() {
-            if(this.value == 'car'){
+            if(this.value == '車​'){
                 $('.bus').hide();
             }else{
                 $('.bus').show();
