@@ -19,7 +19,7 @@
                         <div class="col-7">
                             <select name="used" class="custom-select">
                                 @foreach(config('booking.used.options') as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -31,12 +31,12 @@
                         <div class="col-7">
                             <select name="transportation" id='transportation' class="custom-select">
                                 @foreach(config('booking.transportation.options') as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="row bus">
+                    <div class="row bus" style="display:none;">
                         <div class="col-5">
                             <p class="text-md-left pt-2">{{config('booking.bus_arrival.label')}}</p>
                         </div>
@@ -48,7 +48,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row bus">
+                    <div class="row bus" style="display:none">
                         <div class="col-5">
                             <p class="text-md-left pt-2">{{config('booking.pick_up.label')}}</p>
                         </div>
@@ -87,30 +87,43 @@
                             </select>
                         </div>
                     </div>
+                    
+  
+ 
+
+          
                     <div class="row mb-2">
                         <div class="col-3">
                             <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
                         </div>
                         <div class="col-9">
+                            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons"> -->
                             <div class="row pb-0">
-                                <div class="col-4 pl-0">
-                                    <button type="button" class="btn btn-block btn-outline-warning text-dark mt-1 mx-0">{{config('booking.age.age1')}}</button>
-                                    <button type="button" class="btn btn-block btn-warning text-dark mt-2">{{config('booking.age.age3')}}</button>
-                                </div>
-                                <div class="col-8 pl-0">
-                                    <button type="button" class="btn btn-block btn-outline-warning text-dark mt-1 mx-0">{{config('booking.age.age2')}}</button>
-                                    <div class="row mt-2">
-                                        <div class="col-6">
-                                            <select name="age" class="custom-select">
-                                                @foreach(config('booking.age.options') as $key => $value)
-                                                    <option value="{{ $value }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                    <div class="col-4 pl-0">
+                                        <label class="btn btn-block btn-outline-warning text-dark mt-1 mx-0">
+                                            <input type="radio" name="options" id="option1" autocomplete="off" checked>{{config('booking.age.age1')}}
+                                        </label>
+                                        <label class="btn btn-block btn-warning text-dark mt-2">
+                                            <input type="radio" name="options" id="option2" autocomplete="off">{{config('booking.age.age3')}}
+                                        </label>
                                     </div>
+                                    <div class="col-8 pl-0">
+                                        <label class="btn btn-block btn-outline-warning text-dark mt-1 mx-0">
+                                            <input type="radio" name="options" id="option3" autocomplete="off">{{config('booking.age.age2')}}
+                                        </label>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <select name="age" class="custom-select">
+                                                    @foreach(config('booking.age.options') as $key => $value)
+                                                        <option value="{{ $value }}">{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                </div>
-                            </div>
+                                    </div>
+                                <!-- </div> -->
+                            </div>    
                         </div>
                     </div>
                     <div class="row">
@@ -197,6 +210,8 @@
                         </div>
                     </div>
 
+
+
                     <div class="row mt-5">
                         <div class="col-6">
                             <button type="button" class="btn btn-block btn-warning text-white">予約追加</button>
@@ -229,13 +244,6 @@
         });
 
         
-        $( document ).ready(function() {
-            if($('#transportation').val() == 'car'){
-                $('.bus').hide();
-            }else{
-                $('.bus').show();
-            }
-        });
         $('#transportation').on('change', function() {
             if(this.value == 'car'){
                 $('.bus').hide();

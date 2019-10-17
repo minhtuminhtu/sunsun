@@ -12,20 +12,20 @@
                 @csrf
                 <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-4 offset-xl-4 pb-3 border-left border-bottom border-right">
                     <p class="text-md-left mt-2 mb-0">≪交通手段≫</p>
-                    @if($data['transportation'] == "car")
-                        <p class="text-md-left pl-4 mb-0">{{ config('booking.transportation.options.car') }}</p>     
+                    @if($data['transportation'] == "車​")
+                        <p class="text-md-left pl-4 mb-0">{{ $data['transportation'] }}</p>     
                     @else 
-                        <p class="text-md-left pl-4 mb-0">{{ config('booking.transportation.options.bus')  }} 洲本IC着：{{ $data['bus_arrival']  }}</p> 
+                        <p class="text-md-left pl-4 mb-0">{{ $data['transportation'] }} 洲本IC着：{{ $data['bus_arrival']  }}</p> 
                         <p class="text-md-left pl-4 mb-0">送迎：{{ $data['pick_up']  }}</p> 
                     @endif
    
                     <p class="text-md-left mt-2 mb-0">≪選択コース≫</p>
                     <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 bg-warning">{{ $data['services']  }}</p>     
 
-                    @if($data['used'] == "yes")
-                        <p class="text-md-left pl-4 mb-0 bg-warning">ご利用回数： {{ config('booking.used.options.yes') }}</p>     
+                    @if($data['used'] == "​リピート​")
+                        <p class="text-md-left pl-4 mb-0 bg-warning">ご利用回数： {{ $data['used'] }}</p>     
                     @else 
-                        <p class="text-md-left pl-4 mb-0 bg-warning">ご利用回数： {{ config('booking.used.options.no') }}</p> 
+                        <p class="text-md-left pl-4 mb-0 bg-warning">ご利用回数： {{ $data['used'] }}</p> 
                         <p class="text-md-left pl-4 mb-0 bg-warning">※開始時間の15分前までにお越しください。</p> 
                     @endif
 
