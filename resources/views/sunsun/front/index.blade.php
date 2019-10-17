@@ -17,7 +17,6 @@
                             <p class="text-md-left pt-2">{{config('booking.used.label')}}</p>
                         </div>
                         <div class="col-7">
-                            <input type="hidden" name="acc" value="â">
                             <select name="user" class="custom-select">
                                 @foreach(config('booking.used.options') as $key => $value)
                                     <option value="{{ $value }}">{{ $value }}</option>

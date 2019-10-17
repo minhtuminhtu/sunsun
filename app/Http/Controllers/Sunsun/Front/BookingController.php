@@ -11,9 +11,9 @@ class BookingController extends Controller
         return view('sunsun.front.booking.index');
     }
 
-    public function confirm(){
-
-        return view('sunsun.front.confirm',['data' => 1]);
+    public function confirm(Request $request){
+        $data = $request->all();
+        return view('sunsun.front.confirm',['data' => $data]);
 
     }
 }
