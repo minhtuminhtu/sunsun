@@ -2,7 +2,7 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
 @endsection
 
 @section('main')
@@ -131,15 +131,15 @@
                             <p class="text-md-left pt-2">{{config('booking.date.label')}}</p>
                         </div>
                         <div class="col-7">
-                            <div class="row carousel-warp" id="datetimepicker">
+                            <div class="row carousel-warp">
                                 <div class="col-10">
-                                    <input name='date' data-format="yyyy/MM/dd" type="text" class="form-control" id="pwd" value="2019/9/20(金)" />
+                                    <input name='date'  data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="2019/9/20(金)" />
                                 </div>
 
                                 <div class="col-2 pl-0 ">
                                      <span class="add-on">
-                                      <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt fa-2x">
-                                      </i>
+                                      <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt fa-2x " id="date-book"></i>
+
                                     </span>
                                 </div>
                             </div>
@@ -229,17 +229,22 @@
 
 @section('script')
     @parent
-    <script src="{{asset('sunsun/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}" charset="UTF-8"></script>
     <script>
         /**
          * Japanese translation for bootstrap-datepicker
          * Norio Suzuki <https://github.com/suzuki/>
          */
-
         $(function() {
-            $('#datetimepicker').datetimepicker({
-                pickTime: false,
-                locale: 'ja',
+
+            $('#date-book').datepicker({
+                language: 'ja'
+            });
+            $('#date-book').on('changeDate', function() {
+                $('.date-book-input').val(
+                    $('#date-book').datepicker('getFormattedDate')
+                );
             });
         });
 
