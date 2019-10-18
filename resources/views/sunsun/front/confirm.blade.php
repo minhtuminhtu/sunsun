@@ -12,13 +12,14 @@
                 @csrf
                 <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-4 offset-xl-4 pb-3 border-left border-bottom border-right">
                     <p class="text-md-left mt-2 mb-0">≪交通手段≫</p>
+
                     @if($data['transportation'] == "車​")
-                        <p class="text-md-left pl-4 mb-0">{{ $data['transportation'] }}</p>     
-                    @else 
-                        <p class="text-md-left pl-4 mb-0">{{ $data['transportation'] }} 洲本IC着：{{ $data['bus_arrival']  }}</p> 
-                        <p class="text-md-left pl-4 mb-0">送迎：{{ $data['pick_up']  }}</p> 
+                        <p class="text-md-left pl-4 mb-0">{{ $data['transportation'] }}</p>
+                    @else
+                        <p class="text-md-left pl-4 mb-0">{{ $data['transportation'] }} 洲本IC着：{{ $data['bus_arrival']  }}</p>
+                        <p class="text-md-left pl-4 mb-0">送迎：{{ $data['pick_up']  }}</p>
                     @endif
-   
+
                     <p class="text-md-left mt-2 mb-0">≪選択コース≫</p>
                     
                     @if($data['services'] == "酵素部屋貸切プラン")
@@ -32,6 +33,7 @@
                     @endif
 
 
+                    <p class="text-md-left pl-5 mb-0 bg-warning">昼食: {{ $data['lunch'] }}</p>
                     
 
                     @if($data['services'] != "ペット酵素浴")
@@ -119,19 +121,6 @@
 
 @section('script')
     @parent
-    <script src="{{asset('sunsun/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
-    <script>
-        /**
-         * Japanese translation for bootstrap-datepicker
-         * Norio Suzuki <https://github.com/suzuki/>
-         */
 
-        $(function() {
-            $('#datetimepicker').datetimepicker({
-                pickTime: false,
-                locale: 'ja',
-            });
-        });
-    </script>
 @endsection
 
