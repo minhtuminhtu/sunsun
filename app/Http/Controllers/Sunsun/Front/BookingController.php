@@ -17,4 +17,10 @@ class BookingController extends Controller
         return view('sunsun.front.confirm',['data' => $data]);
 
     }
+    public function payment(Request $request){
+        $data = $request->all();
+        // dd($data);
+        return view('sunsun.front.payment',['data' => $data]);
+
+    }
 }

@@ -18,5 +18,6 @@ Route::namespace('Sunsun\Front')->group(function (){
         return view('sunsun.front.index');
     });
     Route::post('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
+    Route::post('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
 });
 
