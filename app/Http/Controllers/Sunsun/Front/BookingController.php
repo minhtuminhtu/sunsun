@@ -17,4 +17,8 @@ class BookingController extends Controller
         return view('sunsun.front.confirm',['data' => $data]);
 
     }
+
+    public function get_time_room(Request $request) {
+        return view('sunsun.front.parts.booking_time')->render();
+    }
 }

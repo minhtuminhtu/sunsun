@@ -37,8 +37,6 @@
 
                     <p class="text-md-left pl-5 mb-0 bg-warning">昼食: {{ $data['lunch'] }}</p>
 
-
-
                     <div class="row mt-5">
                         <div class="col-6">
                             <button type="button" class="btn btn-block btn-warning text-white">予約追加</button>
