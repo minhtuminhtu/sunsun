@@ -30,7 +30,7 @@
                     @endif
 
                     <p class="text-md-left pl-4 mb-0 bg-warning">{{ $data['sex'] }} : {{ $data['age'] }}歳</p>
-                    <p class="text-md-left pl-4 mb-0 bg-warning">{{ $data['date'] }}  {{ $data['time'] }}歳</p>
+                    <p class="text-md-left pl-4 mb-0 bg-warning">{{ $data['date'] }}  {{ $data['time'] }}</p>
                     <p class="text-md-left pl-4 mb-0 bg-warning">［オプション］</p>
 
                     <p class="text-md-left pl-5 mb-0 bg-warning">昼食: {{ $data['lunch'] }}</p>

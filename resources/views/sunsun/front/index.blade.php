@@ -97,32 +97,24 @@
                             <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
                         </div>
                         <div class="col-9">
-                            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons"> -->
                             <div class="row pb-0">
-                                    <div class="col-4 pl-0">
-                                        <label class="btn btn-block btn-outline-warning text-dark mt-1 mx-0">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked>{{config('booking.age.age1')}}
-                                        </label>
-                                        <label class="btn btn-block btn-warning text-dark mt-2">
-                                            <input type="radio" name="options" id="option2" autocomplete="off">{{config('booking.age.age3')}}
-                                        </label>
-                                    </div>
-                                    <div class="col-8 pl-0">
-                                        <label class="btn btn-block btn-outline-warning text-dark mt-1 mx-0">
-                                            <input type="radio" name="options" id="option3" autocomplete="off">{{config('booking.age.age2')}}
-                                        </label>
-                                        <div class="row mt-2">
-                                            <div class="col-6">
-                                                <select name="age" class="custom-select">
-                                                    @foreach(config('booking.age.options') as $key => $value)
-                                                        <option value="{{ $value }}">{{ $value }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                <input id="agecheck" name='agecheck' type="hidden" value="{{config('booking.age.age3')}}">
+                                <div class="col-4 pl-0">
+                                    <button type="button" class="btn btn-block btn-outline-warning text-dark mt-1 mx-0 age">{{config('booking.age.age1')}}</button>
+                                    <button type="button" class="btn btn-block btn-outline-warning  btn-warning text-dark mt-1 mx-0 age">{{config('booking.age.age3')}}</button>
+                                </div>
+                                <div class="col-8 pl-0">
+                                    <button type="button" class="btn btn-block btn-outline-warning text-dark mt-1 mx-0 age">{{config('booking.age.age2')}}</button>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <select name="age" class="custom-select">
+                                                @foreach(config('booking.age.options') as $key => $value)
+                                                <option value="{{ $value }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-
                                     </div>
-                                <!-- </div> -->
+                                </div>
                             </div>    
                         </div>
                     </div>
@@ -246,6 +238,12 @@
                     $('#date-book').datepicker('getFormattedDate')
                 );
             });
+        });
+
+        $('.age').click(function(){
+            $('.age').removeClass('btn-warning');
+            $(this).addClass('btn-warning');
+            $('#agecheck').val($(this).text())
         });
 
         
