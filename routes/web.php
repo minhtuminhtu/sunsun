@@ -19,6 +19,7 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::post('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
 
     Route::post('/get_time_room',['as' => '.get_time_room', 'uses' => 'BookingController@get_time_room']);
+    Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
     Route::post('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
 
 });

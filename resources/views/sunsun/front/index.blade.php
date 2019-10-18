@@ -430,7 +430,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="row room" style="display:none;">
                         <div class="col-5">
                             <p class="text-md-left pt-2">{{config('booking.range_date.label')}}</p>
@@ -461,6 +460,9 @@
                         </div>
                     </div>
 
+                    <div class="service-warp">
+
+                    </div>
 
 
                     <div class="row mt-5">
@@ -583,6 +585,25 @@
             }
         });
         $('#services').on('change', function() {
+            $.ajax({
+                url: $site_url +'/get_service',
+                type: 'POST',
+                data: {
+                    'service': this.value
+                },
+                dataType: 'text',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                    $('.service-warp').empty();
+                },
+                success: function (html) {
+                    $('.service-warp').append(html);
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+            });
+
             if(this.value == '酵素浴'){
                 $('.service_2').hide();
                 $('.service_3').hide();

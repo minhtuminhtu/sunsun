@@ -188,5 +188,6 @@ return [
     'payment_method' => [
         'label' => '【お支払い方法】',
     ],
-    
+
+
 ];
