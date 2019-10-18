@@ -32,8 +32,6 @@
                         <p class="text-md-left pl-2 mb-0 bg-warning">［酵素風呂2回とお食事付き］</p>
                     @endif
 
-
-                    <p class="text-md-left pl-5 mb-0 bg-warning">昼食: {{ $data['lunch'] }}</p>
                     
 
                     @if($data['services'] != "ペット酵素浴")
