@@ -11,9 +11,8 @@
     <![endif]-->
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
-    <script>
-        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
-    </script>
+    <link rel="stylesheet" href="{{asset('common/css/reset.css')}}">
+
     <style>
         #js-loading {
             display: none;
@@ -55,6 +54,7 @@
             }
         });
         let loader = $('#js-loading');
+        var $site_url = '{{url('/')}}';
     </script>
 @endsection
 

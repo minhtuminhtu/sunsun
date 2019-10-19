@@ -1,0 +1,105 @@
+#choice_date_time table {
+  width: 100%;
+}
+
+#choice_date_time table th,
+#choice_date_time table td {
+  border: 1px solid #ccc;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#choice_date_time .title-table-time {
+  text-align: center;
+  background: #ffccff;
+}
+
+.node-text {
+  font-size: 0.7rem;
+}
+
+.node-text.multiple-date {
+  padding-left: 20px;
+}
+
+.booking {
+  padding-top: 10px;
+}
+
+.booking-warp {
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  width: 524px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.choice-time {
+  display: flex;
+  padding-top: 5px;
+}
+
+.choice-time .label-data {
+  padding-left: 30px;
+  padding-right: 10px;
+}
+
+.choice-time .icon-time {
+  padding-right: 6px;
+  padding-left: 2px;
+}
+
+.choice-time .choice-data-time {
+  float: left;
+}
+
+.choice-time .choice-data-time > div {
+  float: left;
+}
+
+.choice-time .choice-data-time > div input {
+  width: 68px;
+}
+
+main i.fa.fa-calendar-alt {
+  color: #bb8b03;
+}
+
+main .booking-field {
+  display: flex;
+  padding-bottom: 5px;
+}
+
+main .booking-field .booking-field-label {
+  width: 30%;
+}
+
+main .booking-field .booking-field-content {
+  width: 70%;
+}
+
+main .booking-field .booking-field-content-10 {
+  width: 83%;
+}
+
+main .booking-field .booking-field-content-2 {
+  width: 17%;
+}
+
+main .booking-field .booking-field-100 {
+  width: 100%;
+}
+
+main .booking-field .field-start-day {
+  padding-left: 20px;
+  padding-right: 5px;
+}
+
+main .booking-field .field-end-day {
+  padding-left: 5px;
+}
+
+main .booking-field .character-date {
+  padding-top: 5px;
+}
+

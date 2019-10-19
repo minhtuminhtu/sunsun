@@ -14,5 +14,13 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
 
-    .copyDirectory('assets/sunsun/imgs', 'public/sunsun')
-    .copyDirectory('assets/sunsun/lib', 'public/sunsun');
+    .sass('resources/assets/sunsun/common/scss/reset.scss', 'public/common/css')
+
+
+    .js('resources/assets/sunsun/front/js/booking.js', 'public/sunsun/front/js')
+    .sass('resources/assets/sunsun/front/scss/booking.scss', 'public/sunsun/front/css')
+
+
+
+    .copyDirectory('resources/assets/sunsun/imgs', 'public/sunsun/imgs')
+    .copyDirectory('resources/assets/sunsun/lib', 'public/sunsun/lib');

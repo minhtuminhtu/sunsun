@@ -17790,6 +17790,28 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./resources/assets/sunsun/common/scss/reset.scss":
+/*!********************************************************!*\
+  !*** ./resources/assets/sunsun/common/scss/reset.scss ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/assets/sunsun/front/scss/booking.scss":
+/*!*********************************************************!*\
+  !*** ./resources/assets/sunsun/front/scss/booking.scss ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -17817,14 +17839,16 @@ try {
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!****************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/assets/sunsun/common/scss/reset.scss ./resources/assets/sunsun/front/scss/booking.scss ***!
+  \****************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\common\scss\reset.scss */"./resources/assets/sunsun/common/scss/reset.scss");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\scss\booking.scss */"./resources/assets/sunsun/front/scss/booking.scss");
 
 
 /***/ })

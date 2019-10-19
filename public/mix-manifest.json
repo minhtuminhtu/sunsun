@@ -1,4 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/common/css/reset.css": "/common/css/reset.css",
+    "/sunsun/front/css/booking.css": "/sunsun/front/css/booking.css",
+    "/sunsun/front/js/booking.js": "/sunsun/front/js/booking.js"
 }
