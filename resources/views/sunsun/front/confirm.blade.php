@@ -58,7 +58,7 @@
                             <p class="text-md-left pl-5 mb-0 ">{{ $data['time2'] }}</p>
                         @elseif(($data['services'] == "酵素部屋貸切プラン") || ($data['services'] == "ペット酵素浴"))
                             <p class="text-md-left pl-4 mb-0 ">{{ $data['date'] }}</p>
-                            <p class="text-md-left pl-5 mb-0 ">{{ $data['time_room'] }}</p>
+                            <p class="text-md-left pl-5 mb-0 ">{{ $data['time_room']??'' }}</p>
                         @endif
 
                         @if($data['services'] == "ペット酵素浴")

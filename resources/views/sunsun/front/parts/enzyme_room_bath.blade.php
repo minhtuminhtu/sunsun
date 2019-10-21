@@ -26,7 +26,7 @@
                 <input name="time_room" type="text" class="form-control time" id="" value="13:45 ~ 15:45">
             </div>
 
-            <div class="col-2 pl-0">
+            <div class="col-2 pl-0 mt-1">
                 <span class="icon-clock">
                     <i class="far fa-clock fa-2x js-set-time"></i>
                 </span>
@@ -133,7 +133,7 @@
     <div class="">
         <pre class="mb-0">&nbsp;</pre>
         <span class="add-on ml-3">
-            <i class="fa fa-calendar-alt fa-2x "></i>
+            <i class="fa fa-calendar-alt fa-2x mt-1"></i>
         </span>
     </div>
 </div>

@@ -45,7 +45,7 @@
     <div class="booking-field input-daterange" id="choice-range-day">
         <div class="field-start-day">
             <p class="">開始日</p>
-            <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input" id="range_date_start" value="2019/9/20">
+            <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date" id="range_date_start" value="2019/9/20">
         </div>
         <div class="">
             <p class="">&nbsp;</p>
@@ -53,14 +53,14 @@
         </div>
         <div class="field-end-day">
             <p class="">終了日</p>
-            <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="range_date_end" value="2019/9/20">
+            <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input range_date" id="range_date_end" value="2019/9/20">
         </div>
 
     </div>
     <div class="">
         <pre class="mb-0">&nbsp;</pre>
         <span class="add-on ml-3">
-            <i class="fa fa-calendar-alt fa-2x "></i>
+            <i class="fa fa-calendar-alt fa-2x mt-1"></i>
         </span>
     </div>
 </div>
@@ -75,61 +75,8 @@
             <br> 入浴の間は2時間以上空けてください。
         </p>
     </div>
-    <div class="booking-field choice-time">
-        <div class="booking-field-label label-data">
-            <label class="">9/20(金)</label>
-        </div>
-        <div class="booking-field-content date-time">
-            <div class="choice-data-time set-time">
-                <div class="input-time">
-                    <input name='time' type="text" class="time" id="" value="13:45" />
-                </div>
-                <div class="icon-time">
-                    <span class="icon-clock">
-                        <i class="far fa-clock fa-2x js-set-time"></i>
-                    </span>
-                </div>
-            </div>
-            <div class="choice-data-time set-time">
-                <div class="data">
-                    <input name='time' type="text" class="input-time time" id="" value="13:45" />
-                </div>
-                <div class="icon-time">
-                    <span class="icon-clock">
-                        <i class="far fa-clock fa-2x js-set-time"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
+    <div class="time-list">
     </div>
-    <div class="booking-field choice-time">
-        <div class="booking-field-label label-data">
-            <label class="">9/20(金)</label>
-        </div>
-        <div class="booking-field-content date-time">
-            <div class="choice-data-time set-time">
-                <div class="input-time">
-                    <input name='time' type="text" class="time" id="" value="13:45" />
-                </div>
-                <div class="icon-time">
-                    <span class="icon-clock">
-                        <i class="far fa-clock fa-2x js-set-time"></i>
-                    </span>
-                </div>
-            </div>
-            <div class="choice-data-time set-time">
-                <div class="data">
-                    <input name='time' type="text" class="input-time time" id="" value="13:45" />
-                </div>
-                <div class="icon-time">
-                    <span class="icon-clock">
-                        <i class="far fa-clock fa-2x js-set-time"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="clearfix"></div>
 </div>
 <div class="booking-field">
@@ -181,7 +128,7 @@
         </div>
         <div class="">
             <p class="">&nbsp;</p>
-            <p class="character-date">～</p>
+            <p class="character-date mt-1">～</p>
         </div>
         <div class="field-end-day">
             <p class="">{{config('booking.range_date.checkout')}}</p>
@@ -192,7 +139,7 @@
     <div class="">
         <pre class="mb-0">&nbsp;</pre>
         <span class="add-on ml-3">
-            <i class="fa fa-calendar-alt fa-2x "></i>
+            <i class="fa fa-calendar-alt fa-2x mt-1"></i>
         </span>
     </div>
 </div>
