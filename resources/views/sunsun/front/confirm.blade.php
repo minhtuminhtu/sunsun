@@ -77,23 +77,23 @@
                             @if($data['services'] != "断食プラン")
                                 @if($data['services'] == "酵素部屋貸切プラン")
                                     @if($data['number_lunch_book'] != "無し")
-                                        <p class="text-md-left pl-5 mb-0 bg-warning">昼食: {{ $data['number_lunch_book']??'' }}</p>
+                                        <p class="text-md-left pl-5 mb-0">昼食: {{ $data['number_lunch_book']??'' }}</p>
                                     @endif 
                                 @elseif($data['services'] != "1日リフレッシュプラン")
                                     @if($data['lunch'] != "無し")
-                                        <p class="text-md-left pl-5 mb-0 bg-warning">昼食: {{ $data['lunch']??'' }}</p>
+                                        <p class="text-md-left pl-5 mb-0">昼食: {{ $data['lunch']??'' }}</p>
                                     @endif 
                                 @endif
                             @endif
                             @if($data['pet'] == "追加する")
-                                <p class="text-md-left pl-5 mb-0 bg-warning">ペット預かり</p>
+                                <p class="text-md-left pl-5 mb-0">ペット預かり</p>
                             @endif
                             @if($data['room'] != "無し")
-                                <p class="text-md-left pl-5 mb-0 bg-warning">宿泊：有り</p>
-                                <p class="text-md-left pl-5 mb-0 bg-warning">部屋ﾀｲﾌﾟ：{{ $data['room']??'' }}</p>
-                                <p class="text-md-left pl-5 mb-0 bg-warning">宿泊人数：{{ $data['number_guests_stay']??'' }}</p>
-                                <p class="text-md-left pl-5 mb-0 bg-warning">宿泊日</p>
-                                <div class="pl-5 mb-0 bg-warning">
+                                <p class="text-md-left pl-5 mb-0">宿泊：有り</p>
+                                <p class="text-md-left pl-5 mb-0">部屋ﾀｲﾌﾟ：{{ $data['room']??'' }}</p>
+                                <p class="text-md-left pl-5 mb-0">宿泊人数：{{ $data['number_guests_stay']??'' }}</p>
+                                <p class="text-md-left pl-5 mb-0">宿泊日</p>
+                                <div class="pl-5 mb-0">
                                     <p class="text-md-left pl-4 mb-0">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start']??'' }}</p>
                                     <p class="text-md-left pl-4">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end']??'' }}</p>
                                 </div>
