@@ -1,4 +1,12 @@
 <div class="booking-field">
+    <div class="booking-field-label">
+    </div>
+    <div class="booking-field-content">
+        <p class="node-text text-md-left mt-2 mb-0">入浴時間約30分</p>
+        <p class="node-text text-md-left mb-2">(全体の滞在時間約90分)</p>
+    </div>
+</div>
+<div class="booking-field">
 <div class="booking-field-label">
     <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
 </div>

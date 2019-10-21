@@ -95,6 +95,7 @@
 
 $(function () {
   var service = $('.service-warp');
+  var modal_choice_time = $('#choice_date_time');
 
   var load_event = function load_event() {
     var date_book = $('.date-book');
@@ -113,37 +114,43 @@ $(function () {
       minDate: moment().toArray()
     });
     input_daterange.on('changeDate', function () {});
+    $('#room').on('change', function () {
+      if (this.value == '無し') {
+        $('.room').hide();
+      } else {
+        $('.room').show();
+      }
+    });
+    var set_time = $('.js-set-time');
+    set_time.click(function (e) {
+      var set_time_click = $(this);
+      $.ajax({
+        url: $site_url + '/get_time_room',
+        type: 'POST',
+        data: {
+          'sex': $('select[name=sex]').val()
+        },
+        dataType: 'text',
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(html) {
+          set_time_click.closest('.set-time').addClass('edit');
+          modal_choice_time.find('.modal-body-time').append(html);
+          modal_choice_time.modal('show');
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
   };
 
   load_event();
-  var modal_choice_time = $('#choice_date_time');
-  var set_time = $('.js-set-time');
-  set_time.click(function (e) {
-    var set_time_click = $(this);
-    $.ajax({
-      url: $site_url + '/get_time_room',
-      type: 'POST',
-      data: {
-        'sex': $('select[name=sex]').val()
-      },
-      dataType: 'text',
-      beforeSend: function beforeSend() {
-        loader.css({
-          'display': 'block'
-        });
-      },
-      success: function success(html) {
-        set_time_click.closest('.set-time').addClass('edit');
-        modal_choice_time.find('.modal-body-time').append(html);
-        modal_choice_time.modal('show');
-      },
-      complete: function complete() {
-        loader.css({
-          'display': 'none'
-        });
-      }
-    });
-  });
   modal_choice_time.on('hidden.bs.modal', function () {
     modal_choice_time.find('.modal-body-time').empty();
     $('.set-time').removeClass('edit');
@@ -154,6 +161,7 @@ $(function () {
     modal_choice_time.modal('hide');
   });
   $('#services').on('change', function () {
+    $('.service-warp').empty();
     $.ajax({
       url: $site_url + '/get_service',
       type: 'POST',
@@ -177,38 +185,6 @@ $(function () {
         });
       }
     });
-
-    if (this.value == '酵素浴') {
-      $('.service_2').hide();
-      $('.service_3').hide();
-      $('.service_4').hide();
-      $('.service_5').hide();
-      $('.service_1').show();
-    } else if (this.value == '1日リフレッシュプラン') {
-      $('.service_1').hide();
-      $('.service_3').hide();
-      $('.service_4').hide();
-      $('.service_5').hide();
-      $('.service_2').show();
-    } else if (this.value == '酵素部屋貸切プラン') {
-      $('.service_1').hide();
-      $('.service_2').hide();
-      $('.service_4').hide();
-      $('.service_5').hide();
-      $('.service_3').show();
-    } else if (this.value == '断食プラン') {
-      $('.service_1').hide();
-      $('.service_2').hide();
-      $('.service_3').hide();
-      $('.service_5').hide();
-      $('.service_4').show();
-    } else if (this.value == 'ペット酵素浴') {
-      $('.service_1').hide();
-      $('.service_2').hide();
-      $('.service_3').hide();
-      $('.service_4').hide();
-      $('.service_5').show();
-    }
   });
 });
 $('.agecheck').click(function () {

@@ -165,13 +165,3 @@
         </span>
     </div>
 </div>
-
-<script>
-    $('#room').on('change', function () {
-        if (this.value == '無し') {
-            $('.room').hide();
-        } else {
-            $('.room').show();
-        }
-    });
-</script>
