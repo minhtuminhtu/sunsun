@@ -94,8 +94,9 @@
 /***/ (function(module, exports) {
 
 $(function () {
-  var service = $('.service-warp');
-  var modal_choice_time = $('#choice_date_time');
+  var service = $('.service-warp'),
+      modal_choice_time = $('#choice_date_time'),
+      days_short = ["日", "月", "火", "水", "木", "金", "土"];
 
   var load_event = function load_event() {
     var date_book = $('.date-book');
@@ -141,7 +142,7 @@ $(function () {
         var day = check.format('D');
         var year = check.format('YYYY');
         var week_day = check.weekday();
-        console.log(week_day);
+        console.log(days_short[week_day]);
         $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + week_day + ')</label></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="time_start" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div><div class="choice-data-time set-time">    <div class="data"><input name="time_end" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div>    </div></div>');
       });
       load_event();
