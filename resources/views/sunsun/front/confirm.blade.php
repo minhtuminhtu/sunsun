@@ -11,6 +11,7 @@
             <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf
                 <div class="booking-warp">
+
                     <p class="text-md-left mt-2 mb-0">≪交通手段≫</p>
 
                     @if($data['transportation'] == "車​")
@@ -26,6 +27,8 @@
                     <div class="booking-info">
                         @if($data['services'] == "酵素部屋貸切プラン")
                             <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">酵素部屋1部屋貸切プラン</p>
+                        @elseif($data['services'] == "断食プラン")
+                            <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">断食プラン</p>
                         @else
                             <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">{{ $data['services']  }}</p>
                         @endif
@@ -62,8 +65,8 @@
                         @endif
 
                         @if($data['services'] == "ペット酵素浴")
-                            <p class="text-md-left pl-4 mb-0 ">ペット数：{{ $data['number_pet'] }}</p>
-                            <p class="text-md-left pl-4 mb-0 ">ペット種類：{{ $data['pet_type'] }}</p>
+                            <p class="text-md-left pl-4 mb-0 ">ペット数：{{ $data['number_pet']??'' }}</p>
+                            <p class="text-md-left pl-4 mb-0 ">ペット種類：{{ $data['pet_type']??'' }}</p>
                         @endif
 
 

@@ -45,7 +45,7 @@
     <div class="booking-field input-daterange" id="choice-range-day">
         <div class="field-start-day">
             <p class="">開始日</p>
-            <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date" id="range_date_start" value="2019/9/20">
+            <input name="plan_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date" id="plan_date_start" value="2019/9/20">
         </div>
         <div class="">
             <p class="">&nbsp;</p>
@@ -53,7 +53,7 @@
         </div>
         <div class="field-end-day">
             <p class="">終了日</p>
-            <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input range_date" id="range_date_end" value="2019/9/20">
+            <input name="plan_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input range_date" id="plan_date_end" value="2019/9/20">
         </div>
 
     </div>

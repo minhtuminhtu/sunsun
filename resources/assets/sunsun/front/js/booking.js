@@ -45,17 +45,18 @@ $(function() {
         }
 
         $(".range_date").change(function(){
-            var date_arr = getDates($('#range_date_start').val(), $('#range_date_end').val());
+            var date_arr = getDates($('#plan_date_start').val(), $('#plan_date_end').val());
             $('.time-list').empty();
             moment.locale('ja');
-            date_arr.forEach(function(element) {
+            date_arr.forEach(function(element,index) {
                 var check = moment(element)
                 var month = check.format('M');
                 var day   = check.format('D');
                 var year  = check.format('YYYY');
                 var week_day =  check.weekday();
+                console.log(index);
+                $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + week_day + ')</label><input name="date['+ index +'][day]" value="' + month + '/' + day + '(' + week_day + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="date['+ index +'][from]" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div><div class="choice-data-time set-time">    <div class="data"><input name="date['+ index +'][to]" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div>    </div></div>');
                 console.log(days_short[week_day]);
-                $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + week_day + ')</label></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="time_start" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div><div class="choice-data-time set-time">    <div class="data"><input name="time_end" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div>    </div></div>');
             });
             load_event();
         });
