@@ -31,14 +31,6 @@
             left: calc(50vw - 50px);
         }
     </style>
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-    </style>
-    <script>
-        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
-    </script>
 @yield('admincss')
 @endsection
 
