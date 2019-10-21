@@ -30,6 +30,20 @@
             top: calc(50vh - 50px);
             left: calc(50vw - 50px);
         }
+        .bg-color-01 {
+            background-color: #513e29;
+        }
+        .fz-1_2 {
+            font-size: 0.73rem;
+        }
+        form {
+            margin-bottom: 2rem;
+        }
+        #page-top {
+            position: fixed;
+            bottom: 0px;
+            right: 15px;
+        }
     </style>
     <style>
         html {
@@ -63,6 +77,12 @@
         });
         let loader = $('#js-loading');
         var $site_url = '{{url('/')}}';
+
+        var height_header = $('header').outerHeight(true);
+        var height_footer = $('footer').outerHeight(true);
+        var height_window = $(window).height();
+        $('main').css('min-height', height_window - (height_footer + height_header) +"px" )
+
     </script>
 @endsection
 

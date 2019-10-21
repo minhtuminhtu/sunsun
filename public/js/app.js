@@ -17845,10 +17845,10 @@ try {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/sunsun/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /var/www/html/sunsun/resources/sass/app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/common/scss/reset.scss */"./resources/assets/sunsun/common/scss/reset.scss");
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/scss/booking.scss */"./resources/assets/sunsun/front/scss/booking.scss");
+__webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\common\scss\reset.scss */"./resources/assets/sunsun/common/scss/reset.scss");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\scss\booking.scss */"./resources/assets/sunsun/front/scss/booking.scss");
 
 
 /***/ })

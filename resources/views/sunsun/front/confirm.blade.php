@@ -6,7 +6,7 @@
 @endsection
 
 @section('main')
-    <main id="mainArea">
+    <main class="main-body">
         <div class="container">
             <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf
@@ -96,11 +96,11 @@
                                 @if($data['services'] == "酵素部屋貸切プラン")
                                     @if($data['number_lunch_book'] != "無し")
                                         <p class="text-md-left pl-5 mb-0">昼食: {{ $data['number_lunch_book']??'' }}</p>
-                                    @endif 
+                                    @endif
                                 @elseif($data['services'] != "1日リフレッシュプラン")
                                     @if($data['lunch'] != "無し")
                                         <p class="text-md-left pl-5 mb-0">昼食: {{ $data['lunch']??'' }}</p>
-                                    @endif 
+                                    @endif
                                 @endif
                             @endif
                             @if($data['pet'] == "追加する")

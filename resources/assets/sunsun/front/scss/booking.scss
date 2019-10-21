@@ -92,5 +92,11 @@ main {
             padding-top: 5px;
         }
     }
+    .fa-clock, .fa-calendar-alt {
+        cursor: pointer;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
 }
 

@@ -17,7 +17,7 @@
 @endsection
 
 @section('main')
-    <main id="mainArea">
+    <main class="main-body">
         <div class="container">
             <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf

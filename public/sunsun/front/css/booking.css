@@ -107,3 +107,13 @@ main .booking-field .character-date {
   padding-top: 5px;
 }
 
+main .fa-clock,
+main .fa-calendar-alt {
+  cursor: pointer;
+}
+
+main .fa-clock:hover,
+main .fa-calendar-alt:hover {
+  opacity: 0.7;
+}
+

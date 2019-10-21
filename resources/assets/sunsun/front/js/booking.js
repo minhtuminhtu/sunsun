@@ -6,7 +6,7 @@ $(function() {
     let load_event = function() {
         let date_book =  $('.date-book');
         date_book.datepicker({
-            language: 'ja'
+            language: 'ja',
         });
         date_book.on('changeDate', function() {
             let edit = $(this);
