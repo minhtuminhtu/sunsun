@@ -159,8 +159,8 @@ $('#room').on('change', function() {
 });
 $('#confirm').on('change', function() {
     if($(this).is(":checked")){
-        $(":submit").attr("disabled", false);
+        $(".confirm-rules").prop("disabled", false);
     }else{
-        $(":submit").attr("disabled", true);
+        $(".confirm-rules").prop("disabled", true);
     }
 });

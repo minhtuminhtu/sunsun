@@ -8,7 +8,7 @@
 @endsection
 
 @section('main')
-    <main id="mainArea">
+    <main class="main-body">
         <div class="container">
             <form action="{{route('.confirm')}}" method="POST" class="booking">
                 <div class="row">

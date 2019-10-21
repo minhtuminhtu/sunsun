@@ -7,14 +7,12 @@
 @endsection
 
 @section('main')
-    <main id="mainArea">
+    <main class="main-body">
         <div class="container">
-            <form action="{{route('.booking')}}" method="GET" class="booking">
+            <div class="booking">
                 <div class="row">
-                    @csrf
                     <div class="booking-warp">
                         <div class="index-field">
-                            
                         </div>
                         <div class="index-field">
                             <div class="index-field-head">
@@ -33,9 +31,9 @@
                                                 <li>一人で立ち上がる</li>
                                             </ul>
                                         </li>
-                                    <ol>
+                                    </ol>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="index-field-foot">
                                 <input type="checkbox" class="form-check-input" id="confirm">
                                 <label class="form-check-label" for="confirm">上記注意事項を確認し、同意いたします。</label>
@@ -44,13 +42,15 @@
 
                         <div class="row mt-3">
                             <div class="col-6 offset-3">
-                                <button type="submit" class="btn btn-block btn-warning text-white" disabled>予約入力へ</button>
+                                <a href="{{route('.booking')}}">
+                                    <button type="button" class="btn btn-block btn-warning text-white confirm-rules" disabled>予約入力へ</button>
+                                </a>
                             </div>
 
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </main>
 @endsection
