@@ -114,6 +114,14 @@ $(function () {
       minDate: moment().toArray()
     });
     input_daterange.on('changeDate', function () {});
+    $("#range_date_start").change(function () {
+      alert("The text has been changed.");
+    });
+    $('.agecheck').click(function () {
+      $('.agecheck').removeClass('btn-warning');
+      $(this).addClass('btn-warning');
+      $('#agecheck').val($(this).text());
+    });
     $('#room').on('change', function () {
       if (this.value == '無し') {
         $('.room').hide();
@@ -216,7 +224,7 @@ $('#room').on('change', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })
