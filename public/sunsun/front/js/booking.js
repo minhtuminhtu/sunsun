@@ -153,7 +153,9 @@ $(function () {
     $('.set-time.edit input.time').val(time);
     modal_choice_time.modal('hide');
   });
+
   $('#services').on('change', function () {
+    $('.before-load').remove();
     $.ajax({
       url: $site_url + '/get_service',
       type: 'POST',

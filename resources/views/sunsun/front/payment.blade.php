@@ -24,7 +24,7 @@
                 <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-4 offset-xl-4 pb-3 border-left border-bottom border-right">
                     <div class="row pt-4">
                         <div class="col-5">
-                            <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
+                            <p class="text-left pt-2">{{config('booking.name.label')}}</p>
                         </div>
                         <div class="col-7">
                             <input type="text" class="form-control date-book-input"  />
@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="col-5">
-                            <p class="text-md-left pt-2">{{config('booking.phone.label')}}</p>
+                            <p class="text-left pt-2">{{config('booking.phone.label')}}</p>
                         </div>
                         <div class="col-7">
                             <input type="text" class="form-control date-book-input"  />
@@ -40,7 +40,7 @@
                     </div>
                     <div class="row">
                         <div class="col-5">
-                            <p class="text-md-left pt-2">{{config('booking.email.label')}}</p>
+                            <p class="text-left pt-2">{{config('booking.email.label')}}</p>
                         </div>
                         <div class="col-7">
                             <input type="text" class="form-control date-book-input"  />
@@ -48,7 +48,7 @@
                     </div>
                     <div class="row">
                         <div class="col-5">
-                            <p class="text-md-left pt-2 mb-1">{{config('booking.services_used.label')}}</p>
+                            <p class="text-left pt-2 mb-1">{{config('booking.services_used.label')}}</p>
                         </div>
                     </div>
 
@@ -56,26 +56,26 @@
                         <table class="table table-bordered">                            
                             <tbody>
                                 <tr>
-                                    <td class="text-md-left">入酵料</td>
-                                    <td class="text-md-right">2</td>
-                                    <td class="text-md-right">6,780</td>
+                                    <td class="text-left">入酵料</td>
+                                    <td class="text-right">2</td>
+                                    <td class="text-right">6,780</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-md-left">ランチ</td>
-                                    <td class="text-md-right">2</td>
-                                    <td class="text-md-right">2,400</td>
+                                    <td class="text-left">ランチ</td>
+                                    <td class="text-right">2</td>
+                                    <td class="text-right">2,400</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-md-left">宿泊 A</td>
-                                    <td class="text-md-right">1</td>
-                                    <td class="text-md-right">7,000</td>  
+                                    <td class="text-left">宿泊 A</td>
+                                    <td class="text-right">1</td>
+                                    <td class="text-right">7,000</td>  
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col" style="width: 50%" class="text-md-left">{{config('booking.total.label')}}</th>
-                                    <th scope="col" style="width: 15%" class="text-md-right"></th>
-                                    <th scope="col" style="width: 35%" class="text-md-right">16,180</th>
+                                    <th scope="col" style="width: 50%" class="text-left">{{config('booking.total.label')}}</th>
+                                    <th scope="col" style="width: 15%" class="text-right"></th>
+                                    <th scope="col" style="width: 35%" class="text-right">16,180</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -83,7 +83,7 @@
 
                     <div class="row">
                         <div class="col-5">
-                            <p class="text-md-left pt-2 mb-0">{{config('booking.payment_method.label')}}</p>
+                            <p class="text-left pt-2 mb-0">{{config('booking.payment_method.label')}}</p>
                         </div>
                     </div>
                     <div class="row pl-5">
@@ -104,8 +104,8 @@
                             <label class="custom-control-label" for="method3">回数券</label>
                         </div>
                     </div>
-                    <div class="row pl-5">
-                        <p class="text-md-left pt-2">回数券をご利用の場合は、回数券ご利用分以外は、当日現地でお支払いください。</p>
+                    <div class="row pl-5 pr-5">
+                        <p class="text-left pt-2">回数券をご利用の場合は、回数券ご利用分以外は、当日現地でお支払いください。</p>
                     </div>
 
                     <div class="row pl-5">
