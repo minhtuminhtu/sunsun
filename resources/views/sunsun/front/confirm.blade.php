@@ -11,7 +11,9 @@
             <form action="{{route('.payment')}}" method="POST" style="width: 100%">
                 @csrf
                 <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-4 offset-xl-4 pb-3 border-left border-bottom border-right">
-
+                                        
+                
+                
                     <p class="text-md-left mt-2 mb-0">≪交通手段≫</p>
 
                     @if(isset($data['transportation'])&&($data['transportation'] == "車​"))
