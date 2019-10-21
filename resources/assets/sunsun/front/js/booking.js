@@ -14,6 +14,10 @@ $(function() {
             );
         });
 
+        $('.date-book-input').datepicker({
+            language: 'ja'
+        });
+
         let input_daterange = $('.input-daterange');
         input_daterange.datepicker({
             language: 'ja',
@@ -54,7 +58,7 @@ $(function() {
             });
             load_event();
         });
-        
+
         $('.agecheck').click(function(){
             $('.agecheck').removeClass('btn-warning');
             $(this).addClass('btn-warning');
