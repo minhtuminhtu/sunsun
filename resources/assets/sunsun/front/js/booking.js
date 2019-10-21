@@ -14,6 +14,10 @@ $(function() {
             );
         });
 
+        $('.date-book-input').datepicker({
+            language: 'ja'
+        });
+
         let input_daterange = $('.input-daterange');
         input_daterange.datepicker({
             language: 'ja',
@@ -27,9 +31,9 @@ $(function() {
 
 
         $("#range_date_start").change(function(){
-            alert("The text has been changed.");
+
         });
-        
+
         $('.agecheck').click(function(){
             $('.agecheck').removeClass('btn-warning');
             $(this).addClass('btn-warning');

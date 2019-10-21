@@ -106,6 +106,9 @@ $(function () {
       var edit = $(this);
       edit.closest('.date-warp').find('.date-book-input').val(edit.datepicker('getFormattedDate'));
     });
+    $('.date-book-input').datepicker({
+      language: 'ja'
+    });
     var input_daterange = $('.input-daterange');
     input_daterange.datepicker({
       language: 'ja',
@@ -114,9 +117,7 @@ $(function () {
       minDate: moment().toArray()
     });
     input_daterange.on('changeDate', function () {});
-    $("#range_date_start").change(function () {
-      alert("The text has been changed.");
-    });
+    $("#range_date_start").change(function () {});
     $('.agecheck').click(function () {
       $('.agecheck').removeClass('btn-warning');
       $(this).addClass('btn-warning');
@@ -224,7 +225,7 @@ $('#room').on('change', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })
