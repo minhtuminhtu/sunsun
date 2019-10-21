@@ -69,6 +69,40 @@ main i.fa.fa-calendar-alt {
   color: #bb8b03;
 }
 
+main .index-field {
+  margin: 10px 15px 0px 15px;
+}
+
+main .index-field .index-border {
+  padding: 10px 25px 10px 25px;
+  border: 1px solid #000;
+  border-style: dashed;
+}
+
+main .index-field .index-border div {
+  display: inline;
+}
+
+main .index-field .index-border div .text-red {
+  color: red;
+}
+
+main .index-field .index-field-head {
+  padding: 0px 15px 10px 15px;
+}
+
+main .index-field .index-field-foot {
+  padding: 10px 15px 0px 25px;
+}
+
+main .index-field ol li {
+  list-style-type: decimal;
+}
+
+main .index-field ul li {
+  list-style-type: disc;
+}
+
 main .booking-field {
   display: flex;
   padding-bottom: 5px;

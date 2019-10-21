@@ -59,9 +59,11 @@
                             <p class="text-md-left pl-5 mb-0 ">開始日：{{ $data['plan_date_start'] }}</p>
                             <p class="text-md-left pl-5 mb-0 ">終了日：{{ $data['plan_date_end'] }}</p>
                             <p class="text-md-left pl-4 mb-0 ">入浴時間</p>
-                            @foreach ($data['date'] as $d)
-                                <p class="text-md-left pl-5 mb-0 ">{{ $d['day'] }}   &#160;&#160;&#160;   {{ $d['from'] }}   &#160;&#160;&#160;     {{ $d['to'] }}</p>
-                            @endforeach
+                            @if(isset($data['date']))
+                                @foreach ($data['date'] as $d)
+                                    <p class="text-md-left pl-5 mb-0 ">{{ $d['day'] }}   &#160;&#160;&#160;   {{ $d['from'] }}   &#160;&#160;&#160;     {{ $d['to'] }}</p>
+                                @endforeach
+                            @endif
                         @endif
 
 

@@ -33,6 +33,7 @@
     max-width: 100%;
     margin: 0 auto;
 }
+
 .choice-time {
     display: flex;
     padding-top: 5px;
@@ -61,7 +62,36 @@ main {
     .custom-select {
 
     }
-
+    .index-field {
+        margin: 10px 15px 0px 15px;
+        .index-border{
+            padding: 10px 25px 10px 25px;
+            border: 1px solid #000;
+            border-style: dashed;
+            div{
+                display: inline;
+                .text-red{
+                    color:red;
+                }
+            }
+        }
+        .index-field-head{
+            padding: 0px 15px 10px 15px;
+        }
+        .index-field-foot{
+            padding: 10px 15px 0px 25px;
+        }
+        ol{
+            li{
+                list-style-type: decimal;
+            }
+        }
+        ul{
+            li{
+                list-style-type: disc;
+            }
+        }
+    }
     .booking-field {
         display: flex;
         padding-bottom: 5px;
