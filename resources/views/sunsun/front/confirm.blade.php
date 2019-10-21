@@ -2,13 +2,13 @@
 
 @section('head')
     @parent
+    <link  rel="stylesheet" href="{{asset('sunsun/front/css/booking.css')}}">
 @endsection
 
 @section('main')
 <main id="mainArea">
-<div class="container-fluid">
-        <div class="row ">
-            <form action="{{route('.payment')}}" method="POST" style="width: 100%">
+    <div class="container">
+        <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf
                 <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-4 offset-xl-4 pb-3 border-left border-bottom border-right">
                                         
@@ -31,10 +31,16 @@
                         <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 bg-warning">{{ $data['services']??''  }}</p>
                     @endif
 
-                    @if($data['services'] == "1日リフレッシュプラン")
-                        <p class="text-md-left pl-2 mb-0 bg-warning">［酵素風呂2回とお食事付き］</p>
-                    @endif
+                    <div class="booking-info">
+                        @if($data['services'] == "酵素部屋貸切プラン")
+                            <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">酵素部屋1部屋貸切プラン</p>
+                        @else
+                            <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">{{ $data['services']  }}</p>
+                        @endif
 
+                        @if($data['services'] == "1日リフレッシュプラン")
+                            <p class="text-md-left pl-2 mb-0 ">［酵素風呂2回とお食事付き］</p>
+                        @endif
 
 
                     @if($data['services'] != "ペット酵素浴")
@@ -44,7 +50,6 @@
                             <p class="text-md-left pl-4 mb-0 bg-warning">ご利用回数： {{ $data['used']??'' }}</p>
                             <p class="text-md-left pl-4 mb-0 bg-warning">※開始時間の15分前までにお越しください。</p>
                         @endif
-                    @endif
 
                     @if(($data['services'] == "酵素浴") || ($data['services'] == "1日リフレッシュプラン"))
                         <p class="text-md-left pl-4 mb-0 bg-warning">{{ $data['sex']??'' }} : {{ $data['age']??'' }}歳</p>
@@ -69,9 +74,9 @@
 
 
 
-                    @if($data['services'] != "ペット酵素浴")
-                        <p class="text-md-left pl-4 mb-0 bg-warning">［オプション］</p>
-                    @endif
+                        @if($data['services'] != "ペット酵素浴")
+                            <p class="text-md-left pl-4 mb-0 ">［オプション］</p>
+                        @endif
 
 
 
@@ -120,7 +125,6 @@
                     </div>
                 </div>
             </form>
-        </div>
     </div>
 </main>
 @endsection

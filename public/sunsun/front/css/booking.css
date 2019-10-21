@@ -11,6 +11,10 @@
 
 #choice_date_time .title-table-time {
   text-align: center;
+}
+
+.booking-info,
+.title-table-time {
   background: #ffccff;
 }
 

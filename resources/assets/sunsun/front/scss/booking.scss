@@ -9,11 +9,12 @@
     }
     .title-table-time {
         text-align: center;
-        background: rgb(255,204,255);
     }
     .modal-footer {
     }
-
+}
+.booking-info, .title-table-time {
+    background: rgb(255,204,255);
 }
 .node-text {
     font-size: 0.70rem;
