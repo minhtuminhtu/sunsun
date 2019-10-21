@@ -70,7 +70,7 @@ $(function() {
 
 
     $('#services').on('change', function() {
-        $('.service-warp').remove();
+        $('.service-warp').empty();
         $.ajax({
             url: $site_url +'/get_service',
             type: 'POST',
