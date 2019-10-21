@@ -2,7 +2,6 @@
 
 @section('head')
     @parent
-    <link  rel="stylesheet" href="{{asset('sunsun/front/css/booking.css')}}">
     <style>
         th {
             background-color: #4472c4;
@@ -12,48 +11,49 @@
             background-color: #e8ebf5;
             color: #000;
         }
-
+        
     </style>
 @endsection
 
 @section('main')
 <main id="mainArea">
-<div class="container">
-        <form action="{{route('.payment')}}" method="POST" class="booking">
+<div class="container-fluid">
+        <div class="row ">
+        <form action="{{route('.payment')}}" method="POST" style="width: 100%">
                 @csrf
-                <div class="booking-warp">
-                    <div class="booking-field">
-                        <div class="booking-field-label">
-                            <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
+                <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-4 offset-xl-4 pb-3 border-left border-bottom border-right">
+                    <div class="row pt-4">
+                        <div class="col-5">
+                            <p class="text-left pt-2">{{config('booking.name.label')}}</p>
                         </div>
-                        <div class="booking-field-content">
+                        <div class="col-7">
                             <input type="text" class="form-control date-book-input"  />
                         </div>
                     </div>
-                    <div class="booking-field">
-                        <div class="booking-field-label">
-                            <p class="text-md-left pt-2">{{config('booking.phone.label')}}</p>
+                    <div class="row">
+                        <div class="col-5">
+                            <p class="text-left pt-2">{{config('booking.phone.label')}}</p>
                         </div>
-                        <div class="booking-field-content">
+                        <div class="col-7">
                             <input type="text" class="form-control date-book-input"  />
                         </div>
                     </div>
-                    <div class="booking-field">
-                        <div class="booking-field-label">
-                            <p class="text-md-left pt-2">{{config('booking.email.label')}}</p>
+                    <div class="row">
+                        <div class="col-5">
+                            <p class="text-left pt-2">{{config('booking.email.label')}}</p>
                         </div>
-                        <div class="booking-field-content">
+                        <div class="col-7">
                             <input type="text" class="form-control date-book-input"  />
                         </div>
                     </div>
-                    <div class="booking-field">
-                        <div class="">
-                            <p class="text-md-left pt-2 mb-1">{{config('booking.services_used.label')}}</p>
+                    <div class="row">
+                        <div class="col-5">
+                            <p class="text-left pt-2 mb-1">{{config('booking.services_used.label')}}</p>
                         </div>
                     </div>
 
                     <div class="row pl-4 pr-4">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered">                            
                             <tbody>
                                 <tr>
                                     <td class="text-left">入酵料</td>
@@ -66,9 +66,9 @@
                                     <td class="text-right">2,400</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-md-left">宿泊 A</td>
-                                    <td class="text-md-right">1</td>
-                                    <td class="text-md-right">7,000</td>
+                                    <td class="text-left">宿泊 A</td>
+                                    <td class="text-right">1</td>
+                                    <td class="text-right">7,000</td>  
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -113,9 +113,10 @@
                             <button type="submit" class="btn btn-block btn-warning text-white">確認</button>
                         </div>
                     </div>
-
+                    
                 </div>
             </form>
+        </div>
     </div>
 </main>
 @endsection
