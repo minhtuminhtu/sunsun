@@ -11,6 +11,13 @@ class BookingController extends Controller
         return view('sunsun.front.booking.index');
     }
 
+    public function booking(Request $request){
+        $data = $request->all();
+        // dd($data);
+        return view('sunsun.front.booking',['data' => $data]);
+
+    }
+
     public function confirm(Request $request){
         $data = $request->all();
         // dd($data);

@@ -2,7 +2,6 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css')}}">
 @endsection
@@ -10,265 +9,42 @@
 @section('main')
     <main id="mainArea">
         <div class="container">
-            <form action="{{route('.confirm')}}" method="POST" class="booking">
+            <form action="{{route('.booking')}}" method="GET" class="booking">
                 <div class="row">
                     @csrf
                     <div class="booking-warp">
-                        <div class="booking-field">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.used.label')}}</p>
-                            </div>
-                            <div class="booking-field-content">
-                                <select name="used" class="form-control">
-                                    @foreach(config('booking.used.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="index-field">
+                            
                         </div>
-                        <div class="booking-field">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.transportation.label')}}</p>
+                        <div class="index-field">
+                            <div class="index-field-head">
+                                <p>ご予約に際して、以下の注意事項をご確認ください。</p>
                             </div>
-                            <div class="booking-field-content">
-                                <select name="transportation" id='transportation' class="form-control">
-                                    @foreach(config('booking.transportation.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="booking-field bus" style="display:none;">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.bus_arrival.label')}}</p>
-                            </div>
-                            <div class="booking-field-content">
-                                <select name="bus_arrival" class="form-control">
-                                    @foreach(config('booking.bus_arrival.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="booking-field bus" style="display:none">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.pick_up.label')}}</p>
-                            </div>
-                            <div class="booking-field-content">
-                                <select name="pick_up" class="form-control">
-                                    @foreach(config('booking.pick_up.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                                <p class="text-md-left mt-2 mb-2">バスの方は洲本ICのバス停に送迎を行います。</p>
-                            </div>
-                        </div>
-                        <div class="booking-field">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.services.label')}}</p>
-                            </div>
-                            <div class="booking-field-content">
-                                <select name="services" id="services" class="form-control">
-                                    @foreach(config('booking.services.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="index-border">
+                                <div class="index-content">
+                                    <ol>
+                                        <li><div class="text-red">新規のお客様</div>は、入酵前に問診、説明等ございますので、<div class="text-red">予約時間の15分前に到着</div>をお願いします。</li>
+                                        <li>酵素浴は、お着替えなどを含めると、<div class="text-red">入浴自体は1時間ぐらい</div>かかります。お子様やペットを交代で面倒みられる場合、1時間以上間隔をあけてください。</li>
+                                        <li><div class="text-red">5才以下のお子様</div>は、他のお客様のご迷惑になる場合がありますので、貸切のご利用をご検討ください。</li>
+                                        <li>次の動作がお一人では難しい場合、<div class="text-red">お客様で介助</div>をお願いいたします。
+                                            <ul class="pl-3">
+                                                <li>50cm以上の段差を越える</li>
+                                                <li>一人でシャワーを浴びる</li>
+                                                <li>一人で立ち上がる</li>
+                                            </ul>
+                                        </li>
+                                    <ol>
+                                </div>
+                            </div>   
+                            <div class="index-field-foot">
+                                <input type="checkbox" class="form-check-input" id="confirm">
+                                <label class="form-check-label" for="confirm">上記注意事項を確認し、同意いたします。</label>
                             </div>
                         </div>
 
-                        <div class="service-warp">
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                </div>
-                                <div class="booking-field-content">
-                                    <p class="node-text text-md-left mt-2 mb-0">入浴時間約30分</p>
-                                    <p class="node-text text-md-left mb-2">(全体の滞在時間約90分)</p>
-                                </div>
-                            </div>
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <select name="sex" class="form-control">
-                                        @foreach(config('booking.sex.options') as $key => $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="booking-field mb-2">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <div class="row pb-0">
-                                        <input id="agecheck" name='agecheck' type="hidden"
-                                               value="{{config('booking.age.age3')}}">
-                                        <div class="col-4 pl-0">
-                                            <button type="button"
-                                                    class="btn btn-block btn-outline-warning text-dark mt-1 mx-0 agecheck">{{config('booking.age.age1')}}</button>
-                                            <button type="button"
-                                                    class="btn btn-block btn-outline-warning  btn-warning text-dark mt-1 mx-0 agecheck">{{config('booking.age.age3')}}</button>
-                                        </div>
-                                        <div class="col-8 pl-0">
-                                            <button type="button"
-                                                    class="btn btn-block btn-outline-warning text-dark mt-1 mx-0 agecheck">{{config('booking.age.age2')}}</button>
-                                            <div class="row age mt-1">
-                                                <div class="col-6">
-                                                    <select name="age" class="form-control">
-                                                        @foreach(config('booking.age.options') as $key => $value)
-                                                            <option value="{{ $value }}">{{ $value }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.date.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <div class="row date-warp">
-                                        <div class="col-10">
-                                            <input name='date' data-format="yyyy/MM/dd" type="text"
-                                                   class="form-control date-book-input" id="pwd" value="2019/9/20(金)"/>
-                                        </div>
-
-                                        <div class="col-2 pl-0 mt-1">
-                                        <span class="add-on">
-                                            <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                               class="fa fa-calendar-alt fa-2x date-book"></i>
-                                        </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.time.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <div class="row set-time">
-                                        <div class="col-10">
-                                            <input name='time' type="text" class="form-control time" id=""
-                                                   value="13:45"/>
-                                        </div>
-
-                                        <div class="col-2 pl-0 mt-1">
-                                        <span class="icon-clock">
-                                            <i class="far fa-clock fa-2x js-set-time"></i>
-                                        </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.lunch.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <select name="lunch" class="form-control">
-                                        @foreach(config('booking.lunch.options') as $key => $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                    <p class="node-text text-md-left mt-2 mb-2">ランチは11:30からです</p>
-                                </div>
-                            </div>
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.whitening.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <select name="whitening" class="form-control">
-                                        @foreach(config('booking.whitening.options') as $key => $value)
-                                            <option>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.pet.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <select name="pet" class="form-control">
-                                        @foreach(config('booking.pet.options') as $key => $value)
-                                            <option>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="booking-field">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.room.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <select name="room" id="room" class="form-control">
-                                        @foreach(config('booking.room.options') as $key => $value)
-                                            <option>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="booking-field-content room" style="display:none;">
-                                <div class="">
-                                    <p class="text-md-left pt-2">{{config('booking.range_date.label')}}</p>
-                                </div>
-                            </div>
-                            <div class="booking-field room" style="display:none;">
-                                <div class="booking-field-label">
-                                    <p class="text-md-left pt-2">{{config('booking.number_guests_stay.label')}}</p>
-                                </div>
-                                <div class="booking-field-content">
-                                    <select name="number_guests_stay" class="form-control">
-                                        @foreach(config('booking.number_guests_stay.options') as $key => $value)
-                                            <option>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="booking-field room" style="display:none;">
-                                <div class="booking-field input-daterange" id="choice-range-day">
-                                    <div class="field-start-day">
-                                        <p class="">{{config('booking.range_date.checkin')}}</p>
-                                        <input name="range_date_start" data-format="yyyy/MM/dd" type="text"
-                                               class=" form-control date-book-input" id="range_date_start"
-                                               value="2019/9/20">
-                                    </div>
-                                    <div class="">
-                                        <p class="">&nbsp;</p>
-                                        <p class="character-date">～</p>
-                                    </div>
-                                    <div class="field-end-day">
-                                        <p class="">{{config('booking.range_date.checkout')}}</p>
-                                        <input name="range_date_end" data-format="yyyy/MM/dd" type="text"
-                                               class="form-control date-book-input" id="range_date_end"
-                                               value="2019/9/20">
-                                    </div>
-
-                                </div>
-                                <div class="">
-                                    <pre class="mb-0">&nbsp;</pre>
-                                    <span class="add-on ml-3">
-                                    <i class="fa fa-calendar-alt fa-2x mt-1"></i>
-                                </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-5">
-                            <div class="col-6">
-                                <button type="button" class="btn btn-block btn-warning text-white">予約追加</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="submit" class="btn btn-block btn-warning text-white">予約確認へ</button>
+                        <div class="row mt-3">
+                            <div class="col-6 offset-3">
+                                <button type="submit" class="btn btn-block btn-warning text-white" disabled>予約入力へ</button>
                             </div>
 
                         </div>

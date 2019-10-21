@@ -157,3 +157,10 @@ $('#room').on('change', function() {
         $('.room').show();
     }
 });
+$('#confirm').on('change', function() {
+    if($(this).is(":checked")){
+        $(":submit").attr("disabled", false);
+    }else{
+        $(":submit").attr("disabled", true);
+    }
+});
