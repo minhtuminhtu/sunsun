@@ -78,7 +78,7 @@
                             <p class="node-text text-md-left mb-2 service_4" style="display:none">断食プランには、1時間程度のミニ講座が含まれます。</p>
                         </div>
                     </div>
-                    
+
                     <div class="before-load">
                         <div class="booking-field">
                             <div class="booking-field-label">
@@ -248,7 +248,6 @@
                     </div>
                     <div class="service-warp">
                     </div>
-
 
                     <div class="row mt-5">
                         <div class="col-6">
