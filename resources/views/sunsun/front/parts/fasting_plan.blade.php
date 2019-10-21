@@ -1,5 +1,12 @@
 <div class="booking-field">
     <div class="booking-field-label">
+    </div>
+    <div class="booking-field-content">
+        <p class="node-text text-md-left mb-2">断食プランには、1時間程度のミニ講座が含まれます。</p>
+    </div>
+</div>
+<div class="booking-field">
+    <div class="booking-field-label">
         <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
     </div>
     <div class="booking-field-content">

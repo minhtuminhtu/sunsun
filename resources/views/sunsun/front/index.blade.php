@@ -73,13 +73,17 @@
                                     <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
                             </select>
-                            <p class="node-text text-md-left mt-2 mb-0 service_1">入浴時間約30分</p>
-                            <p class="node-text text-md-left mb-2 service_1">(全体の滞在時間約90分)</p>
-                            <p class="node-text text-md-left mb-2 service_4" style="display:none">断食プランには、1時間程度のミニ講座が含まれます。</p>
                         </div>
                     </div>
-                    
-                    <div class="before-load">
+                    <div class="service-warp">
+                        <div class="booking-field">
+                            <div class="booking-field-label">
+                            </div>
+                            <div class="booking-field-content">
+                                <p class="node-text text-md-left mt-2 mb-0">入浴時間約30分</p>
+                                <p class="node-text text-md-left mb-2">(全体の滞在時間約90分)</p>
+                            </div>
+                        </div>
                         <div class="booking-field">
                             <div class="booking-field-label">
                                 <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
@@ -245,8 +249,6 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="service-warp">
                     </div>
 
 

@@ -113,6 +113,13 @@ $(function () {
       minDate: moment().toArray()
     });
     input_daterange.on('changeDate', function () {});
+    $('#room').on('change', function () {
+      if (this.value == '無し') {
+        $('.room').hide();
+      } else {
+        $('.room').show();
+      }
+    });
   };
 
   load_event();
@@ -154,6 +161,7 @@ $(function () {
     modal_choice_time.modal('hide');
   });
   $('#services').on('change', function () {
+    $('.service-warp').remove();
     $.ajax({
       url: $site_url + '/get_service',
       type: 'POST',
@@ -177,38 +185,6 @@ $(function () {
         });
       }
     });
-
-    if (this.value == '酵素浴') {
-      $('.service_2').hide();
-      $('.service_3').hide();
-      $('.service_4').hide();
-      $('.service_5').hide();
-      $('.service_1').show();
-    } else if (this.value == '1日リフレッシュプラン') {
-      $('.service_1').hide();
-      $('.service_3').hide();
-      $('.service_4').hide();
-      $('.service_5').hide();
-      $('.service_2').show();
-    } else if (this.value == '酵素部屋貸切プラン') {
-      $('.service_1').hide();
-      $('.service_2').hide();
-      $('.service_4').hide();
-      $('.service_5').hide();
-      $('.service_3').show();
-    } else if (this.value == '断食プラン') {
-      $('.service_1').hide();
-      $('.service_2').hide();
-      $('.service_3').hide();
-      $('.service_5').hide();
-      $('.service_4').show();
-    } else if (this.value == 'ペット酵素浴') {
-      $('.service_1').hide();
-      $('.service_2').hide();
-      $('.service_3').hide();
-      $('.service_4').hide();
-      $('.service_5').show();
-    }
   });
 });
 $('.agecheck').click(function () {
@@ -240,7 +216,7 @@ $('#room').on('change', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })
