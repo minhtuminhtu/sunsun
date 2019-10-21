@@ -48,9 +48,24 @@
                             @endif
                         @endif
 
-                        @if(($data['services'] == "酵素浴") || ($data['services'] == "1日リフレッシュプラン"))
+
+
+                        @if(($data['services'] == "酵素浴") || ($data['services'] == "断食プラン") || ($data['services'] == "1日リフレッシュプラン"))
                             <p class="text-md-left pl-4 mb-0 ">{{ $data['sex'] }} : {{ $data['age'] }}歳</p>
                         @endif
+
+                        @if($data['services'] == "断食プラン")
+                            <p class="text-md-left pl-4 mb-0 ">利用期間</p>
+                            <p class="text-md-left pl-5 mb-0 ">開始日：{{ $data['plan_date_start'] }}</p>
+                            <p class="text-md-left pl-5 mb-0 ">終了日：{{ $data['plan_date_end'] }}</p>
+                            <p class="text-md-left pl-4 mb-0 ">入浴時間</p>
+                            @foreach ($data['date'] as $d)
+                                <p class="text-md-left pl-5 mb-0 ">{{ $d['day'] }}   &#160;&#160;&#160;   {{ $d['from'] }}   &#160;&#160;&#160;     {{ $d['to'] }}</p>
+                            @endforeach
+                        @endif
+
+
+
 
 
                         @if($data['services'] == "酵素浴")
