@@ -127,7 +127,7 @@
 
                     <div class="row pl-5">
                         <div class="col-6 offset-3">
-                            <button type="submit" class="btn btn-block btn-warning text-white">確認</button>
+                            <button type="submit" class="btn btn-block btn-booking text-white">確認</button>
                         </div>
                     </div>
 
