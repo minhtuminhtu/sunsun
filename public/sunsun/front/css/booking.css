@@ -22,6 +22,10 @@ a:hover {
   background: #ffccff;
 }
 
+.text-red {
+  color: red;
+}
+
 .node-text {
   font-size: 0.7rem;
 }
@@ -81,14 +85,6 @@ main .index-field .index-border {
   padding: 10px 25px 10px 25px;
   border: 1px solid #000;
   border-style: dashed;
-}
-
-main .index-field .index-border div {
-  display: inline;
-}
-
-main .index-field .index-border div .text-red {
-  color: red;
 }
 
 main .index-field .index-field-head {

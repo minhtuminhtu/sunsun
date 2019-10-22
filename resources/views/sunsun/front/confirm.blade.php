@@ -44,7 +44,7 @@
                                 <p class="text-md-left pl-4 mb-0 ">ご利用回数： {{ $data['used'] }}</p>
                             @else
                                 <p class="text-md-left pl-4 mb-0 ">ご利用回数： {{ $data['used'] }}</p>
-                                <p class="text-md-left pl-4 mb-0 ">※開始時間の15分前までにお越しください。</p>
+                                <p class="text-md-left pl-4 mb-0 ">※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                             @endif
                         @endif
 
