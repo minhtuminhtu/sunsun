@@ -106,6 +106,7 @@ $(function () {
     date_book.on('changeDate', function () {
       var edit = $(this);
       edit.closest('.date-warp').find('.date-book-input').val(edit.datepicker('getFormattedDate'));
+      change_day();
     });
     $('.date-book-input').datepicker({
       language: 'ja'
@@ -163,13 +164,16 @@ $(function () {
     });
     $('#date').on('change blur', function () {
       var check = moment($('#date').val());
-      var month = check.format('M');
-      var day = check.format('D');
-      var year = check.format('YYYY');
-      var week_day = check.weekday();
-      $('#date').val(year + "/" + month + "/" + day + "(" + days_short[week_day] + ")");
-      $('#date-view').val(year + "年" + month + "月" + day + "日(" + days_short[week_day] + ")");
+      $('#date').val(check.format('YYYY') + "/" + check.format('M') + "/" + check.format('D') + "(" + days_short[check.weekday()] + ")");
+      $('#date-view').val(check.format('YYYY') + "年" + check.format('M') + "月" + check.format('D') + "日(" + days_short[check.weekday()] + ")");
     });
+
+    function change_day() {
+      var check = moment($('#date').val());
+      $('#date').val(check.format('YYYY') + "/" + check.format('M') + "/" + check.format('D') + "(" + days_short[check.weekday()] + ")");
+      $('#date-view').val(check.format('YYYY') + "年" + check.format('M') + "月" + check.format('D') + "日(" + days_short[check.weekday()] + ")");
+    }
+
     $(".room_range_date").on('change blur', function () {
       var check2 = moment($('#range_date_start').val());
       var check1 = moment($('#range_date_end').val());
