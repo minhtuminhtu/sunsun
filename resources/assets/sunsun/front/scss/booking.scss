@@ -85,8 +85,14 @@ a:hover {
     }
 }
 main {
+    .main-body-head {
+        h1 {
+            font-size: 1.5rem;
+            line-height: 2.5rem;
+        }
+    }
     i.fa.fa-calendar-alt {
-        color: #bb8b03;
+        color: #d7751e;
     }
     .custom-select {
 
@@ -151,7 +157,32 @@ main {
             opacity: 0.7;
         }
     }
-    
+
 
 }
 
+.datepicker {
+    thead {
+        th {
+            vertical-align: middle;
+        }
+        tr:nth-child(2) {
+
+        }
+    }
+    th.dow {
+        border-radius: unset;
+        background: #a6a6a6;
+    }
+}
+
+.datepicker td, .datepicker th {
+    width: 38px !important;
+    height: 38px !important;
+}
+.btn-booking {
+    background: #d7751e;
+    &:hover {
+        opacity: 0.7;
+    }
+}

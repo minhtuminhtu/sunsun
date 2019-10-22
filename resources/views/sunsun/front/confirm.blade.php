@@ -7,6 +7,9 @@
 
 @section('main')
     <main class="main-body">
+        <div class="main-body-head text-center">
+            <h1>予約確認  </h1>
+        </div>
         <div class="container">
             <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf

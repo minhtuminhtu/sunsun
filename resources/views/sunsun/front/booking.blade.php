@@ -9,6 +9,9 @@
 
 @section('main')
     <main class="main-body">
+        <div class="main-body-head text-center">
+            <h1>予約入力  </h1>
+        </div>
         <div class="container">
             <form action="{{route('.confirm')}}" method="POST" class="booking">
                 <div class="row">

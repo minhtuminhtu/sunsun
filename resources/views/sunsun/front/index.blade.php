@@ -9,6 +9,9 @@
 @section('main')
     <main class="main-body">
         <div class="container">
+            <div class="main-body-head text-center">
+                <h1>事前注意 </h1>
+            </div>
             <div class="booking">
                 <div class="row">
                     <div class="booking-warp">
