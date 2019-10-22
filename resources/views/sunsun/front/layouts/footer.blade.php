@@ -8,10 +8,3 @@
         アイツの著作権は林美華に帰属します。
     </div>
 </footer>
-<div class="d-none d-md-block">
-    <p id="page-top" style="display: block;">
-        <a href="javascript:void(0)">
-            <img src="http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/footer/pagetop.png" width="82" height="90" alt="このページの先頭へ">
-        </a>
-    </p>
-</div>

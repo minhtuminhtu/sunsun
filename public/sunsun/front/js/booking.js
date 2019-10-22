@@ -269,13 +269,14 @@ $(function () {
     $('.set-time.edit input.time').val(time);
     modal_choice_time.modal('hide');
   });
-  $('#services').on('change', function () {
+
+  var get_service = function get_service() {
     $('.service-warp').empty();
     $.ajax({
       url: $site_url + '/get_service',
       type: 'POST',
       data: {
-        'service': this.value
+        'service': $('#services').val()
       },
       dataType: 'text',
       beforeSend: function beforeSend() {
@@ -294,7 +295,12 @@ $(function () {
         });
       }
     });
+  };
+
+  $('#services').on('change', function () {
+    get_service();
   });
+  get_service();
 });
 $('#transportation').on('change', function () {
   if (this.value == '車​') {

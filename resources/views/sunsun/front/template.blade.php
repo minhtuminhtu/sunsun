@@ -37,12 +37,12 @@
         });
         let loader = $('#js-loading');
         var $site_url = '{{url('/')}}';
-
-        var height_header = $('header').outerHeight(true);
-        var height_footer = $('footer').outerHeight(true);
-        var height_window = $(window).height();
-        $('main').css('min-height', height_window - (height_footer + height_header) +"px" )
-
+        if ($(window).width() >= 768) {
+            var height_header = $('header').outerHeight();
+            var height_footer = $('footer').outerHeight();
+            var height_window = $(window).height();
+            $('main').css('min-height', height_window - (height_footer + height_header) +"px" )
+        }
     </script>
 @endsection
 

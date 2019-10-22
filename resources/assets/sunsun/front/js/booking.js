@@ -92,7 +92,7 @@ $(function() {
             $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
             $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
         });
-        
+
 
         let set_time = $('.js-set-time');
         set_time.click(function (e) {
@@ -179,13 +179,15 @@ $(function() {
     })
 
 
-    $('#services').on('change', function() {
+
+
+    let get_service = function() {
         $('.service-warp').empty();
         $.ajax({
             url: $site_url +'/get_service',
             type: 'POST',
             data: {
-                'service': this.value
+                'service': $('#services').val()
             },
             dataType: 'text',
             beforeSend: function () {
@@ -200,12 +202,11 @@ $(function() {
                 loader.css({'display': 'none'});
             },
         });
-
-
+    }
+    $('#services').on('change', function() {
+        get_service();
     });
-
-
-
+    get_service();
 });
 
 
