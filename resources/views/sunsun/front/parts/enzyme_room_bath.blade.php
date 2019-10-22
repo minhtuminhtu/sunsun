@@ -28,7 +28,7 @@
 
             <div class="col-2 pl-0 mt-1">
                 <span class="icon-clock">
-                    <i class="far fa-clock fa-2x js-set-time"></i>
+                    <i class="far fa-clock fa-2x js-set-room"></i>
                 </span>
             </div>
         </div>

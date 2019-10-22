@@ -158,14 +158,68 @@ $(function () {
         $('.room').show();
       }
     });
-    var set_time = $('.js-set-time');
-    set_time.click(function (e) {
+    var get_time = $('.js-set-time');
+    get_time.click(function (e) {
       var set_time_click = $(this);
       $.ajax({
         url: $site_url + '/get_time_room',
         type: 'POST',
         data: {
           'sex': $('select[name=sex]').val()
+        },
+        dataType: 'text',
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(html) {
+          set_time_click.closest('.set-time').addClass('edit');
+          modal_choice_time.find('.modal-body-time').append(html);
+          modal_choice_time.modal('show');
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+    var get_room = $('.js-set-room');
+    get_room.click(function (e) {
+      var set_time_click = $(this);
+      $.ajax({
+        url: $site_url + '/book_room',
+        type: 'POST',
+        data: {
+          'sex': $('select[name=date]').val()
+        },
+        dataType: 'text',
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(html) {
+          set_time_click.closest('.set-time').addClass('edit');
+          modal_choice_time.find('.modal-body-time').append(html);
+          modal_choice_time.modal('show');
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+    var get_room_pet = $('.js-set-room_pet');
+    get_room_pet.click(function (e) {
+      var set_time_click = $(this);
+      $.ajax({
+        url: $site_url + '/book_room',
+        type: 'POST',
+        data: {
+          'sex': $('select[name=date]').val()
         },
         dataType: 'text',
         beforeSend: function beforeSend() {
@@ -260,7 +314,7 @@ $('#confirm').on('change', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

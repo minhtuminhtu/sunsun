@@ -11,11 +11,11 @@
     <tbody>
     @foreach($room_data as $room)
         <tr>
-            <td>{{$room['time']}}～</td>
+            <td>{{$room['time_from']}}～{{$room['time_to']}}</td>
             <td>
                 @if($room['room1']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time']}}">
+                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
                     </div>
                 @else
                     x
@@ -25,7 +25,7 @@
             <td>
                 @if($room['room2']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time']}}">
+                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
                     </div>
                 @else
                     x
@@ -34,7 +34,7 @@
             <td>
                 @if($room['room3']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time']}}">
+                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
                     </div>
                 @else
                     x
@@ -43,7 +43,7 @@
             <td>
                 @if($room['room4']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time']}}">
+                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
                     </div>
                 @else
                     x

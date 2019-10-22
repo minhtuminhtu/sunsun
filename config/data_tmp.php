@@ -322,7 +322,7 @@ return [
 
         ],
         [
-            'time' => '13:15',
+            'time_from' => '13:15',
             'time_to' => '15:00',
             'quantity' => '3',
             'room1' => [
@@ -347,7 +347,7 @@ return [
             ],
         ],
         [
-            'time' => '15:15',
+            'time_from' => '15:15',
             'time_to' => '17:00',
             'quantity' => '3',
             'room1' => [
@@ -401,7 +401,7 @@ return [
 
         ],
         [
-            'time' => '11:00',
+            'time_from' => '11:00',
             'time_to' => '12:00',
             'quantity' => '3',
             'room1' => [
@@ -426,7 +426,7 @@ return [
             ],
         ],
         [
-            'time' => '14:00',
+            'time_from' => '14:00',
             'time_to' => '15:00',
             'quantity' => '3',
             'room1' => [
@@ -451,7 +451,7 @@ return [
             ],
         ],
         [
-            'time' => '15:30',
+            'time_from' => '15:30',
             'time_to' => '16:30',
             'quantity' => '3',
             'room1' => [

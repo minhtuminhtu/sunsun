@@ -71,14 +71,62 @@ $(function() {
                 $('.room').show();
             }
         });
-        let set_time = $('.js-set-time');
-        set_time.click(function (e) {
+        let get_time = $('.js-set-time');
+        get_time.click(function (e) {
             let set_time_click = $(this);
             $.ajax({
                 url: $site_url +'/get_time_room',
                 type: 'POST',
                 data: {
                     'sex': $('select[name=sex]').val()
+                },
+                dataType: 'text',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (html) {
+                    set_time_click.closest('.set-time').addClass('edit')
+                    modal_choice_time.find('.modal-body-time').append(html);
+                    modal_choice_time.modal('show');
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+            });
+        });
+
+        let get_room = $('.js-set-room');
+        get_room.click(function (e) {
+            let set_time_click = $(this);
+            $.ajax({
+                url: $site_url +'/book_room',
+                type: 'POST',
+                data: {
+                    'sex': $('select[name=date]').val()
+                },
+                dataType: 'text',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (html) {
+                    set_time_click.closest('.set-time').addClass('edit')
+                    modal_choice_time.find('.modal-body-time').append(html);
+                    modal_choice_time.modal('show');
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+            });
+        });
+
+        let get_room_pet = $('.js-set-room_pet');
+        get_room_pet.click(function (e) {
+            let set_time_click = $(this);
+            $.ajax({
+                url: $site_url +'/book_room',
+                type: 'POST',
+                data: {
+                    'sex': $('select[name=date]').val()
                 },
                 dataType: 'text',
                 beforeSend: function () {
