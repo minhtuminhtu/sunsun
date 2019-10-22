@@ -224,11 +224,6 @@ $(function () {
     });
   });
 });
-$('.agecheck').click(function () {
-  $('.agecheck').removeClass('btn-warning');
-  $(this).addClass('btn-warning');
-  $('#agecheck').val($(this).text());
-});
 $('#transportation').on('change', function () {
   if (this.value == '車​') {
     $('.bus').hide();
@@ -242,6 +237,11 @@ $('#room').on('change', function () {
   } else {
     $('.room').show();
   }
+});
+$('.agecheck').click(function () {
+  $('.agecheck').removeClass('btn-warning');
+  $(this).addClass('btn-warning');
+  $('#agecheck').val($(this).text());
 });
 $('#confirm').on('change', function () {
   if ($(this).is(":checked")) {

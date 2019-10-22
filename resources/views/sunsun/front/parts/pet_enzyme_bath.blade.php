@@ -5,7 +5,7 @@
     <div class="booking-field-content">
         <div class="row date-warp">
             <div class="col-10">
-                <input name='date' data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="2019/9/20(金)" />
+                <input name='date' data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="2019/09/20(金)" />
             </div>
 
             <div class="col-2 pl-0 mt-1">
