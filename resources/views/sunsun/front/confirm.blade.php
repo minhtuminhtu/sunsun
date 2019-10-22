@@ -24,13 +24,13 @@
                     <p class="text-md-left mt-2 mb-0">≪選択コース≫</p>
 
 
-                    <div class="booking-info">
+                    <div class="booking-info pt-2 pb-2">
                         @if($data['services'] == "酵素部屋貸切プラン")
-                            <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">酵素部屋1部屋貸切プラン</p>
+                            <p class="text-md-left font-weight-bold pl-2 mb-0 ">酵素部屋1部屋貸切プラン</p>
                         @elseif($data['services'] == "断食プラン")
-                            <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">断食プラン</p>
+                            <p class="text-md-left font-weight-bold pl-2 mb-0 ">断食プラン</p>
                         @else
-                            <p class="text-md-left font-weight-bold pt-2 pl-2 mb-0 ">{{ $data['services']  }}</p>
+                            <p class="text-md-left font-weight-bold pl-2 mb-0 ">{{ $data['services']  }}</p>
                         @endif
 
                         @if($data['services'] == "1日リフレッシュプラン")
@@ -55,10 +55,10 @@
                         @endif
 
                         @if($data['services'] == "断食プラン")
-                            <p class="text-md-left pl-4 mb-0 ">利用期間</p>
+                            <p class="text-md-left pl-4 mb-0 font-weight-bold">利用期間</p>
                             <p class="text-md-left pl-5 mb-0 ">開始日：{{ $data['plan_date_start'] }}</p>
                             <p class="text-md-left pl-5 mb-0 ">終了日：{{ $data['plan_date_end'] }}</p>
-                            <p class="text-md-left pl-4 mb-0 ">入浴時間</p>
+                            <p class="text-md-left pl-4 mb-0 font-weight-bold">入浴時間</p>
                             @if(isset($data['date']))
                                 @foreach ($data['date'] as $d)
                                     <p class="text-md-left pl-5 mb-0 ">{{ $d['day'] }}   &#160;&#160;&#160;   {{ $d['from'] }}   &#160;&#160;&#160;     {{ $d['to'] }}</p>
@@ -74,8 +74,8 @@
                             <p class="text-md-left pl-4 mb-0 ">{{ $data['date'] }}  {{ $data['time'] }}</p>
                         @elseif($data['services'] == "1日リフレッシュプラン")
                             <p class="text-md-left pl-4 mb-0 ">{{ $data['date'] }}</p>
-                            <p class="text-md-left pl-5 mb-0 ">{{ $data['time1'] }}</p>
-                            <p class="text-md-left pl-5 mb-0 ">{{ $data['time2'] }}</p>
+                            <p class="text-md-left pl-5 mb-0 ">入浴1回目 {{ $data['time1'] }}</p>
+                            <p class="text-md-left pl-5 mb-0 ">入浴2回目 {{ $data['time2'] }}</p>
                         @elseif(($data['services'] == "酵素部屋貸切プラン") || ($data['services'] == "ペット酵素浴"))
                             <p class="text-md-left pl-4 mb-0 ">{{ $data['date'] }}</p>
                             <p class="text-md-left pl-5 mb-0 ">{{ $data['time_room']??'' }}</p>
@@ -119,7 +119,6 @@
                                 </div>
                             @endif
                         @endif
-
                     </div>
                     <div class="row mt-5">
                         <div class="col-6">
