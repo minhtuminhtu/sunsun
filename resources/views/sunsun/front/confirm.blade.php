@@ -14,7 +14,7 @@
 
                     <p class="text-md-left mt-2 mb-0">≪交通手段≫</p>
 
-                    @if($data['transportation'] == config('booking.transportation.options.bus') )
+                    @if($data['transportation'] == config('booking.transportation.options.car') )
                         <p class="text-md-left pl-4 mb-0">{{ $data['transportation']??'' }}</p>
                     @else
                         <p class="text-md-left pl-4 mb-0">{{ $data['transportation'] }} 洲本IC着：{{ $data['bus_arrival']  }}</p>
