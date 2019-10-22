@@ -25,7 +25,7 @@
                                 <div class="index-content">
                                     <ol>
                                         <li><span class="text-red">新規のお客様</span>は、入酵前に問診、説明等ございますので、<span class="text-red">予約時間の15分前に到着</span>をお願いします。</li>
-                                        <li>酵素浴は、お着替えなどを含めると、<span class="text-red">入浴自体は1時間ぐらい</span>かかります。お子様やペットを交代で面倒みられる場合、1時間以上間隔をあけてください。</li>
+                                        <li>酵素浴は、お着替えなどを含めると、<span class="text-red">入浴自体は1時間ぐらい</span>かかります。お子様やペットを交代で面倒みられる場合、1時間以上間隔をあけてください。</li>&nbsp;
                                         <li><span class="text-red">5才以下のお子様</span>は、他のお客様のご迷惑になる場合がありますので、貸切のご利用をご検討ください。</li>
                                         <li>次の動作がお一人では難しい場合、<span class="text-red">お客様で介助</span>をお願いいたします。
                                             <ul class="pl-3">
@@ -46,7 +46,7 @@
                         <div class="row mt-3">
                             <div class="col-6 offset-3">
                                 <a href="{{route('.booking')}}">
-                                    <button type="button" id="confirm-rules" class="btn btn-block btn-warning text-white confirm-rules" disabled>予約入力へ</button>
+                                    <button type="button" class="btn btn-block btn-booking text-white confirm-rules" disabled>予約入力へ</button>
                                 </a>
                             </div>
 
@@ -65,14 +65,10 @@
 @section('script')
 
     @parent
-    <script>
-        $('#confirm').on('change', function() {
-            if($(this).is(":checked")){
-                $(".confirm-rules").prop("disabled", false);
-            }else{
-                $(".confirm-rules").prop("disabled", true);
-            }
-        });
-    </script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
+            charset="UTF-8"></script>
+    <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
 @endsection
 

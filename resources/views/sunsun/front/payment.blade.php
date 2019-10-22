@@ -100,10 +100,10 @@
                             <img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">
                         </div>
                         <div class="card-number">
-                            <input type="password" class="form-control" placeholder="Card number">
+                            <input type="text" class="form-control" placeholder="Card number">
                         </div>
                         <div class="card-expire">
-                            <input type="password" class="form-control" placeholder="MM/YY">
+                            <input type="text" class="form-control" placeholder="MM/YY">
                         </div>
                         <div class="card-secret">
                             <input type="password" class="form-control" placeholder="CVC">
