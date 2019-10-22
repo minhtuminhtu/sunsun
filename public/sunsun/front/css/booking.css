@@ -132,6 +132,10 @@ main .index-field ol li {
   list-style-type: decimal;
 }
 
+main .index-field ol .new-line {
+  margin-bottom: 7px;
+}
+
 main .index-field ul li {
   list-style-type: disc;
 }
