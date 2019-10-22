@@ -269,6 +269,13 @@ $(function () {
     $('.set-time.edit input.time').val(time);
     modal_choice_time.modal('hide');
   });
+  var transportation = $('#transportation').val();
+
+  if (transportation === '車​') {
+    $('.bus').hide();
+  } else {
+    $('.bus').show();
+  }
 
   var get_service = function get_service() {
     $('.service-warp').empty();

@@ -178,8 +178,12 @@ $(function() {
         modal_choice_time.modal('hide');
     })
 
-
-
+    let transportation =  $('#transportation').val();
+    if(transportation === '車​'){
+        $('.bus').hide();
+    }else{
+        $('.bus').show();
+    }
 
     let get_service = function() {
         $('.service-warp').empty();
@@ -247,8 +251,6 @@ $(".room_range_date").on('change blur', function() {
     $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
     $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
 });
-
-
 
 
 $('#confirm').on('change', function() {
