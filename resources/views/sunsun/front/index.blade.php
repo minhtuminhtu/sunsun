@@ -2,8 +2,8 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
 @endsection
 
 @section('main')
@@ -57,29 +57,6 @@
 
 @section('footer')
     @parent
-    <!-- The Modal -->
-    <div class="modal" id="choice_date_time">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <!-- Modal body -->
-                <div class="modal-body-time">
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer" style="padding: 6px;">
-                    <button type="button" class="btn btn-outline-primary" id="js-save-time" style="padding: 2px 13px;">
-                        Save
-                    </button>
-                    <button type="button" class="btn btn-outline-dark" style="padding: 2px 13px;"
-                            data-dismiss="choice_date_time" data-target="#choice_date_time" data-toggle="modal"
-                            data-backdrop="static" data-keyboard="false">Close
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('script')
@@ -89,6 +66,6 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
-    <script src="{{asset('sunsun/front/js/booking.js')}}"></script>
+    <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
 @endsection
 

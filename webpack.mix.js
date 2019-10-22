@@ -15,6 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
 
     .sass('resources/assets/sunsun/common/scss/reset.scss', 'public/common/css')
+    .sass('resources/assets/sunsun/front/scss/base.scss', 'public/sunsun/front/css')
 
 
     .js('resources/assets/sunsun/front/js/booking.js', 'public/sunsun/front/js')

@@ -12,47 +12,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('common/css/reset.css')}}">
-
-    <style>
-        #js-loading {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            z-index: 1051;
-            background-color: rgba(0,0,0,.2);
-        }
-        #js-loading img {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            top: calc(50vh - 50px);
-            left: calc(50vw - 50px);
-        }
-        .bg-color-01 {
-            background-color: #513e29;
-        }
-        .fz-1_2 {
-            font-size: 0.73rem;
-        }
-        form {
-            margin-bottom: 2rem;
-        }
-        #page-top {
-            position: fixed;
-            bottom: 0px;
-            right: 15px;
-        }
-    </style>
-    <style>
-        html {
-            overflow-y: scroll;
-        }
-    </style>
-    <script>
-        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
-    </script>
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/base.css').config('version_files.html.css')}}">
 @yield('admincss')
 @endsection
 

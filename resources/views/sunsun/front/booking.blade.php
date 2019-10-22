@@ -3,8 +3,8 @@
 @section('head')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
 @endsection
 
 @section('main')
@@ -313,6 +313,6 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
-    <script src="{{asset('sunsun/front/js/booking.js')}}"></script>
+    <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.css')}}"></script>
 @endsection
 
