@@ -134,11 +134,11 @@
                                     <p class="text-md-left pt-2">{{config('booking.date.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
+                                <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
                                     <div class="row date-warp">
                                         <div class="col-10">
                                             <input name='date' id="date" data-format="yyyy/MM/dd" type="text"
                                                    class="form-control date-book-input" id="pwd" value="2019/9/20(金)"/>
-                                            <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
                                         </div>
 
                                         <div class="col-2 pl-0 mt-1">
@@ -236,13 +236,14 @@
                                 </div>
                             </div>
                             <div class="booking-field room" style="display:none;">
+                                <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="2019年9月20日(金)">
+                                <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="2019年9月20日(金)">
                                 <div class="booking-field input-daterange" id="choice-range-day">
                                     <div class="field-start-day">
                                         <p class="">{{config('booking.range_date.checkin')}}</p>
                                         <input name="range_date_start" data-format="yyyy/MM/dd" type="text"
                                                class=" form-control date-book-input room_range_date" id="range_date_start"
                                                value="2019/9/20">
-                                        <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="2019年9月20日(金)">
                                     </div>
                                     <div class="">
                                         <p class="">&nbsp;</p>
@@ -253,7 +254,6 @@
                                         <input name="range_date_end" data-format="yyyy/MM/dd" type="text"
                                                class="form-control date-book-input room_range_date" id="range_date_end"
                                                value="2019/9/20">
-                                        <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="2019年9月20日(金)">
                                     </div>
 
                                 </div>
