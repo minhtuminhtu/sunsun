@@ -100,13 +100,13 @@
                             <img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">
                         </div>
                         <div class="card-number">
-                            <input type="text" class="form-control" placeholder="Card number" maxlength="22">
+                            <input type="text" id="card-number" class="form-control" placeholder="Card number" maxlength="22">
                         </div>
                         <div class="card-expire">
-                            <input type="text" class="form-control" placeholder="MM/YY" maxlength="5">
+                            <input type="text" id="card-expire" class="form-control" placeholder="MM/YY" maxlength="5">
                         </div>
                         <div class="card-secret">
-                            <input type="password" class="form-control" placeholder="CVC" maxlength="3">
+                            <input type="password" id="card-secret" class="form-control" placeholder="CVC" maxlength="3">
                         </div>
                     </div>
                     <div class="row pl-5">
@@ -145,6 +145,11 @@
                 $('.credit-card').show();
             }else{
                 $('.credit-card').hide();
+            }
+        });
+        $('#card-expire').on('keypress', function() {
+            if($(this).val().length == 2 ){
+                $('#card-expire').val($('#card-expire').val() + "/");
             }
         });
     </script>
