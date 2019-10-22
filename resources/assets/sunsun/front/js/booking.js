@@ -63,10 +63,11 @@ $(function() {
             $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
             load_event();
         });
-
         $('.agecheck').click(function(){
             $('.agecheck').removeClass('btn-warning');
+            $('.agecheck').addClass('btn-outline-warning');
             $(this).addClass('btn-warning');
+            $(this).removeClass('btn-outline-warning');
             $('#agecheck').val($(this).text())
         });
         $('#room').on('change', function() {

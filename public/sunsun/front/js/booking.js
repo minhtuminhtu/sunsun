@@ -152,7 +152,9 @@ $(function () {
     });
     $('.agecheck').click(function () {
       $('.agecheck').removeClass('btn-warning');
+      $('.agecheck').addClass('btn-outline-warning');
       $(this).addClass('btn-warning');
+      $(this).removeClass('btn-outline-warning');
       $('#agecheck').val($(this).text());
     });
     $('#room').on('change', function () {
