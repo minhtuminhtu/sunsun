@@ -126,3 +126,29 @@ main {
 
 }
 
+.datepicker {
+    thead {
+        th {
+            vertical-align: middle;
+        }
+        tr:nth-child(2) {
+
+        }
+    }
+    th.dow {
+        border-radius: unset;
+        background: #a6a6a6;
+    }
+}
+
+.datepicker td, .datepicker th {
+    width: 38px !important;
+    height: 38px !important;
+}
+.btn-booking {
+    background: #d7751e;
+    &:hover {
+        opacity: 0.7;
+    }
+}
+

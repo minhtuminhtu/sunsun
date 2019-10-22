@@ -82,10 +82,10 @@
 
                         <div class="row mt-5">
                             <div class="col-6">
-                                <button type="button" class="btn btn-block btn-warning text-white">予約追加</button>
+                                <button type="button" class="btn btn-block text-white btn-booking">予約追加</button>
                             </div>
                             <div class="col-6">
-                                <button type="submit" class="btn btn-block btn-warning text-white">予約確認へ</button>
+                                <button type="submit" class="btn btn-block text-white btn-booking">予約確認へ</button>
                             </div>
 
                         </div>

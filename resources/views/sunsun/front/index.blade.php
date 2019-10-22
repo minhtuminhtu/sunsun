@@ -43,7 +43,7 @@
                         <div class="row mt-3">
                             <div class="col-6 offset-3">
                                 <a href="{{route('.booking')}}">
-                                    <button type="button" class="btn btn-block btn-warning text-white confirm-rules" disabled>予約入力へ</button>
+                                    <button type="button" class="btn btn-block btn-booking text-white confirm-rules" disabled>予約入力へ</button>
                                 </a>
                             </div>
 

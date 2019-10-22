@@ -143,3 +143,26 @@ main .fa-calendar-alt:hover {
   opacity: 0.7;
 }
 
+.datepicker thead th {
+  vertical-align: middle;
+}
+
+.datepicker th.dow {
+  border-radius: unset;
+  background: #a6a6a6;
+}
+
+.datepicker td,
+.datepicker th {
+  width: 38px !important;
+  height: 38px !important;
+}
+
+.btn-booking {
+  background: #d7751e;
+}
+
+.btn-booking:hover {
+  opacity: 0.7;
+}
+
