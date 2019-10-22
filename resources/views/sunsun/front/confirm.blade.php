@@ -56,8 +56,8 @@
 
                         @if($data['services'] == config('booking.services.options.no'))
                             <p class="text-md-left pl-4 mb-0 font-weight-bold">利用期間</p>
-                            <p class="text-md-left pl-5 mb-0 ">開始日：{{ $data['plan_date_start'] }}</p>
-                            <p class="text-md-left pl-5 mb-0 ">終了日：{{ $data['plan_date_end'] }}</p>
+                            <p class="text-md-left pl-5 mb-0 ">開始日：{{ $data['plan_date_start-view'] }}</p>
+                            <p class="text-md-left pl-5 mb-0 ">終了日：{{ $data['plan_date_end-view'] }}</p>
                             <p class="text-md-left pl-4 mb-0 font-weight-bold">入浴時間</p>
                             @if(isset($data['date']))
                                 @foreach ($data['date'] as $d)
@@ -71,13 +71,13 @@
 
 
                         @if($data['services'] == config('booking.services.options.normal'))
-                            <p class="text-md-left pl-4 mb-0 ">{{ $data['date'] }}  {{ $data['time'] }}</p>
+                            <p class="text-md-left pl-4 mb-0 ">{{ $data['date-view'] }}  {{ $data['time'] }}～</p>
                         @elseif($data['services'] == config('booking.services.options.day'))
-                            <p class="text-md-left pl-4 mb-0 ">{{ $data['date'] }}</p>
-                            <p class="text-md-left pl-5 mb-0 ">入浴1回目 {{ $data['time1'] }}</p>
-                            <p class="text-md-left pl-5 mb-0 ">入浴2回目 {{ $data['time2'] }}</p>
+                            <p class="text-md-left pl-4 mb-0 ">{{ $data['date-view'] }}</p>
+                            <p class="text-md-left pl-5 mb-0 ">入浴1回目 {{ $data['time1'] }}～</p>
+                            <p class="text-md-left pl-5 mb-0 ">入浴2回目 {{ $data['time2'] }}～</p>
                         @elseif(($data['services'] == config('booking.services.options.eat')) || ($data['services'] == config('booking.services.options.pet')))
-                            <p class="text-md-left pl-4 mb-0 ">{{ $data['date'] }}</p>
+                            <p class="text-md-left pl-4 mb-0 ">{{ $data['date-view'] }}</p>
                             <p class="text-md-left pl-5 mb-0 ">{{ $data['time_room']??'' }}</p>
                         @endif
 
@@ -114,8 +114,8 @@
                                 <p class="text-md-left pl-5 mb-0">宿泊人数：{{ $data['number_guests_stay']??'' }}</p>
                                 <p class="text-md-left pl-5 mb-0">宿泊日</p>
                                 <div class="pl-5 mb-0">
-                                    <p class="text-md-left pl-4 mb-0">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start']??'' }}</p>
-                                    <p class="text-md-left pl-4">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end']??'' }}</p>
+                                    <p class="text-md-left pl-4 mb-0">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
+                                    <p class="text-md-left pl-4">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
                                 </div>
                             @endif
                         @endif
@@ -136,6 +136,9 @@
 
 @section('script')
     @parent
-
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
+            charset="UTF-8"></script>
 @endsection
 
