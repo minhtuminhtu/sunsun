@@ -38,6 +38,42 @@ a:hover {
   margin: 0 auto;
 }
 
+.booking-warp .credit-card {
+  display: flex;
+  border: 1px solid #dee2e6;
+  margin: 10px 10px 20px 55px;
+}
+
+.booking-warp .credit-card .form-control {
+  border: 0;
+  box-shadow: none;
+}
+
+.booking-warp .credit-card .form-control:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.booking-warp .credit-card .card-img {
+  width: 10%;
+}
+
+.booking-warp .credit-card .card-img .scale-image {
+  max-width: 30px;
+}
+
+.booking-warp .credit-card .card-number {
+  width: 50%;
+}
+
+.booking-warp .credit-card .card-expire {
+  width: 23%;
+}
+
+.booking-warp .credit-card .card-secret {
+  width: 17%;
+}
+
 .choice-time {
   display: flex;
   padding-top: 5px;

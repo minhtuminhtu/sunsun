@@ -91,20 +91,34 @@
                     </div>
                     <div class="row pl-5">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="method1" name="method" checked>
-                            <label class="custom-control-label" for="method1">クレジットカード</label>
+                            <input type="radio" class="custom-control-input payment-method" id="credit-card" name="method" checked>
+                            <label class="custom-control-label" for="credit-card">クレジットカード</label>
+                        </div>
+                    </div>
+                    <div class="credit-card">
+                        <div class="card-img d-flex justify-content-center align-items-center">
+                            <img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">
+                        </div>
+                        <div class="card-number">
+                            <input type="password" class="form-control" placeholder="Card number">
+                        </div>
+                        <div class="card-expire">
+                            <input type="password" class="form-control" placeholder="MM/YY">
+                        </div>
+                        <div class="card-secret">
+                            <input type="password" class="form-control" placeholder="CVC">
                         </div>
                     </div>
                     <div class="row pl-5">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="method2" name="method">
-                            <label class="custom-control-label" for="method2">現地現金</label>
+                            <input type="radio" class="custom-control-input payment-method" id="local-cash" name="method">
+                            <label class="custom-control-label" for="local-cash">現地現金</label>
                         </div>
                     </div>
                     <div class="row pl-5">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="method3" name="method">
-                            <label class="custom-control-label" for="method3">回数券</label>
+                            <input type="radio" class="custom-control-input payment-method" id="coupon" name="method">
+                            <label class="custom-control-label" for="coupon">回数券</label>
                         </div>
                     </div>
                     <div class="row pl-5 pr-5">
@@ -113,7 +127,7 @@
 
                     <div class="row pl-5">
                         <div class="col-6 offset-3">
-                            <button type="submit" class="btn btn-block btn-booking text-white">確認</button>
+                            <button type="submit" class="btn btn-block btn-warning text-white">確認</button>
                         </div>
                     </div>
 
@@ -125,6 +139,14 @@
 
 @section('script')
     @parent
-
+    <script>
+        $('.payment-method').on('change', function() {
+            if($(this).prop("id") == 'credit-card'){
+                $('.credit-card').show();
+            }else{
+                $('.credit-card').hide();
+            }
+        });
+    </script>
 @endsection
 

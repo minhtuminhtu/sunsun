@@ -46,7 +46,7 @@
                         <div class="row mt-3">
                             <div class="col-6 offset-3">
                                 <a href="{{route('.booking')}}">
-                                    <button type="button" class="btn btn-block btn-booking text-white confirm-rules" disabled>予約入力へ</button>
+                                    <button type="button" id="confirm-rules" class="btn btn-block btn-warning text-white confirm-rules" disabled>予約入力へ</button>
                                 </a>
                             </div>
 
@@ -65,10 +65,14 @@
 @section('script')
 
     @parent
-    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
-    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
-    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
-            charset="UTF-8"></script>
-    <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
+    <script>
+        $('#confirm').on('change', function() {
+            if($(this).is(":checked")){
+                $(".confirm-rules").prop("disabled", false);
+            }else{
+                $(".confirm-rules").prop("disabled", true);
+            }
+        });
+    </script>
 @endsection
 
