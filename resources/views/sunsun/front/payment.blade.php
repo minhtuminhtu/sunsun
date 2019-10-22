@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <div class="row pl-4 pr-4">
+                    <div class="">
                         <table class="table table-bordered">
                             <tbody>
                             <tr>
@@ -84,9 +84,9 @@
                         </table>
                     </div>
 
-                    <div class="row">
-                        <div class="col-5">
-                            <p class="text-left pt-2 mb-0">{{config('booking.payment_method.label')}}</p>
+                    <div class="">
+                        <div class="">
+                            <p class="">{{config('booking.payment_method.label')}}</p>
                         </div>
                     </div>
                     <div class="row pl-5">
