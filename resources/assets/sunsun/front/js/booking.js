@@ -136,11 +136,6 @@ $(function() {
 
 
 });
-$('.agecheck').click(function(){
-    $('.agecheck').removeClass('btn-warning');
-    $(this).addClass('btn-warning');
-    $('#agecheck').val($(this).text())
-});
 
 
 $('#transportation').on('change', function() {
@@ -150,6 +145,7 @@ $('#transportation').on('change', function() {
         $('.bus').show();
     }
 });
+
 $('#room').on('change', function() {
     if(this.value == '無し'){
         $('.room').hide();
@@ -157,6 +153,12 @@ $('#room').on('change', function() {
         $('.room').show();
     }
 });
+$('.agecheck').click(function(){
+    $('.agecheck').removeClass('btn-warning');
+    $(this).addClass('btn-warning');
+    $('#agecheck').val($(this).text())
+});
+
 $('#confirm').on('change', function() {
     if($(this).is(":checked")){
         $(".confirm-rules").prop("disabled", false);

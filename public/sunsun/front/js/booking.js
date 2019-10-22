@@ -224,11 +224,6 @@ $(function () {
     });
   });
 });
-$('.agecheck').click(function () {
-  $('.agecheck').removeClass('btn-warning');
-  $(this).addClass('btn-warning');
-  $('#agecheck').val($(this).text());
-});
 $('#transportation').on('change', function () {
   if (this.value == '車​') {
     $('.bus').hide();
@@ -242,6 +237,11 @@ $('#room').on('change', function () {
   } else {
     $('.room').show();
   }
+});
+$('.agecheck').click(function () {
+  $('.agecheck').removeClass('btn-warning');
+  $(this).addClass('btn-warning');
+  $('#agecheck').val($(this).text());
 });
 $('#confirm').on('change', function () {
   if ($(this).is(":checked")) {
@@ -260,7 +260,7 @@ $('#confirm').on('change', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })
