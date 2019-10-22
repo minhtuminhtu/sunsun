@@ -65,8 +65,13 @@ a:hover {
   width: 78px;
 }
 
+main .main-body-head h1 {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+
 main i.fa.fa-calendar-alt {
-  color: #bb8b03;
+  color: #d7751e;
 }
 
 main .index-field {
