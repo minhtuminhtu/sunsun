@@ -19,6 +19,9 @@ a:hover {
 .booking-info, .title-table-time {
     background: rgb(255,204,255);
 }
+.text-red{
+    color:red;
+}
 .node-text {
     font-size: 0.70rem;
 
@@ -69,12 +72,6 @@ main {
             padding: 10px 25px 10px 25px;
             border: 1px solid #000;
             border-style: dashed;
-            div{
-                display: inline;
-                .text-red{
-                    color:red;
-                }
-            }
         }
         .index-field-head{
             padding: 0px 15px 10px 15px;
