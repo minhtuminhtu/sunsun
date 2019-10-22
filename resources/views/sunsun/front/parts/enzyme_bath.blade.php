@@ -54,7 +54,7 @@
 <div class="booking-field-content">
     <div class="row date-warp">
         <div class="col-10">
-            <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="2019/9/20(金)" />
+            <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
             
         </div>
         <div class="col-2 pl-0 mt-1">
@@ -155,7 +155,7 @@
 <div class="booking-field input-daterange" id="choice-range-day">
     <div class="field-start-day">
         <p class="">{{config('booking.range_date.checkin')}}</p>
-        <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date" id="range_date_start" value="2019/09/20">
+        <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date" id="range_date_start" value="">
     </div>
     <div class="">
         <p class="">&nbsp;</p>
@@ -163,7 +163,7 @@
     </div>
     <div class="field-end-day">
         <p class="">{{config('booking.range_date.checkout')}}</p>
-        <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date" id="range_date_end" value="2019/09/20">
+        <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date" id="range_date_end" value="">
     </div>
 
 </div>

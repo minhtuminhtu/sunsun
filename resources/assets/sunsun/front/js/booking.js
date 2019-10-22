@@ -4,6 +4,32 @@ $(function() {
         days_short = ["日","月","火","水","木","金","土"];
 
     let load_event = function() {
+        if($('#date').val() == ""){
+            var d = new Date();
+            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+            $('#date').val(strDate + "(" + days_short[moment(strDate).weekday()] + ")");
+        }
+        if($('#range_date_start').val() == ""){
+            var d = new Date();
+            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+            $('#range_date_start').val(strDate);
+        }
+        if($('#range_date_end').val() == ""){
+            var d = new Date();
+            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+            $('#range_date_end').val(strDate);
+        }
+        if($('#plan_date_start').val() == ""){
+            var d = new Date();
+            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+            $('#plan_date_start').val(strDate);
+        }
+        if($('#plan_date_end').val() == ""){
+            var d = new Date();
+            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+            $('#plan_date_end').val(strDate);
+        }
+
         let date_book =  $('.date-book');
         date_book.datepicker({
             language: 'ja',
