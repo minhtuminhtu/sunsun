@@ -24,6 +24,12 @@
                 <input name="password" type="password" id="password" class="form-control">
             </div>
         </div>
+    @else
+        <div class="row mt-2">
+            <div class="col-12">
+                <a href="/changepassword">Need change password?</a>
+            </div>
+        </div>
     @endif
     <div class="row mt-2">
         <div class="col-3">

@@ -52,7 +52,6 @@ $(function() {
             language: 'ja',
             dateFormat: 'yyyy/mm/dd',
             autoclose: true,
-            minDate: moment().toArray()
         });
         input_daterange.on('changeDate', function() {
 
