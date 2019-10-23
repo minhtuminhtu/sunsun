@@ -15,4 +15,20 @@ class UserController extends Controller
             ])
             ->render();
     }
+    public function edit (Request $request) {
+        $data = $request->all();
+        return view('sunsun.front.users.edit',
+            [
+                'data' => $data
+            ])
+            ->render();
+    }
+    public function login (Request $request) {
+        $data = $request->all();
+        return view('sunsun.front.users.login',
+            [
+                'data' => $data
+            ])
+            ->render();
+    }
 }

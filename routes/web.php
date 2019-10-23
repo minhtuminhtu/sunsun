@@ -23,12 +23,8 @@ Route::namespace('Sunsun\Front')->group(function (){
 
     Route::get('/create', 'UserController@create');
 
-    Route::get('/edit', function () {
-        return view('sunsun.front.users.edit');
-    });
-    Route::get('/login', function () {
-        return view('sunsun.front.users.login');
-    });
+    Route::get('/edit', 'UserController@edit');
+    Route::get('/login', 'UserController@login');
 
     Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
 
