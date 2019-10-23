@@ -112,7 +112,7 @@
 
                         </div>
 
-                        <div class="row mt-5">
+                        <div class="row mt-3">
                             <div class="col-6">
                                 @if(isset($add_new_user) && $add_new_user == 'on')
                                     <input type="hidden" name="add_new_user" value="on">
