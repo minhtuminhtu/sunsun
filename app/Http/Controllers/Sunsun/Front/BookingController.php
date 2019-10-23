@@ -31,6 +31,11 @@ class BookingController extends Controller
         return ['status'=> 'OK'];
     }
 
+    public function save_booking(Request $request) {
+        $this->save_session($request, $request->all());
+        return ['status'=> 'OK'];
+    }
+
     /**
      * @param $request Request
      * @return array
@@ -58,6 +63,12 @@ class BookingController extends Controller
                 $info_customer['pick_up'] = $data['pick_up'];
                 $info_customer['pick_up'] = $data['pick_up'];
             }
+            if (isset($data['date-view'])) {
+                $info_customer['date-view'] = $data['date-view'];
+            } else {
+                $info_customer['date-view-from'] = $data['plan_date_start-view'];
+                $info_customer['date-view-to'] = $data['plan_date_end-view'];
+            }
         }
 
         $info_customer['info'][time()] = $data;
@@ -66,9 +77,10 @@ class BookingController extends Controller
 
     public function confirm(Request $request){
 
-        $this->save_session($request, $request->all());
         $data['customer'] = $this->get_booking($request);
-
+        if (count($data['customer']) == 0) {
+            return redirect("/booking");
+        }
         return view('sunsun.front.confirm',$data);
 
     }

@@ -18,7 +18,7 @@ Route::namespace('Sunsun\Front')->group(function (){
     });
 
     Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
-    Route::post('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
+    Route::any('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
     Route::post('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
 
     Route::get('/create', 'UserController@create');
@@ -33,6 +33,7 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::post('/book_room',['as' => '.book_room', 'uses' => 'BookingController@book_room']);
     Route::post('/book_time_room_pet',['as' => '.book_time_room_pet', 'uses' => 'BookingController@book_time_room_pet']);
     Route::post('/add_new_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@add_new_booking']);
+    Route::post('/save_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@save_booking']);
 
 
 
