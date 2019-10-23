@@ -39,7 +39,7 @@ $(function() {
             language: 'ja',
             dateFormat: "yyyy/mm/dd",
             startDate: new Date()
-            
+
         });
 
         let input_daterange = $('.input-daterange');
@@ -249,6 +249,31 @@ $(function() {
         get_service();
     });
     get_service();
+
+
+    $('.btn-booking').click(function (e) {
+        e.preventDefault();
+        let btn_click = $(this);
+        $.ajax({
+            url: $site_url +'/save_booking',
+            type: 'POST',
+            data: $('form.booking').serializeArray(),
+            dataType: 'JSON',
+            beforeSend: function () {
+                loader.css({'display': 'block'});
+            },
+            success: function (r) {
+                if (btn_click.hasClass('add-new-people')) {
+                    window.location.href = $site_url +'/booking?add_new_user=on';
+                } else {
+                    window.location.href = $site_url +'/confirm';
+                }
+            },
+            complete: function () {
+                loader.css({'display': 'none'});
+            },
+        });
+    });
 });
 
 

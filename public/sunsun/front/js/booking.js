@@ -355,6 +355,33 @@ $(function () {
     get_service();
   });
   get_service();
+  $('.btn-booking').click(function (e) {
+    e.preventDefault();
+    var btn_click = $(this);
+    $.ajax({
+      url: $site_url + '/save_booking',
+      type: 'POST',
+      data: $('form.booking').serializeArray(),
+      dataType: 'JSON',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(r) {
+        if (btn_click.hasClass('add-new-people')) {
+          window.location.href = $site_url + '/booking?add_new_user=on';
+        } else {
+          window.location.href = $site_url + '/confirm';
+        }
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
 });
 $('#transportation').on('change', function () {
   if (this.value == '車​') {

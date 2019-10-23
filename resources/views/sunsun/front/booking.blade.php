@@ -5,6 +5,17 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
+    <style>
+        .data-field-day {
+            background: rgb(251,229,214);
+            margin-bottom: 15px;
+            line-height: 2.5rem;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+    </style>
 @endsection
 
 @section('main')
@@ -17,6 +28,24 @@
                 <div class="row">
                     @csrf
                     <div class="booking-warp">
+
+                        @if(isset($add_new_user) && $add_new_user == 'on')
+                            <div class="data-field-day">
+                                  <span>
+                                @if (isset($customer['date-view']))
+                                    {{$customer['date-view']}}
+                                @else
+                                    {{$customer['date-view-from']}} <br>
+                                    {{$customer['date-view-to']}}
+                                @endif
+                                </span>  &nbsp;  &nbsp;
+                                <span>
+                                    予約追加
+                                </span>
+                            </div>
+                        @endif
+
+
                         <div class="booking-field">
                             <div class="booking-field-label">
                                 <p class="text-md-left pt-2">{{config('booking.used.label')}}</p>
@@ -136,7 +165,6 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
-    <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.css')}}"></script>
-    <script src="{{asset('sunsun/front/js/add_user_booking.js').config('version_files.html.css')}}"></script>
+    <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
 @endsection
 
