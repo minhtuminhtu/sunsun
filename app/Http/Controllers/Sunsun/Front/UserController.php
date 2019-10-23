@@ -23,9 +23,18 @@ class UserController extends Controller
             ])
             ->render();
     }
+    
     public function login (Request $request) {
         $data = $request->all();
         return view('sunsun.front.users.login',
+            [
+                'data' => $data
+            ])
+            ->render();
+    }
+    public function changepassword (Request $request) {
+        $data = $request->all();
+        return view('sunsun.front.users.changepassword',
             [
                 'data' => $data
             ])
