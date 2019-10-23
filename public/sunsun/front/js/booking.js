@@ -99,33 +99,26 @@ $(function () {
       days_short = ["日", "月", "火", "水", "木", "金", "土"];
 
   var load_event = function load_event() {
+    var d = new Date();
+    var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
+
     if ($('#date').val() == "") {
-      var d = new Date();
-      var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
       $('#date').val(strDate + "(" + days_short[moment(strDate).weekday()] + ")");
     }
 
     if ($('#range_date_start').val() == "") {
-      var d = new Date();
-      var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
       $('#range_date_start').val(strDate);
     }
 
     if ($('#range_date_end').val() == "") {
-      var d = new Date();
-      var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
       $('#range_date_end').val(strDate);
     }
 
     if ($('#plan_date_start').val() == "") {
-      var d = new Date();
-      var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
       $('#plan_date_start').val(strDate);
     }
 
     if ($('#plan_date_end').val() == "") {
-      var d = new Date();
-      var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
       $('#plan_date_end').val(strDate);
     }
 
@@ -139,14 +132,17 @@ $(function () {
       edit.closest('.date-warp').find('.date-book-input').val(edit.datepicker('getFormattedDate'));
       change_day();
     });
-    $('.date-book-input').datepicker({
-      language: 'ja'
+    $('#date').datepicker({
+      language: 'ja',
+      dateFormat: "yyyy/mm/dd",
+      maxDate: 2
     });
     var input_daterange = $('.input-daterange');
     input_daterange.datepicker({
       language: 'ja',
       dateFormat: 'yyyy/mm/dd',
-      autoclose: true
+      autoclose: true,
+      maxDate: 2
     });
     input_daterange.on('changeDate', function () {});
 
