@@ -146,8 +146,7 @@ $(function () {
     input_daterange.datepicker({
       language: 'ja',
       dateFormat: 'yyyy/mm/dd',
-      autoclose: true,
-      minDate: moment().toArray()
+      autoclose: true
     });
     input_daterange.on('changeDate', function () {});
 
