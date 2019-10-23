@@ -4,36 +4,28 @@ $(function() {
         days_short = ["日","月","火","水","木","金","土"];
 
     let load_event = function() {
+        var d = new Date();
+        var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
+        var strDate1 = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() + 1);
         if($('#date').val() == ""){
-            var d = new Date();
-            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
             $('#date').val(strDate + "(" + days_short[moment(strDate).weekday()] + ")");
         }
         if($('#range_date_start').val() == ""){
-            var d = new Date();
-            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
             $('#range_date_start').val(strDate);
         }
         if($('#range_date_end').val() == ""){
-            var d = new Date();
-            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
-            $('#range_date_end').val(strDate);
+            $('#range_date_end').val(strDate1);
         }
         if($('#plan_date_start').val() == ""){
-            var d = new Date();
-            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
             $('#plan_date_start').val(strDate);
         }
         if($('#plan_date_end').val() == ""){
-            var d = new Date();
-            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
-            $('#plan_date_end').val(strDate);
+            $('#plan_date_end').val(strDate1);
         }
-
-        let dateToday = new Date();
         let date_book =  $('.date-book');
         date_book.datepicker({
             language: 'ja',
+            startDate: new Date()
         });
         date_book.on('changeDate', function() {
             let edit = $(this);
@@ -43,8 +35,11 @@ $(function() {
             change_day();
         });
 
-        $('.date-book-input').datepicker({
-            language: 'ja'
+        $('#date').datepicker({
+            language: 'ja',
+            dateFormat: "yyyy/mm/dd",
+            startDate: new Date()
+            
         });
 
         let input_daterange = $('.input-daterange');
@@ -52,11 +47,13 @@ $(function() {
             language: 'ja',
             dateFormat: 'yyyy/mm/dd',
             autoclose: true,
-            minDate: moment().toArray()
+            startDate: new Date()
         });
         input_daterange.on('changeDate', function() {
 
         });
+
+
 
 
 

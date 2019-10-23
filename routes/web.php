@@ -25,6 +25,7 @@ Route::namespace('Sunsun\Front')->group(function (){
 
     Route::get('/edit', 'UserController@edit');
     Route::get('/login', 'UserController@login');
+    Route::get('/changepassword', 'UserController@changepassword');
 
     Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
 

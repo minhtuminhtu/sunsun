@@ -9,10 +9,27 @@
 @section('main')
     <main class="main-body">
         <div class="main-body-head text-center">
-            <h1>Edit  </h1>
+            <h1>Change Password </h1>
         </div>
         <div class="container">
-            @include('sunsun.front.users._form', ["new" => 0, "name" => "Pham Van A", "email" => "testemail@gtmail.com", "address" => "Ho Chi Minh City"])
+            <div class="booking-warp">
+                <div class="row mt-2">
+                    <div class="col-3">
+                        <p class="text-md-left pt-2">Old Password</p>
+                    </div>
+                    <div class="col-9">
+                        <input name="password" type="password" id="password" class="form-control">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-3">
+                        <p class="text-md-left pt-2">New Password</p>
+                    </div>
+                    <div class="col-9">
+                        <input name="password" type="password" id="password" class="form-control">
+                    </div>
+                </div>
+            </div>
             <div class="booking-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
