@@ -5,7 +5,8 @@ $(function() {
 
     let load_event = function() {
         var d = new Date();
-        var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+        var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
+        var strDate1 = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() + 1);
         if($('#date').val() == ""){
             $('#date').val(strDate + "(" + days_short[moment(strDate).weekday()] + ")");
         }
@@ -13,19 +14,18 @@ $(function() {
             $('#range_date_start').val(strDate);
         }
         if($('#range_date_end').val() == ""){
-            $('#range_date_end').val(strDate);
+            $('#range_date_end').val(strDate1);
         }
         if($('#plan_date_start').val() == ""){
             $('#plan_date_start').val(strDate);
         }
         if($('#plan_date_end').val() == ""){
-            $('#plan_date_end').val(strDate);
+            $('#plan_date_end').val(strDate1);
         }
-
-        let dateToday = new Date();
         let date_book =  $('.date-book');
         date_book.datepicker({
             language: 'ja',
+            startDate: new Date()
         });
         date_book.on('changeDate', function() {
             let edit = $(this);
@@ -38,7 +38,7 @@ $(function() {
         $('#date').datepicker({
             language: 'ja',
             dateFormat: "yyyy/mm/dd",
-            maxDate: 2
+            startDate: new Date()
             
         });
 
@@ -47,7 +47,7 @@ $(function() {
             language: 'ja',
             dateFormat: 'yyyy/mm/dd',
             autoclose: true,
-            maxDate: 2
+            startDate: new Date()
         });
         input_daterange.on('changeDate', function() {
 

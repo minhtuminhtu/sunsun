@@ -101,6 +101,7 @@ $(function () {
   var load_event = function load_event() {
     var d = new Date();
     var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
+    var strDate1 = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() + 1);
 
     if ($('#date').val() == "") {
       $('#date').val(strDate + "(" + days_short[moment(strDate).weekday()] + ")");
@@ -111,7 +112,7 @@ $(function () {
     }
 
     if ($('#range_date_end').val() == "") {
-      $('#range_date_end').val(strDate);
+      $('#range_date_end').val(strDate1);
     }
 
     if ($('#plan_date_start').val() == "") {
@@ -119,13 +120,13 @@ $(function () {
     }
 
     if ($('#plan_date_end').val() == "") {
-      $('#plan_date_end').val(strDate);
+      $('#plan_date_end').val(strDate1);
     }
 
-    var dateToday = new Date();
     var date_book = $('.date-book');
     date_book.datepicker({
-      language: 'ja'
+      language: 'ja',
+      startDate: new Date()
     });
     date_book.on('changeDate', function () {
       var edit = $(this);
@@ -135,14 +136,14 @@ $(function () {
     $('#date').datepicker({
       language: 'ja',
       dateFormat: "yyyy/mm/dd",
-      maxDate: 2
+      startDate: new Date()
     });
     var input_daterange = $('.input-daterange');
     input_daterange.datepicker({
       language: 'ja',
       dateFormat: 'yyyy/mm/dd',
       autoclose: true,
-      maxDate: 2
+      startDate: new Date()
     });
     input_daterange.on('changeDate', function () {});
 
