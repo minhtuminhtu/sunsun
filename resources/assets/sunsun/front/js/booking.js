@@ -3,7 +3,7 @@ $(function() {
         modal_choice_time = $('#choice_date_time'),
         days_short = ["日","月","火","水","木","金","土"];
 
-    let load_event = function() {
+    let load_event = function(check = null) {
         var d = new Date();
         var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
         var strDate1 = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() + 1);
@@ -46,7 +46,7 @@ $(function() {
         input_daterange.datepicker({
             language: 'ja',
             dateFormat: 'yyyy/mm/dd',
-            autoclose: true,
+            // autoclose: true,
             startDate: new Date()
         });
         input_daterange.on('changeDate', function() {
@@ -69,6 +69,12 @@ $(function() {
             return dateArray;
         }
 
+        if(!check){
+            let time = moment(strDate);
+            let time1 = moment(strDate1);
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + time.format('M') + '/' + time.format('D') + '(' + days_short[time.weekday()] + ')</label><input name="date['+ 0 +'][day]" value="' + time.format('M') + '/' + time.format('D') + '(' + days_short[time.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="date['+ 0 +'][from]" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div><div class="choice-data-time set-time">    <div class="data"><input name="date['+ 0 +'][to]" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div>    </div></div>');
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + time1.format('M') + '/' + time1.format('D') + '(' + days_short[time1.weekday()] + ')</label><input name="date['+ 1 +'][day]" value="' + time1.format('M') + '/' + time1.format('D') + '(' + days_short[time1.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="date['+ 1 +'][from]" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div><div class="choice-data-time set-time">    <div class="data"><input name="date['+ 1 +'][to]" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time"><span class="icon-clock">    <i class="far fa-clock fa-2x js-set-time mt-1"></i></span>    </div></div>    </div></div>');
+        }
         $(".range_date").change(function(){
             var date_arr = getDates($('#plan_date_start').val(), $('#plan_date_end').val());
             $('.time-list').empty();
@@ -85,7 +91,7 @@ $(function() {
             let check1 = moment($('#plan_date_end').val());
             $('#plan_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
             $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
-            load_event();
+            load_event(1);
         });
         $('.agecheck').click(function(){
             $('.agecheck').removeClass('btn-warning');
