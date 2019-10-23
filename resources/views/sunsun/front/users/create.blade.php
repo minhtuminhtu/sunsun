@@ -12,7 +12,7 @@
             <h1>Create  </h1>
         </div>
         <div class="container">
-            @include('sunsun.front.users._form', ["new" => 1])
+            @include('sunsun.front.users._form', ["new" => 1, "name" => "", "email" => "", "address" => ""])
             <div class="booking-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
