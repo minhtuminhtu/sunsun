@@ -12,7 +12,7 @@
             <h1 class="title-menu">ユーザー登録</h1>
         </div>
         <div class="container">
-            @include('sunsun.front.users._form', ["new" => 1, "name" => "", "email" => "", "address" => ""])
+            @include('sunsun.front.users._form', ["new" => 1, "name" => "", "email" => ""])
             <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">

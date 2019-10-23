@@ -12,7 +12,7 @@
             <h1 class="title-menu">Edit  </h1>
         </div>
         <div class="container">
-            @include('sunsun.front.users._form', ["new" => 0, "name" => "Pham Van A", "email" => "testemail@gmail.com", "address" => "Ho Chi Minh City"])
+            @include('sunsun.front.users._form', ["new" => 0, "name" => "Pham Van A", "email" => "testemail@gmail.com"])
             <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">

@@ -125,7 +125,7 @@
                         <p class="text-left pt-2">回数券をご利用の場合は、回数券ご利用分以外は、当日現地でお支払いください。</p>
                     </div>
 
-                    <div class="row pl-5">
+                    <div class="row pl-5 mt-3">
                         <div class="col-6 offset-3">
                             <button type="submit" class="btn btn-block btn-booking text-white">確認</button>
                         </div>
