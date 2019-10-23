@@ -50,7 +50,11 @@
             <p class="text-md-left pt-2">Year of Birth</p>
         </div>
         <div class="col-9">
-            <input name="year" type="number" id="year" class="form-control" value="1970">
+            <select name="used" class="form-control">
+                @for ($i = 1950; $i < 2020; $i++)
+                    <option value="{{ $i }}">{{ $i }}</option>
+                @endfor
+            </select>
         </div>
     </div>
     <div class="row mt-2">
