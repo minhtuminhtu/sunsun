@@ -13,19 +13,19 @@
         </div>
         <div class="container">
             <div class="booking-warp">
-                <div class="booking-field">
-                    <div class="booking-field-label">
+                <div class="row">
+                    <div class="col-3">
                         <p class="text-md-left pt-2">Email</p>
                     </div>
-                    <div class="booking-field-content">
+                    <div class="col-9">
                         <input name="email" type="text" id="email" class="form-control">
                     </div>
                 </div>
-                <div class="booking-field">
-                    <div class="booking-field-label">
+                <div class="row mt-2">
+                    <div class="col-3">
                         <p class="text-md-left pt-2">Password</p>
                     </div>
-                    <div class="booking-field-content">
+                    <div class="col-9">
                         <input name="password" type="password" id="password" class="form-control">
                     </div>
                 </div>
@@ -36,6 +36,9 @@
                         <a>
                             <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Login</button>
                         </a>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <a href="/create">Create new?</a>
                     </div>
                 </div>
             </div>
