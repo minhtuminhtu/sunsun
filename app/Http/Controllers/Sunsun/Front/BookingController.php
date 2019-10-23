@@ -25,7 +25,9 @@ class BookingController extends Controller
 
     public function add_new_booking(Request $request) {
         $data = $request->all();
-        $this->save_session($request, $data);
+        if (isset($data['transportation'])) {
+            $this->save_session($request, $data);
+        }
         return ['status'=> 'OK'];
     }
 
@@ -63,13 +65,11 @@ class BookingController extends Controller
     }
 
     public function confirm(Request $request){
-        $data = $request->all();
 
-        $this->save_session($request, $data);
-
+        $this->save_session($request, $request->all());
         $data['customer'] = $this->get_booking($request);
 
-        return view('sunsun.front.confirm',['data' => $data ]);
+        return view('sunsun.front.confirm',$data);
 
     }
 

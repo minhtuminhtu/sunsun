@@ -9,7 +9,6 @@ $(function () {
                 loader.css({'display': 'block'});
             },
             success: function (r) {
-                console.log(r);
                 window.location.href = $site_url +'/booking?add_new_user=on';
             },
             complete: function () {
