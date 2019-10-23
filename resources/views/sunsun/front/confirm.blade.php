@@ -129,7 +129,7 @@
                             @endif
                         @endforeach
                     </div>
-                    <div class="row mt-5">
+                    <div class="row mt-3">
                         <div class="col-6">
                             <button type="button" class="btn btn-block btn-booking text-white add-new-people">予約追加
                             </button>
