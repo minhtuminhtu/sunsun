@@ -2,6 +2,8 @@
 
 @section('head')
     @parent
+    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
 @endsection
 
 @section('main')
@@ -10,7 +12,16 @@
             <h1>Create  </h1>
         </div>
         <div class="container">
-            @include('cms.admin.email._form')
+            @include('sunsun.front.users._form', ["new" => 1])
+            <div class="booking-warp">
+                <div class="row">
+                    <div class="col-6 offset-3">
+                        <a>
+                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Create new user</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 @endsection

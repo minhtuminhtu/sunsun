@@ -132,14 +132,7 @@ $(function () {
     var dateToday = new Date();
     var date_book = $('.date-book');
     date_book.datepicker({
-      language: 'ja',
-      minDate: dateToday,
-      onSelect: function onSelect(selectedDate) {
-        var option = this.id == "from" ? "minDate" : "maxDate",
-            instance = $(this).data("datepicker"),
-            date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-        dates.not(this).datepicker("option", option, date);
-      }
+      language: 'ja'
     });
     date_book.on('changeDate', function () {
       var edit = $(this);
@@ -406,7 +399,7 @@ $('#confirm').on('change', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

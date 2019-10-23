@@ -2,6 +2,8 @@
 
 @section('head')
     @parent
+    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
 @endsection
 
 @section('main')
@@ -10,6 +12,33 @@
             <h1>Login  </h1>
         </div>
         <div class="container">
+            <div class="booking-warp">
+                <div class="booking-field">
+                    <div class="booking-field-label">
+                        <p class="text-md-left pt-2">Email</p>
+                    </div>
+                    <div class="booking-field-content">
+                        <input name="email" type="text" id="email" class="form-control">
+                    </div>
+                </div>
+                <div class="booking-field">
+                    <div class="booking-field-label">
+                        <p class="text-md-left pt-2">Password</p>
+                    </div>
+                    <div class="booking-field-content">
+                        <input name="password" type="password" id="password" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="booking-warp">
+                <div class="row">
+                    <div class="col-6 offset-3">
+                        <a>
+                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Login</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 @endsection

@@ -21,6 +21,15 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::post('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
     Route::post('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
 
+    Route::get('/create', 'UserController@create');
+
+    Route::get('/edit', function () {
+        return view('sunsun.front.users.edit');
+    });
+    Route::get('/login', function () {
+        return view('sunsun.front.users.login');
+    });
+
     Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
 
     Route::post('/get_time_room',['as' => '.get_time_room', 'uses' => 'BookingController@get_time_room']);
