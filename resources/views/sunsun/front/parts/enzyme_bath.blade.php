@@ -46,24 +46,24 @@
     </div>
 </div>
 </div>
-<div class="booking-field">
-<div class="booking-field-label">
-    <p class="text-md-left pt-2">{{config('booking.date.label')}}</p>
-</div>
-<input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
-<div class="booking-field-content">
-    <div class="row date-warp">
-        <div class="col-10">
-            <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
-            
-        </div>
-        <div class="col-2 pl-0 mt-1">
-            <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt fa-2x date-book" ></i>
-            </span>
+<div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}} ">
+    <div class="booking-field-label">
+        <p class="text-md-left pt-2">{{config('booking.date.label')}}</p>
+    </div>
+    <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
+    <div class="booking-field-content">
+        <div class="row date-warp">
+            <div class="col-10">
+                <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
+
+            </div>
+            <div class="col-2 pl-0 mt-1">
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt fa-2x date-book" ></i>
+                </span>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="booking-field">
 <div class="booking-field-label">

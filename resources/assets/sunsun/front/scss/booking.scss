@@ -153,6 +153,10 @@ main {
         .character-date {
             padding-top: 5px;
         }
+
+        &.hidden {
+            display: none !important;
+        }
     }
     .fa-clock, .fa-calendar-alt {
         cursor: pointer;
@@ -180,8 +184,8 @@ main {
 }
 
 .datepicker td, .datepicker th {
-    width: 38px !important;
-    height: 38px !important;
+    width: 38px;
+    height: 38px;
 }
 .btn-booking {
     background: #d7751e;

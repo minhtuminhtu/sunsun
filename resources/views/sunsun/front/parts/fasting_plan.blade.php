@@ -43,7 +43,7 @@
 </div>
 <input name="plan_date_start-view" id="plan_date_start-view" type="hidden" value="2019年9月20日(金)">
 <input name="plan_date_end-view" id="plan_date_end-view" type="hidden" value="2019年9月20日(金)">
-<div class="booking-field">
+<div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
     <div class="booking-field input-daterange" id="choice-range-day">
         <div class="field-start-day">
             <p class="">開始日</p>

@@ -178,6 +178,10 @@ main .booking-field .character-date {
   padding-top: 5px;
 }
 
+main .booking-field.hidden {
+  display: none !important;
+}
+
 main .fa-clock,
 main .fa-calendar-alt {
   cursor: pointer;
@@ -199,8 +203,8 @@ main .fa-calendar-alt:hover {
 
 .datepicker td,
 .datepicker th {
-  width: 38px !important;
-  height: 38px !important;
+  width: 38px;
+  height: 38px;
 }
 
 .btn-booking {

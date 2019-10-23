@@ -7,26 +7,75 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+    private $session_info = 'SESSION_INFO_USER';
+
     public function index(){
         return view('sunsun.front.booking.index');
     }
 
     public function booking(Request $request){
-        $data = $request->all();
-        // dd($data);
-        return view('sunsun.front.booking',['data' => $data]);
+        if (isset($request->add_new_user)) {
+            $data['add_new_user'] = $request->add_new_user;
+        }
+        $data['customer'] = $this->get_booking($request);
 
+        return view('sunsun.front.booking',$data);
+
+    }
+
+    public function add_new_booking(Request $request) {
+        $data = $request->all();
+        $this->save_session($request, $data);
+        return ['status'=> 'OK'];
+    }
+
+    /**
+     * @param $request Request
+     * @return array
+     */
+    public function get_booking($request) {
+        $info = [];
+        if ($request->session()->has($this->session_info)) {
+            $info = $request->session()->get($this->session_info);
+        }
+        return $info;
+    }
+
+    /**
+     * @param $request Request
+     * @param $data
+     */
+    public function save_session($request, $data) {
+        $info_customer = [];
+        if ($request->session()->exists($this->session_info)) {
+            $info_customer = $request->session()->get($this->session_info);
+        } else {
+            $info_customer['transportation'] =  $data['transportation'];
+            if ($data['transportation'] !== config('booking.transportation.options.car')) {
+                $info_customer['bus_arrival'] = $data['bus_arrival'];
+                $info_customer['pick_up'] = $data['pick_up'];
+                $info_customer['pick_up'] = $data['pick_up'];
+            }
+        }
+
+        $info_customer['info'][time()] = $data;
+        $request->session()->put($this->session_info,$info_customer);
     }
 
     public function confirm(Request $request){
         $data = $request->all();
-        // dd($data);
-        return view('sunsun.front.confirm',['data' => $data]);
+
+        $this->save_session($request, $data);
+
+        $data['customer'] = $this->get_booking($request);
+
+        return view('sunsun.front.confirm',['data' => $data ]);
 
     }
 
     public function payment(Request $request){
         $data = $request->all();
+        $request->session()->forget($this->session_info);
         // dd($data);
         return view('sunsun.front.payment',['data' => $data]);
     }
@@ -65,18 +114,18 @@ class BookingController extends Controller
     }
 
     public function get_service(Request $request){
-        $data = $request->all();
+        $data['request_post'] = $request->all();
 
-        if ($data['service'] == config('booking.services.options.normal')) {
-            return view('sunsun.front.parts.enzyme_bath')->render();
-        } elseif ($data['service'] == config('booking.services.options.day')) {
-            return view('sunsun.front.parts.oneday_bath')->render();
-        } elseif ($data['service'] == config('booking.services.options.eat')) {
-            return view('sunsun.front.parts.enzyme_room_bath')->render();
-        } elseif ($data['service'] == config('booking.services.options.no')) {
-            return view('sunsun.front.parts.fasting_plan')->render();
-        } elseif ($data['service'] == config('booking.services.options.pet')) {
-            return view('sunsun.front.parts.pet_enzyme_bath')->render();
+        if ($data['request_post']['service'] == config('booking.services.options.normal')) {
+            return view('sunsun.front.parts.enzyme_bath',$data)->render();
+        } elseif ($data['request_post']['service'] == config('booking.services.options.day')) {
+            return view('sunsun.front.parts.oneday_bath',$data)->render();
+        } elseif ($data['request_post']['service'] == config('booking.services.options.eat')) {
+            return view('sunsun.front.parts.enzyme_room_bath',$data)->render();
+        } elseif ($data['request_post']['service'] == config('booking.services.options.no')) {
+            return view('sunsun.front.parts.fasting_plan',$data)->render();
+        } elseif ($data['request_post']['service'] == config('booking.services.options.pet')) {
+            return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
         }
     }
 }

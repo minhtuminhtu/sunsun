@@ -29,7 +29,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="booking-field">
+                        <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
                             <div class="booking-field-label">
                                 <p class="text-md-left pt-2">{{config('booking.transportation.label')}}</p>
                             </div>
@@ -85,7 +85,10 @@
 
                         <div class="row mt-5">
                             <div class="col-6">
-                                <button type="button" class="btn btn-block text-white btn-booking">予約追加</button>
+                                @if(isset($add_new_user) && $add_new_user == 'on')
+                                    <input type="hidden" name="add_new_user" value="on">
+                                @endif
+                                <button type="button" class="btn btn-block text-white btn-booking add-new-people">予約追加</button>
                             </div>
                             <div class="col-6">
                                 <button type="submit" class="btn btn-block text-white btn-booking">予約確認へ</button>
@@ -134,5 +137,6 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
     <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.css')}}"></script>
+    <script src="{{asset('sunsun/front/js/add_user_booking.js').config('version_files.html.css')}}"></script>
 @endsection
 

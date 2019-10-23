@@ -218,12 +218,16 @@ $(function() {
 
     let get_service = function() {
         $('.service-warp').empty();
+        let data = {
+            'service': $('#services').val()
+        };
+        if ($('input[name=add_new_user]').val() == 'on' ) {
+            data.add_new_user = 'on';
+        }
         $.ajax({
             url: $site_url +'/get_service',
             type: 'POST',
-            data: {
-                'service': $('#services').val()
-            },
+            data:  data,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});

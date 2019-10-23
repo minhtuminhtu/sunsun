@@ -125,7 +125,7 @@
                     </div>
                     <div class="row mt-5">
                         <div class="col-6">
-                            <button type="button" class="btn btn-block btn-booking text-white">予約追加</button>
+                            <button type="button" class="btn btn-block btn-booking text-white add-new-people">予約追加</button>
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-block btn-booking text-white">お支払い入力へ</button>
@@ -139,5 +139,6 @@
 
 @section('script')
     @parent
+    <script src="{{asset('sunsun/front/js/add_user_booking.js').config('version_files.html.css')}}"></script>
 @endsection
 
