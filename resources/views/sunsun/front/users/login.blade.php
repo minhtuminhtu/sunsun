@@ -37,7 +37,7 @@
                             <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Login</button>
                         </a>
                     </div>
-                    <div class="col-3 d-flex align-items-center">
+                    <div class="col-3 d-flex align-items-center justify-content-center">
                         <a href="/create">Create new?</a>
                     </div>
                 </div>

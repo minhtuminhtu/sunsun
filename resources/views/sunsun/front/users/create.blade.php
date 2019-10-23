@@ -20,7 +20,7 @@
                             <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Create new user</button>
                         </a>
                     </div>
-                    <div class="col-3 d-flex align-items-center">
+                    <div class="col-3 d-flex align-items-center justify-content-center">
                         <a href="/login">Login?</a>
                     </div>
                 </div>
