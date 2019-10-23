@@ -8,7 +8,7 @@
 @section('main')
     <main class="main-body">
         <div class="main-body-head text-center">
-            <h1>予約確認 </h1>
+            <h1 class="title-menu">予約確認 </h1>
         </div>
         <div class="container">
             <form action="{{route('.payment')}}" method="POST" class="booking">
@@ -29,7 +29,7 @@
 
 
                     <div class="booking-info pt-2 pb-2">
-                        @foreach($customer['info'] as $data)
+                        @foreach($customer['info'] as $key => $data)
                             @if($data['services'] == config('booking.services.options.eat'))
                                 <p class="text-md-left font-weight-bold pl-2 mb-0 ">酵素部屋1部屋貸切プラン</p>
                             @elseif($data['services'] == config('booking.services.options.no'))
@@ -118,6 +118,13 @@
                                             ：{{ $data['range_date_start-view']??'' }}</p>
                                         <p class="text-md-left pl-4">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
                                     </div>
+                                @endif
+                            @endif
+                            @if($key >= 0)
+                                @if($key != count($customer['info']) - 1)
+                                <hr class="line-space-top">
+                                <hr class="line-line">
+                                <hr class="line-space-bottom">
                                 @endif
                             @endif
                         @endforeach

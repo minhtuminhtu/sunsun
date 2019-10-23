@@ -9,13 +9,13 @@
 @section('main')
     <main class="main-body">
         <div class="main-body-head text-center">
-            <h1>Login  </h1>
+            <h1 class="title-menu">ログイン</h1>
         </div>
         <div class="container">
-            <div class="booking-warp">
+            <div class="user-warp">
                 <div class="row">
                     <div class="col-3">
-                        <p class="text-md-left pt-2">Email</p>
+                        <p class="text-md-left pt-2">Eメール</p>
                     </div>
                     <div class="col-9">
                         <input name="email" type="text" id="email" class="form-control">
@@ -23,22 +23,22 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-3">
-                        <p class="text-md-left pt-2">Password</p>
+                        <p class="text-md-left pt-2">パスワード</p>
                     </div>
                     <div class="col-9">
                         <input name="password" type="password" id="password" class="form-control">
                     </div>
                 </div>
             </div>
-            <div class="booking-warp">
+            <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
                         <a>
-                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Login</button>
+                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">ログイン</button>
                         </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
-                        <a href="/create">Create new?</a>
+                        <a href="/create">ユーザー登録</a>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@ a:hover {
     }
 }
 .booking-info, .title-table-time {
-    background: rgb(255,204,255);
+    background: #bbd6ef;
 }
 .node-text {
     font-size: 0.70rem;
@@ -25,6 +25,30 @@ a:hover {
     &.multiple-date {
         padding-left: 20px;
     }
+}
+.title-menu{
+    margin-bottom: 14px;
+}
+.line-space-top{
+    padding-top: 3px;
+    margin-bottom: 0px;
+    background-color: #fff !important;
+}
+.line-space-bottom{
+    padding-bottom: 3px;
+    margin-top: 0px;
+    background-color: #fff !important;
+}
+.line-line{
+    margin: 0px;
+    background-color: #357ae8 !important;
+}
+.user-warp{
+    padding: 10px;
+    width: 524px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-top: 0px;
 }
 
 .booking-warp {

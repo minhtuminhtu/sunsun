@@ -9,19 +9,19 @@
 @section('main')
     <main class="main-body">
         <div class="main-body-head text-center">
-            <h1>Create  </h1>
+            <h1 class="title-menu">ユーザー登録</h1>
         </div>
         <div class="container">
             @include('sunsun.front.users._form', ["new" => 1, "name" => "", "email" => "", "address" => ""])
-            <div class="booking-warp">
+            <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
                         <a>
-                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Create new user</button>
+                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">登録</button>
                         </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
-                        <a href="/login">Login?</a>
+                        <a href="/login">ログイン</a>
                     </div>
                 </div>
             </div>

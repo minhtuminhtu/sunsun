@@ -10,7 +10,7 @@
     <main class="main-body">
         <div class="container">
             <div class="main-body-head text-center">
-                <h1>事前注意 </h1>
+                <h1 class="title-menu">事前注意 </h1>
             </div>
             <div class="booking">
                 <div class="row">

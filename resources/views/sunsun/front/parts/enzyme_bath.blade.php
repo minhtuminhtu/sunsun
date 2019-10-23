@@ -132,11 +132,6 @@
     </select>
 </div>
 </div>
-<div class="booking-field-content room" style="display:none;">
-<div class="">
-    <p class="text-md-left pt-2">{{config('booking.range_date.label')}}</p>
-</div>
-</div>
 <div class="booking-field room" style="display:none;">
 <div class="booking-field-label">
     <p class="text-md-left pt-2">{{config('booking.number_guests_stay.label')}}</p>
@@ -147,6 +142,11 @@
         <option>{{ $value }}</option>
         @endforeach
     </select>
+</div>
+</div>
+<div class="booking-field-content room" style="display:none;">
+<div class="">
+    <p class="text-md-left pt-2">{{config('booking.range_date.label')}}</p>
 </div>
 </div>
 <div class="booking-field room"  style="display:none;">
