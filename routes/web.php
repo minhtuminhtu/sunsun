@@ -16,6 +16,7 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::get('/', function () {
         return view('sunsun.front.index');
     });
+
     Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
     Route::post('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
     Route::post('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);

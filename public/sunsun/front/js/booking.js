@@ -129,9 +129,17 @@ $(function () {
       $('#plan_date_end').val(strDate);
     }
 
+    var dateToday = new Date();
     var date_book = $('.date-book');
     date_book.datepicker({
-      language: 'ja'
+      language: 'ja',
+      minDate: dateToday,
+      onSelect: function onSelect(selectedDate) {
+        var option = this.id == "from" ? "minDate" : "maxDate",
+            instance = $(this).data("datepicker"),
+            date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+        dates.not(this).datepicker("option", option, date);
+      }
     });
     date_book.on('changeDate', function () {
       var edit = $(this);

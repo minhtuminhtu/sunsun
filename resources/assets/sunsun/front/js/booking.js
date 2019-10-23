@@ -30,6 +30,7 @@ $(function() {
             $('#plan_date_end').val(strDate);
         }
 
+        let dateToday = new Date();
         let date_book =  $('.date-book');
         date_book.datepicker({
             language: 'ja',
