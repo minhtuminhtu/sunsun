@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-6 offset-3">
                         <a>
-                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Create new user</button>
+                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Create</button>
                         </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
