@@ -17,9 +17,12 @@ a:hover {
   text-align: center;
 }
 
-.booking-info,
 .title-table-time {
   background: #bbd6ef;
+}
+
+.booking-info {
+  background: #feebeb;
 }
 
 .node-text {
