@@ -9,13 +9,16 @@ class BookingController extends Controller
 {
     private $session_info = 'SESSION_INFO_USER';
 
-    public function index(){
+    public function index(Request $request){
+        $request->session()->forget($this->session_info);
         return view('sunsun.front.booking.index');
     }
 
     public function booking(Request $request){
         if (isset($request->add_new_user)) {
             $data['add_new_user'] = $request->add_new_user;
+        } else {
+            $request->session()->forget($this->session_info);
         }
         $data['customer'] = $this->get_booking($request);
 

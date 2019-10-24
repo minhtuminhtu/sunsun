@@ -237,3 +237,16 @@ a{
     }
 }
 
+.service-warp{
+    animation: animateElement linear .3s;
+    animation-iteration-count: 1;
+}
+
+@keyframes animateElement{
+    50% {
+        height:0;
+    }
+    100% {
+        height:auto;
+    }
+}

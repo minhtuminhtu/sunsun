@@ -320,7 +320,6 @@ $(function () {
   }
 
   var get_service = function get_service() {
-    $('.service-warp').empty();
     var data = {
       'service': $('#services').val()
     };
@@ -338,10 +337,9 @@ $(function () {
         loader.css({
           'display': 'block'
         });
-        $('.service-warp').empty();
       },
       success: function success(html) {
-        $('.service-warp').append(html);
+        $('.service-warp').empty().append(html).hide().fadeIn('slow');
         load_event();
       },
       complete: function complete() {

@@ -223,7 +223,6 @@ $(function() {
     }
 
     let get_service = function() {
-        $('.service-warp').empty();
         let data = {
             'service': $('#services').val()
         };
@@ -237,10 +236,9 @@ $(function() {
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
-                $('.service-warp').empty();
             },
             success: function (html) {
-                $('.service-warp').append(html);
+                $('.service-warp').empty().append(html).hide().fadeIn('slow');
                 load_event();
             },
             complete: function () {
