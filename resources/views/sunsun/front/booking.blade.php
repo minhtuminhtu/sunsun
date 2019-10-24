@@ -23,9 +23,9 @@
         <div class="main-body-head text-center">
             <h1 class="title-menu">予約入力  </h1>
         </div>
-        <div class="container">
+        <div class="">
             <form action="{{route('.confirm')}}" method="POST" class="booking">
-                <div class="row">
+                <div class="">
                     @csrf
                     <div class="booking-warp">
 
