@@ -20,10 +20,10 @@
 </div>
 
 <div class="booking-field mb-2">
-<div class="booking-field-label">
+<div class="booking-field-label age-css">
     <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
 </div>
-<div class="booking-field-content">
+<div class="booking-field-content age-css">
     <div class="row pb-0">
         <input id="agecheck" name='agecheck' type="hidden" value="{{config('booking.age.age3')}}">
         <div class="col-4 pl-0">
@@ -154,20 +154,20 @@
 <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="2019年9月20日(金)">
 <div class="booking-field input-daterange" id="choice-range-day">
     <div class="field-start-day">
-        <p class="">{{config('booking.range_date.checkin')}}</p>
+        <p class="margin-10px">{{config('booking.range_date.checkin')}}</p>
         <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date" id="range_date_start" value="">
     </div>
     <div class="">
-        <p class="">&nbsp;</p>
+        <p class="margin-10px">&nbsp;</p>
         <p class="character-date mt-1">～</p>
     </div>
     <div class="field-end-day">
-        <p class="">{{config('booking.range_date.checkout')}}</p>
+        <p class="margin-10px">{{config('booking.range_date.checkout')}}</p>
         <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date" id="range_date_end" value="">
     </div>
 
 </div>
-<div class="">
+<div class="hidden-ip5">
     <pre class="mb-0">&nbsp;</pre>
     <span class="add-on ml-3">
         <i class="fa fa-calendar-alt fa-2x mt-1"></i>

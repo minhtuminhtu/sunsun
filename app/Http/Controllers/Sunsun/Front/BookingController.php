@@ -78,10 +78,10 @@ class BookingController extends Controller
     public function confirm(Request $request){
 
         $data['customer'] = $this->get_booking($request);
-        $data['customer']['info'] = array_values($data['customer']['info']);
         if (count($data['customer']) == 0) {
             return redirect("/booking");
         }
+        $data['customer']['info'] = array_values($data['customer']['info']);
         return view('sunsun.front.confirm',$data);
 
     }

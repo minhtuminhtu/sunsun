@@ -63,6 +63,12 @@ a:hover {
   padding-top: 0px;
 }
 
+@media (max-width: 320px) {
+  .booking-warp {
+    border: none !important;
+  }
+}
+
 .booking-warp {
   padding: 10px;
   border: 1px solid #dee2e6;
@@ -174,7 +180,6 @@ main .index-field ul li {
 }
 
 main .booking-field {
-  display: flex;
   padding-bottom: 5px;
 }
 
