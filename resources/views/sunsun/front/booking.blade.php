@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
     <style>
         .data-field-day {
             background: rgb(251,229,214);
@@ -19,6 +20,7 @@
 @endsection
 
 @section('main')
+
     <main class="main-body">
         <div class="main-body-head text-center">
             <h1 class="title-menu">予約入力  </h1>
@@ -159,12 +161,12 @@
 @endsection
 
 @section('script')
-
     @parent
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
     <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
+    <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.js')}}"></script>
 @endsection
 

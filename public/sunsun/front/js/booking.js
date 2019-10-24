@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -319,6 +319,7 @@ $(function () {
   }
 
   var get_service = function get_service() {
+    $('.service-warp').empty();
     var data = {
       'service': $('#services').val()
     };
@@ -336,9 +337,10 @@ $(function () {
         loader.css({
           'display': 'block'
         });
+        $('.service-warp').empty();
       },
       success: function success(html) {
-        $('.service-warp').empty().append(html).hide().fadeIn('slow');
+        $('.service-warp').append(html);
         load_event();
       },
       complete: function complete() {
@@ -427,14 +429,14 @@ $('#confirm').on('change', function () {
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!***********************************************************!*\
   !*** multi ./resources/assets/sunsun/front/js/booking.js ***!
   \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

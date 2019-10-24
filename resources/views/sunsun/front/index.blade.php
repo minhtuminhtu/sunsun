@@ -2,8 +2,8 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
 @endsection
 
 @section('main')
@@ -45,7 +45,7 @@
 
                         <div class="row mt-3">
                             <div class="col-6 offset-3">
-                                <a href="{{route('.booking')}}">
+                                <a class= "no-effect" href="{{route('.booking')}}">
                                     <button type="button" class="btn btn-block btn-booking text-white confirm-rules" disabled>予約入力へ</button>
                                 </a>
                             </div>
@@ -63,7 +63,6 @@
 @endsection
 
 @section('script')
-
     @parent
     <script>
         $('#confirm').on('change', function() {
@@ -74,5 +73,6 @@
             }
         });
     </script>
+    <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
 @endsection
 

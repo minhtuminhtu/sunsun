@@ -3,6 +3,7 @@
 @section('head')
     @parent
     <link  rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
     <style>
         th {
             background-color: #4472c4;
@@ -153,5 +154,6 @@
             }
         });
     </script>
+    <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
 @endsection
 
