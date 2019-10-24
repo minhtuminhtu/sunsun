@@ -74,8 +74,8 @@
                 $(".confirm-rules").prop("disabled", true);
             }
         });
-        $(function() {
-            $('header nav').meanmenu();
+        $('#nav').on('click', function() {
+            $('#nav-menu').toggle();
         });
     </script>
     @parent

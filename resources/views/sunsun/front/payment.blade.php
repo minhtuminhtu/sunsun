@@ -3,7 +3,6 @@
 @section('head')
     @parent
     <link  rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
     <style>
         th {
             background-color: #4472c4;
@@ -153,9 +152,6 @@
             if($(this).val().length == 2 ){
                 $('#card-expire').val($('#card-expire').val() + "/");
             }
-        });
-        $(function() {
-            $('header nav').meanmenu();
         });
     </script>
     @parent

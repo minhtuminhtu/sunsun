@@ -53,12 +53,6 @@
 @section('script')
 
     @parent
-    <script src="{{asset('sunsun/lib/jquery-1.7.2/jquery.min.js')}}" charset="UTF-8"></script>
-    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
-    <script>
-        $(function() {
-            $('header nav').meanmenu();
-        });
-    </script>
+
 @endsection
 
