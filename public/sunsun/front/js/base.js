@@ -81,52 +81,32 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/assets/sunsun/front/js/add_user_booking.js":
-/*!**************************************************************!*\
-  !*** ./resources/assets/sunsun/front/js/add_user_booking.js ***!
-  \**************************************************************/
+/***/ "./resources/assets/sunsun/front/js/base.js":
+/*!**************************************************!*\
+  !*** ./resources/assets/sunsun/front/js/base.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(function () {
-  $('.add-new-people').click(function () {
-    $.ajax({
-      url: $site_url + '/add_new_booking',
-      type: 'POST',
-      data: $('form.booking').serializeArray(),
-      dataType: 'JSON',
-      beforeSend: function beforeSend() {
-        loader.css({
-          'display': 'block'
-        });
-      },
-      success: function success(r) {
-        window.location.href = $site_url + '/booking?add_new_user=on';
-      },
-      complete: function complete() {
-        loader.css({
-          'display': 'none'
-        });
-      }
-    });
-  });
+$('#nav').on('click', function () {
+  $('#nav-menu').toggle();
 });
 
 /***/ }),
 
-/***/ 3:
-/*!********************************************************************!*\
-  !*** multi ./resources/assets/sunsun/front/js/add_user_booking.js ***!
-  \********************************************************************/
+/***/ 1:
+/*!********************************************************!*\
+  !*** multi ./resources/assets/sunsun/front/js/base.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/add_user_booking.js */"./resources/assets/sunsun/front/js/add_user_booking.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/base.js */"./resources/assets/sunsun/front/js/base.js");
 
 
 /***/ })

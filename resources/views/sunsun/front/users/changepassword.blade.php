@@ -50,6 +50,6 @@
 @section('script')
 
     @parent
-
+    <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
 @endsection
 

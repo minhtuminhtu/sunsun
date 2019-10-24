@@ -153,10 +153,7 @@
                 $('#card-expire').val($('#card-expire').val() + "/");
             }
         });
-        $('#nav').on('click', function() {
-            $('#nav-menu').toggle();
-        });
     </script>
-    
+    <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
 @endsection
 

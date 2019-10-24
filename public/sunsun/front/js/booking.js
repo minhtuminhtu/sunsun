@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -382,9 +382,6 @@ $(function () {
       }
     });
   });
-  $('#nav').on('click', function () {
-    $('#nav-menu').toggle();
-  });
 });
 $('#transportation').on('change', function () {
   if (this.value == '車​') {
@@ -432,7 +429,7 @@ $('#confirm').on('change', function () {
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!***********************************************************!*\
   !*** multi ./resources/assets/sunsun/front/js/booking.js ***!
   \***********************************************************/
