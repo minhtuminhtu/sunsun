@@ -161,13 +161,13 @@
 @endsection
 
 @section('script')
-
-    @parent
+    <script src="{{asset('sunsun/lib/jquery-1.7.2/jquery.min.js')}}" charset="UTF-8"></script>
+    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
-    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
     <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
+    @parent
 @endsection
 

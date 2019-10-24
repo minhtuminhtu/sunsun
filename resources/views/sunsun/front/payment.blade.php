@@ -3,6 +3,7 @@
 @section('head')
     @parent
     <link  rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
     <style>
         th {
             background-color: #4472c4;
@@ -138,7 +139,7 @@
 @endsection
 
 @section('script')
-    @parent
+    <script src="{{asset('sunsun/lib/jquery-1.7.2/jquery.min.js')}}" charset="UTF-8"></script>
     <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
     <script>
         $('.payment-method').on('change', function() {
@@ -157,5 +158,6 @@
             $('header nav').meanmenu();
         });
     </script>
+    @parent
 @endsection
 

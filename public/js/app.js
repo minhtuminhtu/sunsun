@@ -17842,8 +17842,8 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 try {
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); //require('bootstrap-sass'); <-- Remove this line
-
+  // window.$ = window.jQuery = require('jquery');
+  //require('bootstrap-sass'); <-- Remove this line
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
 
