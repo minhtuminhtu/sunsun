@@ -256,9 +256,41 @@ main .fa-calendar-alt:hover {
 a {
   text-decoration: underline !important;
 }
+
+a.no-effect {
+  text-decoration: none !important;
+}
+
+@media only screen and (min-width: 321px) {
+  .booking-field {
+    display: flex;
+  }
+}
+
 .service-warp {
   -webkit-animation: animateElement linear 0.3s;
           animation: animateElement linear 0.3s;
   -webkit-animation-iteration-count: 1;
           animation-iteration-count: 1;
 }
+
+@-webkit-keyframes animateElement {
+  50% {
+    height: 0;
+  }
+
+  100% {
+    height: auto;
+  }
+}
+
+@keyframes animateElement {
+  50% {
+    height: 0;
+  }
+
+  100% {
+    height: auto;
+  }
+}
+
