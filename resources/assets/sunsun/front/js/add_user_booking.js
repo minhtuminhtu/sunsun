@@ -16,4 +16,5 @@ $(function () {
             },
         });
     });
+    $('header nav').meanmenu();
 });

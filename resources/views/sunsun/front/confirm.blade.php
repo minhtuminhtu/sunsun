@@ -146,6 +146,7 @@
 
 @section('script')
     @parent
+    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
     <script src="{{asset('sunsun/front/js/add_user_booking.js').config('version_files.html.css')}}"></script>
 @endsection
 

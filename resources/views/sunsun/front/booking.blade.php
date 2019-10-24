@@ -20,6 +20,7 @@
 @endsection
 
 @section('main')
+
     <main class="main-body">
         <div class="main-body-head text-center">
             <h1 class="title-menu">予約入力  </h1>
@@ -166,6 +167,7 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
+    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
     <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
 @endsection
 

@@ -1,4 +1,7 @@
 $(function() {
+
+    $('header nav').meanmenu();
+
     let service = $('.service-warp'),
         modal_choice_time = $('#choice_date_time'),
         days_short = ["日","月","火","水","木","金","土"];

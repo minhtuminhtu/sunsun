@@ -154,15 +154,15 @@
 <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="2019年9月20日(金)">
 <div class="booking-field input-daterange" id="choice-range-day">
     <div class="field-start-day">
-        <p class="margin-10px">{{config('booking.range_date.checkin')}}</p>
+        <p>{{config('booking.range_date.checkin')}}</p>
         <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date" id="range_date_start" value="">
     </div>
     <div class="">
-        <p class="margin-10px">&nbsp;</p>
+        <p>&nbsp;</p>
         <p class="character-date mt-1">～</p>
     </div>
     <div class="field-end-day">
-        <p class="margin-10px">{{config('booking.range_date.checkout')}}</p>
+        <p>{{config('booking.range_date.checkout')}}</p>
         <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date" id="range_date_end" value="">
     </div>
 

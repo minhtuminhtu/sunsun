@@ -51,7 +51,17 @@
         </div>
         <!-- End of row -->
     </div>
-
-
-
+    <nav class="for-mobile">
+        <p>
+            <a href="https://sun33.thebase.in/" class="text-white">ネットショップ</a> ｜ <a href="http://sun-sun33.com/archives/category/voice" class="text-white">お客様の声</a> ｜ <a href="http://sun-sun33.com/shop" class="text-white">アクセス</a>
+        </p>
+		<ul>
+			<li><a href="http://sun-sun33.com/">トップページ</a></li>
+			<li><a href="http://sun-sun33.com/about">酵素風呂とは?</a></li>
+			<li><a href="http://sun-sun33.com/menu">メニュー・ご利用料金</a></li>
+            <li><a href="http://sun-sun33.com/flow">酵素風呂の入り方</a></li>
+            <li><a href="http://sun-sun33.com/shop">お店のご紹介</a></li>
+            <li><a href="http://sun-sun33.com/contact">お問い合わせ</a></li>
+		</ul>
+	</nav>
 </header>

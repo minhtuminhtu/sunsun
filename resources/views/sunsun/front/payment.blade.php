@@ -139,6 +139,7 @@
 
 @section('script')
     @parent
+    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
     <script>
         $('.payment-method').on('change', function() {
             if($(this).prop("id") == 'credit-card'){
@@ -151,6 +152,9 @@
             if($(this).val().length == 2 ){
                 $('#card-expire').val($('#card-expire').val() + "/");
             }
+        });
+        $(function() {
+            $('header nav').meanmenu();
         });
     </script>
 @endsection

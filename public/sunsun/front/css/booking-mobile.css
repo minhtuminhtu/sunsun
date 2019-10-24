@@ -49,9 +49,9 @@
   }
 }
 
-@media only screen and (min-width: 321px) {
-  .booking-field {
-    display: flex;
+@media only screen and (min-width: 768px) {
+  .for-mobile {
+    display: none !important;
   }
 }
 

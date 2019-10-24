@@ -4,6 +4,5 @@ try {
 
     //require('bootstrap-sass'); <-- Remove this line
     require('bootstrap');
-
 } catch (e) {}
 

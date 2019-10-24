@@ -16,7 +16,7 @@
             <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
-                        <a>
+                        <a class= "no-effect">
                             <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Update</button>
                         </a>
                     </div>
@@ -33,6 +33,11 @@
 @section('script')
 
     @parent
-
+    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
+    <script>
+        $(function() {
+            $('header nav').meanmenu();
+        });
+    </script>
 @endsection
 

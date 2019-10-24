@@ -46,7 +46,7 @@
 
                         <div class="row mt-3">
                             <div class="col-6 offset-3">
-                                <a href="{{route('.booking')}}">
+                                <a class= "no-effect" href="{{route('.booking')}}">
                                     <button type="button" class="btn btn-block btn-booking text-white confirm-rules" disabled>予約入力へ</button>
                                 </a>
                             </div>
@@ -64,8 +64,8 @@
 @endsection
 
 @section('script')
-
     @parent
+    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
     <script>
         $('#confirm').on('change', function() {
             if($(this).is(":checked")){
@@ -73,6 +73,9 @@
             }else{
                 $(".confirm-rules").prop("disabled", true);
             }
+        });
+        $(function() {
+            $('header nav').meanmenu();
         });
     </script>
 @endsection

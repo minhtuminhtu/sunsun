@@ -253,3 +253,17 @@ main .fa-calendar-alt:hover {
   opacity: 0.7;
 }
 
+a {
+  text-decoration: underline !important;
+}
+
+.no-effect {
+  text-decoration: none !important;
+}
+
+@media only screen and (min-width: 321px) {
+  .booking-field {
+    display: flex;
+  }
+}
+

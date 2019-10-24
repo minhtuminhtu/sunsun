@@ -94,6 +94,7 @@
 /***/ (function(module, exports) {
 
 $(function () {
+  $('header nav').meanmenu();
   var service = $('.service-warp'),
       modal_choice_time = $('#choice_date_time'),
       days_short = ["日", "月", "火", "水", "木", "金", "土"];

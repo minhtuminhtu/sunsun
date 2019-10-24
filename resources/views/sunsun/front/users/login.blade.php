@@ -33,12 +33,12 @@
             <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
-                        <a>
+                        <a class= "no-effect">
                             <button type="button" class="btn btn-block btn-booking text-white confirm-rules">ログイン</button>
                         </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
-                        <a href="/create">ユーザー登録</a>
+                        <a href="/create" class= "no-effect">ユーザー登録</a>
                     </div>
                 </div>
             </div>
@@ -53,6 +53,11 @@
 @section('script')
 
     @parent
-
+    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
+    <script>
+        $(function() {
+            $('header nav').meanmenu();
+        });
+    </script>
 @endsection
 

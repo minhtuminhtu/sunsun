@@ -133,7 +133,7 @@
         </div>
 
     </div>
-    <div class="">
+    <div class="hidden-ip5">
         <pre class="mb-0">&nbsp;</pre>
         <span class="add-on ml-3">
             <i class="fa fa-calendar-alt fa-2x mt-1"></i>
