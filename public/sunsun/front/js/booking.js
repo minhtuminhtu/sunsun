@@ -319,7 +319,6 @@ $(function () {
   }
 
   var get_service = function get_service() {
-    $('.service-warp').empty();
     var data = {
       'service': $('#services').val()
     };
@@ -337,10 +336,9 @@ $(function () {
         loader.css({
           'display': 'block'
         });
-        $('.service-warp').empty();
       },
       success: function success(html) {
-        $('.service-warp').append(html);
+        $('.service-warp').empty().append(html).hide().fadeIn('slow');
         load_event();
       },
       complete: function complete() {
@@ -436,7 +434,7 @@ $('#confirm').on('change', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })
