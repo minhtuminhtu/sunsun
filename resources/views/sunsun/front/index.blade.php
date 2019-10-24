@@ -2,7 +2,6 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
 @endsection
@@ -64,8 +63,7 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('sunsun/lib/jquery-1.7.2/jquery.min.js')}}" charset="UTF-8"></script>
-    <script src="{{asset('sunsun/lib/meanmenu/jquery.meanmenu.js')}}" charset="UTF-8"></script>
+    @parent
     <script>
         $('#confirm').on('change', function() {
             if($(this).is(":checked")){
@@ -78,6 +76,5 @@
             $('#nav-menu').toggle();
         });
     </script>
-    @parent
 @endsection
 

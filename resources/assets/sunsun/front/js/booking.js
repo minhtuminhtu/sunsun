@@ -1,7 +1,4 @@
 $(function() {
-
-    $('header nav').meanmenu();
-
     let service = $('.service-warp'),
         modal_choice_time = $('#choice_date_time'),
         days_short = ["日","月","火","水","木","金","土"];
@@ -223,6 +220,7 @@ $(function() {
     }
 
     let get_service = function() {
+        $('.service-warp').empty();
         let data = {
             'service': $('#services').val()
         };
@@ -236,9 +234,10 @@ $(function() {
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
+                $('.service-warp').empty();
             },
             success: function (html) {
-                $('.service-warp').empty().append(html).hide().fadeIn('slow');
+                $('.service-warp').append(html);
                 load_event();
             },
             complete: function () {
@@ -275,6 +274,15 @@ $(function() {
             },
         });
     });
+
+    $('#nav').on('click', function() {
+        $('#nav-menu').toggle();
+    });
+
+
+
+
+
 });
 
 

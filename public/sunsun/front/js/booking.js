@@ -94,7 +94,6 @@
 /***/ (function(module, exports) {
 
 $(function () {
-  $('header nav').meanmenu();
   var service = $('.service-warp'),
       modal_choice_time = $('#choice_date_time'),
       days_short = ["日", "月", "火", "水", "木", "金", "土"];
@@ -320,6 +319,7 @@ $(function () {
   }
 
   var get_service = function get_service() {
+    $('.service-warp').empty();
     var data = {
       'service': $('#services').val()
     };
@@ -337,9 +337,10 @@ $(function () {
         loader.css({
           'display': 'block'
         });
+        $('.service-warp').empty();
       },
       success: function success(html) {
-        $('.service-warp').empty().append(html).hide().fadeIn('slow');
+        $('.service-warp').append(html);
         load_event();
       },
       complete: function complete() {
@@ -380,6 +381,9 @@ $(function () {
         });
       }
     });
+  });
+  $('#nav').on('click', function () {
+    $('#nav-menu').toggle();
   });
 });
 $('#transportation').on('change', function () {

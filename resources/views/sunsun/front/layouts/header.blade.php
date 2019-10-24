@@ -1,4 +1,4 @@
-<header class="main-header">
+<header class="main-header  mean-container">
     <div class="container d-none d-md-block" id="header">
         <div class="row">
             <div class="col-2 mt-4">
@@ -51,7 +51,19 @@
         </div>
         <!-- End of row -->
     </div>
-
-
+    <div class="mean-bar"><a id="nav" class="meanmenu-reveal" style="right: 0px; left: auto; text-align: center; text-indent: 0px; font-size: 18px;"><span></span><span></span><span></span></a>
+        <nav class="mean-nav">
+            <p><a href="https://sun33.thebase.in/" class="text-white">ネットショップ</a> ｜ <a href="http://sun-sun33.com/archives/category/voice" class="text-white">お客様の声</a> ｜ <a href="http://sun-sun33.com/shop" class="text-white">アクセス</a></p>
+            <ul id="nav-menu" style="display:none;">
+                <li><a href="http://sun-sun33.com/">トップページ</a></li>
+                <li><a href="http://sun-sun33.com/about">酵素風呂とは?</a></li>
+                <li><a href="http://sun-sun33.com/menu">メニュー・ご利用料金</a></li>
+                <li><a href="http://sun-sun33.com/flow">酵素風呂の入り方</a></li>
+                <li><a href="http://sun-sun33.com/shop">お店のご紹介</a></li>
+                <li class="mean-last"><a href="http://sun-sun33.com/contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
 </header>
