@@ -9,11 +9,11 @@
 @section('main')
     <main class="main-body">
         <div class="main-body-head text-center">
-            <h1>Edit  </h1>
+            <h1 class="title-menu">Edit  </h1>
         </div>
         <div class="container">
-            @include('sunsun.front.users._form', ["new" => 0, "name" => "Pham Van A", "email" => "testemail@gmail.com", "address" => "Ho Chi Minh City"])
-            <div class="booking-warp">
+            @include('sunsun.front.users._form', ["new" => 0, "name" => "Pham Van A", "email" => "testemail@gmail.com"])
+            <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
                         <a>

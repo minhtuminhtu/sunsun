@@ -9,10 +9,10 @@
 @section('main')
     <main class="main-body">
         <div class="main-body-head text-center">
-            <h1>Change Password </h1>
+            <h1 class="title-menu">Change Password </h1>
         </div>
         <div class="container">
-            <div class="booking-warp">
+            <div class="user-warp">
                 <div class="row mt-2">
                     <div class="col-3">
                         <p class="text-md-left pt-2">Old Password</p>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="booking-warp">
+            <div class="user-warp">
                 <div class="row">
                     <div class="col-6 offset-3">
                         <a>
