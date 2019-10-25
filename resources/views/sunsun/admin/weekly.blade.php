@@ -8,7 +8,7 @@
 @endsection
 
 @section('main')
-<main class="container-fluid">
+<main class="container">
     <div class="main-head">
     </div>
     <div class="main-content">
@@ -17,9 +17,9 @@
                 <a href="" class="week-title">≪</a>
                 <span class="week-title">2019/8/20</span>
                 <a href="" class="week-title">≫</a>
-                <a href="" class="week-icon"><i class="fas fa-calendar-alt fa-2x"></i></a>
-                <button type="button" class="btn week-button-control">≪前週</button>
-                <button type="button" class="btn week-button-control">翌週≫</button>
+                <span  class="week-icon"><i class="fas fa-calendar-alt"></i></span>
+                <a href="" class=" week-button-control">≪前週</a>
+                <a href=""  class=" week-button-control">翌週≫</a>
             </div>
             <div class="right-content">
                 <ul>
@@ -573,7 +573,7 @@
                 </table>
             </div>
         </div>
-        
+
     </div>
     <div class="main-footer">
 

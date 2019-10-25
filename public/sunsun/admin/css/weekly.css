@@ -29,23 +29,17 @@ a:hover {
   text-decoration: none;
 }
 
-.week-title {
-  font-size: 20px;
-}
-
 .week-icon {
   margin-left: 5px;
+  color: #d7751e;
+  padding-left: 10px;
 }
 
 .week-button-control {
-  background-color: #4472c4;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  color: #fff;
-  border-radius: 0px;
-  border: 2px solid #2e70c0;
-  padding: 3px 20px 3px 20px;
-  font-size: 18px;
+  background: #bfbfbf;
+  color: #000000;
+  padding: 4px 11px;
+  font-weight: 500;
 }
 
 .main-content-content {
@@ -53,7 +47,7 @@ a:hover {
   text-align: center;
   font-size: 16px;
   font-weight: bold;
-  border: 3px solid #4573c4;
+  border: 2px solid #4573c4;
 }
 
 .main-content-content .line1 {
@@ -261,5 +255,10 @@ th.pet-head {
 .color-pet-1 {
   background-color: #fada66 !important;
   color: #000 !important;
+}
+
+.fas.fa-calendar-alt {
+  font-size: 1.5rem;
+  vertical-align: sub;
 }
 
