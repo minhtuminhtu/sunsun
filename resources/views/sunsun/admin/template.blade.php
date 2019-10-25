@@ -11,7 +11,9 @@
     <![endif]-->
     <!-- Google Font -->
     <title>@yield('title')</title>
-@yield('admincss')
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('common/css/reset.css')}}">
+    @yield('admincss')
 @endsection
 
 @section("header")

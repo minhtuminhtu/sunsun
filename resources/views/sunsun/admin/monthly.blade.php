@@ -1,4 +1,5 @@
 @extends('sunsun.admin.template')
+@section('title', '予約管理サイト（月間表示）')
 
 @section('head')
     @parent
