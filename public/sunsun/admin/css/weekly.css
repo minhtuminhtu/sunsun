@@ -3,21 +3,24 @@
 }
 
 .container-fluid .main-content {
-  border: 3px solid #4573c4;
   margin-bottom: 20px;
 }
 
-.main-head {
+a.week-title {
+  color: #000;
+}
+
+.main-content-head {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
 }
 
-.main-head .left-content {
+.main-content-head .left-content {
   margin-top: 20px;
 }
 
-.main-head .right-content {
+.main-content-head .right-content {
   justify-content: flex-end;
   margin-top: 5px;
 }
@@ -45,80 +48,81 @@ a:hover {
   font-size: 18px;
 }
 
-.main-content {
+.main-content-content {
   display: flex;
   text-align: center;
   font-size: 16px;
   font-weight: bold;
+  border: 3px solid #4573c4;
 }
 
-.main-content .line1 {
+.main-content-content .line1 {
   width: 13.33%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .line2 {
+.main-content-content .line2 {
   width: 26.66%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .line3 {
+.main-content-content .line3 {
   width: 26.66%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .line4 {
+.main-content-content .line4 {
   width: 26.66%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .line5 {
+.main-content-content .line5 {
   width: 26.66%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .line6 {
+.main-content-content .line6 {
   width: 26.66%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .line7 {
+.main-content-content .line7 {
   width: 26.66%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .line8 {
+.main-content-content .line8 {
   width: 26.66%;
   display: block;
   padding-top: 5px;
 }
 
-.main-content .bo-left {
+.main-content-content .bo-left {
   border-left: 2px solid #537fc9;
 }
 
-.main-content .bo-right {
+.main-content-content .bo-right {
   border-right: 2px solid #537fc9;
 }
 
-.main-content .bo-bottom {
+.main-content-content .bo-bottom {
   border-bottom: 2px solid #537fc9;
   padding-bottom: 5px;
 }
 
-.main-content .title-time {
+.main-content-content .title-time {
   font-weight: normal;
   padding: 8px 0px 8px 0px;
 }
 
-.main-content .title-bottom {
+.main-content-content .title-bottom {
   margin-bottom: 30px;
 }
 
