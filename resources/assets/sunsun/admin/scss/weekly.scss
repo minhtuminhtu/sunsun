@@ -1,7 +1,6 @@
 .container-fluid{
     margin-top: 20px;
     max-width: 1000px;
-    border: 3px solid #bbcdeb;
     .main-content{
         border: 3px solid #4573c4;
         margin-bottom: 20px;
@@ -99,6 +98,9 @@ a:hover{
         font-weight: normal;
         padding: 8px 0px 8px 0px;
     }
+    .title-bottom{
+        margin-bottom: 30px;
+    }
 
 }
 
@@ -151,7 +153,7 @@ table {
         border-bottom: 2px solid #fff;
         border-left: 8px solid #fff;
         border-right: 2px solid #fff;
-        padding: 3px 0px 3px 0px;
+        padding: 7px 0px 7px 0px;
     }
     .female-content{
         width: 33.33%;
@@ -162,7 +164,7 @@ table {
         border-bottom: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 2px solid #fff;
-        padding: 3px 0px 3px 0px;
+        padding: 7px 0px 7px 0px;
     }
     .pet-content-combo{
         width: 33.33%;
@@ -173,7 +175,7 @@ table {
         border-bottom: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 8px solid #fff;
-        padding: 3px 0px 3px 0px;
+        padding: 7px 0px 7px 0px;
     }
     .pet-content{
         width: 33.33%;
@@ -184,28 +186,35 @@ table {
         border-bottom: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 8px solid #fff;
-        padding: 3px 0px 3px 0px;
+        padding: 7px 0px 7px 0px;
     }
 }
 
 .color-x{
-    background-color: #bfbfbf;
+    background-color: #bfbfbf !important;
+    color: #000 !important;
 }
 .color-male-0{
-    background-color: #e8ebf5;
+    background-color: #e8ebf5 !important;
+    color: #000 !important;
 }
 .color-male-1{
-    background-color: #cdd4ea;
+    background-color: #cdd4ea !important;
+    color: #000 !important;
 }
 .color-female-0{
-    background-color: #feccff;
+    background-color: #feccff !important;
+    color: #000 !important;
 }
 .color-female-1{
-    background-color: #fb98cc;
+    background-color: #fb98cc !important;
+    color: #000 !important;
 }
 .color-pet-0{
-    background-color: #fdf2cc;
+    background-color: #fdf2cc !important;
+    color: #000 !important;
 }
 .color-pet-1{
-    background-color: #fada66;
+    background-color: #fada66 !important;
+    color: #000 !important;
 }
