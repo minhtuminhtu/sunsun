@@ -65,55 +65,55 @@
                         <td class="female-content color-female-0">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">×</td>
-                        <td class="female-content color-female-0">×</td>
+                        <td class="male-content color-male-0">２</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content color-male-0">１</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">３</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content  color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content  color-male-0">〇</td>
+                        <td class="female-content color-female-0">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                 </tbody>
@@ -140,55 +140,55 @@
                         <td class="female-content color-female-0">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">×</td>
-                        <td class="female-content color-female-0">×</td>
+                        <td class="male-content color-male-0">２</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content color-male-0">１</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">３</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content  color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content  color-male-0">〇</td>
+                        <td class="female-content color-female-0">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                 </tbody>
@@ -215,55 +215,55 @@
                         <td class="female-content color-female-0">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">×</td>
-                        <td class="female-content color-female-0">×</td>
+                        <td class="male-content color-male-0">２</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content color-male-0">１</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">３</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content  color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content  color-male-0">〇</td>
+                        <td class="female-content color-female-0">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                 </tbody>
@@ -290,55 +290,55 @@
                         <td class="female-content color-female-0">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">×</td>
-                        <td class="female-content color-female-0">×</td>
+                        <td class="male-content color-male-0">２</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content color-male-0">１</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">３</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content  color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content  color-male-0">〇</td>
+                        <td class="female-content color-female-0">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                 </tbody>
@@ -365,55 +365,55 @@
                         <td class="female-content color-female-0">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">×</td>
-                        <td class="female-content color-female-0">×</td>
+                        <td class="male-content color-male-0">２</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content color-male-0">１</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">３</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content  color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content  color-male-0">〇</td>
+                        <td class="female-content color-female-0">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                 </tbody>
@@ -440,55 +440,55 @@
                         <td class="female-content color-female-0">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">×</td>
-                        <td class="female-content color-female-0">×</td>
+                        <td class="male-content color-male-0">２</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content color-male-0">１</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">３</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content  color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content  color-male-0">〇</td>
+                        <td class="female-content color-female-0">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                 </tbody>
@@ -515,55 +515,55 @@
                         <td class="female-content color-female-0">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">×</td>
-                        <td class="female-content color-female-0">×</td>
+                        <td class="male-content color-male-0">２</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">×</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">２</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content color-male-0">１</td>
+                        <td class="female-content color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">２</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">３</td>
                         <td class="pet-content  color-pet-1" rowspan="2">〇</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">×</td>
-                        <td class="female-content color-female-1">×</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">３</td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-0">ー</td>
-                        <td class="female-content  color-female-0">ー</td>
+                        <td class="male-content color-male-0">〇</td>
+                        <td class="female-content  color-female-0">〇</td>
                         <td class="pet-content  color-pet-0"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content  color-male-0">ー</td>
-                        <td class="female-content color-female-0">ー</td>
+                        <td class="male-content  color-male-0">〇</td>
+                        <td class="female-content color-female-0">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                     <tr class="content-content">
-                        <td class="male-content color-male-1">ー</td>
-                        <td class="female-content color-female-1">ー</td>
+                        <td class="male-content color-male-1">〇</td>
+                        <td class="female-content color-female-1">〇</td>
                         <td class="pet-content color-x"></td>
                     </tr>
                 </tbody>

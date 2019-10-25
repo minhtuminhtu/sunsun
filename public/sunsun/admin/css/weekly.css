@@ -129,6 +129,8 @@ table {
 
 .content-head {
   margin: 10px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .content-head .male-head {
@@ -165,6 +167,11 @@ table {
   border-left: 2px solid #fff;
   border-right: 8px solid #fff;
   padding: 3px 0px 3px 0px;
+}
+
+.content-content {
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .content-content .male-content {
