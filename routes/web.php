@@ -35,7 +35,12 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::post('/add_new_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@add_new_booking']);
     Route::post('/save_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@save_booking']);
 
+});
 
-
+// Admin
+Route::prefix('admin')->namespace('Sunsun\Admin')->group(function (){
+    Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);
+    Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
+    Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
 });
 
