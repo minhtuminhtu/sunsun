@@ -106,7 +106,7 @@ $('#nav').on('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\base.js */"./resources/assets/sunsun/front/js/base.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/base.js */"./resources/assets/sunsun/front/js/base.js");
 
 
 /***/ })

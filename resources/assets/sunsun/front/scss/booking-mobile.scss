@@ -5,9 +5,10 @@
 }
 @media only screen and (max-width: 320px){
     .booking-warp {
-        padding: 3px;
         border: none;
-        max-width: 95%;
+        max-width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
     }
     .booking-field {
         display: block;
@@ -45,22 +46,23 @@
     .fix-layout{
         display: flex;
         .fix-layout-left{
-            max-width: 43%;
-            flex: 0 0 43%;
+            max-width: 40%;
+            flex: 0 0 40%;
             padding-right: 0px;
 
         }
         .fix-layout-right{
-            max-width: 57%;
-            flex: 0 0 57%;
+            max-width: 60%;
+            flex: 0 0 60%;
         }
     }
 }
 @media only screen and (max-width: 480px) and (min-width: 321px){
     .booking-warp {
-        padding: 0px;
         border: none;
-        max-width: 95%;
+        max-width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
     }
     .booking-field {
         display: flex;
