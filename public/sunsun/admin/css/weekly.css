@@ -1,5 +1,4 @@
 .container-fluid {
-  margin-top: 20px;
   max-width: 1000px;
 }
 
@@ -127,10 +126,13 @@ table {
   width: 100%;
 }
 
+th.pet-head {
+  font-weight: bold;
+}
+
 .content-head {
   margin: 10px;
   font-size: 15px;
-  font-weight: bold;
 }
 
 .content-head .male-head {

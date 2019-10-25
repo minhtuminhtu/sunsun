@@ -1,5 +1,4 @@
 .container-fluid{
-    margin-top: 20px;
     max-width: 1000px;
     .main-content{
         border: 3px solid #4573c4;
@@ -107,10 +106,12 @@ a:hover{
 table {
     width: 100%;
 }
+th.pet-head {
+    font-weight: bold;
+}
 .content-head{
     margin: 10px;
     font-size: 15px;
-    font-weight: bold;
     .male-head{
         width: 33.33%;
         background-color: #4472c4;
