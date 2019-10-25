@@ -17790,6 +17790,28 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./resources/assets/sunsun/admin/scss/admin.scss":
+/*!*******************************************************!*\
+  !*** ./resources/assets/sunsun/admin/scss/admin.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/assets/sunsun/admin/scss/weekly.scss":
+/*!********************************************************!*\
+  !*** ./resources/assets/sunsun/admin/scss/weekly.scss ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/assets/sunsun/common/scss/reset.scss":
 /*!********************************************************!*\
   !*** ./resources/assets/sunsun/common/scss/reset.scss ***!
@@ -17861,9 +17883,9 @@ try {
 /***/ }),
 
 /***/ 0:
-/*!************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/assets/sunsun/common/scss/reset.scss ./resources/assets/sunsun/front/scss/base.scss ./resources/assets/sunsun/front/scss/booking.scss ./resources/assets/sunsun/front/scss/booking-mobile.scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/assets/sunsun/common/scss/reset.scss ./resources/assets/sunsun/front/scss/base.scss ./resources/assets/sunsun/admin/scss/admin.scss ./resources/assets/sunsun/admin/scss/weekly.scss ./resources/assets/sunsun/front/scss/booking.scss ./resources/assets/sunsun/front/scss/booking-mobile.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17871,6 +17893,8 @@ __webpack_require__(/*! /var/www/html/sunsun/resources/js/app.js */"./resources/
 __webpack_require__(/*! /var/www/html/sunsun/resources/sass/app.scss */"./resources/sass/app.scss");
 __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/common/scss/reset.scss */"./resources/assets/sunsun/common/scss/reset.scss");
 __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/scss/base.scss */"./resources/assets/sunsun/front/scss/base.scss");
+__webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/admin/scss/admin.scss */"./resources/assets/sunsun/admin/scss/admin.scss");
+__webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/admin/scss/weekly.scss */"./resources/assets/sunsun/admin/scss/weekly.scss");
 __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/scss/booking.scss */"./resources/assets/sunsun/front/scss/booking.scss");
 module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/scss/booking-mobile.scss */"./resources/assets/sunsun/front/scss/booking-mobile.scss");
 

@@ -3,8 +3,12 @@
     "/css/app.css": "/css/app.css",
     "/common/css/reset.css": "/common/css/reset.css",
     "/sunsun/front/css/base.css": "/sunsun/front/css/base.css",
+    "/sunsun/admin/css/admin.css": "/sunsun/admin/css/admin.css",
+    "/sunsun/admin/css/weekly.css": "/sunsun/admin/css/weekly.css",
     "/sunsun/front/css/booking.css": "/sunsun/front/css/booking.css",
     "/sunsun/front/css/booking-mobile.css": "/sunsun/front/css/booking-mobile.css",
+    "/sunsun/admin/js/admin.js": "/sunsun/admin/js/admin.js",
+    "/sunsun/admin/js/weekly.js": "/sunsun/admin/js/weekly.js",
     "/sunsun/front/js/add_user_booking.js": "/sunsun/front/js/add_user_booking.js",
     "/sunsun/front/js/base.js": "/sunsun/front/js/base.js",
     "/sunsun/front/js/booking.js": "/sunsun/front/js/booking.js"
