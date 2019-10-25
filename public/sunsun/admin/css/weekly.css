@@ -1,0 +1,252 @@
+.container-fluid {
+  margin-top: 20px;
+  max-width: 1000px;
+}
+
+.container-fluid .main-content {
+  border: 3px solid #4573c4;
+  margin-bottom: 20px;
+}
+
+.main-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+.main-head .left-content {
+  margin-top: 20px;
+}
+
+.main-head .right-content {
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.week-title {
+  font-size: 20px;
+}
+
+.week-icon {
+  margin-left: 5px;
+}
+
+.week-button-control {
+  background-color: #4472c4;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  color: #fff;
+  border-radius: 0px;
+  border: 2px solid #2e70c0;
+  padding: 3px 20px 3px 20px;
+  font-size: 18px;
+}
+
+.main-content {
+  display: flex;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.main-content .line1 {
+  width: 13.33%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .line2 {
+  width: 26.66%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .line3 {
+  width: 26.66%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .line4 {
+  width: 26.66%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .line5 {
+  width: 26.66%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .line6 {
+  width: 26.66%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .line7 {
+  width: 26.66%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .line8 {
+  width: 26.66%;
+  display: block;
+  padding-top: 5px;
+}
+
+.main-content .bo-left {
+  border-left: 2px solid #537fc9;
+}
+
+.main-content .bo-right {
+  border-right: 2px solid #537fc9;
+}
+
+.main-content .bo-bottom {
+  border-bottom: 2px solid #537fc9;
+  padding-bottom: 5px;
+}
+
+.main-content .title-time {
+  font-weight: normal;
+  padding: 8px 0px 8px 0px;
+}
+
+.main-content .title-bottom {
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+}
+
+.content-head {
+  margin: 10px;
+}
+
+.content-head .male-head {
+  width: 33.33%;
+  background-color: #4472c4;
+  color: #fff;
+  text-align: center;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  border-left: 8px solid #fff;
+  border-right: 2px solid #fff;
+  padding: 3px 0px 3px 0px;
+}
+
+.content-head .female-head {
+  width: 33.33%;
+  background-color: #f83299;
+  color: #fff;
+  text-align: center;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+  padding: 3px 0px 3px 0px;
+}
+
+.content-head .pet-head {
+  width: 33.33%;
+  background-color: #bf8f00;
+  color: #fff;
+  text-align: center;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 8px solid #fff;
+  padding: 3px 0px 3px 0px;
+}
+
+.content-content .male-content {
+  width: 33.33%;
+  background-color: #4472c4;
+  color: #fff;
+  text-align: center;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-left: 8px solid #fff;
+  border-right: 2px solid #fff;
+  padding: 7px 0px 7px 0px;
+}
+
+.content-content .female-content {
+  width: 33.33%;
+  background-color: #f83299;
+  color: #fff;
+  text-align: center;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+  padding: 7px 0px 7px 0px;
+}
+
+.content-content .pet-content-combo {
+  width: 33.33%;
+  background-color: #bf8f00;
+  color: #fff;
+  text-align: center;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 8px solid #fff;
+  padding: 7px 0px 7px 0px;
+}
+
+.content-content .pet-content {
+  width: 33.33%;
+  background-color: #bf8f00;
+  color: #fff;
+  text-align: center;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 8px solid #fff;
+  padding: 7px 0px 7px 0px;
+}
+
+.color-x {
+  background-color: #bfbfbf !important;
+  color: #000 !important;
+}
+
+.color-male-0 {
+  background-color: #e8ebf5 !important;
+  color: #000 !important;
+}
+
+.color-male-1 {
+  background-color: #cdd4ea !important;
+  color: #000 !important;
+}
+
+.color-female-0 {
+  background-color: #feccff !important;
+  color: #000 !important;
+}
+
+.color-female-1 {
+  background-color: #fb98cc !important;
+  color: #000 !important;
+}
+
+.color-pet-0 {
+  background-color: #fdf2cc !important;
+  color: #000 !important;
+}
+
+.color-pet-1 {
+  background-color: #fada66 !important;
+  color: #000 !important;
+}
+
