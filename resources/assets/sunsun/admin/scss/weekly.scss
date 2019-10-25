@@ -1,13 +1,13 @@
 .container-fluid{
-    margin-top: 20px;
     max-width: 1000px;
     .main-content{
-        border: 3px solid #4573c4;
         margin-bottom: 20px;
     }
 }
-
-.main-head{
+a.week-title{
+    color: #000;
+}
+.main-content-head{
     display: flex;
     justify-content: space-between;
     font-size: 16px;
@@ -39,11 +39,13 @@ a:hover{
     padding: 3px 20px 3px 20px;
     font-size: 18px;
 }
-.main-content{
+
+.main-content-content{
     display: flex;
     text-align: center;
     font-size: 16px;
     font-weight: bold;
+    border: 3px solid #4573c4;
     .line1{
         width: 13.33%;
         display: block;
@@ -107,8 +109,12 @@ a:hover{
 table {
     width: 100%;
 }
+th.pet-head {
+    font-weight: bold;
+}
 .content-head{
     margin: 10px;
+    font-size: 15px;
     .male-head{
         width: 33.33%;
         background-color: #4472c4;
@@ -144,6 +150,8 @@ table {
     }
 }
 .content-content{
+    font-size: 14px;
+    font-weight: normal;
     .male-content{
         width: 33.33%;
         background-color: #4472c4;
