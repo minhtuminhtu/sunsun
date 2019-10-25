@@ -130,12 +130,12 @@
                             @endif
                         @endforeach
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-6">
+                    <div class="row mt-3 fix-layout">
+                        <div class="col-6 fix-layout-left">
                             <button type="button" class="btn btn-block btn-booking text-white add-new-people">予約追加
                             </button>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 fix-layout-right">
                             <button type="submit" class="btn btn-block btn-booking text-white">お支払い入力へ</button>
                         </div>
                     </div>
