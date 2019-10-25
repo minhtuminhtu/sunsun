@@ -1,0 +1,141 @@
+.main-head__top {
+  padding-top: 10px;
+}
+
+.main-head__top .current-day {
+  font-size: 1.2rem;
+}
+
+.main-head__top .icon-calendar {
+  color: #d7751e;
+  padding-left: 10px;
+}
+
+.main-head__top .fa-calendar-alt {
+  font-size: 1.5rem;
+  vertical-align: bottom;
+}
+
+.main-head__top .control-day {
+  background: #bfbfbf;
+  color: #000000;
+  padding: 4px 11px;
+  font-weight: 500;
+}
+
+.main-head__top .node-day {
+  margin-left: 38px;
+}
+
+.main-head__middle {
+  display: flex;
+  padding-top: 20px;
+}
+
+.main-head__middle .middle_box {
+  width: 286px;
+  max-width: 100%;
+  margin-right: 10px;
+  padding: 7px;
+  border: 1px solid #000000;
+  height: 111px;
+}
+
+.main-content {
+  padding-top: 10px;
+}
+
+.main-content__table {
+  display: flex;
+}
+
+.main-content__table .table-human {
+  flex-grow: 1;
+}
+
+.main-content__table .table-human table {
+  width: 100%;
+}
+
+.main-content__table .table-human table .man.odd {
+  background: #cfd5ea;
+}
+
+.main-content__table .table-human table .man.even {
+  background: #e9ebf5;
+}
+
+.main-content__table .table-human table .women.odd {
+  background: #f8cbad;
+}
+
+.main-content__table .table-human table .women.even {
+  background: #fbe5d6;
+}
+
+.main-content__table .table-human table .space-table {
+  background: #ffffff;
+  width: 9px;
+}
+
+.main-content__table .table-human table .text-red {
+  color: red;
+}
+
+.main-content__table .table-human table .info-name {
+  cursor: pointer;
+}
+
+.main-content__table .table-human table td,
+.main-content__table .table-human table th {
+  border: 2px solid #ffffff;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.main-content__table .table-pet {
+  width: 120px;
+}
+
+.main-content__table .table-pet table {
+  width: 100%;
+}
+
+.main-content__table .table-pet table td,
+.main-content__table .table-pet table th {
+  border: 2px solid #ffffff;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.main-content__table .table-pet table .odd {
+  background: #ffe8cb;
+}
+
+.main-content__table .table-pet table .even {
+  background: #fff4e7;
+}
+
+.field-info {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.field-info .field-info-label {
+  width: 86px;
+}
+
+.field-info .field-info-content {
+  flex-grow: 1;
+}
+
+.field-info label {
+  vertical-align: middle;
+}
+
+.field-info input,
+.field-info select {
+  width: 100%;
+  padding: 2px 5px;
+}
+

@@ -23,7 +23,9 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sunsun/front/scss/booking.scss', 'public/sunsun/front/css')
     .sass('resources/assets/sunsun/front/scss/booking-mobile.scss', 'public/sunsun/front/css')
 
-
+    //admin
+    .sass('resources/assets/sunsun/admin/scss/day.scss', 'public/sunsun/admin/css')
+    .sass('resources/assets/sunsun/admin/scss/monthly.scss', 'public/sunsun/admin/css')
 
     .copyDirectory('resources/assets/sunsun/imgs', 'public/sunsun/imgs')
     .copyDirectory('resources/assets/sunsun/lib', 'public/sunsun/lib');

@@ -1,0 +1,125 @@
+.main-head {
+    &__top {
+        padding-top: 10px;
+
+        .current-day {
+            font-size: 1.2rem;
+        }
+
+        .icon-calendar {
+            color: #d7751e;
+            padding-left: 10px;
+        }
+
+        .fa-calendar-alt {
+            font-size: 1.5rem;
+            vertical-align: bottom;
+        }
+
+        .control-day {
+            background: rgb(191, 191, 191);
+            color: #000000;
+            padding: 4px 11px;
+            font-weight: 500;
+        }
+
+        .node-day {
+            margin-left: 38px;
+        }
+    }
+    &__middle {
+        display: flex;
+        padding-top: 20px;
+        .middle_box {
+            width: 286px;
+            max-width: 100%;
+            margin-right: 10px;
+            padding: 7px;
+            border: 1px solid #000000;
+            height: 111px;
+        }
+    }
+}
+.main-content {
+    padding-top: 10px;
+    &__table {
+        display: flex;
+        table {
+            td {
+
+            }
+        }
+        .table-human {
+            flex-grow: 1;
+            table {
+                width: 100%;
+                .man {
+                    &.odd {
+                        background: rgb(207,213,234);
+                    }
+                    &.even {
+                        background: rgb(233,235,245);
+                    }
+                }
+
+                .women {
+                    &.odd {
+                        background: rgb(248,203,173);
+                    }
+                    &.even {
+                        background: rgb(251,229,214);
+                    }
+                }
+                .space-table {
+                    background: #ffffff;
+                    width: 9px;
+                }
+                .text-red {
+                    color: red;
+                }
+                .info-name {
+                    cursor: pointer;
+                }
+                td, th {
+                    border: 2px solid #ffffff;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+            }
+        }
+        .table-pet {
+            width: 120px;
+            table {
+                width: 100%;
+                td, th {
+                    border: 2px solid #ffffff;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+                .odd {
+                    background: rgb(255,232,203);
+                }
+                .even {
+                    background: rgb(255,244,231);
+                }
+            }
+        }
+    }
+}
+.field-info {
+    display: flex;
+    margin-bottom: 5px;
+    .field-info-label {
+        width: 86px;
+    }
+    .field-info-content {
+        flex-grow: 1;
+    }
+    label {
+        vertical-align: middle;
+    }
+    input, select {
+        width: 100%;
+        padding: 2px 5px;
+    }
+}
