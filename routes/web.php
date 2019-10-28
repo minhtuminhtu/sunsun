@@ -15,17 +15,13 @@
 Route::namespace('Sunsun\Front')->group(function (){
     Route::get('/', function () {
         return view('sunsun.front.index');
-    });
+    })->name('home');
 
     Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
     Route::any('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
     Route::post('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
 
-    Route::get('/create', 'UserController@create');
 
-    Route::get('/edit', 'UserController@edit');
-    Route::get('/login', 'UserController@login');
-    Route::get('/changepassword', 'UserController@changepassword');
 
     Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
 
@@ -35,6 +31,20 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::post('/add_new_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@add_new_booking']);
     Route::post('/save_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@save_booking']);
 
+});
+
+// Auth
+Route::namespace('Sunsun\Auth')->group(function (){
+    Route::get('/register', ['as' => 'register',  'uses' => 'MsUserController@register']);
+    Route::get('/login', ['as' => 'login',  'uses' => 'LoginController@showLoginForm']);
+    Route::post('/login', ['as' => 'auth', 'uses' => 'LoginController@login']);
+    Route::post('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
+
+    //
+    Route::get('/edit/{ms_user_id}', ['as' => 'edit',  'uses' => 'MsUserController@edit']);
+    Route::Post('/upload', ['as' => 'upload',  'uses' => 'MsUserController@upload']);
+    Route::Post('/create', ['as' => 'create',  'uses' => 'MsUserController@create']);
+    Route::get('/changepassword', ['as' => 'changepassword',  'uses' => 'MsUserController@changepassword']);
 });
 
 // Admin

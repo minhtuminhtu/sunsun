@@ -12,16 +12,7 @@
             <h1 class="title-menu">Edit  </h1>
         </div>
         <div class="container">
-            @include('sunsun.front.users._form', ["new" => 0, "name" => "Pham Van A", "email" => "testemail@gmail.com"])
-            <div class="user-warp">
-                <div class="row">
-                    <div class="col-6 offset-3">
-                        <a class= "no-effect">
-                            <button type="button" class="btn btn-block btn-booking text-white confirm-rules">Update</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @include('sunsun.auth._form', ["new" => 0, "name" => "Pham Van A", "email" => "testemail@gmail.com", 'ms_user' => 'aaaa'])
         </div>
     </main>
 @endsection
