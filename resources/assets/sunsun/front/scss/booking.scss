@@ -32,21 +32,7 @@ a:hover {
 .title-menu{
     margin-bottom: 14px;
 }
-.line-space-top{
-    padding-top: 3px;
-    margin-bottom: 0px;
-    background-color: #fff !important;
-}
-.line-space-bottom{
-    padding-bottom: 3px;
-    margin-top: 0px;
-    margin-bottom: 7px !important;
-    background-color: #fff !important;
-}
-.line-line{
-    margin: 0px;
-    background-color: #357ae8 !important;
-}
+
 .user-warp{
     padding: 10px;
     width: 524px;
@@ -62,7 +48,6 @@ a:hover {
 
 .booking-warp {
     padding: 10px;
-    border: 1px solid #dee2e6;
     width: 524px;
     max-width: 100%;
     margin: 0 auto;
@@ -249,4 +234,27 @@ a.no-effect{
     100% {
         height:auto;
     }
+}
+.form {
+
+}
+.form input, form select {
+    width: 100%;
+    padding: 9px 8px;
+    border: 1px solid #707070;
+    border-radius: 0;
+    font-weight: 200;
+}
+.form-group {
+    display: flex;
+}
+.form-label {
+    width: 100px;
+}
+.form-label label {
+    margin: 0;
+    line-height: 44px;
+}
+.form-input {
+    flex-grow: 1;
 }

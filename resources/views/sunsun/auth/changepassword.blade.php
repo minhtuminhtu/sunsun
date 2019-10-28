@@ -4,13 +4,11 @@
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
 @endsection
-
+@section('page_title', 'Change Password')
 @section('main')
     <main class="main-body">
-        <div class="main-body-head text-center">
-            <h1 class="title-menu">Change Password </h1>
-        </div>
         <div class="container">
             <div class="user-warp">
                 <div class="row mt-2">

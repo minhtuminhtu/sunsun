@@ -4,38 +4,11 @@
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
-    <style>
-        .form {
-
-        }
-        .form input, form select {
-            width: 100%;
-            padding: 9px 8px;
-            border: 1px solid #707070;
-            border-radius: 0;
-            font-weight: 200;
-        }
-        .form-group {
-            display: flex;
-        }
-        .form-label {
-            width: 100px;
-        }
-        .form-label label {
-            margin: 0;
-            line-height: 44px;
-        }
-        .form-input {
-            flex-grow: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
 @endsection
-
+@section('page_title', 'ユーザー登録')
 @section('main')
     <main class="main-body">
-        <div class="main-body-head text-center">
-            <h1 class="title-menu">ユーザー登録</h1>
-        </div>
         <div class="container">
             <div class="user-warp">
                 {!! Form::open(['action' => ['Sunsun\Auth\MsUserController@create'], 'method' => 'POST', 'class' => 'form']) !!}

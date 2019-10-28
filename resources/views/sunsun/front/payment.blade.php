@@ -16,12 +16,9 @@
 
     </style>
 @endsection
-
+@section('page_title', '支払い入力')
 @section('main')
     <main class="main-body">
-        <div class="main-body-head text-center">
-            <h1 class="title-menu">支払い入力 </h1>
-        </div>
         <div class="container">
             <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf

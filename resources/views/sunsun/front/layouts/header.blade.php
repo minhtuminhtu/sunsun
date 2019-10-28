@@ -64,6 +64,8 @@
             </ul>
         </nav>
     </div>
-</div>
-
+    <p class="breadcrumb"><a href="/" class="breadcrumb-link">ぬか天国 Sun燦 トップページ</a> &gt; メニュー・ご利用料金</p>
+    <div class="main-body-head text-center mb-3">
+        <h1 class="title-menu">@yield('page_title')</h1>
+    </div>
 </header>
