@@ -118,24 +118,36 @@
     @parent
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.js')}}"></script>
     <script>
-        var phoneField = $('input[name=tel]');
-        phoneField.on('keyup', function(){
-            var phoneValue = phoneField.val();
-            var output;
-            phoneValue = phoneValue.replace(/[^0-9]/g, '');
-            var area = phoneValue.substr(0, 3);
-            var pre = phoneValue.substr(3, 3);
-            var tel = phoneValue.substr(6, 4);
-            if (area.length < 3) {
-                output = "(" + area;
-            } else if (area.length == 3 && pre.length < 3) {
-                output = "(" + area + ")" + " " + pre;
-            } else if (area.length == 3 && pre.length == 3) {
-                output = "(" + area + ")" + " " + pre + " - "+tel;
-            }
-            phoneField.val() = output;
+        (function($) {
+            $.fn.inputFilter = function(inputFilter) {
+                return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
+                    if (inputFilter(this.value)) {
+                        this.oldValue = this.value;
+                        this.oldSelectionStart = this.selectionStart;
+                        this.oldSelectionEnd = this.selectionEnd;
+                    } else if (this.hasOwnProperty("oldValue")) {
+                        this.value = this.oldValue;
+                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                    }
+                });
+            };
 
-        });
+            $('#tel').inputFilter(function(value) {
+                if ( (1 < value.length <= 3) || (4 < value.length <= 7) || (7 < value.length <= 10)) {
+                    let value_check = value.substring(1,3) + value.substring(5,7) + value.substring(8,10)
+
+                    let check = /^\d*$/.test(value_check);
+
+                    if (check === false) {
+                        return  false;
+                    }
+
+                }
+                console.log(format_phone);
+                return format_phone;
+            });
+        }(jQuery));
+
     </script>
 @endsection
 
