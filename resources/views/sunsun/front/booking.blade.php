@@ -18,13 +18,10 @@
         }
     </style>
 @endsection
-
+@section('page_title', '予約入力')
 @section('main')
 
     <main class="main-body">
-        <div class="main-body-head text-center">
-            <h1 class="title-menu">予約入力  </h1>
-        </div>
         <div class="">
             <form action="{{route('.confirm')}}" method="POST" class="booking">
                 <div class="">

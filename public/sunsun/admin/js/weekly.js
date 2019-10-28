@@ -104,7 +104,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\weekly.js */"./resources/assets/sunsun/admin/js/weekly.js");
+module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/admin/js/weekly.js */"./resources/assets/sunsun/admin/js/weekly.js");
 
 
 /***/ })
