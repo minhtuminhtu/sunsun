@@ -395,3 +395,11 @@ form select {
   text-align: right;
 }
 
+.button-submit-block {
+  display: flex;
+}
+
+.button-submit-block .button-submit-center {
+  width: 45%;
+}
+

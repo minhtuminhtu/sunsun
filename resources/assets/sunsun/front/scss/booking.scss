@@ -338,3 +338,9 @@ a.no-effect{
         text-align: right;
     }
 }
+.button-submit-block{
+    display: flex;
+    .button-submit-center{
+        width: 45%;
+    }
+}
