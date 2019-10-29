@@ -65,7 +65,7 @@
 
                 <div class="timedate-right pl-0 mt-1">
                     <span class="icon-clock">
-                        <i class="far fa-clock fa-2x js-set-time"></i>
+                        <img class="js-set-time svg-font" src="{{asset('sunsun/svg/clock.svg').config('version_files.html.css')}}"/>
                     </span>
                 </div>
             </div>
@@ -84,7 +84,7 @@
 
                 <div class="timedate-right pl-0 mt-1">
                     <span class="icon-clock">
-                        <i class="far fa-clock fa-2x js-set-time"></i>
+                        <img class="js-set-time svg-font" src="{{asset('sunsun/svg/clock.svg').config('version_files.html.css')}}"/>
                     </span>
                 </div>
             </div>
