@@ -10,8 +10,8 @@
   .booking-warp {
     border: none;
     max-width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 
   .booking-field {
@@ -77,8 +77,8 @@
   .booking-warp {
     border: none;
     max-width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 0px;
+    padding-left: 5px;
   }
 
   .booking-field {
@@ -219,6 +219,20 @@
   .breadcrumb-link {
     font-size: 10px !important;
   }
+
+  .booking-line {
+    display: flex;
+  }
+
+  .booking-line .booking-line-laber {
+    width: 25%;
+  }
+
+  .booking-line .booking-line-line {
+    width: 75%;
+    border-top: 1px solid #000;
+    border-style: dashed;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -272,14 +286,14 @@
 
 .foot-confirm {
   margin: 0 auto;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
   width: 524px;
   max-width: 100%;
 }
 
 .foot-confirm .confirm-button {
   display: flex;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 .foot-confirm .confirm-button .button-left {
@@ -294,7 +308,7 @@
 
 .title-menu {
   background-color: #000;
-  padding: 12px 0px 10px 0px;
+  padding: 12px 0px 10px 10px;
   width: 524px;
   margin: 0 auto;
   max-width: 100%;
@@ -331,7 +345,7 @@
 
 .breadcrumb {
   width: 524px;
-  max-width: 100%;
+  max-width: 95%;
   margin: 0 auto;
   padding-left: 0px;
   padding-bottom: 3px;

@@ -26,8 +26,7 @@
             <form action="{{route('.confirm')}}" method="POST" class="booking">
                 <div class="">
                     @csrf
-                    <div class="booking-warp">
-
+                    <div class="booking-warp booking" style="background-image: url('{{ asset('sunsun/imgs/bg.png') }}');">
                         @if(isset($add_new_user) && $add_new_user == 'on')
                             <div class="data-field-day">
                                   <span>
@@ -44,66 +43,76 @@
                             </div>
                         @endif
 
+                        <div class="booking-line font-weight-bold">
+                            <div class="booking-line-laber">
+                            基本情報
+                            </div>
+                            <!-- <hr class="booking-line-line"> -->
+                        </div>
 
-                        <div class="booking-field">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.used.label')}}</p>
+                        <div class="booking-block-top">
+                            
+
+                            <div class="booking-field">
+                                <div class="booking-field-label">
+                                    <p class="text-md-left pt-2">{{config('booking.used.label')}}</p>
+                                </div>
+                                <div class="booking-field-content">
+                                    <select name="used" class="form-control">
+                                        @foreach(config('booking.used.options') as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="booking-field-content">
-                                <select name="used" class="form-control">
-                                    @foreach(config('booking.used.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
+                                <div class="booking-field-label">
+                                    <p class="text-md-left pt-2">{{config('booking.transportation.label')}}</p>
+                                </div>
+                                <div class="booking-field-content">
+                                    <select name="transportation" id='transportation' class="form-control">
+                                        @foreach(config('booking.transportation.options') as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.transportation.label')}}</p>
+                            <div class="booking-field bus" style="display:none;">
+                                <div class="booking-field-label">
+                                    <p class="text-md-left pt-2">{{config('booking.bus_arrival.label')}}</p>
+                                </div>
+                                <div class="booking-field-content">
+                                    <select name="bus_arrival" class="form-control">
+                                        @foreach(config('booking.bus_arrival.options') as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="booking-field-content">
-                                <select name="transportation" id='transportation' class="form-control">
-                                    @foreach(config('booking.transportation.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="booking-field bus" style="display:none">
+                                <div class="booking-field-label">
+                                    <p class="text-md-left pt-2">{{config('booking.pick_up.label')}}</p>
+                                </div>
+                                <div class="booking-field-content">
+                                    <select name="pick_up" class="form-control">
+                                        @foreach(config('booking.pick_up.options') as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    <p class="text-md-left mt-2 mb-2 node-text">バスの方は洲本ICのバス停に送迎を行います。</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="booking-field bus" style="display:none;">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.bus_arrival.label')}}</p>
-                            </div>
-                            <div class="booking-field-content">
-                                <select name="bus_arrival" class="form-control">
-                                    @foreach(config('booking.bus_arrival.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="booking-field bus" style="display:none">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.pick_up.label')}}</p>
-                            </div>
-                            <div class="booking-field-content">
-                                <select name="pick_up" class="form-control">
-                                    @foreach(config('booking.pick_up.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                                <p class="text-md-left mt-2 mb-2">バスの方は洲本ICのバス停に送迎を行います。</p>
-                            </div>
-                        </div>
-                        <div class="booking-field">
-                            <div class="booking-field-label">
-                                <p class="text-md-left pt-2">{{config('booking.services.label')}}</p>
-                            </div>
-                            <div class="booking-field-content">
-                                <select name="services" id="services" class="form-control">
-                                    @foreach(config('booking.services.options') as $key => $value)
-                                        <option value="{{ $value }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="booking-field">
+                                <div class="booking-field-label">
+                                    <p class="text-md-left pt-2">{{config('booking.services.label')}}</p>
+                                </div>
+                                <div class="booking-field-content">
+                                    <select name="services" id="services" class="form-control">
+                                        @foreach(config('booking.services.options') as $key => $value)
+                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -111,17 +120,19 @@
 
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-6">
+                        
+                    </div>
+                    <div class="foot-confirm">
+                        <div class="confirm-button">
+                            <div class="button-left">
                                 @if(isset($add_new_user) && $add_new_user == 'on')
                                     <input type="hidden" name="add_new_user" value="on">
                                 @endif
-                                <button type="button" class="btn btn-block text-white btn-booking add-new-people">予約追加</button>
+                                <button type="button" class="btn btn-block text-white btn-booking btn-confirm-left add-new-people">予約追加</button>
                             </div>
-                            <div class="col-6">
+                            <div class="button-right">
                                 <button type="submit" class="btn btn-block text-white btn-booking">予約確認へ</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
