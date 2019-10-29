@@ -160,7 +160,10 @@
                                                 なし
                                                 </p>
                                             @endif 
-                                        
+                                        @else
+                                            <p>
+                                            なし
+                                            </p>
                                         @endif 
                                         
                                     </div>
