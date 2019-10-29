@@ -25,8 +25,8 @@
             <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <div class="row age mt-1">
-                <div class="col-6">
+            <div class="age-col age mt-1">
+                <div class="age-left">
                     <select name="age" class="custom-select">
                         @foreach(config('booking.age.options') as $key => $value)
                         <option value="{{ $value }}">{{ $value }}</option>
@@ -112,7 +112,7 @@
 <div class="booking-block-finish">
     <div class="booking-field">
         <div class="booking-field-label">
-            <p class="text-md-left pt-2">{{config('booking.room.label')}}</p>
+            <p class="text-md-left pt-2">【宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span>】</p>
         </div>
         <div class="booking-field-content">
             <select name="room" id="room" class="form-control">
