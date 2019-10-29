@@ -18,7 +18,7 @@ a:hover {
 }
 
 .title-table-time {
-  background: #bbd6ef;
+  background-image: url("/sunsun/imgs/bg.png");
 }
 
 .booking-info {
@@ -38,7 +38,7 @@ a:hover {
 }
 
 .user-warp {
-  padding: 10px;
+  padding: 0 40px;
   width: 524px;
   max-width: 100%;
   margin: 0 auto;
@@ -74,24 +74,34 @@ a:hover {
   box-shadow: none;
 }
 
-.booking-warp .credit-card .card-img {
-  width: 10%;
+.booking-warp .credit-card .credit-card-line {
+  width: 60%;
+  display: flex;
 }
 
-.booking-warp .credit-card .card-img .scale-image {
+.booking-warp .credit-card .credit-card-line .card-img {
+  width: 20%;
+}
+
+.booking-warp .credit-card .credit-card-line .card-img .scale-image {
   max-width: 30px;
 }
 
-.booking-warp .credit-card .card-number {
-  width: 50%;
+.booking-warp .credit-card .credit-card-line .card-number {
+  width: 80%;
 }
 
-.booking-warp .credit-card .card-expire {
-  width: 23%;
+.booking-warp .credit-card .credit-card-line2 {
+  width: 40%;
+  display: flex;
 }
 
-.booking-warp .credit-card .card-secret {
-  width: 17%;
+.booking-warp .credit-card .credit-card-line2 .card-expire {
+  width: 60%;
+}
+
+.booking-warp .credit-card .credit-card-line2 .card-secret {
+  width: 40%;
 }
 
 .choice-time {
@@ -100,13 +110,13 @@ a:hover {
 }
 
 .choice-time .label-data {
-  padding-left: 30px;
+  padding-left: 20px;
   padding-right: 10px;
 }
 
 .choice-time .icon-time {
-  padding-right: 6px;
-  padding-left: 2px;
+  padding-right: 3px;
+  padding-left: 3px;
 }
 
 .choice-time .choice-data-time {
@@ -118,7 +128,7 @@ a:hover {
 }
 
 .choice-time .choice-data-time > div input {
-  width: 78px;
+  width: 72px;
 }
 
 main .main-body-head h1 {
@@ -284,17 +294,13 @@ form select {
   font-weight: 200;
 }
 
-.form-group {
-  display: flex;
-}
-
 .form-label {
   width: 100px;
 }
 
 .form-label label {
   margin: 0;
-  line-height: 44px;
+  line-height: unset !important;
 }
 
 .form-input {
@@ -326,7 +332,12 @@ form select {
 }
 
 .btn-booking.btn-confirm-left {
-  background-color: #523e29;
+  background: #ffc107;
+}
+
+.btn-warning {
+  background-color: #ffc107 !important;
+  border-color: #ffc107 !important;
 }
 
 .main {
@@ -359,11 +370,11 @@ form select {
 
 .button-age .button-age-left {
   width: 40%;
-  padding-right: 2px;
+  padding-right: 5px;
 }
 
 .button-age .button-age-right {
-  padding-left: 1px;
+  padding-left: 5px;
   width: 60%;
 }
 
@@ -401,5 +412,36 @@ form select {
 
 .button-submit-block .button-submit-center {
   width: 45%;
+}
+
+label.form-check-label {
+  font-size: 0.9rem;
+}
+
+.booking-field.booking-room {
+  margin-right: 10px;
+}
+
+.form-control {
+  border-radius: 0.25rem !important;
+}
+
+.booking-laber-padding {
+  padding-left: 10px !important;
+}
+
+.center-link {
+  text-align: center !important;
+  color: #d7751e !important;
+}
+
+.right-link {
+  text-align: right !important;
+  color: #000 !important;
+  font-size: 0.9rem !important;
+}
+
+.time-laber {
+  font-size: 0.8rem !important;
 }
 

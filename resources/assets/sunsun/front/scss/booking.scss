@@ -17,7 +17,7 @@ a:hover {
     }
 }
 .title-table-time {
-    background: #bbd6ef;
+    background-image: url('/sunsun/imgs/bg.png');
 }
 .booking-info {
     background: #feebeb;
@@ -34,7 +34,7 @@ a:hover {
 }
 
 .user-warp{
-    padding: 10px;
+    padding: 0 40px;
     width: 524px;
     max-width: 100%;
     margin: 0 auto;
@@ -63,21 +63,32 @@ a:hover {
             border: 0;
             box-shadow: none;
         }
-        .card-img{
-            width: 10%;
-            .scale-image{
-                max-width: 30px;
+        
+        
+        .credit-card-line{
+            width: 60%;
+            display: flex;
+            .card-img{
+                width: 20%;
+                .scale-image{
+                    max-width: 30px;
+                }
+            }
+            .card-number{
+                width: 80%;
             }
         }
-        .card-number{
-            width: 50%;
+        .credit-card-line2{
+            width: 40%;
+            display: flex;
+            .card-expire{
+                width: 60%;
+            }
+            .card-secret{
+                width: 40%;
+            }
         }
-        .card-expire{
-            width: 23%;
-        }
-        .card-secret{
-            width: 17%;
-        }
+        
     }
 }
 
@@ -85,19 +96,19 @@ a:hover {
     display: flex;
     padding-top: 5px;
     .label-data {
-        padding-left: 30px;
+        padding-left: 20px;
         padding-right: 10px;
     }
     .icon-time {
-        padding-right: 6px;
-        padding-left: 2px;
+        padding-right: 3px;
+        padding-left: 3px;
     }
     .choice-data-time {
         float: left;
         >div {
             float: left;
             input {
-                width: 78px;
+                width: 72px;
             }
         }
     }
@@ -245,15 +256,12 @@ a.no-effect{
     border-radius: 0;
     font-weight: 200;
 }
-.form-group {
-    display: flex;
-}
 .form-label {
     width: 100px;
 }
 .form-label label {
     margin: 0;
-    line-height: 44px;
+    line-height: unset !important;
 }
 .form-input {
     flex-grow: 1;
@@ -279,7 +287,11 @@ a.no-effect{
     max-width: 1.75rem;
 }
 .btn-booking.btn-confirm-left{
-    background-color: #523e29;
+    background: #ffc107;
+}
+.btn-warning {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
 }
 .main {
     position: relative;
@@ -309,10 +321,10 @@ a.no-effect{
     display: flex;
     .button-age-left{
         width: 40%;
-        padding-right: 2px;
+        padding-right: 5px;
     }
     .button-age-right{
-        padding-left: 1px;
+        padding-left: 5px;
         width: 60%;
     }
 }
@@ -343,4 +355,28 @@ a.no-effect{
     .button-submit-center{
         width: 45%;
     }
+}
+label.form-check-label {
+    font-size: 0.9rem;
+}
+.booking-field.booking-room{
+    margin-right: 10px;
+}
+.form-control {
+    border-radius: 0.25rem !important;
+}
+.booking-laber-padding{
+    padding-left: 10px !important;
+}
+.center-link{
+    text-align: center !important;
+    color: #d7751e !important;
+}
+.right-link{
+    text-align: right !important;
+    color: #000 !important;
+    font-size: 0.9rem !important;
+}
+.time-laber{
+    font-size: 0.8rem !important;
 }

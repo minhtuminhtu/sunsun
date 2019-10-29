@@ -1,6 +1,6 @@
 <div>
     <div class="title-table-time">
-        <span>{{$data['sex']}}</span> {{----}}
+        <span class="font-weight-bold">{{$data['sex']}}</span> {{----}}
     </div>
     <table class="table-statistics">
         <thead>

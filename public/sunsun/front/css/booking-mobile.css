@@ -77,8 +77,8 @@
   .booking-warp {
     border: none;
     max-width: 100%;
-    padding-right: 0px;
-    padding-left: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 
   .booking-field {
@@ -87,11 +87,11 @@
   }
 
   .booking-field .booking-field-label {
-    width: 39% !important;
+    width: 35% !important;
   }
 
   .booking-field .booking-field-content {
-    width: 61% !important;
+    width: 65% !important;
   }
 
   .booking-field-label.age-css {
@@ -212,12 +212,12 @@
   }
 
   .breadcrumb {
-    font-size: 10px !important;
+    font-size: 11px !important;
     margin: 0px 10px !important;
   }
 
   .breadcrumb-link {
-    font-size: 10px !important;
+    font-size: 11px !important;
   }
 
   .booking-line {
@@ -225,13 +225,78 @@
   }
 
   .booking-line .booking-line-laber {
-    width: 25%;
+    width: 50%;
+    padding-left: 5px;
   }
 
   .booking-line .booking-line-line {
-    width: 75%;
+    width: 50%;
     border-top: 1px solid #000;
     border-style: dashed;
+  }
+
+  .credit-card {
+    border: none !important;
+  }
+
+  .booking-warp {
+    padding: 10px;
+    width: 524px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .booking-warp .credit-card {
+    display: block;
+    margin: 10px 10px 20px 55px;
+  }
+
+  .booking-warp .credit-card .form-control {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .booking-warp .credit-card .form-control:focus {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .booking-warp .credit-card .credit-card-line {
+    width: 100% !important;
+    border: 1px solid #dee2e6;
+    display: flex;
+  }
+
+  .booking-warp .credit-card .credit-card-line .card-img {
+    width: 15%;
+  }
+
+  .booking-warp .credit-card .credit-card-line .card-img .scale-image {
+    max-width: 30px;
+  }
+
+  .booking-warp .credit-card .credit-card-line .card-number {
+    width: 85%;
+  }
+
+  .booking-warp .credit-card .credit-card-line2 {
+    margin-top: 5px;
+    border: 1px solid #dee2e6;
+    width: 100% !important;
+    display: flex;
+  }
+
+  .booking-warp .credit-card .credit-card-line2 .card-expire {
+    width: 80%;
+  }
+
+  .booking-warp .credit-card .credit-card-line2 .card-secret {
+    width: 40%;
+  }
+
+  .footer-space {
+    height: 20px;
+    border-top: 0px !important;
   }
 }
 
@@ -249,11 +314,12 @@
   border: 1px solid #402106;
   background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg.png");
   padding-bottom: 10px;
+  padding-top: 10px;
   margin: 0px 10px;
 }
 
 .body-confirm {
-  margin: 10px 10px 20px 10px;
+  margin: 10px 10px 0px 10px;
   padding: 10px 0px;
   background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg2.png");
 }
@@ -263,7 +329,7 @@
 }
 
 .line-x {
-  height: 2px;
+  height: 1px;
   margin: 10px 20px;
   background-color: #d8d8d8 !important;
   border-top: 0px;
@@ -271,7 +337,7 @@
 
 .line-line {
   margin: 10px 0px;
-  height: 3px;
+  height: 10px;
   background-color: #d8d8d8 !important;
 }
 
@@ -286,7 +352,7 @@
 
 .foot-confirm {
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   width: 524px;
   max-width: 100%;
 }
@@ -298,12 +364,14 @@
 
 .foot-confirm .confirm-button .button-left {
   width: 50%;
-  margin-right: 5px;
+  margin-right: 10px;
+  margin-left: 5px;
 }
 
 .foot-confirm .confirm-button .button-right {
   width: 50%;
-  margin-left: 5px;
+  margin-right: 5px;
+  margin-left: 10px;
 }
 
 .title-menu {
@@ -321,7 +389,7 @@
 
 .line {
   display: flex;
-  padding: 0 1.5rem !important;
+  padding: 0 0px 0px 1.5rem !important;
   margin-top: 10px;
 }
 
@@ -340,7 +408,7 @@
 .linex {
   display: block;
   padding-left: 1.5rem !important;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .breadcrumb {
@@ -358,5 +426,21 @@
   background-color: #fff;
   font-size: 12px;
   color: #402106;
+}
+
+.small-text {
+  font-size: 0.8rem !important;
+}
+
+.title-table-time {
+  padding: 5px 0;
+}
+
+.btn-modal-left {
+  margin-right: 5px !important;
+}
+
+.btn-modal-right {
+  margin-left: 5px !important;
 }
 

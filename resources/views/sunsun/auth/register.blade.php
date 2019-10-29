@@ -13,66 +13,64 @@
             <div class="user-warp">
                 {!! Form::open(['action' => ['Sunsun\Auth\MsUserController@create'], 'method' => 'POST', 'class' => 'form']) !!}
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <div class="form-label">
-                        {!! Form::label('username', '名称') !!}
+                        {!! Form::label('username', '名前') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::text('username', null, ['class' => '']) !!}
+                        {!! Form::text('username', null, ['class' => 'form-control mb-0']) !!}
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <div class="form-label">
-                        {!! Form::label('tel', 'Tel') !!}
-                        <p class="text-md-left pt-2"></p>
+                        {!! Form::label('tel', '電話番号') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::text('tel', null, ['class' => '']) !!}
+                        {!! Form::text('tel', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <div class="form-label">
                         {!! Form::label('email', 'Eメール') !!}
-                        <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('email', null, ['class' => '']) !!}
+                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <div class="form-label">
                         {!! Form::label('password', 'パスワード') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::password('password', ['class' => '']) !!}
+                        {!! Form::password('password', ['class' => 'form-control']) !!}
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <div class="form-label">
                         {!! Form::label('gender', '性別') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::select('gender', ['female' => 'Female', 'male' => 'Male'], 'female', ['class' => ""]) !!}
+                        {!! Form::select('gender', ['female' => '女性', 'male' => '男性'], 'female', ['class' => "form-control"]) !!}
 
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <div class="form-label">
                         {!! Form::label('birth_year', '年齢') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::selectRange('birth_year', 1930, 2019, 1986,['class' => ""] ) !!}
+                        {!! Form::selectRange('birth_year', 1930, 2019, 1986,['class' => "form-control"] ) !!}
                     </div>
                 </div>
-                <div class="form-group" style="margin-top: 15px">
+                <div class="form-group" style="margin-top: 30px">
                     <div class="form-label">
                     </div>
                     <div class="form-input">
                         {{Form::button('登録', ['type'=> 'submit','class'=>'btn btn-block btn-booking text-white confirm-rules'])}}
                     </div>
-                    <div class="col-3 d-flex align-items-center justify-content-center">
-                        <a href="/login" class="no-effect">ログイン</a>
+                    <div class="d-flex align-items-center justify-content-center mt-3">
+                        <a class="center-link" href="/login">ログイン</a>
                     </div>
 
                 </div>
@@ -81,6 +79,7 @@
             </div>
         </div>
     </main>
+    <hr class="footer-space">
 @endsection
 
 @section('footer')
