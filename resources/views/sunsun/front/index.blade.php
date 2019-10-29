@@ -10,8 +10,7 @@
     <main class="main-body">
         <div class="container">
             <div class="booking">
-                <div class="row">
-                    <div class="booking-warp">
+            <div class="booking-warp">
                         <div class="index-field">
                         </div>
                         <div class="index-field">
@@ -40,8 +39,8 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-6 offset-3">
+                        <div class="button-submit-block mt-3">
+                            <div class="button-submit-center offset-3">
                                 <a class= "no-effect" href="{{route('.booking')}}">
                                     <button type="button" class="btn btn-block btn-booking text-white confirm-rules" disabled>予約入力へ</button>
                                 </a>
@@ -49,7 +48,6 @@
 
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </main>

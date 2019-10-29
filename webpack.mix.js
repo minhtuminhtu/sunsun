@@ -35,4 +35,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sunsun/admin/scss/monthly.scss', 'public/sunsun/admin/css')
 
     .copyDirectory('resources/assets/sunsun/imgs', 'public/sunsun/imgs')
-    .copyDirectory('resources/assets/sunsun/lib', 'public/sunsun/lib');
+    .copyDirectory('resources/assets/sunsun/lib', 'public/sunsun/lib')
+    .copyDirectory('resources/assets/sunsun/svg', 'public/sunsun/svg');

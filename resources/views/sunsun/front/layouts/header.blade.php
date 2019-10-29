@@ -64,8 +64,8 @@
             </ul>
         </nav>
     </div>
-    <p class="breadcrumb"><a href="/" class="breadcrumb-link">ぬか天国 Sun燦 トップページ</a> &gt; メニュー・ご利用料金</p>
+    <p class="breadcrumb"><a href="/" class="breadcrumb-link">ぬか天国 Sun燦 トップページ</a> &#160;&#160;&gt;&#160; @yield('page_title')</p>
     <div class="main-body-head text-center mb-3">
-        <h1 class="title-menu">@yield('page_title')</h1>
+        <h1 class="title-menu text-left">@yield('page_title')</h1>
     </div>
 </header>
