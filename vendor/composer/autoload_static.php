@@ -386,6 +386,7 @@ class ComposerStaticInitcb9cb4ca49c4a41049a825cf153b2719
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Sunsun\\Admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sunsun/Admin/AdminController.php',
+        'App\\Http\\Controllers\\Sunsun\\Auth\\AuthUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sunsun/Auth/AuthUserController.php',
         'App\\Http\\Controllers\\Sunsun\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sunsun/Auth/LoginController.php',
         'App\\Http\\Controllers\\Sunsun\\Auth\\MsUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sunsun/Auth/MsUserController.php',
         'App\\Http\\Controllers\\Sunsun\\Front\\BookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sunsun/Front/BookingController.php',
