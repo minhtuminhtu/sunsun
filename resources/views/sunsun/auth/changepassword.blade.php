@@ -1,10 +1,15 @@
 @extends('sunsun.front.template')
-
 @section('head')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
+    <style>
+        .has-error .help-block {
+            font-size: 0.85rem;
+            color: red;
+        }
+    </style>
 @endsection
 @section('page_title', 'Change Password')
 @section('main')
@@ -12,12 +17,21 @@
         <div class="container">
             <div class="user-warp">
                 {!! Form::open(['action' => ['Sunsun\Auth\AuthUserController@changepassword'], 'method' => 'POST', 'class' => 'form']) !!}
+                @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                        @php
+                            Session::forget('success');
+                        @endphp
+                    </div>
+                @endif
                 <div class="row mt-2">
                     <div class="col-3">
                         <p class="text-md-left pt-2">Old Password</p>
                     </div>
                     <div class="col-9">
-                        <input name="password" type="password" id="password" class="form-control" required >
+                        <input name="password" type="password" id="password" class="form-control" required autofocus >
+                        {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
                 <div class="row mt-2">

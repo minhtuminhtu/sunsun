@@ -38,7 +38,7 @@ Route::namespace('Sunsun\Auth')->group(function (){
     Route::get('/register', ['as' => 'register',  'uses' => 'MsUserController@register']);
     Route::get('/login', ['as' => 'login',  'uses' => 'LoginController@showLoginForm']);
     Route::post('/login', ['as' => 'auth', 'uses' => 'LoginController@login']);
-    Route::post('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
     Route::Post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
 });
 Route::middleware('auth')->namespace('Sunsun\Auth')->group(function (){
