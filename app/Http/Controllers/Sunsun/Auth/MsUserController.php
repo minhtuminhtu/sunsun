@@ -33,10 +33,10 @@ class MsUserController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:ms_user'],
-            'tel' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:1'], //'confirmed'
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:ms_user',
+            'tel' => 'required|string|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im',
+            'password' => 'required|string|min:1', //'confirmed'
         ]);
     }
 
@@ -50,7 +50,10 @@ class MsUserController extends Controller
         $validation = $this->validator($data);
 
         if ($validation->fails()) {
-            return redirect()->back()->withErrors($validation->errors());
+            return redirect()
+                ->back()
+                ->withErrors($validation->errors())
+                ->withInput($request->except('password'));
         }
         //dd($data);
         MsUser::create([

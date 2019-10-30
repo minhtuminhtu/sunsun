@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
+    <style>
+        .help-block {
+            font-size: 0.85rem;
+            color: red;
+        }
+    </style>
 @endsection
 @section('page_title', 'ログイン')
 @section('main')
@@ -12,6 +18,11 @@
         <div class="container">
             <div class="user-warp">
             {!! Form::open(['action' => ['Sunsun\Auth\LoginController@login'], 'method' => 'POST', 'class' => 'form']) !!}
+                @if ($errors->has('email'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
                 <div class="form-group">
                     <!-- <div class="form-label">
                         {!! Form::label('email', 'Eメール') !!}

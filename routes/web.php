@@ -38,13 +38,13 @@ Route::namespace('Sunsun\Auth')->group(function (){
     Route::get('/register', ['as' => 'register',  'uses' => 'MsUserController@register']);
     Route::get('/login', ['as' => 'login',  'uses' => 'LoginController@showLoginForm']);
     Route::post('/login', ['as' => 'auth', 'uses' => 'LoginController@login']);
-    Route::post('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
     Route::Post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
 });
 Route::middleware('auth')->namespace('Sunsun\Auth')->group(function (){
     //
     Route::get('/edit', ['as' => '.edit',  'uses' => 'AuthUserController@edit']);
-    Route::Post('/update', ['as' => '.upload',  'uses' => 'AuthUserController@update']);
+    Route::Post('/edit', ['as' => '.upload',  'uses' => 'AuthUserController@edit']);
     Route::get('/changepassword', ['as' => '.password',  'uses' => 'AuthUserController@changepassword']);
     Route::post('/changepassword', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
 });

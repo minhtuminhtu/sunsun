@@ -55,8 +55,7 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        $user = Auth::user();
-        return route('home', ['user' => $user]);
+        return route('home');
     }
 
     /**
@@ -94,6 +93,6 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect()->route('/');
+        return redirect()->route('login');
     }
 }
