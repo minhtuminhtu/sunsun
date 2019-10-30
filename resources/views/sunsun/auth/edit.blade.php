@@ -17,7 +17,7 @@
     <main class="main-body">
         <div class="container">
             <div class="user-warp">
-                {!! Form::open(['action' => ['Sunsun\Auth\AuthUserController@update'], 'method' => 'POST', 'class' => 'form']) !!}
+                {!! Form::open(['action' => ['Sunsun\Auth\AuthUserController@edit'], 'method' => 'POST', 'class' => 'form']) !!}
                 @if(isset($success))
                     <div class="alert alert-success">
                         {{ $success }}
@@ -96,6 +96,7 @@
 @section('script')
 
     @parent
-    <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
+    <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.js')}}"></script>
+    <script src="{{asset('sunsun/auth/js/validate-form.js').config('version_files.html.js')}}"></script>
 @endsection
 

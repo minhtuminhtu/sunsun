@@ -44,7 +44,7 @@ Route::namespace('Sunsun\Auth')->group(function (){
 Route::middleware('auth')->namespace('Sunsun\Auth')->group(function (){
     //
     Route::get('/edit', ['as' => '.edit',  'uses' => 'AuthUserController@edit']);
-    Route::Post('/update', ['as' => '.upload',  'uses' => 'AuthUserController@update']);
+    Route::Post('/edit', ['as' => '.upload',  'uses' => 'AuthUserController@edit']);
     Route::get('/changepassword', ['as' => '.password',  'uses' => 'AuthUserController@changepassword']);
     Route::post('/changepassword', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
 });

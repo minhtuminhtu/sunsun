@@ -30,6 +30,9 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sunsun/front/scss/booking.scss', 'public/sunsun/front/css')
     .sass('resources/assets/sunsun/front/scss/booking-mobile.scss', 'public/sunsun/front/css')
 
+    //auth
+    .js('resources/assets/sunsun/auth/js/validate-form.js', 'public/sunsun/auth/js')
+
     //admin
     .sass('resources/assets/sunsun/admin/scss/day.scss', 'public/sunsun/admin/css')
     .sass('resources/assets/sunsun/admin/scss/monthly.scss', 'public/sunsun/admin/css')

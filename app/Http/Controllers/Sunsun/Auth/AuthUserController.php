@@ -23,35 +23,35 @@ class AuthUserController extends Controller
         ]);
     }
 
-    public function edit() {
+    public function edit(Request $request) {
+        $data = [];
+        if($request->isMethod('post')) {
+            $data_request = $request->all();
+            $validation = $this->validator($data_request);
+            if ($validation->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validation->errors())
+                    ->withInput($request->all());
+            }
+            $this->update($data, $data_request);
+        }
         $user_id = Auth::id();
         $user = MsUser::find($user_id)->first();
-        return view('sunsun.auth.edit')->with(compact('user'));
+        $data['user'] = $user;
+        return view('sunsun.auth.edit')->with($data);
     }
 
 
-    public function update (Request $request) {
-        $data = $request->all();
-        $validation = $this->validator($data);
-        if ($validation->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validation->errors())
-                ->withInput($request->all());
-        }
-        $data = $request->all();
+    public function update ( &$data, $data_request) {
         $user_id = Auth::id();
         $user = MsUser::find($user_id);
-        $user->username = $data['username'];
-        $user->gender = $data['gender'];
-        $user->tel = $data['tel'];
-        $user->birth_year = $data['birth_year'];
+        $user->username = $data_request['username'];
+        $user->gender = $data_request['gender'];
+        $user->tel = $data_request['tel'];
+        $user->birth_year = $data_request['birth_year'];
         $user->save();
-
-        $data['user'] = $user;
         $data['success'] = 'Change successfully';
-        return view('sunsun.auth.edit')->with($data);
-
     }
 
 
