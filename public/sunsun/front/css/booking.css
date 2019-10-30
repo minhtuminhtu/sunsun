@@ -36,11 +36,10 @@ a:hover {
 }
 
 .user-warp {
-  padding: 0 40px;
-  width: 524px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding-top: 0px;
+  width: 32vw;
+  max-width: 32vw;
+  padding: 0;
+  margin: 0 34vw;
 }
 
 .choice-time {
@@ -214,8 +213,6 @@ a.no-effect {
 form select {
   width: 100%;
   padding: 9px 8px;
-  border: 1px solid #707070;
-  border-radius: 0;
   font-weight: 200;
 }
 
