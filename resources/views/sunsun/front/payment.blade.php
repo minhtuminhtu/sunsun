@@ -22,10 +22,10 @@
 @section('page_title', '支払い入力')
 @section('main')
     <main class="main-body">
-        <div class="container">
+        <div class="">
             <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf
-                <div class="booking-warp">
+                <div class="booking-warp payment">
                     <div class="booking-field">
                         <div class="">
                             <p class="text-md-left pt-2 mb-1 font-weight-bold">個人情報</p>
@@ -136,11 +136,10 @@
                     <div class="pl-4 pr-1">
                         <p class="text-left pt-2">回数券をご利用の場合は、回数券ご利用分以外は、当日現地でお支払いください。</p>
                     </div>
-
-                    <div class="foot-confirm">
-                        <div class="confirm-button">
-                            <button type="submit" class="btn btn-block btn-booking text-white">確認</button>
-                        </div>
+                </div>
+                <div class="foot-confirm">
+                    <div class="confirm-button-payment">
+                        <button type="submit" class="btn btn-block btn-booking text-white">確認</button>
                     </div>
                 </div>
             </form>

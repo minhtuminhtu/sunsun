@@ -6,15 +6,7 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block date-warp">
-                <div class="timedate-left">
-                    <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
-                </div>
-
-                <div class="timedate-right pl-0 mt-1">
-                    <span class="add-on">
-                        <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt fa-2x date-book" ></i>
-                    </span>
-                </div>
+                <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
             </div>
         </div>
     </div>
@@ -24,15 +16,7 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <div class="timedate-left">
-                    <input name="time_room" type="text" class="form-control time" id="" value="13:45 ~ 15:45">
-                </div>
-
-                <div class="timedate-right pl-0 mt-1">
-                    <span class="icon-clock">
-                        <img class="js-set-time svg-font" src="{{asset('sunsun/svg/clock.svg').config('version_files.html.css')}}"/>
-                    </span>
-                </div>
+                <input name="time_room" type="text" class="form-control time js-set-time" id="" value="13:45 ~ 15:45">
             </div>
 
         </div>
