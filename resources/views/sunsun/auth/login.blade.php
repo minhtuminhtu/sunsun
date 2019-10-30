@@ -13,37 +13,43 @@
             <div class="user-warp">
             {!! Form::open(['action' => ['Sunsun\Auth\LoginController@login'], 'method' => 'POST', 'class' => 'form']) !!}
                 <div class="form-group">
-                    <div class="form-label">
+                    <!-- <div class="form-label">
                         {!! Form::label('email', 'Eメール') !!}
                         <p class="text-md-left pt-2"></p>
-                    </div>
+                    </div> -->
                     <div class="form-input">
-                        {!! Form::text('email', null, ['class' => '']) !!}
+                        {!! Form::text('email', null, ['class' => 'form-control','placeholder' => 'Eメール']) !!}
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-label">
+                <div class="form-group pt-4">
+                    <!-- <div class="form-label">
                         {!! Form::label('password', 'パスワード') !!}
-                    </div>
+                    </div> -->
                     <div class="form-input">
-                        {!! Form::password('password', ['class' => '']) !!}
+                        {!! Form::password('password', ['class' => 'form-control','placeholder' => 'パスワード']) !!}
                     </div>
                 </div>
-                <div class="form-group" style="margin-top: 15px">
-                    <div class="form-label">
-                    </div>
+                <div class="form-group text-right" style="margin-top: 15px">
+                    <a href="/register" class="right-link">パスワードを忘れたの方</a>
+                </div>
+                <div class="form-group" style="margin-top: 40px">
                     <div class="form-input">
                         {{Form::button('ログイン', ['type'=> 'submit','class'=>'btn btn-block btn-booking text-white confirm-rules'])}}
                     </div>
-                    <div class="col-3 d-flex align-items-center justify-content-center">
-                        <a href="/register" class="no-effect">ユーザー登録</a>
+                </div>
+                <div class="pt-3">
+                    <div class="form-group text-center pb-0 mb-0 mt-5" style="margin-top: 15px">
+                        アカウントを持っていない？
                     </div>
-
+                    <div class="form-group text-center pt-0 mt-0" style="margin-top: 15px">
+                        <a href="/register" class="center-link">ユーザー登録</a>
+                    </div>
                 </div>
             {!! Form::close() !!}
             </div>
         </div>
     </main>
+    <hr class="footer-space">
 @endsection
 
 @section('footer')

@@ -1,21 +1,21 @@
 <?php
 return [
     'used' => [
-        'label' => '【ご利用】',
+        'label' => 'ご利用',
         'options' => [
             'no' => 'はじめて​',
             'yes' => '​リピート​',
         ]
     ],
     'transportation' => [
-        'label' => '【交通手段】​',
+        'label' => '交通手段​',
         'options' => [
             'car' => '車​',
             'bus' => '​バス​',
         ]
     ],
     'bus_arrival' => [
-        'label' => '【洲本IC着】',
+        'label' => '洲本IC着',
         'options' => [
             '1' => '9:29着（三宮発）',
             '2' => '10:29着（三宮発）',
@@ -24,21 +24,21 @@ return [
         ]
     ],
     'pick_up' => [
-        'label' => '【送迎】',
+        'label' => '送迎',
         'options' => [
             'yes' => '希望する',
             'no' => '希望しない',
         ]
     ],
     'pick_up' => [
-        'label' => '【送迎】',
+        'label' => '送迎',
         'options' => [
             'yes' => '希望する',
             'no' => '希望しない',
         ]
     ],
     'services' => [
-        'label' => '【コース】',
+        'label' => 'コース',
         'options' => [
             'normal' => '酵素浴',
             'day' => '1日リフレッシュプラン',
@@ -48,14 +48,14 @@ return [
         ]
     ],
     'sex' => [
-        'label' => '【性別】',
+        'label' => '性別',
         'options' => [
             'male' => '男性',
             'female' => '女性',
         ]
     ],
     'age' => [
-        'label' => '【年齢】',
+        'label' => '年齢',
         'age1' => '小学生',
         'age2' => '学生(中学生以上)',
         'age3' => '大人',
@@ -67,36 +67,36 @@ return [
         ]
     ],
     'date' => [
-        'label' => '【予約日】',
+        'label' => '予約日',
     ],
     'time' => [
-        'label' => '【予約時間】',
+        'label' => '予約時間',
         'laber1' => '入浴1回目',
         'laber2' => '入浴2回目',
     ],
     'lunch' => [
-        'label' => '【ランチ】',
+        'label' => 'ランチ',
         'options' => [
             'no' => '無し',
             'yes' => '有り',
         ]
     ],
     'whitening' => [
-        'label' => '【ﾎﾜｲﾄﾆﾝｸﾞ】',
+        'label' => 'ﾎﾜｲﾄﾆﾝｸﾞ',
         'options' => [
             'no' => '追加しない',
             'yes' => '追加する',
         ]
     ],
     'pet' => [
-        'label' => '【ﾍﾟｯﾄ預かり】',
+        'label' => 'ﾍﾟｯﾄ預かり',
         'options' => [
             'no' => '追加しない',
             'yes' => '追加する',
         ]
     ],
     'room' => [
-        'label' => '【宿泊(部屋ﾀｲﾌﾟ)】',
+        'label' => '宿泊(部屋ﾀｲﾌﾟ)',
         'options' => [
             'no' => '無し',
             '1' => 'A：１～３名（畳）',
@@ -105,7 +105,7 @@ return [
         ]
     ],
     'number_guests_stay' => [
-        'label' => '【宿泊人数】',
+        'label' => '宿泊人数',
         'options' => [
             '1' => '1名',
             '2' => '2名',
@@ -113,12 +113,12 @@ return [
         ]
     ],
     'range_date' => [
-        'label' => '【宿泊日】',
+        'label' => '宿泊日',
         'checkin' => 'チェックイン',
         'checkout' => 'チェックアウト',
     ],
     'number_guests_book' => [
-        'label' => '【人数】',
+        'label' => '人数',
         'options' => [
             '1' => '1名',
             '2' => '2名',
@@ -129,7 +129,7 @@ return [
         ]
     ],
     'number_guests_book' => [
-        'label' => '【人数】',
+        'label' => '人数',
         'options' => [
             '1' => '1名',
             '2' => '2名',
@@ -140,7 +140,7 @@ return [
         ]
     ],
     'number_lunch_book' => [
-        'label' => '【ランチ】',
+        'label' => 'ランチ',
         'options' => [
             'no' => '無し',
             '1' => '1名',
@@ -152,15 +152,15 @@ return [
         ]
     ],
     'range_date_eat' => [
-        'label' => '【利用期間】',
+        'label' => '利用期間',
         'start' => '開始日',
         'end' => '終了日',
     ],
     'range_time_eat' => [
-        'label' => '【入浴時間】',
+        'label' => '入浴時間',
     ],
     'number_pet' => [
-        'label' => '【ペット数】',
+        'label' => 'ペット数',
         'options' => [
             '1' => '1匹',
             '2' => '2匹',
@@ -168,25 +168,25 @@ return [
         ]
     ],
     'pet_type' => [
-        'label' => '【ペット種類】',
+        'label' => 'ペット種類',
     ],
     'name' => [
-        'label' => '【名前】',
+        'label' => '名前',
     ],
     'phone' => [
-        'label' => '【電話番号】',
+        'label' => '電話番号',
     ],
     'email' => [
-        'label' => '【ﾒｰﾙｱﾄﾞﾚｽ】',
+        'label' => 'ﾒｰﾙｱﾄﾞﾚｽ',
     ],
     'services_used' => [
-        'label' => '【ご購入金額】',
+        'label' => 'ご購入金額',
     ],
     'total' => [
         'label' => '合計',
     ],
     'payment_method' => [
-        'label' => '【お支払い方法】',
+        'label' => 'お支払い方法',
     ],
 
 

@@ -13,13 +13,15 @@
                 @csrf
                 <div class="booking-warp confirm">
                     <div class="header-confirm">
-                        <p class="text-center font-weight-bold  mt-2 mb-0">交通手段</p>
+                        <p class="text-center font-weight-bold mb-0">交通手段</p>
 
                         @if($customer['transportation'] == config('booking.transportation.options.car') )
-                        <p class="text-md-left pl-4 mb-0">{{ $customer['transportation']??'' }}</p>
+                        <p class="text-center">{{ $customer['transportation']??'' }}</p>
                         @else
-                        <p class="text-md-left pl-4 mb-0">{{ $customer['transportation'] }} 洲本IC着：{{ $customer['bus_arrival'] }}</p>
-                        <p class="text-md-left pl-4 mb-0">送迎：{{ $customer['pick_up'] }}</p>
+                            <div class="linex">
+                                <p>{{ $customer['transportation'] }} 洲本IC着：{{ $customer['bus_arrival'] }}</p>
+                                <p>送迎：{{ $customer['pick_up'] }}</p>
+                            </div>
                         @endif
                     </div>
                     <div class="body-confirm">
@@ -125,11 +127,10 @@
                                         @if($data['services'] == config('booking.services.options.pet'))
                                             <p>ペット数：{{ $data['number_pet']??'' }}</p>
                                             <p>ペット種類：{{ $data['pet_type']??'' }}</p>
+                                            
                                         @endif 
 
-                                        @if($data['pet'] == config('booking.pet.options.yes'))
-                                            <p class="text-md-left pl-5 mb-0">ペット預かり</p>
-                                        @endif 
+                                        <p>ペット預かり</p>
 
                                     </div>
                                 </div>
@@ -138,25 +139,35 @@
                                 <hr class="line-x">
 
 
+
+
                                 <div class="line"> 
                                     <div class="line1">
                                     宿泊
                                     </div>
                                     <div class="line2">
-                                        @if($data['room'] != config('booking.room.options.no'))
-                                            <p>宿泊：有り</p>
-                                            <p>部屋ﾀｲﾌﾟ：{{ $data['room']??'' }}</p>
-                                            <p>宿泊人数：{{ $data['number_guests_stay']??'' }}</p>
-                                            <p>宿泊日</p>
-                                            <div class="line3">
-                                                <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
-                                                <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
-                                            </div>
+
+                                        @if(isset($data['room']))
+                                            @if($data['room'] != config('booking.room.options.no'))
+                                                <p>宿泊：有り</p>
+                                                <p>部屋ﾀｲﾌﾟ：{{ $data['room']??'' }}</p>
+                                                <p>宿泊人数：{{ $data['number_guests_stay']??'' }}</p>
+                                                <p>宿泊日</p>
+                                                <div class="line3">
+                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
+                                                </div>
+                                            @else
+                                                <p>
+                                                なし
+                                                </p>
+                                            @endif 
                                         @else
                                             <p>
                                             なし
                                             </p>
                                         @endif 
+                                        
                                     </div>
                                 </div>
                                 @if($key >= 0)
@@ -171,7 +182,7 @@
                 <div class="foot-confirm">
                     <div class="confirm-button">
                         <div class="button-left">
-                            <button type="button" class="btn btn-block btn-booking text-white add-new-people">予約追加
+                            <button type="button" class="btn btn-block btn-booking text-white add-new-people btn-confirm-left">予約追加
                             </button>
                         </div>
                         <div class="button-right">

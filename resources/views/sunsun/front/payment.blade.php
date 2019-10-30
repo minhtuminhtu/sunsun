@@ -6,12 +6,15 @@
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
     <style>
         th {
-            background-color: #4472c4;
-            color: #fff;
+            background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg.png");
+            color: #000;
         }
         tr {
-            background-color: #e8ebf5;
+            background-image: url('/sunsun/imgs/bg.png');
             color: #000;
+        }
+        .price-laber{
+            font-weight: bold;
         }
 
     </style>
@@ -24,6 +27,11 @@
                 @csrf
                 <div class="booking-warp">
                     <div class="booking-field">
+                        <div class="">
+                            <p class="text-md-left pt-2 mb-1 font-weight-bold">個人情報</p>
+                        </div>
+                    </div>
+                    <div class="booking-field mb-3">
                         <div class="booking-field-label">
                             <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
                         </div>
@@ -34,6 +42,7 @@
                     <div class="booking-field">
                         <div class="booking-field-label">
                             <p class="text-md-left pt-2">{{config('booking.phone.label')}}</p>
+                            <p class="node-text">当日の連絡先</p>
                         </div>
                         <div class="booking-field-content">
                             <input type="text" class="form-control date-book-input"  />
@@ -49,7 +58,7 @@
                     </div>
                     <div class="booking-field">
                         <div class="">
-                            <p class="text-md-left pt-2 mb-1">{{config('booking.services_used.label')}}</p>
+                            <p class="text-md-left pt-4 mb-1 font-weight-bold">{{config('booking.services_used.label')}}</p>
                         </div>
                     </div>
 
@@ -67,16 +76,16 @@
                                 <td class="text-right">2,400</td>
                             </tr>
                             <tr>
-                                <td class="text-md-left">宿泊 A</td>
-                                <td class="text-md-right">1</td>
-                                <td class="text-md-right">7,000</td>
+                                <td class="text-left">宿泊 A</td>
+                                <td class="text-right">1</td>
+                                <td class="text-right">7,000</td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th scope="col" style="width: 50%" class="text-left">{{config('booking.total.label')}}</th>
-                                <th scope="col" style="width: 15%" class="text-right"></th>
-                                <th scope="col" style="width: 35%" class="text-right">16,180</th>
+                                <th scope="col" style="width: 50%" class="text-left price-laber">{{config('booking.total.label')}}</th>
+                                <th scope="col" style="width: 15%" class="text-right price-laber"></th>
+                                <th scope="col" style="width: 35%" class="text-right price-laber">16,180</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -84,51 +93,55 @@
 
                     <div class="">
                         <div class="">
-                            <p class="">{{config('booking.payment_method.label')}}</p>
+                            <p class="font-weight-bold pt-3">{{config('booking.payment_method.label')}}</p>
                         </div>
                     </div>
-                    <div class="row pl-5">
+                    <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input payment-method" id="credit-card" name="method" checked>
                             <label class="custom-control-label" for="credit-card">クレジットカード</label>
                         </div>
                     </div>
                     <div class="credit-card">
-                        <div class="card-img d-flex justify-content-center align-items-center">
-                            <img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">
+
+                        <div class="credit-card-line">
+                            <div class="card-img d-flex justify-content-center align-items-center">
+                                <img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">
+                            </div>
+                            <div class="card-number">
+                                <input type="text" id="card-number" class="form-control" placeholder="Card number" maxlength="22">
+                            </div>
                         </div>
-                        <div class="card-number">
-                            <input type="text" id="card-number" class="form-control" placeholder="Card number" maxlength="22">
-                        </div>
-                        <div class="card-expire">
-                            <input type="text" id="card-expire" class="form-control" placeholder="MM/YY" maxlength="5">
-                        </div>
-                        <div class="card-secret">
-                            <input type="password" id="card-secret" class="form-control" placeholder="CVC" maxlength="3">
+                        <div class="credit-card-line2">
+                            <div class="card-expire">
+                                <input type="text" id="card-expire" class="form-control" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="card-secret">
+                                <input type="password" id="card-secret" class="form-control" placeholder="CVC" maxlength="3">
+                            </div>
                         </div>
                     </div>
-                    <div class="row pl-5">
+                    <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input payment-method" id="local-cash" name="method">
                             <label class="custom-control-label" for="local-cash">現地現金</label>
                         </div>
                     </div>
-                    <div class="row pl-5">
+                    <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input payment-method" id="coupon" name="method">
                             <label class="custom-control-label" for="coupon">回数券</label>
                         </div>
                     </div>
-                    <div class="row pl-5 pr-5">
+                    <div class="pl-4 pr-1">
                         <p class="text-left pt-2">回数券をご利用の場合は、回数券ご利用分以外は、当日現地でお支払いください。</p>
                     </div>
 
-                    <div class="row pl-5 mt-3">
-                        <div class="col-6 offset-3">
+                    <div class="foot-confirm">
+                        <div class="confirm-button">
                             <button type="submit" class="btn btn-block btn-booking text-white">確認</button>
                         </div>
                     </div>
-
                 </div>
             </form>
         </div>

@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="booking-field">
-    <div class="booking-field-label">
+    <div class="booking-field-label  booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
     </div>
     <div class="booking-field-content">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="booking-field mb-2">
-    <div class="booking-field-label">
+    <div class="booking-field-label  booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
     </div>
     <div class="booking-field-content">
@@ -47,7 +47,7 @@
     </div>
     </div>
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}} ">
-        <div class="booking-field-label">
+        <div class="booking-field-label  booking-laber-padding">
             <p class="text-md-left pt-2">{{config('booking.date.label')}}</p>
         </div>
         <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="booking-field">
-    <div class="booking-field-label">
+    <div class="booking-field-label  booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.time.label')}}</p>
     </div>
     <div class="booking-field-content">
@@ -94,7 +94,7 @@
 <div class="booking-block-between">
     
     <div class="booking-field">
-    <div class="booking-field-label">
+    <div class="booking-field-label booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.lunch.label')}}</p>
     </div>
     <div class="booking-field-content">
@@ -107,7 +107,7 @@
     </div>
     </div>
     <div class="booking-field">
-    <div class="booking-field-label">
+    <div class="booking-field-label booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.whitening.label')}}</p>
     </div>
     <div class="booking-field-content">
@@ -119,7 +119,7 @@
     </div>
     </div>
     <div class="booking-field">
-    <div class="booking-field-label">
+    <div class="booking-field-label booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.pet.label')}}</p>
     </div>
     <div class="booking-field-content">
@@ -139,8 +139,8 @@
 </div>
 <div class="booking-block-finish">
     <div class="booking-field">
-    <div class="booking-field-label">
-        <p class="text-md-left pt-2">【宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span>】</p>
+    <div class="booking-field-label booking-laber-padding">
+        <p class="text-md-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
     </div>
     <div class="booking-field-content">
         <select name="room" id="room" class="form-control">
@@ -151,7 +151,7 @@
     </div>
     </div>
     <div class="booking-field room" style="display:none;">
-    <div class="booking-field-label">
+    <div class="booking-field-label booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.number_guests_stay.label')}}</p>
     </div>
     <div class="booking-field-content">
@@ -163,14 +163,14 @@
     </div>
     </div>
     <div class="booking-field-content room" style="display:none;">
-    <div class="">
+    <div class="booking-laber-padding">
         <p class="text-md-left pt-2">{{config('booking.range_date.label')}}</p>
     </div>
     </div>
     <div class="booking-field room"  style="display:none;">
     <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="2019年9月20日(金)">
     <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="2019年9月20日(金)">
-    <div class="booking-field input-daterange" id="choice-range-day">
+    <div class="booking-field booking-room input-daterange" id="choice-range-day">
         <div class="field-start-day">
             <p class="node-text">{{config('booking.range_date.checkin')}}</p>
             <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date" id="range_date_start" value="">
@@ -187,7 +187,7 @@
     </div>
     <div class="hidden-ip5">
         <pre class="mb-0">&nbsp;</pre>
-        <span class="add-on ml-3">
+        <span class="add-on">
             <i class="fa fa-calendar-alt fa-2x mt-1"></i>
         </span>
     </div>

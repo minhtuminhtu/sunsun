@@ -54,7 +54,7 @@
                             
 
                             <div class="booking-field">
-                                <div class="booking-field-label">
+                                <div class="booking-field-label booking-laber-padding">
                                     <p class="text-md-left pt-2">{{config('booking.used.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
-                                <div class="booking-field-label">
+                                <div class="booking-field-label booking-laber-padding">
                                     <p class="text-md-left pt-2">{{config('booking.transportation.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="booking-field bus" style="display:none;">
-                                <div class="booking-field-label">
+                                <div class="booking-field-label booking-laber-padding">
                                     <p class="text-md-left pt-2">{{config('booking.bus_arrival.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="booking-field bus" style="display:none">
-                                <div class="booking-field-label">
+                                <div class="booking-field-label booking-laber-padding">
                                     <p class="text-md-left pt-2">{{config('booking.pick_up.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="booking-field">
-                                <div class="booking-field-label">
+                                <div class="booking-field-label booking-laber-padding">
                                     <p class="text-md-left pt-2">{{config('booking.services.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
@@ -153,13 +153,14 @@
                 </div>
 
                 <!-- Modal footer -->
-                <div class="modal-footer" style="padding: 6px;">
-                    <button type="button" class="btn btn-outline-primary" id="js-save-time" style="padding: 2px 13px;">
-                        Save
+                <div class="modal-footer" style="padding: 10px;">
+                    <button type="button" class="btn btn-modal-left text-white btn-booking" id="js-save-time" style="padding: 0.375rem 2rem;">
+                    保存
                     </button>
-                    <button type="button" class="btn btn-outline-dark" style="padding: 2px 13px;"
+                    <button type="button" class="btn btn-outline-dark  btn-modal-right" style="padding: 0.375rem 1rem;"
                             data-dismiss="choice_date_time" data-target="#choice_date_time" data-toggle="modal"
-                            data-backdrop="static" data-keyboard="false">Close
+                            data-backdrop="static" data-keyboard="false">
+                    閉じる
                     </button>
                 </div>
 
