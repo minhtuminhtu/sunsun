@@ -352,7 +352,7 @@
   }
 
   .booking-warp .credit-card {
-    display: flex;
+    display: block;
     border: 1px solid #dee2e6;
     margin: 10px 10px 20px 55px;
   }
@@ -368,7 +368,8 @@
   }
 
   .booking-warp .credit-card .credit-card-line {
-    width: 60%;
+    border: 1px solid #dee2e6;
+    width: 100%;
     display: flex;
   }
 
@@ -385,7 +386,9 @@
   }
 
   .booking-warp .credit-card .credit-card-line2 {
-    width: 40%;
+    margin-top: 1.25vw;
+    border: 1px solid #dee2e6;
+    width: 100%;
     display: flex;
   }
 

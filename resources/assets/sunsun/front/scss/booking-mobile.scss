@@ -301,7 +301,7 @@
         width: 100vw !important;
         max-width: 100vw !important;
         .credit-card{
-            display: flex;
+            display: block;
             border: 1px solid #dee2e6;
             margin: 10px 10px 20px 55px;
             .form-control {
@@ -315,7 +315,8 @@
             
             
             .credit-card-line{
-                width: 60%;
+                border: 1px solid #dee2e6;
+                width: 100%;
                 display: flex;
                 .card-img{
                     width: 20%;
@@ -328,7 +329,9 @@
                 }
             }
             .credit-card-line2{
-                width: 40%;
+                margin-top: 1.25vw;
+                border: 1px solid #dee2e6;
+                width: 100%;
                 display: flex;
                 .card-expire{
                     width: 60%;

@@ -359,6 +359,7 @@ label.form-check-label {
 }
 
 .booking-warp .credit-card .credit-card-line {
+  border: 0px;
   width: 60%;
   display: flex;
 }
@@ -376,6 +377,8 @@ label.form-check-label {
 }
 
 .booking-warp .credit-card .credit-card-line2 {
+  margin-top: 0px;
+  border: 0px;
   width: 40%;
   display: flex;
 }
