@@ -18,7 +18,7 @@
                         {!! Form::label('username', '名称') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::text('username', null, ['class' => '']) !!}
+                        {!! Form::text('username', null, ['class' => '', 'required' => 'required']) !!}
                     </div>
                 </div>
                 <div class="form-group">
@@ -27,7 +27,7 @@
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('tel', null, ['class' => '']) !!}
+                        {!! Form::text('tel', null, ['class' => '', 'required' => 'required']) !!}
                     </div>
                 </div>
                 <div class="form-group">
@@ -36,7 +36,7 @@
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('email', null, ['class' => '']) !!}
+                        {!! Form::text('email', null, ['class' => '', 'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$', 'required' => 'required']) !!}
                     </div>
                 </div>
                 <div class="form-group">
@@ -44,7 +44,7 @@
                         {!! Form::label('password', 'パスワード') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::password('password', ['class' => '']) !!}
+                        {!! Form::password('password', ['class' => '', 'required' => 'required']) !!}
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@
                         {!! Form::label('gender', '性別') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::select('gender', ['female' => 'Female', 'male' => 'Male'], 'female', ['class' => ""]) !!}
+                        {!! Form::select('gender', ['female' => 'Female', 'male' => 'Male'], 'female', ['class' => "", 'required' => 'required']) !!}
 
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         {!! Form::label('birth_year', '年齢') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::selectRange('birth_year', 1930, 2019, 1986,['class' => ""] ) !!}
+                        {!! Form::selectRange('birth_year', 1930, 2019, 1986,['class' => "", 'required' => 'required'] ) !!}
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 15px">
@@ -91,33 +91,64 @@
     @parent
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.js')}}"></script>
     <script>
-        (function($) {
-            $.fn.inputFilter = function(inputFilter) {
-                return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
-                    if (inputFilter(this.value)) {
-                        this.oldValue = this.value;
+        (function ($) {
+            $.fn.inputFilter = function (inputFilter) {
+                return this.on("keydown keyup", function (event) {
+                    if ((event.key !== 'Backspace') && (event.key !== 'undefined')) {
+                        let curchr = this.value.length;
+                        let curval = $(this).val();
+                        let phone_format;
+                        if (curchr < 3 && curval.indexOf("(") <= -1) {
+                            phone_format = "(" + curval;
+                        } else if (curchr == 4 && curval.indexOf("(") > -1) {
+                            phone_format = curval + ")-";
+                        } else if (curchr == 5) {
+                            if (event.key != ")") {
+                                phone_format = this.oldValue + ")-" + event.key
+                            } else {
+                                phone_format = curval;
+                            }
+                        } else if (curchr == 6 && curval.indexOf("-") <= -1) {
+                            if (event.key != "-") {
+                                phone_format = this.oldValue + '-' + event.key
+                            } else {
+                                phone_format = curval;
+                            }
+                        } else if (curchr == 9) {
+                            phone_format = curval + "-";
+                            $(this).attr('maxlength', '14');
+                        } else if (curchr == 10) {
+                            console.log(event.key);
+                            if (event.key != "-") {
+                                phone_format = this.oldValue + '-' + event.key
+                            } else {
+                                phone_format = curval;
+                            }
+                        } else {
+                            phone_format = curval;
+                        }
+                        let regex = /^[\+]?[(]?[0-9]{0,3}[)]?[-\s\.]?[0-9]{0,3}[-\s\.]?[0-9]{0,6}$/im;
+                        let test = regex.test(phone_format);
+                        if (test === true) {
+                            $(this).val(phone_format);
+                            this.oldValue = this.value;
+                            this.oldSelectionStart = this.selectionStart;
+                            this.oldSelectionEnd = this.selectionEnd;
+                        } else if (this.hasOwnProperty("oldValue")) {
+                            this.value = this.oldValue;
+                            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                        }
+                    } else {
+                        this.oldValue = $(this).val();
                         this.oldSelectionStart = this.selectionStart;
                         this.oldSelectionEnd = this.selectionEnd;
-                    } else if (this.hasOwnProperty("oldValue")) {
-                        this.value = this.oldValue;
-                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
                     }
+
                 });
             };
 
-            $('#tel').inputFilter(function(value) {
-                if ( (1 < value.length <= 3) || (4 < value.length <= 7) || (7 < value.length <= 10)) {
-                    let value_check = value.substring(1,3) + value.substring(5,7) + value.substring(8,10)
-
-                    let check = /^\d*$/.test(value_check);
-
-                    if (check === false) {
-                        return  false;
-                    }
-
-                }
-                console.log(format_phone);
-                return format_phone;
+            $('#tel').inputFilter(function (value) {
+                return true;
             });
         }(jQuery));
 

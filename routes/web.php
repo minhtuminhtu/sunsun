@@ -39,14 +39,15 @@ Route::namespace('Sunsun\Auth')->group(function (){
     Route::get('/login', ['as' => 'login',  'uses' => 'LoginController@showLoginForm']);
     Route::post('/login', ['as' => 'auth', 'uses' => 'LoginController@login']);
     Route::post('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
-
-    //
-    Route::get('/edit/{ms_user_id}', ['as' => 'edit',  'uses' => 'MsUserController@edit']);
-    Route::Post('/upload', ['as' => 'upload',  'uses' => 'MsUserController@upload']);
-    Route::Post('/create', ['as' => 'create',  'uses' => 'MsUserController@create']);
-    Route::get('/changepassword', ['as' => 'changepassword',  'uses' => 'MsUserController@changepassword']);
+    Route::Post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
 });
-
+Route::middleware('auth')->namespace('Sunsun\Auth')->group(function (){
+    //
+    Route::get('/edit', ['as' => '.edit',  'uses' => 'AuthUserController@edit']);
+    Route::Post('/update', ['as' => '.upload',  'uses' => 'AuthUserController@update']);
+    Route::get('/changepassword', ['as' => '.password',  'uses' => 'AuthUserController@changepassword']);
+    Route::post('/changepassword', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
+});
 // Admin
 Route::prefix('admin')->namespace('Sunsun\Admin')->group(function (){
     Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);

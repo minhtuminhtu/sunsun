@@ -27,10 +27,10 @@ class MsUser extends Authenticatable
         $this->fillable = [
             config('const.db.ms_user.USERNAME'),
             config('const.db.ms_user.TEL'),
-            //config('const.db.ms_user.EMAIL'),
+            config('const.db.ms_user.EMAIL'),
             config('const.db.ms_user.GENDER'),
             config('const.db.ms_user.BIRTH_YEAR'),
-            //config('const.db.ms_user.PASSWORD'),
+            config('const.db.ms_user.PASSWORD'),
         ];
 
         parent::__construct($attributes);

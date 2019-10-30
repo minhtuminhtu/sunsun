@@ -11,7 +11,7 @@
     <main class="main-body">
         <div class="container">
             <div class="user-warp">
-            {!! Form::open(['action' => ['Sunsun\Auth\MsUserController@create'], 'method' => 'POST', 'class' => 'form']) !!}
+            {!! Form::open(['action' => ['Sunsun\Auth\LoginController@login'], 'method' => 'POST', 'class' => 'form']) !!}
                 <div class="form-group">
                     <div class="form-label">
                         {!! Form::label('email', 'Eメール') !!}
