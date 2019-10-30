@@ -15,7 +15,7 @@
 @section('page_title', 'ログイン')
 @section('main')
     <main class="main-body">
-        <div class="container">
+        <div class="">
             <div class="user-warp">
             {!! Form::open(['action' => ['Sunsun\Auth\LoginController@login'], 'method' => 'POST', 'class' => 'form']) !!}
                 @if ($errors->has('email'))

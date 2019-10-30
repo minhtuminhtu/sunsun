@@ -15,7 +15,7 @@
 @section('page_title', 'ユーザー登録')
 @section('main')
     <main class="main-body">
-        <div class="container">
+        <div class="">
             <div class="user-warp">
                 {!! Form::open(['action' => ['Sunsun\Auth\MsUserController@create'], 'method' => 'POST', 'class' => 'form']) !!}
 
