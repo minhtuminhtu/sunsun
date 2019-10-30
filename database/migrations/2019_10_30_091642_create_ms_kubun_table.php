@@ -14,7 +14,6 @@ class CreateMsKubunTable extends Migration
     public function up()
     {
         Schema::create('ms_kubun', function (Blueprint $table) {
-            $table->bigIncrements('ms_kubun_id');
             $table->string('kubun_type',3);
             $table->string('kubun_id',2);
             $table->string('kubun_value',255);

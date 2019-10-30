@@ -1806,6 +1806,7 @@ return array(
     'Monolog\\SignalHandler' => $vendorDir . '/monolog/monolog/src/Monolog/SignalHandler.php',
     'Monolog\\Test\\TestCase' => $vendorDir . '/monolog/monolog/src/Monolog/Test/TestCase.php',
     'Monolog\\Utils' => $vendorDir . '/monolog/monolog/src/Monolog/Utils.php',
+    'MskubunTableSeeder' => $baseDir . '/database/seeds/MskubunTableSeeder.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\Inspector' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Inspector.php',
