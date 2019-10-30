@@ -8,7 +8,7 @@
 @section('page_title', '予約確認')
 @section('main')
     <main class="main-body confirm">
-        <div class="container">
+        <div class="">
             <form action="{{route('.payment')}}" method="POST" class="booking">
                 @csrf
                 <div class="booking-warp confirm">

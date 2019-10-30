@@ -8,9 +8,9 @@
 @section('page_title', '事前注意')
 @section('main')
     <main class="main-body">
-        <div class="container">
+        <div class="">
             <div class="booking">
-            <div class="booking-warp">
+            <div class="booking-warp index">
                         <div class="index-field">
                         </div>
                         <div class="index-field">
@@ -35,17 +35,13 @@
                             </div>
                             <div class="index-field-foot">
                                 <input type="checkbox" class="form-check-input" id="confirm">
-                                <label class="form-check-label" for="confirm">上記注意事項を確認し、同意いたします。</label>
+                                <label for="confirm">上記注意事項を確認し、同意いたします。</label>
                             </div>
                         </div>
-
-                        <div class="button-submit-block mt-3">
-                            <div class="button-submit-center offset-3">
-                                <a class= "no-effect" href="{{route('.booking')}}">
-                                    <button type="button" class="btn btn-block btn-booking text-white confirm-rules" disabled>予約入力へ</button>
-                                </a>
-                            </div>
-
+                    </div>
+                    <div class="foot-confirm">
+                        <div class="confirm-button-payment">
+                            <button type="submit" id="confirm-rules" class="btn btn-block btn-booking text-white disabled">予約入力へ</button>
                         </div>
                     </div>
             </div>
@@ -62,9 +58,14 @@
     <script>
         $('#confirm').on('change', function() {
             if($(this).is(":checked")){
-                $(".confirm-rules").prop("disabled", false);
+                $("#confirm-rules").removeClass("disabled");
             }else{
-                $(".confirm-rules").prop("disabled", true);
+                $("#confirm-rules").addClass("disabled");
+            }
+        });
+        $('#confirm-rules').click(function(){
+            if($(this).hasClass('disabled') == false){
+                location.href='/booking';
             }
         });
     </script>

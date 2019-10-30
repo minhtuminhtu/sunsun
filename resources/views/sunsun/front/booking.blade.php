@@ -55,7 +55,7 @@
 
                             <div class="booking-field">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-md-left pt-2">{{config('booking.used.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.used.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="used" class="form-control">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-md-left pt-2">{{config('booking.transportation.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.transportation.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="transportation" id='transportation' class="form-control">
@@ -79,7 +79,7 @@
                             </div>
                             <div class="booking-field bus" style="display:none;">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-md-left pt-2">{{config('booking.bus_arrival.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.bus_arrival.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="bus_arrival" class="form-control">
@@ -91,7 +91,7 @@
                             </div>
                             <div class="booking-field bus" style="display:none">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-md-left pt-2">{{config('booking.pick_up.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.pick_up.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="pick_up" class="form-control">
@@ -99,12 +99,12 @@
                                             <option value="{{ $value }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
-                                    <p class="text-md-left mt-2 mb-2 node-text">バスの方は洲本ICのバス停に送迎を行います。</p>
+                                    <p class="text-left mt-2 mb-2 node-text">バスの方は洲本ICのバス停に送迎を行います。</p>
                                 </div>
                             </div>
                             <div class="booking-field">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-md-left pt-2">{{config('booking.services.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.services.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="services" id="services" class="form-control">
