@@ -15,6 +15,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\Sunsun\\Admin\\AdminController' => $baseDir . '/app/Http/Controllers/Sunsun/Admin/AdminController.php',
+    'App\\Http\\Controllers\\Sunsun\\Auth\\AuthUserController' => $baseDir . '/app/Http/Controllers/Sunsun/Auth/AuthUserController.php',
     'App\\Http\\Controllers\\Sunsun\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Sunsun/Auth/LoginController.php',
     'App\\Http\\Controllers\\Sunsun\\Auth\\MsUserController' => $baseDir . '/app/Http/Controllers/Sunsun/Auth/MsUserController.php',
     'App\\Http\\Controllers\\Sunsun\\Front\\BookingController' => $baseDir . '/app/Http/Controllers/Sunsun/Front/BookingController.php',
