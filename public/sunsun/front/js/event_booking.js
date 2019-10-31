@@ -81,52 +81,30 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/assets/sunsun/front/js/add_user_booking.js":
-/*!**************************************************************!*\
-  !*** ./resources/assets/sunsun/front/js/add_user_booking.js ***!
-  \**************************************************************/
+/***/ "./resources/assets/sunsun/front/js/event_booking.js":
+/*!***********************************************************!*\
+  !*** ./resources/assets/sunsun/front/js/event_booking.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(function () {
-  $('.add-new-people').click(function () {
-    $.ajax({
-      url: $site_url + '/add_new_booking',
-      type: 'POST',
-      data: $('form.booking').serializeArray(),
-      dataType: 'JSON',
-      beforeSend: function beforeSend() {
-        loader.css({
-          'display': 'block'
-        });
-      },
-      success: function success(r) {
-        window.location.href = $site_url + '/booking?add_new_user=on';
-      },
-      complete: function complete() {
-        loader.css({
-          'display': 'none'
-        });
-      }
-    });
-  });
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'C:\\Users\\tranv\\docker\\src\\sunsun\\resources\\assets\\sunsun\\front\\js\\event_booking.js'");
 
 /***/ }),
 
-/***/ 5:
-/*!********************************************************************!*\
-  !*** multi ./resources/assets/sunsun/front/js/add_user_booking.js ***!
-  \********************************************************************/
+/***/ 6:
+/*!*****************************************************************!*\
+  !*** multi ./resources/assets/sunsun/front/js/event_booking.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\add_user_booking.js */"./resources/assets/sunsun/front/js/add_user_booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\event_booking.js */"./resources/assets/sunsun/front/js/event_booking.js");
 
 
 /***/ })

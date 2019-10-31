@@ -54,10 +54,6 @@ $(function() {
         });
 
 
-
-
-
-
         function getDates(startDate, stopDate) {
             var dateArray = [];
             var currentDate = moment(startDate);

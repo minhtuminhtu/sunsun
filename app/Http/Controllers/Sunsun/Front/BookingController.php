@@ -29,8 +29,7 @@ class BookingController extends Controller
         }
         $multiplied = collect($data);
 
-        $filtered = $multiplied->where('kubun_type','001')->sortBy('sort_no');
-
+        $filtered = $MsKubun->where('kubun_type','001')->sortBy('sort_no');
 
         if (isset($request->add_new_user)) {
             $data['add_new_user'] = $request->add_new_user;
