@@ -14,8 +14,6 @@ class MsKubun extends Model
     // Table Name
     protected $table = 'ms_kubun';
 
-    // Primary Key
-    public $primaryKey = ['kubun_type', 'kubun_id'];
     // Timestamps
     public $timestamps = false;
     public function __construct(array $attributes = [])
@@ -27,5 +25,6 @@ class MsKubun extends Model
             config('const.db.ms_kubun.SORT_NO'),
             config('const.db.ms_kubun.NOTES'),
         ];
+        parent::__construct($attributes);
     }
 }
