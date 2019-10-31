@@ -14,7 +14,7 @@
 @section('page_title', 'Change Password')
 @section('main')
     <main class="main-body">
-        <div class="container">
+        <div class="">
             <div class="user-warp">
                 {!! Form::open(['action' => ['Sunsun\Auth\AuthUserController@changepassword'], 'method' => 'POST', 'class' => 'form']) !!}
                 @if(Session::has('success'))
