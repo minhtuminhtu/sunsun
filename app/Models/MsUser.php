@@ -34,5 +34,18 @@ class MsUser extends Authenticatable
         ];
 
         parent::__construct($attributes);
+
+    }
+
+    public function is_user () {
+        return $this->user_type === config('const.auth.permission.USER');
+    }
+
+    public function is_admin () {
+        return $this->user_type === config('const.auth.permission.ADMIN');
+    }
+
+    public function is_super_admin() {
+        return $this->user_type === config('auth.permission.SUPER_ADMIN');
     }
 }

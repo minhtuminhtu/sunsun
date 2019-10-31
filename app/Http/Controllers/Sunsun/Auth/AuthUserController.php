@@ -36,9 +36,9 @@ class AuthUserController extends Controller
             }
             $this->update($data, $data_request);
         }
-        $user_id = Auth::id();
-        $user = MsUser::find($user_id)->first();
+        $user = Auth::user();
         $data['user'] = $user;
+
         return view('sunsun.auth.edit')->with($data);
     }
 
