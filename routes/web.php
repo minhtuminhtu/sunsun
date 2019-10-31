@@ -41,15 +41,15 @@ Route::namespace('Sunsun\Auth')->group(function (){
     Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
     Route::Post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
 });
+// user
 Route::middleware('auth')->namespace('Sunsun\Auth')->group(function (){
-    //
     Route::get('/edit', ['as' => '.edit',  'uses' => 'AuthUserController@edit']);
     Route::Post('/edit', ['as' => '.upload',  'uses' => 'AuthUserController@edit']);
     Route::get('/changepassword', ['as' => '.password',  'uses' => 'AuthUserController@changepassword']);
     Route::post('/changepassword', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
 });
 // Admin
-Route::prefix('admin')->namespace('Sunsun\Admin')->group(function (){
+Route::middleware('auth', 'can:admin')->prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
     Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);
     Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
     Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
