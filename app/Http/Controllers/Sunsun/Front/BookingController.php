@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Sunsun\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\MsKubun;
+use Illuminate\Support\Collection;
+
 class BookingController extends Controller
 {
     private $session_info = 'SESSION_INFO_USER';
@@ -15,6 +18,9 @@ class BookingController extends Controller
     }
 
     public function booking(Request $request){
+        $mskubun = MsKubun::all();
+        var_dump($mskubun->where('kubun_type', '001')->get());
+
         if (isset($request->add_new_user)) {
             $data['add_new_user'] = $request->add_new_user;
         } else {

@@ -12,6 +12,11 @@ return [
             'USER_TYPE' => 'user_type',
             'CREATED_AT'    => 'created_at',
             'UPDATED_AT'    => 'updated_at',
+        ],
+        'ms_kubun' => [
+            'KUBUN_VALUE' => 'kubun_value',
+            'SORT_NO' => 'sort_no',
+            'NOTES' => 'notes'
         ]
     ]
 ];

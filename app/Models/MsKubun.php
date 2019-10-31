@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class MsKubun extends Model
+{
+    protected $attributes;
+
+    protected $fillable;
+
+    // Table Name
+    protected $table = 'ms_kubun';
+
+    // Primary Key
+    public $primaryKey = ['kubun_type', 'kubun_id'];
+    // Timestamps
+    public $timestamps = false;
+    public function __construct(array $attributes = [])
+    {
+        $this->attributes = [];
+
+        $this->fillable = [
+            config('const.db.ms_kubun.KUBUN_VALUE'),
+            config('const.db.ms_kubun.SORT_NO'),
+            config('const.db.ms_kubun.NOTES'),
+        ];
+    }
+}
