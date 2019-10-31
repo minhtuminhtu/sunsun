@@ -18,6 +18,8 @@ class CreateMsKubunTable extends Migration
             $table->string('kubun_id',2);
             $table->string('kubun_value',255);
             $table->integer('sort_no')->comment('orderBy');
+            $table->string('notes',255)->comment('value to use select');
+            $table->primary(['kubun_type','kubun_id']);
             $table->timestamps();
         });
     }

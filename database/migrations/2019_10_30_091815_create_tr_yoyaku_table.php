@@ -13,10 +13,10 @@ class CreateTrYoyakuTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_yoyaku', function (Blueprint $table) {
+        /*Schema::create('tr_yoyaku', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
