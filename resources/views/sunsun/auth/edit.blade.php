@@ -15,7 +15,7 @@
 @section('page_title', 'Edit')
 @section('main')
     <main class="main-body">
-        <div class="container">
+        <div class="">
             <div class="user-warp">
                 {!! Form::open(['action' => ['Sunsun\Auth\AuthUserController@edit'], 'method' => 'POST', 'class' => 'form']) !!}
                 @if(isset($success))
@@ -28,7 +28,7 @@
                         {!! Form::label('username', '名称') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::text('username', $user->username, ['class' => '', 'required' => 'required']) !!}
+                        {!! Form::text('username', $user->username, ['class' => 'form-control', 'required' => 'required']) !!}
                         {!! $errors->first('username', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('tel', $user->tel, ['class' => '', 'required' => 'required']) !!}
+                        {!! Form::text('tel', $user->tel, ['class' => 'form-control', 'required' => 'required']) !!}
                         {!! $errors->first('tel', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('email', $user->email, ['class' => '', 'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$', 'disabled' => 'disabled']) !!}
+                        {!! Form::text('email', $user->email, ['class' => 'form-control', 'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$', 'disabled' => 'disabled']) !!}
                         {!! $errors->first('username', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         {!! Form::label('gender', '性別') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::select('gender', ['female' => 'Female', 'male' => 'Male'], $user->gender, ['class' => "", 'required' => 'required']) !!}
+                        {!! Form::select('gender', ['female' => 'Female', 'male' => 'Male'], $user->gender, ['class' => "form-control", 'required' => 'required']) !!}
 
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                         {!! Form::label('birth_year', '年齢') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::selectRange('birth_year', 1930, 2019, $user->birth_year,['class' => "", 'required' => 'required'] ) !!}
+                        {!! Form::selectRange('birth_year', 1930, 2019, $user->birth_year,['class' => "form-control", 'required' => 'required'] ) !!}
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 15px">
