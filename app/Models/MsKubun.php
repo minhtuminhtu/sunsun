@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class MsKubun extends Model
 {
-    protected $attributes;
-
     protected $fillable;
 
     // Table Name
@@ -18,8 +16,6 @@ class MsKubun extends Model
     public $timestamps = false;
     public function __construct(array $attributes = [])
     {
-        $this->attributes = [];
-
         $this->fillable = [
             config('const.db.ms_kubun.KUBUN_VALUE'),
             config('const.db.ms_kubun.SORT_NO'),

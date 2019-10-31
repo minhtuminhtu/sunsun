@@ -20,7 +20,6 @@
 @endsection
 @section('page_title', '予約入力')
 @section('main')
-
     <main class="main-body">
         <div class="">
             <form action="{{route('.confirm')}}" method="POST" class="booking">
@@ -59,8 +58,8 @@
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="used" class="form-control">
-                                        @foreach(config('booking.used.options') as $key => $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @foreach($repeat_user as $value)
+                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -71,8 +70,8 @@
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="transportation" id='transportation' class="form-control">
-                                        @foreach(config('booking.transportation.options') as $key => $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @foreach($transport as $value)
+                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -83,8 +82,8 @@
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="bus_arrival" class="form-control">
-                                        @foreach(config('booking.bus_arrival.options') as $key => $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @foreach($bus_arrive_time_slide as $value)
+                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,8 +94,8 @@
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="pick_up" class="form-control">
-                                        @foreach(config('booking.pick_up.options') as $key => $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @foreach($pick_up as $value)
+                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                     <p class="text-left mt-2 mb-2 node-text">バスの方は洲本ICのバス停に送迎を行います。</p>
@@ -108,8 +107,8 @@
                                 </div>
                                 <div class="booking-field-content">
                                     <select name="services" id="services" class="form-control">
-                                        @foreach(config('booking.services.options') as $key => $value)
-                                            <option value="{{ $value }}">{{ $value }}</option>
+                                        @foreach($course as $value)
+                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>

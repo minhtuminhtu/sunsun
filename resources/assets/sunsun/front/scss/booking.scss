@@ -43,16 +43,13 @@ a:hover {
         padding-left: 20px;
         padding-right: 10px;
     }
-    .icon-time {
-        padding-right: 3px;
-        padding-left: 3px;
-    }
     .choice-data-time {
         float: left;
+        margin-left: 1.15vw;
         >div {
             float: left;
             input {
-                width: 72px;
+                width: 9vw;
             }
         }
     }
