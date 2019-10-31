@@ -20,16 +20,21 @@ class BookingController extends Controller
     public function booking(Request $request){
 
         $MsKubun = MsKubun::all();
-        $data = [];
-        foreach ($MsKubun as $key => $value) {
-            $data[$key]['kubun_type'] = $value->kubun_type;
-            $data[$key]['kubun_id'] = $value->kubun_id;
-            $data[$key]['kubun_value'] = $value->kubun_value;
-            $data[$key]['sort_no'] = $value->sort_no;
-        }
-        $multiplied = collect($data);
+        $data['repeat_user'] = $MsKubun->where('kubun_type','001')->sortBy('sort_no');
+        $data['transport'] = $MsKubun->where('kubun_type','002')->sortBy('sort_no');
+        $data['bus_arrive_time_slide'] = $MsKubun->where('kubun_type','003')->sortBy('sort_no');
+        $data['pick_up'] = $MsKubun->where('kubun_type','004')->sortBy('sort_no');
+        $data['course'] = $MsKubun->where('kubun_type','005')->sortBy('sort_no');
+        $data['gender'] = $MsKubun->where('kubun_type','006')->sortBy('sort_no');
+        $data['age_value'] = $MsKubun->where('kubun_type','007')->sortBy('sort_no');
+        $data['lunch'] = $MsKubun->where('kubun_type','008')->sortBy('sort_no');
+        $data['whitening'] = $MsKubun->where('kubun_type','009')->sortBy('sort_no');
+        $data['pet_keeping'] = $MsKubun->where('kubun_type','010')->sortBy('sort_no');
+        $data['stay_room_type'] = $MsKubun->where('kubun_type','011')->sortBy('sort_no');
+        $data['stay_guest_num'] = $MsKubun->where('kubun_type','012')->sortBy('sort_no');
+        $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
 
-        $filtered = $multiplied->where('kubun_type','001')->sortBy('sort_no');
+        // dd($filtered);
 
 
         if (isset($request->add_new_user)) {
@@ -148,6 +153,21 @@ class BookingController extends Controller
 
     public function get_service(Request $request){
         $data['request_post'] = $request->all();
+        $MsKubun = MsKubun::all();
+        $data['repeat_user'] = $MsKubun->where('kubun_type','001')->sortBy('sort_no');
+        $data['transport'] = $MsKubun->where('kubun_type','002')->sortBy('sort_no');
+        $data['bus_arrive_time_slide'] = $MsKubun->where('kubun_type','003')->sortBy('sort_no');
+        $data['pick_up'] = $MsKubun->where('kubun_type','004')->sortBy('sort_no');
+        $data['course'] = $MsKubun->where('kubun_type','005')->sortBy('sort_no');
+        $data['gender'] = $MsKubun->where('kubun_type','006')->sortBy('sort_no');
+        $data['age_value'] = $MsKubun->where('kubun_type','007')->sortBy('sort_no');
+        $data['lunch'] = $MsKubun->where('kubun_type','008')->sortBy('sort_no');
+        $data['whitening'] = $MsKubun->where('kubun_type','009')->sortBy('sort_no');
+        $data['pet_keeping'] = $MsKubun->where('kubun_type','010')->sortBy('sort_no');
+        $data['stay_room_type'] = $MsKubun->where('kubun_type','011')->sortBy('sort_no');
+        $data['stay_guest_num'] = $MsKubun->where('kubun_type','012')->sortBy('sort_no');
+        $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
+        
 
         if ($data['request_post']['service'] == config('booking.services.options.normal')) {
             return view('sunsun.front.parts.enzyme_bath',$data)->render();

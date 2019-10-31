@@ -60,8 +60,8 @@
         </div>
         <div class="booking-field-content">
             <select name="whitening" class="form-control">
-                @foreach(config('booking.whitening.options') as $key => $value)
-                <option>{{ $value }}</option>
+                @foreach($whitening as $value)
+                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -72,8 +72,8 @@
         </div>
         <div class="booking-field-content">
             <select name="pet" class="form-control">
-                @foreach(config('booking.pet.options') as $key => $value)
-                <option>{{ $value }}</option>
+                @foreach($pet_keeping as $value)
+                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -92,8 +92,8 @@
         </div>
         <div class="booking-field-content">
             <select name="room" id="room" class="form-control">
-                @foreach(config('booking.room.options') as $key => $value)
-                <option>{{ $value }}</option>
+                @foreach($stay_room_type as $value)
+                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -104,8 +104,8 @@
         </div>
         <div class="booking-field-content">
             <select name="number_guests_stay" class="form-control">
-                @foreach(config('booking.number_guests_stay.options') as $key => $value)
-                <option>{{ $value }}</option>
+                @foreach($stay_guest_num as $value)
+                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>

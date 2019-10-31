@@ -52,13 +52,9 @@ a:hover {
   padding-right: 10px;
 }
 
-.choice-time .icon-time {
-  padding-right: 3px;
-  padding-left: 3px;
-}
-
 .choice-time .choice-data-time {
   float: left;
+  margin-left: 1.15vw;
 }
 
 .choice-time .choice-data-time > div {
@@ -66,7 +62,7 @@ a:hover {
 }
 
 .choice-time .choice-data-time > div input {
-  width: 72px;
+  width: 9vw;
 }
 
 main .main-body-head h1 {
