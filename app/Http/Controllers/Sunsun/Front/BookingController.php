@@ -18,8 +18,15 @@ class BookingController extends Controller
     }
 
     public function booking(Request $request){
-        $mskubun = MsKubun::all();
-        var_dump($mskubun->where('kubun_type', '001')->get());
+        $collection = MsKubun::all();
+        $multiplied = $collection->map(function ($item, $key) {
+            return (array)$item ;
+        });
+
+        $filtered = $multiplied->where('incrementing',true);
+
+        dd($filtered->all());
+        
 
         if (isset($request->add_new_user)) {
             $data['add_new_user'] = $request->add_new_user;
