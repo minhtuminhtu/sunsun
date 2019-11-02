@@ -74,6 +74,10 @@ main i.fa.fa-calendar-alt {
   color: #d7751e;
 }
 
+main .custom-select {
+  font-size: unset !important;
+}
+
 main .index-field .index-border {
   padding: 0.75vw 1.5vw 0.75vw 2.75vw;
   border: 1px solid #000;
@@ -324,10 +328,6 @@ label.form-check-label {
   text-align: right;
   color: #000;
   font-size: 0.9rem;
-}
-
-.time-laber {
-  font-size: 0.8rem;
 }
 
 .booking-warp {

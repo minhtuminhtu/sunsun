@@ -56,7 +56,7 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding pl-1">
-            <p class="text-md-left pt-2 pl-3  time-laber">{{config('booking.time.laber1')}}</p>
+            <p class="text-md-left pt-2 pl-3  node-text">{{config('booking.time.laber1')}}</p>
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
@@ -67,7 +67,7 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding pl-1">
-            <p class="text-md-left pt-2 pl-3 time-laber">{{config('booking.time.laber2')}}</p>
+            <p class="text-md-left pt-2 pl-3 node-text">{{config('booking.time.laber2')}}</p>
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">

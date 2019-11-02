@@ -65,7 +65,7 @@ main {
         color: #d7751e;
     }
     .custom-select {
-
+        font-size: unset !important;
     }
     .index-field {
         .index-border{
@@ -280,11 +280,6 @@ label.form-check-label {
     color: #000;
     font-size: 0.9rem;
 }
-.time-laber{
-    font-size: 0.8rem;
-}
-
-
 
 .booking-warp {
     width: 100vw;
