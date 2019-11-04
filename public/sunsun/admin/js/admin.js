@@ -104,7 +104,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/admin/js/admin.js */"./resources/assets/sunsun/admin/js/admin.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\admin.js */"./resources/assets/sunsun/admin/js/admin.js");
 
 
 /***/ })

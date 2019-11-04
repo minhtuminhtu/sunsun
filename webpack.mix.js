@@ -24,6 +24,9 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/assets/sunsun/admin/js/admin.js', 'public/sunsun/admin/js')
     .js('resources/assets/sunsun/admin/js/weekly.js', 'public/sunsun/admin/js')
 
+    .js('resources/assets/sunsun/admin/js/setting.js', 'public/sunsun/admin/js')
+    .sass('resources/assets/sunsun/admin/scss/setting.scss', 'public/sunsun/admin/css')
+
     .js('resources/assets/sunsun/front/js/base.js', 'public/sunsun/front/js')
     .js('resources/assets/sunsun/front/js/booking.js', 'public/sunsun/front/js')
     .js('resources/assets/sunsun/front/js/add_user_booking.js', 'public/sunsun/front/js')

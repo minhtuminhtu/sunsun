@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -99,14 +99,14 @@ $('#nav').on('click', function () {
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!********************************************************!*\
   !*** multi ./resources/assets/sunsun/front/js/base.js ***!
   \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/base.js */"./resources/assets/sunsun/front/js/base.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\base.js */"./resources/assets/sunsun/front/js/base.js");
 
 
 /***/ })

@@ -23,7 +23,7 @@
 @section('main')
     <main class="main-body">
         <div class="">
-            <form action="{{route('.payment')}}" method="POST" class="booking">
+            <form action="{{route('.make_payment')}}" method="POST" class="booking">
                 @csrf
                 <div class="booking-warp payment">
                     <div class="booking-field">

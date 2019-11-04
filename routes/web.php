@@ -19,7 +19,8 @@ Route::namespace('Sunsun\Front')->group(function (){
 
     Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
     Route::any('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
-    Route::post('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
+    Route::any('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
+    Route::post('/make_payment',['as' => '.make_payment', 'uses' => 'BookingController@make_payment']);
 
 
 
@@ -53,5 +54,6 @@ Route::middleware('auth', 'can:admin')->prefix('admin')->name('admin')->namespac
     Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);
     Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
     Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
+    Route::get('/setting',['as' => '.setting', 'uses' => 'AdminController@setting']);
 });
 

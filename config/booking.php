@@ -1,20 +1,20 @@
 <?php
 return [
-    'used' => [
+    'repeat_user' => [
         'label' => 'ご利用',
         'options' => [
             'no' => 'はじめて​',
             'yes' => '​リピート​',
         ]
     ],
-    'transportation' => [
+    'transport' => [
         'label' => '交通手段​',
         'options' => [
             'car' => '車​',
             'bus' => '​バス​',
         ]
     ],
-    'bus_arrival' => [
+    'bus_arrive_time_slide' => [
         'label' => '洲本IC着',
         'options' => [
             '1' => '9:29着（三宮発）',
@@ -30,14 +30,7 @@ return [
             'no' => '希望しない',
         ]
     ],
-    'pick_up' => [
-        'label' => '送迎',
-        'options' => [
-            'yes' => '希望する',
-            'no' => '希望しない',
-        ]
-    ],
-    'services' => [
+    'course' => [
         'label' => 'コース',
         'options' => [
             'normal' => '酵素浴',
@@ -47,7 +40,7 @@ return [
             'no' => '断食プラン',
         ]
     ],
-    'sex' => [
+    'gender' => [
         'label' => '性別',
         'options' => [
             'male' => '男性',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\MsKubun;
+use App\Models\Yoyaku;
 use Illuminate\Support\Collection;
 
 class BookingController extends Controller
@@ -50,7 +51,7 @@ class BookingController extends Controller
 
     public function add_new_booking(Request $request) {
         $data = $request->all();
-        if (isset($data['transportation'])) {
+        if (isset($data['transport'])) {
             $this->save_session($request, $data);
         }
         return ['status'=> 'OK'];
@@ -82,9 +83,9 @@ class BookingController extends Controller
         if ($request->session()->exists($this->session_info)) {
             $info_customer = $request->session()->get($this->session_info);
         } else {
-            $info_customer['transportation'] =  $data['transportation'];
-            if ($data['transportation'] !== config('booking.transportation.options.car')) {
-                $info_customer['bus_arrival'] = $data['bus_arrival'];
+            $info_customer['transport'] =  $data['transport'];
+            if ($data['transport'] !== config('booking.transport.options.car')) {
+                $info_customer['bus_arrive_time_slide'] = $data['bus_arrive_time_slide'];
                 $info_customer['pick_up'] = $data['pick_up'];
                 $info_customer['pick_up'] = $data['pick_up'];
             }
@@ -101,11 +102,12 @@ class BookingController extends Controller
     }
 
     public function confirm(Request $request){
-
         $data['customer'] = $this->get_booking($request);
         if (count($data['customer']) == 0) {
             return redirect("/booking");
         }
+        // dd($data);
+
         $data['customer']['info'] = array_values($data['customer']['info']);
         return view('sunsun.front.confirm',$data);
 
@@ -113,10 +115,57 @@ class BookingController extends Controller
 
     public function payment(Request $request){
         $data = $request->all();
-        $request->session()->forget($this->session_info);
-        // dd($data);
+        $data['customer'] = $this->get_booking($request);
         return view('sunsun.front.payment',['data' => $data]);
     }
+
+    public function make_payment(Request $request){
+        $data = $request->all();
+        $data['customer'] = $this->get_booking($request);
+
+
+
+        if(count($data['customer']['info']) == 0){
+            return redirect("/booking");
+        }
+
+        // $parent = true;
+        // $parent_id = NULL;
+        // foreach($data['customer']['info'] as $customer){
+        //     // $Yoyaku = new Yoyaku;
+
+        //     // if($parent){
+        //     //     $parent_id = $Yoyaku->booking_id = date("Ymd")."001";
+        //     //     $Yoyaku->course = 'b';
+        //     //     $parent = false;
+
+        //     // }else{
+        //     //     $Yoyaku->booking_id = date("Ymd")."002";
+        //     //     $Yoyaku->ref_booking_id = $parent_id;
+        //     //     $Yoyaku->course = 'c';
+        //     // }   
+
+        //     // $Yoyaku->save();
+        //     $booking_id = $this->get_booking_id();
+
+            
+        // }
+
+        $booking_id = date("Ymd");
+        $a = Yoyaku::where('booking_id', 'LIKE', "%a%")->get();
+        print_r($a);
+
+        // $request->session()->forget($this->session_info);
+        return view('sunsun.front.payment',['data' => $data]);
+    }
+
+
+    public function get_booking_id(){
+        $booking_id = date("Ymd")."%";
+        $result = Yoyaku::where('booking_id', 'LIKE', $booking_id);
+        return $result;
+    }
+
 
     public function get_time_room(Request $request){
         $data = $request->all();
@@ -167,17 +216,23 @@ class BookingController extends Controller
         $data['stay_room_type'] = $MsKubun->where('kubun_type','011')->sortBy('sort_no');
         $data['stay_guest_num'] = $MsKubun->where('kubun_type','012')->sortBy('sort_no');
         $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
-        
 
-        if ($data['request_post']['service'] == config('booking.services.options.normal')) {
+
+
+        
+        
+        $json = json_decode($data['request_post']['service']);
+
+
+        if ($json->kubun_id == "01") {
             return view('sunsun.front.parts.enzyme_bath',$data)->render();
-        } elseif ($data['request_post']['service'] == config('booking.services.options.day')) {
+        } elseif ($json->kubun_id == "02") {
             return view('sunsun.front.parts.oneday_bath',$data)->render();
-        } elseif ($data['request_post']['service'] == config('booking.services.options.eat')) {
+        } elseif ($json->kubun_id == "03") {
             return view('sunsun.front.parts.enzyme_room_bath',$data)->render();
-        } elseif ($data['request_post']['service'] == config('booking.services.options.no')) {
+        } elseif ($json->kubun_id == "04") {
             return view('sunsun.front.parts.fasting_plan',$data)->render();
-        } elseif ($data['request_post']['service'] == config('booking.services.options.pet')) {
+        } elseif ($json->kubun_id == "05") {
             return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
         }
     }

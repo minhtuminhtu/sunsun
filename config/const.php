@@ -17,7 +17,36 @@ return [
             'KUBUN_VALUE' => 'kubun_value',
             'SORT_NO' => 'sort_no',
             'NOTES' => 'notes'
+        ],
+        'tr_yoyaku' => [
+            'BOOKING_ID' => 'booking_id',
+            'REF_BOOKING_ID' => 'ref_booking_id',
+            'EMAIL' => 'email',
+            'REPEAT_USER' => 'repeat_user',
+            'TRANSPORT' => 'transport',
+            'BUS_ARRIVE_TIME_SLIDE' => 'bus_arrive_time_slide',
+            'BUS_TIME_VALUE' => 'bus_arrive_time_value',
+            'PICK_UP' => 'pick_up',
+            'COURSE' => 'course',
+            'GENDER' => 'gender',
+            'AGE_TYPE' => 'age_type',
+            'AGE_VALUE' => 'age_value',
+            'SERVICE_DATE_START' => 'service_date_start',
+            'SERVICE_DATE_END' => 'service_date_end',
+            'SERVICE_TIME_1' => 'service_time_1',
+            'SERVICE_TIME_2' => 'service_time_2',
+            'SERVICE_GUEST_NUM' => 'service_guest_num',
+            'SERVICE_PET_NUM' => 'service_pet_num',
+            'LUNCH' => 'lunch',
+            'LUNCH_GUEST_NUM' => 'lunch_guest_num',
+            'WHITENING' => 'whitening',
+            'PET_KEEPING' => 'pet_keeping',
+            'STAY_ROOM_TYPE' => 'stay_room_type',
+            'STAY_GUEST_NUM' => 'stay_guest_num',
+            'STAY_CHECKIN_DATE' => 'stay_checkin_date',
+            'STAY_CHECKOUT_DATE' => 'stay_checkout_date'
         ]
+        
     ],
 
     'auth' => [

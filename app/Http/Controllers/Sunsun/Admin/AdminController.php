@@ -18,4 +18,7 @@ class AdminController extends Controller
     public function monthly() {
         return view('sunsun.admin.monthly');
     }
+    public function setting() {
+        return view('sunsun.admin.setting');
+    }
 }

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -136,6 +136,15 @@ $(function () {
       edit.closest('.date-warp').find('.date-book-input').val(edit.datepicker('getFormattedDate'));
       change_day();
     });
+    $('#room').on('change', function () {
+      var room = JSON.parse($('#room').val());
+
+      if (room.kubun_id == '01') {
+        $('.room').hide();
+      } else {
+        $('.room').show();
+      }
+    });
     $('#date').datepicker({
       language: 'ja',
       dateFormat: "yyyy/mm/dd",
@@ -155,13 +164,6 @@ $(function () {
       $(this).addClass('btn-warning');
       $(this).removeClass('btn-outline-warning');
       $('#agecheck').val($(this).text());
-    });
-    $('#room').on('change', function () {
-      if (this.value == '無し') {
-        $('.room').hide();
-      } else {
-        $('.room').show();
-      }
     });
     $('#date').on('change blur', function () {
       var check = moment($('#date').val());
@@ -274,17 +276,10 @@ $(function () {
     $('.set-time.edit input.time').val(time);
     modal_choice_time.modal('hide');
   });
-  var transportation = $('#transportation').val();
-
-  if (transportation == '車') {
-    $('.bus').hide();
-  } else {
-    $('.bus').show();
-  }
 
   var get_service = function get_service() {
     var data = {
-      'service': $('#services').val()
+      'service': $('#course').val()
     };
 
     if ($('input[name=add_new_user]').val() == 'on') {
@@ -314,7 +309,7 @@ $(function () {
     });
   };
 
-  $('#services').on('change', function () {
+  $('#course').on('change', function () {
     get_service();
   });
   get_service();
@@ -394,18 +389,13 @@ function getDates(startDate, stopDate) {
   return dateArray;
 }
 
-$('#transportation').on('change', function () {
-  if (this.value == '車') {
+$('#transport').on('change', function () {
+  var transport = JSON.parse($('#transport').val());
+
+  if (transport.kubun_id == '01') {
     $('.bus').hide();
   } else {
     $('.bus').show();
-  }
-});
-$('#room').on('change', function () {
-  if (this.value == '無し') {
-    $('.room').hide();
-  } else {
-    $('.room').show();
   }
 });
 $('.agecheck').click(function () {
@@ -440,14 +430,14 @@ $('#confirm').on('change', function () {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!***********************************************************!*\
   !*** multi ./resources/assets/sunsun/front/js/booking.js ***!
   \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/front/js/booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

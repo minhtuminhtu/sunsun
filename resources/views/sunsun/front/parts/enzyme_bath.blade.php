@@ -9,12 +9,12 @@
     </div>
     <div class="booking-field">
     <div class="booking-field-label  booking-laber-padding">
-        <p class="text-left pt-2">{{config('booking.sex.label')}}</p>
+        <p class="text-left pt-2">{{config('booking.gender.label')}}</p>
     </div>
     <div class="booking-field-content">
-        <select name="sex" class="form-control">
+        <select name="gender" class="form-control">
             @foreach($gender as $value)
-                <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                <option value='@json($value)'>{{ $value->kubun_value }}</option>
             @endforeach
         </select>
     </div>
@@ -35,7 +35,7 @@
                 <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">学生<span class="node-text">(中学生以上)</span></button>
                 <div class="age-col mt-1">
                     <div class="age-left">
-                        <select name="age" class="form-control">
+                        <select name="age_value" class="form-control">
                             @php
                                 $val = [];
                                 $i = 0;
@@ -45,7 +45,7 @@
                                     
                                 }
                                 for($j = $val[0]; $j <= $val[1]; $j++ ){
-                                    echo "<option>".$j."</option>";
+                                    echo "<option value='".$j."'>".$j."</option>";
                                 }
                             @endphp
                         </select>
@@ -91,7 +91,7 @@
         <div class="booking-field-content">
             <select name="lunch" class="form-control">
                 @foreach($lunch as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
             <p class="node-text text-left mt-2 mb-2">ランチは11:30からです</p>
@@ -104,7 +104,7 @@
         <div class="booking-field-content">
             <select name="whitening" class="form-control">
                 @foreach($whitening as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -116,7 +116,7 @@
         <div class="booking-field-content">
             <select name="pet" class="form-control">
                 @foreach($pet_keeping as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -136,19 +136,19 @@
         <div class="booking-field-content">
             <select name="room" id="room" class="form-control">
                 @foreach($stay_room_type as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
     </div>
     <div class="booking-field room" style="display:none;">
         <div class="booking-field-label booking-laber-padding">
-            <p class="text-left pt-2">{{config('booking.number_guests_stay.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="number_guests_stay" class="form-control">
+            <select name="stay_guest_num" class="form-control">
                 @foreach($stay_guest_num as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>

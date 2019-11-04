@@ -37,6 +37,18 @@ $(function() {
             change_day();
         });
 
+
+        $('#room').on('change', function() {
+            var room =  JSON.parse($('#room').val());
+            if(room.kubun_id == '01'){
+                $('.room').hide();
+            }else{
+                $('.room').show();
+            }
+        });
+
+        
+
         $('#date').datepicker({
             language: 'ja',
             dateFormat: "yyyy/mm/dd",
@@ -62,13 +74,7 @@ $(function() {
             $(this).removeClass('btn-outline-warning');
             $('#agecheck').val($(this).text())
         });
-        $('#room').on('change', function() {
-            if(this.value == '無し'){
-                $('.room').hide();
-            }else{
-                $('.room').show();
-            }
-        });
+
 
         $('#date').on('change blur', function() {
             var check = moment($('#date').val());
@@ -174,16 +180,11 @@ $(function() {
         modal_choice_time.modal('hide');
     })
 
-    let transportation =  $('#transportation').val();
-    if(transportation == '車'){
-        $('.bus').hide();
-    }else{
-        $('.bus').show();
-    }
+
 
     let get_service = function() {
         let data = {
-            'service': $('#services').val()
+            'service': $('#course').val()
         };
         if ($('input[name=add_new_user]').val() == 'on' ) {
             data.add_new_user = 'on';
@@ -206,7 +207,7 @@ $(function() {
             },
         });
     }
-    $('#services').on('change', function() {
+    $('#course').on('change', function() {
         get_service();
     });
     get_service();
@@ -290,21 +291,18 @@ function getDates(startDate, stopDate) {
 }
 
 
-$('#transportation').on('change', function() {
-    if(this.value == '車'){
+$('#transport').on('change', function() {
+    var transport =  JSON.parse($('#transport').val());
+    if(transport.kubun_id == '01'){
         $('.bus').hide();
     }else{
         $('.bus').show();
     }
+    
 });
 
-$('#room').on('change', function() {
-    if(this.value == '無し'){
-        $('.room').hide();
-    }else{
-        $('.room').show();
-    }
-});
+
+
 $('.agecheck').click(function(){
     $('.agecheck').removeClass('btn-warning');
     $(this).addClass('btn-warning');

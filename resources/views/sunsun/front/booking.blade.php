@@ -54,36 +54,36 @@
 
                             <div class="booking-field">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-left pt-2">{{config('booking.used.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.repeat_user.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
-                                    <select name="used" class="form-control">
+                                    <select name="repeat_user" class="form-control">
                                         @foreach($repeat_user as $value)
-                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-left pt-2">{{config('booking.transportation.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.transport.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
-                                    <select name="transportation" id='transportation' class="form-control">
+                                    <select name="transport" id='transport' class="form-control">
                                         @foreach($transport as $value)
-                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="booking-field bus" style="display:none;">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-left pt-2">{{config('booking.bus_arrival.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.bus_arrive_time_slide.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
-                                    <select name="bus_arrival" class="form-control">
+                                    <select name="bus_arrive_time_slide" class="form-control">
                                         @foreach($bus_arrive_time_slide as $value)
-                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,7 +95,7 @@
                                 <div class="booking-field-content">
                                     <select name="pick_up" class="form-control">
                                         @foreach($pick_up as $value)
-                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                     <p class="text-left mt-2 mb-2 node-text">バスの方は洲本ICのバス停に送迎を行います。</p>
@@ -103,12 +103,12 @@
                             </div>
                             <div class="booking-field">
                                 <div class="booking-field-label booking-laber-padding">
-                                    <p class="text-left pt-2">{{config('booking.services.label')}}</p>
+                                    <p class="text-left pt-2">{{config('booking.course.label')}}</p>
                                 </div>
                                 <div class="booking-field-content">
-                                    <select name="services" id="services" class="form-control">
+                                    <select name="course" id="course" class="form-control">
                                         @foreach($course as $value)
-                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
