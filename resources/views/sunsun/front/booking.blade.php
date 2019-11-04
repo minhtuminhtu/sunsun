@@ -59,7 +59,7 @@
                                 <div class="booking-field-content">
                                     <select name="used" class="form-control">
                                         @foreach($repeat_user as $value)
-                                            <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                                            <option value="@json($value)">{{ $value->kubun_value }}</option>
                                         @endforeach
                                     </select>
                                 </div>

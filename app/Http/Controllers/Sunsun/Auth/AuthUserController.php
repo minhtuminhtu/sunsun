@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sunsun\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\MsUser;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -36,8 +37,8 @@ class AuthUserController extends Controller
             }
             $this->update($data, $data_request);
         }
-        $user = Auth::user();
-        $data['user'] = $user;
+        $ms_user_id = Auth::user()->ms_user_id;
+        $data['user'] = MsUser::find($ms_user_id);
 
         return view('sunsun.auth.edit')->with($data);
     }

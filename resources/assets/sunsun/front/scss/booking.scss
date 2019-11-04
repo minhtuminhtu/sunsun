@@ -135,25 +135,7 @@ main {
 
 }
 
-.datepicker {
-    thead {
-        th {
-            vertical-align: middle;
-        }
-        tr:nth-child(2) {
 
-        }
-    }
-    th.dow {
-        border-radius: unset;
-        background: #a6a6a6;
-    }
-}
-
-.datepicker td, .datepicker th {
-    width: 38px;
-    height: 38px;
-}
 .btn-booking {
     background: #d7751e;
     &:hover {
@@ -296,8 +278,8 @@ label.form-check-label {
             border: 0;
             box-shadow: none;
         }
-        
-        
+
+
         .credit-card-line{
             border: 0px;
             width: 60%;
@@ -324,7 +306,7 @@ label.form-check-label {
                 width: 40%;
             }
         }
-        
+
     }
 }
 .booking-warp.index{
@@ -344,7 +326,7 @@ label.form-check-label {
     max-width: 32vw;
     margin: 0 34vw;
     padding: 0.75vw;
-  
+
 }
 .foot-confirm{
     width: 32vw;
@@ -509,7 +491,7 @@ a.no-effect{
 .footer-space{
     height: 20px;
     border-top: 0px;
-}    
+}
 .booking-warp.confirm {
     background-color: #d8d8d8;
 }
@@ -595,7 +577,7 @@ body{
 .main-text{
     font-size: 1.25vw;
 }
-select { 
+select {
     font-size: 1.25vw;
 }
 

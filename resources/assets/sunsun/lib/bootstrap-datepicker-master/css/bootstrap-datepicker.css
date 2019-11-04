@@ -475,3 +475,14 @@
   margin-right: -5px;
 }
 /*# sourceMappingURL=bootstrap-datepicker.css.map */
+.datepicker thead th {
+    vertical-align: middle;
+}
+.datepicker th.dow {
+    border-radius: unset;
+    background: #a6a6a6;
+}
+.datepicker td, .datepicker th {
+    width: 38px;
+    height: 38px;
+}

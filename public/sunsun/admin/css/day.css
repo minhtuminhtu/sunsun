@@ -2,7 +2,7 @@
   padding-top: 10px;
 }
 
-.main-head__top .current-day {
+.main-head__top .current-date {
   font-size: 1.2rem;
 }
 
@@ -16,7 +16,7 @@
   vertical-align: bottom;
 }
 
-.main-head__top .control-day {
+.main-head__top .control-date {
   background: #bfbfbf;
   color: #000000;
   padding: 4px 11px;
