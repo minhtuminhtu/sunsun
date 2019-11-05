@@ -761,19 +761,19 @@
                                 <td>○</td>
                             </tr>
                             <tr class="even">
-                                <td>9：30～10：30</td>
+                                <td>11：00～12：00</td>
                             </tr>
                             <tr class="odd">
                                 <td>○</td>
                             </tr>
                             <tr class="even">
-                                <td>9：30～10：30</td>
+                                <td>14：00～15：00</td>
                             </tr>
                             <tr class="odd">
                                 <td>○</td>
                             </tr>
                             <tr class="even">
-                                <td>9：30～10：30</td>
+                                <td>15：30～16：30</td>
                             </tr>
                             <tr class="odd">
                                 <td>
