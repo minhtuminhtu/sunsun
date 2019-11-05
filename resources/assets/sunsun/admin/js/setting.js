@@ -41,7 +41,7 @@ $(document).ready(function() {
                 $('.checkbox').prop('checked', false);
                 $('.update-edit').hide();
             }
-            
+
         });
 
         $('.checkbox').on('change', function(){
@@ -56,7 +56,7 @@ $(document).ready(function() {
             }else{
                 $('#check_all').prop('checked', false);
             }
-            
+
         });
 
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
         });
 
 
-        
+
         $('#btn-update').click(function() {
             var kubun_id =$('.checkbox').filter(':checked').first().val();
             var kubun_type = $('#setting-type').val();
@@ -162,7 +162,7 @@ $(document).ready(function() {
                     },
                 });
             }
-            
+
         });
 
 
@@ -171,9 +171,9 @@ $(document).ready(function() {
             var kubun_type = $('#setting-type').val();
             $.ajax( {
                 url: '/admin/update_setting_sort_no',
-                type: 'post', 
+                type: 'post',
                 data: {
-                    type: 'up', 
+                    type: 'up',
                     sort_no: sort_no,
                     kubun_type: kubun_type
                 }
@@ -198,9 +198,9 @@ $(document).ready(function() {
             var kubun_type = $('#setting-type').val();
             $.ajax( {
                 url: '/admin/update_setting_sort_no',
-                type: 'post', 
+                type: 'post',
                 data: {
-                    type: 'down', 
+                    type: 'down',
                     sort_no: sort_no,
                     kubun_type: kubun_type
                 }
@@ -227,7 +227,7 @@ $(document).ready(function() {
 
 
 
-    let load_modal_function = function(){
+        let load_modal_function = function(){
         $('.btn-cancel').click(function() {
             $('#setting_update').modal('hide');
         });
@@ -309,11 +309,11 @@ $(document).ready(function() {
     get_setting_type();
 
 
-    
 
 
 
 
 
-    
+
+
 });

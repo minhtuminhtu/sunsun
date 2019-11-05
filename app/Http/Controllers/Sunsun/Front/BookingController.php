@@ -143,12 +143,12 @@ class BookingController extends Controller
         //     //     $Yoyaku->booking_id = date("Ymd")."002";
         //     //     $Yoyaku->ref_booking_id = $parent_id;
         //     //     $Yoyaku->course = 'c';
-        //     // }   
+        //     // }
 
         //     // $Yoyaku->save();
         //     $booking_id = $this->get_booking_id();
 
-            
+
         // }
 
         $booking_id = date("Ymd");
@@ -205,6 +205,7 @@ class BookingController extends Controller
     public function get_service(Request $request){
         $data['request_post'] = $request->all();
         $MsKubun = MsKubun::all();
+
         $data['repeat_user'] = $MsKubun->where('kubun_type','001')->sortBy('sort_no');
         $data['transport'] = $MsKubun->where('kubun_type','002')->sortBy('sort_no');
         $data['bus_arrive_time_slide'] = $MsKubun->where('kubun_type','003')->sortBy('sort_no');
@@ -220,9 +221,6 @@ class BookingController extends Controller
         $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
 
 
-
-        
-        
         $json = json_decode($data['request_post']['service']);
 
 
@@ -238,4 +236,5 @@ class BookingController extends Controller
             return view('sunsun.front.parts.fasting_plan',$data)->render();
         }
     }
+
 }
