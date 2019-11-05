@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -440,7 +440,7 @@ $('#confirm').on('change', function () {
 
 /***/ }),
 
-/***/ 4:
+/***/ 2:
 /*!***********************************************************!*\
   !*** multi ./resources/assets/sunsun/front/js/booking.js ***!
   \***********************************************************/

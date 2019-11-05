@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -93,18 +93,65 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/html/sunsun/resources/assets/sunsun/admin/js/day.js'");
+$(function () {
+  var main_head__top = $('.main-head__top');
+  var current_day = $('.current-date');
+  var date_day = current_day.datepicker({
+    language: 'ja',
+    dateFormat: 'yyyy/mm/dd',
+    autoclose: true,
+    onSelect: function onSelect() {
+      var mon = $(this).datepicker('getDate');
+      mon.setDate(mon.getDate() + 1 - (mon.getDay() || 7));
+      var sun = new Date(mon.getTime());
+      sun.setDate(sun.getDate() + 6);
+    }
+  });
+  current_day.on('input change', 'input', function (e) {
+    var date = $(this).val().split('/').join('');
+    window.location.href = $curent_url + "?date=" + date;
+  });
+
+  if (current_day.find('input').val() === '') {
+    date_day.datepicker("setDate", new Date());
+    current_day.find('input').trigger("input");
+  }
+
+  main_head__top.on('click', '.prev-date', function (e) {
+    var date = date_day.datepicker('getDate');
+    date.setTime(date.getTime() - 1000 * 60 * 60 * 24);
+    date_day.datepicker("setDate", date);
+    current_day.find('input').trigger("input");
+  });
+  main_head__top.on('click', '.next-date', function (e) {
+    var date = date_day.datepicker('getDate');
+    date.setTime(date.getTime() + 1000 * 60 * 60 * 24);
+    date_day.datepicker("setDate", date);
+    current_day.find('input').trigger("input");
+  });
+  $('.info-name').popover({
+    html: true,
+    content: function content() {
+      var span_click = $(this);
+      return span_click.closest('td').find('.detail-content').clone();
+    },
+    title: function title() {
+      var span_click = $(this);
+      return span_click.closest('td').find('.detail-title').clone();
+    }
+  });
+});
 
 /***/ }),
 
-/***/ 2:
+/***/ 7:
 /*!*******************************************************!*\
   !*** multi ./resources/assets/sunsun/admin/js/day.js ***!
   \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/sunsun/resources/assets/sunsun/admin/js/day.js */"./resources/assets/sunsun/admin/js/day.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
 
 
 /***/ })

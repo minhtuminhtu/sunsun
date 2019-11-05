@@ -47,7 +47,46 @@ class AdminController extends Controller
         return view('sunsun.admin.weekly',$data);
     }
 
-    public function monthly() {
-        return view('sunsun.admin.monthly');
+    public function monthly(Request $request) {
+        $data = [];
+        if ($request->has('date') && $request->date != '') {
+            $month = substr($request->date,4);
+            $year = substr($request->date,0,4);
+            $datetime = Carbon::createFromDate($year, $month, 1);
+            $data['date'] =  $datetime->format('Y/m');
+            $date = $datetime->format('Ym');
+
+        } else {
+            $time_now = Carbon::now();
+            $data['date'] =  $time_now->format('Y/m');
+            $date = $time_now->format('Ym');
+        }
+        $year = substr($date,0,4);
+        $month = substr($date,4);
+
+        $data['data_date'] = DB::table('tr_yoyaku')
+            ->select(['email as title', 'service_date_start as start', 'service_date_start as end'])
+            ->whereYear('service_date_start',$year)
+            ->whereMonth('service_date_start',$month)
+            ->get()
+            /*->groupBy(function($date) {
+                return Carbon::parse($date->service_date_start)->format('W');
+            })*/;
+        //$num_weeks = $this->get_month($month, $year);
+        //dd($data['data_date']->all());
+        return view('sunsun.admin.monthly',$data);
+    }
+
+    private function get_month ($month, $year){
+        $date = Carbon::createFromDate($year,$month);
+        $data = [];
+        for ($i=1; $i <= $date->daysInMonth ; $i++) {
+            Carbon::createFromDate($year,$month,$i);
+            $week_num = Carbon::createFromDate($year,$month,$i)->format('W');
+            $data[$week_num]['start']= (array)Carbon::createFromDate($year,$month,$i)->startOfWeek()->toDateString();
+            $data[$week_num]['end']= (array)Carbon::createFromDate($year,$month,$i)->endOfweek()->toDateString();
+            $i+=7;
+        }
+        return $data;
     }
 }

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,7 +108,6 @@ $(function () {
     var date_from = moment(start_date).format('YYYYMMDD');
     var date_to = moment(end_date).format('YYYYMMDD');
     url = $curent_url + "?date_from=" + date_from + "&date_to=" + date_to;
-    console.log(url);
   }
 
   function load_url() {
@@ -146,7 +145,7 @@ $(function () {
 
 /***/ }),
 
-/***/ 2:
+/***/ 6:
 /*!**********************************************************!*\
   !*** multi ./resources/assets/sunsun/admin/js/weekly.js ***!
   \**********************************************************/

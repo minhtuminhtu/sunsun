@@ -3,6 +3,7 @@
 
 @section('head')
     @parent
+    <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/monthly.css')}}">
 @endsection
 
@@ -12,13 +13,16 @@
 
             <div class="main-head">
                 <div class="main-head__top">
-                    <span class="current-monthly">≪ 2019/8 ≫</span>
-                    <span class="icon-calendar">
+                    <span class="datepicker-control current-date">
+                        ≪ <input type="text" value="{{$date}}" style="width: 4.2rem" >  ≫
+                        <span class="icon-calendar">
                             <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                               class="fa fa-calendar-alt"></i>
+                               class="fa fa-calendar-alt">
+                            </i>
                         </span>
-                    <a class="control-month prev-month" href="">≪前月</a>
-                    <a class="control-month next-month" href="">翌月≫</a>
+                    </span>
+                    <a class="control-month prev-month" href="javascript:void(0)">≪前月</a>
+                    <a class="control-month next-month" href="javascript:void(0)">翌月≫</a>
                 </div>
                 <div class="main-head__middle">
 
@@ -1435,13 +1439,12 @@
     </main>
 @endsection
 
-@section('footer')
-    @parent
-
-@endsection
-
 @section('script')
     @parent
-
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
+            charset="UTF-8"></script>
+    <script src="{{asset('sunsun/admin/js/month.js').config('version_files.html.js')}}"></script>
 @endsection
 
