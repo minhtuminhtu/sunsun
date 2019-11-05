@@ -39,6 +39,7 @@
 
     </style>
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/base.css').config('version_files.html.css')}}">
     @yield('admincss')
 @endsection
 

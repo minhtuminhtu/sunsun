@@ -66,7 +66,7 @@
                                 @php 
                                     $gender = isset($data['gender'])?json_decode($data['gender']):"";
                                     $repeat_user = json_decode($data['repeat_user']);
-                                    $age_value = $data['age_value'];
+                                    $age_value = isset($data['age_value'])?$data['age_value']:"";
                                 @endphp
 
                                 <div class="line"> 
@@ -127,18 +127,15 @@
                                     </div>
                                     <div class="line2">
                                         @php 
-                                            $lunch = json_decode($data['lunch']);
+                                            $lunch = isset($data['lunch'])?json_decode($data['lunch']):"";
                                         @endphp
                                         @if($course->kubun_id != '05') 
                                             @if($course->kubun_id != '04') 
                                                 @if($course->kubun_id == '03') 
-                                                    @if($data['number_lunch_book'] != config('booking.number_lunch_book.options.no'))
-                                                    <p>
-                                                    昼食: {{ $data['number_lunch_book']??'' }}</p>
-                                                    @endif 
+                                                    
                                                 @elseif($course->kubun_id != '02') 
 
-                                                    @if($data['lunch'] != config('booking.lunch.options.no'))
+                                                    @if($lunch->kubun_value != config('booking.lunch.options.no'))
                                                         <p>昼食: {{ $lunch->kubun_value }}</p>
                                                     @endif 
                                                 @endif 
@@ -148,8 +145,8 @@
                                         <p>ﾎﾜｲﾄﾆﾝｸ ：有り </p>
                                         <p>ﾍﾟｯﾄ預かり：有り </p>
                                         @if($course->kubun_id == '05')
-                                            <p>ペット数：{{ $data['number_pet']??'' }}</p>
-                                            <p>ペット種類：{{ $data['pet_type']??'' }}</p>
+                                            <p>ペット数：{{ $data['number_pet'] }}</p>
+                                            <p>ペット種類：{{ $data['pet_type'] }}</p>
                                             
                                         @endif 
 
@@ -171,24 +168,19 @@
                                     <div class="line2">
                                         @php 
                                             $room = json_decode($data['room']);
-                                            $stay_guest_num = json_decode($data['stay_guest_num']);
+                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
                                             
                                         @endphp
-                                        @if(isset($data['room']))
-                                            @if($data['room'] != config('booking.room.options.no'))
-                                                <p>宿泊：有り</p>
-                                                <p>部屋ﾀｲﾌﾟ：{{ $room->kubun_value }}</p>
-                                                <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
-                                                <p>宿泊日</p>
-                                                <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
-                                                </div>
-                                            @else
-                                                <p>
-                                                なし
-                                                </p>
-                                            @endif 
+                                        @if($room->kubun_value != config('booking.room.options.no'))
+                                            <p>宿泊：有り</p>
+                                            <p>部屋ﾀｲﾌﾟ：{{ $room->kubun_value }}</p>
+                                            <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
+
+                                            <p>宿泊日</p>
+                                            <div class="line3">
+                                                <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
+                                                <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
+                                            </div>
                                         @else
                                             <p>
                                             なし
