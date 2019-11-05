@@ -3,7 +3,7 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/weekly.css').config('version_files.html.css')}}">
 @endsection
 
@@ -14,12 +14,17 @@
     <div class="main-content">
         <div class="main-content-head">
             <div class="left-content">
-                <a href="" class="week-title">≪</a>
-                <span class="week-title">2019/8/20</span>
-                <a href="" class="week-title">≫</a>
-                <span  class="week-icon"><i class="fas fa-calendar-alt"></i></span>
-                <a href="" class=" week-button-control">≪前週</a>
-                <a href=""  class=" week-button-control">翌週≫</a>
+                <span class="datepicker-control week-picker" id="week-picker-wrapper">
+                        ≪ <input type="text" value="{{$date_from.' - '.$date_to}}"  class=""  style="width: 12.8rem;"> ≫
+                        <span class="icon-calendar">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar"
+                               class="fa fa-calendar-alt js-calendar-day">
+                            </i>
+                        </span>
+                </span>
+                <a class="control-date week-prev" href="javascript:void(0)">≪前週</a>
+                <a class="control-date week-next" href="javascript:void(0)">翌週≫</a>
+                <input type="hidden" value="{{$date_from}}" id="date_start_week">
             </div>
             <div class="right-content">
                 <ul>
@@ -588,7 +593,12 @@
 
 @section('script')
     @parent
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
+            charset="UTF-8"></script>
     <script src="{{asset('sunsun/admin/js/admin.js').config('version_files.html.css')}}"></script>
     <script src="{{asset('sunsun/admin/js/weekly.js').config('version_files.html.css')}}"></script>
+
 @endsection
 

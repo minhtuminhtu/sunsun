@@ -1,0 +1,31 @@
+.datepicker-control input {
+  width: 7rem;
+  border: none;
+}
+
+.datepicker-control input:focus {
+  border: none;
+  outline: none;
+}
+
+.main-content-head .current-date {
+  font-size: 1.2rem;
+}
+
+.main-content-head .icon-calendar {
+  color: #d7751e;
+  padding-left: 10px;
+}
+
+.main-content-head .fa-calendar-alt {
+  font-size: 1.5rem;
+  vertical-align: bottom;
+}
+
+.main-content-head .control-date {
+  background: #bfbfbf;
+  color: #000000;
+  padding: 4px 11px;
+  font-weight: 500;
+}
+

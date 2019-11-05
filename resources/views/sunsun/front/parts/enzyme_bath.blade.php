@@ -83,7 +83,7 @@
     <!-- <hr class="booking-line-line"> -->
 </div>
 <div class="booking-block-between">
-    
+
     <div class="booking-field">
         <div class="booking-field-label booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.lunch.label')}}</p>

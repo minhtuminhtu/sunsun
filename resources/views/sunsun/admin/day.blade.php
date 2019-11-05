@@ -3,6 +3,7 @@
 
 @section('head')
     @parent
+    <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
 @endsection
 
@@ -10,16 +11,18 @@
 
     <main>
         <div class="container">
-
             <div class="main-head">
                 <div class="main-head__top">
-                    <span class="current-day">≪ 2019/8/20 ≫</span>
-                    <span class="icon-calendar">
+                    <span class="datepicker-control current-date">
+                        ≪ <input type="text" value="{{$date}}"> ≫
+                        <span class="icon-calendar">
                             <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                               class="fa fa-calendar-alt date-book"></i>
+                               class="fa fa-calendar-alt">
+                            </i>
                         </span>
-                    <a class="control-day prev-day" href="">≪前日</a>
-                    <a class="control-day next-day" href="">翌日≫</a>
+                    </span>
+                    <a class="control-date prev-date" href="javascript:void(0)">≪前日</a>
+                    <a class="control-date next-date" href="javascript:void(0)">翌日≫</a>
                     <span class="node-day">入浴：酵素浴　リ：リフレッシュプラン</span>
                 </div>
                 <div class="main-head__middle">
@@ -803,9 +806,46 @@
 
 @section('script')
     @parent
-
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
+            charset="UTF-8"></script>
     <script>
         $(function () {
+            let main_head__top = $('.main-head__top');
+            let current_day = $('.current-date');
+            let date_day = current_day.datepicker({
+                language: 'ja',
+                dateFormat: 'yyyy/mm/dd',
+                autoclose: true,
+                onSelect: function() {
+                    var mon = $(this).datepicker('getDate');
+                    mon.setDate(mon.getDate() + 1 - (mon.getDay() || 7));
+                    var sun = new Date(mon.getTime());
+                    sun.setDate(sun.getDate() + 6);
+                }
+            });
+            current_day.on('input change','input',function (e) {
+                let date = $(this).val().split('/').join('');
+                window.location.href = $curent_url+"?date="+date;
+            });
+            if (current_day.find('input').val() === '') {
+                date_day.datepicker("setDate", new Date());
+                current_day.find('input').trigger("input");
+            }
+
+            main_head__top.on('click','.prev-date',function (e) {
+                var date = date_day.datepicker('getDate');
+                date.setTime(date.getTime() - (1000*60*60*24))
+                date_day.datepicker("setDate", date);
+                current_day.find('input').trigger("input");
+            });
+            main_head__top.on('click','.next-date',function (e) {
+                var date = date_day.datepicker('getDate');
+                date.setTime(date.getTime() + (1000*60*60*24))
+                date_day.datepicker("setDate", date);
+                current_day.find('input').trigger("input");
+            });
             $('.info-name').popover({
                 html: true,
                 content: function () {

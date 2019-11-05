@@ -25,10 +25,6 @@ a.week-title {
   margin-top: 5px;
 }
 
-a:hover {
-  text-decoration: none;
-}
-
 .week-icon {
   margin-left: 5px;
   color: #d7751e;
@@ -260,5 +256,33 @@ th.pet-head {
 .fas.fa-calendar-alt {
   font-size: 1.5rem;
   vertical-align: sub;
+}
+
+.datepicker table tr td span.active {
+  background: #04c !important;
+  border-color: #04c !important;
+}
+
+.datepicker .datepicker-days tr td.active {
+  background: #04c !important;
+}
+
+#week-picker-wrapper {
+  position: relative;
+}
+
+#week-picker-wrapper .datepicker .datepicker-days tr td.active ~ td,
+#week-picker-wrapper .datepicker .datepicker-days tr td.active {
+  color: #fff;
+  background-color: #04c;
+  border-radius: 0;
+}
+
+#week-picker-wrapper .datepicker .datepicker-days tr:hover td,
+#week-picker-wrapper .datepicker table tr td.day:hover,
+#week-picker-wrapper .datepicker table tr td.focused {
+  color: #000 !important;
+  background: #e5e2e3 !important;
+  border-radius: 0 !important;
 }
 

@@ -25,26 +25,28 @@
                         @endphp
                     </div>
                 @endif
-                <div class="row mt-2">
-                    <div class="col-3">
+                <div class="form-group">
+                    <div class="">
                         <p class="text-md-left pt-2">Old Password</p>
                     </div>
-                    <div class="col-9">
+                    <div class="form-input">
                         <input name="password" type="password" id="password" class="form-control" required autofocus >
                         {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-3">
+                <div class="form-group">
+                    <div class="">
                         <p class="text-md-left pt-2">New Password</p>
                     </div>
-                    <div class="col-9">
+                    <div class="form-input">
                         <input name="password_new" type="password" id="password_new" class="form-control" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6 offset-3">
-                        <a class= "no-effect">
+                <div class="form-group">
+                    <div class="">
+                    </div>
+                    <div class="form-input">
+                        <a class="no-effect">
                             <button type="submit" class="btn btn-block btn-booking text-white confirm-rules">Update</button>
                         </a>
                     </div>

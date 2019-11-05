@@ -21,6 +21,7 @@ class BookingController extends Controller
     public function booking(Request $request){
 
         $MsKubun = MsKubun::all();
+
         $data['repeat_user'] = $MsKubun->where('kubun_type','001')->sortBy('sort_no');
         $data['transport'] = $MsKubun->where('kubun_type','002')->sortBy('sort_no');
         $data['bus_arrive_time_slide'] = $MsKubun->where('kubun_type','003')->sortBy('sort_no');
@@ -36,7 +37,6 @@ class BookingController extends Controller
         $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
 
         // dd($filtered);
-
 
         if (isset($request->add_new_user)) {
             $data['add_new_user'] = $request->add_new_user;

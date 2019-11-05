@@ -38,6 +38,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css').config('version_files.html.css')}}">
     @yield('admincss')
 @endsection
 
@@ -60,8 +61,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        let loader = $('#js-loading');
+        var loader = $('#js-loading');
         var $site_url = '{{url('/')}}';
+        var $curent_url = '{{url()->current()}}';
 
     </script>
 @endsection

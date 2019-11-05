@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="booking-block-top">
-                            
+
 
                             <div class="booking-field">
                                 <div class="booking-field-label booking-laber-padding">
@@ -119,7 +119,7 @@
 
                         </div>
 
-                        
+
                     </div>
                     <div class="foot-confirm">
                         <div class="confirm-button">
