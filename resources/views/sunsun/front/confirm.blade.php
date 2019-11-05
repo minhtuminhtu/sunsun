@@ -64,7 +64,7 @@
                                 
 
                                 @php 
-                                    $gender = isset($data['gender']):json_decode($data['gender']);
+                                    $gender = isset($data['gender'])?json_decode($data['gender']):"";
                                     $repeat_user = json_decode($data['repeat_user']);
                                     $age_value = $data['age_value'];
                                 @endphp
