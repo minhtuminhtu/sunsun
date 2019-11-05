@@ -3,12 +3,12 @@
         <div class="booking-field-label  booking-laber-padding">
         </div>
         <div class="booking-field-content">
-            <p class="node-text text-md-left mb-2">断食プランには、1時間程度のミニ講座が含まれます。</p>
+            <p class="node-text text-left mb-2">断食プランには、1時間程度のミニ講座が含まれます。</p>
         </div>
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.sex.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="gender" class="form-control">
@@ -22,7 +22,7 @@
 
     <div class="booking-field mb-2">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.age.label')}}</p>
         </div>
         <div class="booking-field-content">
             <div class="age-col age mt-1">
@@ -48,7 +48,7 @@
 
     <div class="row">
         <div class="col-5">
-            <p class="text-md-left pt-2   booking-laber-padding">{{config('booking.range_date_eat.label')}}</p>
+            <p class="text-left pt-2   booking-laber-padding">{{config('booking.range_date_eat.label')}}</p>
         </div>
     </div>
     <input name="plan_date_start-view" id="plan_date_start-view" type="hidden" value="2019年9月20日(金)">
@@ -73,7 +73,7 @@
 
     <div>
         <div class="booking-field-100  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.range_time_eat.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.range_time_eat.label')}}</p>
         </div>
         <div class="booking-field-100">
             <p class="node-text multiple-date">
@@ -95,7 +95,7 @@
 <div class="booking-block-between">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.pet.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="pet" class="form-control">
@@ -115,7 +115,7 @@
 <div class="booking-block-finish">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
+            <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
         </div>
         <div class="booking-field-content">
             <select name="room" id="room" class="form-control">
@@ -127,7 +127,7 @@
     </div>
     <div class="booking-field room" style="display:none;">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.number_guests_stay.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="number_guests_stay" class="form-control">

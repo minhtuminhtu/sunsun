@@ -97,7 +97,7 @@ return [
             '3' => 'C：１名（セミダブル）',
         ]
     ],
-    'number_guests_stay' => [
+    'stay_guest_num' => [
         'label' => '宿泊人数',
         'options' => [
             '1' => '1名',

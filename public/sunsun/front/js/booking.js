@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -178,6 +178,12 @@ $(function () {
     }
 
     $(".room_range_date").on('change blur', function () {
+      var check2 = moment($('#range_date_start').val());
+      var check1 = moment($('#range_date_end').val());
+      $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
+      $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
+    });
+    $("#room").on('change', function () {
       var check2 = moment($('#range_date_start').val());
       var check1 = moment($('#range_date_end').val());
       $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
@@ -432,14 +438,14 @@ $('#confirm').on('change', function () {
 
 /***/ }),
 
-/***/ 2:
+/***/ 5:
 /*!***********************************************************!*\
   !*** multi ./resources/assets/sunsun/front/js/booking.js ***!
   \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

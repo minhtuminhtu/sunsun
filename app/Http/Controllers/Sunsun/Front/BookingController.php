@@ -35,6 +35,8 @@ class BookingController extends Controller
         $data['stay_room_type'] = $MsKubun->where('kubun_type','011')->sortBy('sort_no');
         $data['stay_guest_num'] = $MsKubun->where('kubun_type','012')->sortBy('sort_no');
         $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
+        $data['service_pet_num'] = $MsKubun->where('kubun_type','016')->sortBy('sort_no');
+        
 
         // dd($filtered);
 
@@ -219,6 +221,9 @@ class BookingController extends Controller
         $data['stay_room_type'] = $MsKubun->where('kubun_type','011')->sortBy('sort_no');
         $data['stay_guest_num'] = $MsKubun->where('kubun_type','012')->sortBy('sort_no');
         $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
+
+        
+        $data['service_pet_num'] = $MsKubun->where('kubun_type','016')->sortBy('sort_no');
 
 
         $json = json_decode($data['request_post']['service']);

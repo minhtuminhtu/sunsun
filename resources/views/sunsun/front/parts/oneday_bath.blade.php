@@ -1,7 +1,7 @@
 <div class="booking-block">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.sex.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="gender" class="form-control">
@@ -14,7 +14,7 @@
 
     <div class="booking-field mb-1">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.age.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.age.label')}}</p>
         </div>
         <div class="booking-field-content">
             <div class="age-col age mt-1">
@@ -40,7 +40,7 @@
     <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.date.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.date.label')}}</p>
         </div>
         <div class="booking-field-content">
             <div class="timedate-block date-warp">
@@ -51,12 +51,12 @@
 
     <div class="booking-field">
         <div class="booking-laber-padding">
-            <p class="text-md-left pt-2 mb-0">{{config('booking.time.label')}}</p>
+            <p class="text-left pt-2 mb-0">{{config('booking.time.label')}}</p>
         </div>
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding pl-1">
-            <p class="text-md-left pt-2 pl-3  node-text">{{config('booking.time.laber1')}}</p>
+            <p class="text-left pt-2 pl-3  node-text">{{config('booking.time.laber1')}}</p>
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
@@ -67,7 +67,7 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding pl-1">
-            <p class="text-md-left pt-2 pl-3 node-text">{{config('booking.time.laber2')}}</p>
+            <p class="text-left pt-2 pl-3 node-text">{{config('booking.time.laber2')}}</p>
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
@@ -87,7 +87,7 @@
 <div class="booking-block-between">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.whitening.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.whitening.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="whitening" class="form-control">
@@ -99,7 +99,7 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.pet.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="pet" class="form-control">
@@ -119,10 +119,10 @@
 <div class="booking-block-finish">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
+            <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
         </div>
         <div class="booking-field-content">
-            <select name="room" id="room" class="form-control">
+            <select name="stay_room_type" id="room" class="form-control">
                 @foreach($stay_room_type as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
@@ -131,7 +131,7 @@
     </div>
     <div class="booking-field room" style="display:none;">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-md-left pt-2">{{config('booking.number_guests_stay.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="stay_guest_num" class="form-control">
@@ -142,8 +142,8 @@
         </div>
     </div>
     <div class="booking-field room"  style="display:none;">
-        <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="2019年9月20日(金)">
-        <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="2019年9月20日(金)">
+        <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
+        <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>

@@ -134,7 +134,7 @@
             <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
         </div>
         <div class="booking-field-content">
-            <select name="room" id="room" class="form-control">
+            <select name="stay_room_type" id="room" class="form-control">
                 @foreach($stay_room_type as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
@@ -159,8 +159,8 @@
         </div>
     </div>
     <div class="booking-field room"  style="display:none;">
-        <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="2019年9月20日(金)">
-        <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="2019年9月20日(金)">
+        <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
+        <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>
