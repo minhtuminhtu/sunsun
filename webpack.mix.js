@@ -17,16 +17,6 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sunsun/common/scss/reset.scss', 'public/common/css')
     .sass('resources/assets/sunsun/front/scss/base.scss', 'public/sunsun/front/css')
 
-
-    .sass('resources/assets/sunsun/admin/scss/admin.scss', 'public/sunsun/admin/css')
-    .sass('resources/assets/sunsun/admin/scss/weekly.scss', 'public/sunsun/admin/css')
-
-    .js('resources/assets/sunsun/admin/js/admin.js', 'public/sunsun/admin/js')
-    .js('resources/assets/sunsun/admin/js/weekly.js', 'public/sunsun/admin/js')
-
-    .js('resources/assets/sunsun/admin/js/setting.js', 'public/sunsun/admin/js')
-    .sass('resources/assets/sunsun/admin/scss/setting.scss', 'public/sunsun/admin/css')
-
     .js('resources/assets/sunsun/front/js/base.js', 'public/sunsun/front/js')
     .js('resources/assets/sunsun/front/js/booking.js', 'public/sunsun/front/js')
     .js('resources/assets/sunsun/front/js/add_user_booking.js', 'public/sunsun/front/js')
@@ -40,6 +30,15 @@ mix.js('resources/js/app.js', 'public/js')
     //admin
     .sass('resources/assets/sunsun/admin/scss/day.scss', 'public/sunsun/admin/css')
     .sass('resources/assets/sunsun/admin/scss/monthly.scss', 'public/sunsun/admin/css')
+    .sass('resources/assets/sunsun/admin/scss/admin.scss', 'public/sunsun/admin/css')
+    .sass('resources/assets/sunsun/admin/scss/weekly.scss', 'public/sunsun/admin/css')
+    .sass('resources/assets/sunsun/admin/scss/setting.scss', 'public/sunsun/admin/css')
+
+    .js('resources/assets/sunsun/admin/js/setting.js', 'public/sunsun/admin/js')
+    .js('resources/assets/sunsun/admin/js/admin.js', 'public/sunsun/admin/js')
+    .js('resources/assets/sunsun/admin/js/weekly.js', 'public/sunsun/admin/js')
+    .js('resources/assets/sunsun/admin/js/day.js', 'public/sunsun/admin/js')
+    .js('resources/assets/sunsun/admin/js/month.js', 'public/sunsun/admin/js')
 
     .copyDirectory('resources/assets/sunsun/imgs', 'public/sunsun/imgs')
     .copyDirectory('resources/assets/sunsun/lib', 'public/sunsun/lib')

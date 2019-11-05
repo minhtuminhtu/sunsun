@@ -596,8 +596,8 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
-    <script src="{{asset('sunsun/admin/js/admin.js').config('version_files.html.css')}}"></script>
-    <script src="{{asset('sunsun/admin/js/weekly.js').config('version_files.html.css')}}"></script>
+    <script src="{{asset('sunsun/admin/js/admin.js').config('version_files.html.js')}}"></script>
+    <script src="{{asset('sunsun/admin/js/weekly.js').config('version_files.html.js')}}"></script>
 
 @endsection
 

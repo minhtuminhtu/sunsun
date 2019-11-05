@@ -8,7 +8,6 @@ $(function () {
         let date_from = moment(start_date).format('YYYYMMDD');
         let date_to = moment(end_date).format('YYYYMMDD');
         url = $curent_url+"?date_from="+date_from+"&date_to=" + date_to;
-        console.log(url);
     }
 
     function load_url () {
