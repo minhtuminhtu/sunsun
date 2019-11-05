@@ -16,7 +16,7 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time_room" type="text" class="form-control time js-set-time" id="" value="13:45 ~ 15:45">
+                <input name="time_room" type="text" class="form-control time js-set-room_pet" id="" value="13:45 ~ 15:45">
             </div>
 
         </div>

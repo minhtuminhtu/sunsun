@@ -8,52 +8,52 @@
         </div>
     </div>
     <div class="booking-field">
-    <div class="booking-field-label  booking-laber-padding">
-        <p class="text-left pt-2">{{config('booking.gender.label')}}</p>
-    </div>
-    <div class="booking-field-content">
-        <select name="gender" class="form-control">
-            @foreach($gender as $value)
-                <option value='@json($value)'>{{ $value->kubun_value }}</option>
-            @endforeach
-        </select>
-    </div>
+        <div class="booking-field-label  booking-laber-padding">
+            <p class="text-left pt-2">{{config('booking.gender.label')}}</p>
+        </div>
+        <div class="booking-field-content">
+            <select name="gender" class="form-control">
+                @foreach($gender as $value)
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
     <div class="booking-field mb-2">
-    <div class="booking-field-label  booking-laber-padding">
-        <p class="text-left pt-2">{{config('booking.age.label')}}</p>
-    </div>
-    <div class="booking-field-content">
-        <div class="button-age">
-            <input id="agecheck" name='agecheck' type="hidden" value="{{config('booking.age.age3')}}">
-            <div class="button-age-left">
-                <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">{{config('booking.age.age1')}}</button>
-                <button type="button" class="btn btn-block form-control btn-outline-warning  btn-warning text-dark mt-1 mx-0 agecheck">{{config('booking.age.age3')}}</button>
-            </div>
-            <div class="button-age-right">
-                <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">学生<span class="node-text">(中学生以上)</span></button>
-                <div class="age-col mt-1">
-                    <div class="age-left">
-                        <select name="age_value" class="form-control">
-                            @php
-                                $val = [];
-                                $i = 0;
-                                foreach($age_value as $value){
-                                    $val[$i] =  $value->kubun_value;
-                                    $i++;
-                                    
-                                }
-                                for($j = $val[0]; $j <= $val[1]; $j++ ){
-                                    echo "<option value='".$j."'>".$j."</option>";
-                                }
-                            @endphp
-                        </select>
+        <div class="booking-field-label  booking-laber-padding">
+            <p class="text-left pt-2">{{config('booking.age.label')}}</p>
+        </div>
+        <div class="booking-field-content">
+            <div class="button-age">
+                <input id="agecheck" name='agecheck' type="hidden" value="{{config('booking.age.age3')}}">
+                <div class="button-age-left">
+                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">{{config('booking.age.age1')}}</button>
+                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark mt-1 mx-0 agecheck">{{config('booking.age.age3')}}</button>
+                </div>
+                <div class="button-age-right">
+                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">学生<span class="node-text">(中学生以上)</span></button>
+                    <div class="age-col mt-1">
+                        <div class="age-left">
+                            <select name="age_value" class="form-control">
+                                @php
+                                    $val = [];
+                                    $i = 0;
+                                    foreach($age_value as $value){
+                                        $val[$i] =  $value->kubun_value;
+                                        $i++;
+                                        
+                                    }
+                                    for($j = $val[0]; $j <= $val[1]; $j++ ){
+                                        echo "<option value='".$j."'>".$j."</option>";
+                                    }
+                                @endphp
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}} ">
         <div class="booking-field-label  booking-laber-padding">
@@ -65,14 +65,14 @@
         </div>
     </div>
     <div class="booking-field">
-    <div class="booking-field-label  booking-laber-padding">
-        <p class="text-left pt-2">{{config('booking.time.label')}}</p>
-    </div>
-    <div class="booking-field-content">
-        <div class="timedate-block set-time">
-            <input name='time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+        <div class="booking-field-label  booking-laber-padding">
+            <p class="text-left pt-2">{{config('booking.time.label')}}</p>
         </div>
-    </div>
+        <div class="booking-field-content">
+            <div class="timedate-block set-time">
+                <input name='time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+            </div>
+        </div>
     </div>
 </div>
 

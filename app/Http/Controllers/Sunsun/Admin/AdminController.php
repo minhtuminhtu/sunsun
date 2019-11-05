@@ -42,31 +42,39 @@ class AdminController extends Controller
     public function update_setting_sort_no(Request $request) {
 
         $data = $request->all();
+        // dd($data);
         if($data['type'] == 'up'){
-            MsKubun::where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
-            MsKubun::where('sort_no', $data['sort_no'] - 1)->update(['sort_no' =>$data['sort_no']]);
-            MsKubun::where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] -1]);  
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'] - 1)->update(['sort_no' =>$data['sort_no']]);
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] -1]);  
         }else{
-            MsKubun::where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
-            MsKubun::where('sort_no', $data['sort_no'] + 1)->update(['sort_no' =>$data['sort_no']]);
-            MsKubun::where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] +1]); 
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'] + 1)->update(['sort_no' =>$data['sort_no']]);
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] +1]); 
         }
     }
     public function update_setting_kubun_type(Request $request) {
         $data = $request->all();
 
-        if (MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->count() > 0) {
+        
+
+        if((strlen($data['kubun_id']) == 0 )  || (strlen($data['kubun_id']) > 2 ) || (strlen($data['kubun_value']) == 0 ) || (strlen($data['kubun_value']) > 255 )){
             return response()->json([
-                'msg' => "kubun_id exist!",
-            ], 400);
+                    'msg' => "length error!",
+                ], 400);
         }
 
+
         if($data['new'] == 1){
+            if (MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->count() > 0) {
+                return response()->json([
+                    'msg' => "kubun_id exist!",
+                ], 400);
+            }
             $MsKubun = MsKubun::create(['kubun_type' => $data['kubun_type'],'kubun_id' => $data['kubun_id'], 'kubun_value' => $data['kubun_value'],'sort_no' => $data['sort_no']]);
         }else{
             MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->update(['kubun_value' => $data['kubun_value']]);
         }
-        // dd($data); 
     }
     public function delete_setting_kubun_type(Request $request) {
         $data = $request->all();

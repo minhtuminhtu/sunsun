@@ -38,7 +38,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer" style="padding: 10px;">
-                    <button type="button" class="btn btn-modal-left text-white btn-save" id="js-save-time" style="padding: 0.375rem 2rem;">
+                    <button type="button" class="btn btn-modal-left text-white color-primary btn-save" id="js-save-time" style="padding: 0.375rem 2rem;">
                     保存
                     </button>
                     <button type="button" class="btn btn-outline-dark  btn-cancel" style="padding: 0.375rem 1rem;">

@@ -11,7 +11,7 @@
             <p class="text-md-left pt-2">{{config('booking.sex.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="sex" class="form-control">
+            <select name="gender" class="form-control">
                 @foreach($gender as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach

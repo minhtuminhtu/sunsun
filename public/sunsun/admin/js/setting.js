@@ -243,12 +243,14 @@ $(document).ready(function () {
     });
     $('.btn-up').click(function () {
       var sort_no = $(this).parent().parent().find('.sort_no').text();
+      var kubun_type = $('#setting-type').val();
       $.ajax({
         url: '/admin/update_setting_sort_no',
         type: 'post',
         data: {
           type: 'up',
-          sort_no: sort_no
+          sort_no: sort_no,
+          kubun_type: kubun_type
         },
         beforeSend: function beforeSend() {
           loader.css({
@@ -267,12 +269,14 @@ $(document).ready(function () {
     });
     $('.btn-down').click(function () {
       var sort_no = $(this).parent().parent().find('.sort_no').text();
+      var kubun_type = $('#setting-type').val();
       $.ajax({
         url: '/admin/update_setting_sort_no',
         type: 'post',
         data: {
           type: 'down',
-          sort_no: sort_no
+          sort_no: sort_no,
+          kubun_type: kubun_type
         },
         beforeSend: function beforeSend() {
           loader.css({

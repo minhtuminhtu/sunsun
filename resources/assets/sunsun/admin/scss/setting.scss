@@ -45,9 +45,18 @@
 
 }
 .kubun_value{
-	color: #007bff !important;
+	color: #d7751e !important;
 	cursor: pointer;
 }
-.btn-save {
-    background: #d7751e;
+.color-primary {
+	background: #d7751e;
+	color: #fff;
+}
+.color-primary:hover {
+	background: #d7751e;
+	color: #fff;
+}
+.color-secondary {
+	border: 1px solid #d7751e;
+	color: #000;
 }

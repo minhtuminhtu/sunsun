@@ -44,9 +44,9 @@
                 <input type="checkbox" id="check_all" value="">
             </td>
             <td colspan="4">
-                <button type="button" class="btn btn-danger btn-sm update-edit" id="btn-delete" style="display: none;">Delete</button>
-                <button type="button" class="btn btn-primary btn-sm update-edit" id="btn-update" style="display: none;">Change</button>
-                <button type="button" class="btn btn-primary btn-sm" id="new">New</button>
+                <button type="button" class="btn btn-sm update-edit color-secondary" id="btn-delete" style="display: none;">Delete</button>
+                <button type="button" class="btn btn-sm update-edit color-secondary" id="btn-update" style="display: none;">Change</button>
+                <button type="button" class="btn btn-sm color-primary" id="new">New</button>
             </td>
         </tr>
     </tfoot>

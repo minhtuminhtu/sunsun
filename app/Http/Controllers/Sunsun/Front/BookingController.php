@@ -169,6 +169,8 @@ class BookingController extends Controller
 
     public function get_time_room(Request $request){
         $data = $request->all();
+        $result = json_decode($data['gender']);
+        $data['gender'] = $result->kubun_value;
         $room_time_data = config('data_tmp.time_room');
         return view('sunsun.front.parts.booking_time',
             [
@@ -231,9 +233,9 @@ class BookingController extends Controller
         } elseif ($json->kubun_id == "03") {
             return view('sunsun.front.parts.enzyme_room_bath',$data)->render();
         } elseif ($json->kubun_id == "04") {
-            return view('sunsun.front.parts.fasting_plan',$data)->render();
-        } elseif ($json->kubun_id == "05") {
             return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
+        } elseif ($json->kubun_id == "05") {
+            return view('sunsun.front.parts.fasting_plan',$data)->render();
         }
     }
 }
