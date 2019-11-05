@@ -10,6 +10,9 @@
 
     <main>
         <div class="container">
+            <div class="breadcrumb-sunsun">
+                @include('sunsun.admin.layouts.breadcrumb')
+            </div>
             <div class="main-head">
                 <div class="main-head__top">
                     <span class="datepicker-control current-date">

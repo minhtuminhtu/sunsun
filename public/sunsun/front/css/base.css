@@ -46,3 +46,47 @@ body {
   }
 }
 
+header {
+  margin-bottom: 15px;
+}
+
+header .border-dashed {
+  border-style: dashed !important;
+  clear: both;
+}
+
+header .border-brown {
+  border-color: #523e29 !important;
+}
+
+header .pb-3,
+header .py-3 {
+  padding-bottom: 10px !important;
+}
+
+header .mt-5,
+header .my-5 {
+  margin-top: 30px !important;
+}
+
+header .mt-4,
+header .my-4 {
+  margin-top: 15px !important;
+}
+
+header h1 {
+  margin-bottom: 5px;
+}
+
+@media (min-width: 992px) {
+  header .pr-lg-5,
+  header .px-lg-5 {
+    padding-right: 30px !important;
+  }
+
+  header .pb-3,
+  header .py-3 {
+    padding-bottom: 10px !important;
+  }
+}
+

@@ -8,6 +8,9 @@
 
 @section('main')
 <main class="container">
+    <div class="breadcrumb-sunsun">
+        @include('sunsun.admin.layouts.breadcrumb')
+    </div>
     <div class="main-head">
     </div>
     <div class="main-content">
