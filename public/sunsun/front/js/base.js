@@ -81,30 +81,32 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/assets/sunsun/admin/js/admin.js":
-/*!***************************************************!*\
-  !*** ./resources/assets/sunsun/admin/js/admin.js ***!
-  \***************************************************/
+/***/ "./resources/assets/sunsun/front/js/base.js":
+/*!**************************************************!*\
+  !*** ./resources/assets/sunsun/front/js/base.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-
+$('#nav').on('click', function () {
+  $('#nav-menu').toggle();
+});
 
 /***/ }),
 
-/***/ 6:
-/*!*********************************************************!*\
-  !*** multi ./resources/assets/sunsun/admin/js/admin.js ***!
-  \*********************************************************/
+/***/ 1:
+/*!********************************************************!*\
+  !*** multi ./resources/assets/sunsun/front/js/base.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\admin.js */"./resources/assets/sunsun/admin/js/admin.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\base.js */"./resources/assets/sunsun/front/js/base.js");
 
 
 /***/ })

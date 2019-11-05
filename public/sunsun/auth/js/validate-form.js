@@ -81,30 +81,92 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/assets/sunsun/admin/js/admin.js":
-/*!***************************************************!*\
-  !*** ./resources/assets/sunsun/admin/js/admin.js ***!
-  \***************************************************/
+/***/ "./resources/assets/sunsun/auth/js/validate-form.js":
+/*!**********************************************************!*\
+  !*** ./resources/assets/sunsun/auth/js/validate-form.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+(function ($) {
+  $.fn.inputFilter = function (inputFilter) {
+    return this.on("keydown keyup", function (event) {
+      if (event.key !== 'Backspace' && event.key !== 'undefined') {
+        var curchr = this.value.length;
+        var curval = $(this).val();
+        var phone_format;
 
+        if (curchr < 3 && curval.indexOf("(") <= -1) {
+          phone_format = "(" + curval;
+        } else if (curchr == 4 && curval.indexOf("(") > -1) {
+          phone_format = curval + ")-";
+        } else if (curchr == 5) {
+          if (event.key != ")") {
+            phone_format = this.oldValue + ")-" + event.key;
+          } else {
+            phone_format = curval;
+          }
+        } else if (curchr == 6 && curval.indexOf("-") <= -1) {
+          if (event.key != "-") {
+            phone_format = this.oldValue + '-' + event.key;
+          } else {
+            phone_format = curval;
+          }
+        } else if (curchr == 9) {
+          phone_format = curval + "-";
+          $(this).attr('maxlength', '14');
+        } else if (curchr == 10) {
+          console.log(event.key);
+
+          if (event.key != "-") {
+            phone_format = this.oldValue + '-' + event.key;
+          } else {
+            phone_format = curval;
+          }
+        } else {
+          phone_format = curval;
+        }
+
+        var regex = /^[\+]?[(]?[0-9]{0,3}[)]?[-\s\.]?[0-9]{0,3}[-\s\.]?[0-9]{0,6}$/im;
+        var test = regex.test(phone_format);
+
+        if (test === true) {
+          $(this).val(phone_format);
+          this.oldValue = this.value;
+          this.oldSelectionStart = this.selectionStart;
+          this.oldSelectionEnd = this.selectionEnd;
+        } else if (this.hasOwnProperty("oldValue")) {
+          this.value = this.oldValue;
+          this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+        }
+      } else {
+        this.oldValue = $(this).val();
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      }
+    });
+  };
+
+  $('#tel').inputFilter(function (value) {
+    return true;
+  });
+})(jQuery);
 
 /***/ }),
 
-/***/ 6:
-/*!*********************************************************!*\
-  !*** multi ./resources/assets/sunsun/admin/js/admin.js ***!
-  \*********************************************************/
+/***/ 4:
+/*!****************************************************************!*\
+  !*** multi ./resources/assets/sunsun/auth/js/validate-form.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\admin.js */"./resources/assets/sunsun/admin/js/admin.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\auth\js\validate-form.js */"./resources/assets/sunsun/auth/js/validate-form.js");
 
 
 /***/ })

@@ -17,19 +17,6 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sunsun/common/scss/reset.scss', 'public/common/css')
     .sass('resources/assets/sunsun/front/scss/base.scss', 'public/sunsun/front/css')
 
-<<<<<<< HEAD
-=======
-
-    .sass('resources/assets/sunsun/admin/scss/admin.scss', 'public/sunsun/admin/css')
-    .sass('resources/assets/sunsun/admin/scss/weekly.scss', 'public/sunsun/admin/css')
-
-    .js('resources/assets/sunsun/admin/js/admin.js', 'public/sunsun/admin/js')
-    .js('resources/assets/sunsun/admin/js/weekly.js', 'public/sunsun/admin/js')
-
-    .js('resources/assets/sunsun/admin/js/setting.js', 'public/sunsun/admin/js')
-    .sass('resources/assets/sunsun/admin/scss/setting.scss', 'public/sunsun/admin/css')
-
->>>>>>> 0b3dff6515ea6e57d958f14b68316627c0176bf1
     .js('resources/assets/sunsun/front/js/base.js', 'public/sunsun/front/js')
     .js('resources/assets/sunsun/front/js/booking.js', 'public/sunsun/front/js')
     .js('resources/assets/sunsun/front/js/add_user_booking.js', 'public/sunsun/front/js')
@@ -45,7 +32,9 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sunsun/admin/scss/monthly.scss', 'public/sunsun/admin/css')
     .sass('resources/assets/sunsun/admin/scss/admin.scss', 'public/sunsun/admin/css')
     .sass('resources/assets/sunsun/admin/scss/weekly.scss', 'public/sunsun/admin/css')
+    .sass('resources/assets/sunsun/admin/scss/setting.scss', 'public/sunsun/admin/css')
 
+    .js('resources/assets/sunsun/admin/js/setting.js', 'public/sunsun/admin/js')
     .js('resources/assets/sunsun/admin/js/admin.js', 'public/sunsun/admin/js')
     .js('resources/assets/sunsun/admin/js/weekly.js', 'public/sunsun/admin/js')
     .js('resources/assets/sunsun/admin/js/day.js', 'public/sunsun/admin/js')

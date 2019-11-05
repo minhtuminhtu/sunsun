@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -376,14 +376,14 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 3:
+/***/ 5:
 /*!***********************************************************!*\
   !*** multi ./resources/assets/sunsun/admin/js/setting.js ***!
   \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\setting.js */"./resources/assets/sunsun/admin/js/setting.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\setting.js */"./resources/assets/sunsun/admin/js/setting.js");
 
 
 /***/ })
