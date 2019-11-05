@@ -46,7 +46,7 @@
             <p class="text-md-left pt-2">{{config('booking.number_lunch_book.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="number_lunch_book" class="form-control">
+            <select name="lunch_guest_num" class="form-control">
                 @foreach(config('booking.number_lunch_book.options') as $key => $value)
                 <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach

@@ -134,7 +134,7 @@
             <p class="text-md-left pt-2">{{config('booking.number_guests_stay.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="number_guests_stay" class="form-control">
+            <select name="stay_guest_num" class="form-control">
                 @foreach($stay_guest_num as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
