@@ -128,7 +128,7 @@
     html, body {
         font-size: 1.5vw;
     }
-    .table-pet tbody td {
+    .table-pet tbody tr.odd td {
         height: 4rem;
     }
     .main-head__middle .middle_box {
@@ -140,7 +140,7 @@
     html, body {
         font-size: 0.9vw;
     }
-    .table-pet tbody td {
+    .table-pet tbody tr.odd td {
         height: 4rem;
     }
     .main-head__middle .middle_box {

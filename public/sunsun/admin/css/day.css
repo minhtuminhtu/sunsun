@@ -146,7 +146,7 @@
     font-size: 1.5vw;
   }
 
-  .table-pet tbody td {
+  .table-pet tbody tr.odd td {
     height: 4rem;
   }
 
@@ -162,7 +162,7 @@
     font-size: 0.9vw;
   }
 
-  .table-pet tbody td {
+  .table-pet tbody tr.odd td {
     height: 4rem;
   }
 

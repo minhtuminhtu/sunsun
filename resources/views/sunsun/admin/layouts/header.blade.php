@@ -51,8 +51,4 @@
         </div>
         <!-- End of row -->
     </div>
-    <p class="breadc container"><a href="/" class="breadc-link">ぬか天国 Sun燦 トップページ</a> &#160;&#160;&gt;&#160; @yield('title')</p>
-    <div class="main-body-head text-center mb-3 container">
-        <h1 class="title-menu text-left">@yield('title')</h1>
-    </div>
 </header>

@@ -2,12 +2,15 @@
 @section('title', 'Setting')
 @section('head')
 @parent
-    <link rel="stylesheet" href="{{asset('sunsun/admin/css/setting.css')}}"> 
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/setting.css')}}">
 @endsection
 @section('main')
 
 <main>
     <div class="container">
+        <div class="breadcrumb-sunsun">
+            @include('sunsun.admin.layouts.breadcrumb')
+        </div>
         <div class="setting">
             <div class="setting-left">
                 <div class="setting-laber">Setting Laber</div>
@@ -19,13 +22,13 @@
                 <div class="setting-head" id="setting-head">001 | ご利用</div>
             </div>
             <div class="setting-right">
-                
+
             </div>
         </div>
     </div>
 </main>
-@endsection 
-@section('footer') 
+@endsection
+@section('footer')
     @parent
     <!-- The Modal -->
     <div class="modal" id="setting_update">
@@ -49,8 +52,8 @@
             </div>
         </div>
     </div>
-@endsection 
-@section('script') 
+@endsection
+@section('script')
     @parent
     <script src="{{asset('sunsun/admin/js/setting.js').config('version_files.html.css')}}"></script>
 @endsection
