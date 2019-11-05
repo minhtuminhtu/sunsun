@@ -1,30 +1,56 @@
 @extends('sunsun.admin.template')
-@section('title', '予約管理サイト（１日表示）')
-
+@section('title', 'Setting')
 @section('head')
-    @parent
-    <link rel="stylesheet" href="{{asset('sunsun/admin/css/setting.css')}}">
+@parent
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/setting.css')}}"> 
 @endsection
-
 @section('main')
 
-    <main>
-        <div class="container">
-            a
-            
+<main>
+    <div class="container">
+        <div class="setting">
+            <div class="setting-left">
+                <div class="setting-laber">Setting Laber</div>
+                <select name="setting-type" id="setting-type" class="form-control">
+                    @foreach($data as $key => $value)
+                    <option value='{{$key}}'>{{$value}}</option>
+                    @endforeach
+                </select>
+                <div class="setting-head" id="setting-head">001 | ご利用</div>
+            </div>
+            <div class="setting-right">
+                
+            </div>
         </div>
-    </main>
-
-@endsection
-
-@section('footer')
+    </div>
+</main>
+@endsection 
+@section('footer') 
     @parent
+    <!-- The Modal -->
+    <div class="modal" id="setting_update">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
 
+                </div>
 
-@endsection
+                <!-- Modal footer -->
+                <div class="modal-footer" style="padding: 10px;">
+                    <button type="button" class="btn btn-modal-left text-white btn-save" id="js-save-time" style="padding: 0.375rem 2rem;">
+                    保存
+                    </button>
+                    <button type="button" class="btn btn-outline-dark  btn-cancel" style="padding: 0.375rem 1rem;">
+                    閉じる
+                    </button>
+                </div>
 
-@section('script')
+            </div>
+        </div>
+    </div>
+@endsection 
+@section('script') 
     @parent
     <script src="{{asset('sunsun/admin/js/setting.js').config('version_files.html.css')}}"></script>
 @endsection
-

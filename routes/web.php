@@ -55,5 +55,10 @@ Route::middleware('auth', 'can:admin')->prefix('admin')->name('admin')->namespac
     Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
     Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
     Route::get('/setting',['as' => '.setting', 'uses' => 'AdminController@setting']);
+    Route::post('/get_setting_type',['as' => '.get_setting_type', 'uses' => 'AdminController@get_setting_type']);
+    Route::post('/get_setting_kubun_type',['as' => '.get_setting_kubun_type', 'uses' => 'AdminController@get_setting_kubun_type']);
+    Route::post('/update_setting_kubun_type',['as' => '.update_setting_kubun_type', 'uses' => 'AdminController@update_setting_kubun_type']);
+    Route::post('/update_setting_sort_no',['as' => '.update_setting_sort_no', 'uses' => 'AdminController@update_setting_sort_no']);
+    Route::delete('/delete_setting_kubun_type',['as' => '.delete_setting_kubun_type', 'uses' => 'AdminController@delete_setting_kubun_type']);
 });
 

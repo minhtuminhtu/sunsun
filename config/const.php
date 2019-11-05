@@ -14,6 +14,8 @@ return [
             'UPDATED_AT'    => 'updated_at',
         ],
         'ms_kubun' => [
+            'KUBUN_TYPE' => 'kubun_type',
+            'KUBUN_ID' => 'kubun_id',
             'KUBUN_VALUE' => 'kubun_value',
             'SORT_NO' => 'sort_no',
             'NOTES' => 'notes'
@@ -45,7 +47,25 @@ return [
             'STAY_GUEST_NUM' => 'stay_guest_num',
             'STAY_CHECKIN_DATE' => 'stay_checkin_date',
             'STAY_CHECKOUT_DATE' => 'stay_checkout_date'
-        ]
+        ],
+        'kubun_type' => [
+            '001' => 'ご利用',
+            '002' => '交通手段',
+            '003' => '洲本IC着',
+            '004' => '送迎',
+            '005' => 'コース',
+            '006' => '性別',
+            '007' => '年齢',
+            '008' => 'ランチ',
+            '009' => 'ﾎﾜｲﾄﾆﾝｸﾞ',
+            '010' => 'ﾍﾟｯﾄ預かり',
+            '011' => '宿泊(部屋ﾀｲﾌﾟ',
+            '012' => '宿泊人数',
+            '013' => 'Time Slide',
+            '014' => 'Time Slide for whole room',
+            '015' => '人数',
+            '016' => 'ペット数',
+        ],
         
     ],
 
