@@ -89,7 +89,7 @@
         }
         .table-pet {
             font-size: 0.85rem;
-            width: 120px;
+            width: 9rem;
             table {
                 width: 100%;
                 td, th {
@@ -122,5 +122,29 @@
     input, select {
         width: 100%;
         padding: 2px 5px;
+    }
+}
+@media (max-width: 768px) {
+    html, body {
+        font-size: 1.5vw;
+    }
+    .table-pet tbody td {
+        height: 4rem;
+    }
+    .main-head__middle .middle_box {
+        height: 11vw;
+        width: 30vw;
+    }
+}
+@media (min-width: 769px) {
+    html, body {
+        font-size: 0.9vw;
+    }
+    .table-pet tbody td {
+        height: 4rem;
+    }
+    .main-head__middle .middle_box {
+        height: 7vw;
+        width: 30vw;
     }
 }

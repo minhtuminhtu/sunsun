@@ -36,7 +36,9 @@
             top: calc(50vh - 50px);
             left: calc(50vw - 50px);
         }
-
+        footer {
+            padding-top: 20px;
+        }
     </style>
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/base.css').config('version_files.html.css')}}">
