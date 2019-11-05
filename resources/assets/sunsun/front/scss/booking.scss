@@ -190,10 +190,6 @@ a.no-effect{
 .btn-booking.btn-confirm-left{
     background: #ffc107;
 }
-.btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-}
 .main {
     position: relative;
 }
@@ -598,6 +594,12 @@ select {
 }
 .mt-1{
     margin-top: 0.25vw;
+}
+.color-primary {
+    background: #d7751e !important;
+}
+.color-active{
+    background-color: #e0a800 !important;
 }
 
 

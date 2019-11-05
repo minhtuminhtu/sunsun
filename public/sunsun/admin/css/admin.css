@@ -29,3 +29,22 @@
   font-weight: 500;
 }
 
+.breadc {
+  color: #333;
+  background-color: #fff;
+  font-size: 1vw;
+}
+
+.breadc-link {
+  color: #402106;
+}
+
+.title-menu {
+  padding: 0.75vw 0px 0.75vw 0.75vw;
+  color: #402106;
+  border-left: 0.5vw solid #693F0B;
+  font-size: 1.75vw;
+  font-weight: bold;
+  background-image: url(http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/bg.png);
+}
+

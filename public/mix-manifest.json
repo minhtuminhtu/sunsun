@@ -3,6 +3,11 @@
     "/css/app.css": "/css/app.css",
     "/common/css/reset.css": "/common/css/reset.css",
     "/sunsun/front/css/base.css": "/sunsun/front/css/base.css",
+
+    "/sunsun/admin/css/admin.css": "/sunsun/admin/css/admin.css",
+    "/sunsun/admin/css/weekly.css": "/sunsun/admin/css/weekly.css",
+    "/sunsun/admin/css/setting.css": "/sunsun/admin/css/setting.css",
+
     "/sunsun/front/css/booking.css": "/sunsun/front/css/booking.css",
     "/sunsun/front/css/booking-mobile.css": "/sunsun/front/css/booking-mobile.css",
     "/sunsun/admin/css/day.css": "/sunsun/admin/css/day.css",
@@ -10,8 +15,12 @@
     "/sunsun/admin/css/admin.css": "/sunsun/admin/css/admin.css",
     "/sunsun/admin/css/weekly.css": "/sunsun/admin/css/weekly.css",
     "/sunsun/admin/js/admin.js": "/sunsun/admin/js/admin.js",
+
     "/sunsun/admin/js/day.js": "/sunsun/admin/js/day.js",
     "/sunsun/admin/js/month.js": "/sunsun/admin/js/month.js",
+
+    "/sunsun/admin/js/setting.js": "/sunsun/admin/js/setting.js",
+
     "/sunsun/admin/js/weekly.js": "/sunsun/admin/js/weekly.js",
     "/sunsun/auth/js/validate-form.js": "/sunsun/auth/js/validate-form.js",
     "/sunsun/front/js/add_user_booking.js": "/sunsun/front/js/add_user_booking.js",

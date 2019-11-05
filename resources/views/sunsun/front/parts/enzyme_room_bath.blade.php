@@ -16,7 +16,7 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time_room" type="text" class="form-control time js-set-time" id="" value="13:45 ~ 15:45">
+                <input name="time_room" type="text" class="form-control time js-set-room" id="" value="13:45 ~ 15:45">
             </div>
 
         </div>
@@ -61,7 +61,7 @@
         <div class="booking-field-content">
             <select name="whitening" class="form-control">
                 @foreach($whitening as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -73,7 +73,7 @@
         <div class="booking-field-content">
             <select name="pet" class="form-control">
                 @foreach($pet_keeping as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -93,7 +93,7 @@
         <div class="booking-field-content">
             <select name="room" id="room" class="form-control">
                 @foreach($stay_room_type as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -105,7 +105,7 @@
         <div class="booking-field-content">
             <select name="number_guests_stay" class="form-control">
                 @foreach($stay_guest_num as $value)
-                    <option value="{{ $value->kubun_value }}">{{ $value->kubun_value }}</option>
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>

@@ -17,6 +17,8 @@ class MsKubun extends Model
     public function __construct(array $attributes = [])
     {
         $this->fillable = [
+            config('const.db.ms_kubun.KUBUN_TYPE'),
+            config('const.db.ms_kubun.KUBUN_ID'),
             config('const.db.ms_kubun.KUBUN_VALUE'),
             config('const.db.ms_kubun.SORT_NO'),
             config('const.db.ms_kubun.NOTES'),

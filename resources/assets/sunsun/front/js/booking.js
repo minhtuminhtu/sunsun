@@ -37,6 +37,18 @@ $(function() {
             change_day();
         });
 
+
+        $('#room').on('change', function() {
+            var room =  JSON.parse($('#room').val());
+            if(room.kubun_id == '01'){
+                $('.room').hide();
+            }else{
+                $('.room').show();
+            }
+        });
+
+        
+
         $('#date').datepicker({
             language: 'ja',
             dateFormat: "yyyy/mm/dd",
@@ -55,19 +67,13 @@ $(function() {
 
         });
         $('.agecheck').click(function(){
-            $('.agecheck').removeClass('btn-warning');
+            $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
-            $(this).addClass('btn-warning');
+            $(this).addClass('color-active');
             $(this).removeClass('btn-outline-warning');
             $('#agecheck').val($(this).text())
         });
-        $('#room').on('change', function() {
-            if(this.value == '無し'){
-                $('.room').hide();
-            }else{
-                $('.room').show();
-            }
-        });
+
 
         $('#date').on('change blur', function() {
             var check = moment($('#date').val());
@@ -93,10 +99,10 @@ $(function() {
         set_time.click(function (e) {
             let set_time_click = $(this);
             $.ajax({
-                url: $site_url +'/get_time_room',
+                url: '/get_time_room',
                 type: 'POST',
                 data: {
-                    'sex': $('select[name=sex]').val()
+                    'gender': $('select[name=gender]').val()
                 },
                 dataType: 'text',
                 beforeSend: function () {
@@ -104,7 +110,7 @@ $(function() {
                 },
                 success: function (html) {
                     set_time_click.closest('.set-time').addClass('edit')
-                    modal_choice_time.find('.modal-body-time').append(html);
+                    modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal('show');
                 },
                 complete: function () {
@@ -128,7 +134,7 @@ $(function() {
                 },
                 success: function (html) {
                     set_time_click.closest('.set-time').addClass('edit')
-                    modal_choice_time.find('.modal-body-time').append(html);
+                    modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal('show');
                 },
                 complete: function () {
@@ -144,7 +150,7 @@ $(function() {
                 url: $site_url +'/book_room',
                 type: 'POST',
                 data: {
-                    'sex': $('select[name=date]').val()
+                    'gender': $('select[name=date]').val()
                 },
                 dataType: 'text',
                 beforeSend: function () {
@@ -152,7 +158,7 @@ $(function() {
                 },
                 success: function (html) {
                     set_time_click.closest('.set-time').addClass('edit')
-                    modal_choice_time.find('.modal-body-time').append(html);
+                    modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal('show');
                 },
                 complete: function () {
@@ -173,16 +179,11 @@ $(function() {
         modal_choice_time.modal('hide');
     })
 
-    let transportation =  $('#transportation').val();
-    if(transportation == '車'){
-        $('.bus').hide();
-    }else{
-        $('.bus').show();
-    }
+
 
     let get_service = function() {
         let data = {
-            'service': $('#services').val()
+            'service': $('#course').val()
         };
         if ($('input[name=add_new_user]').val() == 'on' ) {
             data.add_new_user = 'on';
@@ -205,7 +206,7 @@ $(function() {
             },
         });
     }
-    $('#services').on('change', function() {
+    $('#course').on('change', function() {
         get_service();
     });
     get_service();
@@ -254,8 +255,8 @@ $(function() {
 
     let load_time_list = function(check = null) {
         if(!check){
-            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('M') + '/' + today.format('D') + '(' + days_short[today.weekday()] + ')</label><input name="date['+ 0 +'][day]" value="' + today.format('M') + '/' + today.format('D') + '(' + days_short[today.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="date['+ 0 +'][from]" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="data"><input name="date['+ 0 +'][to]" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('M') + '/' + tomorrow.format('D') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date['+ 1 +'][day]" value="' + tomorrow.format('M') + '/' + tomorrow.format('D') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="date['+ 1 +'][from]" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="data"><input name="date['+ 1 +'][to]" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('M') + '/' + today.format('D') + '(' + days_short[today.weekday()] + ')</label><input name="date['+ 0 +'][day]" value="' + today.format('M') + '/' + today.format('D') + '(' + days_short[today.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('M') + '/' + tomorrow.format('D') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date['+ 1 +'][day]" value="' + tomorrow.format('M') + '/' + tomorrow.format('D') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
         }
         $(".range_date").change(function(){
             var date_arr = getDates($('#plan_date_start').val(), $('#plan_date_end').val());
@@ -266,13 +267,15 @@ $(function() {
                 var month = check.format('M');
                 var day   = check.format('D');
                 var week_day =  check.weekday();
-                $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date['+ index +'][day]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="input-time"><input name="date['+ index +'][from]" type="text" class="time form-control" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="data"><input name="date['+ index +'][to]" type="text" class="form-control time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+                $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date['+ index +'][day]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
             });
             let check2 = moment($('#plan_date_start').val());
             let check1 = moment($('#plan_date_end').val());
             $('#plan_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
             $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
+            load_event();
         });
+        load_event();
     };
     load_time_list();
 });
@@ -289,24 +292,21 @@ function getDates(startDate, stopDate) {
 }
 
 
-$('#transportation').on('change', function() {
-    if(this.value == '車'){
+$('#transport').on('change', function() {
+    var transport =  JSON.parse($('#transport').val());
+    if(transport.kubun_id == '01'){
         $('.bus').hide();
     }else{
         $('.bus').show();
     }
+    
 });
 
-$('#room').on('change', function() {
-    if(this.value == '無し'){
-        $('.room').hide();
-    }else{
-        $('.room').show();
-    }
-});
+
+
 $('.agecheck').click(function(){
-    $('.agecheck').removeClass('btn-warning');
-    $(this).addClass('btn-warning');
+    $('.agecheck').removeClass('color-active');
+    $(this).addClass('color-active');
     $('#agecheck').val($(this).text())
 });
 $('#date').on('change blur', function() {
