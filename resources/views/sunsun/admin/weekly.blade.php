@@ -1,6 +1,5 @@
 @extends('sunsun.admin.template')
 @section('title', '予約管理サイト（週間表示）')
-
 @section('head')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
