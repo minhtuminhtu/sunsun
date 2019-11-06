@@ -78,14 +78,13 @@
                                         </div>
                                         <div class="line2">
                                             @php 
-                                                $lunch = isset($data['lunch'])?json_decode($data['lunch']):"";
+                                                $lunch = json_decode($data['lunch']);
+                                                $whitening = json_decode($data['whitening']);
+                                                $pet_keeping = json_decode($data['pet_keeping']);
                                             @endphp
-                                            @if($lunch->kubun_value != config('booking.lunch.options.no'))
-                                                <p>昼食: {{ $lunch->kubun_value }}</p>
-                                            @endif  
-                                            <p>ﾎﾜｲﾄﾆﾝｸ ：有り </p>
-                                            <p>ﾍﾟｯﾄ預かり：有り </p>
-                                            <p>ペット預かり</p>
+                                            <p>昼食: {{ $lunch->kubun_value }}</p> 
+                                            <p>ﾎﾜｲﾄﾆﾝｸ ：{{ $whitening->kubun_value }}</p>
+                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -105,8 +104,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>
@@ -148,9 +147,13 @@
                                         オプション
                                         </div>
                                         <div class="line2">
-                                            <p>ﾎﾜｲﾄﾆﾝｸ ：有り </p>
-                                            <p>ﾍﾟｯﾄ預かり：有り </p>
-                                            <p>ペット預かり</p>
+                                            @php 
+                                                $whitening = json_decode($data['whitening']);
+                                                $pet_keeping = json_decode($data['pet_keeping']);
+                                            @endphp
+                                            <p>酵素風呂2回とお食事付き</p>
+                                            <p>ﾎﾜｲﾄﾆﾝｸ ：{{ $whitening->kubun_value }}</p>
+                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -170,8 +173,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>
@@ -199,7 +202,7 @@
                                         </div>
                                         <div class="line2">
                                             <p>{{ $data['date-view'] }}</p>
-                                            <p>{{ $data['time_room']??'' }}</p>
+                                            <p>{{ $data['time_room'] }}</p>
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -208,6 +211,15 @@
                                         オプション
                                         </div>
                                         <div class="line2">
+                                            @php 
+                                                
+                                                $whitening = json_decode($data['whitening']);
+                                                $pet_keeping = json_decode($data['pet_keeping']);
+                                                $lunch_guest_num = json_decode($data['lunch_guest_num']);
+                                            @endphp
+                                            <p>昼食 ：{{ $lunch_guest_num->kubun_value }}</p>
+                                            <p>ﾎﾜｲﾄﾆﾝｸ ：{{ $whitening->kubun_value }}</p>
+                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -227,8 +239,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>
@@ -251,7 +263,7 @@
                                         </div>
                                         <div class="line2">                                         
                                             <p>{{ $data['date-view'] }}</p>
-                                            <p>{{ $data['time_room']??'' }}</p>
+                                            <p>{{ $data['time_room'] }}</p>
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -262,15 +274,6 @@
                                         <div class="line2">
                                             <p>ペット数：{{ $service_pet_num->kubun_value }}</p>
                                             <p>ペット種類：{{ $notes }}</p>
-                                        </div>
-                                    </div>
-                                    <hr class="line-x">
-                                    <div class="line"> 
-                                        <div class="line1">
-                                        宿泊
-                                        </div>
-                                        <div class="line2">
-                                        なし
                                         </div>
                                     </div>
                                 @elseif($course->kubun_id == '05')
@@ -316,9 +319,10 @@
                                         オプション
                                         </div>
                                         <div class="line2">
-                                            <p>ﾎﾜｲﾄﾆﾝｸ ：有り </p>
-                                            <p>ﾍﾟｯﾄ預かり：有り </p>
-                                            <p>ペット預かり</p>
+                                            @php 
+                                                $pet_keeping = json_decode($data['pet_keeping']);
+                                            @endphp
+                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -338,8 +342,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view']??'' }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view']??'' }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}</p>
+                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>

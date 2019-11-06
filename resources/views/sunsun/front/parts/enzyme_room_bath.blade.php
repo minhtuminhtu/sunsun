@@ -47,8 +47,8 @@
         </div>
         <div class="booking-field-content">
             <select name="lunch_guest_num" class="form-control">
-                @foreach(config('booking.number_lunch_book.options') as $key => $value)
-                <option value="{{ $value }}">{{ $value }}</option>
+                @foreach($lunch_guest_num as $value)
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -71,7 +71,7 @@
             <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="pet" class="form-control">
+            <select name="pet_keeping" class="form-control">
                 @foreach($pet_keeping as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach

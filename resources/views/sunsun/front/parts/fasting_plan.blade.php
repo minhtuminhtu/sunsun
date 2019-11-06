@@ -51,8 +51,8 @@
             <p class="text-left pt-2   booking-laber-padding">{{config('booking.range_date_eat.label')}}</p>
         </div>
     </div>
-    <input name="plan_date_start-view" id="plan_date_start-view" type="hidden" value="2019年9月20日(金)">
-    <input name="plan_date_end-view" id="plan_date_end-view" type="hidden" value="2019年9月20日(金)">
+    <input name="plan_date_start-view" id="plan_date_start-view" type="hidden" value="">
+    <input name="plan_date_end-view" id="plan_date_end-view" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field booking-room  input-daterange" id="choice-range-day">
             <div class="field-start-day">
@@ -98,7 +98,7 @@
             <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="pet" class="form-control">
+            <select name="pet_keeping" class="form-control">
                 @foreach($pet_keeping as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
