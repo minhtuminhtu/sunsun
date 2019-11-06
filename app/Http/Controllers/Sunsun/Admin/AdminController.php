@@ -132,6 +132,12 @@ class AdminController extends Controller
         }elseif($data['kubun_type'] == '014'){
             $temp = preg_replace('/[^0-9]/', '', $data['kubun_value']);
             $notes = substr($temp,0,4)."-".substr($temp,4,8);
+        }elseif($data['kubun_type'] == '003'){
+            $str = explode(":",$data['kubun_value']);
+            $temp = sprintf('%02d', preg_replace('/[^0-9]/', '',$str[0]) );
+            $temp1 = sprintf('%02d', preg_replace('/[^0-9]/', '',$str[1]) );
+            
+            $notes = $temp.$temp1;
         }
         
 
