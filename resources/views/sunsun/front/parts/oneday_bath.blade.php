@@ -37,11 +37,12 @@
             </div>
         </div>
     </div>
-    <input name="date-view" id="date-view" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
         </div>
+        <input name="date-view" id="date-view" type="hidden" value="">
+        <input name="date-value" id="date-value" type="hidden" value="">
         <div class="booking-field-content">
             <div class="timedate-block date-warp">
                 <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
@@ -58,7 +59,10 @@
         <div class="booking-field-label  booking-laber-padding pl-1">
             <p class="text-left pt-2 pl-3  node-text">{{config('booking.time.laber1')}}</p>
         </div>
+        
         <div class="booking-field-content">
+            <input name="time1-view" id="time1-view" type="hidden" value="1000">
+            <input name="time1-value" id="time1-value" type="hidden" value="1000">
             <div class="timedate-block set-time">
                 <input name="time1" type="text" class="form-control time js-set-time" id="" value="13:45">
             </div>
@@ -70,6 +74,8 @@
             <p class="text-left pt-2 pl-3 node-text">{{config('booking.time.laber2')}}</p>
         </div>
         <div class="booking-field-content">
+            <input name="time2-view" id="time2-view" type="hidden" value="1000">
+            <input name="time2-value" id="time2-value" type="hidden" value="1030">
             <div class="timedate-block set-time">
                 <input name="time2" type="text" class="form-control time js-set-time" id="" value="13:45">
             </div>
@@ -144,6 +150,8 @@
     <div class="booking-field room"  style="display:none;">
         <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
         <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
+        <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">
+        <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="">
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>

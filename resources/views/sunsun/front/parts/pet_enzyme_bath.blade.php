@@ -1,9 +1,11 @@
 <div class="booking-block">
-    <input name="date-view" id="date-view" type="hidden" value="">
+    
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
         </div>
+        <input name="date-view" id="date-view" type="hidden" value="">
+        <input name="date-value" id="date-value" type="hidden" value="">
         <div class="booking-field-content">
             <div class="timedate-block date-warp">
                 <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
@@ -14,6 +16,8 @@
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
         </div>
+        <input name="time-view" id="time-view" type="hidden" value="">
+        <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
                 <input name="time_room" type="text" class="form-control time js-set-room_pet" id="" value="13:45 ~ 15:45">

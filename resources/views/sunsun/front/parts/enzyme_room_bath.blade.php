@@ -1,5 +1,6 @@
 <div class="booking-block">
     <input name="date-view" id="date-view" type="hidden" value="">
+    <input name="date-value" id="date-value" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
@@ -14,6 +15,8 @@
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
         </div>
+        <input name="time-view" id="time-view" type="hidden" value="1230">
+        <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
                 <input name="time_room" type="text" class="form-control time js-set-room" id="" value="13:45 ~ 15:45">
@@ -26,9 +29,9 @@
             <p class="text-left pt-2">{{config('booking.number_guests_book.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="number_guests_book" class="form-control">
-                @foreach(config('booking.number_guests_book.options') as $key => $value)
-                <option value="{{ $value }}">{{ $value }}</option>
+            <select name="service_guest_num" class="form-control">
+                @foreach($service_guest_num as $value)
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
         </div>
@@ -113,6 +116,8 @@
     <div class="booking-field room"  style="display:none;">
         <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
         <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
+        <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">
+        <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="">
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>

@@ -9,8 +9,8 @@ $(function() {
     
     let load_event = function(check = null) {
         var d = new Date();
-        var strToday = today.format('Y') + "/" + today.format('M') + "/" + today.format('D');
-        var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('M') + "/" + tomorrow.format('D');
+        var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
+        var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
 
         
         if($('#date').val() == ""){
@@ -75,27 +75,31 @@ $(function() {
             $('.agecheck').addClass('btn-outline-warning');
             $(this).addClass('color-active');
             $(this).removeClass('btn-outline-warning');
-            $('#agecheck').val($(this).text())
+            $('#agecheck').val($(this).val())
         });
 
 
         $('#date').on('change blur', function() {
             var check = moment($('#date').val());
-            $('#date').val(check.format('YYYY') + "/" + check.format('M') + "/" + check.format('D') + "(" + days_short[check.weekday()] + ")");
-            $('#date-view').val(check.format('YYYY') + "年" + check.format('M') + "月" + check.format('D') + "日(" + days_short[check.weekday()] + ")");
+            $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
+            $('#date-value').val(check.format('YYYYMMDD'));
+            $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
         });
         function change_day(){
             var check = moment($('#date').val());
-            $('#date').val(check.format('YYYY') + "/" + check.format('M') + "/" + check.format('D') + "(" + days_short[check.weekday()] + ")");
-            $('#date-view').val(check.format('YYYY') + "年" + check.format('M') + "月" + check.format('D') + "日(" + days_short[check.weekday()] + ")");
+            $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
+            $('#date-value').val(check.format('YYYYMMDD'));
+            $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
         }
 
 
         $(".room_range_date").on('change blur', function() {
             var check2 = moment($('#range_date_start').val());
             var check1 = moment($('#range_date_end').val());
-            $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
-            $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
+            $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
+            $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
+            $('#range_date_start-value').val(check2.format('YYYYMMDD'));
+            $('#range_date_end-value').val(check1.format('YYYYMMDD'));
         });
 
 
@@ -180,6 +184,7 @@ $(function() {
     modal_choice_time.on('click','#js-save-time',function (e) {
         let time = modal_choice_time.find('input[name=time]:checked').val();
         $('.set-time.edit input.time').val(time);
+        $('#time-value').val('1345');
         modal_choice_time.modal('hide');
     })
 
@@ -260,8 +265,8 @@ $(function() {
 
     let load_time_list = function(check = null) {
         if(!check){
-            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('M') + '/' + today.format('D') + '(' + days_short[today.weekday()] + ')</label><input name="date['+ 0 +'][day]" value="' + today.format('M') + '/' + today.format('D') + '(' + days_short[today.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('M') + '/' + tomorrow.format('D') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date['+ 1 +'][day]" value="' + tomorrow.format('M') + '/' + tomorrow.format('D') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date['+ 0 +'][day]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date['+ 1 +'][day]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
         }
         $(".range_date").change(function(){
             var date_arr = getDates($('#plan_date_start').val(), $('#plan_date_end').val());
@@ -269,15 +274,15 @@ $(function() {
             moment.locale('ja');
             date_arr.forEach(function(element,index) {
                 var check = moment(element)
-                var month = check.format('M');
-                var day   = check.format('D');
+                var month = check.format('MM');
+                var day   = check.format('DD');
                 var week_day =  check.weekday();
                 $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date['+ index +'][day]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
             });
             let check2 = moment($('#plan_date_start').val());
             let check1 = moment($('#plan_date_end').val());
-            $('#plan_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
-            $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
+            $('#plan_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
+            $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
             load_event();
         });
         load_event();
@@ -292,13 +297,19 @@ let load_date_before = function(){
 
     $('#age_value').val("18");
 
-    $('#date-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
+    
+    $('#date-value').val(today.format('YYYYMMDD'));
+    $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
 
-    $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
-    $('#range_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('M') + "月" + tomorrow.format('D') + "日(" + days_short[tomorrow.weekday()] + ")");
+    $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
+    $('#range_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
 
-    $('#plan_date_start-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
-    $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('M') + "月" + tomorrow.format('D') + "日(" + days_short[tomorrow.weekday()] + ")");
+    $('#range_date_start-value').val(today.format('YYYYMMDD'));
+    $('#range_date_end-value').val(tomorrow.format('YYYYMMDD'));
+
+
+    $('#plan_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
+    $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
 }
 
 function getDates(startDate, stopDate) {
@@ -328,24 +339,23 @@ $('#transport').on('change', function() {
 $('.agecheck').click(function(){
     $('.agecheck').removeClass('color-active');
     $(this).addClass('color-active');
-    $('#agecheck').val($(this).text())
+    $('#agecheck').val($(this).val())
 });
 $('#date').on('change blur', function() {
     var check = moment($('#date').val());
-    var month = check.format('M');
-    var day   = check.format('D');
-    var year  = check.format('YYYY');
-    var week_day =  check.weekday();
     var days_short = ["日","月","火","水","木","金","土"];
-    $('#date').val(year + "/" + month + "/" + day + "(" + days_short[week_day] + ")");
-    $('#date-view').val(year + "年" + month + "月" + day + "日(" + days_short[week_day] + ")");
+    $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
+    $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
+    $('#date-value').val(check.format('YYYYMMDD'));
 });
 $(".room_range_date").on('change blur', function() {
     var check2 = moment($('#range_date_start').val());
     var check1 = moment($('#range_date_end').val());
     var days_short = ["日","月","火","水","木","金","土"];
-    $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
-    $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
+    $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
+    $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
+    $('#range_date_start-value').val(check2.format('YYYYMMDD'));
+    $('#range_date_end-value').val(check1.format('YYYYMMDD'));
 });
 
 

@@ -36,7 +36,7 @@
                             <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
                         </div>
                         <div class="booking-field-content">
-                            <input type="text" class="form-control date-book-input"  />
+                            <input name="name" type="text" class="form-control date-book-input"  />
                         </div>
                     </div>
                     <div class="booking-field">
@@ -45,7 +45,7 @@
                             <p class="node-text">当日の連絡先</p>
                         </div>
                         <div class="booking-field-content">
-                            <input type="text" class="form-control date-book-input"  />
+                            <input name="phone" type="text" class="form-control date-book-input"  />
                         </div>
                     </div>
                     <div class="booking-field">
@@ -53,7 +53,7 @@
                             <p class="text-md-left pt-2">{{config('booking.email.label')}}</p>
                         </div>
                         <div class="booking-field-content">
-                            <input type="text" class="form-control date-book-input"  />
+                            <input name="email" type="text" class="form-control date-book-input"  />
                         </div>
                     </div>
                     <div class="booking-field">
@@ -98,7 +98,7 @@
                     </div>
                     <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input payment-method" id="credit-card" name="method" checked>
+                            <input type="radio" class="custom-control-input payment-method" id="credit-card" name="payment-method" checked>
                             <label class="custom-control-label" for="credit-card">クレジットカード</label>
                         </div>
                     </div>
@@ -123,13 +123,13 @@
                     </div>
                     <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input payment-method" id="local-cash" name="method">
+                            <input type="radio" class="custom-control-input payment-method" id="local-cash" name="payment-method">
                             <label class="custom-control-label" for="local-cash">現地現金</label>
                         </div>
                     </div>
                     <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input payment-method" id="coupon" name="method">
+                            <input type="radio" class="custom-control-input payment-method" id="coupon" name="payment-method">
                             <label class="custom-control-label" for="coupon">回数券</label>
                         </div>
                     </div>
