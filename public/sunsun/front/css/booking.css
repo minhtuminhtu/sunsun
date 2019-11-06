@@ -424,6 +424,10 @@ label.form-check-label {
   color: #402106;
 }
 
+.breadc-link:hover {
+  color: #402106;
+}
+
 .mean-container .mean-bar {
   float: left;
   width: 100%;

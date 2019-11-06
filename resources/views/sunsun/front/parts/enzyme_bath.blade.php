@@ -35,7 +35,7 @@
                     <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">学生<span class="node-text">(中学生以上)</span></button>
                     <div class="age-col mt-1">
                         <div class="age-left">
-                            <select name="age_value" class="form-control">
+                            <select id="age_value" name="age_value" class="form-control">
                                 @php
                                     $val = [];
                                     $i = 0;

@@ -93,7 +93,6 @@ class BookingController extends Controller
         }
         // dd($data);
         $data['customer']['info'] = array_values($data['customer']['info']);
-        dd($data);
         return view('sunsun.front.confirm',$data);
 
     }
