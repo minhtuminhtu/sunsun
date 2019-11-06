@@ -284,8 +284,8 @@
                                         @endif
                                     </div>
                                     @php 
-                                        $gender = isset($data['gender'])?json_decode($data['gender']):"";
-                                        $age_value = isset($data['age_value'])?$data['age_value']:"";
+                                        $gender = json_decode($data['gender']);
+                                        $age_value = $data['age_value'];
                                     @endphp
 
                                     <div class="line"> 
@@ -294,15 +294,20 @@
                                         </div>
                                         <div class="line2">
                                             <p>{{ $gender->kubun_value }} : {{ $age_value }}歳</p>
-                                            <p class="text-left pl-4 mb-0 font-weight-bold">利用期間</p>
-                                            <p class="text-left pl-5 mb-0 ">開始日：{{ $data['plan_date_start-view'] }}</p>
-                                            <p class="text-left pl-5 mb-0 ">終了日：{{ $data['plan_date_end-view'] }}</p>
-                                            <p class="text-left pl-4 mb-0 font-weight-bold">入浴時間</p>
-                                            @if(isset($data['date'])) 
-                                                @foreach ($data['date'] as $d)
-                                                    <p class="text-left pl-5 mb-0 ">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
-                                                @endforeach 
-                                            @endif 
+                                            <p class="text-left mb-0">利用期間</p>
+                                            <div class="line3">
+                                                <p class="text-left">開始日：{{ $data['plan_date_start-view'] }}</p>
+                                                <p class="text-left">終了日：{{ $data['plan_date_end-view'] }}</p>
+                                            </div>
+                                            <p class="text-left mb-0">入浴時間</p>
+                                            <div class="line3">
+                                               @if(isset($data['date'])) 
+                                                    @foreach ($data['date'] as $d)
+                                                        <p class="text-left">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
+                                                    @endforeach 
+                                                @endif  
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -323,8 +328,8 @@
                                         </div>
                                         <div class="line2">
                                             @php 
-                                                $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                                $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
+                                                $stay_room_type = json_decode($data['stay_room_type']);
+                                                $stay_guest_num = json_decode($data['stay_guest_num']);
                                                 
                                             @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))

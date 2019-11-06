@@ -27,7 +27,7 @@
         <div class="booking-field-content">
             <div class="age-col age mt-1">
                 <div class="age-left">
-                    <select name="age" class="custom-select">
+                    <select name="age_value" class="custom-select">
                             @php
                                 $val = [];
                                 $i = 0;
@@ -118,7 +118,7 @@
             <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
         </div>
         <div class="booking-field-content">
-            <select name="room" id="room" class="form-control">
+            <select name="stay_room_type" id="room" class="form-control">
                 @foreach($stay_room_type as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
@@ -130,7 +130,7 @@
             <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="number_guests_stay" class="form-control">
+            <select name="stay_guest_num" class="form-control">
                 @foreach($stay_guest_num as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
