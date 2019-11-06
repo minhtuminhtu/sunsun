@@ -90,148 +90,22 @@
                                     <br> (10:30 -12:00)
                                 </td>
                                 <td class="man odd">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">［入浴］男性(49歳)</span> <br>
                                         <span>渋野日向子同行者様</span> <br>
                                         <span>バス　9:29着　<span class="text-red">送迎有</span></span>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="man odd"></td>
                                 <td class="man odd"></td>
                                 <td class="odd space-table"></td>
                                 <td class="women odd">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">［入浴］女性(21歳)</span> <br>
                                         <span>渋野日向子様</span> <br>
                                         <span>バス　9:29着 <span class="text-red">送迎有</span></span> <br>
                                         <span>昼食　宿泊</span> <br>
                                         <span>090-1234-5678</span> <br>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="women odd"></td>
@@ -244,74 +118,11 @@
                                     10:45<br> (11:00 -12:30)
                                 </td>
                                 <td class="man even">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">［リ①］男性(27歳)</span> <br>
                                         <span>石川遼様</span> <br>
                                         <span>自動車</span>
                                         <span>090-1234-5678</span>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="man even"></td>
@@ -330,7 +141,7 @@
                                     13:15<br> (13:30 - 15:00)
                                 </td>
                                 <td class="man odd">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">[貸切] 男性 (29歳)</span> <br>
                                         <span>錦織圭様</span> <br>
                                         <span>自動車</span>
@@ -340,139 +151,18 @@
                                         <div class="detail-title">
 
                                         </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="man odd">ー</td>
                                 <td class="man odd">ー</td>
                                 <td class="odd space-table"></td>
                                 <td class="women odd">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">[入浴]女性(21歳) <span class="text-red">新規</span></span> <br>
                                         <span>大阪なおみ様</span> <br>
                                         <span>自動車</span> <br>
                                         <span>ﾍﾟｯﾄ預かり</span> <br>
                                         <span>080-1111-2222</span> <br>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="women odd"></td>
@@ -485,144 +175,18 @@
                                     13:45<br> (14:00 - 15:00)
                                 </td>
                                 <td class="man even">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">［入浴②］男性(49歳)</span> <br>
                                         <span>渋野日向子同行者様</span> <br>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="man even"></td>
                                 <td class="man even"></td>
                                 <td class="even space-table"></td>
                                 <td class="women even">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">［入浴②］女性(21歳)</span> <br>
                                         <span>渋野日向子様</span> <br>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="women even"></td>
@@ -634,72 +198,9 @@
                                     14:15<br> (14:30 - 16:00)
                                 </td>
                                 <td class="man odd">
-                                    <div class="info">
+                                    <div class="info js-edit-booking">
                                         <span class="info-name">［リ②］男性(27歳)</span> <br>
                                         <span>渋野日向子同行者様</span> <br>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                        <div class="detail-content">
-                                            <div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【名前】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="渋野日向子">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【交通手段】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">バス</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【洲本IC着】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">9:29着</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【性別】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="21">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【電話番号】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <input type="text" value="09012345678">
-                                                    </div>
-                                                </div>
-                                                <div class="field-info">
-                                                    <div class="field-info-label">
-                                                        <label for="">【コース】</label>
-                                                    </div>
-                                                    <div class="field-info-content">
-                                                        <select name="" id="">
-                                                            <option value="">酵素浴</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 <td class="man odd"></td>
@@ -802,6 +303,29 @@
 
 @section('footer')
     @parent
+    <div class="modal" id="edit_booking">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body-time">
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer" style="padding: 10px;">
+                    <button type="button" class="btn btn-modal-left text-white color-primary" id="edit_booking" style="padding: 0.375rem 2rem;">
+                        保存
+                    </button>
+                    <button type="button" class="btn btn-outline-dark  btn-modal-right" style="padding: 0.375rem 1rem;"
+                            data-dismiss="choice_date_time" data-target="#edit_booking" data-toggle="modal"
+                            data-backdrop="static" data-keyboard="false">
+                        閉じる
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 @endsection

@@ -1,7 +1,7 @@
 $(function () {
-    let main_head__top = $('.main-head__top');
-    let current_day = $('.current-date');
-    let date_day = current_day.datepicker({
+    let main_head__top = $('.main-head__top'),
+        current_day = $('.current-date'),
+        date_day = current_day.datepicker({
         language: 'ja',
         dateFormat: 'yyyy/mm/dd',
         autoclose: true,
@@ -33,15 +33,8 @@ $(function () {
         date_day.datepicker("setDate", date);
         current_day.find('input').trigger("input");
     });
-    $('.info-name').popover({
-        html: true,
-        content: function () {
-            let span_click = $(this);
-            return span_click.closest('td').find('.detail-content').clone();
-        },
-        title: function () {
-            let span_click = $(this);
-            return span_click.closest('td').find('.detail-title').clone();
-        }
+
+    $('.js-edit-booking').click(function (e) {
+        $('#edit_booking').modal('show');
     });
 });

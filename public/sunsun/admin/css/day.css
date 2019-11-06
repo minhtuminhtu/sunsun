@@ -117,6 +117,10 @@
   background: #fff4e7;
 }
 
+.main-content__table .js-edit-info {
+  cursor: pointer;
+}
+
 .field-info {
   display: flex;
   margin-bottom: 5px;
