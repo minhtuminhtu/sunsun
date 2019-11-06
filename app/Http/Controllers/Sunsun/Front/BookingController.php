@@ -171,6 +171,7 @@ class BookingController extends Controller
     public function book_room (Request $request) {
         $data = $request->all();
         $this->fetch_kubun_data($data);
+        $data['bed'] = $data['bed_male'];
         return view('sunsun.front.parts.booking_room',
             [
                 'data' => $data

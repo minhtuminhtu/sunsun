@@ -11,6 +11,7 @@
     @foreach($data['time_slide_room'] as $room)
         <tr>
             <td>{{ $room->kubun_value }}</td>
+            @foreach($data['bed'] as $room)
             <td>
                 @if($room['room1']['status'] != '1')
                     <div class="">
@@ -21,33 +22,7 @@
                 @endif
 
             </td>
-            <td>
-                @if($room['room2']['status'] != '1')
-                    <div class="">
-                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
-                    </div>
-                @else
-                    x
-                @endif
-            </td>
-            <td>
-                @if($room['room3']['status'] != '1')
-                    <div class="">
-                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
-                    </div>
-                @else
-                    x
-                @endif
-            </td>
-            <td>
-                @if($room['room4']['status'] != '1')
-                    <div class="">
-                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
-                    </div>
-                @else
-                    x
-                @endif
-            </td>
+            @endforeach
         </tr>
     @endforeach
 
