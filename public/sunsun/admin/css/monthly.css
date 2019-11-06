@@ -1,3 +1,8 @@
+html,
+body {
+  font-size: 1vw;
+}
+
 .main-head__top {
   padding-top: 10px;
 }
@@ -83,6 +88,11 @@
 }
 
 @media (width: 768px) {
+  html,
+  body {
+    font-size: 2vw;
+  }
+
   .main-content table td .data-item .item {
     padding: 2px;
     font-size: 1rem;

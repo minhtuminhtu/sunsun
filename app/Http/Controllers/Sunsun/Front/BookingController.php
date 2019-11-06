@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 class BookingController extends Controller
 {
-    private $session_info = 'SESSION_INFO_USER';
+    private $session_info = 'SESSION_BOOKING_USER';
 
     public function index(Request $request){
         $request->session()->forget($this->session_info);
@@ -36,7 +36,7 @@ class BookingController extends Controller
         $data['stay_guest_num'] = $MsKubun->where('kubun_type','012')->sortBy('sort_no');
         $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
         $data['service_pet_num'] = $MsKubun->where('kubun_type','016')->sortBy('sort_no');
-        
+
 
         // dd($filtered);
 
@@ -111,6 +111,7 @@ class BookingController extends Controller
         // dd($data);
 
         $data['customer']['info'] = array_values($data['customer']['info']);
+        dd($data);
         return view('sunsun.front.confirm',$data);
 
     }
@@ -222,7 +223,7 @@ class BookingController extends Controller
         $data['stay_guest_num'] = $MsKubun->where('kubun_type','012')->sortBy('sort_no');
         $data['service_guest_num'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
 
-        
+
         $data['service_pet_num'] = $MsKubun->where('kubun_type','016')->sortBy('sort_no');
 
 

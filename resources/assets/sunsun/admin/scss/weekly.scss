@@ -1,5 +1,5 @@
-.container-fluid{
-
+html, body {
+    font-size: 1.1vw;
 }
 a.week-title{
     color: #000;
@@ -7,7 +7,7 @@ a.week-title{
 .main-content-head{
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
+    font-size: 1rem;
     .left-content{
         margin-top: 20px;
 
@@ -38,7 +38,7 @@ a.week-title{
 .main-content-content{
     display: flex;
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     border: 2px solid #4573c4;
     .line1{
@@ -109,7 +109,7 @@ th.pet-head {
 }
 .content-head{
     margin: 10px;
-    font-size: 15px;
+    font-size: 0.95rem;
     .male-head{
         width: 33.33%;
         background-color: #4472c4;
@@ -145,7 +145,7 @@ th.pet-head {
     }
 }
 .content-content{
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: normal;
     .male-content{
         width: 33.33%;
@@ -246,4 +246,9 @@ th.pet-head {
     color: #000!important;
     background: #e5e2e3!important;
     border-radius: 0!important;
+}
+@media (width: 768px) {
+    html, body {
+        font-size: 1.5vw;
+    }
 }
