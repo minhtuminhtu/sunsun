@@ -31,6 +31,7 @@ class CreateTrYoyakuTable extends Migration
             $table->string('service_date_end',8)->nullable();
             $table->string('service_time_1',4)->nullable();
             $table->string('service_time_2',4)->nullable();
+            $table->string('bed',2)->nullable();
             $table->string('service_guest_num',2)->nullable();
             $table->string('service_pet_num',2)->nullable();
             $table->string('lunch',2)->nullable();

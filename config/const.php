@@ -65,6 +65,9 @@ return [
             '014' => 'Time Slide for whole room',
             '015' => '人数',
             '016' => 'ペット数',
+            '017' => 'bed_male',
+            '018' => 'bed_female',
+            '019' => 'bed_pet'
         ],
         
     ],

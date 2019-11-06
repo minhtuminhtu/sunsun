@@ -104,8 +104,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>
@@ -136,8 +136,8 @@
                                         <div class="line2">
                                             <p>{{ $gender->kubun_value }} : {{ $age_value }}歳</p>
                                             <p>{{ $data['date-view'] }}</p>
-                                            <p class="line3">入浴1回目 {{ $data['time1'] }}～</p>
-                                            <p class="line3">入浴2回目 {{ $data['time2'] }}～</p>
+                                            <p class="line3 node-text">入浴1回目 {{ $data['time1'] }}～</p>
+                                            <p class="line3 node-text">入浴2回目 {{ $data['time2'] }}～</p>
                                         </div>
                                     </div>
                                     <!-- <p class="text-left pl-2 mb-0 ">［酵素風呂2回とお食事付き］</p> -->
@@ -173,8 +173,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>
@@ -239,8 +239,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>
@@ -299,14 +299,14 @@
                                             <p>{{ $gender->kubun_value }} : {{ $age_value }}歳</p>
                                             <p class="text-left mb-0">利用期間</p>
                                             <div class="line3">
-                                                <p class="text-left">開始日：{{ $data['plan_date_start-view'] }}</p>
-                                                <p class="text-left">終了日：{{ $data['plan_date_end-view'] }}</p>
+                                                <p class="node-text">開始日：{{ $data['plan_date_start-view'] }}</p>
+                                                <p class="node-text">終了日：{{ $data['plan_date_end-view'] }}</p>
                                             </div>
                                             <p class="text-left mb-0">入浴時間</p>
                                             <div class="line3">
                                                @if(isset($data['date'])) 
                                                     @foreach ($data['date'] as $d)
-                                                        <p class="text-left">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
+                                                        <p class="node-text">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
                                                     @endforeach 
                                                 @endif  
                                             </div>
@@ -342,8 +342,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="small-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}</p>
-                                                    <p class="small-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>

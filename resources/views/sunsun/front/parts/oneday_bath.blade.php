@@ -19,7 +19,7 @@
         <div class="booking-field-content">
             <div class="age-col age mt-1">
                 <div class="age-left">
-                    <select name="age" class="form-control">
+                    <select name="age_value" class="form-control">
                             @php
                                 $val = [];
                                 $i = 0;

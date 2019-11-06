@@ -151,7 +151,7 @@ $(function() {
         get_room_pet.click(function (e) {
             let set_time_click = $(this);
             $.ajax({
-                url: $site_url +'/book_room',
+                url: $site_url +'/book_time_room_pet',
                 type: 'POST',
                 data: {
                     'gender': $('select[name=date]').val()

@@ -2,20 +2,19 @@
     <thead>
     <tr>
         <th></th>
-        <th>ベッド <br> ①</th>
-        <th>ベッド <br> ②</th>
-        <th>ベッド <br> ②</th>
-        <th>ベッド <br> ④</th>
+        @foreach($data['bed'] as $room)
+            <th>ベッド <br>{{ $room->kubun_value }}</th>
+        @endforeach
     </tr>
     </thead>
     <tbody>
-    @foreach($room_data as $room)
+    @foreach($data['time_slide_room'] as $room)
         <tr>
-            <td>{{$room['time_from']}}～{{$room['time_to']}}</td>
+            <td>{{ $room->kubun_value }}</td>
             <td>
                 @if($room['room1']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
+                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
                     </div>
                 @else
                     x
@@ -25,7 +24,7 @@
             <td>
                 @if($room['room2']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
+                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
                     </div>
                 @else
                     x
@@ -34,7 +33,7 @@
             <td>
                 @if($room['room3']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
+                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
                     </div>
                 @else
                     x
@@ -43,7 +42,7 @@
             <td>
                 @if($room['room4']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
+                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
                     </div>
                 @else
                     x

@@ -2,23 +2,28 @@
     <thead>
     <tr>
         <th></th>
-        <th>ベッド <br> ①</th>
+        @foreach($data['bed'] as $room)
+            <th>ベッド <br>{{ $room->kubun_value }}</th>
+        @endforeach
     </tr>
     </thead>
     <tbody>
-    @foreach($room_pet as $room)
+    @foreach($data['time_slide_room'] as $room)
         <tr>
-            <td>{{$room['time_from']}}～{{$room['time_to']}}</td>
+            <td>{{ $room->kubun_value }}</td>
+            @foreach($data['bed'] as $room)
             <td>
                 @if($room['room1']['status'] != '1')
                     <div class="">
-                        <input type="radio" name="time" value="{{$room['time_from']}}～{{$room['time_to']}}">
+                        <input type="radio" name="time" value="{{ $room->kubun_value }}">
                     </div>
                 @else
                     x
                 @endif
 
             </td>
+            @endforeach
+            
         </tr>
     @endforeach
 
