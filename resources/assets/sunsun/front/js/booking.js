@@ -290,6 +290,8 @@ let load_date_before = function(){
     var today = moment();
     var tomorrow = moment(today).add(1, 'days');
 
+    $('#age_value').val("18");
+
     $('#date-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
 
     $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
