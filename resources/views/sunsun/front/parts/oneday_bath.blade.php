@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
+    <input name="date-view" id="date-view" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>

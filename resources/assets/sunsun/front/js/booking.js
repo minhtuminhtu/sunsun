@@ -290,6 +290,7 @@ let load_date_before = function(){
     var today = moment();
     var tomorrow = moment(today).add(1, 'days');
 
+    $('#date-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
 
     $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
     $('#range_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('M') + "月" + tomorrow.format('D') + "日(" + days_short[tomorrow.weekday()] + ")");
