@@ -1,3 +1,4 @@
+
 <div>
     <div class="title-table-time">
         <span class="font-weight-bold">{{$data['gender']}}</span> {{----}}
@@ -6,53 +7,26 @@
         <thead>
         <tr>
             <th></th>
-            <th>ベッド <br> ①</th>
-            <th>ベッド <br> ②</th>
-            <th>ベッド <br> ②</th>
-            <th>ベッド <br> ④</th>
+            @foreach($data['bed'] as $room)
+                <th>ベッド <br>{{ $room->kubun_value }}</th>
+            @endforeach
         </tr>
         </thead>
         <tbody>
-        @foreach($room_time_data as $room)
+        @foreach($data['time_slide'] as $room)
             <tr>
-                <td>{{$room['time']}}～</td>
-                <td>
-                    @if($room['room1']['status'] != '1')
-                        <div class="">
-                            <input type="radio" name="time" value="{{$room['time']}}">
-                        </div>
-                    @else
-                        x
-                    @endif
-
-                </td>
-                <td>
-                    @if($room['room2']['status'] != '1')
-                        <div class="">
-                            <input type="radio" name="time" value="{{$room['time']}}">
-                        </div>
-                    @else
-                        x
-                    @endif
-                </td>
-                <td>
-                    @if($room['room3']['status'] != '1')
-                        <div class="">
-                            <input type="radio" name="time" value="{{$room['time']}}">
-                        </div>
-                    @else
-                        x
-                    @endif
-                </td>
-                <td>
-                    @if($room['room4']['status'] != '1')
-                        <div class="">
-                            <input type="radio" name="time" value="{{$room['time']}}">
-                        </div>
-                    @else
-                        x
-                    @endif
-                </td>
+                <td>{{$room->kubun_value}}～</td>
+                @foreach($data['bed'] as $room)
+                    <td>
+                        @if($room['room1']['status'] != '1')
+                            <div class="">
+                                <input type="radio" name="time" value="{{$room->kubun_value}}">
+                            </div>
+                        @else
+                            x
+                        @endif
+                    </td>
+                @endforeach
             </tr>
         @endforeach
 

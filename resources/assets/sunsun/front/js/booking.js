@@ -5,11 +5,14 @@ $(function() {
     var today = moment();
     var tomorrow = moment(today).add(1, 'days');
 
+
+    
     let load_event = function(check = null) {
         var d = new Date();
         var strToday = today.format('Y') + "/" + today.format('M') + "/" + today.format('D');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('M') + "/" + tomorrow.format('D');
 
+        
         if($('#date').val() == ""){
             $('#date').val(strToday + "(" + days_short[moment(strToday).weekday()] + ")");
         }
@@ -95,13 +98,6 @@ $(function() {
             $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
         });
 
-        $("#room").on('change', function() {
-            var check2 = moment($('#range_date_start').val());
-            var check1 = moment($('#range_date_end').val());
-            $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('M') + "月" + check2.format('D') + "日(" + days_short[check2.weekday()] + ")");
-            $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('M') + "月" + check1.format('D') + "日(" + days_short[check1.weekday()] + ")");
-        });
-
 
         let set_time = $('.js-set-time');
         set_time.click(function (e) {
@@ -155,7 +151,7 @@ $(function() {
         get_room_pet.click(function (e) {
             let set_time_click = $(this);
             $.ajax({
-                url: $site_url +'/book_room',
+                url: $site_url +'/book_time_room_pet',
                 type: 'POST',
                 data: {
                     'gender': $('select[name=date]').val()
@@ -207,6 +203,7 @@ $(function() {
             success: function (html) {
                 $('.service-warp').empty().append(html).hide().fadeIn('slow');
                 load_event();
+                load_date_before();
                 load_time_list();
             },
             complete: function () {
@@ -287,6 +284,20 @@ $(function() {
     };
     load_time_list();
 });
+
+let load_date_before = function(){
+    var days_short = ["日","月","火","水","木","金","土"];
+    var today = moment();
+    var tomorrow = moment(today).add(1, 'days');
+
+    $('#date-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
+
+    $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
+    $('#range_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('M') + "月" + tomorrow.format('D') + "日(" + days_short[tomorrow.weekday()] + ")");
+
+    $('#plan_date_start-view').val(today.format('YYYY') + "年" + today.format('M') + "月" + today.format('D') + "日(" + days_short[today.weekday()] + ")");
+    $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('M') + "月" + tomorrow.format('D') + "日(" + days_short[tomorrow.weekday()] + ")");
+}
 
 function getDates(startDate, stopDate) {
     var dateArray = [];

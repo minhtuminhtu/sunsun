@@ -19,7 +19,7 @@
         <div class="booking-field-content">
             <div class="age-col age mt-1">
                 <div class="age-left">
-                    <select name="age" class="form-control">
+                    <select name="age_value" class="form-control">
                             @php
                                 $val = [];
                                 $i = 0;
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
+    <input name="date-view" id="date-view" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
@@ -102,7 +102,7 @@
             <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="pet" class="form-control">
+            <select name="pet_keeping" class="form-control">
                 @foreach($pet_keeping as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach

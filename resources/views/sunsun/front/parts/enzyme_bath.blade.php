@@ -59,7 +59,7 @@
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
         </div>
-        <input name="date-view" id="date-view" type="hidden" value="2019年9月20日(金)">
+        <input name="date-view" id="date-view" type="hidden" value="">
         <div class="booking-field-content">
             <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
         </div>
@@ -114,7 +114,7 @@
             <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="pet" class="form-control">
+            <select name="pet_keeping" class="form-control">
                 @foreach($pet_keeping as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
