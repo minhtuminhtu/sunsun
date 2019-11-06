@@ -26,13 +26,13 @@
         </div>
         <div class="booking-field-content">
             <div class="button-age">
-                <input id="agecheck" name='agecheck' type="hidden" value="{{config('booking.age.age3')}}">
+                <input id="agecheck" name='age_type' type="hidden" value="3">
                 <div class="button-age-left">
-                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">{{config('booking.age.age1')}}</button>
-                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark mt-1 mx-0 agecheck">{{config('booking.age.age3')}}</button>
+                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck" value="1">{{config('booking.age.age1')}}</button>
+                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark mt-1 mx-0 agecheck" value="3">{{config('booking.age.age3')}}</button>
                 </div>
                 <div class="button-age-right">
-                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck">学生<span class="node-text">(中学生以上)</span></button>
+                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck" value="2">学生<span class="node-text">(中学生以上)</span></button>
                     <div class="age-col mt-1">
                         <div class="age-left">
                             <select id="age_value" name="age_value" class="form-control">
@@ -60,14 +60,18 @@
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
         </div>
         <input name="date-view" id="date-view" type="hidden" value="">
+        <input name="date-value" id="date-value" type="hidden" value="">
         <div class="booking-field-content">
-            <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
+            <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
         </div>
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
         </div>
+        <input name="time-view" id="time-view" type="hidden" value="">
+        <input name="time-value" id="time-value" type="hidden" value="1230">
+        <input name="bed" id="bed" type="hidden" value="1">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
                 <input name='time' type="text" class="form-control time js-set-time" id="" value="13:45" />
@@ -161,6 +165,8 @@
     <div class="booking-field room"  style="display:none;">
         <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
         <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
+        <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">
+        <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="">
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>
