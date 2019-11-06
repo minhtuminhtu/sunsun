@@ -33,8 +33,23 @@ $(function () {
         date_day.datepicker("setDate", date);
         current_day.find('input').trigger("input");
     });
-
+    let booking_edit = $('#edit_booking');
     $('.js-edit-booking').click(function (e) {
-        $('#edit_booking').modal('show');
+        $.ajax({
+            url: '/admin/edit_booking',
+            type: 'POST',
+            data: {},
+            dataType: 'text',
+            beforeSend: function () {
+                loader.css({'display': 'block'});
+            },
+            success: function (html) {
+                booking_edit.find('.mail-booking').html(html);
+                booking_edit.modal('show');
+            },
+            complete: function () {
+                loader.css({'display': 'none'});
+            },
+        });
     });
 });

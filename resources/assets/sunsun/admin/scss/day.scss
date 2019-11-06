@@ -129,7 +129,7 @@
 }
 @media (max-width: 768px) {
     html, body {
-        font-size: 1.5vw;
+        font-size: 1.5vw !important;
     }
     .table-pet tbody tr.odd td {
         height: 4rem;
@@ -141,7 +141,7 @@
 }
 @media (min-width: 769px) {
     html, body {
-        font-size: 0.9vw;
+        font-size: 1vw !important;
     }
     .table-pet tbody tr.odd td {
         height: 4rem;
@@ -150,4 +150,24 @@
         height: 7vw;
         width: 30vw;
     }
+}
+.booking-warp.booking {
+    max-width: 36vw !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+.foot-confirm {
+    width: 24vw;
+    max-width: 24vw;
+    margin: 0 auto !important;
+}
+.booking-field .field-start-day {
+    padding-left: 20px;
+    padding-right: 5px;
+}
+.booking-field .booking-field-label {
+    width: 26% !important;
+}
+.booking-field .booking-field-content {
+    width: 74% !important;
 }

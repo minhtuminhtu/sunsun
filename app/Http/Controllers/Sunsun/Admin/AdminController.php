@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\MsKubun;
+use App\Http\Controllers\Sunsun\Front\BookingController;
 
 class AdminController extends Controller
 {
@@ -27,6 +28,14 @@ class AdminController extends Controller
         $data['lunch'] = $data['data_date']->where('lunch','02');
         return view('sunsun.admin.day',$data);
     }
+
+    public function edit_booking (Request $request) {
+        $data = $request->all();
+        $booking = new BookingController();
+        $booking->fetch_kubun_data($data);
+        return view('sunsun.admin.parts.booking',$data)->render();
+    }
+
 
     public function weekly(Request $request) {
         $data = [];
@@ -109,7 +118,7 @@ class AdminController extends Controller
         // dd($data);
         return view('sunsun.admin.parts.setting_kubun_type',$data)->render();
     }
-    
+
     public function update_setting_sort_no(Request $request) {
 
         $data = $request->all();
@@ -117,17 +126,17 @@ class AdminController extends Controller
         if($data['type'] == 'up'){
             MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
             MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'] - 1)->update(['sort_no' =>$data['sort_no']]);
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] -1]);  
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] -1]);
         }else{
             MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
             MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'] + 1)->update(['sort_no' =>$data['sort_no']]);
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] +1]); 
+            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] +1]);
         }
     }
     public function update_setting_kubun_type(Request $request) {
         $data = $request->all();
 
-        
+
 
         if((strlen($data['kubun_id']) == 0 )  || (strlen($data['kubun_id']) > 2 ) || (strlen($data['kubun_value']) == 0 ) || (strlen($data['kubun_value']) > 255 )){
             return response()->json([
@@ -156,5 +165,5 @@ class AdminController extends Controller
                 'msg' => 'success',
             ], 200);
     }
-    
+
 }

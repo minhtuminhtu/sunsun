@@ -307,12 +307,12 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <!-- Modal body -->
-                <div class="modal-body-time">
+                <div class="mail-booking">
 
                 </div>
 
                 <!-- Modal footer -->
-                <div class="modal-footer" style="padding: 10px;">
+               {{-- <div class="modal-footer" style="padding: 10px;">
                     <button type="button" class="btn btn-modal-left text-white color-primary" id="edit_booking" style="padding: 0.375rem 2rem;">
                         保存
                     </button>
@@ -321,7 +321,7 @@
                             data-backdrop="static" data-keyboard="false">
                         閉じる
                     </button>
-                </div>
+                </div>--}}
 
             </div>
         </div>
