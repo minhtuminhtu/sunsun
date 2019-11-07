@@ -70,26 +70,6 @@
                 <input name="time[0]" type="text" class="form-control time js-set-time" id="" value="13:45" />
             </div>
             <div class="time-content">
-                <div class="block-content-1 margin-top-mini">
-                    <div class="block-content-1-left">
-                        <div class="timedate-block set-time">
-                            <input  name="time[0]" type="text" class="form-control time js-set-time" id="" value="13:45" />
-                        </div>
-                    </div>
-                    <div class="block-content-1-right">
-                        <img class="svg-button" src="{{asset('sunsun/svg/close.svg')}}" alt="Close" />
-                    </div>
-                </div>
-                <div class="block-content-1 margin-top-mini">
-                    <div class="block-content-1-left">
-                        <div class="timedate-block set-time">
-                            <input name='time' type="text" class="form-control time js-set-time" id="" value="13:45" />
-                        </div>
-                    </div>
-                    <div class="block-content-1-right">
-                        <img class="svg-button" src="{{asset('sunsun/svg/close.svg')}}" alt="Close" />
-                    </div>
-                </div>
             </div>
             
             <div class="block-content-2 margin-top-mini">
