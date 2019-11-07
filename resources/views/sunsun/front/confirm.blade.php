@@ -345,8 +345,16 @@
 
                                     @php 
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
+                                        $service_guest_num = isset($data['service_guest_num'])?json_decode($data['service_guest_num']):"";
                                     @endphp
-                                   
+                                    <div class="linex"> 
+                                        <p>性別：{{ $service_guest_num->kubun_value }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
                                     <div class="linex"> 
                                         <p>コース: {{ $course->kubun_value }}</p>
                                         <div class="line1">
