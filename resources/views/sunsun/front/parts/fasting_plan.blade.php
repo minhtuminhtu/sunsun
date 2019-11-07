@@ -92,7 +92,7 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="booking-block-finish">
+<div class="booking-block-between">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
@@ -105,6 +105,15 @@
             </select>
         </div>
     </div>
+</div>
+@if(!isset($add_new_user))
+<div class="booking-line font-weight-bold mt-3">
+    <div class="booking-line-laber">
+    宿泊
+    </div>
+<!-- <hr class="booking-line-line"> -->
+</div>
+<div class="booking-block-finish">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
@@ -151,3 +160,4 @@
         </div>
     </div>
 </div>
+@endif

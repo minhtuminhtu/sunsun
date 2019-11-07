@@ -318,6 +318,16 @@ $(function() {
     load_time_list();
 });
 
+let load_time_list_event = function(){
+    $('.svg-button').on('click', function() {
+        var r = confirm("Are you sure to delete this time?");
+        if (r == true) {
+            $($(this).parent().parent().remove());
+        }
+    });
+}
+
+
 let load_date_before = function(){
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
@@ -325,7 +335,12 @@ let load_date_before = function(){
 
     $('#add-time').on('click', function() {
         $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time" type="text" class="form-control time js-set-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+        load_time_list_event();
     });
+
+    
+
+    
 
     $('#age_value').val("18");
 

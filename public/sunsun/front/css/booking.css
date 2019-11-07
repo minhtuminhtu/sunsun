@@ -728,6 +728,8 @@ select {
 }
 
 .svg-button {
-  width: 3vw;
+  cursor: pointer;
+  width: 2vw;
+  padding-top: 0.75vh;
 }
 

@@ -22,7 +22,7 @@ class BookingController extends Controller
 
         $data = $request->all();
         $this->fetch_kubun_data($data);
-        // dd($filtered);
+        // dd($data);
         if (isset($request->add_new_user)) {
             $data['add_new_user'] = $request->add_new_user;
         } else {

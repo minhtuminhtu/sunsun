@@ -724,7 +724,8 @@
   }
 
   .svg-button {
-    width: 10vw !important;
+    padding-top: 0.75vh !important;
+    width: 7vw !important;
   }
 }
 
