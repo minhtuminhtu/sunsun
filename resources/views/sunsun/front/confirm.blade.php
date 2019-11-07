@@ -346,14 +346,7 @@
                                     @php 
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
-                                    <div class="linex"> 
-                                        <p>性別：{{ $gender->kubun_value }}</p>
-                                        <div class="line1">
-                                        </div>
-                                        <div class="line2">
-                                            
-                                        </div>
-                                    </div>
+                                   
                                     <div class="linex"> 
                                         <p>コース: {{ $course->kubun_value }}</p>
                                         <div class="line1">
@@ -471,7 +464,15 @@
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
 
-                          
+                                    <div class="linex"> 
+                                        
+                                        <p>性別：{{ $gender->kubun_value }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
                                     <div class="linex"> 
                                         <p> 年齢：{{ $age_value }}歳</p>
                                         <div class="line1">
