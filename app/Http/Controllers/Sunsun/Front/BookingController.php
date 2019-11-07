@@ -354,9 +354,9 @@ class BookingController extends Controller
         } elseif ($json->kubun_id == "03") {
             return view('sunsun.front.parts.enzyme_room_bath',$data)->render();
         } elseif ($json->kubun_id == "04") {
-            return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
-        } elseif ($json->kubun_id == "05") {
             return view('sunsun.front.parts.fasting_plan',$data)->render();
+        } elseif ($json->kubun_id == "05") {
+            return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
         }
     }
 
