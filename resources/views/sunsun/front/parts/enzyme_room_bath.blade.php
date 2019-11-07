@@ -52,7 +52,7 @@
         </div>
         <div class="booking-field-content">
             <select name="lunch_guest_num" class="form-control">
-                <option value='無し'>無し</option>
+                <option value='{"kubun_type":"015","kubun_id":"00","kubun_value":"無し","sort_no":0,"notes":"0"}'>無し</option>
                 @foreach($lunch_guest_num as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach

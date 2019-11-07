@@ -451,6 +451,15 @@
                                                 </div>
                                             </div>
                                         @endif
+                                        <div class="line"> 
+                                            <div class="line1">
+                                            予約日: 
+                                            </div>
+                                            <div class="line2">
+                                                <p class="node-text">{{ $data['plan_date_start-view'] }}</p>
+                                                <p class="node-text">{{ $data['plan_date_end-view'] }}</p>
+                                            </div>
+                                        </div>
                                         
                                     @endif
                                 
@@ -458,6 +467,7 @@
                                         $gender = json_decode($data['gender']);
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
+
                                     <div class="linex"> 
                                         
                                         <p>性別：{{ $gender->kubun_value }}</p>
@@ -483,7 +493,7 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="linex"> 
+                                    <div class="line"> 
                                         <div class="line1">
                                         入浴時間
                                         </div>
@@ -493,22 +503,6 @@
                                                     <p class="node-text">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
                                                 @endforeach 
                                             @endif 
-                                        </div>
-                                    </div>
-
-                                    <hr class="line-x">
-                                    <div class="line"> 
-                                        <div class="line1">
-                                        オプション
-                                        </div>
-                                        <div class="line2">
-                                            <p>{{ $gender->kubun_value }} : {{ $age_value }}歳</p>
-                                            <p class="text-left mb-0">利用期間</p>
-                                            <div class="line3">
-                                                
-                                            </div>
-                                            
-                                            
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -553,34 +547,83 @@
                                     </div>
                                     @endif
                                 @elseif($course->kubun_id == '05')
-                                    <p class="text-center">
-                                        <span class="font-weight-bold">選択コース:&#160;&#160;</span>{{ $course->kubun_value }}
-                                    </p>
                                     <div class="linex">
+                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        @if($repeat_user->kubun_id != '02')
+                                            <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
+                                        @endif
+
+                                        
                                     </div>
+                                    @if($key == 0)
+                                        @php 
+                                            $transport = json_decode($customer['transport']);
+                                        @endphp
+                                        
+                                        @if($transport->kubun_id == '01' )
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                交通手段 :
+                                                </div>
+                                                <div class="line2">
+                                                    <p>{{ $transport->kubun_value }}</p>
+                                                </div>
+                                            </div>
+                                        @else
+                                            @php 
+                                                $bus_arrive_time_slide = json_decode($customer['bus_arrive_time_slide']);
+                                                $pick_up = json_decode($customer['pick_up']);
+                                            @endphp
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                交通手段 :
+                                                </div>
+                                                <div class="line2">
+                                                    <p>{{ $transport->kubun_value }}</p>
+                                                    <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
+                                                    <p>{{ $pick_up->kubun_value }}</p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="linex"> 
+                                        予約日: {{ $data['date-view'] }}
+                                            <div class="line1">
+                                            
+                                            </div>
+                                            <div class="line2">
+                                            </div>
+                                        </div>
+                                        
+                                    @endif
+
                                     @php 
                                         $service_pet_num = json_decode($data['service_pet_num']);
                                         $notes = $data['notes'];
                                     @endphp
-                                    <div class="line"> 
+                                    <div class="linex"> 
+                                        <p>ペット数：{{ $service_pet_num->kubun_value }}</p>
                                         <div class="line1">
-                                        基本情報
-                                        </div>
-                                        <div class="line2">                                         
-                                            <p>{{ $data['date-view'] }}</p>
-                                            <p>{{ $data['time_room'] }}</p>
-                                        </div>
-                                    </div>
-                                    <hr class="line-x">
-                                    <div class="line"> 
-                                        <div class="line1">
-                                        オプション
                                         </div>
                                         <div class="line2">
-                                            <p>ペット数：{{ $service_pet_num->kubun_value }}</p>
-                                            <p>ペット種類：{{ $notes }}</p>
+                                            
                                         </div>
                                     </div>
+                                    <div class="linex"> 
+                                        <p>ペット種類：{{ $notes }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="linex"> 
+                                        <p>予約時間: {{ $data['time_room'] }}～</p>
+                                        <div class="line1"> 
+                                        </div>
+                                        <div class="line2">
+                                        </div>
+                                    </div>
+                                    
                                 @endif
                                 @if($key >= 0)
                                     @if($key != count($customer['info']) - 1)
