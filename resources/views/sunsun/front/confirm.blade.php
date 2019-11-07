@@ -459,6 +459,7 @@
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
                                     <div class="linex"> 
+                                        
                                         <p>性別：{{ $gender->kubun_value }}</p>
                                         <div class="line1">
                                         </div>
@@ -482,39 +483,46 @@
                                             
                                         </div>
                                     </div>
+                                    <div class="linex"> 
+                                        <div class="line1">
+                                        入浴時間
+                                        </div>
+                                        <div class="line2">
+                                            @if(isset($data['date'])) 
+                                                @foreach ($data['date'] as $d)
+                                                    <p class="node-text">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
+                                                @endforeach 
+                                            @endif 
+                                        </div>
+                                    </div>
 
                                     <hr class="line-x">
                                     <div class="line"> 
                                         <div class="line1">
-                                        基本情報
+                                        オプション
                                         </div>
                                         <div class="line2">
                                             <p>{{ $gender->kubun_value }} : {{ $age_value }}歳</p>
                                             <p class="text-left mb-0">利用期間</p>
                                             <div class="line3">
-                                                <p class="node-text">開始日：{{ $data['plan_date_start-view'] }}</p>
-                                                <p class="node-text">終了日：{{ $data['plan_date_end-view'] }}</p>
+                                                
                                             </div>
-                                            <p class="text-left mb-0">入浴時間</p>
-                                            <div class="line3">
-                                               @if(isset($data['date'])) 
-                                                    @foreach ($data['date'] as $d)
-                                                        <p class="node-text">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
-                                                    @endforeach 
-                                                @endif  
-                                            </div>
+                                            
                                             
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-
-
+                                    <hr class="line-x">
+                                    <div class="line"> 
+                                        <div class="line1">
+                                        オプション
+                                        </div>
+                                        <div class="line2">
+                                            @php 
+                                                $pet_keeping = json_decode($data['pet_keeping']);
+                                            @endphp
+                                            <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
+                                        </div>
+                                    </div>
 
 
                                     @if($key == 0)
