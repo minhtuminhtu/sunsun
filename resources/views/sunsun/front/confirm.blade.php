@@ -621,6 +621,14 @@
                                         </div>
                                     </div>
                                     <div class="linex"> 
+                                        <p>コース: {{ $course->kubun_value }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="linex"> 
                                         <p>予約時間: {{ $data['time_room'] }}～</p>
                                         <div class="line1"> 
                                         </div>
