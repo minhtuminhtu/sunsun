@@ -129,8 +129,8 @@
                                                 $pet_keeping = json_decode($data['pet_keeping']);
                                             @endphp
                                             <p>昼食: {{ $lunch->kubun_value }}</p> 
-                                            <p>ﾎﾜｲﾄﾆﾝｸ ：{{ $whitening->kubun_value }}</p>
-                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
+                                            <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
+                                            <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
                                     @if($key == 0)
@@ -248,9 +248,6 @@
                                         <div class="line2">
                                         </div>
                                     </div>
-
-                                    
-                                    
                                     <hr class="line-x">
                                     <div class="line"> 
                                         <div class="line1">
@@ -261,8 +258,8 @@
                                                 $whitening = json_decode($data['whitening']);
                                                 $pet_keeping = json_decode($data['pet_keeping']);
                                             @endphp
-                                            <p>ﾎﾜｲﾄﾆﾝｸ ：{{ $whitening->kubun_value }}</p>
-                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
+                                            <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
+                                            <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
                                     @if($key == 0)
@@ -293,29 +290,85 @@
                                     </div>
                                     @endif
                                 @elseif($course->kubun_id == '03')
-                                    <p class="text-center">
-                                        <span class="font-weight-bold">選択コース:&#160;&#160;</span>酵素部屋1部屋貸切プラン
-                                    </p>
                                     <div class="linex">
                                         <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
-                                            @if($repeat_user->kubun_id != '02')
-                                                <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
-                                            @endif
+                                        @if($repeat_user->kubun_id != '02')
+                                            <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
+                                        @endif
+
+                                        
                                     </div>
+                                    @if($key == 0)
+                                        @php 
+                                            $transport = json_decode($customer['transport']);
+                                        @endphp
+                                        
+                                        @if($transport->kubun_id == '01' )
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                交通手段 :
+                                                </div>
+                                                <div class="line2">
+                                                    <p>{{ $transport->kubun_value }}</p>
+                                                </div>
+                                            </div>
+                                        @else
+                                            @php 
+                                                $bus_arrive_time_slide = json_decode($customer['bus_arrive_time_slide']);
+                                                $pick_up = json_decode($customer['pick_up']);
+                                            @endphp
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                交通手段 :
+                                                </div>
+                                                <div class="line2">
+                                                    <p>{{ $transport->kubun_value }}</p>
+                                                    <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
+                                                    <p>{{ $pick_up->kubun_value }}</p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="linex"> 
+                                            <p>予約日: {{ $data['date-view'] }}</p>
+                                            <div class="line1">
+                                            
+                                            </div>
+                                            <div class="line2">
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    @endif
+                                    
+
                                     @php 
-                                        $gender = isset($data['gender'])?json_decode($data['gender']):"";
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
-
-                                    <div class="line"> 
+                                    <div class="linex"> 
+                                        <p> 年齢：{{ $age_value }}歳</p>
                                         <div class="line1">
-                                        基本情報
                                         </div>
                                         <div class="line2">
-                                            <p>{{ $data['date-view'] }}</p>
-                                            <p>{{ $data['time_room'] }}</p>
+                                            
                                         </div>
                                     </div>
+                                    <div class="linex"> 
+                                        <p>コース: {{ $course->kubun_value }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="linex"> 
+                                        <p>予約時間: {{ $data['time_room'] }}～</p>
+                                        <div class="line1"> 
+                                        </div>
+                                        <div class="line2">
+                                        </div>
+                                    </div>
+
+
                                     <hr class="line-x">
                                     <div class="line"> 
                                         <div class="line1">
@@ -323,16 +376,16 @@
                                         </div>
                                         <div class="line2">
                                             @php 
-                                                
                                                 $whitening = json_decode($data['whitening']);
                                                 $pet_keeping = json_decode($data['pet_keeping']);
                                                 $lunch_guest_num = json_decode($data['lunch_guest_num']);
                                             @endphp
                                             <p>昼食 ：{{ $lunch_guest_num->kubun_value }}</p>
-                                            <p>ﾎﾜｲﾄﾆﾝｸ ：{{ $whitening->kubun_value }}</p>
-                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
+                                            <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
+                                            <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
+                                    @if($key == 0)
                                     <hr class="line-x">
                                     <div class="line"> 
                                         <div class="line1">
@@ -355,24 +408,82 @@
                                                 </div>
                                             @else
                                                 <p>なし</p>
-                                            @endif
+                                            @endif  
                                         </div>
                                     </div>
+                                    @endif
                                 @elseif($course->kubun_id == '04')
-                                    <p class="text-center">
-                                        <span class="font-weight-bold">選択コース:&#160;&#160;</span>断食プラン
-                                    </p>
                                     <div class="linex">
                                         <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
+
+                                        
                                     </div>
+                                    @if($key == 0)
+                                        @php 
+                                            $transport = json_decode($customer['transport']);
+                                        @endphp
+                                        
+                                        @if($transport->kubun_id == '01' )
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                交通手段 :
+                                                </div>
+                                                <div class="line2">
+                                                    <p>{{ $transport->kubun_value }}</p>
+                                                </div>
+                                            </div>
+                                        @else
+                                            @php 
+                                                $bus_arrive_time_slide = json_decode($customer['bus_arrive_time_slide']);
+                                                $pick_up = json_decode($customer['pick_up']);
+                                            @endphp
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                交通手段 :
+                                                </div>
+                                                <div class="line2">
+                                                    <p>{{ $transport->kubun_value }}</p>
+                                                    <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
+                                                    <p>{{ $pick_up->kubun_value }}</p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        
+                                    @endif
+                                
                                     @php 
                                         $gender = json_decode($data['gender']);
-                                        $age_value = $data['age_value'];
+                                        $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
+                                    <div class="linex"> 
+                                        <p>性別：{{ $gender->kubun_value }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="linex"> 
+                                        <p> 年齢：{{ $age_value }}歳</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="linex"> 
+                                        <p>コース: {{ $course->kubun_value }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
 
+                                    <hr class="line-x">
                                     <div class="line"> 
                                         <div class="line1">
                                         基本情報
@@ -395,18 +506,18 @@
                                             
                                         </div>
                                     </div>
-                                    <hr class="line-x">
-                                    <div class="line"> 
-                                        <div class="line1">
-                                        オプション
-                                        </div>
-                                        <div class="line2">
-                                            @php 
-                                                $pet_keeping = json_decode($data['pet_keeping']);
-                                            @endphp
-                                            <p>ﾍﾟｯﾄ預かり：{{ $pet_keeping->kubun_value }}</p>
-                                        </div>
-                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                                    @if($key == 0)
                                     <hr class="line-x">
                                     <div class="line"> 
                                         <div class="line1">
@@ -414,8 +525,8 @@
                                         </div>
                                         <div class="line2">
                                             @php 
-                                                $stay_room_type = json_decode($data['stay_room_type']);
-                                                $stay_guest_num = json_decode($data['stay_guest_num']);
+                                                $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                                $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
                                                 
                                             @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
@@ -429,9 +540,10 @@
                                                 </div>
                                             @else
                                                 <p>なし</p>
-                                            @endif    
+                                            @endif  
                                         </div>
                                     </div>
+                                    @endif
                                 @elseif($course->kubun_id == '05')
                                     <p class="text-center">
                                         <span class="font-weight-bold">選択コース:&#160;&#160;</span>{{ $course->kubun_value }}
