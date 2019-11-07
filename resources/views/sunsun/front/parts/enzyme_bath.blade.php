@@ -107,7 +107,7 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label booking-laber-padding">
-            <p class="text-left pt-2" style="font-size: 3.5vw;">{{config('booking.whitening.label')}}</p>
+            <p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="whitening" id="whitening" class="form-control">
@@ -203,7 +203,7 @@
             <p class="text-left pt-2">モーニング</p>
         </div>
         <div class="booking-field-content">
-            <select name="whitening" class="form-control">
+            <select class="form-control">
                 <option value='無し'>無し</option>
                 <option value='有り'>有り</option>
             </select>

@@ -640,11 +640,11 @@ a.no-effect {
 }
 
 .line .line1 {
-  width: 30%;
+  width: 25%;
 }
 
 .line .line2 {
-  width: 70%;
+  width: 75%;
 }
 
 .line .line2 .line3 {
@@ -731,5 +731,9 @@ select {
   cursor: pointer;
   width: 2vw;
   padding-top: 0.75vh;
+}
+
+.custom-font-size {
+  font-size: 1.15vw;
 }
 
