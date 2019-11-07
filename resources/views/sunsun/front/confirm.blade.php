@@ -154,6 +154,7 @@
                                                     <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
                                                     <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
+                                                <p>モーニング: {{ $data['breakfast'] }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -283,6 +284,7 @@
                                                     <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
                                                     <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
+                                                <p>モーニング: {{ $data['breakfast'] }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -345,7 +347,7 @@
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
                                     <div class="linex"> 
-                                        <p> 年齢：{{ $age_value }}歳</p>
+                                        <p>性別：{{ $gender->kubun_value }}</p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
@@ -406,6 +408,7 @@
                                                     <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
                                                     <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
+                                                <p>モーニング: {{ $data['breakfast'] }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -468,15 +471,7 @@
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                     @endphp
 
-                                    <div class="linex"> 
-                                        
-                                        <p>性別：{{ $gender->kubun_value }}</p>
-                                        <div class="line1">
-                                        </div>
-                                        <div class="line2">
-                                            
-                                        </div>
-                                    </div>
+                          
                                     <div class="linex"> 
                                         <p> 年齢：{{ $age_value }}歳</p>
                                         <div class="line1">

@@ -155,7 +155,7 @@
             <p class="text-left pt-2">モーニング</p>
         </div>
         <div class="booking-field-content">
-            <select class="form-control">
+            <select name="breakfast"  class="form-control">
                 <option value='無し'>無し</option>
                 <option value='有り'>有り</option>
             </select>
