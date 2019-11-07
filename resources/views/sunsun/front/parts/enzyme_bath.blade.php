@@ -105,7 +105,7 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label booking-laber-padding">
-            <p class="text-left pt-2">{{config('booking.whitening.label')}}</p>
+            <p class="text-left pt-2" style="font-size: 3.5vw;">{{config('booking.whitening.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="whitening" id="whitening" class="form-control">
