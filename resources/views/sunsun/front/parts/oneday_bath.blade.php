@@ -1,7 +1,7 @@
 <div class="booking-block">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-left pt-2">{{config('booking.sex.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.gender.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="gender" class="form-control">
