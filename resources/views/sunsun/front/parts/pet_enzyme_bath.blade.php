@@ -1,5 +1,6 @@
 <div class="booking-block">
     
+    @if(!isset($add_new_user))
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
@@ -12,6 +13,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
