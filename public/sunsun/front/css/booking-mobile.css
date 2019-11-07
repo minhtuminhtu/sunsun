@@ -59,7 +59,7 @@
 
   .choice-time .choice-data-time {
     float: left;
-    margin-left: 4vw;
+    margin-left: 4.25vw;
   }
 
   .choice-time .choice-data-time > div {
@@ -109,12 +109,17 @@
     list-style-type: disc;
   }
 
+  main .booking-field {
+    display: flex;
+    padding-bottom: 1.75vw;
+  }
+
   main .booking-field .booking-field-label {
-    width: 30%;
+    width: 35%;
   }
 
   main .booking-field .booking-field-content {
-    width: 70%;
+    width: 65%;
   }
 
   main .booking-field .booking-field-content-10 {
@@ -552,19 +557,6 @@
     font-size: 4vw !important;
   }
 
-  .booking-field {
-    display: flex;
-    padding-bottom: 1.75vw;
-  }
-
-  .booking-field .booking-field-label {
-    width: 35% !important;
-  }
-
-  .booking-field .booking-field-content {
-    width: 65% !important;
-  }
-
   .booking-field-label.age-css {
     width: 25% !important;
   }
@@ -729,6 +721,10 @@
 
   .mt-1 {
     margin-top: 1.25vw !important;
+  }
+
+  .svg-button {
+    width: 10vw !important;
   }
 }
 

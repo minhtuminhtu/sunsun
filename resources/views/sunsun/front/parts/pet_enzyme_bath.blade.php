@@ -37,14 +37,6 @@
             </select>
         </div>
     </div>
-</div>
-<div class="booking-line font-weight-bold mt-3">
-    <div class="booking-line-laber">
-    オプション
-    </div>
-    <!-- <hr class="booking-line-line"> -->
-</div>
-<div class="booking-block-between">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.pet_type.label')}}</p>

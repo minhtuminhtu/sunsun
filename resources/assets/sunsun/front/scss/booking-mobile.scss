@@ -50,7 +50,7 @@
         }
         .choice-data-time {
             float: left;
-            margin-left: 4vw;
+            margin-left: 4.25vw;
             >div {
                 float: left;
                 input {
@@ -100,11 +100,13 @@
             }
         }
         .booking-field {
+            display: flex;
+            padding-bottom: 1.75vw;
             .booking-field-label {
-                width: 30%;
+                width: 35%;
             }
             .booking-field-content {
-                width: 70%;
+                width: 65%;
             }
             .booking-field-content-10 {
                 width: 83%;
@@ -484,16 +486,6 @@
             font-size: 4vw !important;
         }
     }
-    .booking-field {
-        display: flex;
-        padding-bottom: 1.75vw;
-        .booking-field-label {
-            width: 35% !important;
-        }
-        .booking-field-content {
-            width: 65% !important;
-        }
-    }
     .booking-field-label.age-css{
         width: 25% !important;
     }
@@ -634,7 +626,10 @@
     }
     .mt-1{
         margin-top: 1.25vw !important;
-    }      
+    }    
+    .svg-button{
+        width: 10vw !important;
+    }  
 }
 @media only screen and (min-width: 768px){
     .mean-bar{

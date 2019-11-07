@@ -90,17 +90,28 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="booking-block-between">
+<div class="booking-block-finish">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.whitening.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="whitening" class="form-control">
+            <select name="whitening" id="whitening" class="form-control">
                 @foreach($whitening as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    <div class="booking-field whitening" style="display:none;">
+        <div class="booking-field-label booking-laber-padding">
+            
+        </div>
+        <div class="booking-field-content">
+            <div class="node-text">ホワイトニング時間</div> 
+            <div class="timedate-block set-time">
+                <input name='time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+            </div>
         </div>
     </div>
     <div class="booking-field">
@@ -115,14 +126,6 @@
             </select>
         </div>
     </div>
-</div>
-<div class="booking-line font-weight-bold mt-3">
-    <div class="booking-line-laber">
-    宿泊
-    </div>
-<!-- <hr class="booking-line-line"> -->
-</div>
-<div class="booking-block-finish">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
@@ -165,6 +168,17 @@
                 <p class="node-text">{{config('booking.range_date.checkout')}}</p>
                 <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date" id="range_date_end" value="">
             </div>
+        </div>
+    </div>
+    <div class="booking-field room" style="display:none;">
+        <div class="booking-field-label booking-laber-padding">
+            <p class="text-left pt-2">モーニング</p>
+        </div>
+        <div class="booking-field-content">
+            <select name="whitening" class="form-control">
+                <option value='無し'>無し</option>
+                <option value='有り'>有り</option>
+            </select>
         </div>
     </div>
 </div>

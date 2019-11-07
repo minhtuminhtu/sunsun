@@ -14,14 +14,13 @@
                                       @endif
                                 </span>  &nbsp;  &nbsp;
                         <span>
-                                    予約追加
-                                </span>
+                        予約追加
+                        </span>
                     </div>
                 @endif
 
                 <div class="booking-line font-weight-bold">
                     <div class="booking-line-laber">
-                        基本情報
                     </div>
                     <!-- <hr class="booking-line-line"> -->
                 </div>

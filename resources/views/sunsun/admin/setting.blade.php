@@ -3,6 +3,8 @@
 @section('head')
 @parent
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/setting.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap4-datetimepicker/bootstrap-datetimepicker.min.css')}}">
+    
 @endsection
 @section('main')
 

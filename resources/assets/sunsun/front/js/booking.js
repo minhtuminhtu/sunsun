@@ -51,6 +51,19 @@ $(function() {
             }
         });
 
+        $('#whitening').on('change', function() {
+            var whitening =  JSON.parse($('#whitening').val());
+            if(whitening.kubun_id == '01'){
+                $('.whitening').hide();
+            }else{
+                $('.whitening').show();
+            }
+        });
+
+        
+
+        
+
         
 
         $('#date').datepicker({
@@ -70,12 +83,27 @@ $(function() {
         input_daterange.on('changeDate', function() {
 
         });
-        $('.agecheck').click(function(){
+        $('.agecheck').on('click', function() {
             $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
             $(this).addClass('color-active');
             $(this).removeClass('btn-outline-warning');
+
             $('#agecheck').val($(this).val())
+
+            if(($(this).val() == '1') || ($(this).val() == '2')){
+                $('#age_value').empty();
+                for(let i = 0; i < 19; i++){
+                    $('#age_value').append('<option value="' + i + '">' + i + '</option>');
+                    $('#age_value').val("18");
+                }
+            }else if($(this).val() == '3'){
+                $('#age_value').empty();
+                for(let i = 18; i < 100; i++){
+                    $('#age_value').append('<option value="' + i + '">' + i + '</option>');
+                    $('#age_value').val("18");
+                }
+            }
         });
 
 
@@ -295,6 +323,10 @@ let load_date_before = function(){
     var today = moment();
     var tomorrow = moment(today).add(1, 'days');
 
+    $('#add-time').on('click', function() {
+        $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time" type="text" class="form-control time js-set-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+    });
+
     $('#age_value').val("18");
 
     
@@ -336,11 +368,6 @@ $('#transport').on('change', function() {
 
 
 
-$('.agecheck').click(function(){
-    $('.agecheck').removeClass('color-active');
-    $(this).addClass('color-active');
-    $('#agecheck').val($(this).val())
-});
 $('#date').on('change blur', function() {
     var check = moment($('#date').val());
     var days_short = ["日","月","火","水","木","金","土"];

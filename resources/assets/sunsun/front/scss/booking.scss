@@ -94,11 +94,33 @@ main {
         }
     }
     .booking-field {
+        display: flex;
+        padding-bottom: 1vh;
         .booking-field-label {
-            width: 30%;
+            width: 35%;
         }
         .booking-field-content {
-            width: 70%;
+            width: 65%;
+            .block-content-1{
+                display: flex;
+                .block-content-1-left{
+                    width: 85%;
+                }
+                .block-content-1-right{
+                    text-align: right;
+                    padding-right: 0.5vw;
+                    width: 15%;
+                }
+            }
+            .block-content-2{
+                display: flex;
+                .block-content-2-left{
+                    width: 30%;
+                }
+                .block-content-2-right{
+                    width: 70%;
+                }
+            }
         }
         .booking-field-content-10 {
             width: 83%;
@@ -446,16 +468,6 @@ label.form-check-label {
         font-size: 1.25vw;
     }
 }
-.booking-field {
-    display: flex;
-    padding-bottom: 0.5vw;
-    .booking-field-label {
-        width: 35%;
-    }
-    .booking-field-content {
-        width: 65%;
-    }
-}
 .booking-field-label.age-css{
     width: 25%;
 }
@@ -604,5 +616,10 @@ select {
 .color-active{
     background-color: #e0a800 !important;
 }
-
+.margin-top-mini{
+   margin-top: 0.75vh !important;
+}
+.svg-button{
+    width: 3vw;
+}
 
