@@ -61,7 +61,12 @@
                                                 <div class="line2">
                                                     <p>{{ $transport->kubun_value }}</p>
                                                     <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
-                                                    <p>送迎: {{ $pick_up->kubun_value }}</p>
+                                                    @if($pick_up->kubun_id == '01')
+                                                        <p>送迎あり</p>
+                                                    @else
+                                                        <p>送迎なし</p>
+                                                    @endif
+                                                    
                                                 </div>
                                             </div>
                                         @endif
@@ -202,7 +207,11 @@
                                                 <div class="line2">
                                                     <p>{{ $transport->kubun_value }}</p>
                                                     <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
-                                                    <p>送迎: {{ $pick_up->kubun_value }}</p>
+                                                    @if($pick_up->kubun_id == '01')
+                                                        <p>送迎あり</p>
+                                                    @else
+                                                        <p>送迎なし</p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @endif
@@ -334,7 +343,11 @@
                                                 <div class="line2">
                                                     <p>{{ $transport->kubun_value }}</p>
                                                     <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
-                                                    <p>送迎: {{ $pick_up->kubun_value }}</p>
+                                                    @if($pick_up->kubun_id == '01')
+                                                        <p>送迎あり</p>
+                                                    @else
+                                                        <p>送迎なし</p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @endif
@@ -462,7 +475,11 @@
                                                 <div class="line2">
                                                     <p>{{ $transport->kubun_value }}</p>
                                                     <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
-                                                    <p>送迎: {{ $pick_up->kubun_value }}</p>
+                                                    @if($pick_up->kubun_id == '01')
+                                                        <p>送迎あり</p>
+                                                    @else
+                                                        <p>送迎なし</p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @endif
@@ -596,7 +613,11 @@
                                                 <div class="line2">
                                                     <p>{{ $transport->kubun_value }}</p>
                                                     <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
-                                                    <p>送迎: {{ $pick_up->kubun_value }}</p>
+                                                    @if($pick_up->kubun_id == '01')
+                                                        <p>送迎あり</p>
+                                                    @else
+                                                        <p>送迎なし</p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @endif
