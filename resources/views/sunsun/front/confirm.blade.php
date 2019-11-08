@@ -107,11 +107,14 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="linex"> 
-                                        <p>予約時間: {{ $data['time'] }}～</p>
+                                    <div class="line"> 
                                         <div class="line1"> 
+                                        予約時間: 
                                         </div>
                                         <div class="line2">
+                                        @foreach($data['time'] as $time)
+                                        <p>{{ $time }}～</p>
+                                        @endforeach
                                         </div>
                                     </div>
 
@@ -130,6 +133,9 @@
                                             @endphp
                                             <p>昼食: {{ $lunch->kubun_value }}</p> 
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
+                                            @if($whitening->kubun_id == '02')
+                                            <p>ホワイトニング時間: {{ $data['whitening-time'] }}～</p>
+                                            @endif
                                             <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
@@ -154,7 +160,7 @@
                                                     <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
                                                     <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
-                                                <p>モーニング: {{ $breakfast }}</p>
+                                                <p>モーニング: {{ $breakfast->kubun_value }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -222,16 +228,14 @@
                                         <p>性別：{{ $gender->kubun_value }}</p>
                                         <div class="line1">
                                         </div>
-                                        <div class="line2">
-                                            
+                                        <div class="line2"> 
                                         </div>
                                     </div>
                                     <div class="linex"> 
                                         <p> 年齢：{{ $age_value }}歳</p>
                                         <div class="line1">
                                         </div>
-                                        <div class="line2">
-                                            
+                                        <div class="line2"> 
                                         </div>
                                     </div>
                                     <div class="linex"> 
@@ -239,14 +243,15 @@
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
-                                            
                                         </div>
                                     </div>
-                                    <div class="linex"> 
-                                        <p>予約時間: {{ $data['time'] }}～</p>
-                                        <div class="line1"> 
+                                    <div class="line"> 
+                                        <div class="line1">
+                                        予約時間:
                                         </div>
                                         <div class="line2">
+                                            <p>{{ $data['time1'] }}～</p>
+                                            <p>{{ $data['time2'] }}～</p>
                                         </div>
                                     </div>
                                     <hr class="line-x">
@@ -260,6 +265,9 @@
                                                 $pet_keeping = json_decode($data['pet_keeping']);
                                             @endphp
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
+                                            @if($whitening->kubun_id == '02')
+                                            <p>ホワイトニング時間: {{ $data['whitening-time'] }}～</p>
+                                            @endif
                                             <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
@@ -284,7 +292,7 @@
                                                     <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
                                                     <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
-                                                <p>モーニング: {{ $breakfast }}</p>
+                                                <p>モーニング: {{ $breakfast->kubun_value }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -364,7 +372,7 @@
                                         </div>
                                     </div>
                                     <div class="linex"> 
-                                        <p>予約時間: {{ $data['time_room'] }}～</p>
+                                        <p>予約時間: {{ $data['time_room'] }}</p>
                                         <div class="line1"> 
                                         </div>
                                         <div class="line2">
@@ -385,6 +393,9 @@
                                             @endphp
                                             <p>昼食 ：{{ $lunch_guest_num->kubun_value }}</p>
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
+                                            @if($whitening->kubun_id == '02')
+                                            <p>ホワイトニング時間: {{ $data['whitening-time'] }}～</p>
+                                            @endif
                                             <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
                                     </div>
@@ -409,7 +420,7 @@
                                                     <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
                                                     <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
-                                                <p>モーニング: {{ $breakfast }}</p>
+                                                <p>モーニング: {{ $breakfast->kubun_value }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  

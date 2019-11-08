@@ -111,7 +111,7 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+                <input name='whitening-time' type="text" class="form-control time js-set-time" id="" value="13:45" />
             </div>
         </div>
     </div>

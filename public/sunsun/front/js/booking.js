@@ -212,33 +212,7 @@ $(function () {
       $('#range_date_start-value').val(check2.format('YYYYMMDD'));
       $('#range_date_end-value').val(check1.format('YYYYMMDD'));
     });
-    var set_time = $('.js-set-time');
-    set_time.click(function (e) {
-      var set_time_click = $(this);
-      $.ajax({
-        url: '/get_time_room',
-        type: 'POST',
-        data: {
-          'gender': $('select[name=gender]').val()
-        },
-        dataType: 'text',
-        beforeSend: function beforeSend() {
-          loader.css({
-            'display': 'block'
-          });
-        },
-        success: function success(html) {
-          set_time_click.closest('.set-time').addClass('edit');
-          modal_choice_time.find('.modal-body-time').html(html);
-          modal_choice_time.modal('show');
-        },
-        complete: function complete() {
-          loader.css({
-            'display': 'none'
-          });
-        }
-      });
-    });
+    load_pick_time();
     var get_room = $('.js-set-room');
     get_room.click(function (e) {
       var set_time_click = $(this);
@@ -419,13 +393,46 @@ var load_time_list_event = function load_time_list_event() {
   });
 };
 
+var load_pick_time = function load_pick_time() {
+  modal_choice_time = $('#choice_date_time');
+  var set_time = $('.js-set-time');
+  set_time.click(function (e) {
+    var set_time_click = $(this);
+    $.ajax({
+      url: '/get_time_room',
+      type: 'POST',
+      data: {
+        'gender': $('select[name=gender]').val()
+      },
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+        modal_choice_time.find('.modal-body-time').html(html);
+        modal_choice_time.modal('show');
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+};
+
 var load_date_before = function load_date_before() {
   var days_short = ["日", "月", "火", "水", "木", "金", "土"];
   var today = moment();
   var tomorrow = moment(today).add(1, 'days');
   $('#add-time').on('click', function () {
-    $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time" type="text" class="form-control time js-set-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+    var num = $('.booking-time').length;
+    $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
     load_time_list_event();
+    load_pick_time();
   });
   $('#age_value').val("18");
   $('#date-value').val(today.format('YYYYMMDD'));

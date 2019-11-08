@@ -131,29 +131,8 @@ $(function() {
         });
 
 
-        let set_time = $('.js-set-time');
-        set_time.click(function (e) {
-            let set_time_click = $(this);
-            $.ajax({
-                url: '/get_time_room',
-                type: 'POST',
-                data: {
-                    'gender': $('select[name=gender]').val()
-                },
-                dataType: 'text',
-                beforeSend: function () {
-                    loader.css({'display': 'block'});
-                },
-                success: function (html) {
-                    set_time_click.closest('.set-time').addClass('edit')
-                    modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal('show');
-                },
-                complete: function () {
-                    loader.css({'display': 'none'});
-                },
-            });
-        });
+        
+        load_pick_time();
 
         let get_room = $('.js-set-room');
         get_room.click(function (e) {
@@ -328,14 +307,43 @@ let load_time_list_event = function(){
 }
 
 
+let load_pick_time = function(){
+    modal_choice_time = $('#choice_date_time');
+    let set_time = $('.js-set-time');
+        set_time.click(function (e) {
+            let set_time_click = $(this);
+            $.ajax({
+                url: '/get_time_room',
+                type: 'POST',
+                data: {
+                    'gender': $('select[name=gender]').val()
+                },
+                dataType: 'text',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (html) {
+                    set_time_click.closest('.set-time').addClass('edit')
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal('show');
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+            });
+        });
+}
+
 let load_date_before = function(){
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
     var tomorrow = moment(today).add(1, 'days');
 
     $('#add-time').on('click', function() {
-        $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time" type="text" class="form-control time js-set-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+        var num = $('.booking-time').length;
+        $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
         load_time_list_event();
+        load_pick_time();
     });
 
     
