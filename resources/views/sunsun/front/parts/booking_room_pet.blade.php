@@ -8,13 +8,13 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($data['time_slide_room'] as $time_slide_room)
+    @foreach($data['time_slide_pet'] as $time_slide_pet)
         <tr>
-            <td>{{ $time_slide_room->kubun_value }}</td>
+            <td>{{ $time_slide_pet->kubun_value }}</td>
             @foreach($data['bed'] as $bed)
             <td>
                 <div class="">
-                    <input type="radio" name="time" value="{{ $time_slide_room->kubun_value }}">
+                    <input type="radio" name="time" value="{{ $time_slide_pet->kubun_value }}">
                 </div>
             </td>
             @endforeach

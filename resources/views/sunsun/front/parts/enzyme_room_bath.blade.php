@@ -21,7 +21,7 @@
         <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time_room" type="text" class="form-control time js-set-room" id="" value="13:45 ~ 15:45">
+                <input name="time_room" type="text" class="form-control time js-set-room" id="" value="9:45～">
             </div>
 
         </div>
@@ -156,8 +156,9 @@
         </div>
         <div class="booking-field-content">
             <select name="breakfast"  class="form-control">
-                <option value='無し'>無し</option>
-                <option value='有り'>有り</option>
+                @foreach($breakfast as $value)
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                @endforeach
             </select>
         </div>
     </div>

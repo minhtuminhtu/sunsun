@@ -143,7 +143,7 @@
                                             @php 
                                                 $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
                                                 $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                                
+                                                $breakfast = isset($data['breakfast'])?json_decode($data['breakfast']):"";
                                             @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
                                                 <p>宿泊：有り</p>
@@ -151,10 +151,10 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
-                                                <p>モーニング: {{ $data['breakfast'] }}</p>
+                                                <p>モーニング: {{ $breakfast }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -273,7 +273,7 @@
                                             @php 
                                                 $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
                                                 $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                                
+                                                $breakfast = isset($data['breakfast'])?json_decode($data['breakfast']):"";
                                             @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
                                                 <p>宿泊：有り</p>
@@ -281,10 +281,10 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
-                                                <p>モーニング: {{ $data['breakfast'] }}</p>
+                                                <p>モーニング: {{ $breakfast }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -398,7 +398,7 @@
                                             @php 
                                                 $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
                                                 $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                                
+                                                $breakfast = isset($data['breakfast'])?json_decode($data['breakfast']):"";
                                             @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
                                                 <p>宿泊：有り</p>
@@ -406,10 +406,10 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
-                                                <p>モーニング: {{ $data['breakfast'] }}</p>
+                                                <p>モーニング: {{ $breakfast }}</p>
                                             @else
                                                 <p>なし</p>
                                             @endif  
@@ -460,8 +460,8 @@
                                             予約日: 
                                             </div>
                                             <div class="line2">
-                                                <p class="node-text">{{ $data['plan_date_start-view'] }}</p>
-                                                <p class="node-text">{{ $data['plan_date_end-view'] }}</p>
+                                                <p>{{ $data['plan_date_start-view'] }}</p>
+                                                <p>{{ $data['plan_date_end-view'] }}</p>
                                             </div>
                                         </div>
                                         
@@ -504,7 +504,7 @@
                                         <div class="line2">
                                             @if(isset($data['date'])) 
                                                 @foreach ($data['date'] as $d)
-                                                    <p class="node-text">{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
+                                                    <p>{{ $d['day'] }} &#160;&#160;&#160; {{ $d['from'] }} &#160;&#160;&#160; {{ $d['to'] }}</p>
                                                 @endforeach 
                                             @endif 
                                         </div>
@@ -541,8 +541,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p class="node-text">ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p class="node-text">ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>

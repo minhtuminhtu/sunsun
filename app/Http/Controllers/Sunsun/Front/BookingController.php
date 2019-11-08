@@ -340,6 +340,10 @@ class BookingController extends Controller
         $data['bed_male'] = $MsKubun->where('kubun_type','017')->sortBy('sort_no');
         $data['bed_female'] = $MsKubun->where('kubun_type','018')->sortBy('sort_no');
         $data['bed_pet'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
+
+        $data['time_slide_pet'] = $MsKubun->where('kubun_type','020')->sortBy('sort_no');
+
+        $data['breakfast'] = $MsKubun->where('kubun_type','022')->sortBy('sort_no');
     }
 
     public function get_service(Request $request){

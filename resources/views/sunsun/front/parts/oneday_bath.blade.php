@@ -186,8 +186,9 @@
         </div>
         <div class="booking-field-content">
             <select name="breakfast" class="form-control">
-                <option value='無し'>無し</option>
-                <option value='有り'>有り</option>
+                @foreach($breakfast as $value)
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                @endforeach
             </select>
         </div>
     </div>
