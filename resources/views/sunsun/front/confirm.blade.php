@@ -369,7 +369,7 @@
                                         $service_guest_num = isset($data['service_guest_num'])?json_decode($data['service_guest_num']):"";
                                     @endphp
                                     <div class="linex"> 
-                                        <p>性別：{{ $service_guest_num->kubun_value }}</p>
+                                        <p>人数：{{ $service_guest_num->kubun_value }}</p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
@@ -488,7 +488,7 @@
                                             予約日: 
                                             </div>
                                             <div class="line2">
-                                                <p>{{ $data['plan_date_start-view'] }}</p>
+                                                <p>{{ $data['plan_date_start-view'] }}～</p>
                                                 <p>{{ $data['plan_date_end-view'] }}</p>
                                             </div>
                                         </div>
