@@ -158,8 +158,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                                 <p>モーニング: {{ $breakfast->kubun_value }}</p>
                                             @else
@@ -294,8 +294,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                                 <p>モーニング: {{ $breakfast->kubun_value }}</p>
                                             @else
@@ -426,8 +426,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                                 <p>モーニング: {{ $breakfast->kubun_value }}</p>
                                             @else
@@ -565,8 +565,8 @@
                                                 <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                 <p>宿泊日</p>
                                                 <div class="line3">
-                                                    <p>ﾁｪｯｸｲﾝ ：{{ $data['range_date_start-view'] }}～</p>
-                                                    <p>ﾁｪｯｸｱｳﾄ：{{ $data['range_date_end-view'] }}</p>
+                                                    <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
+                                                    <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                 </div>
                                             @else
                                                 <p>なし</p>

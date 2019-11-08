@@ -745,3 +745,9 @@ select {
   padding-right: 0px !important;
 }
 
+.form-control:focus {
+  border-color: #e0a800;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #e0a800;
+  outline: 0 none;
+}
+

@@ -633,3 +633,9 @@ select {
 #choice_date_time {
     padding-right: 0px !important;
 }
+.form-control:focus{
+    border-color: rgb(224, 168, 0);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(224, 168, 0);
+    outline: 0 none;
+}
+    
