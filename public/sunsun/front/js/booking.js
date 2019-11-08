@@ -430,7 +430,7 @@ var load_date_before = function load_date_before() {
   var tomorrow = moment(today).add(1, 'days');
   $('#add-time').on('click', function () {
     var num = $('.booking-time').length;
-    $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+    $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
     load_time_list_event();
     load_pick_time();
   });

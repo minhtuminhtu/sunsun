@@ -56,7 +56,7 @@
         <input name="date-view" id="date-view" type="hidden" value="">
         <input name="date-value" id="date-value" type="hidden" value="">
         <div class="booking-field-content">
-            <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
+            <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly"  id="pwd" value="" />
         </div>
     </div>
     @endif
@@ -69,7 +69,7 @@
         <input name="bed" id="bed" type="hidden" value="1">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time[0]" type="text" class="form-control time js-set-time booking-time" id="" value="13:45" />
+                <input name="time[0]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" />
             </div>
             <div class="time-content">
             </div>

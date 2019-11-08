@@ -72,12 +72,8 @@
                                         @endif
                                         <div class="linex"> 
                                             <p>予約日: {{ $data['date-view'] }}</p>
-                                            <div class="line1">
-                                            
-                                            </div>
-                                            <div class="line2">
-                                                
-                                            </div>
+                                            <div class="line1"></div>
+                                            <div class="line2"></div>
                                         </div>
                                         
                                     @endif
