@@ -661,7 +661,7 @@
                                         </div>
                                     </div>
                                     <div class="linex"> 
-                                        <p>予約時間: {{ $data['time_room'] }}～</p>
+                                        <p>予約時間: {{ $data['time_room'] }}</p>
                                         <div class="line1"> 
                                         </div>
                                         <div class="line2">
