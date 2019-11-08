@@ -8,7 +8,7 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-left pt-2">{{config('booking.sex.label')}}</p>
+            <p class="text-left pt-2">{{config('booking.gender.label')}}</p>
         </div>
         <div class="booking-field-content">
             <select name="gender" class="form-control">
@@ -27,7 +27,7 @@
         <div class="booking-field-content">
             <div class="age-col age mt-1">
                 <div class="age-left">
-                    <select id="age_value"  name="age_value" class="custom-select">
+                    <select id="age_value"  name="age_value" class="form-control">
                             @php
                                 $val = [];
                                 $i = 0;
@@ -106,6 +106,7 @@
         </div>
     </div>
 </div>
+@if(!isset($add_new_user))
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
     宿泊
@@ -159,3 +160,4 @@
         </div>
     </div>
 </div>
+@endif

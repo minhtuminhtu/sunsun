@@ -62,7 +62,7 @@ a:hover {
 }
 
 .choice-time .choice-data-time > div input {
-  width: 9vw;
+  width: 8.27vw;
 }
 
 main .main-body-head h1 {
@@ -104,11 +104,42 @@ main .index-field ul li {
   list-style-type: disc;
 }
 
+main .booking-field {
+  display: flex;
+  padding-bottom: 1vh;
+}
+
 main .booking-field .booking-field-label {
-  width: 30%;
+  width: 35%;
 }
 
 main .booking-field .booking-field-content {
+  width: 65%;
+}
+
+main .booking-field .booking-field-content .block-content-1 {
+  display: flex;
+}
+
+main .booking-field .booking-field-content .block-content-1 .block-content-1-left {
+  width: 85%;
+}
+
+main .booking-field .booking-field-content .block-content-1 .block-content-1-right {
+  text-align: right;
+  padding-right: 0.5vw;
+  width: 15%;
+}
+
+main .booking-field .booking-field-content .block-content-2 {
+  display: flex;
+}
+
+main .booking-field .booking-field-content .block-content-2 .block-content-2-left {
+  width: 30%;
+}
+
+main .booking-field .booking-field-content .block-content-2 .block-content-2-right {
   width: 70%;
 }
 
@@ -518,19 +549,6 @@ label.form-check-label {
   font-size: 1.25vw;
 }
 
-.booking-field {
-  display: flex;
-  padding-bottom: 0.5vw;
-}
-
-.booking-field .booking-field-label {
-  width: 35%;
-}
-
-.booking-field .booking-field-content {
-  width: 65%;
-}
-
 .booking-field-label.age-css {
   width: 25%;
 }
@@ -622,11 +640,11 @@ a.no-effect {
 }
 
 .line .line1 {
-  width: 30%;
+  width: 25%;
 }
 
 .line .line2 {
-  width: 70%;
+  width: 75%;
 }
 
 .line .line2 .line3 {
@@ -705,13 +723,28 @@ select {
   background-color: #e0a800 !important;
 }
 
+
 .data-field-day {
-  background: #fbe5d6;
-  margin-bottom: 15px;
-  line-height: 2.5rem;
-  font-size: 1.2rem;
-  text-align: center;
-  margin-left: -10px;
-  margin-right: -10px;
+    background: #fbe5d6;
+    margin-bottom: 15px;
+    line-height: 2.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.margin-top-mini {
+  margin-top: 0.75vh !important;
+}
+
+.svg-button {
+  cursor: pointer;
+  width: 2vw;
+  padding-top: 0.75vh;
+}
+
+.custom-font-size {
+  font-size: 1.15vw;
+
 }
 

@@ -1,5 +1,6 @@
 <div class="booking-block">
     
+    @if(!isset($add_new_user))
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
@@ -12,6 +13,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
@@ -20,7 +22,7 @@
         <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time_room" type="text" class="form-control time js-set-room_pet" id="" value="13:45 ~ 15:45">
+                <input name="time_room" type="text" class="form-control time js-set-room_pet" id="" value="9:30～10:30">
             </div>
 
         </div>
@@ -37,14 +39,6 @@
             </select>
         </div>
     </div>
-</div>
-<div class="booking-line font-weight-bold mt-3">
-    <div class="booking-line-laber">
-    オプション
-    </div>
-    <!-- <hr class="booking-line-line"> -->
-</div>
-<div class="booking-block-between">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.pet_type.label')}}</p>

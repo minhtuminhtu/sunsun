@@ -22,7 +22,7 @@ class BookingController extends Controller
 
         $data = $request->all();
         $this->fetch_kubun_data($data);
-        // dd($filtered);
+        // dd($data);
         if (isset($request->add_new_user)) {
             $data['add_new_user'] = $request->add_new_user;
         } else {
@@ -128,6 +128,8 @@ class BookingController extends Controller
             }
             $Yoyaku->save();
         }
+
+        echo "done";
         
         // $request->session()->forget($this->session_info);
     }
@@ -338,6 +340,10 @@ class BookingController extends Controller
         $data['bed_male'] = $MsKubun->where('kubun_type','017')->sortBy('sort_no');
         $data['bed_female'] = $MsKubun->where('kubun_type','018')->sortBy('sort_no');
         $data['bed_pet'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
+
+        $data['time_slide_pet'] = $MsKubun->where('kubun_type','020')->sortBy('sort_no');
+
+        $data['breakfast'] = $MsKubun->where('kubun_type','022')->sortBy('sort_no');
     }
 
     public function get_service(Request $request){
@@ -352,9 +358,9 @@ class BookingController extends Controller
         } elseif ($json->kubun_id == "03") {
             return view('sunsun.front.parts.enzyme_room_bath',$data)->render();
         } elseif ($json->kubun_id == "04") {
-            return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
-        } elseif ($json->kubun_id == "05") {
             return view('sunsun.front.parts.fasting_plan',$data)->render();
+        } elseif ($json->kubun_id == "05") {
+            return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
         }
     }
 

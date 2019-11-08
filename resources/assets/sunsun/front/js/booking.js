@@ -51,6 +51,19 @@ $(function() {
             }
         });
 
+        $('#whitening').on('change', function() {
+            var whitening =  JSON.parse($('#whitening').val());
+            if(whitening.kubun_id == '01'){
+                $('.whitening').hide();
+            }else{
+                $('.whitening').show();
+            }
+        });
+
+        
+
+        
+
         
 
         $('#date').datepicker({
@@ -70,12 +83,27 @@ $(function() {
         input_daterange.on('changeDate', function() {
 
         });
-        $('.agecheck').click(function(){
+        $('.agecheck').on('click', function() {
             $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
             $(this).addClass('color-active');
             $(this).removeClass('btn-outline-warning');
+
             $('#agecheck').val($(this).val())
+
+            if(($(this).val() == '1') || ($(this).val() == '2')){
+                $('#age_value').empty();
+                for(let i = 0; i < 19; i++){
+                    $('#age_value').append('<option value="' + i + '">' + i + '</option>');
+                    $('#age_value').val("18");
+                }
+            }else if($(this).val() == '3'){
+                $('#age_value').empty();
+                for(let i = 18; i < 100; i++){
+                    $('#age_value').append('<option value="' + i + '">' + i + '</option>');
+                    $('#age_value').val("18");
+                }
+            }
         });
 
 
@@ -103,29 +131,8 @@ $(function() {
         });
 
 
-        let set_time = $('.js-set-time');
-        set_time.click(function (e) {
-            let set_time_click = $(this);
-            $.ajax({
-                url: '/get_time_room',
-                type: 'POST',
-                data: {
-                    'gender': $('select[name=gender]').val()
-                },
-                dataType: 'text',
-                beforeSend: function () {
-                    loader.css({'display': 'block'});
-                },
-                success: function (html) {
-                    set_time_click.closest('.set-time').addClass('edit')
-                    modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal('show');
-                },
-                complete: function () {
-                    loader.css({'display': 'none'});
-                },
-            });
-        });
+        
+        load_pick_time();
 
         let get_room = $('.js-set-room');
         get_room.click(function (e) {
@@ -290,10 +297,58 @@ $(function() {
     load_time_list();
 });
 
+let load_time_list_event = function(){
+    $('.svg-button').on('click', function() {
+        var r = confirm("Are you sure to delete this time?");
+        if (r == true) {
+            $($(this).parent().parent().remove());
+        }
+    });
+}
+
+
+let load_pick_time = function(){
+    modal_choice_time = $('#choice_date_time');
+    let set_time = $('.js-set-time');
+        set_time.click(function (e) {
+            let set_time_click = $(this);
+            $.ajax({
+                url: '/get_time_room',
+                type: 'POST',
+                data: {
+                    'gender': $('select[name=gender]').val()
+                },
+                dataType: 'text',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (html) {
+                    set_time_click.closest('.set-time').addClass('edit')
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal('show');
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+            });
+        });
+}
+
 let load_date_before = function(){
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
     var tomorrow = moment(today).add(1, 'days');
+
+    $('#add-time').on('click', function() {
+        var num = $('.booking-time').length;
+        $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+        load_time_list_event();
+        load_pick_time();
+    });
+
+    
+
+    
 
     $('#age_value').val("18");
 
@@ -336,11 +391,6 @@ $('#transport').on('change', function() {
 
 
 
-$('.agecheck').click(function(){
-    $('.agecheck').removeClass('color-active');
-    $(this).addClass('color-active');
-    $('#agecheck').val($(this).val())
-});
 $('#date').on('change blur', function() {
     var check = moment($('#date').val());
     var days_short = ["日","月","火","水","木","金","土"];

@@ -136,6 +136,19 @@ class AdminController extends Controller
     public function update_setting_kubun_type(Request $request) {
         $data = $request->all();
 
+        $notes = NULL;
+        if(($data['kubun_type'] == '013') || ($data['kubun_type'] == '012')){
+            $notes = preg_replace('/[^0-9]/', '', $data['kubun_value']);
+        }elseif($data['kubun_type'] == '014'){
+            $temp = preg_replace('/[^0-9]/', '', $data['kubun_value']);
+            $notes = substr($temp,0,4)."-".substr($temp,4,8);
+        }elseif($data['kubun_type'] == '003'){
+            $str = explode(":",$data['kubun_value']);
+            $temp = sprintf('%02d', preg_replace('/[^0-9]/', '',$str[0]) );
+            $temp1 = sprintf('%02d', preg_replace('/[^0-9]/', '',$str[1]) );
+
+            $notes = $temp.$temp1;
+        }
 
 
         if((strlen($data['kubun_id']) == 0 )  || (strlen($data['kubun_id']) > 2 ) || (strlen($data['kubun_value']) == 0 ) || (strlen($data['kubun_value']) > 255 )){
@@ -151,9 +164,9 @@ class AdminController extends Controller
                     'msg' => "kubun_id exist!",
                 ], 400);
             }
-            $MsKubun = MsKubun::create(['kubun_type' => $data['kubun_type'],'kubun_id' => $data['kubun_id'], 'kubun_value' => $data['kubun_value'],'sort_no' => $data['sort_no']]);
+            $MsKubun = MsKubun::create(['kubun_type' => $data['kubun_type'],'kubun_id' => $data['kubun_id'], 'kubun_value' => $data['kubun_value'],'sort_no' => $data['sort_no'], 'notes'=> $notes]);
         }else{
-            MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->update(['kubun_value' => $data['kubun_value']]);
+            MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->update(['kubun_value' => $data['kubun_value'], 'notes'=> $notes]);
         }
     }
     public function delete_setting_kubun_type(Request $request) {

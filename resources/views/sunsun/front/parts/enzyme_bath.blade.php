@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="booking-field mb-2">
+    <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.age.label')}}</p>
         </div>
@@ -28,23 +28,16 @@
             <div class="button-age">
                 <input id="agecheck" name='age_type' type="hidden" value="3">
                 <div class="button-age-left">
-                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck" value="1">{{config('booking.age.age1')}}</button>
-                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark mt-1 mx-0 agecheck" value="3">{{config('booking.age.age3')}}</button>
+                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck" value="1">{{config('booking.age.age1')}}</button>
+                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark  margin-top-mini mx-0 agecheck" value="3">{{config('booking.age.age3')}}</button>
                 </div>
                 <div class="button-age-right">
-                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mt-1 mx-0 agecheck" value="2">学生<span class="node-text">(中学生以上)</span></button>
-                    <div class="age-col mt-1">
+                    <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck" value="2">学生<span class="node-text">(中学生以上)</span></button>
+                    <div class="age-col margin-top-mini">
                         <div class="age-left">
                             <select id="age_value" name="age_value" class="form-control">
                                 @php
-                                    $val = [];
-                                    $i = 0;
-                                    foreach($age_value as $value){
-                                        $val[$i] =  $value->kubun_value;
-                                        $i++;
-                                        
-                                    }
-                                    for($j = $val[0]; $j <= $val[1]; $j++ ){
+                                    for($j = 18; $j < 100; $j++ ){
                                         echo "<option value='".$j."'>".$j."</option>";
                                     }
                                 @endphp
@@ -55,6 +48,7 @@
             </div>
         </div>
     </div>
+    @if(!isset($add_new_user))
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}} ">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.date.label')}}</p>
@@ -65,6 +59,7 @@
             <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
         </div>
     </div>
+    @endif
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
@@ -74,7 +69,16 @@
         <input name="bed" id="bed" type="hidden" value="1">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name='time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+                <input name="time[0]" type="text" class="form-control time js-set-time booking-time" id="" value="13:45" />
+            </div>
+            <div class="time-content">
+            </div>
+            
+            <div class="block-content-2 margin-top-mini">
+                <div class="block-content-2-left"></div>
+                <div class="block-content-2-right">
+                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark" id="add-time">時間追加</button>
+                </div>
             </div>
         </div>
     </div>
@@ -103,14 +107,25 @@
     </div>
     <div class="booking-field">
         <div class="booking-field-label booking-laber-padding">
-            <p class="text-left pt-2">{{config('booking.whitening.label')}}</p>
+            <p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="whitening" class="form-control">
+            <select name="whitening" id="whitening" class="form-control">
                 @foreach($whitening as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    <div class="booking-field whitening" style="display:none;">
+        <div class="booking-field-label booking-laber-padding">
+            
+        </div>
+        <div class="booking-field-content">
+            <div class="node-text">ホワイトニング時間</div> 
+            <div class="timedate-block set-time">
+                <input name='whitening-time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+            </div>
         </div>
     </div>
     <div class="booking-field">
@@ -126,6 +141,7 @@
         </div>
     </div>
 </div>
+@if(!isset($add_new_user))
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
     宿泊
@@ -182,4 +198,17 @@
             </div>
         </div>
     </div>
+    <div class="booking-field room" style="display:none;">
+        <div class="booking-field-label booking-laber-padding">
+            <p class="text-left pt-2">モーニング</p>
+        </div>
+        <div class="booking-field-content">
+            <select name="breakfast" class="form-control">
+                @foreach($breakfast as $value)
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>            
 </div>
+@endif

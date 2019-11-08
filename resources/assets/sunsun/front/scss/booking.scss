@@ -49,7 +49,7 @@ a:hover {
         >div {
             float: left;
             input {
-                width: 9vw;
+                width: 8.27vw;
             }
         }
     }
@@ -94,11 +94,33 @@ main {
         }
     }
     .booking-field {
+        display: flex;
+        padding-bottom: 1vh;
         .booking-field-label {
-            width: 30%;
+            width: 35%;
         }
         .booking-field-content {
-            width: 70%;
+            width: 65%;
+            .block-content-1{
+                display: flex;
+                .block-content-1-left{
+                    width: 85%;
+                }
+                .block-content-1-right{
+                    text-align: right;
+                    padding-right: 0.5vw;
+                    width: 15%;
+                }
+            }
+            .block-content-2{
+                display: flex;
+                .block-content-2-left{
+                    width: 30%;
+                }
+                .block-content-2-right{
+                    width: 70%;
+                }
+            }
         }
         .booking-field-content-10 {
             width: 83%;
@@ -446,16 +468,6 @@ label.form-check-label {
         font-size: 1.25vw;
     }
 }
-.booking-field {
-    display: flex;
-    padding-bottom: 0.5vw;
-    .booking-field-label {
-        width: 35%;
-    }
-    .booking-field-content {
-        width: 65%;
-    }
-}
 .booking-field-label.age-css{
     width: 25%;
 }
@@ -534,10 +546,10 @@ a.no-effect{
     padding: 0 0px 0px 1.5rem;
     margin-top: 10px;
     .line1{
-        width: 30%;
+        width: 25%;
     }
     .line2{
-        width: 70%;
+        width: 75%;
         .line3{
             padding-left: 30px;
         }
@@ -604,13 +616,25 @@ select {
 .color-active{
     background-color: #e0a800 !important;
 }
+
 .data-field-day {
-    background: rgb(251,229,214);
+    background: rgb(251, 229, 214);
     margin-bottom: 15px;
     line-height: 2.5rem;
     font-size: 1.2rem;
     text-align: center;
     margin-left: -10px;
     margin-right: -10px;
+}
+.margin-top-mini{
+   margin-top: 0.75vh !important;
+}
+.svg-button{
+    cursor: pointer;
+    width: 2vw;
+    padding-top: 0.75vh;
+}
+.custom-font-size {
+    font-size: 1.15vw;
 }
 

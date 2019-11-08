@@ -1,4 +1,5 @@
 <div class="booking-block">
+    @if(!isset($add_new_user))
     <input name="date-view" id="date-view" type="hidden" value="">
     <input name="date-value" id="date-value" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
@@ -11,6 +12,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
@@ -19,7 +21,7 @@
         <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time_room" type="text" class="form-control time js-set-room" id="" value="13:45 ~ 15:45">
+                <input name="time_room" type="text" class="form-control time js-set-room" id="" value="9:45～">
             </div>
 
         </div>
@@ -50,6 +52,7 @@
         </div>
         <div class="booking-field-content">
             <select name="lunch_guest_num" class="form-control">
+                <option value='{"kubun_type":"015","kubun_id":"00","kubun_value":"無し","sort_no":0,"notes":"0"}'>無し</option>
                 @foreach($lunch_guest_num as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
@@ -59,14 +62,25 @@
 
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
-            <p class="text-left pt-2">{{config('booking.whitening.label')}}</p>
+            <p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <select name="whitening" class="form-control">
+            <select name="whitening" id="whitening"  class="form-control">
                 @foreach($whitening as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    <div class="booking-field whitening" style="display:none;">
+        <div class="booking-field-label booking-laber-padding">
+            
+        </div>
+        <div class="booking-field-content">
+            <div class="node-text">ホワイトニング時間</div> 
+            <div class="timedate-block set-time">
+                <input name='whitening-time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+            </div>
         </div>
     </div>
     <div class="booking-field">
@@ -81,7 +95,9 @@
             </select>
         </div>
     </div>
+
 </div>
+@if(!isset($add_new_user))
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
     宿泊
@@ -134,4 +150,17 @@
 
         </div>
     </div>
+    <div class="booking-field room" style="display:none;">
+        <div class="booking-field-label booking-laber-padding">
+            <p class="text-left pt-2">モーニング</p>
+        </div>
+        <div class="booking-field-content">
+            <select name="breakfast"  class="form-control">
+                @foreach($breakfast as $value)
+                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
 </div>
+@endif
