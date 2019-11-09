@@ -28,6 +28,8 @@ $(function() {
         if($('#plan_date_end').val() == ""){
             $('#plan_date_end').val(strTomorrow);
         }
+
+
         let date_book =  $('.date-book');
         date_book.datepicker({
             language: 'ja',
@@ -72,6 +74,9 @@ $(function() {
             startDate: new Date()
 
         });
+
+
+
 
         let input_daterange = $('.input-daterange');
         input_daterange.datepicker({
@@ -272,8 +277,8 @@ $(function() {
 
     let load_time_list = function(check = null) {
         if(!check){
-            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date['+ 0 +'][day]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date['+ 1 +'][day]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date['+ 0 +'][day]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][from]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][to]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date['+ 1 +'][day]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][from]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][to]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
         }
         $(".range_date").change(function(){
             var date_arr = getDates($('#plan_date_start').val(), $('#plan_date_end').val());
@@ -284,7 +289,7 @@ $(function() {
                 var month = check.format('MM');
                 var day   = check.format('DD');
                 var week_day =  check.weekday();
-                $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date['+ index +'][day]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][from]" type="text" class="time form-control js-set-time" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][to]" type="text" class="time form-control js-set-time" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+                $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date['+ index +'][day]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][from]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][to]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
             });
             let check2 = moment($('#plan_date_start').val());
             let check1 = moment($('#plan_date_end').val());
@@ -341,7 +346,7 @@ let load_date_before = function(){
 
     $('#add-time').on('click', function() {
         var num = $('.booking-time').length;
-        $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+        $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
         load_time_list_event();
         load_pick_time();
     });

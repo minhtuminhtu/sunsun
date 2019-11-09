@@ -57,7 +57,7 @@
         <div class="booking-field booking-room  input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">開始日</p>
-                <input name="plan_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date" id="plan_date_start" value="">
+                <input name="plan_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date bg-white"  readonly="readonly" id="plan_date_start" value="">
             </div>
             <div class="">
                 <p class="">&nbsp;</p>
@@ -65,7 +65,7 @@
             </div>
             <div class="field-end-day">
                 <p class="node-text">終了日</p>
-                <input name="plan_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input range_date" id="plan_date_end" value="">
+                <input name="plan_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input range_date bg-white"  readonly="readonly" id="plan_date_end" value="">
             </div>
 
         </div>
@@ -146,7 +146,7 @@
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>
-                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date" id="range_date_start" value="">
+                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
             </div>
             <div class="">
                 <p>&nbsp;</p>
@@ -154,7 +154,7 @@
             </div>
             <div class="field-end-day">
                 <p class="node-text">{{config('booking.range_date.checkout')}}</p>
-                <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date" id="range_date_end" value="">
+                <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="">
             </div>
 
         </div>

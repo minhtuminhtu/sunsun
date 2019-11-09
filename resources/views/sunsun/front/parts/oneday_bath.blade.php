@@ -46,7 +46,7 @@
         <input name="date-value" id="date-value" type="hidden" value="">
         <div class="booking-field-content">
             <div class="timedate-block date-warp">
-                <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input" id="pwd" value="" />
+                <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="" />
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
             <input name="time1-view" id="time1-view" type="hidden" value="1000">
             <input name="time1-value" id="time1-value" type="hidden" value="1000">
             <div class="timedate-block set-time">
-                <input name="time1" type="text" class="form-control time js-set-time" id="" value="13:45">
+                <input name="time1" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45">
             </div>
 
         </div>
@@ -78,7 +78,7 @@
             <input name="time2-view" id="time2-view" type="hidden" value="1000">
             <input name="time2-value" id="time2-value" type="hidden" value="1030">
             <div class="timedate-block set-time">
-                <input name="time2" type="text" class="form-control time js-set-time" id="" value="13:45">
+                <input name="time2" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45">
             </div>
 
         </div>
@@ -111,7 +111,7 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time' type="text" class="form-control time js-set-time" id="" value="13:45" />
+                <input name='whitening-time' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
             </div>
         </div>
     </div>
@@ -168,7 +168,7 @@
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>
-                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date" id="range_date_start" value="">
+                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
             </div>
             <div class="">
                 <p>&nbsp;</p>
@@ -176,7 +176,7 @@
             </div>
             <div class="field-end-day">
                 <p class="node-text">{{config('booking.range_date.checkout')}}</p>
-                <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date" id="range_date_end" value="">
+                <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="">
             </div>
         </div>
     </div>
