@@ -723,16 +723,16 @@ select {
   background-color: #e0a800 !important;
 }
 
-
 .data-field-day {
-    background: #fbe5d6;
-    margin-bottom: 15px;
-    line-height: 2.5rem;
-    font-size: 1.2rem;
-    text-align: center;
-    margin-left: -10px;
-    margin-right: -10px;
+  background: #fbe5d6;
+  margin-bottom: 15px;
+  line-height: 2.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-left: -10px;
+  margin-right: -10px;
 }
+
 .margin-top-mini {
   margin-top: 0.75vh !important;
 }
@@ -745,6 +745,5 @@ select {
 
 .custom-font-size {
   font-size: 1.15vw;
-
 }
 

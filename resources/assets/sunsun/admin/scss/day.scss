@@ -161,6 +161,10 @@
     max-width: 24vw;
     margin: 0 auto !important;
 }
+.booking-field {
+    display: flex;
+    padding-bottom: 1vh;
+}
 .booking-field .field-start-day {
     padding-left: 20px;
     padding-right: 5px;
@@ -171,3 +175,4 @@
 .booking-field .booking-field-content {
     width: 74% !important;
 }
+
