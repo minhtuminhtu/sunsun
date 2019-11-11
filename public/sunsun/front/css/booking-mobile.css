@@ -59,7 +59,6 @@
 
   .choice-time .choice-data-time {
     float: left;
-    margin-left: 4.25vw;
   }
 
   .choice-time .choice-data-time > div {
@@ -67,7 +66,7 @@
   }
 
   .choice-time .choice-data-time > div input {
-    width: 25vw;
+    width: 28vw;
   }
 
   main .main-body-head h1 {

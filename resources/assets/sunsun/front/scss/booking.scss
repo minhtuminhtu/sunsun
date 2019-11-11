@@ -44,14 +44,16 @@ a:hover {
     }
     .choice-data-time {
         float: left;
-        margin-left: 1.15vw;
         >div {
             float: left;
             input {
-                width: 8.27vw;
+                width: 9vw;
             }
         }
     }
+}
+.time-end {
+    float: right !important;
 }
 main {
     .main-body-head {
