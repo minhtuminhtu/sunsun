@@ -19,11 +19,11 @@
                     </div>
                 @endif
 
-                <div class="booking-line font-weight-bold">
+                <!-- <div class="booking-line font-weight-bold">
                     <div class="booking-line-laber">
                     </div>
-                    <!-- <hr class="booking-line-line"> -->
-                </div>
+                    <hr class="booking-line-line">
+                </div> -->
 
                 <div class="booking-block-top">
 
