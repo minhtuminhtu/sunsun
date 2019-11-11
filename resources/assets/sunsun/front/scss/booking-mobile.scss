@@ -24,8 +24,7 @@
         background: #feebeb;
     }
     .node-text {
-        font-size: 0.70rem;
-    
+        font-size: 3vw;
         &.multiple-date {
             padding-left: 20px;
         }
@@ -595,10 +594,7 @@
     body{
         font-size: 4vw;
     }
-    .node-text{
-        font-size: 3vw;
-    }
-    
+
     .form-control{
         font-size: 4vw;
     }
@@ -633,6 +629,11 @@
     }  
     .custom-font-size{
         font-size: 3.5vw!important;
+    }
+    .datepicker td, .datepicker th {
+        width: 8vw;
+        height: 8vw;
+        font-size: 4vw;
     }
 }
 @media only screen and (min-width: 768px){

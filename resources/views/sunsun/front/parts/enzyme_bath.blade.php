@@ -29,7 +29,7 @@
                 <input id="agecheck" name='age_type' type="hidden" value="3">
                 <div class="button-age-left">
                     <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck" value="1">{{config('booking.age.age1')}}</button>
-                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark  margin-top-mini mx-0 agecheck" value="3">{{config('booking.age.age3')}}</button>
+                    <button type="button" class="btn btn-block form-control color-active text-dark  margin-top-mini mx-0 agecheck" value="3">{{config('booking.age.age3')}}</button>
                 </div>
                 <div class="button-age-right">
                     <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck" value="2">学生<span class="node-text">(中学生以上)</span></button>
@@ -77,7 +77,7 @@
             <div class="block-content-2 margin-top-mini">
                 <div class="block-content-2-left"></div>
                 <div class="block-content-2-right">
-                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark" id="add-time">時間追加</button>
+                    <button type="button" class="btn btn-block form-control color-active text-dark" id="add-time">時間追加</button>
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>
-                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
+                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
             </div>
             <div class="">
                 <p>&nbsp;</p>

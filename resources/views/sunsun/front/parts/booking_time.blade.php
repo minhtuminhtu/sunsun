@@ -1,5 +1,6 @@
 
 <div>
+    <input type="hidden" id="new-time" value="{{ isset($data['new'])?$data['new']:'' }}">
     <div class="title-table-time">
         <span class="font-weight-bold">{{$data['gender']}}</span> {{----}}
     </div>

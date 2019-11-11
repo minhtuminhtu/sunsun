@@ -29,7 +29,7 @@
   }
 
   .node-text {
-    font-size: 0.7rem;
+    font-size: 3vw;
   }
 
   .node-text.multiple-date {
@@ -685,10 +685,6 @@
     font-size: 4vw;
   }
 
-  .node-text {
-    font-size: 3vw;
-  }
-
   .form-control {
     font-size: 4vw;
   }
@@ -730,6 +726,13 @@
 
   .custom-font-size {
     font-size: 3.5vw !important;
+  }
+
+  .datepicker td,
+  .datepicker th {
+    width: 8vw;
+    height: 8vw;
+    font-size: 4vw;
   }
 }
 

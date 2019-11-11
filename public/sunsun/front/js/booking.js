@@ -94,192 +94,10 @@
 /***/ (function(module, exports) {
 
 $(function () {
-  var service = $('.service-warp'),
-      modal_choice_time = $('#choice_date_time');
+  var modal_choice_time = $('#choice_date_time');
   var days_short = ["日", "月", "火", "水", "木", "金", "土"];
   var today = moment();
   var tomorrow = moment(today).add(1, 'days');
-
-  var load_event = function load_event() {
-    var check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var d = new Date();
-    var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
-    var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
-
-    if ($('#date').val() == "") {
-      $('#date').val(strToday + "(" + days_short[moment(strToday).weekday()] + ")");
-    }
-
-    if ($('#range_date_start').val() == "") {
-      $('#range_date_start').val(strToday);
-    }
-
-    if ($('#range_date_end').val() == "") {
-      $('#range_date_end').val(strTomorrow);
-    }
-
-    if ($('#plan_date_start').val() == "") {
-      $('#plan_date_start').val(strToday);
-    }
-
-    if ($('#plan_date_end').val() == "") {
-      $('#plan_date_end').val(strTomorrow);
-    }
-
-    var date_book = $('.date-book');
-    date_book.datepicker({
-      language: 'ja',
-      startDate: new Date()
-    });
-    date_book.on('changeDate', function () {
-      var edit = $(this);
-      edit.closest('.date-warp').find('.date-book-input').val(edit.datepicker('getFormattedDate'));
-      change_day();
-    });
-    $('#room').on('change', function () {
-      var room = JSON.parse($('#room').val());
-
-      if (room.kubun_id == '01') {
-        $('.room').hide();
-      } else {
-        $('.room').show();
-      }
-    });
-    $('#whitening').on('change', function () {
-      var whitening = JSON.parse($('#whitening').val());
-
-      if (whitening.kubun_id == '01') {
-        $('.whitening').hide();
-      } else {
-        $('.whitening').show();
-      }
-    });
-    $('#date').datepicker({
-      language: 'ja',
-      dateFormat: "yyyy/mm/dd",
-      startDate: new Date()
-    });
-    var input_daterange = $('.input-daterange');
-    input_daterange.datepicker({
-      language: 'ja',
-      dateFormat: 'yyyy/mm/dd',
-      // autoclose: true,
-      startDate: new Date()
-    });
-    input_daterange.on('changeDate', function () {});
-    $('.agecheck').on('click', function () {
-      $('.agecheck').removeClass('color-active');
-      $('.agecheck').addClass('btn-outline-warning');
-      $(this).addClass('color-active');
-      $(this).removeClass('btn-outline-warning');
-      $('#agecheck').val($(this).val());
-
-      if ($(this).val() == '1' || $(this).val() == '2') {
-        $('#age_value').empty();
-
-        for (var i = 0; i < 19; i++) {
-          $('#age_value').append('<option value="' + i + '">' + i + '</option>');
-          $('#age_value').val("18");
-        }
-      } else if ($(this).val() == '3') {
-        $('#age_value').empty();
-
-        for (var _i = 18; _i < 100; _i++) {
-          $('#age_value').append('<option value="' + _i + '">' + _i + '</option>');
-          $('#age_value').val("18");
-        }
-      }
-    });
-    $('#date').on('change blur', function () {
-      var check = moment($('#date').val());
-      $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
-      $('#date-value').val(check.format('YYYYMMDD'));
-      $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
-    });
-
-    function change_day() {
-      var check = moment($('#date').val());
-      $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
-      $('#date-value').val(check.format('YYYYMMDD'));
-      $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
-    }
-
-    $(".room_range_date").on('change blur', function () {
-      var check2 = moment($('#range_date_start').val());
-      var check1 = moment($('#range_date_end').val());
-      $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
-      $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
-      $('#range_date_start-value').val(check2.format('YYYYMMDD'));
-      $('#range_date_end-value').val(check1.format('YYYYMMDD'));
-    });
-    load_pick_time();
-    var get_room = $('.js-set-room');
-    get_room.click(function (e) {
-      var set_time_click = $(this);
-      $.ajax({
-        url: $site_url + '/book_room',
-        type: 'POST',
-        data: {
-          'sex': $('select[name=date]').val()
-        },
-        dataType: 'text',
-        beforeSend: function beforeSend() {
-          loader.css({
-            'display': 'block'
-          });
-        },
-        success: function success(html) {
-          set_time_click.closest('.set-time').addClass('edit');
-          modal_choice_time.find('.modal-body-time').html(html);
-          modal_choice_time.modal('show');
-        },
-        complete: function complete() {
-          loader.css({
-            'display': 'none'
-          });
-        }
-      });
-    });
-    var get_room_pet = $('.js-set-room_pet');
-    get_room_pet.click(function (e) {
-      var set_time_click = $(this);
-      $.ajax({
-        url: $site_url + '/book_time_room_pet',
-        type: 'POST',
-        data: {
-          'gender': $('select[name=date]').val()
-        },
-        dataType: 'text',
-        beforeSend: function beforeSend() {
-          loader.css({
-            'display': 'block'
-          });
-        },
-        success: function success(html) {
-          set_time_click.closest('.set-time').addClass('edit');
-          modal_choice_time.find('.modal-body-time').html(html);
-          modal_choice_time.modal('show');
-        },
-        complete: function complete() {
-          loader.css({
-            'display': 'none'
-          });
-        }
-      });
-    });
-  };
-
-  load_event();
-  modal_choice_time.on('hidden.bs.modal', function () {
-    modal_choice_time.find('.modal-body-time').empty();
-    $('.set-time').removeClass('edit');
-  });
-  modal_choice_time.on('click', '#js-save-time', function (e) {
-    var time = modal_choice_time.find('input[name=time]:checked').val();
-    $('.set-time.edit input.time').val(time);
-    $('#time-value').val('1345');
-    modal_choice_time.modal('hide');
-  });
 
   var get_service = function get_service() {
     var data = {
@@ -303,7 +121,7 @@ $(function () {
       success: function success(html) {
         $('.service-warp').empty().append(html).hide().fadeIn('slow');
         load_event();
-        load_date_before();
+        load_after_ajax();
         load_time_list();
       },
       complete: function complete() {
@@ -318,6 +136,138 @@ $(function () {
     get_service();
   });
   get_service();
+
+  var load_event = function load_event() {
+    var check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var d = new Date();
+    var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
+    var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
+
+    if ($('#date').val() == "") {
+      $('#date').val(strToday + "(" + days_short[moment(new Date(strToday)).weekday()] + ")");
+    }
+
+    if ($('#range_date_start').val() == "") {
+      $('#range_date_start').val(strToday);
+    }
+
+    if ($('#range_date_end').val() == "") {
+      $('#range_date_end').val(strTomorrow);
+    }
+
+    if ($('#plan_date_start').val() == "") {
+      $('#plan_date_start').val(strToday);
+    }
+
+    if ($('#plan_date_end').val() == "") {
+      $('#plan_date_end').val(strTomorrow);
+    }
+
+    $('#room').on('change', function () {
+      var room = JSON.parse($('#room').val());
+
+      if (room.kubun_id == '01') {
+        $('.room').hide();
+      } else {
+        $('.room').show();
+      }
+    });
+    $('#whitening').on('change', function () {
+      var whitening = JSON.parse($('#whitening').val());
+
+      if (whitening.kubun_id == '01') {
+        $('.whitening').hide();
+      } else {
+        $('.whitening').show();
+      }
+    });
+    $('#date').datepicker({
+      language: 'ja',
+      dateFormat: "yyyy/mm/dd",
+      startDate: new Date(),
+      autoclose: true
+    });
+    $('#date').datepicker().on('hide', function (e) {
+      change_day();
+    });
+    var input_daterange = $('.input-daterange');
+    input_daterange.datepicker({
+      language: 'ja',
+      dateFormat: 'yyyy/mm/dd',
+      autoclose: true,
+      startDate: new Date()
+    });
+    $('#range_date_start').datepicker().on('hide', function (e) {
+      $('#range_date_end').datepicker('show');
+    });
+    $('#plan_date_start').datepicker().on('hide', function (e) {
+      $('#plan_date_end').datepicker('show');
+    });
+    $('.agecheck').on('click', function () {
+      $('.agecheck').removeClass('color-active');
+      $('.agecheck').addClass('btn-outline-warning');
+      $(this).addClass('color-active');
+      $(this).removeClass('btn-outline-warning');
+      $('#agecheck').val($(this).val());
+
+      if ($(this).val() == '1' || $(this).val() == '2') {
+        $('#age_value').empty();
+
+        for (var i = 0; i < 19; i++) {
+          $('#age_value').append('<option value="' + i + '">' + i + '</option>');
+          $('#age_value').val("18");
+        }
+      } else if ($(this).val() == '3') {
+        $('#age_value').empty();
+
+        for (var _i = 18; _i < 100; _i++) {
+          $('#age_value').append('<option value="' + _i + '">' + _i + '</option>');
+          $('#age_value').val("18");
+        }
+      }
+    });
+
+    function change_day() {
+      var check = moment(new Date($('#date').val()));
+      $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
+      $('#date-value').val(check.format('YYYYMMDD'));
+      $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
+    }
+
+    $(".room_range_date").on('change blur', function () {
+      var check2 = moment(new Date($('#range_date_start').val()));
+      var check1 = moment(new Date($('#range_date_end').val()));
+      $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
+      $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
+      $('#range_date_start-value').val(check2.format('YYYYMMDD'));
+      $('#range_date_end-value').val(check1.format('YYYYMMDD'));
+    });
+    load_pick_time_event();
+    load_pick_time_room_event();
+    load_pick_time_pet_event();
+  };
+
+  load_event();
+  modal_choice_time.on('hidden.bs.modal', function () {
+    modal_choice_time.find('.modal-body-time').empty();
+    $('.set-time').removeClass('edit');
+  });
+  modal_choice_time.on('click', '#js-save-time', function (e) {
+    var time = modal_choice_time.find('input[name=time]:checked').val();
+    var num = $('.booking-time').length;
+
+    if ($('#new-time').val() == 1) {
+      $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+      load_time_delete_event();
+      load_pick_time_event();
+      $('.booking-time').last().val(time);
+    } else {
+      $('.set-time.edit input.time').val(time);
+    }
+
+    $('#time-value').val('1345');
+    modal_choice_time.modal('hide');
+  });
   $('.btn-booking').click(function (e) {
     e.preventDefault();
     var btn_click = $(this);
@@ -345,12 +295,6 @@ $(function () {
       }
     });
   });
-  var input_daterange = $('.input-daterange');
-  input_daterange.datepicker({
-    language: 'ja',
-    dateFormat: 'yyyy/mm/dd',
-    startDate: new Date()
-  });
 
   var load_time_list = function load_time_list() {
     var check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -361,7 +305,7 @@ $(function () {
     }
 
     $(".range_date").change(function () {
-      var date_arr = getDates($('#plan_date_start').val(), $('#plan_date_end').val());
+      var date_arr = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
       $('.time-list').empty();
       moment.locale('ja');
       date_arr.forEach(function (element, index) {
@@ -371,8 +315,8 @@ $(function () {
         var week_day = check.weekday();
         $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date[' + index + '][day]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + index + '][from]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + index + '][to]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
       });
-      var check2 = moment($('#plan_date_start').val());
-      var check1 = moment($('#plan_date_end').val());
+      var check2 = moment(new Date($('#plan_date_start').val()));
+      var check1 = moment(new Date($('#plan_date_end').val()));
       $('#plan_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
       $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
       load_event();
@@ -383,7 +327,8 @@ $(function () {
   load_time_list();
 });
 
-var load_time_list_event = function load_time_list_event() {
+var load_time_delete_event = function load_time_delete_event() {
+  $('.svg-button').off('click');
   $('.svg-button').on('click', function () {
     var r = confirm("Are you sure to delete this time?");
 
@@ -393,7 +338,7 @@ var load_time_list_event = function load_time_list_event() {
   });
 };
 
-var load_pick_time = function load_pick_time() {
+var load_pick_time_event = function load_pick_time_event() {
   modal_choice_time = $('#choice_date_time');
   var set_time = $('.js-set-time');
   set_time.click(function (e) {
@@ -424,15 +369,97 @@ var load_pick_time = function load_pick_time() {
   });
 };
 
-var load_date_before = function load_date_before() {
+var load_pick_time_room_event = function load_pick_time_room_event() {
+  var get_room = $('.js-set-room');
+  get_room.click(function (e) {
+    var set_time_click = $(this);
+    $.ajax({
+      url: $site_url + '/book_room',
+      type: 'POST',
+      data: {
+        'sex': $('select[name=date]').val()
+      },
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+        modal_choice_time.find('.modal-body-time').html(html);
+        modal_choice_time.modal('show');
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+};
+
+var load_pick_time_pet_event = function load_pick_time_pet_event() {
+  var get_room_pet = $('.js-set-room_pet');
+  get_room_pet.click(function (e) {
+    var set_time_click = $(this);
+    $.ajax({
+      url: $site_url + '/book_time_room_pet',
+      type: 'POST',
+      data: {
+        'gender': $('select[name=date]').val()
+      },
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+        modal_choice_time.find('.modal-body-time').html(html);
+        modal_choice_time.modal('show');
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+};
+
+var load_after_ajax = function load_after_ajax() {
   var days_short = ["日", "月", "火", "水", "木", "金", "土"];
   var today = moment();
   var tomorrow = moment(today).add(1, 'days');
+  $('#add-time').off('click');
   $('#add-time').on('click', function () {
-    var num = $('.booking-time').length;
-    $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
-    load_time_list_event();
-    load_pick_time();
+    var set_time_click = $(this);
+    $.ajax({
+      url: '/get_time_room',
+      type: 'POST',
+      data: {
+        'gender': $('select[name=gender]').val(),
+        'new': 1
+      },
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+        modal_choice_time.find('.modal-body-time').html(html);
+        modal_choice_time.modal('show');
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
   });
   $('#age_value').val("18");
   $('#date-value').val(today.format('YYYYMMDD'));
@@ -445,10 +472,10 @@ var load_date_before = function load_date_before() {
   $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
 };
 
-function getDates(startDate, stopDate) {
+function get_dates(startDate, stopDate) {
   var dateArray = [];
-  var currentDate = moment(startDate);
-  var stopDate = moment(stopDate);
+  var currentDate = moment(new Date(startDate));
+  var stopDate = moment(new Date(stopDate));
 
   while (currentDate <= stopDate) {
     dateArray.push(moment(currentDate).format('YYYY-MM-DD'));
@@ -458,38 +485,19 @@ function getDates(startDate, stopDate) {
   return dateArray;
 }
 
-$('#transport').on('change', function () {
-  var transport = JSON.parse($('#transport').val());
+var load_once_time = function load_once_time() {
+  $('#transport').on('change', function () {
+    var transport = JSON.parse($('#transport').val());
 
-  if (transport.kubun_id == '01') {
-    $('.bus').hide();
-  } else {
-    $('.bus').show();
-  }
-});
-$('#date').on('change blur', function () {
-  var check = moment($('#date').val());
-  var days_short = ["日", "月", "火", "水", "木", "金", "土"];
-  $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
-  $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
-  $('#date-value').val(check.format('YYYYMMDD'));
-});
-$(".room_range_date").on('change blur', function () {
-  var check2 = moment($('#range_date_start').val());
-  var check1 = moment($('#range_date_end').val());
-  var days_short = ["日", "月", "火", "水", "木", "金", "土"];
-  $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
-  $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
-  $('#range_date_start-value').val(check2.format('YYYYMMDD'));
-  $('#range_date_end-value').val(check1.format('YYYYMMDD'));
-});
-$('#confirm').on('change', function () {
-  if ($(this).is(":checked")) {
-    $(".confirm-rules").prop("disabled", false);
-  } else {
-    $(".confirm-rules").prop("disabled", true);
-  }
-});
+    if (transport.kubun_id == '01') {
+      $('.bus').hide();
+    } else {
+      $('.bus').show();
+    }
+  });
+};
+
+load_once_time();
 
 /***/ }),
 

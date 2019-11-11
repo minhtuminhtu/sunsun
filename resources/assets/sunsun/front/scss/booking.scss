@@ -23,8 +23,7 @@ a:hover {
     background: #feebeb;
 }
 .node-text {
-    font-size: 0.70rem;
-
+    font-size: 0.8vw;
     &.multiple-date {
         padding-left: 20px;
     }
@@ -465,7 +464,7 @@ label.form-check-label {
     .booking-line-laber{
         padding-left: 0.75vw;
         margin-bottom: 1vh;
-        font-size: 1.25vw;
+        font-size: 1.15vw;
     }
 }
 .booking-field-label.age-css{
@@ -572,24 +571,21 @@ a.no-effect{
     margin-left: 5px;
 }
 body{
-    font-size: 1.25vw;
-}
-.node-text{
-    font-size: 1vw;
+    font-size: 1.15vw;
 }
 
 .form-control{
-    font-size: 1.25vw;
+    font-size: 1.15vw;
 }
 .btn {
-    font: 400 1.25vw Arial;
+    font: 400 1.15vw Arial;
 }
 
 .main-text{
-    font-size: 1.25vw;
+    font-size: 1.15vw;
 }
 select {
-    font-size: 1.25vw;
+    font-size: 1.15vw;
 }
 
 .button-age{
@@ -629,6 +625,7 @@ select {
 }
 .bg-white{
     background-color: #fff;
+    cursor: pointer;
 }
 #choice_date_time {
     padding-right: 0px !important;
@@ -638,4 +635,10 @@ select {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(224, 168, 0);
     outline: 0 none;
 }
+.datepicker td, .datepicker th {
+    width: 2.52vw;
+    height: 2.52vw;
+    font-size: 1.15vw;
+}
+
     
