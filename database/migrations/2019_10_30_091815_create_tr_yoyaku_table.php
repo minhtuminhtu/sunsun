@@ -14,8 +14,8 @@ class CreateTrYoyakuTable extends Migration
     public function up()
     {
         Schema::create('tr_yoyaku', function (Blueprint $table) {
-            $table->string('booking_id',12)->primary();
-
+            $table->bigIncrements('tr_yoyaku_id');
+            $table->string('booking_id',12);
             $table->string('ref_booking_id',12)->nullable();
             $table->string('email',255)->nullable();
             $table->string('repeat_user',2)->nullable();

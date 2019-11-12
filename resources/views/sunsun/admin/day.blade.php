@@ -14,7 +14,7 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="main-head__top">
+                <div class="main-head__top" style="display: flex">
                     <span class="datepicker-control current-date">
                         ≪ <input type="text" value="{{$date}}"> ≫
                         <span class="icon-calendar">
@@ -23,9 +23,12 @@
                             </i>
                         </span>
                     </span>
-                    <a class="control-date prev-date" href="javascript:void(0)">≪前日</a>
-                    <a class="control-date next-date" href="javascript:void(0)">翌日≫</a>
-                    <span class="node-day">入浴：酵素浴　リ：リフレッシュプラン</span>
+                    <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
+                   <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
+                    <span class="node-day">
+                        <span>入浴：酵素浴　リ：1日リフレッシュプラン</span> <br>
+                        <span>貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</span>
+                    </span>
                 </div>
                 <div class="main-head__middle">
                     <div class="middle_box">
@@ -51,6 +54,14 @@
                             <span>C：</span> <br>
                         </div>
                     </div>
+                    <div class="middle_box">
+                        <div class="item">
+                            <span>【モーニング】　2食</span> <br>
+                            <span>A：○○ 様　2名</span> <br>
+                            <span>B：</span> <br>
+                            <span>C：</span> <br>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -72,6 +83,15 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr class="node">
+                                <td class="time-male" colspan="4">
+                                    朝
+                                </td>
+                                <td class="space-table"></td>
+                                <td class="time-female" colspan="4">
+                                    朝
+                                </td>
+                            </tr>
                             <tr>
                                 <td class="man even">9:45 <br> (10:00 -11:30)</td>
                                 <td class="man even"></td>
@@ -92,8 +112,11 @@
                                 <td class="man odd">
                                     <div class="info js-edit-booking">
                                         <span class="info-name">［入浴］男性(49歳)</span> <br>
-                                        <span>渋野日向子同行者様</span> <br>
-                                        <span>バス　9:29着　<span class="text-red">送迎有</span></span>
+                                        <span>渋野日向子様</span> <br>
+                                        <span>バス　9:29着　<span class="text-red">送迎有</span></span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
+                                        <span>090-1234-5678</span> <br>
+                                        <span>支払：クレカ</span>
                                     </div>
                                 </td>
                                 <td class="man odd"></td>
@@ -102,10 +125,11 @@
                                 <td class="women odd">
                                     <div class="info js-edit-booking">
                                         <span class="info-name">［入浴］女性(21歳)</span> <br>
-                                        <span>渋野日向子様</span> <br>
+                                        <span>渋野日様</span> <br>
                                         <span>バス　9:29着 <span class="text-red">送迎有</span></span> <br>
-                                        <span>昼食　宿泊</span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
                                         <span>090-1234-5678</span> <br>
+                                        <span>支払：クレカ</span>
                                     </div>
                                 </td>
                                 <td class="women odd"></td>
@@ -121,8 +145,10 @@
                                     <div class="info js-edit-booking">
                                         <span class="info-name">［リ①］男性(27歳)</span> <br>
                                         <span>石川遼様</span> <br>
-                                        <span>自動車</span>
-                                        <span>090-1234-5678</span>
+                                        <span>自動車</span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
+                                        <span>090-1234-5678</span> <br>
+                                        <span>支払：クレカ</span>
                                     </div>
                                 </td>
                                 <td class="man even"></td>
@@ -136,6 +162,15 @@
                                 <td class="women even">
                                 </td>
                             </tr>
+                            <tr class="node">
+                                <td class="time-male" colspan="4">
+                                    昼
+                                </td>
+                                <td class="space-table"></td>
+                                <td class="time-female" colspan="4">
+                                    昼
+                                </td>
+                            </tr>
                             <tr>
                                 <td class="man odd">
                                     13:15<br> (13:30 - 15:00)
@@ -144,8 +179,10 @@
                                     <div class="info js-edit-booking">
                                         <span class="info-name">[貸切] 男性 (29歳)</span> <br>
                                         <span>錦織圭様</span> <br>
-                                        <span>自動車</span>
-                                        <span>090-1234-5678</span>
+                                        <span>自動車</span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
+                                        <span>090-1234-5678</span> <br>
+                                        <span>支払：クレカ</span>
                                     </div>
                                     <div class="info-detail" style="display: none">
                                         <div class="detail-title">
@@ -161,8 +198,9 @@
                                         <span class="info-name">[入浴]女性(21歳) <span class="text-red">新規</span></span> <br>
                                         <span>大阪なおみ様</span> <br>
                                         <span>自動車</span> <br>
-                                        <span>ﾍﾟｯﾄ預かり</span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
                                         <span>080-1111-2222</span> <br>
+                                        <span>支払：クレカ</span>
                                     </div>
                                 </td>
                                 <td class="women odd"></td>
@@ -178,6 +216,8 @@
                                     <div class="info js-edit-booking">
                                         <span class="info-name">［入浴②］男性(49歳)</span> <br>
                                         <span>渋野日向子同行者様</span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
+                                        <span>090-1234-5678</span>
                                     </div>
                                 </td>
                                 <td class="man even"></td>
@@ -187,6 +227,8 @@
                                     <div class="info js-edit-booking">
                                         <span class="info-name">［入浴②］女性(21歳)</span> <br>
                                         <span>渋野日向子様</span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
+                                        <span>090-1234-5678</span>
                                     </div>
                                 </td>
                                 <td class="women even"></td>
@@ -201,6 +243,8 @@
                                     <div class="info js-edit-booking">
                                         <span class="info-name">［リ②］男性(27歳)</span> <br>
                                         <span>渋野日向子同行者様</span> <br>
+                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
+                                        <span>090-1234-5678</span>
                                     </div>
                                 </td>
                                 <td class="man odd"></td>
@@ -212,6 +256,15 @@
                                 <td class="women odd"></td>
                                 <td class="women odd"></td>
                                 <td class="women odd">
+                                </td>
+                            </tr>
+                            <tr class="node">
+                                <td class="time-male" colspan="4">
+                                    メンテナンス
+                                </td>
+                                <td class="space-table"></td>
+                                <td class="time-female" colspan="4">
+                                    メンテナンス
                                 </td>
                             </tr>
                             <tr>
@@ -249,6 +302,87 @@
                                 <td class="women odd">
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="man odd">
+                                    16:15
+                                    <br> (16:30～18:00)
+                                </td>
+                                <td class="man odd">
+                                </td>
+                                <td class="man odd"></td>
+                                <td class="man odd"></td>
+                                <td class="odd space-table"></td>
+                                <td class="women odd">
+
+                                </td>
+                                <td class="women odd"></td>
+                                <td class="women odd"></td>
+                                <td class="women odd">
+                                </td>
+                            </tr>
+                            <tr class="node">
+                                <td class="time-male" colspan="4">
+                                    夜
+                                </td>
+                                <td class="space-table"></td>
+                                <td class="time-female" colspan="4">
+                                    夜
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="man odd">
+                                    17:45
+                                    <br> (18:00～19:30)
+                                </td>
+                                <td class="man odd">
+                                </td>
+                                <td class="man odd"></td>
+                                <td class="man odd"></td>
+                                <td class="odd space-table"></td>
+                                <td class="women odd">
+
+                                </td>
+                                <td class="women odd"></td>
+                                <td class="women odd"></td>
+                                <td class="women odd">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="man odd">
+                                    18:15
+                                    <br> (18:30～20:00)
+                                </td>
+                                <td class="man odd">
+                                </td>
+                                <td class="man odd"></td>
+                                <td class="man odd"></td>
+                                <td class="odd space-table"></td>
+                                <td class="women odd">
+
+                                </td>
+                                <td class="women odd"></td>
+                                <td class="women odd"></td>
+                                <td class="women odd">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="man odd">
+                                    18:45
+                                    <br> (19:00～20:30)
+                                </td>
+                                <td class="man odd">
+                                </td>
+                                <td class="man odd"></td>
+                                <td class="man odd"></td>
+                                <td class="odd space-table"></td>
+                                <td class="women odd">
+
+                                </td>
+                                <td class="women odd"></td>
+                                <td class="women odd"></td>
+                                <td class="women odd">
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -256,6 +390,45 @@
                         <table>
                             <thead>
                             <th class="odd">ペット</th>
+                            </thead>
+                            <tbody>
+                            <tr class="even">
+                                <td>9：30～10：30</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>○</td>
+                            </tr>
+                            <tr class="even">
+                                <td>11：00～12：00</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>○</td>
+                            </tr>
+                            <tr class="even">
+                                <td>14：00～15：00</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>○</td>
+                            </tr>
+                            <tr class="even">
+                                <td>15：30～16：30</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>
+                                    <div class="info">
+                                        <span>大阪なおみ様</span> <br>
+                                        <span>自動車</span> <br>
+                                        <span>080-1111-2222</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-morning">
+                        <table>
+                            <thead>
+                            <th class="odd">ホワイトニング</th>
                             </thead>
                             <tbody>
                             <tr class="even">

@@ -290,3 +290,105 @@ th.pet-head {
   }
 }
 
+table td,
+table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-weekly {
+  margin-bottom: 20px;
+  border: 2px solid #4573c4;
+  position: relative;
+}
+
+.table-weekly th {
+  border: 2px solid #537fc9;
+}
+
+.table-weekly td {
+  border-left: 2px solid #537fc9;
+  border-right: 2px solid #537fc9;
+}
+
+.table-weekly__content,
+.table-weekly__thead {
+  display: flex;
+}
+
+.table-weekly__content .item,
+.table-weekly__thead .item {
+  flex: 1;
+  padding-right: 2px;
+  display: grid;
+}
+
+.table-weekly__content .item span,
+.table-weekly__thead .item span {
+  padding: 7px 7px;
+}
+
+.table-weekly .table-weekly__thead {
+  font-size: 0.95rem;
+}
+
+.table-weekly .table-weekly__thead .male-head {
+  background-color: #4472c4;
+  color: #fff;
+  text-align: center;
+}
+
+.table-weekly .table-weekly__thead .female-head {
+  background-color: #f83299;
+  color: #fff;
+  text-align: center;
+}
+
+.table-weekly .table-weekly__thead .pet-head {
+  background-color: #bf8f00;
+  color: #fff;
+  text-align: center;
+}
+
+.table-weekly .table-weekly__thead .wt-head {
+  background: #2e75b6;
+  color: #ffffff;
+}
+
+.table-weekly tbody .color-wt {
+  background: #bdd7ee;
+}
+
+.table-weekly tbody tr:not(:first-child) td {
+  padding-bottom: 1px !important;
+  padding-top: 1px !important;
+}
+
+.table-weekly tbody tr:not(:first-child) td:first-child {
+  border-bottom: 1px solid #4573c4;
+}
+
+.table-weekly tbody tr td:first-child {
+  font-size: 0.85vw;
+  line-height: normal;
+}
+
+.table-weekly tr th:nth-child(4),
+.table-weekly tr td:nth-child(4) {
+  width: 6rem;
+}
+
+.table-weekly .head-content {
+  background: #7d7d7deb;
+  color: #ffffff;
+  border-bottom: unset !important;
+}
+
+.table-weekly .node-day-off {
+  position: absolute;
+  top: 30%;
+  left: 46.3%;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+

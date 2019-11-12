@@ -69,7 +69,16 @@ return [
             '018' => 'bed_female',
             '019' => 'bed_pet'
         ],
-        
+
+        'kubun_type_value' => [
+            'transport' => '002',
+            'pick_up' => '003',
+            'course' => '005',
+            'gender' => '006',
+            'bed_male' => '017',
+            'bed_female' => '018',
+            'bed_pet' => '019'
+        ]
     ],
 
     'auth' => [
@@ -94,4 +103,6 @@ return [
             '10' => '⑩',
         ]
     ]
+
+
 ];

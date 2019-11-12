@@ -4,6 +4,8 @@
 
 .main-head__top .current-date {
   font-size: 1.2rem;
+  vertical-align: sub;
+  margin-top: 3px;
 }
 
 .main-head__top .icon-calendar {
@@ -21,6 +23,7 @@
   color: #000000;
   padding: 4px 11px;
   font-weight: 500;
+  vertical-align: sub;
 }
 
 .main-head__top .node-day {
@@ -33,12 +36,14 @@
 }
 
 .main-head__middle .middle_box {
-  width: 286px;
-  max-width: 100%;
   margin-right: 10px;
   padding: 7px;
   border: 1px solid #000000;
   height: 111px;
+}
+
+.main-head__middle .middle_box:last-child {
+  margin-right: 0;
 }
 
 .main-content {
@@ -93,28 +98,62 @@
   text-align: center;
 }
 
-.main-content__table .table-pet {
+.main-content__table .table-human table .node td {
+  padding: 1px;
+  border-top: unset;
+  border-bottom: unset;
+}
+
+.main-content__table .table-human table .node .time-male {
+  color: #ffffff;
+  background: #4472c4;
+}
+
+.main-content__table .table-human table .node .time-female {
+  color: #ffffff;
+  background: #ffc000;
+}
+
+.main-content__table .table-human table tbody tr:nth-child(2) td,
+.main-content__table .table-human table tbody tr:nth-child(6) td,
+.main-content__table .table-human table tbody tr:nth-child(10) td,
+.main-content__table .table-human table tbody tr:nth-child(14) td {
+  border-top: unset;
+}
+
+.main-content__table .table-pet,
+.main-content__table .table-morning {
   font-size: 0.85rem;
   width: 9rem;
 }
 
-.main-content__table .table-pet table {
+.main-content__table .table-pet table,
+.main-content__table .table-morning table {
   width: 100%;
 }
 
 .main-content__table .table-pet table td,
-.main-content__table .table-pet table th {
+.main-content__table .table-pet table th,
+.main-content__table .table-morning table td,
+.main-content__table .table-morning table th {
   border: 2px solid #ffffff;
   vertical-align: middle;
   text-align: center;
 }
 
-.main-content__table .table-pet table .odd {
+.main-content__table .table-pet table .odd,
+.main-content__table .table-morning table .odd {
   background: #ffe8cb;
 }
 
-.main-content__table .table-pet table .even {
+.main-content__table .table-pet table .even,
+.main-content__table .table-morning table .even {
   background: #fff4e7;
+}
+
+.main-content__table .table-pet tbody .odd,
+.main-content__table .table-morning tbody .odd {
+  height: 4rem;
 }
 
 .main-content__table .js-edit-info {
@@ -150,29 +189,21 @@
     font-size: 1.5vw !important;
   }
 
-  .table-pet tbody tr.odd td {
-    height: 4rem;
-  }
-
   .main-head__middle .middle_box {
     height: 11vw;
-    width: 30vw;
+    flex: 1;
   }
 }
 
 @media (min-width: 769px) {
   html,
   body {
-    font-size: 1vw !important;
-  }
-
-  .table-pet tbody tr.odd td {
-    height: 4rem;
+    font-size: 0.9vw !important;
   }
 
   .main-head__middle .middle_box {
     height: 7vw;
-    width: 30vw;
+    flex: 1;
   }
 }
 

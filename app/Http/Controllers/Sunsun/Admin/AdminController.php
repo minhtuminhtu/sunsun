@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sunsun\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Yoyaku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -23,9 +24,11 @@ class AdminController extends Controller
             $date = $time_now->format('Ymd');
         }
 
-        $data['data_date'] = DB::table('tr_yoyaku')->where('service_date_start',$date)->get();
+        $data['data_date'] = Yoyaku::where('service_date_start',$date)->get();
         $data['pick_up'] = $data['data_date']->where('pick_up','01');
         $data['lunch'] = $data['data_date']->where('lunch','02');
+        $data['kubun'] = MsKubun::where('kubun_type', '013')->get();
+
         return view('sunsun.admin.day',$data);
     }
 

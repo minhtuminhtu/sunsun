@@ -13,33 +13,6 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('common/css/reset.css')}}">
-    <style>
-
-        body {
-            font-family: "\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3", "Hiragino Kaku Gothic Pro", "\30E1\30A4\30EA\30AA", Meiryo, "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", sans-serif;
-        }
-
-        #js-loading {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            z-index: 1051;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        #js-loading img {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            top: calc(50vh - 50px);
-            left: calc(50vw - 50px);
-        }
-        footer {
-            padding-top: 20px;
-        }
-    </style>
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/base.css').config('version_files.html.css')}}">
     @yield('admincss')
