@@ -44,7 +44,6 @@ a:hover {
 
 .choice-time {
   display: flex;
-  padding-top: 5px;
 }
 
 .choice-time .label-data {
@@ -720,6 +719,7 @@ select {
 
 .color-active {
   background-color: #e0a800 !important;
+  border: 1px solid #e0a800 !important;
 }
 
 .margin-top-mini {

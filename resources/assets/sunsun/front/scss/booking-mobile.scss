@@ -42,7 +42,6 @@
     
     .choice-time {
         display: flex;
-        padding-top: 5px;
         .label-data {
             padding-left: 20px;
             padding-right: 10px;
@@ -560,14 +559,15 @@
     .line{
         display: flex;
         padding: 0 0px 0px 1.5rem !important;
-        margin-top: 10px;
+        margin-top: 2vw;
         .line1{
             width: 30%;
         }
         .line2{
             width: 70%;
             .line3{
-                padding-left: 30px !important;
+                padding-left: 5vw !important;
+                padding-right: 0.3vw !important;
             }
         }
     }

@@ -25,7 +25,7 @@
             <p class="text-left pt-2">{{config('booking.age.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <div class="age-col age mt-1">
+            <div class="age-col age">
                 <div class="age-left">
                     <select id="age_value"  name="age_value" class="form-control">
                             @php
@@ -78,7 +78,7 @@
             <p class="text-left pt-2">{{config('booking.range_time_eat.label')}}</p>
         </div>
         <div class="booking-field-100">
-            <p class="node-text multiple-date">
+            <p class="node-text multiple-date mb-1">
                 1日2回ずつ入浴時間を選択します
                 <br> 入浴の間は2時間以上空けてください。
             </p>

@@ -144,7 +144,7 @@ $(function () {
     var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
 
     if ($('#date').val() == "") {
-      $('#date').val(strToday + "(" + days_short[moment(new Date(strToday)).weekday()] + ")");
+      $('#date').val(strToday + "(" + days_short[moment(strToday).weekday()] + ")");
     }
 
     if ($('#range_date_start').val() == "") {
@@ -228,7 +228,7 @@ $(function () {
     });
 
     function change_day() {
-      var check = moment(new Date($('#date').val()));
+      var check = moment($('#date').val());
       $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
       $('#date-value').val(check.format('YYYYMMDD'));
       $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");

@@ -133,7 +133,7 @@ class BookingController extends Controller
             $Yoyaku->save();
         }
 
-        echo "done";
+        echo "Thanks you!";
         
         // $request->session()->forget($this->session_info);
     }

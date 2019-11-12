@@ -12,12 +12,12 @@
         </div>
     </div>
 
-    <div class="booking-field mb-1">
+    <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.age.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <div class="age-col age mt-1">
+            <div class="age-col age">
                 <div class="age-left">
                     <select id="age_value"  name="age_value" class="form-control">
                             @php
