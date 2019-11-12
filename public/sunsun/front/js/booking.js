@@ -252,20 +252,42 @@ $(function () {
     modal_choice_time.find('.modal-body-time').empty();
     $('.set-time').removeClass('edit');
   });
+  modal_choice_time.off('click');
   modal_choice_time.on('click', '#js-save-time', function (e) {
     var time = modal_choice_time.find('input[name=time]:checked').val();
+    var bed = modal_choice_time.find('input[name=time]:checked').parent().find('.bed').val();
     var num = $('.booking-time').length;
+    var time_value = time_value = time.replace(/[^0-9]/g, '');
 
     if ($('#new-time').val() == 1) {
-      $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + ']" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" /></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+      $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="" /><input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value=""><input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value=""></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
       load_time_delete_event();
       load_pick_time_event();
       $('.booking-time').last().val(time);
+      $('.time_value').last().val(time_value);
+      $('.time_bed').last().val(bed);
     } else {
       $('.set-time.edit input.time').val(time);
+      $('.set-time.edit input.time').parent().find('.time_value').val(time_value);
+      $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
     }
 
-    $('#time-value').val('1345');
+    $('.set-time.edit input.time').parent().find('#time1-value').val(time_value);
+    $('.set-time.edit input.time').parent().find('#time2-value').val(time_value);
+    $('.set-time.edit input.time').parent().find('#time1-bed').val(bed);
+    $('.set-time.edit input.time').parent().find('#time2-bed').val(bed);
+    $('.set-time.edit input.time').parent().find('#time_room_value').val(time_value);
+    $('.set-time.edit input.time').parent().find('#time_room_bed').val(bed);
+    $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
+    $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
+    $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
+
+    if (time.includes("～")) {
+      var res = time.split("～");
+      $('.set-time.edit input.time').parent().find('#time_room_time1').val(res[0].replace(/[^0-9]/g, ''));
+      $('.set-time.edit input.time').parent().find('#time_room_time2').val(res[1].replace(/[^0-9]/g, ''));
+    }
+
     modal_choice_time.modal('hide');
   });
   $('.btn-booking').click(function (e) {
@@ -300,8 +322,8 @@ $(function () {
     var check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
     if (!check) {
-      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date[' + 0 + '][day]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 0 + '][from]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 0 + '][to]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date[' + 1 + '][day]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 1 + '][from]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 1 + '][to]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date[' + 0 + '][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ><input name="date[' + 0 + '][day][value]" value="' + today.format('YYYY') + today.format('MM') + today.format('DD') + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 0 + '][from][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="0945" /><input name="date[' + 0 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 0 + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 0 + '][to][value]" type="hidden" class="time_to"  readonly="readonly" id="" value="1345" /><input name="date[' + 0 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 0 + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date[' + 1 + '][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ><input name="date[' + 1 + '][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD') + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 1 + '][from][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="0945" /><input name="date[' + 1 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 1 + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 1 + '][to][value]" type="hidden" class="time_to"  readonly="readonly" id="" value="1345" /><input name="date[' + 1 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 1 + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
     }
 
     $(".range_date").change(function () {
@@ -310,13 +332,16 @@ $(function () {
       moment.locale('ja');
       date_arr.forEach(function (element, index) {
         var check = moment(element);
+        var year = check.format('YYYY');
         var month = check.format('MM');
         var day = check.format('DD');
         var week_day = check.weekday();
-        $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date[' + index + '][day]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + index + '][from]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="9:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + index + '][to]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+        $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date[' + index + '][day][view]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ><input name="date[' + index + '][day][value]" value="' + year + month + day + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + index + '][from][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="0945" /><input name="date[' + index + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + index + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + index + '][to][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="1345" /><input name="date[' + index + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + index + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
       });
       var check2 = moment(new Date($('#plan_date_start').val()));
       var check1 = moment(new Date($('#plan_date_end').val()));
+      $('#plan_date_start-value').val(check2.format('YYYY') + check2.format('MM') + check2.format('DD'));
+      $('#plan_date_end-value').val(check1.format('YYYY') + check1.format('MM') + check1.format('DD'));
       $('#plan_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
       $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
       load_event();
@@ -468,6 +493,8 @@ var load_after_ajax = function load_after_ajax() {
   $('#range_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
   $('#range_date_start-value').val(today.format('YYYYMMDD'));
   $('#range_date_end-value').val(tomorrow.format('YYYYMMDD'));
+  $('#plan_date_start-value').val(today.format('YYYY') + today.format('MM') + today.format('DD'));
+  $('#plan_date_end-value').val(tomorrow.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD'));
   $('#plan_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
   $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
 };

@@ -67,9 +67,21 @@ return [
             '016' => 'ペット数',
             '017' => 'bed_male',
             '018' => 'bed_female',
-            '019' => 'bed_pet'
+            '019' => 'bed_pet',
+            '020' => 'Time Slide Pet',
+            '021' => 'Time Slide Whitening',
+            '022' => 'Breakfast',
+            '023' => 'Number lunch book',
         ],
-        
+        'tr_yoyaku_danjiki_jikan' => [
+            'BOOKING_ID' => 'booking_id',
+            'SERVICE_DATE' => 'service_date',
+            'SERVICE_TIME_1' => 'service_time_1',
+            'SERVICE_TIME_2' => 'service_time_2',
+            'NOTES' => 'notes'
+
+        ],
+       
     ],
 
     'auth' => [

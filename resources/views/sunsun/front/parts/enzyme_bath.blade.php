@@ -64,12 +64,12 @@
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
         </div>
-        <input name="time-view" id="time-view" type="hidden" value="">
-        <input name="time-value" id="time-value" type="hidden" value="1230">
-        <input name="bed" id="bed" type="hidden" value="1">
+
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time[0]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" />
+                <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" />
+                <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="1345">
+                <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="1">
             </div>
             <div class="time-content">
             </div>
@@ -124,7 +124,8 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
+                <input name='whitening-time_view' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
+                <input name='whitening-time_value' type="hidden" value="01"/>
             </div>
         </div>
     </div>

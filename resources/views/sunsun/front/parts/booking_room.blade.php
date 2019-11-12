@@ -14,6 +14,7 @@
             @foreach($data['bed'] as $bed)
             <td>
                 <div class="">
+                    <input type="hidden" class="bed" value="{{ $bed->kubun_value }}">
                     <input type="radio" name="time" value="{{ $time_slide_room->kubun_value }}">
                 </div>
             </td>

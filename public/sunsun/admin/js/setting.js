@@ -308,6 +308,10 @@ $(document).ready(function () {
     $('.btn-down').on('click', function () {
       $('#setting_update').modal('hide');
     });
+    $('.btn-cancel').off('click');
+    $('.btn-cancel').click(function () {
+      $('#setting_update').modal('hide');
+    });
     $('.btn-save').off('click');
     $('.btn-save').on('click', function () {
       var kubun_type = $('#setting-type').val();
