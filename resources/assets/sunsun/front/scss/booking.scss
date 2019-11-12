@@ -614,6 +614,16 @@ select {
     background-color: #e0a800 !important;
     border: 1px solid #e0a800 !important;
 }
+
+.data-field-day {
+    background: rgb(251, 229, 214);
+    margin-bottom: 15px;
+    line-height: 2.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-left: -10px;
+    margin-right: -10px;
+}
 .margin-top-mini{
    margin-top: 0.75vh !important;
 }
@@ -622,7 +632,7 @@ select {
     width: 2vw;
     padding-top: 0.75vh;
 }
-.custom-font-size{
+.custom-font-size {
     font-size: 1.15vw;
 }
 .bg-white{

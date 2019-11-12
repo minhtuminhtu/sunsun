@@ -4,6 +4,8 @@
 
         .current-date {
             font-size: 1.2rem;
+            vertical-align: sub;
+            margin-top: 3px;
         }
 
         .icon-calendar {
@@ -21,6 +23,7 @@
             color: #000000;
             padding: 4px 11px;
             font-weight: 500;
+            vertical-align: sub;
         }
 
         .node-day {
@@ -31,12 +34,13 @@
         display: flex;
         padding-top: 20px;
         .middle_box {
-            width: 286px;
-            max-width: 100%;
             margin-right: 10px;
             padding: 7px;
             border: 1px solid #000000;
             height: 111px;
+        }
+        .middle_box:last-child {
+            margin-right: 0;
         }
     }
 }
@@ -85,9 +89,31 @@
                     vertical-align: middle;
                     text-align: center;
                 }
+                .node {
+                    td {
+                        padding: 1px;
+                        border-top: unset;
+                        border-bottom: unset;
+                    }
+                    .time-male {
+                        color: #ffffff;
+                        background: rgb(68,114,196);
+                    }
+                    .time-female {
+                        color: #ffffff;
+                        background: rgb(255,192,0);
+                    }
+                }
+                tbody {
+                    tr:nth-child(2), tr:nth-child(6), tr:nth-child(10), tr:nth-child(14) {
+                        td {
+                            border-top: unset;
+                        }
+                    }
+                }
             }
         }
-        .table-pet {
+        .table-pet, .table-morning {
             font-size: 0.85rem;
             width: 9rem;
             table {
@@ -104,6 +130,12 @@
                     background: rgb(255,244,231);
                 }
             }
+            tbody .odd {
+                height: 4rem;
+            }
+        }
+        .js-edit-info {
+            cursor: pointer;
         }
     }
 }
@@ -126,25 +158,44 @@
 }
 @media (max-width: 768px) {
     html, body {
-        font-size: 1.5vw;
-    }
-    .table-pet tbody tr.odd td {
-        height: 4rem;
+        font-size: 1.5vw !important;
     }
     .main-head__middle .middle_box {
         height: 11vw;
-        width: 30vw;
+        flex: 1;
     }
 }
 @media (min-width: 769px) {
     html, body {
-        font-size: 0.9vw;
-    }
-    .table-pet tbody tr.odd td {
-        height: 4rem;
+        font-size: 0.9vw !important;
     }
     .main-head__middle .middle_box {
         height: 7vw;
-        width: 30vw;
+        flex: 1;
     }
 }
+.booking-warp.booking {
+    max-width: 36vw !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+.foot-confirm {
+    width: 24vw;
+    max-width: 24vw;
+    margin: 0 auto !important;
+}
+.booking-field {
+    display: flex;
+    padding-bottom: 1vh;
+}
+.booking-field .field-start-day {
+    padding-left: 20px;
+    padding-right: 5px;
+}
+.booking-field .booking-field-label {
+    width: 26% !important;
+}
+.booking-field .booking-field-content {
+    width: 74% !important;
+}
+

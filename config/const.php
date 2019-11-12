@@ -73,6 +73,17 @@ return [
             '022' => 'Breakfast',
             '023' => 'Number lunch book',
         ],
+
+        'kubun_type_value' => [
+            'transport' => '002',
+            'pick_up' => '003',
+            'course' => '005',
+            'gender' => '006',
+            'bed_male' => '017',
+            'bed_female' => '018',
+            'bed_pet' => '019'
+        ],
+
         'tr_yoyaku_danjiki_jikan' => [
             'BOOKING_ID' => 'booking_id',
             'SERVICE_DATE' => 'service_date',
@@ -81,7 +92,7 @@ return [
             'NOTES' => 'notes'
 
         ],
-       
+
     ],
 
     'auth' => [
@@ -106,4 +117,6 @@ return [
             '10' => '⑩',
         ]
     ]
+
+
 ];

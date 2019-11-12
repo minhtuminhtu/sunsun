@@ -94,9 +94,9 @@
 /***/ (function(module, exports) {
 
 $(function () {
-  var main_head__top = $('.main-head__top');
-  var current_day = $('.current-date');
-  var date_day = current_day.datepicker({
+  var main_head__top = $('.main-head__top'),
+      current_day = $('.current-date'),
+      date_day = current_day.datepicker({
     language: 'ja',
     dateFormat: 'yyyy/mm/dd',
     autoclose: true,
@@ -129,16 +129,31 @@ $(function () {
     date_day.datepicker("setDate", date);
     current_day.find('input').trigger("input");
   });
-  $('.info-name').popover({
-    html: true,
-    content: function content() {
-      var span_click = $(this);
-      return span_click.closest('td').find('.detail-content').clone();
-    },
-    title: function title() {
-      var span_click = $(this);
-      return span_click.closest('td').find('.detail-title').clone();
-    }
+  var booking_edit = $('#edit_booking');
+  $('.js-edit-booking').click(function (e) {
+    $.ajax({
+      url: '/admin/edit_booking',
+      type: 'POST',
+      data: {},
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        booking_edit.find('.mail-booking').html(html);
+        booking_edit.modal('show');
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+  $('.modal-dialog').draggable({
+    handle: ".modal-header"
   });
 });
 
@@ -151,7 +166,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
 
 
 /***/ })

@@ -12,6 +12,7 @@ class MsKubun extends Model
     // Table Name
     protected $table = 'ms_kubun';
 
+    protected $primaryKey = 'tr_yoyaku_id';
     // Timestamps
     public $timestamps = false;
     public function __construct(array $attributes = [])
@@ -25,4 +26,5 @@ class MsKubun extends Model
         ];
         parent::__construct($attributes);
     }
+
 }

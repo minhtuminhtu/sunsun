@@ -81,6 +81,10 @@ body {
   color: #FF0000;
 }
 
+.main-content table td .data-item .text-wt {
+  color: #b4c7e7;
+}
+
 .main-content table td .data-item .item {
   padding: 5px;
   font-weight: 700;

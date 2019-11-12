@@ -12,8 +12,10 @@ class Yoyaku extends Model
     // Table Name
     protected $table = 'tr_yoyaku';
 
+    protected $primaryKey = 'tr_yoyaku_id';
     // Timestamps
     public $timestamps = true;
+
     public function __construct(array $attributes = [])
     {
         $this->fillable = [
@@ -48,5 +50,44 @@ class Yoyaku extends Model
             config('const.db.tr_yoyaku.STAY_CHECKOUT_DATE')
         ];
         parent::__construct($attributes);
+    }
+
+    public function get_transport () {
+        return $this
+            ->hasOne('App\Models\MsKubun','kubun_id','transport')->where('kubun_type', '002');
+    }
+
+    public function get_pick_up () {
+        return $this
+            ->hasOne('App\Models\MsKubun','kubun_id','pick_up')->where('kubun_type', config('const.db.kubun_type_value.pick_up'));
+    }
+
+    public function get_course () {
+        return $this
+            ->hasOne('App\Models\MsKubun','kubun_id','course')->where('kubun_type', config('const.db.kubun_type_value.course'));
+    }
+
+    public function get_gender () {
+        return $this
+            ->hasOne('App\Models\MsKubun','kubun_id','gender')->where('kubun_type',  config('const.db.kubun_type_value.gender'));
+    }
+
+    public function get_bed () {
+        // service for bed
+        if ($this->get_course()->kubun_id == '05') {
+            return $this
+                ->hasOne('App\Models\MsKubun','kubun_id','bed')->where('kubun_type', config('const.db.kubun_type_value.bed_pet'));
+        }
+        // service for man
+        if ($this->get_gender()->kubun_id == '01') {
+            return $this
+                ->hasOne('App\Models\MsKubun','kubun_id','bed')->where('kubun_type',  config('const.db.kubun_type_value.bed_male'));
+        }
+        // service for women
+        if ($this->get_gender()->kubun_id == '02') {
+            return $this
+                ->hasOne('App\Models\MsKubun','kubun_id','bed')->where('kubun_type',  config('const.db.kubun_type_value.bed_female'));
+        }
+
     }
 }

@@ -6,37 +6,19 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
-    <style>
-        .data-field-day {
-            background: rgb(251,229,214);
-            margin-bottom: 15px;
-            line-height: 2.5rem;
-            font-size: 1.2rem;
-            text-align: center;
-            margin-left: -10px;
-            margin-right: -10px;
-        }
-    </style>
 @endsection
 @section('page_title', '予約入力')
 
-@section("booking_form")
-    @include('sunsun.front.parts.booking_form')
-@endsection
-@section("booking_modal")
-    @include('sunsun.front.parts.booking_modal')
-@endsection
-
 @section('main')
     <main class="main-body">
-        @yield('booking_form')
+        @include('sunsun.front.parts.booking_form')
     </main>
 @endsection
 
 @section('footer')
     @parent
     <!-- The Modal -->
-    @yield('booking_modal')
+    @include('sunsun.front.parts.booking_modal')
 @endsection
 @section('script')
     @parent
