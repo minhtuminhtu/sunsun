@@ -36,7 +36,8 @@
                             <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
                         </div>
                         <div class="booking-field-content">
-                            <input name="name" type="text" class="form-control date-book-input"  />
+                            <input name="name" type="text" class="form-control date-book-input" maxlength="255" required/>
+                            <!-- <p class="node-text text-red">Name is required!</p> -->
                         </div>
                     </div>
                     <div class="booking-field">
@@ -45,7 +46,8 @@
                             <p class="node-text">当日の連絡先</p>
                         </div>
                         <div class="booking-field-content">
-                            <input name="phone" type="text" class="form-control date-book-input"  />
+                            <input name="phone" type="text" class="form-control date-book-input" maxlength="255" required/>
+                            <!-- <p class="node-text text-red">Phone is required!</p> -->
                         </div>
                     </div>
                     <div class="booking-field">
@@ -53,7 +55,8 @@
                             <p class="text-md-left pt-2">{{config('booking.email.label')}}</p>
                         </div>
                         <div class="booking-field-content">
-                            <input name="email" type="text" class="form-control date-book-input"  />
+                            <input name="email" type="text" class="form-control date-book-input" maxlength="255" required/>
+                            <!-- <p class="node-text text-red">Email is required!</p> -->
                         </div>
                     </div>
                     <div class="booking-field">

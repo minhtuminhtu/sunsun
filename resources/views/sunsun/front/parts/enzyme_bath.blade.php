@@ -29,7 +29,7 @@
                 <input id="agecheck" name='age_type' type="hidden" value="3">
                 <div class="button-age-left">
                     <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck" value="1">{{config('booking.age.age1')}}</button>
-                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark  margin-top-mini mx-0 agecheck" value="3">{{config('booking.age.age3')}}</button>
+                    <button type="button" class="btn btn-block form-control color-active text-dark  margin-top-mini mx-0 agecheck" value="3">{{config('booking.age.age3')}}</button>
                 </div>
                 <div class="button-age-right">
                     <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck" value="2">学生<span class="node-text">(中学生以上)</span></button>
@@ -64,12 +64,12 @@
         <div class="booking-field-label  booking-laber-padding">
             <p class="text-left pt-2">{{config('booking.time.label')}}</p>
         </div>
-        <input name="time-view" id="time-view" type="hidden" value="">
-        <input name="time-value" id="time-value" type="hidden" value="1230">
-        <input name="bed" id="bed" type="hidden" value="1">
+
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time[0]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" />
+                <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="13:45" />
+                <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="1345">
+                <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="1">
             </div>
             <div class="time-content">
             </div>
@@ -77,7 +77,7 @@
             <div class="block-content-2 margin-top-mini">
                 <div class="block-content-2-left"></div>
                 <div class="block-content-2-right">
-                    <button type="button" class="btn btn-block form-control btn-outline-warning  color-active text-dark" id="add-time">時間追加</button>
+                    <button type="button" class="btn btn-block form-control color-active text-dark" id="add-time">時間追加</button>
                 </div>
             </div>
         </div>
@@ -124,7 +124,8 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
+                <input name='whitening-time_view' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
+                <input name='whitening-time_value' type="hidden" value="01"/>
             </div>
         </div>
     </div>
@@ -186,7 +187,7 @@
         <div class="booking-field booking-room input-daterange" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">{{config('booking.range_date.checkin')}}</p>
-                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
+                <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
             </div>
             <div class="">
                 <p>&nbsp;</p>

@@ -22,6 +22,8 @@
         <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
+                <input name="time_room_time1" id="time_room_time1" type="hidden" value="0930">
+                <input name="time_room_time2" id="time_room_time2" type="hidden" value="1030">
                 <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="9:30～10:30">
             </div>
 
@@ -44,7 +46,7 @@
             <p class="text-left pt-2">{{config('booking.pet_type.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <textarea class="form-control" name='notes' rows="3"></textarea>
+            <textarea class="form-control" maxlength="255" name='notes' rows="3"></textarea>
         </div>
     </div>
 </div>

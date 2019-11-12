@@ -21,7 +21,9 @@
         <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time_room" type="text" class="form-control time js-set-room bg-white"  readonly="readonly" id="" value="9:45～">
+                <input name="time_room_value" id="time_room_value" type="hidden" value="0945">
+                <input name="time_room_bed" id="time_room_bed" type="hidden" value="1">
+                <input name="time_room_view" type="text" class="form-control time js-set-room bg-white"  readonly="readonly" id="" value="9:45～">
             </div>
 
         </div>
@@ -52,7 +54,6 @@
         </div>
         <div class="booking-field-content">
             <select name="lunch_guest_num" class="form-control">
-                <option value='{"kubun_type":"015","kubun_id":"00","kubun_value":"無し","sort_no":0,"notes":"0"}'>無し</option>
                 @foreach($lunch_guest_num as $value)
                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                 @endforeach
@@ -79,7 +80,8 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
+                <input name='whitening-time_view' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
+                <input name='whitening-time_value' type="hidden" value="1345"/>
             </div>
         </div>
     </div>

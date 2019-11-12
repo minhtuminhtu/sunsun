@@ -29,7 +29,7 @@
   }
 
   .node-text {
-    font-size: 0.7rem;
+    font-size: 3vw;
   }
 
   .node-text.multiple-date {
@@ -59,7 +59,6 @@
 
   .choice-time .choice-data-time {
     float: left;
-    margin-left: 4.25vw;
   }
 
   .choice-time .choice-data-time > div {
@@ -67,7 +66,7 @@
   }
 
   .choice-time .choice-data-time > div input {
-    width: 25vw;
+    width: 28vw;
   }
 
   main .main-body-head h1 {
@@ -612,7 +611,7 @@
   }
 
   .body-confirm {
-    margin: 2.5vw 2.5vw 0px 2.5vw;
+    margin: 0 2.5vw 0 2.5vw;
     padding: 2.5vw 0px;
     background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg2.png");
   }
@@ -685,10 +684,6 @@
     font-size: 4vw;
   }
 
-  .node-text {
-    font-size: 3vw;
-  }
-
   .form-control {
     font-size: 4vw;
   }
@@ -730,6 +725,13 @@
 
   .custom-font-size {
     font-size: 3.5vw !important;
+  }
+
+  .datepicker td,
+  .datepicker th {
+    width: 8vw;
+    height: 8vw;
+    font-size: 4vw;
   }
 }
 

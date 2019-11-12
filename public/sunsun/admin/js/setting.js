@@ -95,7 +95,8 @@
 
 $(document).ready(function () {
   var get_setting_kubun_type = function get_setting_kubun_type() {
-    $('#new').click(function () {
+    $('#new').off('click');
+    $('#new').on('click', function () {
       var kubun_type = $('#setting-type').val(); // AJAX request
 
       $.ajax({
@@ -124,6 +125,7 @@ $(document).ready(function () {
         }
       });
     });
+    $('#check_all').off('change');
     $('#check_all').on('change', function () {
       if ($(this).prop('checked')) {
         $('.checkbox').prop('checked', true);
@@ -133,6 +135,7 @@ $(document).ready(function () {
         $('.update-edit').hide();
       }
     });
+    $('.checkbox').off('change');
     $('.checkbox').on('change', function () {
       if ($('.checkbox').filter(':checked').length > 0) {
         $('.update-edit').show();
@@ -146,7 +149,8 @@ $(document).ready(function () {
         $('#check_all').prop('checked', false);
       }
     });
-    $('.kubun_value').click(function () {
+    $('.kubun_value').off('click');
+    $('.kubun_value').on('click', function () {
       var parent = $(this).parent().parent();
       var kubun_id = parent.find('.kubun_id').text();
       var kubun_type = $('#setting-type').val();
@@ -177,7 +181,8 @@ $(document).ready(function () {
         }
       });
     });
-    $('#btn-update').click(function () {
+    $('#btn-update').off('click');
+    $('#btn-update').on('click', function () {
       var kubun_id = $('.checkbox').filter(':checked').first().val();
       var kubun_type = $('#setting-type').val();
       $.ajax({
@@ -207,7 +212,8 @@ $(document).ready(function () {
         }
       });
     });
-    $('#btn-delete').click(function () {
+    $('#btn-delete').off('click');
+    $('#btn-delete').on('click', function () {
       var string_delete = "";
       var arr_delete = [];
       $('.checkbox').filter(':checked').each(function (index) {
@@ -241,7 +247,8 @@ $(document).ready(function () {
         });
       }
     });
-    $('.btn-up').click(function () {
+    $('.btn-up').off('click');
+    $('.btn-up').on('click', function () {
       var sort_no = $(this).parent().parent().find('.sort_no').text();
       var kubun_type = $('#setting-type').val();
       $.ajax({
@@ -267,7 +274,8 @@ $(document).ready(function () {
         }
       });
     });
-    $('.btn-down').click(function () {
+    $('.btn-down').off('click');
+    $('.btn-down').on('click', function () {
       var sort_no = $(this).parent().parent().find('.sort_no').text();
       var kubun_type = $('#setting-type').val();
       $.ajax({
@@ -296,10 +304,16 @@ $(document).ready(function () {
   };
 
   var load_modal_function = function load_modal_function() {
+    $('.btn-down').off('click');
+    $('.btn-down').on('click', function () {
+      $('#setting_update').modal('hide');
+    });
+    $('.btn-cancel').off('click');
     $('.btn-cancel').click(function () {
       $('#setting_update').modal('hide');
     });
-    $('.btn-save').click(function () {
+    $('.btn-save').off('click');
+    $('.btn-save').on('click', function () {
       var kubun_type = $('#setting-type').val();
       var kubun_id = $('#kubun_id').val();
       var kubun_value = $('#kubun_value').val();
@@ -368,6 +382,7 @@ $(document).ready(function () {
     });
   };
 
+  $('#setting-type').off('change');
   $('#setting-type').on('change', function () {
     get_setting_type();
   });

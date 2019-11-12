@@ -51,6 +51,8 @@
             <p class="text-left pt-2   booking-laber-padding">{{config('booking.range_date_eat.label')}}</p>
         </div>
     </div>
+    <input name="plan_date_start-value" id="plan_date_start-value" type="hidden" value="">
+    <input name="plan_date_end-value" id="plan_date_end-value" type="hidden" value="">
     <input name="plan_date_start-view" id="plan_date_start-view" type="hidden" value="">
     <input name="plan_date_end-view" id="plan_date_end-view" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">

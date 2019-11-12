@@ -28,7 +28,7 @@ a:hover {
 }
 
 .node-text {
-  font-size: 0.7rem;
+  font-size: 0.8vw;
 }
 
 .node-text.multiple-date {
@@ -54,7 +54,6 @@ a:hover {
 
 .choice-time .choice-data-time {
   float: left;
-  margin-left: 1.15vw;
 }
 
 .choice-time .choice-data-time > div {
@@ -62,7 +61,11 @@ a:hover {
 }
 
 .choice-time .choice-data-time > div input {
-  width: 8.27vw;
+  width: 9vw;
+}
+
+.time-end {
+  float: right !important;
 }
 
 main .main-body-head h1 {
@@ -546,7 +549,7 @@ label.form-check-label {
 .booking-line .booking-line-laber {
   padding-left: 0.75vw;
   margin-bottom: 1vh;
-  font-size: 1.25vw;
+  font-size: 1.15vw;
 }
 
 .booking-field-label.age-css {
@@ -598,14 +601,14 @@ a.no-effect {
 .header-confirm {
   border: 1px solid #402106;
   background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg.png");
-  padding-bottom: 10px;
-  padding-top: 10px;
-  margin: 0px 10px;
+  padding-bottom: 0.75vw;
+  padding-top: 0.75vw;
+  margin: 0px 0.75vw;
 }
 
 .body-confirm {
-  margin: 10px 10px 0px 10px;
-  padding: 10px 0px;
+  margin: 0px 0.75vw 0px 0.75vw;
+  padding: 0.75vw 0px;
   background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg2.png");
 }
 
@@ -670,27 +673,23 @@ a.no-effect {
 }
 
 body {
-  font-size: 1.25vw;
-}
-
-.node-text {
-  font-size: 1vw;
+  font-size: 1.15vw;
 }
 
 .form-control {
-  font-size: 1.25vw;
+  font-size: 1.15vw;
 }
 
 .btn {
-  font: 400 1.25vw Arial;
+  font: 400 1.15vw Arial;
 }
 
 .main-text {
-  font-size: 1.25vw;
+  font-size: 1.15vw;
 }
 
 select {
-  font-size: 1.25vw;
+  font-size: 1.15vw;
 }
 
 .button-age {
@@ -749,6 +748,7 @@ select {
 
 .bg-white {
   background-color: #fff;
+  cursor: pointer;
 }
 
 #choice_date_time {
@@ -759,5 +759,12 @@ select {
   border-color: #e0a800;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #e0a800;
   outline: 0 none;
+}
+
+.datepicker td,
+.datepicker th {
+  width: 2.52vw;
+  height: 2.52vw;
+  font-size: 1.15vw;
 }
 

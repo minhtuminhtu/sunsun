@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\MsKubun;
 use App\Models\Yoyaku;
+use App\Models\YoyakuDanjikiJikan;
 use Illuminate\Support\Collection;
 
 class BookingController extends Controller
@@ -111,6 +112,7 @@ class BookingController extends Controller
             return redirect("/booking");
         }
 
+
         // dd($data);
         $parent = true;
         $parent_id = NULL;
@@ -119,12 +121,14 @@ class BookingController extends Controller
             if($parent){
                 $parent_id = $Yoyaku->booking_id = $this->get_booking_id();
                 $Yoyaku->ref_booking_id = NULL;
-                $this->set_booking_course($Yoyaku, $data, $customer);
+                $this->set_booking_course($Yoyaku, $data, $customer,$parent);
+                $this->set_yoyaku_danjiki_jikan($customer, $parent_id);
                 $parent = false;
             }else{
-                $Yoyaku->booking_id = $this->get_booking_id();
+                $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
                 $Yoyaku->ref_booking_id = $parent_id;
-                $this->set_booking_course($Yoyaku, $data, $customer);
+                $this->set_booking_course($Yoyaku, $data, $customer,$parent);
+                $this->set_yoyaku_danjiki_jikan($customer, $booking_id);
             }
             $Yoyaku->save();
         }
@@ -133,7 +137,40 @@ class BookingController extends Controller
         
         // $request->session()->forget($this->session_info);
     }
-    public function set_booking_course(&$Yoyaku, $data, $customer){
+
+    public function set_yoyaku_danjiki_jikan($customer, $parent_id){ 
+        $course = json_decode($customer['course']);
+        if($course->kubun_id == '01'){
+            $date = isset($customer['date-value'])?$customer['date-value']:"";
+            foreach($customer['time'] as $time){
+                $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
+                $YoyakuDanjikiJikan->booking_id = $parent_id;
+                $YoyakuDanjikiJikan->service_date = $date;
+                $YoyakuDanjikiJikan->service_time_1 = $time['value'];
+                $YoyakuDanjikiJikan->notes = $time['bed'];
+                $YoyakuDanjikiJikan->save();
+            } 
+        }elseif($course->kubun_id == '04'){
+            $plan_date_start = isset($customer['plan_date_start-value'])?$customer['plan_date_start-value']:"";
+            $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
+
+            foreach($customer['date'] as $date){
+                $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
+                $YoyakuDanjikiJikan->booking_id = $parent_id;
+                $YoyakuDanjikiJikan->service_date = $date['day']['value'];
+                $YoyakuDanjikiJikan->service_time_1 = $date['from']['value'];
+                $YoyakuDanjikiJikan->service_time_2 = $date['to']['value'];
+                $YoyakuDanjikiJikan->notes = $date['from']['bed'] . "-" . $date['to']['bed'];
+
+                $YoyakuDanjikiJikan->save();
+            } 
+        }
+    }
+
+
+
+
+    public function set_booking_course(&$Yoyaku, $data, $customer,$parent){
         $email = $data['email'];
         $repeat_user = json_decode($customer['repeat_user']);
         $transport = json_decode($data['customer']['transport']);
@@ -160,10 +197,14 @@ class BookingController extends Controller
         $service_guest_num = isset($customer['service_guest_num'])?json_decode($customer['service_guest_num']):"";
         $stay_checkout_date = isset($customer['notes'])?json_decode($customer['notes']):"";
         $service_pet_num = isset($customer['service_pet_num'])?json_decode($customer['service_pet_num']):"";
+        $breakfast = isset($customer['breakfast'])?json_decode($customer['breakfast']):"";
+
+        
 
         $Yoyaku->email = $email;
         $Yoyaku->repeat_user = $repeat_user->kubun_id;
         $Yoyaku->transport = $transport->kubun_id;
+
         if($transport->kubun_id == '02'){
             $Yoyaku->bus_arrive_time_slide = $bus_arrive_time_slide->kubun_id;
             $Yoyaku->pick_up = $pick_up->kubun_id;
@@ -180,86 +221,124 @@ class BookingController extends Controller
             $Yoyaku->gender = $gender->kubun_id;
             $Yoyaku->age_type = $age_type;
             $Yoyaku->age_value = $age_value;
-            $Yoyaku->service_date_start = $date;
             $Yoyaku->service_time_1 = $time;
             $Yoyaku->bed = $bed;
             $Yoyaku->lunch = $lunch->kubun_id;
             $Yoyaku->whitening = $whitening->kubun_id;
-            $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
-            $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
-
-            if($stay_room_type->kubun_id != '01'){
-                $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
-                $Yoyaku->stay_checkin_date = $stay_checkin_date;
-                $Yoyaku->stay_checkout_date = $stay_checkout_date;
+            if($whitening->kubun_id == '02'){
+                $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $Yoyaku->whitening_time = $whitening_time;
             }
+            $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
+            
+            if($parent){
+                $Yoyaku->service_date_start = $date;
+                $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
+                if($stay_room_type->kubun_id != '01'){
+                    $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
+                    $Yoyaku->stay_checkin_date = $stay_checkin_date;
+                    $Yoyaku->stay_checkout_date = $stay_checkout_date;
+                    $Yoyaku->breakfast = $breakfast->kubun_id;
+                }
+            }
+            
+
+            
         }elseif($course->kubun_id == '02'){
             $date = isset($customer['date-value'])?$customer['date-value']:"";
             $time1 = isset($customer['time1-value'])?$customer['time1-value']:"";
             $time2 = isset($customer['time2-value'])?$customer['time2-value']:"";
+            $bed1 = isset($customer['time1-bed'])?$customer['time1-bed']:"";
+            $bed2 = isset($customer['time2-bed'])?$customer['time2-bed']:"";
             $stay_checkin_date = isset($customer['range_date_start-value'])?$customer['range_date_start-value']:"";
             $stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
 
             $Yoyaku->gender = $gender->kubun_id;
             $Yoyaku->age_value = $age_value;
-            $Yoyaku->service_date_start = $date;
             $Yoyaku->service_time_1 = $time1;
             $Yoyaku->service_time_2 = $time2;
+            $Yoyaku->bed = $bed1 . "-" .  $bed2;
             $Yoyaku->whitening = $whitening->kubun_id;
+            if($whitening->kubun_id == '02'){
+                $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $Yoyaku->whitening_time = $whitening_time;
+            }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
-            $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
-
-            if($stay_room_type->kubun_id != '01'){
-                $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
-                $Yoyaku->stay_checkin_date = $stay_checkin_date;
-                $Yoyaku->stay_checkout_date = $stay_checkout_date;
+        
+            if($parent){
+                $Yoyaku->service_date_start = $date;
+                $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
+                if($stay_room_type->kubun_id != '01'){
+                    $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
+                    $Yoyaku->stay_checkin_date = $stay_checkin_date;
+                    $Yoyaku->stay_checkout_date = $stay_checkout_date;
+                    $Yoyaku->breakfast = $breakfast->kubun_id;
+                }
             }
 
         }elseif($course->kubun_id == '03'){
             $date = isset($customer['date-value'])?$customer['date-value']:"";
-            $time = isset($customer['time-value'])?$customer['time-value']:"";
+            $time = isset($customer['time_room_value'])?$customer['time_room_value']:"";
+            $bed = isset($customer['time_room_bed'])?$customer['time_room_bed']:"";
             $stay_checkin_date = isset($customer['range_date_start-value'])?$customer['range_date_start-value']:"";
             $stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
-            
-            $Yoyaku->service_date_start = $date;
+
             $Yoyaku->service_time_1 = $time;
+            $Yoyaku->bed = $bed;
             $Yoyaku->service_guest_num = $service_guest_num->kubun_id;
             $Yoyaku->lunch_guest_num = $lunch_guest_num->kubun_id;
             $Yoyaku->whitening = $whitening->kubun_id;
+            if($whitening->kubun_id == '02'){
+                $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $Yoyaku->whitening_time = $whitening_time;
+            }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
-            $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
 
-            if($stay_room_type->kubun_id != '01'){
-                $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
-                $Yoyaku->stay_checkin_date = $stay_checkin_date;
-                $Yoyaku->stay_checkout_date = $stay_checkout_date;
+            if($parent){
+                $Yoyaku->service_date_start = $date;
+                $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
+                if($stay_room_type->kubun_id != '01'){
+                    $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
+                    $Yoyaku->stay_checkin_date = $stay_checkin_date;
+                    $Yoyaku->stay_checkout_date = $stay_checkout_date;
+                    $Yoyaku->breakfast = $breakfast->kubun_id;
+                }
             }
 
         }elseif($course->kubun_id == '04'){
-            $date = isset($customer['date-value'])?$customer['date-value']:"";
-            $time = isset($customer['time-value'])?$customer['time-value']:"";
-            $notes = isset($customer['notes'])?$customer['notes']:"";
-
-            $Yoyaku->service_date_start = $date;
-            $Yoyaku->service_time_1 = $time;
-            $Yoyaku->service_pet_num = $service_pet_num->kubun_id;
-            $Yoyaku->notes = $notes;
-
-
-        }elseif($course->kubun_id == '05'){
             $stay_checkin_date = isset($customer['range_date_start-value'])?$customer['range_date_start-value']:"";
             $stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
 
+            $plan_date_start = isset($customer['plan_date_start-value'])?$customer['plan_date_start-value']:"";
+            $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
+
             $Yoyaku->gender = $gender->kubun_id;
             $Yoyaku->age_value = $age_value;
-
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
-            $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
 
-            if($stay_room_type->kubun_id != '01'){
-                $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
-                $Yoyaku->stay_checkin_date = $stay_checkin_date;
-                $Yoyaku->stay_checkout_date = $stay_checkout_date;
+            if($parent){
+                $Yoyaku->service_date_start = $plan_date_start;
+                $Yoyaku->service_date_end = $plan_date_end;
+                $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
+                if($stay_room_type->kubun_id != '01'){
+                    $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
+                    $Yoyaku->stay_checkin_date = $stay_checkin_date;
+                    $Yoyaku->stay_checkout_date = $stay_checkout_date;
+                }
+            }
+        }elseif($course->kubun_id == '05'){
+            $date = isset($customer['date-value'])?$customer['date-value']:"";
+            $time1 = isset($customer['time_room_time1'])?$customer['time_room_time1']:"";
+            $time2 = isset($customer['time_room_time2'])?$customer['time_room_time2']:"";
+            $notes = isset($customer['notes'])?$customer['notes']:"";
+
+            $Yoyaku->service_time_1 = $time1;
+            $Yoyaku->service_time_2 = $time2;
+            $Yoyaku->service_pet_num = $service_pet_num->kubun_id;
+            $Yoyaku->notes = $notes;
+
+            if($parent){
+                $Yoyaku->service_date_start = $date;
             }
         }
         
@@ -333,7 +412,7 @@ class BookingController extends Controller
         $data['time_slide'] = $MsKubun->where('kubun_type','013')->sortBy('sort_no');
         $data['time_slide_room'] = $MsKubun->where('kubun_type','014')->sortBy('sort_no');
 
-        $data['lunch_guest_num'] = $MsKubun->where('kubun_type','015')->sortBy('sort_no');
+        $data['lunch_guest_num'] = $MsKubun->where('kubun_type','023')->sortBy('sort_no');
         $data['service_guest_num'] = $MsKubun->where('kubun_type','015')->sortBy('sort_no');
         $data['service_pet_num'] = $MsKubun->where('kubun_type','016')->sortBy('sort_no');
 

@@ -1,5 +1,6 @@
 
 <div>
+    <input type="hidden" id="new-time" value="{{ isset($data['new'])?$data['new']:'' }}">
     <div class="title-table-time">
         <span class="font-weight-bold">{{$data['gender']}}</span> {{----}}
     </div>
@@ -19,6 +20,7 @@
                 @foreach($data['bed'] as $bed)
                     <td>
                         <div class="">
+                            <input type="hidden" class="bed" value="{{ $bed->kubun_value }}">
                             <input type="radio" name="time" value="{{$time_slide->kubun_value}}">
                         </div>
                 @endforeach
