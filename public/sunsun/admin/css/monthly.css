@@ -32,65 +32,6 @@ body {
   margin-left: 38px;
 }
 
-.main-content {
-  padding-top: 10px;
-}
-
-.main-content table {
-  width: 100%;
-}
-
-.main-content table th {
-  border: 2px solid #000000;
-}
-
-.main-content table td,
-.main-content table th {
-  vertical-align: middle;
-  text-align: center;
-}
-
-.main-content table tr.week-number {
-  border-top: 2px solid #000000;
-}
-
-.main-content table tr.time-night {
-  border-bottom: 2px solid #000000;
-}
-
-.main-content table td {
-  border-right: 2px solid #000000;
-  border-left: 2px solid #000000;
-  border-bottom: 1px ridge #c5c5c5;
-}
-
-.main-content table td .data-item {
-  display: flex;
-  justify-content: center;
-}
-
-.main-content table td .data-item .text-blue {
-  color: #0070c0;
-}
-
-.main-content table td .data-item .text-yellow {
-  color: #bf9000;
-}
-
-.main-content table td .data-item .text-red {
-  color: #FF0000;
-}
-
-.main-content table td .data-item .text-wt {
-  color: #b4c7e7;
-}
-
-.main-content table td .data-item .item {
-  padding: 5px;
-  font-weight: 700;
-  font-size: 1.5rem;
-}
-
 @media (width: 768px) {
   html,
   body {
@@ -106,5 +47,75 @@ body {
   .main-content table tr.time-night {
     font-size: 0.75rem;
   }
+}
+
+.table-header.header {
+  margin-top: 1vw;
+}
+
+.table-header.header .table-col {
+  padding: 0.2vw 0;
+}
+
+.table-header {
+  display: flex;
+  border: 2px solid #000;
+  margin-top: -2px;
+}
+
+.table-header .table-col {
+  flex-basis: 100%;
+  text-align: center;
+  border-right: 2px solid #000;
+}
+
+.table-col.last-col {
+  border-right: 0px;
+}
+
+.data-item-head {
+  padding-top: 0.3vw;
+}
+
+.data-item {
+  display: flex;
+  border-top: 1px ridge #c5c5c5;
+  padding: 0.2vw 0;
+}
+
+.data-item .item {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+.text-blue {
+  color: #0070c0;
+}
+
+.text-yellow {
+  color: #bf9000;
+}
+
+.text-red {
+  color: #FF0000;
+}
+
+.text-wt {
+  color: #b4c7e7;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome, Opera and Firefox */
 }
 

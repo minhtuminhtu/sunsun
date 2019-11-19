@@ -31,55 +31,7 @@ html, body {
         }
     }
 }
-.main-content {
-    padding-top: 10px;
-    table {
-        width: 100%;
 
-        th {
-            border: 2px solid #000000;
-        }
-        td, th {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        tr.week-number {
-            border-top: 2px solid #000000;
-        }
-
-        tr.time-night {
-            border-bottom: 2px solid #000000;
-        }
-        td {
-            border-right: 2px solid #000000;
-            border-left: 2px solid #000000;
-            border-bottom: 1px ridge #c5c5c5;
-            .data-item {
-                display: flex;
-                justify-content: center;
-                .text-blue {
-                    color: rgb(0,112,192);
-                }
-                .text-yellow {
-                    color: rgb(191,144,0);
-                }
-                .text-red {
-                    color: #FF0000;
-                }
-                .text-wt {
-                    color: rgb(180,199,231);
-                }
-                .item {
-                    padding: 5px;
-                    font-weight: 700;
-                    font-size: 1.5rem;
-                }
-            }
-
-        }
-    }
-}
 @media (width: 768px) {
     html, body {
         font-size: 2vw;
@@ -103,3 +55,56 @@ html, body {
 
     }
 }
+.table-header.header{
+    margin-top: 1vw;
+    .table-col{
+        padding: 0.2vw 0;
+    }
+}
+.table-header{
+    display: flex;
+    border: 2px solid #000;
+    margin-top: -2px;
+    .table-col{
+        flex-basis: 100%;
+        text-align: center;
+        border-right: 2px solid #000;
+    }
+}
+.table-col.last-col{
+    border-right: 0px;
+}
+.data-item-head{
+    padding-top: 0.3vw;
+}
+.data-item{
+    display: flex;
+    border-top: 1px ridge #c5c5c5;
+    padding: 0.2vw 0;
+    .item{
+        flex-basis: 100%;
+        text-align: center;
+    }
+}
+.text-blue {
+    color: rgb(0,112,192);
+}
+.text-yellow {
+    color: rgb(191,144,0);
+}
+.text-red {
+    color: #FF0000;
+}
+.text-wt {
+    color: rgb(180,199,231);
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+  }
+

@@ -34,4 +34,7 @@ $(function () {
         current_day.find('input').trigger("input");
     });
 
+
+    
+
 });

@@ -101,7 +101,7 @@
                     </div>
                     <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input payment-method" id="credit-card" name="payment-method" checked>
+                            <input type="radio" class="custom-control-input payment-method" id="credit-card" name="payment-method" value="1" checked>
                             <label class="custom-control-label" for="credit-card">クレジットカード</label>
                         </div>
                     </div>
@@ -126,13 +126,13 @@
                     </div>
                     <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input payment-method" id="local-cash" name="payment-method">
+                            <input type="radio" class="custom-control-input payment-method" name="payment-method" value="2"  id="local-cash">
                             <label class="custom-control-label" for="local-cash">現地現金</label>
                         </div>
                     </div>
                     <div class="pl-4 mt-2">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input payment-method" id="coupon" name="payment-method">
+                            <input type="radio" class="custom-control-input payment-method" name="payment-method" value="3"  id="coupon">
                             <label class="custom-control-label" for="coupon">回数券</label>
                         </div>
                     </div>

@@ -282,10 +282,15 @@ $(function () {
     $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
     $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
 
+    function pad(n, width) {
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    }
+
     if (time.includes("～")) {
       var res = time.split("～");
-      $('.set-time.edit input.time').parent().find('#time_room_time1').val(res[0].replace(/[^0-9]/g, ''));
-      $('.set-time.edit input.time').parent().find('#time_room_time2').val(res[1].replace(/[^0-9]/g, ''));
+      $('.set-time.edit input.time').parent().find('#time_room_time1').val(pad(res[0].replace(/[^0-9]/g, ''), 4));
+      $('.set-time.edit input.time').parent().find('#time_room_time2').val(pad(res[1].replace(/[^0-9]/g, ''), 4));
     }
 
     modal_choice_time.modal('hide');
@@ -535,7 +540,7 @@ load_once_time();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

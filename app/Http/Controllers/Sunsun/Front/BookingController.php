@@ -116,19 +116,21 @@ class BookingController extends Controller
         // dd($data);
         $parent = true;
         $parent_id = NULL;
+        $parent_date = NULL;
         foreach($data['customer']['info'] as $customer){
             $Yoyaku = new Yoyaku;
             if($parent){
                 $parent_id = $Yoyaku->booking_id = $this->get_booking_id();
+                $parent_date = isset($customer['date-value'])?$customer['date-value']:"";
                 $Yoyaku->ref_booking_id = NULL;
                 $this->set_booking_course($Yoyaku, $data, $customer,$parent);
-                $this->set_yoyaku_danjiki_jikan($customer, $parent_id);
+                $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                 $parent = false;
             }else{
                 $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
                 $Yoyaku->ref_booking_id = $parent_id;
                 $this->set_booking_course($Yoyaku, $data, $customer,$parent);
-                $this->set_yoyaku_danjiki_jikan($customer, $booking_id);
+                $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
             }
             $Yoyaku->save();
         }
@@ -138,14 +140,13 @@ class BookingController extends Controller
         // $request->session()->forget($this->session_info);
     }
 
-    public function set_yoyaku_danjiki_jikan($customer, $parent_id){ 
+    public function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){ 
         $course = json_decode($customer['course']);
         if($course->kubun_id == '01'){
-            $date = isset($customer['date-value'])?$customer['date-value']:"";
             foreach($customer['time'] as $time){
                 $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
                 $YoyakuDanjikiJikan->booking_id = $parent_id;
-                $YoyakuDanjikiJikan->service_date = $date;
+                $YoyakuDanjikiJikan->service_date = $parent_date;
                 $YoyakuDanjikiJikan->service_time_1 = $time['value'];
                 $YoyakuDanjikiJikan->notes = $time['bed'];
                 $YoyakuDanjikiJikan->save();
@@ -171,7 +172,10 @@ class BookingController extends Controller
 
 
     public function set_booking_course(&$Yoyaku, $data, $customer,$parent){
+        $name = $data['name'];
+        $phone = $data['phone'];
         $email = $data['email'];
+        $payment_method = $data['payment-method'];
         $repeat_user = json_decode($customer['repeat_user']);
         $transport = json_decode($data['customer']['transport']);
         $bus_arrive_time_slide = json_decode($data['customer']['bus_arrive_time_slide']);
@@ -200,8 +204,10 @@ class BookingController extends Controller
         $breakfast = isset($customer['breakfast'])?json_decode($customer['breakfast']):"";
 
         
-
+        $Yoyaku->name = $name;
+        $Yoyaku->phone = $phone;
         $Yoyaku->email = $email;
+        $Yoyaku->payment_method = $payment_method;
         $Yoyaku->repeat_user = $repeat_user->kubun_id;
         $Yoyaku->transport = $transport->kubun_id;
 
@@ -213,7 +219,6 @@ class BookingController extends Controller
         $Yoyaku->course = $course->kubun_id;
         if($course->kubun_id == '01'){
             $date = isset($customer['date-value'])?$customer['date-value']:"";
-            $time = isset($customer['time-value'])?$customer['time-value']:"";
             $bed = isset($customer['bed'])?$customer['bed']:"";
             $stay_checkin_date = isset($customer['range_date_start-value'])?$customer['range_date_start-value']:"";
             $stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
@@ -221,7 +226,6 @@ class BookingController extends Controller
             $Yoyaku->gender = $gender->kubun_id;
             $Yoyaku->age_type = $age_type;
             $Yoyaku->age_value = $age_value;
-            $Yoyaku->service_time_1 = $time;
             $Yoyaku->bed = $bed;
             $Yoyaku->lunch = $lunch->kubun_id;
             $Yoyaku->whitening = $whitening->kubun_id;

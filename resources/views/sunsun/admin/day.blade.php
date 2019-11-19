@@ -34,7 +34,10 @@
                     <div class="middle_box">
                         <div class="item">
                             <span class="customer-name">【送迎】</span> <br>
-                            <span class="customer-time">9:29　渋野日向子 様　同行者1名</span>
+                            @foreach($pick_up as $pu)
+                            <span class="customer-time">{{  $pu->bus_arrive_time_slide }}　{{  $pu->name }} 様　@if($pu->num_user!=NULL) 同行者{{ $pu->num_user }}名 @endif</span><br>
+                            @endforeach
+                            
 
                         </div>
                     </div>
@@ -49,9 +52,9 @@
                     <div class="middle_box">
                         <div class="item">
                             <span>【宿泊】</span> <br>
-                            <span>A：渋野日向子 様　2名</span> <br>
-                            <span>B：</span> <br>
-                            <span>C：</span> <br>
+                            <span>A：{{ isset($stay_room['A'])?$stay_room['A']->name." 様     ".$stay_room['A']->stay_guest_num:"" }}</span> <br>
+                            <span>B：{{ isset($stay_room['B'])?$stay_room['B']->name." 様     ".$stay_room['B']->stay_guest_num:"" }}</span> <br>
+                            <span>C：{{ isset($stay_room['A'])?$stay_room['C']->name." 様     ".$stay_room['C']->stay_guest_num:"" }}</span> <br>
                         </div>
                     </div>
                     <div class="middle_box">
@@ -65,414 +68,262 @@
 
                 </div>
             </div>
+        </div>
+        <div class="container-90">
             <div class="main-content">
                 <div class="main-content__table">
-                    <div class="table-human">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th class="man odd"></th>
-                                <th class="man odd">男性①</th>
-                                <th class="man odd">男性②</th>
-                                <th class="man odd">男性③</th>
-                                <th class="odd space-table"></th>
-                                <th class="women odd">女性①</th>
-                                <th class="women odd">女性②</th>
-                                <th class="women odd">女性③</th>
-                                <th class="women odd">女性④</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="node">
-                                <td class="time-male" colspan="4">
-                                    朝
-                                </td>
-                                <td class="space-table"></td>
-                                <td class="time-female" colspan="4">
-                                    朝
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man even">9:45 <br> (10:00 -11:30)</td>
-                                <td class="man even"></td>
-                                <td class="man even"></td>
-                                <td class="man even"></td>
-                                <td class="even space-table"></td>
-                                <td class="women even"></td>
-                                <td class="women even"></td>
-                                <td class="women even"></td>
-                                <td class="women even">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    10:15
-                                    <br> (10:30 -12:00)
-                                </td>
-                                <td class="man odd">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">［入浴］男性(49歳)</span> <br>
-                                        <span>渋野日向子様</span> <br>
-                                        <span>バス　9:29着　<span class="text-red">送迎有</span></span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>090-1234-5678</span> <br>
-                                        <span>支払：クレカ</span>
-                                    </div>
-                                </td>
-                                <td class="man odd"></td>
-                                <td class="man odd"></td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">［入浴］女性(21歳)</span> <br>
-                                        <span>渋野日様</span> <br>
-                                        <span>バス　9:29着 <span class="text-red">送迎有</span></span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>090-1234-5678</span> <br>
-                                        <span>支払：クレカ</span>
-                                    </div>
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man even">
-                                    10:45<br> (11:00 -12:30)
-                                </td>
-                                <td class="man even">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">［リ①］男性(27歳)</span> <br>
-                                        <span>石川遼様</span> <br>
-                                        <span>自動車</span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>090-1234-5678</span> <br>
-                                        <span>支払：クレカ</span>
-                                    </div>
-                                </td>
-                                <td class="man even"></td>
-                                <td class="man even"></td>
-                                <td class="even space-table"></td>
-                                <td class="women even">
-
-                                </td>
-                                <td class="women even"></td>
-                                <td class="women even"></td>
-                                <td class="women even">
-                                </td>
-                            </tr>
-                            <tr class="node">
-                                <td class="time-male" colspan="4">
-                                    昼
-                                </td>
-                                <td class="space-table"></td>
-                                <td class="time-female" colspan="4">
-                                    昼
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    13:15<br> (13:30 - 15:00)
-                                </td>
-                                <td class="man odd">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">[貸切] 男性 (29歳)</span> <br>
-                                        <span>錦織圭様</span> <br>
-                                        <span>自動車</span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>090-1234-5678</span> <br>
-                                        <span>支払：クレカ</span>
-                                    </div>
-                                    <div class="info-detail" style="display: none">
-                                        <div class="detail-title">
-
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="man odd">ー</td>
-                                <td class="man odd">ー</td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">[入浴]女性(21歳) <span class="text-red">新規</span></span> <br>
-                                        <span>大阪なおみ様</span> <br>
-                                        <span>自動車</span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>080-1111-2222</span> <br>
-                                        <span>支払：クレカ</span>
-                                    </div>
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man even">
-                                    13:45<br> (14:00 - 15:00)
-                                </td>
-                                <td class="man even">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">［入浴②］男性(49歳)</span> <br>
-                                        <span>渋野日向子同行者様</span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>090-1234-5678</span>
-                                    </div>
-                                </td>
-                                <td class="man even"></td>
-                                <td class="man even"></td>
-                                <td class="even space-table"></td>
-                                <td class="women even">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">［入浴②］女性(21歳)</span> <br>
-                                        <span>渋野日向子様</span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>090-1234-5678</span>
-                                    </div>
-                                </td>
-                                <td class="women even"></td>
-                                <td class="women even"></td>
-                                <td class="women even"></td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    14:15<br> (14:30 - 16:00)
-                                </td>
-                                <td class="man odd">
-                                    <div class="info js-edit-booking">
-                                        <span class="info-name">［リ②］男性(27歳)</span> <br>
-                                        <span>渋野日向子同行者様</span> <br>
-                                        <span>昼食 ホワイトニング ペットあり　宿泊</span> <br>
-                                        <span>090-1234-5678</span>
-                                    </div>
-                                </td>
-                                <td class="man odd"></td>
-                                <td class="man odd"></td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            <tr class="node">
-                                <td class="time-male" colspan="4">
-                                    メンテナンス
-                                </td>
-                                <td class="space-table"></td>
-                                <td class="time-female" colspan="4">
-                                    メンテナンス
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man even">
-                                    15:15<br> (15:30-17:00)
-                                </td>
-                                <td class="man even">
-                                </td>
-                                <td class="man even"></td>
-                                <td class="man even"></td>
-                                <td class="even space-table"></td>
-                                <td class="women even">
-
-                                </td>
-                                <td class="women even"></td>
-                                <td class="women even"></td>
-                                <td class="women even">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    15:45
-                                    <br> (16:00-17:30)
-                                </td>
-                                <td class="man odd">
-                                </td>
-                                <td class="man odd"></td>
-                                <td class="man odd"></td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    16:15
-                                    <br> (16:30～18:00)
-                                </td>
-                                <td class="man odd">
-                                </td>
-                                <td class="man odd"></td>
-                                <td class="man odd"></td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            <tr class="node">
-                                <td class="time-male" colspan="4">
-                                    夜
-                                </td>
-                                <td class="space-table"></td>
-                                <td class="time-female" colspan="4">
-                                    夜
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    17:45
-                                    <br> (18:00～19:30)
-                                </td>
-                                <td class="man odd">
-                                </td>
-                                <td class="man odd"></td>
-                                <td class="man odd"></td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    18:15
-                                    <br> (18:30～20:00)
-                                </td>
-                                <td class="man odd">
-                                </td>
-                                <td class="man odd"></td>
-                                <td class="man odd"></td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="man odd">
-                                    18:45
-                                    <br> (19:00～20:30)
-                                </td>
-                                <td class="man odd">
-                                </td>
-                                <td class="man odd"></td>
-                                <td class="man odd"></td>
-                                <td class="odd space-table"></td>
-                                <td class="women odd">
-
-                                </td>
-                                <td class="women odd"></td>
-                                <td class="women odd"></td>
-                                <td class="women odd">
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="main-col__time head bg-time-male">時間</div>
+                    <div class="main-col__male">
+                        <div class="main-col__item head bg-time-male">
+                        男性①
+                        </div>
+                        <div class="main-col__item head bg-time-male">
+                        男性②
+                        </div>
+                        <div class="main-col__item head bg-time-male">
+                        男性③
+                        </div>
                     </div>
-                    <div class="table-pet">
-                        <table>
-                            <thead>
-                            <th class="odd">ペット</th>
-                            </thead>
-                            <tbody>
-                            <tr class="even">
-                                <td>9：30～10：30</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>○</td>
-                            </tr>
-                            <tr class="even">
-                                <td>11：00～12：00</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>○</td>
-                            </tr>
-                            <tr class="even">
-                                <td>14：00～15：00</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>○</td>
-                            </tr>
-                            <tr class="even">
-                                <td>15：30～16：30</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>
-                                    <div class="info">
-                                        <span>大阪なおみ様</span> <br>
-                                        <span>自動車</span> <br>
-                                        <span>080-1111-2222</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="main-col__space-1"></div>
+                    <div class="main-col__famale">
+                        <div class="main-col__item head bg-female">
+                        女性①
+                        </div>
+                        <div class="main-col__item head bg-female">
+                        女性②
+                        </div>
+                        <div class="main-col__item head bg-female">
+                        女性③
+                        </div>
+                        <div class="main-col__item head bg-female">
+                        女性④
+                        </div>
                     </div>
-                    <div class="table-morning">
-                        <table>
-                            <thead>
-                            <th class="odd">ホワイトニング</th>
-                            </thead>
-                            <tbody>
-                            <tr class="even">
-                                <td>9：30～10：30</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>○</td>
-                            </tr>
-                            <tr class="even">
-                                <td>11：00～12：00</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>○</td>
-                            </tr>
-                            <tr class="even">
-                                <td>14：00～15：00</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>○</td>
-                            </tr>
-                            <tr class="even">
-                                <td>15：30～16：30</td>
-                            </tr>
-                            <tr class="odd">
-                                <td>
-                                    <div class="info">
-                                        <span>大阪なおみ様</span> <br>
-                                        <span>自動車</span> <br>
-                                        <span>080-1111-2222</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="main-col__space-2"></div>
+                    <div class="main-col__pet head bg-pet-wt">ペット浴</div>
+                    <div class="main-col__space-3"></div>
+                    <div class="main-col__wt head bg-pet-wt">ホワイトニング</div>
                 </div>
+                @php $i = 0; @endphp
+                @foreach($time_range as $time)
+                    @php $i++; @endphp
+                    @if($time['begin_time'] == NULL)
+                    <div class="main-content__table">
+                        <div class="main-col__time @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp d-flex justify-content-center align-items-center">
+                            <div class="">
+                                <div class="time">{{ $time['time'] }}</div>
+                                <div class="time_range">{{ '(' . $time['time_range'] . ')' }}</div>
+                            </div>
+                        </div>
+                        <div class="main-col__male">
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
+                            </div>
+                        </div>
+                        <div class="main-col__space-1"></div>
+                        <div class="main-col__famale">
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
+                            </div>
+                        </div>
+                        <div class="main-col__space-2"></div>
+                        @if($time['other_time'] != NULL)
+                        <div class="main-col__pet">
+                            <div class="main-col__pet__header">
+                            {{$time['other_time']}}
+                            </div>
+                            <div class="main-col__pet__body">
+                            a
+                            </div>
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt">
+                            <div class="main-col__pet__header">
+                            {{$time['other_time']}}
+                            </div>
+                            <div class="main-col__pet__body">
+                            a
+                            </div>
+                        </div>
+                        @else
+                        <div class="main-col__pet bg-white">
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt bg-white">
+                        </div>
+                        @endif
+                    </div>
+                    @elseif($time['begin_time'] == 1)
+                    <div class="main-content__table">
+                        <div class="main-col__time @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp d-flex justify-content-center align-items-center">
+                            <div class="">
+                                <div class="time">{{ $time['time'] }}</div>
+                                <div class="time_range">{{ '(' . $time['time_range'] . ')' }}</div>
+                            </div>
+                        </div>
+                        <div class="main-col__male">
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
+                            </div>
+                        </div>
+                        <div class="main-col__space-1"></div>
+                        <div class="main-col__famale">
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
+                            </div>
+                        </div>
+                        <div class="main-col__space-2"></div>
+                        @if($time['other_time'] != NULL)
+                        <div class="main-col__pet">
+                            <div class="main-col__pet__header">
+                            {{$time['other_time']}}
+                            </div>
+                            <div class="main-col__pet__body">
+                            a
+                            </div>
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt">
+                            <div class="main-col__pet__header">
+                            {{$time['other_time']}}
+                            </div>
+                            <div class="main-col__pet__body">
+                            a
+                            </div>
+                        </div>
+                        @else
+                        <div class="main-col__pet bg-white">
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt bg-white">
+                        </div>
+                        @endif
+                    </div>
+                    @else
+                    <div class="main-content__table">
+                        <div class="main-col__time-male">
+                            <div class="begin_time">
+                            {{ $time['begin_time'] }}
+                            </div>
+                        </div>
+                        <div class="main-col__space-1"></div>
+                        <div class="main-col__new-famale">
+                            <div class="begin_time new">
+                            {{ $time['begin_time'] }}
+                            </div>
+                        </div>
+                        <div class="main-col__space-2"></div>
+                        @if($time['other_time'] != NULL)
+                        <div class="main-col__pet">
+                        {{$time['other_time']}}
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt">
+                        {{$time['other_time']}}
+                        </div>
+                        @else
+                        <div class="main-col__pet bg-white">
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt bg-white">
+                        </div>
+                        @endif
+                        
+                            
+                        
+                        
+                    </div>
+                    <div class="main-content__table">
+                        <div class="main-col__time @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp d-flex justify-content-center align-items-center">
+                            <div class="">
+                                <div class="time">{{ $time['time'] }}</div>
+                                <div class="time_range">{{ '(' . $time['time_range'] . ')' }}</div>
+                            </div>
+                        </div>
+                        <div class="main-col__male">
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
+                            </div>
+                        </div>
+                        <div class="main-col__space-1"></div>
+                        <div class="main-col__famale">
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
+                            </div>
+                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
+                            </div>
+                        </div>
+                        <div class="main-col__space-2"></div>
+                        @if($time['pin_time'] == 1)
+                        <div class="main-col__pet bg-pet-wt">
+                        pet
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt bg-pet-wt">
+                        </div>
+                        @else
+                        <div class="main-col__pet bg-white">
+                        </div>
+                        <div class="main-col__space-3"></div>
+                        <div class="main-col__wt bg-white">
+                        </div>
+                        @endif
+                    </div>
+                    @endif
+                @endforeach
             </div>
+        </div>
+        <div class="container">
             <div class="main-footer">
             </div>
-
         </div>
     </main>
 
 @endsection
+
 
 @section('footer')
     @parent

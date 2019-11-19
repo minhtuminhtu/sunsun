@@ -35,9 +35,11 @@
         padding-top: 20px;
         .middle_box {
             margin-right: 10px;
-            padding: 7px;
+            padding: 0.5vw;
             border: 1px solid #000000;
-            height: 111px;
+            flex: 1;
+            height: 8rem;
+            overflow-y: auto;
         }
         .middle_box:last-child {
             margin-right: 0;
@@ -169,10 +171,6 @@
     html, body {
         font-size: 0.9vw !important;
     }
-    .main-head__middle .middle_box {
-        height: 7vw;
-        flex: 1;
-    }
 }
 .booking-warp.booking {
     max-width: 36vw !important;
@@ -198,4 +196,118 @@
 .booking-field .booking-field-content {
     width: 74% !important;
 }
+.main-content__table{
+    display: flex;
+    text-align: center;
+    font-size: 0.85vw;
+    .main-col__time-male{
+        width: 42.3%;
+        background-color: #4472c4;
+        border-right: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+    }
+    .main-col__new-famale{
+        width: 40.4%;
+        background-color: #ffc000;
+        border-right: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+    }
+    .main-col__time{
+        width: 12%;
+        border-right: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        padding: 0.5rem 0;
+        background-color: #e9ebf5;
+    }
+    .main-col__male{
+        width: 30.3%;
+        display: flex;
+        .main-col__item{
+            flex-basis: 100%;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            background-color: #e9ebf5;
+            padding: 0.3vw;
+        }
+    }
+    .main-col__space-1{
+        width: 1.4%;
+    }
+    .main-col__space-2{
+        width: 0.8%;
+    }
+    .main-col__space-3{
+        width: 0.8%;
+    }
+    .main-col__famale{
+        width: 40.4%;
+        display: flex;
+        .main-col__item{
+            flex-basis: 100%;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;  
+            background-color: #fbe5d6;   
+            padding: 0.3vw;
+        }
+    }
+    .main-col__pet{
+        width: 10%;
+        border-bottom: 2px solid #fff;
+        background-color: #fff4e7;
+        display: block;
+        .main-col__pet__body{
+            height: 100%;
+            background-color: #ffe8cb!important;
+        }
+    }
+    .main-col__wt{
+        width: 10%;
+        border-bottom: 2px solid #fff;
+        background-color: #fff4e7;
+        display: block;
+        .main-col__pet__body{
+            height: 100%;
+            background-color: #ffe8cb!important;
+        }
+    }
+}
+.main-col__item.head{
+    padding: 0.5rem 0!important;
+}
+.main-col__pet.head{
+    padding: 0.5rem 0!important;
+}
+.main-col__wt.head{
+    padding: 0.5rem 0!important;
+}
+.begin_time{
+    height: 1.65rem;
+    color: #fff;
+    font-weight: 600;
+    border: 2px solid #3a63ac;
+}
+.begin_time.new{
+    border: 2px solid #c49609!important;
+}
+.main-col__pet__header {
+    height: 1.65rem;
+}
+
+.bg-white{
+    background-color: #fff !important;
+}
+.bg-time-male{
+    background-color: #cfd5ea!important;
+}
+.bg-female{
+    background-color: #f8cbad!important;
+}
+.bg-pet-wt{
+    background-color: #ffe8cb!important;
+}
+.container-90{
+    width: 90vw;
+    margin: 0 auto;
+}
+
 

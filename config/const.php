@@ -23,6 +23,8 @@ return [
         'tr_yoyaku' => [
             'BOOKING_ID' => 'booking_id',
             'REF_BOOKING_ID' => 'ref_booking_id',
+            'NAME' => 'name',
+            'PHONE' => 'phone',
             'EMAIL' => 'email',
             'REPEAT_USER' => 'repeat_user',
             'TRANSPORT' => 'transport',
@@ -46,7 +48,8 @@ return [
             'STAY_ROOM_TYPE' => 'stay_room_type',
             'STAY_GUEST_NUM' => 'stay_guest_num',
             'STAY_CHECKIN_DATE' => 'stay_checkin_date',
-            'STAY_CHECKOUT_DATE' => 'stay_checkout_date'
+            'STAY_CHECKOUT_DATE' => 'stay_checkout_date',
+            'PAYMENT_METHOD' => 'payment_method'
         ],
         'kubun_type' => [
             '001' => 'ご利用',
@@ -101,7 +104,7 @@ return [
             'ADMIN' => 'admin',
             'SUPER_ADMIN' => 'super_admin'
         ]
-        ],
+    ],
     'laber' => [
         'bed' => [
             '0' => '⓪ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳',
@@ -116,6 +119,104 @@ return [
             '9' => '⑨',
             '10' => '⑩',
         ]
+    ],
+    'time_admin' => [
+        '0' =>  [
+            'time' => '9:45',
+            'time_value' => '0945',
+            'time_range' => '10:00～11:30',
+            'begin_time' => '朝',
+            'other_time' => '9：30～10:30',
+            'pin_time' => 1,
+        ],
+        '1' =>  [
+            'time' => '10:15',
+            'time_value' => '1015',
+            'time_range' => '10:30～12:00',
+            'begin_time' => NULL,
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
+        '2' =>  [
+            'time' => '10:45',
+            'time_value' => '1045',
+            'time_range' => '11:00～12:30',
+            'begin_time' => 1,
+            'other_time' => '11:00～12:00',
+            'pin_time' => NULL,
+        ],
+        '3' =>  [
+            'time' => '13:15',
+            'time_value' => '1315',
+            'time_range' => '13:30～15:00',
+            'begin_time' => '昼',
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
+        '4' =>  [
+            'time' => '13:45',
+            'time_value' => '1345',
+            'time_range' => '14:00～15:30',
+            'begin_time' => NULL,
+            'other_time' => '14:00～15:00',
+            'pin_time' => NULL,
+        ],
+        '5' =>  [
+            'time' => '14:15',
+            'time_value' => '1415',
+            'time_range' => '14:30～16:00',
+            'begin_time' => 1,
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
+        '6' =>  [
+            'time' => '15:15',
+            'time_value' => '1515',
+            'time_range' => '15:30～17:00',
+            'begin_time' => 'メンテナンス',
+            'other_time' => '15:30～16:30',
+            'pin_time' => 1,
+        ],
+        '7' =>  [
+            'time' => '15:45',
+            'time_value' => '1545',
+            'time_range' => '16:00～17:30',
+            'begin_time' => NULL,
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
+        '8' =>  [
+            'time' => '16:15',
+            'time_value' => '1615',
+            'time_range' => '16:30～18:00',
+            'begin_time' => 1,
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
+        '9' =>  [
+            'time' => '17:45',
+            'time_value' => '1745',
+            'time_range' => '18:00～19:30',
+            'begin_time' => '夜',
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
+        '10' =>  [
+            'time' => '18:15',
+            'time_value' => '1815',
+            'time_range' => '18:30～20:00',
+            'begin_time' => NULL,
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
+        '11' =>  [
+            'time' => '18:45',
+            'time_value' => '1845',
+            'time_range' => '19:00～20:30',
+            'begin_time' => NULL,
+            'other_time' => NULL,
+            'pin_time' => NULL,
+        ],
     ]
 
 

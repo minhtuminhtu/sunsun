@@ -21,6 +21,8 @@ class Yoyaku extends Model
         $this->fillable = [
             config('const.db.tr_yoyaku.BOOKING_ID'),
             config('const.db.tr_yoyaku.REF_BOOKING_ID'),
+            config('const.db.tr_yoyaku.NAME'),
+            config('const.db.tr_yoyaku.PHONE'),
             config('const.db.tr_yoyaku.EMAIL'),
             config('const.db.tr_yoyaku.REPEAT_USER'),
             config('const.db.tr_yoyaku.TRANSPORT'),
@@ -47,9 +49,14 @@ class Yoyaku extends Model
             config('const.db.tr_yoyaku.STAY_ROOM_TYPE'),
             config('const.db.tr_yoyaku.STAY_GUEST_NUM'),
             config('const.db.tr_yoyaku.STAY_CHECKIN_DATE'),
-            config('const.db.tr_yoyaku.STAY_CHECKOUT_DATE')
+            config('const.db.tr_yoyaku.STAY_CHECKOUT_DATE'),
+            config('const.db.tr_yoyaku.PAYMENT_METHOD')
         ];
         parent::__construct($attributes);
+    }
+
+    public function get_time() {
+        return $this->hasMany('App\Models\YoyakuDanjikiJikan','booking_id','booking_id');
     }
 
     public function get_transport () {

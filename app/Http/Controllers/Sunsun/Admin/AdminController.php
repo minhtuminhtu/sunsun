@@ -29,7 +29,310 @@ class AdminController extends Controller
         $data['lunch'] = $data['data_date']->where('lunch','02');
         $data['kubun'] = MsKubun::where('kubun_type', '013')->get();
 
+        $time_value = $this->get_time_value_array();
+
+        $data['time_range'] = config('const.time_admin');
+        // $data['time_data'] = DB::table('tr_yoyaku')
+        //     ->select(['email as title', 'service_date_start as start', 'service_date_start as end'])
+        //     ->whereYear('service_date_start',2019)
+        //     ->whereMonth('service_date_start',11)
+        //     ->get();
+
+        
+        // $time_data = DB::table('tr_yoyaku')
+        //     ->select(['booking_id', 'service_time_1 as time1', 'service_time_2 as time2'])
+        //     ->where('course','01')
+        //     ->get();
+              
+        
+
+        $this->set_human($data, $date, $time_value);
+        $this->set_stay_room($data, $date);
+        $this->set_pick_up($data, $date);
+        
+        
+        // dd($data);
+
         return view('sunsun.admin.day',$data);
+    }
+
+
+
+
+    private function set_stay_room(&$data, $date){
+        $stay_room_raw = DB::select("
+        SELECT	main.name,
+				main.stay_room_type,
+				main.stay_guest_num
+        FROM		tr_yoyaku as main
+        WHERE 	main.stay_room_type <> '01' AND main.stay_room_type IS NOT NULL AND main.service_date_start = $date
+        ");
+        
+        for($i = 0; $i < count($stay_room_raw); $i++){
+            $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
+            $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
+        }
+        $collect_stay_room = collect($stay_room_raw);
+        $data['stay_room']['A'] =  $collect_stay_room->firstWhere('stay_room_type', '02');
+        $data['stay_room']['B'] =  $collect_stay_room->firstWhere('stay_room_type', '03');
+        $data['stay_room']['C'] =  $collect_stay_room->firstWhere('stay_room_type', '04');
+
+        // dd($stay_room_raw);
+    }
+
+    private function set_pick_up(&$data, $date){
+        $data['pick_up'] = DB::select("
+        SELECT 	main.booking_id,
+                main.bus_arrive_time_slide,
+                main.name,
+                cou.num_user
+        FROM 	tr_yoyaku main
+        LEFT JOIN (
+        SELECT	tr_yoyaku.ref_booking_id,
+                COUNT(*) as num_user
+        FROM	tr_yoyaku
+        WHERE tr_yoyaku.ref_booking_id IS NOT NULL
+        GROUP BY tr_yoyaku.ref_booking_id
+        ) cou ON cou.ref_booking_id = main.booking_id
+        WHERE main.transport = '02' AND main.ref_booking_id IS NULL AND main.pick_up = '01' AND main.service_date_start = $date
+        ORDER BY main.bus_arrive_time_slide
+        ");
+        for($i = 0; $i < count($data['pick_up']); $i++){
+            $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id', $data['pick_up'][$i]->bus_arrive_time_slide)->first();
+            $data['pick_up'][$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0');
+        }
+    }
+    private function set_human(&$data, $date, $time_value){
+        
+        $course_1_and_4_query = DB::select("
+        (
+            SELECT	main.booking_id
+                  , main.ref_booking_id
+                  , main.repeat_user
+                  , main.course
+                  , main.gender
+                  , main.age_value
+                  , main.name
+                  , main.transport
+                  , main.bus_arrive_time_slide
+                  , main.pick_up
+                  , main.lunch
+                  , main.whitening
+                  , main.pet_keeping
+                  , main.stay_room_type
+                  , main.phone
+                  , main.payment_method
+                  , time.service_date
+                  , time.service_time_1 as time
+                  , SUBSTRING(time.notes, 1, 1) as bed
+            FROM		tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON			main.booking_id = time.booking_id
+            WHERE 	main.course = '01'  AND time.service_date = $date
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+					, main.ref_booking_id
+                    , main.repeat_user
+                    , main.course
+                    , main.gender
+                    , main.age_value
+                    , main.name
+                    , main.transport
+                    , main.bus_arrive_time_slide
+                    , main.pick_up
+                    , main.lunch
+                    , main.whitening
+                    , main.pet_keeping
+                    , main.stay_room_type
+                    , main.phone
+                    , main.payment_method
+                    , main.service_date_start
+                    , main.service_time_1 as time
+                    , SUBSTRING(main.bed, 1, 1) as bed
+            FROM		tr_yoyaku as main
+            WHERE 	main.course = '02' AND main.service_date_start = $date
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+					, main.ref_booking_id
+                    , main.repeat_user
+                    , main.course
+                    , main.gender
+                    , main.age_value
+                    , main.name
+                    , main.transport
+                    , main.bus_arrive_time_slide
+                    , main.pick_up
+                    , main.lunch
+                    , main.whitening
+                    , main.pet_keeping
+                    , main.stay_room_type
+                    , main.phone
+                    , main.payment_method
+                    , main.service_date_start
+                    , main.service_time_2 as time
+                    , SUBSTRING(main.bed, 3, 1) as bed
+            FROM		tr_yoyaku as main
+            WHERE 	main.course = '02' AND main.service_date_start = $date
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+					, main.ref_booking_id
+                    , main.repeat_user
+                    , main.course
+                    , '01' AS gender
+                    , main.age_value
+                    , main.name
+                    , main.transport
+                    , main.bus_arrive_time_slide
+                    , main.pick_up
+                    , main.lunch
+                    , main.whitening
+                    , main.pet_keeping
+                    , main.stay_room_type
+                    , main.phone
+                    , main.payment_method
+                    , main.service_date_start
+                    , main.service_time_1 as time
+                    , main.bed
+            FROM		tr_yoyaku as main
+            WHERE 	main.course = '03' AND main.service_date_start = $date
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+                  , main.ref_booking_id
+                  , main.repeat_user
+                  , main.course
+                  , main.gender
+                  , main.age_value
+                  , main.name
+                  , main.transport
+                  , main.bus_arrive_time_slide
+                  , main.pick_up
+                  , main.lunch
+                  , main.whitening
+                  , main.pet_keeping
+                  , main.stay_room_type
+                  , main.phone
+                  , main.payment_method
+                  , time.service_date
+                  , time.service_time_1 as time
+                  , SUBSTRING(time.notes, 1, 1) as bed
+            FROM		tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON			main.booking_id = time.booking_id
+            WHERE 	main.course = '04'  AND time.service_date = $date
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+                  , main.ref_booking_id
+                  , main.repeat_user
+                  , main.course
+                  , main.gender
+                  , main.age_value
+                  , main.name
+                  , main.transport
+                  , main.bus_arrive_time_slide
+                  , main.pick_up
+                  , main.lunch
+                  , main.whitening
+                  , main.pet_keeping
+                  , main.stay_room_type
+                  , main.phone
+                  , main.payment_method
+                  , time.service_date
+                  , time.service_time_2 as time
+                  , SUBSTRING(time.notes, 3, 1) as bed
+            FROM		tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON			main.booking_id = time.booking_id
+            WHERE 	main.course = '04'  AND time.service_date = $date
+        )
+        ");
+        $course_1_and_4 = collect($course_1_and_4_query);
+
+        // dd( $course_1_and_4);
+
+        for($i = 0; $i < count($course_1_and_4); $i++){
+            switch($course_1_and_4[$i]->course){
+                case '01': $course_1_and_4[$i]->course = '入浴'; break;
+                case '02': $course_1_and_4[$i]->course = 'リ'; break;
+                case '03': $course_1_and_4[$i]->course = '貸切'; break;
+                case '04': $course_1_and_4[$i]->course = '断食'; break;
+            }
+            switch($course_1_and_4[$i]->repeat_user){
+                case '01': $course_1_and_4[$i]->repeat_user = '新規'; break;
+                case '02': $course_1_and_4[$i]->repeat_user = NULL; break;
+            }
+            switch($course_1_and_4[$i]->gender){
+                case '01': $course_1_and_4[$i]->gender = '男性'; break;
+                case '02': $course_1_and_4[$i]->gender = '女性'; break;
+            }
+            switch($course_1_and_4[$i]->transport){
+                case '01': {
+                    $course_1_and_4[$i]->transport = '自動車';
+                    $course_1_and_4[$i]->bus_arrive_time_slide = NULL;
+                    $course_1_and_4[$i]->pick_up = NULL;
+                    break;
+                } 
+                case '02': {
+                    $course_1_and_4[$i]->transport = 'バス';
+                    $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_1_and_4[$i]->bus_arrive_time_slide)->first();
+                    $course_1_and_4[$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0')."着";
+                    switch($course_1_and_4[$i]->pick_up){
+                        case '01': $course_1_and_4[$i]->pick_up = '送迎有'; break;
+                        case '02': $course_1_and_4[$i]->pick_up = NULL; break;
+                    }    
+                    break;
+                }
+            }
+            
+            switch($course_1_and_4[$i]->lunch){
+                case '01': $course_1_and_4[$i]->lunch = NULL; break;
+                case '02': $course_1_and_4[$i]->lunch = '昼食'; break;
+            }
+            switch($course_1_and_4[$i]->lunch){
+                case '01': $course_1_and_4[$i]->lunch = NULL; break;
+                case '02': $course_1_and_4[$i]->lunch = '昼食'; break;
+            }
+            switch($course_1_and_4[$i]->pet_keeping){
+                case '01': $course_1_and_4[$i]->pet_keeping = NULL; break;
+                case '02': $course_1_and_4[$i]->pet_keeping = 'ﾍﾟｯﾄ預かり'; break;
+            }
+            switch($course_1_and_4[$i]->stay_room_type){
+                case '01': $course_1_and_4[$i]->stay_room_type = NULL; break;
+                default: $course_1_and_4[$i]->stay_room_type = '宿泊'; break;
+            }
+            switch($course_1_and_4[$i]->payment_method){
+                case '1': $course_1_and_4[$i]->payment_method = 'クレカ'; break;
+                case '2': $course_1_and_4[$i]->payment_method = '現金'; break;
+                case '3': $course_1_and_4[$i]->payment_method = '回数券'; break;
+            }
+        }
+
+        for($i = 0; $i < count($time_value) ; $i++){
+            $data['time_range'][$i]['data']['male_1'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '1');
+            $data['time_range'][$i]['data']['male_2'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '2');
+            $data['time_range'][$i]['data']['male_3'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '3');
+            $data['time_range'][$i]['data']['female_1'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '1');
+            $data['time_range'][$i]['data']['female_2'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '2');
+            $data['time_range'][$i]['data']['female_3'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '3');
+            $data['time_range'][$i]['data']['female_4'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '4');
+        }
+    } 
+    private function get_time_value_array(){
+        $time_range = config('const.time_admin');
+        $time_value = [];
+        foreach($time_range as $time){
+            $time_value[] = $time['time_value'];
+        }
+        return $time_value;
     }
 
     public function edit_booking (Request $request) {
@@ -56,8 +359,47 @@ class AdminController extends Controller
             $date_from_sql = $time_now->startOfWeek()->format('Ymd');
             $date_to_sql = $time_now->endOfWeek()->format('Ymd');
         }
+
+        $data['day_range'] = $this->get_list_days($data['date_from'], $data['date_to']);
+
+
+
+        $data['time_range'] = config('const.time_admin');
+        // dd($data);
+
+
+
+
+
+
         $data['data_date'] = DB::table('tr_yoyaku')->where([['service_date_start','>=',$date_from_sql],['service_date_start','<=',$date_to_sql]])->get();
         return view('sunsun.admin.weekly',$data);
+    }
+
+    private function get_list_days($from , $to){
+        $from = Carbon::parse($from);
+        $to = Carbon::parse($to);
+        $dates = [];
+        for($d = $from; $d->lte($to); $d->addDay()) {
+            $dates[$d->format('Ymd')]['full_date'] = $d->format('Ymd');
+            $dates[$d->format('Ymd')]['day'] = ltrim($d->format('d'), "0");
+            $dates[$d->format('Ymd')]['week_day'] = $this->get_week_day($d->format('Y/m/d'));
+            
+        }
+        return array_values($dates);
+    }
+    private function get_week_day($day){
+        $weekMap = [
+            0 => '日',
+            1 => '月',
+            2 => '火',
+            3 => '水',
+            4 => '木',
+            5 => '金',
+            6 => '土',
+        ];
+        $day_of_week = Carbon::parse($day)->dayOfWeek;
+        return $weekMap[$day_of_week];
     }
 
     public function monthly(Request $request) {
@@ -87,8 +429,44 @@ class AdminController extends Controller
             })*/;
         //$num_weeks = $this->get_month($month, $year);
         //dd($data['data_date']->all());
-        return view('sunsun.admin.monthly',$data);
+
+        // $number_month_day = date("t",mktime(0,0,0,$month,1,$year)); 
+        // for($i = 1; $i <= $number_month_day; $i++){
+        //     $month = sprintf("%02d", $month);
+        //     $day = sprintf("%02d", $i);
+        //     $data['month']['number_first_day'] = 
+        //     $data['month']['number_week'] = $this->week_of_month(\DateTime::createFromFormat('m/Y', $month . "/" .$year), $number_month_day);
+        //     $data['day'][$year.$month.$day]['day'] = $year.$month.$day;
+        //     $data['day'][$year.$month.$day]['weekday'] = date('w', strtotime($year . "/" . $month . "/" . $day));
+        // }
+
+        
+
+        $data['week'] = $this->get_month($month,$year);
+        for($i = 0 ; $i < count($data['week']); $i++){
+            $data['week_range'][$i] = $this->get_list_dates($data['week'][$i]['start'], $data['week'][$i]['end'], $month);
+        } 
+        return view('sunsun.admin.monthly',['data' => $data, 'month' => $month, 'year' => $year]);
     }
+
+
+    private function get_list_dates($from , $to, $month){
+        $from = Carbon::parse($from);
+        $to = Carbon::parse($to);
+        $dates = [];
+        for($d = $from; $d->lte($to); $d->addDay()) {
+            if($d->format('m') == $month){
+                $dates[$d->format('Ymd')]['full_date'] = $d->format('Ymd');
+                $dates[$d->format('Ymd')]['day'] = ltrim($d->format('d'), "0");
+            }else{
+                $dates[$d->format('Ymd')]['full_date'] = NULL;
+            }
+            
+        }
+        return array_values($dates);
+    }
+
+    
 
     private function get_month ($month, $year){
         $date = Carbon::createFromDate($year,$month);
@@ -96,11 +474,10 @@ class AdminController extends Controller
         for ($i=1; $i <= $date->daysInMonth ; $i++) {
             Carbon::createFromDate($year,$month,$i);
             $week_num = Carbon::createFromDate($year,$month,$i)->format('W');
-            $data[$week_num]['start']= (array)Carbon::createFromDate($year,$month,$i)->startOfWeek()->toDateString();
-            $data[$week_num]['end']= (array)Carbon::createFromDate($year,$month,$i)->endOfweek()->toDateString();
-            $i+=7;
+            $data[$week_num]['start']= Carbon::createFromDate($year,$month,$i)->startOfWeek()->format('Y/m/d');
+            $data[$week_num]['end']= Carbon::createFromDate($year,$month,$i)->endOfweek()->format('Y/m/d');
         }
-        return $data;
+        return array_values($data);
     }
     public function setting() {
         $data = config('const.db.kubun_type');
