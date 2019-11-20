@@ -20,18 +20,11 @@
             <div class="age-col age">
                 <div class="age-left">
                     <select id="age_value"  name="age_value" class="form-control">
-                            @php
-                                $val = [];
-                                $i = 0;
-                                foreach($age_value as $value){
-                                    $val[$i] =  $value->kubun_value;
-                                    $i++;
-                                    
-                                }
-                                for($j = $val[0]; $j <= $val[1]; $j++ ){
-                                    echo "<option>".$j."</option>";
-                                }
-                            @endphp
+                                @php
+                                    for($j = 18; $j < 100; $j++ ){
+                                        echo "<option value='".$j."'>".$j."</option>";
+                                    }
+                                @endphp
                     </select>
                 </div>
             </div>
@@ -110,8 +103,8 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time_view' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45" />
-                <input name='whitening-time_value' type="hidden" value="1345"/>
+                <input name='whitening-time_view' type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="9:30～10:30" />
+                <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0930-1030"/>
             </div>
         </div>
     </div>

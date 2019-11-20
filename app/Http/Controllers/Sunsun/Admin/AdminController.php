@@ -46,8 +46,9 @@ class AdminController extends Controller
               
         
 
-        $this->set_human($data, $date, $time_value);
+        $this->set_course($data, $date, $time_value);
         $this->set_stay_room($data, $date);
+        $this->set_lunch($data, $date);
         $this->set_pick_up($data, $date);
         
         
@@ -63,14 +64,21 @@ class AdminController extends Controller
         $stay_room_raw = DB::select("
         SELECT	main.name,
 				main.stay_room_type,
-				main.stay_guest_num
+                main.stay_guest_num,
+                main.breakfast
         FROM		tr_yoyaku as main
-        WHERE 	main.stay_room_type <> '01' AND main.stay_room_type IS NOT NULL AND main.service_date_start = $date
+        WHERE 	main.stay_room_type <> '01' AND main.stay_room_type IS NOT NULL AND main.stay_checkin_date <= $date AND main.stay_checkout_date >= $date
         ");
         
         for($i = 0; $i < count($stay_room_raw); $i++){
             $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
             $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
+
+            if($stay_room_raw[$i]->breakfast != '01'){
+                $stay_room_raw[$i]->breakfast = preg_replace('/[^0-9]+/', '', $stay_room_raw[$i]->stay_guest_num);
+            }else{
+                $stay_room_raw[$i]->breakfast = NULL;
+            }
         }
         $collect_stay_room = collect($stay_room_raw);
         $data['stay_room']['A'] =  $collect_stay_room->firstWhere('stay_room_type', '02');
@@ -80,11 +88,31 @@ class AdminController extends Controller
         // dd($stay_room_raw);
     }
 
+    private function set_lunch(&$data, $date){
+        $data['lunch'] = DB::select("
+        SELECT	main.name,
+                main.lunch,
+                main.ref_booking_id,
+				main.lunch_guest_num
+        FROM	tr_yoyaku as main
+        WHERE   (main.lunch <> '01' OR main.lunch_guest_num <> '01') AND main.service_date_start = $date
+        ");
+
+        for($i = 0; $i < count($data['lunch']); $i++){
+            if($data['lunch'][$i]->lunch_guest_num != NULL){
+                $lunch_guest_num = MsKubun::where('kubun_type','023')->where('kubun_id', $data['lunch'][$i]->lunch_guest_num)->first();
+                $data['lunch'][$i]->lunch = preg_replace('/[^0-9]+/', '', $lunch_guest_num->kubun_value);
+            }
+        }
+        // dd($data['lunch']);
+    }
+
     private function set_pick_up(&$data, $date){
         $data['pick_up'] = DB::select("
         SELECT 	main.booking_id,
                 main.bus_arrive_time_slide,
                 main.name,
+                main.service_guest_num,
                 cou.num_user
         FROM 	tr_yoyaku main
         LEFT JOIN (
@@ -100,11 +128,16 @@ class AdminController extends Controller
         for($i = 0; $i < count($data['pick_up']); $i++){
             $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id', $data['pick_up'][$i]->bus_arrive_time_slide)->first();
             $data['pick_up'][$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0');
+
+            if($data['pick_up'][$i]->service_guest_num != NULL){
+                $service_guest_num = MsKubun::where('kubun_type','015')->where('kubun_id', $data['pick_up'][$i]->service_guest_num)->first();
+                $data['pick_up'][$i]->num_user = preg_replace('/[^0-9]+/', '', $service_guest_num->kubun_value);
+            }
         }
     }
-    private function set_human(&$data, $date, $time_value){
+    private function set_course(&$data, $date, $time_value){
         
-        $course_1_and_4_query = DB::select("
+        $course_1_to_4_query = DB::select("
         (
             SELECT	main.booking_id
                   , main.ref_booking_id
@@ -255,76 +288,175 @@ class AdminController extends Controller
             WHERE 	main.course = '04'  AND time.service_date = $date
         )
         ");
-        $course_1_and_4 = collect($course_1_and_4_query);
+        $course_1_to_4 = collect($course_1_to_4_query);
 
-        // dd( $course_1_and_4);
+        // dd( $course_1_to_4);
 
-        for($i = 0; $i < count($course_1_and_4); $i++){
-            switch($course_1_and_4[$i]->course){
-                case '01': $course_1_and_4[$i]->course = '入浴'; break;
-                case '02': $course_1_and_4[$i]->course = 'リ'; break;
-                case '03': $course_1_and_4[$i]->course = '貸切'; break;
-                case '04': $course_1_and_4[$i]->course = '断食'; break;
+        for($i = 0; $i < count($course_1_to_4); $i++){
+            switch($course_1_to_4[$i]->course){
+                case '01': $course_1_to_4[$i]->course = '入浴'; break;
+                case '02': $course_1_to_4[$i]->course = 'リ'; break;
+                case '03': $course_1_to_4[$i]->course = '貸切'; break;
+                case '04': $course_1_to_4[$i]->course = '断食'; break;
             }
-            switch($course_1_and_4[$i]->repeat_user){
-                case '01': $course_1_and_4[$i]->repeat_user = '新規'; break;
-                case '02': $course_1_and_4[$i]->repeat_user = NULL; break;
+            switch($course_1_to_4[$i]->repeat_user){
+                case '01': $course_1_to_4[$i]->repeat_user = '新規'; break;
+                case '02': $course_1_to_4[$i]->repeat_user = NULL; break;
             }
-            switch($course_1_and_4[$i]->gender){
-                case '01': $course_1_and_4[$i]->gender = '男性'; break;
-                case '02': $course_1_and_4[$i]->gender = '女性'; break;
+            switch($course_1_to_4[$i]->gender){
+                case '01': $course_1_to_4[$i]->gender = '男性'; break;
+                case '02': $course_1_to_4[$i]->gender = '女性'; break;
             }
-            switch($course_1_and_4[$i]->transport){
+            switch($course_1_to_4[$i]->transport){
                 case '01': {
-                    $course_1_and_4[$i]->transport = '自動車';
-                    $course_1_and_4[$i]->bus_arrive_time_slide = NULL;
-                    $course_1_and_4[$i]->pick_up = NULL;
+                    $course_1_to_4[$i]->transport = '自動車';
+                    $course_1_to_4[$i]->bus_arrive_time_slide = NULL;
+                    $course_1_to_4[$i]->pick_up = NULL;
                     break;
                 } 
                 case '02': {
-                    $course_1_and_4[$i]->transport = 'バス';
-                    $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_1_and_4[$i]->bus_arrive_time_slide)->first();
-                    $course_1_and_4[$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0')."着";
-                    switch($course_1_and_4[$i]->pick_up){
-                        case '01': $course_1_and_4[$i]->pick_up = '送迎有'; break;
-                        case '02': $course_1_and_4[$i]->pick_up = NULL; break;
+                    $course_1_to_4[$i]->transport = 'バス';
+                    $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_1_to_4[$i]->bus_arrive_time_slide)->first();
+                    $course_1_to_4[$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0')."着";
+                    switch($course_1_to_4[$i]->pick_up){
+                        case '01': $course_1_to_4[$i]->pick_up = '送迎有'; break;
+                        case '02': $course_1_to_4[$i]->pick_up = NULL; break;
                     }    
                     break;
                 }
             }
             
-            switch($course_1_and_4[$i]->lunch){
-                case '01': $course_1_and_4[$i]->lunch = NULL; break;
-                case '02': $course_1_and_4[$i]->lunch = '昼食'; break;
+            switch($course_1_to_4[$i]->lunch){
+                case '01': $course_1_to_4[$i]->lunch = NULL; break;
+                case '02': $course_1_to_4[$i]->lunch = '昼食'; break;
             }
-            switch($course_1_and_4[$i]->lunch){
-                case '01': $course_1_and_4[$i]->lunch = NULL; break;
-                case '02': $course_1_and_4[$i]->lunch = '昼食'; break;
+            switch($course_1_to_4[$i]->lunch){
+                case '01': $course_1_to_4[$i]->lunch = NULL; break;
+                case '02': $course_1_to_4[$i]->lunch = '昼食'; break;
             }
-            switch($course_1_and_4[$i]->pet_keeping){
-                case '01': $course_1_and_4[$i]->pet_keeping = NULL; break;
-                case '02': $course_1_and_4[$i]->pet_keeping = 'ﾍﾟｯﾄ預かり'; break;
+            switch($course_1_to_4[$i]->pet_keeping){
+                case '01': $course_1_to_4[$i]->pet_keeping = NULL; break;
+                case '02': $course_1_to_4[$i]->pet_keeping = 'ﾍﾟｯﾄ預かり'; break;
             }
-            switch($course_1_and_4[$i]->stay_room_type){
-                case '01': $course_1_and_4[$i]->stay_room_type = NULL; break;
-                default: $course_1_and_4[$i]->stay_room_type = '宿泊'; break;
+            switch($course_1_to_4[$i]->stay_room_type){
+                case '01': $course_1_to_4[$i]->stay_room_type = NULL; break;
+                default: $course_1_to_4[$i]->stay_room_type = '宿泊'; break;
             }
-            switch($course_1_and_4[$i]->payment_method){
-                case '1': $course_1_and_4[$i]->payment_method = 'クレカ'; break;
-                case '2': $course_1_and_4[$i]->payment_method = '現金'; break;
-                case '3': $course_1_and_4[$i]->payment_method = '回数券'; break;
+            switch($course_1_to_4[$i]->payment_method){
+                case '1': $course_1_to_4[$i]->payment_method = 'クレカ'; break;
+                case '2': $course_1_to_4[$i]->payment_method = '現金'; break;
+                case '3': $course_1_to_4[$i]->payment_method = '回数券'; break;
             }
         }
 
-        for($i = 0; $i < count($time_value) ; $i++){
-            $data['time_range'][$i]['data']['male_1'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '1');
-            $data['time_range'][$i]['data']['male_2'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '2');
-            $data['time_range'][$i]['data']['male_3'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '3');
-            $data['time_range'][$i]['data']['female_1'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '1');
-            $data['time_range'][$i]['data']['female_2'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '2');
-            $data['time_range'][$i]['data']['female_3'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '3');
-            $data['time_range'][$i]['data']['female_4'] = $course_1_and_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '4');
+        $course_5_query = DB::select("
+            SELECT	main.booking_id
+                    , main.ref_booking_id
+                    , main.repeat_user
+                    , main.course
+                    , main.age_value
+                    , main.name
+                    , main.transport
+                    , main.bus_arrive_time_slide
+                    , main.pick_up
+                    , main.phone
+                    , main.payment_method
+                    , main.service_date_start
+                    ,CONCAT(main.service_time_1, '-', main.service_time_2) as time
+            FROM		tr_yoyaku as main
+            WHERE 	main.course = '05' AND main.service_date_start = $date
+        ");
+        $course_5 = collect($course_5_query);
+        for($i = 0; $i < count($course_5); $i++){
+            switch($course_5[$i]->transport){
+                case '01': {
+                    $course_5[$i]->transport = '自動車';
+                    $course_5[$i]->bus_arrive_time_slide = NULL;
+                    $course_5[$i]->pick_up = NULL;
+                    break;
+                } 
+                case '02': {
+                    $course_5[$i]->transport = 'バス';
+                    $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_5[$i]->bus_arrive_time_slide)->first();
+                    $course_5[$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0')."着";
+                    switch($course_5[$i]->pick_up){
+                        case '01': $course_5[$i]->pick_up = '送迎有'; break;
+                        case '02': $course_5[$i]->pick_up = NULL; break;
+                    }    
+                    break;
+                }
+            }
+            switch($course_5[$i]->payment_method){
+                case '1': $course_5[$i]->payment_method = 'クレカ'; break;
+                case '2': $course_5[$i]->payment_method = '現金'; break;
+                case '3': $course_5[$i]->payment_method = '回数券'; break;
+            }
         }
+
+        $course_wt_query = DB::select("
+            SELECT	main.booking_id
+                    , main.ref_booking_id
+                    , main.repeat_user
+                    , main.course
+                    , main.age_value
+                    , main.name
+                    , main.transport
+                    , main.bus_arrive_time_slide
+                    , main.pick_up
+                    , main.phone
+                    , main.payment_method
+                    , main.service_date_start
+                    , main.whitening_time as time
+            FROM	tr_yoyaku as main
+            WHERE 	main.service_date_start = $date
+        ");
+        $course_wt = collect($course_wt_query);
+        for($i = 0; $i < count($course_wt); $i++){
+            switch($course_wt[$i]->transport){
+                case '01': {
+                    $course_wt[$i]->transport = '自動車';
+                    $course_wt[$i]->bus_arrive_time_slide = NULL;
+                    $course_wt[$i]->pick_up = NULL;
+                    break;
+                } 
+                case '02': {
+                    $course_wt[$i]->transport = 'バス';
+                    $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_wt[$i]->bus_arrive_time_slide)->first();
+                    $course_wt[$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0')."着";
+                    switch($course_wt[$i]->pick_up){
+                        case '01': $course_wt[$i]->pick_up = '送迎有'; break;
+                        case '02': $course_wt[$i]->pick_up = NULL; break;
+                    }    
+                    break;
+                }
+            }
+            switch($course_wt[$i]->payment_method){
+                case '1': $course_wt[$i]->payment_method = 'クレカ'; break;
+                case '2': $course_wt[$i]->payment_method = '現金'; break;
+                case '3': $course_wt[$i]->payment_method = '回数券'; break;
+            }
+        }
+
+        
+
+        for($i = 0; $i < count($time_value) ; $i++){
+            $data['time_range'][$i]['data']['male_1'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '1');
+            $data['time_range'][$i]['data']['male_2'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '2');
+            $data['time_range'][$i]['data']['male_3'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '3');
+            $data['time_range'][$i]['data']['female_1'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '1');
+            $data['time_range'][$i]['data']['female_2'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '2');
+            $data['time_range'][$i]['data']['female_3'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '3');
+            $data['time_range'][$i]['data']['female_4'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '4');
+
+            $data['time_range'][$i]['data']['pet'] = $course_5->firstWhere('time',   $data['time_range'][$i]['other_time_value']);
+            $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['other_time_value']);
+            
+        }
+
+
+
+
+        // dd($data['time_range']);
     } 
     private function get_time_value_array(){
         $time_range = config('const.time_admin');

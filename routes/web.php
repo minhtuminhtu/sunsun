@@ -11,6 +11,12 @@
 |
 */
 
+Route::get('/reset', function () {
+    \Artisan::call('migrate:reset');
+    \Artisan::call('migrate');
+    \Artisan::call('db:seed');
+    echo "Reset done!";
+});
 
 Route::namespace('Sunsun\Front')->group(function (){
     Route::get('/', function () {

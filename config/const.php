@@ -126,7 +126,8 @@ return [
             'time_value' => '0945',
             'time_range' => '10:00～11:30',
             'begin_time' => '朝',
-            'other_time' => '9：30～10:30',
+            'other_time' => '9:30～10:30',
+            'other_time_value' => '0930-1030',
             'pin_time' => 1,
         ],
         '1' =>  [
@@ -135,6 +136,7 @@ return [
             'time_range' => '10:30～12:00',
             'begin_time' => NULL,
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
         '2' =>  [
@@ -143,6 +145,7 @@ return [
             'time_range' => '11:00～12:30',
             'begin_time' => 1,
             'other_time' => '11:00～12:00',
+            'other_time_value' => '1100-1200',
             'pin_time' => NULL,
         ],
         '3' =>  [
@@ -151,6 +154,7 @@ return [
             'time_range' => '13:30～15:00',
             'begin_time' => '昼',
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
         '4' =>  [
@@ -159,6 +163,7 @@ return [
             'time_range' => '14:00～15:30',
             'begin_time' => NULL,
             'other_time' => '14:00～15:00',
+            'other_time_value' => '1400-1500',
             'pin_time' => NULL,
         ],
         '5' =>  [
@@ -167,6 +172,7 @@ return [
             'time_range' => '14:30～16:00',
             'begin_time' => 1,
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
         '6' =>  [
@@ -175,6 +181,7 @@ return [
             'time_range' => '15:30～17:00',
             'begin_time' => 'メンテナンス',
             'other_time' => '15:30～16:30',
+            'other_time_value' => '1530-1630',
             'pin_time' => 1,
         ],
         '7' =>  [
@@ -183,6 +190,7 @@ return [
             'time_range' => '16:00～17:30',
             'begin_time' => NULL,
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
         '8' =>  [
@@ -191,6 +199,7 @@ return [
             'time_range' => '16:30～18:00',
             'begin_time' => 1,
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
         '9' =>  [
@@ -199,6 +208,7 @@ return [
             'time_range' => '18:00～19:30',
             'begin_time' => '夜',
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
         '10' =>  [
@@ -207,6 +217,7 @@ return [
             'time_range' => '18:30～20:00',
             'begin_time' => NULL,
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
         '11' =>  [
@@ -215,6 +226,7 @@ return [
             'time_range' => '19:00～20:30',
             'begin_time' => NULL,
             'other_time' => NULL,
+            'other_time_value' => NULL,
             'pin_time' => NULL,
         ],
     ]

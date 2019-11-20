@@ -348,7 +348,7 @@
 }
 
 .main-col__pet__header {
-  height: 1.65rem;
+  height: 1.9rem;
 }
 
 .bg-white {
@@ -370,5 +370,16 @@
 .container-90 {
   width: 90vw;
   margin: 0 auto;
+}
+
+.padding-pet-wt {
+  padding: 0.3vw;
+}
+
+.heading-pet-wt {
+  height: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 

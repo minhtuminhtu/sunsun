@@ -135,7 +135,7 @@
                                             <p>昼食: {{ $lunch->kubun_value }}</p> 
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
                                             @if($whitening->kubun_id == '02')
-                                            <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}～</p>
+                                            <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
                                             @endif
                                             <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
@@ -271,7 +271,7 @@
                                             @endphp
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
                                             @if($whitening->kubun_id == '02')
-                                            <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}～</p>
+                                            <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
                                             @endif
                                             <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>
@@ -403,7 +403,7 @@
                                             <p>昼食 ：{{ $lunch_guest_num->kubun_value }}</p>
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
                                             @if($whitening->kubun_id == '02')
-                                            <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}～</p>
+                                            <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
                                             @endif
                                             <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
                                         </div>

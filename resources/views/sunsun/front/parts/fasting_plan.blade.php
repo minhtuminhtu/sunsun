@@ -28,18 +28,11 @@
             <div class="age-col age">
                 <div class="age-left">
                     <select id="age_value"  name="age_value" class="form-control">
-                            @php
-                                $val = [];
-                                $i = 0;
-                                foreach($age_value as $value){
-                                    $val[$i] =  $value->kubun_value;
-                                    $i++;
-                                    
-                                }
-                                for($j = $val[0]; $j <= $val[1]; $j++ ){
-                                    echo "<option>".$j."</option>";
-                                }
-                            @endphp
+                                @php
+                                    for($j = 18; $j < 100; $j++ ){
+                                        echo "<option value='".$j."'>".$j."</option>";
+                                    }
+                                @endphp
                     </select>
                 </div>
             </div>

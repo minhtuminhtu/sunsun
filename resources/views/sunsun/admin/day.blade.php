@@ -5,11 +5,11 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
 @endsection
-
 @section('main')
-
     <main>
-        <div class="container">
+        <div class="container">   
+        </div>
+        <div class="container-90">
             <div class="breadcrumb-sunsun">
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
@@ -37,16 +37,28 @@
                             @foreach($pick_up as $pu)
                             <span class="customer-time">{{  $pu->bus_arrive_time_slide }}　{{  $pu->name }} 様　@if($pu->num_user!=NULL) 同行者{{ $pu->num_user }}名 @endif</span><br>
                             @endforeach
-                            
-
                         </div>
                     </div>
                     <div class="middle_box">
                         <div class="item">
-                            <span>【昼食】　３食</span> <br>
-                            <span>渋野日向子 様</span> <br>
-                            <span>渋野日向子同行者 様</span> <br>
-                            <span>石川遼 様</span>
+                            @php
+                            $number_lunch = count($lunch);
+                            foreach($lunch as $lu){
+                                if(isset($lu->lunch_guest_num)){
+                                    $number_lunch += $lu->lunch;
+                                    $number_lunch -= 1;
+                                }
+                            }
+                            @endphp
+                            <span>【昼食】　{{ $number_lunch }}食</span> <br>
+                            @foreach($lunch as $lu)
+                            @if(isset($lu->ref_booking_id))
+                            <span>{{ $lu->name }} 同行者 様　{{ isset($lu->lunch_guest_num)?"同行者".$lu->lunch."名":""}}</span> <br>
+                            @else
+                            <span>{{ $lu->name }} 様　{{ isset($lu->lunch_guest_num)?"同行者".$lu->lunch."名":""}}</span> <br>
+                            @endif
+                            @endforeach
+                            
                         </div>
                     </div>
                     <div class="middle_box">
@@ -54,22 +66,25 @@
                             <span>【宿泊】</span> <br>
                             <span>A：{{ isset($stay_room['A'])?$stay_room['A']->name." 様     ".$stay_room['A']->stay_guest_num:"" }}</span> <br>
                             <span>B：{{ isset($stay_room['B'])?$stay_room['B']->name." 様     ".$stay_room['B']->stay_guest_num:"" }}</span> <br>
-                            <span>C：{{ isset($stay_room['A'])?$stay_room['C']->name." 様     ".$stay_room['C']->stay_guest_num:"" }}</span> <br>
+                            <span>C：{{ isset($stay_room['C'])?$stay_room['C']->name." 様     ".$stay_room['C']->stay_guest_num:"" }}</span> <br>
                         </div>
                     </div>
                     <div class="middle_box">
                         <div class="item">
-                            <span>【モーニング】　2食</span> <br>
-                            <span>A：○○ 様　2名</span> <br>
-                            <span>B：</span> <br>
-                            <span>C：</span> <br>
+                            @php
+                            $room_a = isset($stay_room['A']->breakfast)?$stay_room['A']->breakfast:intval(0);
+                            $room_b = isset($stay_room['B']->breakfast)?$stay_room['B']->breakfast:intval(0);
+                            $room_c = isset($stay_room['C']->breakfast)?$stay_room['C']->breakfast:intval(0);
+                            @endphp
+                            <span>【モーニング】　{{ $room_a + $room_b + $room_c }}食</span> <br>
+                            <span>A：{{ isset($stay_room['A']->breakfast)?$stay_room['A']->name." 様     ".$stay_room['A']->breakfast."名":"" }}</span> <br>
+                            <span>B：{{ isset($stay_room['B']->breakfast)?$stay_room['B']->name." 様     ".$stay_room['B']->breakfast."名":"" }}</span> <br>
+                            <span>C：{{ isset($stay_room['C']->breakfast)?$stay_room['C']->name." 様     ".$stay_room['C']->breakfast."名":"" }}</span> <br>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </div>
-        <div class="container-90">
             <div class="main-content">
                 <div class="main-content__table">
                     <div class="main-col__time head bg-time-male">時間</div>
@@ -145,19 +160,31 @@
                         @if($time['other_time'] != NULL)
                         <div class="main-col__pet">
                             <div class="main-col__pet__header">
-                            {{$time['other_time']}}
+                                <div class="heading-pet-wt">
+                                    <div class="heading-pet-wt-data">
+                                    {{$time['other_time']}}
+                                    </div>
+                                </div>
                             </div>
                             <div class="main-col__pet__body">
-                            a
+                                <div class="padding-pet-wt">
+                                    @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
+                                </div>
                             </div>
                         </div>
                         <div class="main-col__space-3"></div>
                         <div class="main-col__wt">
                             <div class="main-col__pet__header">
-                            {{$time['other_time']}}
+                                <div class="heading-pet-wt">
+                                    <div class="heading-pet-wt-data">
+                                    {{$time['other_time']}}
+                                    </div>
+                                </div>
                             </div>
                             <div class="main-col__pet__body">
-                            a
+                                <div class="padding-pet-wt">
+                                    @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
+                                </div>
                             </div>
                         </div>
                         @else
@@ -206,19 +233,31 @@
                         @if($time['other_time'] != NULL)
                         <div class="main-col__pet">
                             <div class="main-col__pet__header">
-                            {{$time['other_time']}}
+                                <div class="heading-pet-wt">
+                                    <div class="heading-pet-wt-data">
+                                    {{$time['other_time']}}
+                                    </div>
+                                </div>
                             </div>
                             <div class="main-col__pet__body">
-                            a
+                                <div class="padding-pet-wt">
+                                    @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
+                                </div>
                             </div>
                         </div>
                         <div class="main-col__space-3"></div>
                         <div class="main-col__wt">
                             <div class="main-col__pet__header">
-                            {{$time['other_time']}}
+                                <div class="heading-pet-wt">
+                                    <div class="heading-pet-wt-data">
+                                    {{$time['other_time']}}
+                                    </div>
+                                </div>
                             </div>
                             <div class="main-col__pet__body">
-                            a
+                                <div class="padding-pet-wt">
+                                    @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
+                                </div>
                             </div>
                         </div>
                         @else
@@ -245,11 +284,19 @@
                         <div class="main-col__space-2"></div>
                         @if($time['other_time'] != NULL)
                         <div class="main-col__pet">
-                        {{$time['other_time']}}
+                            <div class="heading-pet-wt">
+                                <div class="heading-pet-wt-data">
+                                {{$time['other_time']}}
+                                </div>
+                            </div>
                         </div>
                         <div class="main-col__space-3"></div>
                         <div class="main-col__wt">
-                        {{$time['other_time']}}
+                            <div class="heading-pet-wt">
+                                <div class="heading-pet-wt-data">
+                                {{$time['other_time']}}
+                                </div>
+                            </div>
                         </div>
                         @else
                         <div class="main-col__pet bg-white">
@@ -258,10 +305,6 @@
                         <div class="main-col__wt bg-white">
                         </div>
                         @endif
-                        
-                            
-                        
-                        
                     </div>
                     <div class="main-content__table">
                         <div class="main-col__time @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp d-flex justify-content-center align-items-center">
@@ -299,10 +342,15 @@
                         <div class="main-col__space-2"></div>
                         @if($time['pin_time'] == 1)
                         <div class="main-col__pet bg-pet-wt">
-                        pet
+                            <div class="padding-pet-wt">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
+                            </div>
                         </div>
                         <div class="main-col__space-3"></div>
                         <div class="main-col__wt bg-pet-wt">
+                            <div class="padding-pet-wt">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
+                            </div>
                         </div>
                         @else
                         <div class="main-col__pet bg-white">

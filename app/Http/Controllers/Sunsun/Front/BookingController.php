@@ -121,15 +121,16 @@ class BookingController extends Controller
             $Yoyaku = new Yoyaku;
             if($parent){
                 $parent_id = $Yoyaku->booking_id = $this->get_booking_id();
-                $parent_date = isset($customer['date-value'])?$customer['date-value']:"";
+                $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
+                $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
                 $Yoyaku->ref_booking_id = NULL;
-                $this->set_booking_course($Yoyaku, $data, $customer,$parent);
+                $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
                 $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                 $parent = false;
             }else{
                 $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
                 $Yoyaku->ref_booking_id = $parent_id;
-                $this->set_booking_course($Yoyaku, $data, $customer,$parent);
+                $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
                 $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
             }
             $Yoyaku->save();
@@ -171,7 +172,7 @@ class BookingController extends Controller
 
 
 
-    public function set_booking_course(&$Yoyaku, $data, $customer,$parent){
+    public function set_booking_course(&$Yoyaku, $data, $customer,$parent, $parent_date){
         $name = $data['name'];
         $phone = $data['phone'];
         $email = $data['email'];
@@ -244,6 +245,8 @@ class BookingController extends Controller
                     $Yoyaku->stay_checkout_date = $stay_checkout_date;
                     $Yoyaku->breakfast = $breakfast->kubun_id;
                 }
+            }else{
+                $Yoyaku->service_date_start = $parent_date;
             }
             
 
@@ -278,6 +281,8 @@ class BookingController extends Controller
                     $Yoyaku->stay_checkout_date = $stay_checkout_date;
                     $Yoyaku->breakfast = $breakfast->kubun_id;
                 }
+            }else{
+                $Yoyaku->service_date_start = $parent_date;
             }
 
         }elseif($course->kubun_id == '03'){
@@ -307,6 +312,8 @@ class BookingController extends Controller
                     $Yoyaku->stay_checkout_date = $stay_checkout_date;
                     $Yoyaku->breakfast = $breakfast->kubun_id;
                 }
+            }else{
+                $Yoyaku->service_date_start = $parent_date;
             }
 
         }elseif($course->kubun_id == '04'){
@@ -320,15 +327,17 @@ class BookingController extends Controller
             $Yoyaku->age_value = $age_value;
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 
+            $Yoyaku->service_date_start = $plan_date_start;
+            $Yoyaku->service_date_end = $plan_date_end;
             if($parent){
-                $Yoyaku->service_date_start = $plan_date_start;
-                $Yoyaku->service_date_end = $plan_date_end;
                 $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
                 if($stay_room_type->kubun_id != '01'){
                     $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
                     $Yoyaku->stay_checkin_date = $stay_checkin_date;
                     $Yoyaku->stay_checkout_date = $stay_checkout_date;
                 }
+            }else{
+                $Yoyaku->service_date_start = $parent_date;
             }
         }elseif($course->kubun_id == '05'){
             $date = isset($customer['date-value'])?$customer['date-value']:"";
@@ -343,6 +352,8 @@ class BookingController extends Controller
 
             if($parent){
                 $Yoyaku->service_date_start = $date;
+            }else{
+                $Yoyaku->service_date_start = $parent_date;
             }
         }
         
