@@ -52,7 +52,7 @@ class AdminController extends Controller
         $this->set_pick_up($data, $date);
         
         
-        // dd($data);
+        dd($data);
 
         return view('sunsun.admin.day',$data);
     }
