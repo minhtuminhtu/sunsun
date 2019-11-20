@@ -37,12 +37,6 @@ class AdminController extends Controller
         //     ->whereYear('service_date_start',2019)
         //     ->whereMonth('service_date_start',11)
         //     ->get();
-
-        
-        // $time_data = DB::table('tr_yoyaku')
-        //     ->select(['booking_id', 'service_time_1 as time1', 'service_time_2 as time2'])
-        //     ->where('course','01')
-        //     ->get();
               
         
 
@@ -52,7 +46,7 @@ class AdminController extends Controller
         $this->set_pick_up($data, $date);
         
         
-        dd($data);
+        // dd($data);
 
         return view('sunsun.admin.day',$data);
     }
