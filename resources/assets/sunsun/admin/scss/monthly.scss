@@ -106,5 +106,25 @@ html, body {
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Opera and Firefox */
-  }
+}
+.bg-white{
+    cursor: pointer !important;
+    background-color: #fff;
+}
+.main-head {
+    display: flex;
+    align-items: center;
+}
 
+.main-head__top {
+    width: 50%;
+}
+.right-content {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 5vw;
+}
+.font-bold {
+    font-weight: 600;
+}

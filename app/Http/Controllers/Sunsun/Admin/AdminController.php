@@ -562,7 +562,7 @@ class AdminController extends Controller
                 SELECT	main.booking_id
                     , main.course
                     , main.gender
-                    , main.service_date_start
+                    , main.service_date_start as service_date
                     , main.service_time_1 as time
                     , SUBSTRING(main.bed, 1, 1) as bed
                 FROM		tr_yoyaku as main
@@ -573,7 +573,7 @@ class AdminController extends Controller
                 SELECT	main.booking_id
                     , main.course
                     , main.gender
-                    , main.service_date_start
+                    , main.service_date_start as service_date
                     , main.service_time_2 as time
                     , SUBSTRING(main.bed, 3, 1) as bed
                 FROM		tr_yoyaku as main
@@ -584,7 +584,7 @@ class AdminController extends Controller
                 SELECT	main.booking_id
                     , main.course
                     , '01' as gender
-                    , main.service_date_start
+                    , main.service_date_start as service_date
                     , main.service_time_1 as time
                     , main.bed
                 FROM		tr_yoyaku as main
@@ -592,20 +592,49 @@ class AdminController extends Controller
             )
         ");
         $week_course = collect($week_course_query);
+
+        $course_5_query = DB::select("
+            SELECT	main.booking_id
+                    , main.course
+                    , main.service_date_start as service_date
+                    ,CONCAT(main.service_time_1, '-', main.service_time_2) as time
+            FROM	tr_yoyaku as main
+            WHERE 	main.course = '05'
+        ");
+
+        $course_5 = collect($course_5_query);
+
+
+        $course_wt_query = DB::select("
+            SELECT	main.booking_id
+                    , main.course
+                    , main.service_date_start as service_date
+                    , main.whitening_time as time
+            FROM	tr_yoyaku as main
+            WHERE main.whitening <> '01'
+        ");
+
+        $course_wt = collect($course_wt_query);
+        
         $check_room = [];
         foreach($day_range_normal as $day){
             for($i = 0; $i < count($data['time_range']); $i++){
-                $check = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value'])->where('course','03');
-                if(count($check)){
-                    $check_room[] = $check;
-                    $data['time_range'][$i]['day'][$day]['male'] = ['1','2','3'];
-                }else{
-                    $data['time_range'][$i]['day'][$day]['male'] = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
-                }
+                // $check = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value'])->where('course','03');
+                // if(count($check)){
+                //     $check_room[] = $check;
+                //     $data['time_range'][$i]['day'][$day]['male'] = ['1','2','3'];
+                // }else{
+                    
+                // }
+                $data['time_range'][$i]['day'][$day]['male'] = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
                 $data['time_range'][$i]['day'][$day]['female'] = $week_course->where('gender', '02')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
+                $data['time_range'][$i]['day'][$day]['pet'] = $course_5->where('service_date', $day)->where('time', $data['time_range'][$i]['other_time_value']);
+                $data['time_range'][$i]['day'][$day]['wt'] = $course_wt->where('service_date', $day)->where('time', $data['time_range'][$i]['other_time_value']);
             }
         }
         
+
+
 
 
     }
@@ -680,10 +709,148 @@ class AdminController extends Controller
         for($i = 0 ; $i < count($data['week']); $i++){
             $data['week_range'][$i] = $this->get_list_dates($data['week'][$i]['start'], $data['week'][$i]['end'], $month);
         } 
+
+        $this->set_monthly_course($data);
+
+        // dd($data);
         return view('sunsun.admin.monthly',['data' => $data, 'month' => $month, 'year' => $year]);
     }
 
+    private function set_monthly_course(&$data){
+        $week_course_query = DB::select("
+        (SELECT	main.booking_id
+                  , main.course
+                  , main.gender
+                  , time.service_date
+                  , time.service_time_1 as time
+                  , SUBSTRING(time.notes, 1, 1) as bed
+            FROM		tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON			main.booking_id = time.booking_id
+            WHERE 	main.course = '01'
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+                    , main.course
+                    , main.gender
+                    , main.service_date_start
+                    , main.service_time_1 as time
+                    , SUBSTRING(main.bed, 1, 1) as bed
+            FROM		tr_yoyaku as main
+            WHERE 	main.course = '02'
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+                    , main.course
+                    , main.gender
+                    , main.service_date_start
+                    , main.service_time_2 as time
+                    , SUBSTRING(main.bed, 3, 1) as bed
+            FROM		tr_yoyaku as main
+            WHERE 	main.course = '02'
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+                    , main.course
+                    , '01' AS gender
+                    , main.service_date_start
+                    , main.service_time_1 as time
+                    , main.bed
+            FROM		tr_yoyaku as main
+            WHERE 	main.course = '03'
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+                  , main.course
+                  , main.gender
+                  , time.service_date
+                  , time.service_time_1 as time
+                  , SUBSTRING(time.notes, 1, 1) as bed
+            FROM		tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON			main.booking_id = time.booking_id
+            WHERE 	main.course = '04'
+        )
+        UNION
+        (
+            SELECT	main.booking_id
+                  , main.course
+                  , main.gender
+                  , time.service_date
+                  , time.service_time_2 as time
+                  , SUBSTRING(time.notes, 3, 1) as bed
+            FROM		tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON			main.booking_id = time.booking_id
+            WHERE 	main.course = '04'
+        )
+        ");
 
+        $week_course = collect($week_course_query);
+
+        $course_5_query = DB::select("
+            SELECT	main.booking_id
+                    , main.course
+                    , main.service_date_start as service_date
+                    , main.service_time_1 as time
+            FROM	tr_yoyaku as main
+            WHERE 	main.course = '05'
+        ");
+
+        $course_5 = collect($course_5_query);
+
+
+        $course_wt_query = DB::select("
+            SELECT	main.booking_id
+                    , main.course
+                    , main.service_date_start as service_date
+                    , SUBSTRING(main.whitening_time, 1, 4) as time
+            FROM	tr_yoyaku as main
+            WHERE main.whitening <> '01'
+        ");
+
+        $course_wt = collect($course_wt_query);
+
+
+        $monthly_data = [];
+        $week_list_day = [];
+        foreach($week_course as $course){
+            $week_list_day[] = $course->service_date;
+        }
+        foreach($course_5 as $course){
+            $week_list_day[] = $course->service_date;
+        }
+        foreach($course_wt as $course){
+            $week_list_day[] = $course->service_date;
+        }
+
+
+        foreach($week_list_day as $day){
+            $monthly_data[$day]['male'][0] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '0945')->where('time','<=' , '1045');
+            $monthly_data[$day]['female'][0] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '0945')->where('time','<=' , '1045');
+            $monthly_data[$day]['male'][1] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1315')->where('time','<=' , '1645');
+            $monthly_data[$day]['female'][1] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1315')->where('time','<=' , '1615');
+            $monthly_data[$day]['male'][2] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1745')->where('time','<=' , '1845');
+            $monthly_data[$day]['female'][2] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1745')->where('time','<=' , '1845');
+            
+            $monthly_data[$day]['pet'][0] = $course_5->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1100');
+            $monthly_data[$day]['pet'][1] = $course_5->where('service_date', $day)->where('time','>=' , '1315')->where('time','<=' , '1530');
+            
+            $monthly_data[$day]['wt'][0] = $course_wt->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1100');
+            $monthly_data[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1315')->where('time','<=' , '1530');
+        
+        }
+
+
+        // dd($week_list_day);
+
+        $data['monthly_data'] = $monthly_data;
+
+    }
     private function get_list_dates($from , $to, $month){
         $from = Carbon::parse($from);
         $to = Carbon::parse($to);

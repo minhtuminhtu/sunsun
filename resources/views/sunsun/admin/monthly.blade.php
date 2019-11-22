@@ -15,7 +15,7 @@
             <div class="main-head">
                 <div class="main-head__top">
                     <span class="datepicker-control current-date">
-                        ≪ <input type="text" value="{{ $year.'/'.$month }}" style="width: 4.2rem" >  ≫
+                        ≪ <input type="text" readonly="readonly" class="bg-white" value="{{ $year.'/'.$month }}" style="width: 4.2rem" >  ≫
                         <span class="icon-calendar">
                             <i data-time-icon="icon-time" data-date-icon="icon-calendar"
                                class="fa fa-calendar-alt">
@@ -28,18 +28,27 @@
                 <div class="main-head__middle">
 
                 </div>
+                <div class="right-content">
+                    <div>
+                        <ul>
+                            <li>●：全床空き</li>
+                            <li>▲：空き有</li>
+                            <li>×：満床</li>
+                        </ul>
+                    </div>   
+                </div>
             </div>
             <div class="main-content">
                 <div class="main-content__table">
                     <div class="table-header header">
                         <div class="table-col"></div>
-                        <div class="table-col">月</div>
-                        <div class="table-col">火</div>
-                        <div class="table-col">水</div>
-                        <div class="table-col">木</div>
-                        <div class="table-col">金</div>
-                        <div class="table-col">土</div>
-                        <div class="table-col last-col">日</div>
+                        <div class="table-col font-bold">月</div>
+                        <div class="table-col font-bold">火</div>
+                        <div class="table-col font-bold">水</div>
+                        <div class="table-col font-bold">木</div>
+                        <div class="table-col font-bold">金</div>
+                        <div class="table-col font-bold">土</div>
+                        <div class="table-col font-bold last-col">日</div>
                     </div>
 
 
@@ -80,51 +89,96 @@
                                 <div class="item noselect">&#160;</div>
                             </div>
                             @else
-                            <div class="data-item-head {{ $day['full_date'] }}">
-                            {{ $day['day'] }}
-                            </div>
-                            <div class="data-item {{ $day['full_date'] }}">
-                                <div class="item">
-                                    <span class="text-blue">●</span>
+                                <div class="data-item-head {{ $day['full_date'] }}">
+                                    <div class="font-bold">{{ $day['day'] }}</div>
                                 </div>
-                                <div class="item">
-                                    <span class="text-red">▲</span>
+                                @if(($key == 2) || ($key == 3))
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">―</span>
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <span class="text-yellow">●</span>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">―</span>
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <span class="text-wt">●</span>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">―</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="data-item {{ $day['full_date'] }}">
-                                <div class="item">
-                                    <span class="text-blue"></span>
+                                @else
+                                <div class="data-item {{ $day['full_date'] }}">
+                                    <div class="item">
+                                        <span class="text-blue">@include('sunsun.admin.layouts.monthly_data', ['type' => 'male', 'time' => '0'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '0'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '0'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '0'])</span>
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <span class="text-red">▲</span>
+                                <div class="data-item {{ $day['full_date'] }}">
+                                    <div class="item">
+                                        <span class="text-blue">@include('sunsun.admin.layouts.monthly_data', ['type' => 'male', 'time' => '1'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '1'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '1'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '1'])</span>
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <span class="text-yellow">●</span>
+                                <div class="data-item {{ $day['full_date'] }}">
+                                    <div class="item">
+                                        <span class="text-blue">@include('sunsun.admin.layouts.monthly_data', ['type' => 'male', 'time' => '2'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '2'])</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">―</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">―</span>
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <span class="text-wt">●</span>
-                                </div>
-                            </div>
-                            <div class="data-item {{ $day['full_date'] }}">
-                                <div class="item">
-                                    <span class="text-blue"></span>
-                                </div>
-                                <div class="item">
-                                    <span class="text-red">▲</span>
-                                </div>
-                                <div class="item">
-                                    <span class="text-yellow">●</span>
-                                </div>
-                                <div class="item">
-                                    <span class="text-wt">●</span>
-                                </div>
-                            </div>
+                                @endif
                             @endif
                         </div>
                         @endforeach

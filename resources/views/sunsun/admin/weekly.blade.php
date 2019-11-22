@@ -43,7 +43,7 @@
                         @foreach($day_range as $day)
                             @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
                             <div class="table-col first">
-                            {{ $day['day'] . '(' . $day['week_day'] . ')' }}
+                                <div class="font-bold">{{ $day['day'] . '(' . $day['week_day'] . ')' }}</div>
                             </div>
                             @elseif($day['week_day'] == '水')
                             <div class="table-col-none first">

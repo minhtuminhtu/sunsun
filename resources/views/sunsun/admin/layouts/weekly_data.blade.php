@@ -13,7 +13,14 @@
     @elseif(count($time['day'][$day['full_date']][$type]) == 0)
     〇
     @else
-    {{ 4 - count($time['day'][$day['full_date']][$type]) }}
+    {{ 3 - count($time['day'][$day['full_date']][$type]) }}
+    @endif
+
+@else
+    @if(count($time['day'][$day['full_date']][$type]) != 0)
+    ×
+    @else
+    〇
     @endif
 
 @endif
