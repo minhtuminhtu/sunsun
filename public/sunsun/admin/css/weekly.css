@@ -431,7 +431,6 @@ table th {
 .weekly .weekly-table .table-header .table-col .table-data .data-col {
   flex-basis: 100%;
   text-align: center;
-  background-color: #537fc9;
   margin-right: 0.15vw;
   margin-left: 0.15vw;
   margin-top: 0.1vw;
@@ -566,6 +565,35 @@ table th {
 }
 
 .wt-title {
-  background-color: #4472c4 !important;
+  background-color: #4472c4;
+}
+
+.bg-male {
+  background-color: #cfd5ea;
+}
+
+.bg-female {
+  background-color: #ffccff;
+}
+
+.bg-male-new {
+  background-color: #e9ebf5 !important;
+}
+
+.bg-female-new {
+  background-color: #ff99cc !important;
+}
+
+.bg-pet {
+  background-color: #ffd966;
+}
+
+.bg-wt {
+  background-color: #bdd7ee;
+}
+
+.bg-white {
+  cursor: pointer;
+  background-color: #fff;
 }
 

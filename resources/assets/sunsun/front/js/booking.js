@@ -2,6 +2,11 @@ $(function() {
     let modal_choice_time = $('#choice_date_time');
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
+    if(today.weekday() == 3){
+        today = moment(today).add(2, 'days');
+    }else if(today.weekday() == 4){
+        today = moment(today).add(1, 'days');
+    }
     var tomorrow = moment(today).add(1, 'days');
 
 
@@ -41,13 +46,10 @@ $(function() {
 
     
     let load_event = function(check = null) {
-        var d = new Date();
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
-
-        
         if($('#date').val() == ""){
-            $('#date').val(strToday + "(" + days_short[moment(strToday).weekday()] + ")");
+            $('#date').val(strToday);
         }
         if($('#range_date_start').val() == ""){
             $('#range_date_start').val(strToday);
@@ -85,11 +87,18 @@ $(function() {
             dateFormat: "yyyy/mm/dd",
             startDate: new Date(),
             autoclose: true,
+            defaultDate: new Date(),
+            daysOfWeekDisabled: "3,4",
+            weekStart: 1,
         });
+        $('#date').datepicker().off('hide');
         $('#date').datepicker().on('hide', function(e) {
             change_day();
         });
 
+        if($('#date').val() != ""){
+            $('#date').val(strToday + "(" + days_short[moment(new Date(strToday)).weekday()] + ")");
+        }
 
 
 
@@ -98,7 +107,8 @@ $(function() {
             language: 'ja',
             dateFormat: 'yyyy/mm/dd',
             autoclose: true,
-            startDate: new Date()
+            daysOfWeekDisabled: "3,4",
+            weekStart: 1,
         });
         $('#range_date_start').datepicker().on('hide', function(e) {
             $('#range_date_end').focus();
@@ -131,7 +141,8 @@ $(function() {
         });
 
         function change_day(){
-            var check = moment($('#date').val());
+            var check = moment(new Date($('#date').val()));
+            var days_short = new Array("日","月","火","水","木","金","土");
             $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
             $('#date-value').val(check.format('YYYYMMDD'));
             $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
@@ -347,6 +358,11 @@ let load_pick_time_pet_event = function(){
 let load_after_ajax = function(){
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
+    if(today.weekday() == 3){
+        today = moment(today).add(2, 'days');
+    }else if(today.weekday() == 4){
+        today = moment(today).add(1, 'days');
+    }
     var tomorrow = moment(today).add(1, 'days');
 
     $('#add-time').off('click');

@@ -17,7 +17,7 @@
             <div class="main-content-head">
                 <div class="left-content">
                 <span class="datepicker-control week-picker" id="week-picker-wrapper">
-                        ≪ <input type="text" value="{{$date_from.' - '.$date_to}}" class="" style="width: 12.8rem;"> ≫
+                        ≪ <input type="text" readonly="readonly" value="{{$date_from.' - '.$date_to}}" class="bg-white" style="width: 12.8rem;"> ≫
                         <span class="icon-calendar">
                             <i data-time-icon="icon-time" data-date-icon="icon-calendar"
                                class="fa fa-calendar-alt js-calendar-day">
@@ -32,7 +32,7 @@
                     <ul>
                         <li>〇：全床空き</li>
                         <li>２：残床数</li>
-                        <li>ー：定休日</li>
+                        <li>×：満床</li>
                     </ul>
                 </div>
             </div>
@@ -84,7 +84,9 @@
                     </div>
                 </div>
             </div>
+            @php $i = 0; @endphp
             @foreach($time_range as $key => $time)
+                @php $i++; @endphp
                 @if($time['begin_time'] == NULL)
                 <div class="weekly">
                     <div class="weekly-time body-content content">
@@ -97,18 +99,23 @@
                                 @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
                                 <div class="table-col body-content content @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
                                     <div class="table-data">
-                                        <div class="data-col first">
-                                        〇
+                                        <div class="data-col bg-male @php if($i%2 == 0){ echo 'bg-male-new'; } @endphp first">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'male'])
                                         </div>
-                                        <div class="data-col">
-                                        〇
+                                        <div class="data-col bg-female @php if($i%2 == 0){ echo 'bg-female-new'; } @endphp">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'female'])
                                         </div>
-                                        <div class="data-col">
-                                        〇
+                                        @if($time['other_time'] != NULL)
+                                        <div class="data-col bg-pet">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'pet'])
                                         </div>
-                                        <div class="data-col last">
-                                        
+                                        <div class="data-col bg-wt last">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'wt'])
                                         </div>
+                                        @else
+                                        <div class="data-col"></div>
+                                        <div class="data-col last"></div>
+                                        @endif
                                     </div>
                                 </div>
                                 @elseif($day['week_day'] == '水')
@@ -130,19 +137,23 @@
                                 @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
                                 <div class="table-col body-content content @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
                                     <div class="table-data">
-                                        
-                                        <div class="data-col first">
-                                        〇
+                                        <div class="data-col bg-male @php if($i%2 == 0){ echo 'bg-male-new'; } @endphp first">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'male'])
                                         </div>
-                                        <div class="data-col">
-                                        〇
+                                        <div class="data-col bg-female @php if($i%2 == 0){ echo 'bg-female-new'; } @endphp">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'female'])
                                         </div>
-                                        <div class="data-col">
-                                        〇
+                                        @if($time['other_time'] != NULL)
+                                        <div class="data-col bg-pet">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'pet'])
                                         </div>
-                                        <div class="data-col last">
-                                        〇
+                                        <div class="data-col bg-wt last">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'wt'])
                                         </div>
+                                        @else
+                                        <div class="data-col"></div>
+                                        <div class="data-col last"></div>
+                                        @endif
                                     </div>
                                 </div>
                                 @elseif($day['week_day'] == '水')
@@ -189,19 +200,23 @@
                                 @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
                                 <div class="table-col body-content content @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
                                     <div class="table-data">
-                                        
-                                        <div class="data-col first">
-                                        〇
+                                        <div class="data-col bg-male @php if($i%2 == 0){ echo 'bg-male-new'; } @endphp first">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'male'])
                                         </div>
-                                        <div class="data-col">
-                                        〇
+                                        <div class="data-col bg-female @php if($i%2 == 0){ echo 'bg-female-new'; } @endphp">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'female'])
                                         </div>
-                                        <div class="data-col">
-                                        〇
+                                        @if($time['other_time'] != NULL)
+                                        <div class="data-col bg-pet">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'pet'])
                                         </div>
-                                        <div class="data-col last">
-                                        〇
+                                        <div class="data-col bg-wt last">
+                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'wt'])
                                         </div>
+                                        @else
+                                        <div class="data-col"></div>
+                                        <div class="data-col last"></div>
+                                        @endif
                                     </div>
                                 </div>
                                 @elseif($day['week_day'] == '水')

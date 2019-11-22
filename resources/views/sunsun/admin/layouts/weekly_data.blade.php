@@ -1,0 +1,19 @@
+@if($type == 'female')
+    @if(count($time['day'][$day['full_date']][$type]) == 4)
+    ×
+    @elseif(count($time['day'][$day['full_date']][$type]) == 0)
+    〇
+    @else
+    {{ 4 - count($time['day'][$day['full_date']][$type]) }}
+    @endif
+
+@elseif($type == 'male')
+    @if(count($time['day'][$day['full_date']][$type]) == 3)
+    ×
+    @elseif(count($time['day'][$day['full_date']][$type]) == 0)
+    〇
+    @else
+    {{ 4 - count($time['day'][$day['full_date']][$type]) }}
+    @endif
+
+@endif

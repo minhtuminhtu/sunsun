@@ -488,18 +488,126 @@ class AdminController extends Controller
 
         $data['day_range'] = $this->get_list_days($data['date_from'], $data['date_to']);
 
-
+        $day_range = [];
+        $day_range_normal = [];
+        $day_range_type = [
+            'male' => NULL,
+            'female' => '×',
+            'pet' => '×',
+            'wt' => '×',
+        ];
+        foreach($data['day_range'] as $dr){
+            $day_range[$dr['full_date']] = $day_range_type;
+            $day_range_normal[] = $dr['full_date'];
+        }
 
         $data['time_range'] = config('const.time_admin');
+        for($i = 0; $i < count($data['time_range']); $i++){
+            $data['time_range'][$i]['day'] = $day_range;
+        }
+
         // dd($data);
 
-
+        $this->set_week_course($data, $day_range_normal);
 
 
 
 
         $data['data_date'] = DB::table('tr_yoyaku')->where([['service_date_start','>=',$date_from_sql],['service_date_start','<=',$date_to_sql]])->get();
         return view('sunsun.admin.weekly',$data);
+    }
+
+    private function set_week_course(&$data, $day_range_normal){
+        $week_course_query = DB::select("
+            (
+                SELECT	main.booking_id
+                    , main.course
+                    , main.gender
+                    , time.service_date
+                    , time.service_time_1 as time
+                    , SUBSTRING(time.notes, 1, 1) as bed
+                FROM		tr_yoyaku as main
+                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                ON			main.booking_id = time.booking_id
+                WHERE 	main.course = '01'
+            )
+            UNION
+            (
+                SELECT	main.booking_id
+                    , main.course
+                    , main.gender
+                    , time.service_date
+                    , time.service_time_1 as time
+                    , SUBSTRING(time.notes, 1, 1) as bed
+                FROM		tr_yoyaku as main
+                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                ON			main.booking_id = time.booking_id
+                WHERE 	main.course = '04'
+            )
+            UNION
+            (
+                SELECT	main.booking_id
+                    , main.course
+                    , main.gender
+                    , time.service_date
+                    , time.service_time_2 as time
+                    , SUBSTRING(time.notes, 3, 1) as bed
+                FROM		tr_yoyaku as main
+                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                ON			main.booking_id = time.booking_id
+                WHERE 	main.course = '04'
+            )
+            UNION
+            (
+                SELECT	main.booking_id
+                    , main.course
+                    , main.gender
+                    , main.service_date_start
+                    , main.service_time_1 as time
+                    , SUBSTRING(main.bed, 1, 1) as bed
+                FROM		tr_yoyaku as main
+                WHERE 	main.course = '02'
+            )
+            UNION
+            (
+                SELECT	main.booking_id
+                    , main.course
+                    , main.gender
+                    , main.service_date_start
+                    , main.service_time_2 as time
+                    , SUBSTRING(main.bed, 3, 1) as bed
+                FROM		tr_yoyaku as main
+                WHERE 	main.course = '02'
+            )
+            UNION
+            (
+                SELECT	main.booking_id
+                    , main.course
+                    , '01' as gender
+                    , main.service_date_start
+                    , main.service_time_1 as time
+                    , main.bed
+                FROM		tr_yoyaku as main
+                WHERE 	main.course = '03'
+            )
+        ");
+        $week_course = collect($week_course_query);
+        $check_room = [];
+        foreach($day_range_normal as $day){
+            for($i = 0; $i < count($data['time_range']); $i++){
+                $check = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value'])->where('course','03');
+                if(count($check)){
+                    $check_room[] = $check;
+                    $data['time_range'][$i]['day'][$day]['male'] = ['1','2','3'];
+                }else{
+                    $data['time_range'][$i]['day'][$day]['male'] = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
+                }
+                $data['time_range'][$i]['day'][$day]['female'] = $week_course->where('gender', '02')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
+            }
+        }
+        
+
+
     }
 
     private function get_list_days($from , $to){
