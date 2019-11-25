@@ -108,6 +108,7 @@ $(function() {
             language: 'ja',
             dateFormat: 'yyyy/mm/dd',
             autoclose: true,
+            startDate: new Date(),
             daysOfWeekDisabled: "3,4",
             weekStart: 1,
         });

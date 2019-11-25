@@ -77,13 +77,19 @@
                                         </div>
                                     </div>
                                 </button>
-                                <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    @php
+                                    $i = false;
+                                    @endphp
                                     @foreach($bus_arrive_time_slide as $value)
-                                    <li class="dropdown-item">
+                                    <li class="dropdown-item @if($i) {{ 'body-content' }} @endif ">
                                         <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
                                         <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
                                         <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
                                     </li>
+                                    @php
+                                    $i = true;
+                                    @endphp
                                     @endforeach
                                 </ul>
                             </div>

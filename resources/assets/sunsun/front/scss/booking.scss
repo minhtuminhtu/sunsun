@@ -676,6 +676,10 @@ select {
 }
 li.dropdown-item {
     cursor: pointer;
+    padding: 0.375rem 0.75rem;
+}
+li.dropdown-item.body-content {
+    border-top: 1px solid #e0a800;
 }
 ul.dropdown-menu {
     border: 1px solid #e0a800;
@@ -690,6 +694,13 @@ ul.dropdown-menu {
     border-color: rgb(224, 168, 0);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(224, 168, 0);
     outline: 0 none;
+}
+
+.dropdown-menu.show {
+    height: 40vh;
+    overflow-y: scroll;
+    width: 100%;
+    padding: 0;
 }
 
     
