@@ -558,6 +558,9 @@ var load_once_time = function load_once_time() {
   $('li.dropdown-item').on('click', function () {
     $('li.dropdown-item').removeClass('active');
     $(this).addClass('active');
+    $('#bus_arrive_time_slide').val($(this).find('.bus_arrive_time_slide').val());
+    $("#bus_time_first").text($(this).find(".bus_time_first").text());
+    $("#bus_time_second").text($(this).find(".bus_time_second").text());
   });
 };
 
