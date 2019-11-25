@@ -801,14 +801,14 @@ li.dropdown-item {
 }
 
 ul.dropdown-menu {
-  border: 1px solid #d7751e;
+  border: 1px solid #e0a800;
 }
 
 .dropdown-item.active,
 .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #d7751e;
+  background-color: #e0a800;
 }
 
 .btn.btn-border:focus {
