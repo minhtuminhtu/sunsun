@@ -61,17 +61,21 @@
                             <div class="dropdown">
                                 <button class="btn btn-border dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="bus-time">
-                                        @php
-                                        $first_bus_time = NULL;
-                                        foreach ($bus_arrive_time_slide as  $first_bus_time) {
-                                            break;
-                                        }
-                                        @endphp
-                                        <input type="hidden" name="bus_arrive_time_slide" id="bus_arrive_time_slide" value='@json($first_bus_time)'>
-                                        <div class="text-left" id="bus_time_first">{{ substr($first_bus_time->kubun_value, 0, 8) }}</div>
-                                        <div class="text-left node-text" id="bus_time_second">{{ trim(str_replace(substr($first_bus_time->kubun_value, 0, 8), '', $first_bus_time->kubun_value)) }}</div>
+                                        <div class="bus-time-data">
+                                            @php
+                                            $first_bus_time = NULL;
+                                            foreach ($bus_arrive_time_slide as  $first_bus_time) {
+                                                break;
+                                            }
+                                            @endphp
+                                            <input type="hidden" name="bus_arrive_time_slide" id="bus_arrive_time_slide" value='@json($first_bus_time)'>
+                                            <div class="text-left" id="bus_time_first">{{ substr($first_bus_time->kubun_value, 0, 8) }}</div>
+                                            <div class="text-left node-text" id="bus_time_second">{{ trim(str_replace(substr($first_bus_time->kubun_value, 0, 8), '', $first_bus_time->kubun_value)) }}</div>
+                                        </div>
+                                        <div class="bus-time-icon">
+                                            <i class="fas fa-long-arrow-alt-down"></i>
+                                        </div>
                                     </div>
-                                    <i class="fas fa-caret-down"></i>
                                 </button>
                                 <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">
                                     @foreach($bus_arrive_time_slide as $value)

@@ -777,8 +777,19 @@ select {
 }
 
 .bus-time {
-  display: inline-block;
-  width: 96%;
+  display: flex;
+  color: #495057;
+}
+
+.bus-time-data {
+  width: 99%;
+}
+
+.bus-time-icon {
+  width: 1%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
 }
 
 .dropdown-toggle::after {
@@ -787,5 +798,22 @@ select {
 
 li.dropdown-item {
   cursor: pointer;
+}
+
+ul.dropdown-menu {
+  border: 1px solid #d7751e;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #d7751e;
+}
+
+.btn.btn-border:focus {
+  border-color: #e0a800;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #e0a800;
+  outline: 0 none;
 }
 
