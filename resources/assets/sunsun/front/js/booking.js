@@ -9,6 +9,7 @@ $(function() {
     }
     var tomorrow = moment(today).add(1, 'days');
 
+    load_once_time();
 
 
     let get_service = function() {
@@ -188,7 +189,7 @@ $(function() {
         $('.set-time.edit input.time').parent().find('#time2-value').val(time_value);
         $('.set-time.edit input.time').parent().find('#time1-bed').val(bed);
         $('.set-time.edit input.time').parent().find('#time2-bed').val(bed);
-        $('.set-time.edit input.time').parent().find('#time_room_value').val(time_value);
+        $('.set-time.edit input.time').parent().find('#time_room_value').val(pad(time_value, 4));
         $('.set-time.edit input.time').parent().find('#time_room_bed').val(bed);
 
 
@@ -431,8 +432,15 @@ let load_once_time = function(){
             $('.bus').show();
         }
     });
+
+    $('li.dropdown-item').first().addClass('active');
+    $('li.dropdown-item').off('click');
+    $('li.dropdown-item').on('click', function() {
+        $('li.dropdown-item').removeClass('active');
+        $(this).addClass('active');
+    });
 }
-load_once_time();
+
 
 
 

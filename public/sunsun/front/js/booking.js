@@ -105,6 +105,7 @@ $(function () {
   }
 
   var tomorrow = moment(today).add(1, 'days');
+  load_once_time();
 
   var get_service = function get_service() {
     var data = {
@@ -293,7 +294,7 @@ $(function () {
     $('.set-time.edit input.time').parent().find('#time2-value').val(time_value);
     $('.set-time.edit input.time').parent().find('#time1-bed').val(bed);
     $('.set-time.edit input.time').parent().find('#time2-bed').val(bed);
-    $('.set-time.edit input.time').parent().find('#time_room_value').val(time_value);
+    $('.set-time.edit input.time').parent().find('#time_room_value').val(pad(time_value, 4));
     $('.set-time.edit input.time').parent().find('#time_room_bed').val(bed);
     $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
     $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
@@ -552,9 +553,13 @@ var load_once_time = function load_once_time() {
       $('.bus').show();
     }
   });
+  $('li.dropdown-item').first().addClass('active');
+  $('li.dropdown-item').off('click');
+  $('li.dropdown-item').on('click', function () {
+    $('li.dropdown-item').removeClass('active');
+    $(this).addClass('active');
+  });
 };
-
-load_once_time();
 
 /***/ }),
 

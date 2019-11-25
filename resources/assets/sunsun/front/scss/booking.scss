@@ -652,5 +652,21 @@ select {
     height: 2.52vw;
     font-size: 1.15vw;
 }
+.btn-border{
+    border: 1px solid #ced4da;
+}
+.dropdown-menu{
+    font: 400 1.15vw Arial;
+}
+.bus-time{
+    display: inline-block;
+    width: 96%;
+}
+.dropdown-toggle::after{
+    display: none;
+}
+li.dropdown-item {
+    cursor: pointer;
+}
 
     

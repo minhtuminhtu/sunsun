@@ -57,11 +57,30 @@
                             <p class="text-left pt-2">{{config('booking.bus_arrive_time_slide.label')}}</p>
                         </div>
                         <div class="booking-field-content">
-                            <select name="bus_arrive_time_slide" class="form-control">
-                                @foreach($bus_arrive_time_slide as $value)
-                                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                                @endforeach
-                            </select>
+                            <input type="hidden" name="bus_arrive_time_slide" id="bus_arrive_time_slide">
+                            <div class="dropdown">
+                                <button class="btn btn-border dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="bus-time">
+                                        @php
+                                        $first_bus_time = NULL;
+                                        foreach ($bus_arrive_time_slide as  $first_bus_time) {
+                                            break;
+                                        }
+                                        @endphp
+                                        <div class="text-left">{{ substr($first_bus_time->kubun_value, 0, 8) }}</div>
+                                        <div class="text-left node-text">{{ trim(str_replace(substr($first_bus_time->kubun_value, 0, 8), '', $first_bus_time->kubun_value)) }}</div>
+                                    </div>
+                                    <i class="fas fa-caret-down"></i>
+                                </button>
+                                <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">
+                                    @foreach($bus_arrive_time_slide as $value)
+                                    <li class="dropdown-item" value='@json($value)'>
+                                        <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
+                                        <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="booking-field bus" style="display:none">

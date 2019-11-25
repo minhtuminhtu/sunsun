@@ -733,6 +733,10 @@
     height: 8vw;
     font-size: 4vw;
   }
+
+  .dropdown-menu {
+    font: 400 4vw Arial;
+  }
 }
 
 @media only screen and (min-width: 768px) {

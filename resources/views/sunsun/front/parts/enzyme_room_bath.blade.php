@@ -80,7 +80,7 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time_view' type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="9:30～10:30" />
+                <input name='whitening-time_view' type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="9:30～10:30" />
                 <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0930-1030"/>
             </div>
         </div>
