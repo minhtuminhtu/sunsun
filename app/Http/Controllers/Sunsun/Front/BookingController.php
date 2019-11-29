@@ -20,8 +20,8 @@ class BookingController extends Controller
     }
 
     public function booking(Request $request){
-
         $data = $request->all();
+        $data['new'] = 1;
         $this->fetch_kubun_data($data);
         // dd($data);
         if (isset($request->add_new_user)) {
@@ -444,6 +444,7 @@ class BookingController extends Controller
         $data = $request->all();
         $this->fetch_kubun_data($data);
         $json = json_decode($data['service']);
+
 
         if ($json->kubun_id == "01") {
             return view('sunsun.front.parts.enzyme_bath',$data)->render();

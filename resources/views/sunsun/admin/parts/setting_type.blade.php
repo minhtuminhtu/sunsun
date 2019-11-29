@@ -4,9 +4,10 @@
             <tr>
                 <th width="5%"></th>
                 <th width="10%">kubun_id</th>
-                <th width="50%">kubun_value</th>
+                <th width="45%">kubun_value</th>
+                <th width="10%">notes</th>
                 <th width="10%" class="text-center">sort_no</th>
-                <th width="25%" class="text-right">action</th>
+                <th width="20%" class="text-right">action</th>
             </tr>
         </thead>
 
@@ -19,6 +20,7 @@
             <td class="text-left">
                 <a class="kubun_value">{{ $value->kubun_value }}</a>
             </td>
+            <td class="text-center sort_no">{{ $value->notes }}</td>
             <td class="text-center sort_no">{{ $value->sort_no }}</td>
 
             <td class="text-right">
@@ -43,7 +45,7 @@
             <td class="top-align">
                 <input type="checkbox" id="check_all" value="">
             </td>
-            <td colspan="4">
+            <td colspan="5">
                 <button type="button" class="btn btn-sm update-edit color-secondary" id="btn-delete" style="display: none;">Delete</button>
                 <button type="button" class="btn btn-sm update-edit color-secondary" id="btn-update" style="display: none;">Change</button>
                 <button type="button" class="btn btn-sm color-primary" id="new">New</button>

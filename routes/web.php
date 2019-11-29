@@ -68,5 +68,6 @@ Route::middleware('auth', 'can:admin')->prefix('admin')->name('admin')->namespac
     Route::delete('/delete_setting_kubun_type',['as' => '.delete_setting_kubun_type', 'uses' => 'AdminController@delete_setting_kubun_type']);
 
     Route::post('/edit_booking',['as' => '.edit_booking', 'uses' => 'AdminController@edit_booking']);
+    Route::post('/update_booking',['as' => '.update_booking', 'uses' => 'AdminController@update_booking']);
 });
 

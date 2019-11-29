@@ -1,6 +1,6 @@
 <div class="modal" id="choice_date_time">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content modal-time">
             <!-- Modal body -->
             <div class="modal-body-time">
 

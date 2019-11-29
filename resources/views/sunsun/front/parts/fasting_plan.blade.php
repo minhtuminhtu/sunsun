@@ -1,3 +1,7 @@
+@php
+    $course_data = json_decode($course_data, true);
+    $course_time = json_decode($course_time, true);
+@endphp
 <div class="booking-block">
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
@@ -13,7 +17,11 @@
         <div class="booking-field-content">
             <select name="gender" class="form-control">
                 @foreach($gender as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['gender']) && ($value->kubun_id == $course_data['gender']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -28,11 +36,13 @@
             <div class="age-col age">
                 <div class="age-left">
                     <select id="age_value"  name="age_value" class="form-control">
-                                @php
-                                    for($j = 18; $j < 100; $j++ ){
-                                        echo "<option value='".$j."'>".$j."</option>";
-                                    }
-                                @endphp
+                        @for($j = 18; $j < 100; $j++ )
+                            @if(isset($course_data['age_value']) && ($course_data['age_value'] == $j))
+                                <option selected value='{{ $j }}'>{{ $j }}</option>
+                            @else
+                                <option value='{{ $j }}'>{{ $j }}</option>
+                            @endif
+                        @endfor
                     </select>
                 </div>
             </div>
@@ -49,14 +59,14 @@
     <input name="plan_date_start-view" id="plan_date_start-view" type="hidden" value="">
     <input name="plan_date_end-view" id="plan_date_end-view" type="hidden" value="">
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
-        <div class="booking-field booking-room  input-daterange" id="choice-range-day">
+        <div class="booking-field booking-room" id="choice-range-day">
             <div class="field-start-day">
                 <p class="node-text">開始日</p>
                 <input name="plan_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date bg-white"  readonly="readonly" id="plan_date_start" value="">
             </div>
             <div class="">
                 <p class="">&nbsp;</p>
-                <p class="character-date">～</p>
+                <p class="character-date pt-2">～</p>
             </div>
             <div class="field-end-day">
                 <p class="node-text">終了日</p>
@@ -95,7 +105,11 @@
         <div class="booking-field-content">
             <select name="pet_keeping" class="form-control">
                 @foreach($pet_keeping as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -116,7 +130,11 @@
         <div class="booking-field-content">
             <select name="stay_room_type" id="room" class="form-control">
                 @foreach($stay_room_type as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['stay_room_type']) && ($value->kubun_id == $course_data['stay_room_type']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -128,7 +146,11 @@
         <div class="booking-field-content">
             <select name="stay_guest_num" class="form-control">
                 @foreach($stay_guest_num as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -145,7 +167,7 @@
             </div>
             <div class="">
                 <p>&nbsp;</p>
-                <p class="character-date mt-1">～</p>
+                <p class="character-date pt-2">～</p>
             </div>
             <div class="field-end-day">
                 <p class="node-text">{{config('booking.range_date.checkout')}}</p>

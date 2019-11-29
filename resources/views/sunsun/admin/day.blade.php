@@ -89,7 +89,7 @@
                 <div class="main-content__table">
                     <div class="main-col__time head bg-time-male">時間</div>
                     <div class="main-col__male">
-                        <div class="main-col__item head bg-time-male">
+                        <div class="main-col__item head bg-time-male js-edit-booking">
                         男性①
                         </div>
                         <div class="main-col__item head bg-time-male">
@@ -131,28 +131,28 @@
                             </div>
                         </div>
                         <div class="main-col__male">
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
                             </div>
                         </div>
                         <div class="main-col__space-1"></div>
                         <div class="main-col__famale">
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="main-col__pet__body">
+                            <div class="main-col__pet__body main-col__data">
                                 <div class="padding-pet-wt">
                                     @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
                                 </div>
@@ -181,17 +181,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="main-col__pet__body">
+                            <div class="main-col__pet__body main-col__data">
                                 <div class="padding-pet-wt">
                                     @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
                                 </div>
                             </div>
                         </div>
                         @else
-                        <div class="main-col__pet bg-white">
+                        <div class="main-col__pet space-white">
                         </div>
                         <div class="main-col__space-3"></div>
-                        <div class="main-col__wt bg-white">
+                        <div class="main-col__wt space-white">
                         </div>
                         @endif
                     </div>
@@ -204,28 +204,28 @@
                             </div>
                         </div>
                         <div class="main-col__male">
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
                             </div>
                         </div>
                         <div class="main-col__space-1"></div>
                         <div class="main-col__famale">
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="main-col__pet__body">
+                            <div class="main-col__pet__body main-col__data">
                                 <div class="padding-pet-wt">
                                     @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
                                 </div>
@@ -254,17 +254,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="main-col__pet__body">
+                            <div class="main-col__pet__body main-col__data">
                                 <div class="padding-pet-wt">
                                     @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
                                 </div>
                             </div>
                         </div>
                         @else
-                        <div class="main-col__pet bg-white">
+                        <div class="main-col__pet space-white">
                         </div>
                         <div class="main-col__space-3"></div>
-                        <div class="main-col__wt bg-white">
+                        <div class="main-col__wt space-white">
                         </div>
                         @endif
                     </div>
@@ -299,10 +299,10 @@
                             </div>
                         </div>
                         @else
-                        <div class="main-col__pet bg-white">
+                        <div class="main-col__pet space-white">
                         </div>
                         <div class="main-col__space-3"></div>
-                        <div class="main-col__wt bg-white">
+                        <div class="main-col__wt space-white">
                         </div>
                         @endif
                     </div>
@@ -314,49 +314,49 @@
                             </div>
                         </div>
                         <div class="main-col__male">
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
                             </div>
                         </div>
                         <div class="main-col__space-1"></div>
                         <div class="main-col__famale">
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
                             </div>
-                            <div class="main-col__item @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
+                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
                             </div>
                         </div>
                         <div class="main-col__space-2"></div>
                         @if($time['pin_time'] == 1)
-                        <div class="main-col__pet bg-pet-wt">
+                        <div class="main-col__pet bg-pet-wt main-col__data">
                             <div class="padding-pet-wt">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
                             </div>
                         </div>
                         <div class="main-col__space-3"></div>
-                        <div class="main-col__wt bg-pet-wt">
+                        <div class="main-col__wt bg-pet-wt main-col__data">
                             <div class="padding-pet-wt">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
                             </div>
                         </div>
                         @else
-                        <div class="main-col__pet bg-white">
+                        <div class="main-col__pet space-white">
                         </div>
                         <div class="main-col__space-3"></div>
-                        <div class="main-col__wt bg-white">
+                        <div class="main-col__wt space-white">
                         </div>
                         @endif
                     </div>
@@ -377,7 +377,7 @@
     @parent
     <div class="modal" id="edit_booking">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-view">
                 <!-- Modal body -->
                 <div class="mail-booking">
 

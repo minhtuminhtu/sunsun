@@ -57,3 +57,11 @@ footer {
   padding-top: 20px;
 }
 
+.container {
+  padding: 0px;
+}
+
+a {
+  text-decoration: underline;
+}
+

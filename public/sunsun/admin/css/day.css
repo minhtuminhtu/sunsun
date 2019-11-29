@@ -200,12 +200,12 @@
 @media (min-width: 769px) {
   html,
   body {
-    font-size: 0.9vw !important;
+    font-size: 1.15vw;
   }
 }
 
 .booking-warp.booking {
-  max-width: 36vw !important;
+  max-width: 100% !important;
   width: 100% !important;
   margin: 0 auto !important;
 }
@@ -226,12 +226,30 @@
   padding-right: 5px;
 }
 
+.booking-field .field-end-day {
+  padding-left: 5px;
+}
+
 .booking-field .booking-field-label {
-  width: 26% !important;
+  width: 35% !important;
 }
 
 .booking-field .booking-field-content {
-  width: 74% !important;
+  width: 65% !important;
+}
+
+.booking-field .booking-field-content .block-content-1 {
+  display: flex;
+}
+
+.booking-field .booking-field-content .block-content-1 .block-content-1-left {
+  width: 85%;
+}
+
+.booking-field .booking-field-content .block-content-1 .block-content-1-right {
+  text-align: right;
+  padding-right: 0.5vw;
+  width: 15%;
 }
 
 .main-content__table {
@@ -355,6 +373,10 @@
   background-color: #fff !important;
 }
 
+.space-white {
+  background-color: #fff !important;
+}
+
 .bg-time-male {
   background-color: #cfd5ea !important;
 }
@@ -381,5 +403,86 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+.foot-confirm {
+  width: 31vw !important;
+  max-width: 31vw !important;
+}
+
+.main-col__data {
+  cursor: pointer;
+}
+
+.breadc {
+  color: #333;
+  background-color: #fff;
+  font-size: 1vw;
+  margin: auto !important;
+  width: 90vw !important;
+  max-width: 90vw !important;
+}
+
+.breadc-link {
+  color: #402106;
+}
+
+.title-menu {
+  padding: 0.75vw 0px 0.75vw 0.75vw !important;
+  color: #402106 !important;
+  border-left: 0.5vw solid #693F0B !important;
+  font-size: 1.75vw !important;
+  font-weight: bold !important;
+  background-image: url(http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/bg.png) !important;
+  width: 90vw !important;
+  max-width: 90vw !important;
+  margin: auto !important;
+  line-height: unset !important;
+}
+
+.modal-view {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  width: 100%;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.modal-content.modal-time {
+  margin-right: 1.5vw;
+}
+
+input#range_date_start {
+  width: 12.5vw;
+}
+
+input#range_date_end {
+  width: 12.5vw;
+}
+
+input#plan_date_start {
+  width: 12.5vw;
+}
+
+input#plan_date_end {
+  width: 12.5vw;
+}
+
+.foot-confirm {
+  padding: 0 0.75vw;
+}
+
+.choice-time .choice-data-time > div input {
+  width: 8.5vw !important;
 }
 

@@ -16,13 +16,20 @@
         <tbody>
         @foreach($data['time_slide'] as $time_slide)
             <tr>
-                <td>{{$time_slide->kubun_value}}～</td>
+                <td>
+                    <div class="time-col">
+                        <div>{{$time_slide->kubun_value}}～</div>
+                    </div>
+                </td>
                 @foreach($data['bed'] as $bed)
                     <td>
-                        <div class="">
-                            <input type="hidden" class="bed" value="{{ $bed->kubun_value }}">
-                            <input type="radio" name="time" value="{{$time_slide->kubun_value}}">
+                        <div class="time-col">
+                            <div>
+                                <input type="hidden" class="bed" value="{{ $bed->kubun_value }}">
+                                <input type="radio" name="time" value="{{$time_slide->kubun_value}}">
+                            </div>
                         </div>
+                    </td>
                 @endforeach
             </tr>
         @endforeach

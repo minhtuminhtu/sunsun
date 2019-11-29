@@ -82,6 +82,8 @@
                                     @php 
                                         $gender = isset($data['gender'])?json_decode($data['gender']):"";
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
+                                        $age_type = isset($data['age_type'])?$data['age_type']:"";
+                                        
                                     @endphp
 
                                     <div class="linex"> 
@@ -92,6 +94,8 @@
                                             
                                         </div>
                                     </div>
+
+                                    @if($age_type == '3')
                                     <div class="linex"> 
                                         <p> 年齢：{{ $age_value }}歳</p>
                                         <div class="line1">
@@ -100,6 +104,7 @@
                                             
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="linex"> 
                                         <p>コース: {{ $course->kubun_value }}</p>
                                         <div class="line1">

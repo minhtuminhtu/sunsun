@@ -107,9 +107,15 @@ $(function () {
   var tomorrow = moment(today).add(1, 'days');
   load_once_time();
 
-  var get_service = function get_service() {
+  var get_service = function get_service(course, course_data, course_time) {
+    if (course == "") {
+      course = $('#course').val();
+    }
+
     var data = {
-      'service': $('#course').val()
+      'service': course,
+      'course_data': course_data,
+      'course_time': course_time
     };
 
     if ($('input[name=add_new_user]').val() == 'on') {
@@ -141,9 +147,9 @@ $(function () {
   };
 
   $('#course').on('change', function () {
-    get_service();
+    get_service($('#course').val(), $('#course_data').val(), $('#course_time').val());
   });
-  get_service();
+  get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val());
 
   var load_event = function load_event() {
     var check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -188,38 +194,155 @@ $(function () {
         $('.whitening').show();
       }
     });
+    DatePicker = {
+      hideOldDays: function hideOldDays() {
+        var x = $('td.old.day');
+
+        if (x.length > 0) {
+          x.css('visibility', 'hidden');
+
+          if (x.length === 7) {
+            x.parent().hide();
+          }
+        }
+      },
+      hideNewDays: function hideNewDays() {
+        var x = $('td.new.day');
+
+        if (x.length > 0) {
+          x.hide();
+        }
+      },
+      hideOtherMonthDays: function hideOtherMonthDays() {
+        DatePicker.hideOldDays();
+        DatePicker.hideNewDays();
+      }
+    };
     $('#date').datepicker({
       language: 'ja',
       dateFormat: "yyyy/mm/dd",
       startDate: new Date(),
       autoclose: true,
-      defaultDate: new Date(),
       daysOfWeekDisabled: "3,4",
-      weekStart: 1
+      weekStart: 1,
+      orientation: 'bottom'
     });
     $('#date').datepicker().off('hide');
     $('#date').datepicker().on('hide', function (e) {
       change_day();
     });
+    $('#date').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
+    });
 
     if ($('#date').val() != "") {
-      $('#date').val(strToday + "(" + days_short[moment(new Date(strToday)).weekday()] + ")");
+      var date_value = moment(new Date($('#date').val()));
+      var date_pick = date_value.format('Y') + "/" + date_value.format('MM') + "/" + date_value.format('DD');
+      $('#date').val(date_pick + "(" + days_short[moment(new Date(date_pick)).weekday()] + ")");
     }
 
-    var input_daterange = $('.input-daterange');
-    input_daterange.datepicker({
+    $('.input-daterange').datepicker({
       language: 'ja',
       dateFormat: 'yyyy/mm/dd',
       autoclose: true,
       startDate: new Date(),
       daysOfWeekDisabled: "3,4",
-      weekStart: 1
+      // daysOfWeekHighlighted: "1,2",
+      weekStart: 1,
+      orientation: 'bottom'
     });
-    $('#range_date_start').datepicker().on('hide', function (e) {
+
+    var get_end_date = function get_end_date() {
+      var start_date = moment(new Date($('#plan_date_start').val()));
+      var end_date;
+
+      if (start_date.weekday() == 5) {
+        end_date = start_date.add(4, 'days').toDate();
+      } else {
+        end_date = start_date.add(6, 'days').toDate();
+      }
+
+      return end_date;
+    };
+
+    $('#plan_date_start').datepicker({
+      language: 'ja',
+      dateFormat: 'yyyy/mm/dd',
+      autoclose: true,
+      startDate: new Date(),
+      daysOfWeekDisabled: "3,4",
+      // daysOfWeekHighlighted: "1,2",
+      weekStart: 1,
+      orientation: 'bottom'
+    });
+    $('#plan_date_end').datepicker({
+      language: 'ja',
+      dateFormat: 'yyyy/mm/dd',
+      autoclose: true,
+      startDate: new Date(),
+      endDate: get_end_date(),
+      daysOfWeekDisabled: "3,4,5,6",
+      weekStart: 1,
+      orientation: 'bottom'
+    });
+    var range_date_temp = [];
+    $('#range_date_start').datepicker().on('hide', function () {
       $('#range_date_end').focus();
     });
-    $('#plan_date_start').datepicker().on('hide', function (e) {
+    $('#plan_date_start').datepicker().on('hide', function () {
+      $('#plan_date_end').datepicker('destroy');
+
+      if ($.inArray(moment(new Date($('#plan_date_start').val())).format('YYYY-MM-DD'), range_date_temp) == -1) {
+        $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
+      }
+
+      $('#plan_date_end').datepicker({
+        language: 'ja',
+        dateFormat: 'yyyy/mm/dd',
+        autoclose: true,
+        startDate: new Date($('#plan_date_start').val()),
+        endDate: get_end_date(),
+        daysOfWeekDisabled: "3,4",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
       $('#plan_date_end').focus();
+    });
+
+    var highlight = function highlight(start) {
+      var highlight = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+      highlight.forEach(function (element, index) {
+        var date_hl = moment(element + " 00:00 +0000", 'YYYY-MM-DD HH:mm Z').utc().format("X") + "000";
+
+        if (index == 0 || index == highlight.length - 1) {
+          if (start && index == 0 || !start && index == highlight.length - 1) {
+            $("td[data-date='" + date_hl + "']").css('background-image', 'linear-gradient(to bottom, #08c, #0044cc)');
+          } else {
+            $("td[data-date='" + date_hl + "']").css('background', '#9e9e9e');
+          }
+
+          $("td[data-date='" + date_hl + "']").css('color', '#fff');
+        } else {
+          $("td[data-date='" + date_hl + "']").css('background', '#eee');
+          $("td[data-date='" + date_hl + "']").css('border-radius', 'unset');
+          $("td[data-date='" + date_hl + "']").css('color', '#212529');
+        }
+      });
+    };
+
+    $('#plan_date_start').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
+      highlight(true);
+    });
+    $('#plan_date_end').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
+      highlight(false);
+    });
+    $('#plan_date_end').datepicker().on('hide', function (e) {
+      range_date_temp = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+    });
+    $('.input-daterange').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
     });
     $('.agecheck').on('click', function () {
       $('.agecheck').removeClass('color-active');
@@ -229,19 +352,9 @@ $(function () {
       $('#agecheck').val($(this).val());
 
       if ($(this).val() == '1' || $(this).val() == '2') {
-        $('#age_value').empty();
-
-        for (var i = 0; i < 19; i++) {
-          $('#age_value').append('<option value="' + i + '">' + i + '</option>');
-          $('#age_value').val("18");
-        }
+        $('.age-left').css("visibility", "hidden");
       } else if ($(this).val() == '3') {
-        $('#age_value').empty();
-
-        for (var _i = 18; _i < 100; _i++) {
-          $('#age_value').append('<option value="' + _i + '">' + _i + '</option>');
-          $('#age_value').val("18");
-        }
+        $('.age-left').css("visibility", "visible");
       }
     });
 
@@ -271,7 +384,7 @@ $(function () {
     modal_choice_time.find('.modal-body-time').empty();
     $('.set-time').removeClass('edit');
   });
-  modal_choice_time.off('click');
+  modal_choice_time.off('click', '#js-save-time');
   modal_choice_time.on('click', '#js-save-time', function (e) {
     var time = modal_choice_time.find('input[name=time]:checked').val();
     var bed = modal_choice_time.find('input[name=time]:checked').parent().find('.bed').val();
@@ -279,7 +392,7 @@ $(function () {
     var time_value = time_value = time.replace(/[^0-9]/g, '');
 
     if ($('#new-time').val() == 1) {
-      $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" id="" value="" /><input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value=""><input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value=""></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+      $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly"  value="" /><input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value=""><input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value=""></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
       load_time_delete_event();
       load_pick_time_event();
       $('.booking-time').last().val(time);
@@ -347,8 +460,8 @@ $(function () {
     var check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
     if (!check) {
-      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date[' + 0 + '][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ><input name="date[' + 0 + '][day][value]" value="' + today.format('YYYY') + today.format('MM') + today.format('DD') + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 0 + '][from][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="0945" /><input name="date[' + 0 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 0 + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 0 + '][to][value]" type="hidden" class="time_to"  readonly="readonly" id="" value="1345" /><input name="date[' + 0 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 0 + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date[' + 1 + '][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ><input name="date[' + 1 + '][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD') + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 1 + '][from][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="0945" /><input name="date[' + 1 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 1 + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 1 + '][to][value]" type="hidden" class="time_to"  readonly="readonly" id="" value="1345" /><input name="date[' + 1 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + 1 + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date[' + 0 + '][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ><input name="date[' + 0 + '][day][value]" value="' + today.format('YYYY') + today.format('MM') + today.format('DD') + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 0 + '][from][value]" type="hidden" class="time_from"  readonly="readonly"  value="0945" /><input name="date[' + 0 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[' + 0 + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 0 + '][to][value]" type="hidden" class="time_to"  readonly="readonly"  value="1345" /><input name="date[' + 0 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[' + 0 + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+      $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date[' + 1 + '][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ><input name="date[' + 1 + '][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD') + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + 1 + '][from][value]" type="hidden" class="time_from"  readonly="readonly"  value="0945" /><input name="date[' + 1 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[' + 1 + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + 1 + '][to][value]" type="hidden" class="time_to"  readonly="readonly"  value="1345" /><input name="date[' + 1 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[' + 1 + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
     }
 
     $(".range_date").change(function () {
@@ -361,7 +474,7 @@ $(function () {
         var month = check.format('MM');
         var day = check.format('DD');
         var week_day = check.weekday();
-        $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date[' + index + '][day][view]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ><input name="date[' + index + '][day][value]" value="' + year + month + day + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + index + '][from][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="0945" /><input name="date[' + index + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + index + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + index + '][to][value]" type="hidden" class="time_from"  readonly="readonly" id="" value="1345" /><input name="date[' + index + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly" id="" value="1" /><input name="date[' + index + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly" id="" value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+        $('.time-list').append('<div class="booking-field choice-time"><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date[' + index + '][day][view]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ><input name="date[' + index + '][day][value]" value="' + year + month + day + '" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date[' + index + '][from][value]" type="hidden" class="time_from"  readonly="readonly"  value="0945" /><input name="date[' + index + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[' + index + '][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="09:45" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[' + index + '][to][value]" type="hidden" class="time_from"  readonly="readonly"  value="1345" /><input name="date[' + index + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[' + index + '][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="13:45" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
       });
       var check2 = moment(new Date($('#plan_date_start').val()));
       var check1 = moment(new Date($('#plan_date_end').val()));
@@ -391,7 +504,8 @@ var load_time_delete_event = function load_time_delete_event() {
 var load_pick_time_event = function load_pick_time_event() {
   modal_choice_time = $('#choice_date_time');
   var set_time = $('.js-set-time');
-  set_time.click(function (e) {
+  set_time.off('click');
+  set_time.on('click', function () {
     var set_time_click = $(this);
     $.ajax({
       url: '/get_time_room',
@@ -421,7 +535,8 @@ var load_pick_time_event = function load_pick_time_event() {
 
 var load_pick_time_room_event = function load_pick_time_room_event() {
   var get_room = $('.js-set-room');
-  get_room.click(function (e) {
+  get_room.off('click');
+  get_room.on('click', function () {
     var set_time_click = $(this);
     $.ajax({
       url: $site_url + '/book_room',
@@ -451,7 +566,8 @@ var load_pick_time_room_event = function load_pick_time_room_event() {
 
 var load_pick_time_pet_event = function load_pick_time_pet_event() {
   var get_room_pet = $('.js-set-room_pet');
-  get_room_pet.click(function (e) {
+  get_room_pet.off('click');
+  get_room_pet.on('click', function () {
     var set_time_click = $(this);
     $.ajax({
       url: $site_url + '/book_time_room_pet',
@@ -518,7 +634,6 @@ var load_after_ajax = function load_after_ajax() {
       }
     });
   });
-  $('#age_value').val("18");
   $('#date-value').val(today.format('YYYYMMDD'));
   $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
   $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
@@ -537,7 +652,10 @@ function get_dates(startDate, stopDate) {
   var stopDate = moment(new Date(stopDate));
 
   while (currentDate <= stopDate) {
-    dateArray.push(moment(currentDate).format('YYYY-MM-DD'));
+    if (moment(currentDate).weekday() != 3 && moment(currentDate).weekday() != 4) {
+      dateArray.push(moment(currentDate).format('YYYY-MM-DD'));
+    }
+
     currentDate = moment(currentDate).add(1, 'days');
   }
 
@@ -554,7 +672,6 @@ var load_once_time = function load_once_time() {
       $('.bus').show();
     }
   });
-  $('li.dropdown-item').first().addClass('active');
   $('li.dropdown-item').off('click');
   $('li.dropdown-item').on('click', function () {
     $('li.dropdown-item').removeClass('active');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sunsun\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Yoyaku;
+use App\Models\YoyakuDanjikiJikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -303,7 +304,7 @@ class AdminController extends Controller
             }
             switch($course_1_to_4[$i]->transport){
                 case '01': {
-                    $course_1_to_4[$i]->transport = '自動車';
+                    $course_1_to_4[$i]->transport = '車';
                     $course_1_to_4[$i]->bus_arrive_time_slide = NULL;
                     $course_1_to_4[$i]->pick_up = NULL;
                     break;
@@ -364,7 +365,7 @@ class AdminController extends Controller
         for($i = 0; $i < count($course_5); $i++){
             switch($course_5[$i]->transport){
                 case '01': {
-                    $course_5[$i]->transport = '自動車';
+                    $course_5[$i]->transport = '車';
                     $course_5[$i]->bus_arrive_time_slide = NULL;
                     $course_5[$i]->pick_up = NULL;
                     break;
@@ -408,7 +409,7 @@ class AdminController extends Controller
         for($i = 0; $i < count($course_wt); $i++){
             switch($course_wt[$i]->transport){
                 case '01': {
-                    $course_wt[$i]->transport = '自動車';
+                    $course_wt[$i]->transport = '車';
                     $course_wt[$i]->bus_arrive_time_slide = NULL;
                     $course_wt[$i]->pick_up = NULL;
                     break;
@@ -465,7 +466,19 @@ class AdminController extends Controller
         $data = $request->all();
         $booking = new BookingController();
         $booking->fetch_kubun_data($data);
+        if($data['booking_id'] != 0){
+            $data['data_booking'] = Yoyaku::where('booking_id', $data['booking_id'])->first();
+            $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['booking_id'])->get();
+        }else{
+            $data['data_booking'] = [];
+            $data['data_time'] = [];
+        }
         return view('sunsun.admin.parts.booking',$data)->render();
+    }
+
+    public function update_booking (Request $request){
+        $data = $request->all();
+        dd($data);
     }
 
 
@@ -916,22 +929,6 @@ class AdminController extends Controller
     }
     public function update_setting_kubun_type(Request $request) {
         $data = $request->all();
-
-        $notes = NULL;
-        if(($data['kubun_type'] == '013') || ($data['kubun_type'] == '012')){
-            $notes = preg_replace('/[^0-9]/', '', $data['kubun_value']);
-        }elseif($data['kubun_type'] == '014'){
-            $temp = preg_replace('/[^0-9]/', '', $data['kubun_value']);
-            $notes = substr($temp,0,4)."-".substr($temp,4,8);
-        }elseif($data['kubun_type'] == '003'){
-            $str = explode(":",$data['kubun_value']);
-            $temp = sprintf('%02d', preg_replace('/[^0-9]/', '',$str[0]) );
-            $temp1 = sprintf('%02d', preg_replace('/[^0-9]/', '',$str[1]) );
-
-            $notes = $temp.$temp1;
-        }
-
-
         if((strlen($data['kubun_id']) == 0 )  || (strlen($data['kubun_id']) > 2 ) || (strlen($data['kubun_value']) == 0 ) || (strlen($data['kubun_value']) > 255 )){
             return response()->json([
                     'msg' => "length error!",
@@ -945,9 +942,9 @@ class AdminController extends Controller
                     'msg' => "kubun_id exist!",
                 ], 400);
             }
-            $MsKubun = MsKubun::create(['kubun_type' => $data['kubun_type'],'kubun_id' => $data['kubun_id'], 'kubun_value' => $data['kubun_value'],'sort_no' => $data['sort_no'], 'notes'=> $notes]);
+            $MsKubun = MsKubun::create(['kubun_type' => $data['kubun_type'],'kubun_id' => $data['kubun_id'], 'kubun_value' => $data['kubun_value'],'sort_no' => $data['sort_no'], 'notes'=> $data['notes']]);
         }else{
-            MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->update(['kubun_value' => $data['kubun_value'], 'notes'=> $notes]);
+            MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->update(['kubun_value' => $data['kubun_value'], 'notes'=> $data['notes']]);
         }
     }
     public function delete_setting_kubun_type(Request $request) {

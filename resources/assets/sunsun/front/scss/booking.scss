@@ -164,6 +164,15 @@ main {
         opacity: 0.7;
     }
 }
+.btn-update {
+    background: #d7751e;
+    &:hover {
+        opacity: 0.7;
+    }
+}
+.btn-update.btn-update-left {
+    background: #ffc107;
+  }
 a{
     text-decoration: underline;
 }
@@ -702,5 +711,28 @@ ul.dropdown-menu {
     width: 100%;
     padding: 0;
 }
+td.disabled.disabled-date.range.day {
+    background-color: #fff;
+}
+.boking-history {
+    margin-top: 0.75vw;
+}
+.booking-history{
+    display: flex;
+    margin-top: 0.75vw;
+    .booking-history-label{
+        width: 35%;
+    }
+    .booking-history-content{
+        width: 65%;
+    }
+}
+.time-col {
+    display: flex;
+    height: 1.75rem;
+    justify-content: center;
+    align-items: center;
+}
+
 
     

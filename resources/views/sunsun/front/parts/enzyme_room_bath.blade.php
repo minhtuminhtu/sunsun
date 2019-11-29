@@ -1,3 +1,7 @@
+@php
+    $course_data = json_decode($course_data, true);
+    $course_time = json_decode($course_time, true);
+@endphp
 <div class="booking-block">
     @if(!isset($add_new_user))
     <input name="date-view" id="date-view" type="hidden" value="">
@@ -35,7 +39,11 @@
         <div class="booking-field-content">
             <select name="service_guest_num" class="form-control">
                 @foreach($service_guest_num as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['service_guest_num']) && ($value->kubun_id == $course_data['service_guest_num']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -55,7 +63,11 @@
         <div class="booking-field-content">
             <select name="lunch_guest_num" class="form-control">
                 @foreach($lunch_guest_num as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['lunch_guest_num']) && ($value->kubun_id == $course_data['lunch_guest_num']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -68,7 +80,11 @@
         <div class="booking-field-content">
             <select name="whitening" id="whitening"  class="form-control">
                 @foreach($whitening as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -92,7 +108,11 @@
         <div class="booking-field-content">
             <select name="pet_keeping" class="form-control">
                 @foreach($pet_keeping as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -114,7 +134,11 @@
         <div class="booking-field-content">
             <select name="stay_room_type" id="room" class="form-control">
                 @foreach($stay_room_type as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['stay_room_type']) && ($value->kubun_id == $course_data['stay_room_type']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -126,7 +150,11 @@
         <div class="booking-field-content">
             <select name="stay_guest_num" class="form-control">
                 @foreach($stay_guest_num as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -143,7 +171,7 @@
             </div>
             <div class="">
                 <p>&nbsp;</p>
-                <p class="character-date mt-1">～</p>
+                <p class="character-date pt-2">～</p>
             </div>
             <div class="field-end-day">
                 <p class="node-text">{{config('booking.range_date.checkout')}}</p>
@@ -159,7 +187,11 @@
         <div class="booking-field-content">
             <select name="breakfast"  class="form-control">
                 @foreach($breakfast as $value)
-                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @if(isset($course_data['breakfast']) && ($value->kubun_id == $course_data['breakfast']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @else
+                        <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>

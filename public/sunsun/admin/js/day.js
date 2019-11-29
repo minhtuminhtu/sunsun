@@ -130,11 +130,15 @@ $(function () {
     current_day.find('input').trigger("input");
   });
   var booking_edit = $('#edit_booking');
-  $('.js-edit-booking').click(function (e) {
+
+  var show_booking = function show_booking(booking_id) {
     $.ajax({
       url: '/admin/edit_booking',
       type: 'POST',
-      data: {},
+      data: {
+        'new': 0,
+        'booking_id': booking_id
+      },
       dataType: 'text',
       beforeSend: function beforeSend() {
         loader.css({
@@ -151,9 +155,17 @@ $(function () {
         });
       }
     });
-  });
-  $('.modal-dialog').draggable({
-    handle: ".modal-header"
+  };
+
+  $('.main-col__data').off('click');
+  $('.main-col__data').on('click', function (e) {
+    var booking_id = $(this).find('.booking-id').val();
+
+    if (booking_id == undefined) {
+      booking_id = 0;
+    }
+
+    show_booking(booking_id);
   });
 });
 

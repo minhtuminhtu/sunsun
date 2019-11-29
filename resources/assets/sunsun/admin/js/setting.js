@@ -247,6 +247,7 @@ $(document).ready(function() {
             var kubun_type = $('#setting-type').val();
             var kubun_id = $('#kubun_id').val();
             var kubun_value = $('#kubun_value').val();
+            var notes = $('#notes').val();
             var sort_no = $('.kubun_value').length + 1;
             var new_check = $('#new_check').val();
 
@@ -258,6 +259,7 @@ $(document).ready(function() {
                     kubun_id: kubun_id,
                     kubun_value: kubun_value,
                     kubun_type : kubun_type,
+                    notes : notes,
                     sort_no : sort_no
                 },
                 beforeSend: function() {

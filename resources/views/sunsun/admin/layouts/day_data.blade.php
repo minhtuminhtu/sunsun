@@ -5,6 +5,13 @@
         @else
             <span>{{ $time['data'][$row]->name }}様</span>
         @endif
+
+        @if(isset($time['data'][$row]->booking_id))
+            <input type="hidden" class="booking-id" value="{{ $time['data'][$row]->booking_id }}">
+        @endif
+
+
+
         @if(!isset($time['data'][$row]->ref_booking_id))
         <br>
         <span>{{ $time['data'][$row]->transport }}</span>
@@ -23,6 +30,11 @@
         @else
             <span>{{ $time['data'][$row]->name }}様</span>
         @endif
+
+        @if(isset($time['data'][$row]->booking_id))
+            <input type="hidden" class="booking-id" value="{{ $time['data'][$row]->booking_id }}">
+        @endif
+
         @if(!isset($time['data'][$row]->ref_booking_id))
         <br>
         <span>{{ $time['data'][$row]->transport }}</span>
@@ -46,6 +58,10 @@
         <span>{{ $time['data'][$row]->name }}同行者様</span>
         @else
         <span>{{ $time['data'][$row]->name }}様</span>
+        @endif
+
+        @if(isset($time['data'][$row]->booking_id))
+            <input type="hidden" class="booking-id" value="{{ $time['data'][$row]->booking_id }}">
         @endif
 
         @if(!isset($time['data'][$row]->ref_booking_id))

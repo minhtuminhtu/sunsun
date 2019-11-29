@@ -15,7 +15,6 @@
         </div>
         <div class="setting">
             <div class="setting-left">
-                <div class="setting-laber">Setting Laber</div>
                 <select name="setting-type" id="setting-type" class="form-control">
                     @foreach($data as $key => $value)
                     <option value='{{$key}}'>{{$value}}</option>
