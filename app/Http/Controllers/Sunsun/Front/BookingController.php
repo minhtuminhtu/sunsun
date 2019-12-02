@@ -199,6 +199,7 @@ class BookingController extends Controller
                 } else {
                     $course_price = $day * $one_day_price;
                 }
+                break;
             case "05": // pet
                 $course_price_op = MsKubun::where([['kubun_type','028'],['kubun_id','01']])->get()->first();
                 $course_price = $course_price_op->kubun_value;
