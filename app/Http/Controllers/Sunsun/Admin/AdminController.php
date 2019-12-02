@@ -443,8 +443,8 @@ class AdminController extends Controller
             $data['time_range'][$i]['data']['female_3'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '3');
             $data['time_range'][$i]['data']['female_4'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '4');
 
-            $data['time_range'][$i]['data']['pet'] = $course_5->firstWhere('time',   $data['time_range'][$i]['other_time_value']);
-            $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['other_time_value']);
+            $data['time_range'][$i]['data']['pet'] = $course_5->firstWhere('time',   $data['time_range'][$i]['pet_time_value']);
+            $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['pet_time_value']);
 
         }
 
@@ -641,8 +641,8 @@ class AdminController extends Controller
                 // }
                 $data['time_range'][$i]['day'][$day]['male'] = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
                 $data['time_range'][$i]['day'][$day]['female'] = $week_course->where('gender', '02')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
-                $data['time_range'][$i]['day'][$day]['pet'] = $course_5->where('service_date', $day)->where('time', $data['time_range'][$i]['other_time_value']);
-                $data['time_range'][$i]['day'][$day]['wt'] = $course_wt->where('service_date', $day)->where('time', $data['time_range'][$i]['other_time_value']);
+                $data['time_range'][$i]['day'][$day]['pet'] = $course_5->where('service_date', $day)->where('time', $data['time_range'][$i]['pet_time_value']);
+                $data['time_range'][$i]['day'][$day]['wt'] = $course_wt->where('service_date', $day)->where('time', $data['time_range'][$i]['pet_time_value']);
             }
         }
 
@@ -659,6 +659,7 @@ class AdminController extends Controller
         for($d = $from; $d->lte($to); $d->addDay()) {
             $dates[$d->format('Ymd')]['full_date'] = $d->format('Ymd');
             $dates[$d->format('Ymd')]['day'] = ltrim($d->format('d'), "0");
+            $dates[$d->format('Ymd')]['month'] = ltrim($d->format('m'), "0");
             $dates[$d->format('Ymd')]['week_day'] = $this->get_week_day($d->format('Y/m/d'));
 
         }

@@ -38,7 +38,7 @@
 .main-head__middle .middle_box {
   margin-right: 10px;
   padding: 0.5vw;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   flex: 1;
   height: 8rem;
   overflow-y: auto;
@@ -261,8 +261,8 @@
 .main-content__table .main-col__time-male {
   width: 42.3%;
   background-color: #4472c4;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
+  border-right: 1px dashed #000;
+  border-bottom: 1px dashed #000;
 }
 
 .main-content__table .main-col__new-famale {
@@ -273,23 +273,23 @@
 }
 
 .main-content__table .main-col__time {
-  width: 12%;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
+  width: 8.5%;
+  border-left: 1px solid #000;
+  border-right: 1px dashed #000;
+  border-bottom: 1px dashed #000;
   padding: 0.5rem 0;
-  background-color: #e9ebf5;
 }
 
 .main-content__table .main-col__male {
-  width: 30.3%;
+  width: 31.8%;
   display: flex;
 }
 
 .main-content__table .main-col__male .main-col__item {
   flex-basis: 100%;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  background-color: #e9ebf5;
+  border-right: 1px dashed #000;
+  border-bottom: 1px dashed #000;
+  background-color: #ddebf7;
   padding: 0.3vw;
 }
 
@@ -306,21 +306,20 @@
 }
 
 .main-content__table .main-col__famale {
-  width: 40.4%;
+  width: 42.4%;
   display: flex;
 }
 
 .main-content__table .main-col__famale .main-col__item {
   flex-basis: 100%;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  background-color: #fbe5d6;
+  border-right: 1px dashed #000;
+  border-bottom: 1px dashed #000;
+  background-color: #ffccff;
   padding: 0.3vw;
 }
 
 .main-content__table .main-col__pet {
   width: 10%;
-  border-bottom: 2px solid #fff;
   background-color: #fff4e7;
   display: block;
 }
@@ -332,8 +331,10 @@
 
 .main-content__table .main-col__wt {
   width: 10%;
-  border-bottom: 2px solid #fff;
-  background-color: #fff4e7;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px dashed #000;
+  background-color: #ccffff;
   display: block;
 }
 
@@ -344,14 +345,31 @@
 
 .main-col__item.head {
   padding: 0.5rem 0 !important;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000 !important;
+}
+
+.main-col__time.head {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000 !important;
+}
+
+.main-col__space-1.head {
+  border-top: 1px solid #000;
+}
+
+.main-col__space-2.head {
+  border-top: 1px solid #000;
 }
 
 .main-col__pet.head {
   padding: 0.5rem 0 !important;
+  border: 1px solid #000;
 }
 
 .main-col__wt.head {
   padding: 0.5rem 0 !important;
+  border: 1px solid #000;
 }
 
 .begin_time {
@@ -377,16 +395,24 @@
   background-color: #fff !important;
 }
 
-.bg-time-male {
-  background-color: #cfd5ea !important;
+.bg-free {
+  background-color: #ffd966 !important;
+}
+
+.bg-male {
+  background-color: #9bc2e6 !important;
 }
 
 .bg-female {
-  background-color: #f8cbad !important;
+  background-color: #ff66ff !important;
 }
 
-.bg-pet-wt {
-  background-color: #ffe8cb !important;
+.bg-wt {
+  background-color: #00ffff !important;
+}
+
+.not-wt {
+  background-color: #d9d9d9 !important;
 }
 
 .container-90 {
@@ -484,5 +510,73 @@ input#plan_date_end {
 
 .choice-time .choice-data-time > div input {
   width: 8.5vw !important;
+}
+
+.main-col__item.main-col__data.bg-free {
+  cursor: unset;
+}
+
+.main-col__item.first {
+  border-left: 1px solid #000 !important;
+}
+
+.main-col__item.last {
+  border-right: 1px solid #000 !important;
+}
+
+.bottom {
+  border-bottom: 1px solid #000 !important;
+}
+
+.main-col__item.bg-free {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.first_free {
+  border-top: 1px solid #000;
+}
+
+.begin_free {
+  border-bottom: none !important;
+}
+
+.main-col__pet.pet-col_first {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-top: 1px solid #000;
+}
+
+.main-col__pet.pet-col_first.head-col_pet {
+  border-top: 0px;
+}
+
+.main-col__pet.pet-col_second {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.main-col__pet.pet-col_white {
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+
+.main-col__wt.wt-new_user {
+  border: 1px solid red !important;
+}
+
+.wt-new_user {
+  border: 2px solid red !important;
+}
+
+.main-col__wt.begin_new_user {
+  border-bottom: 0px !important;
+}
+
+.main-col__wt.end_new_user {
+  border-top: 0px !important;
 }
 

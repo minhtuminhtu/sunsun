@@ -57,8 +57,8 @@ $(function () {
     };
 
 
-    $('.main-col__data').off('click');
-    $('.main-col__data').on('click', function (e) {
+    $('.main-col__data').not(".bg-free").off('click');
+    $('.main-col__data').not(".bg-free").on('click', function (e) {
         var booking_id = $(this).find('.booking-id').val();
         if(booking_id == undefined){
             booking_id = 0;

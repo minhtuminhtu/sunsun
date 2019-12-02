@@ -406,10 +406,10 @@ table {
     }
     .body-free{
         display: block;
-        width: 13%;
+        width: 10%;
     }
     .weekly-table{
-        width: 87%;
+        width: 90%;
         .table-header{
             display: flex;
             .table-col{
@@ -430,12 +430,16 @@ table {
             }
             .table-col-none{
                 position: relative;
-                width: 45%;
+                width: 25%;
                 border-top: 0px;
                 border-right: 1px solid #4573c4;
             }
         }
     }
+}
+.container-90{
+    width: 90vw;
+    margin: 0 auto;
 }
 .last.weekly-time {
     border-bottom: 0px !important;
