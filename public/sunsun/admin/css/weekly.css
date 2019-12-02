@@ -400,9 +400,9 @@ table th {
   width: 13%;
   display: block;
   text-align: center;
-  border-bottom: 1px solid #4573c4;
-  border-left: 1px solid #4573c4;
-  border-right: 1px solid #4573c4;
+  border-bottom: 1px dashed #000;
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
 }
 
 .weekly .body-free {
@@ -419,21 +419,19 @@ table th {
 }
 
 .weekly .weekly-table .table-header .table-col {
-  border-right: 1px solid #4573c4;
+  border-right: 2px solid #000;
   flex-basis: 100%;
   text-align: center;
 }
 
 .weekly .weekly-table .table-header .table-col .table-data {
   display: flex;
+  height: 100%;
 }
 
 .weekly .weekly-table .table-header .table-col .table-data .data-col {
   flex-basis: 100%;
   text-align: center;
-  margin-right: 0.15vw;
-  margin-left: 0.15vw;
-  margin-top: 0.1vw;
   padding: 0.8vw 0;
 }
 
@@ -441,7 +439,7 @@ table th {
   position: relative;
   width: 25%;
   border-top: 0px;
-  border-right: 1px solid #4573c4;
+  border-right: 2px solid #000;
 }
 
 .container-90 {
@@ -467,36 +465,35 @@ table th {
 }
 
 .table-col.first {
-  border-top: 1px solid #4573c4 !important;
-  border-bottom: 1px solid #4573c4 !important;
-  padding-top: 0.4rem;
+  border-top: 2px solid #000 !important;
+  border-bottom: 2px solid #000 !important;
+  padding-top: 0.6rem;
+  padding-bottom: 0.2rem;
 }
 
 .table-col-none.first {
-  border-top: 1px solid #4573c4 !important;
-  border-bottom: 1px solid #4573c4 !important;
+  border-top: 2px solid #000 !important;
 }
 
 .table-col-none.last {
-  border-bottom: 1px solid #4573c4 !important;
+  border-bottom: 2px solid #000 !important;
 }
 
 .table-col.last {
-  border-bottom: 1px solid #4573c4 !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+.weekly-time.last {
+  border-bottom: 2px solid #000 !important;
 }
 
 .weekly-time.first {
-  border-top: 1px solid #4573c4 !important;
-}
-
-.data-col.first {
-  margin-left: 0.4rem !important;
-  margin-right: 0.1rem;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
 }
 
 .data-col.last {
-  margin-right: 0.4rem !important;
-  margin-left: 0.1rem;
+  border-bottom: 0px !important;
 }
 
 .weekly-time.header {
@@ -504,39 +501,38 @@ table th {
 }
 
 .title.data-col {
-  padding: 0.3rem 0 !important;
-  margin-top: 0.4rem !important;
-  margin-bottom: 0.4rem !important;
-  color: #fff;
-  font-weight: 600;
+  padding: 0.3rem 0 0 0 !important;
   font-size: 1vw;
 }
 
 .weekly-time.head {
-  height: 2rem;
+  height: 2.3rem;
 }
 
 .table-header.head {
-  height: 2rem;
+  height: 2.3rem;
 }
 
 .weekly-time.body {
-  height: 2.75rem;
-  border-bottom: 0px !important;
-}
-
-.weekly-table.body {
-  height: 2.75rem;
+  border-bottom: 1px solid #000 !important;
 }
 
 .weekly-time.content {
   height: 3.19rem;
 }
 
+.data-col.pet-col_second {
+  border-bottom: 1px solid #000;
+}
+
+.data-col.pet_begin {
+  border-bottom: 1px solid #000;
+}
+
 .free_time {
   position: absolute;
   font-weight: bold;
-  top: 12.5rem;
+  top: 23rem;
   width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -558,31 +554,34 @@ table th {
 }
 
 .male-title {
-  background-color: #4472c4 !important;
+  background-color: #ddebf7 !important;
+  border-right: 1px solid #000;
 }
 
 .female-title {
-  background-color: #f83299 !important;
+  background-color: #ffccff !important;
+  border-right: 1px solid #000;
 }
 
 .pet-title {
-  background-color: #bf8f00 !important;
+  background-color: #fce4d6 !important;
 }
 
 .wt-title {
-  background-color: #4472c4;
+  background-color: #ccffff;
+  border-right: 1px solid #000;
 }
 
 .bg-male {
-  background-color: #cfd5ea;
+  background-color: #9bc2e6;
 }
 
 .bg-female {
-  background-color: #ffccff;
+  background-color: #ff66ff;
 }
 
 .bg-male-new {
-  background-color: #e9ebf5 !important;
+  background-color: #ddebf7 !important;
 }
 
 .bg-female-new {
@@ -590,11 +589,15 @@ table th {
 }
 
 .bg-pet {
-  background-color: #ffd966;
+  background-color: #fce4d6;
 }
 
 .bg-wt {
-  background-color: #bdd7ee;
+  background-color: #ccffff;
+}
+
+.bg-wt-new {
+  background-color: #00ffff;
 }
 
 .bg-white {
@@ -602,7 +605,56 @@ table th {
   background-color: #fff;
 }
 
+.bg-free {
+  background-color: #ffe699 !important;
+  border-right: 1px solid #000;
+  border-bottom: 1px dashed #000;
+}
+
+.bg-wt_free {
+  border-right: 1px solid #000;
+  border-bottom: 1px dashed #000;
+}
+
 .font-bold {
   font-weight: 600;
+}
+
+.title.table-col {
+  border-bottom: 1px solid #000 !important;
+}
+
+.data-col.bg-male {
+  border-right: 1px solid #000;
+  border-bottom: 1px dashed #000;
+}
+
+.data-col.bg-female {
+  border-right: 1px solid #000;
+  border-bottom: 1px dashed #000;
+}
+
+.data-col.bg-wt {
+  border-right: 1px solid #000;
+  border-bottom: 1px dashed #000;
+}
+
+.weekly-time.body {
+  padding: 0.3rem 0 0 0 !important;
+  font-size: 1vw;
+}
+
+.data-col.bg-pet.pet-col_first {
+  position: relative;
+}
+
+.pet-data_ab {
+  position: absolute;
+  height: 6.3rem;
+  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 

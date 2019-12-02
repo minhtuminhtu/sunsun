@@ -148,6 +148,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'pet_begin' => 1,
             'begin_new_user' => 1
         ],
         '3' =>  [
@@ -194,7 +195,8 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
-            'begin_new_user' => 1
+            'pet_begin' => 1,
+            'begin_new_user' => 1,
         ],
         '8' =>  [
             'time' => '13:45',
@@ -222,6 +224,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'pet_begin' => 1,
             'begin_time' => 'メンテナンス',
             'first_free' => '1',
             'begin_new_user' => 1

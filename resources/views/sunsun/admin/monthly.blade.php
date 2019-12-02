@@ -42,13 +42,139 @@
                 <div class="main-content__table">
                     <div class="table-header header">
                         <div class="table-col"></div>
-                        <div class="table-col font-bold">月</div>
-                        <div class="table-col font-bold">火</div>
-                        <div class="table-col font-bold">水</div>
-                        <div class="table-col font-bold">木</div>
-                        <div class="table-col font-bold">金</div>
-                        <div class="table-col font-bold">土</div>
-                        <div class="table-col font-bold last-col">日</div>
+                        <div class="table-col">
+                            <div>
+                                <div class="font-bold">月</div>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">男</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">女</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">WT</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">Pet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-col">
+                            <div>
+                                <div class="font-bold">火</div>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">男</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">女</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">WT</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">Pet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-col">
+                            <div>
+                                <div class="font-bold">水</div>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">男</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">女</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">WT</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">Pet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-col">
+                            <div>
+                                <div class="font-bold">木</div>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">男</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">女</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">WT</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">Pet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-col">
+                            <div>
+                                <div class="font-bold">金</div>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">男</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">女</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">WT</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">Pet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-col">
+                            <div>
+                                <div class="font-bold">土</div>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">男</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">女</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">WT</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">Pet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-col last-col">
+                            <div>
+                                <div class="font-bold">日</div>
+                                <div class="data-item">
+                                    <div class="item">
+                                        <span class="text-blue">男</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-red">女</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-wt">WT</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="text-yellow">Pet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -101,10 +227,10 @@
                                         <span class="text-red">―</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">―</span>
+                                        <span class="text-wt">―</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">―</span>
+                                        <span class="text-yellow">―</span>
                                     </div>
                                 </div>
                                 <div class="data-item">
@@ -115,10 +241,10 @@
                                         <span class="text-red">―</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">―</span>
+                                        <span class="text-wt">―</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">―</span>
+                                        <span class="text-yellow">―</span>
                                     </div>
                                 </div>
                                 <div class="data-item">
@@ -129,10 +255,10 @@
                                         <span class="text-red">―</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">―</span>
+                                        <span class="text-wt">―</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">―</span>
+                                        <span class="text-yellow">―</span>
                                     </div>
                                 </div>
                                 @else
@@ -144,10 +270,10 @@
                                         <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '0'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '0'])</span>
+                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '0'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '0'])</span>
+                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '0'])</span>
                                     </div>
                                 </div>
                                 <div class="data-item {{ $day['full_date'] }}">
@@ -158,10 +284,10 @@
                                         <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '1'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '1'])</span>
+                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '1'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '1'])</span>
+                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '1'])</span>
                                     </div>
                                 </div>
                                 <div class="data-item {{ $day['full_date'] }}">
@@ -172,10 +298,10 @@
                                         <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '2'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">―</span>
+                                        <span class="text-wt">―</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">―</span>
+                                        <span class="text-yellow">―</span>
                                     </div>
                                 </div>
                                 @endif
