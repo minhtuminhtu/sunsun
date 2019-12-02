@@ -61,7 +61,7 @@ return [
             '007' => '年齢',
             '008' => 'ランチ',
             '009' => 'ﾎﾜｲﾄﾆﾝｸﾞ',
-            '010' => 'ﾍﾟｯﾄ預かり',
+            '010' => 'ペット預かり',
             '011' => '宿泊(部屋ﾀｲﾌﾟ',
             '012' => '宿泊人数',
             '013' => 'Time Slide',
@@ -75,6 +75,13 @@ return [
             '021' => 'Time Slide Whitening',
             '022' => 'Breakfast',
             '023' => 'Number lunch book',
+
+            '024' => 'Price 酵素浴',
+            '025' => 'Price 1 day refresh',
+            '026' => 'Price 貸切',
+            '027' => 'Price 断食コース',
+            '028' => 'Price Pet',
+            '029' => 'Price options',
         ],
 
         'kubun_type_value' => [

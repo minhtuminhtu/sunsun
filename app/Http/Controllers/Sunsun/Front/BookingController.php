@@ -101,12 +101,118 @@ class BookingController extends Controller
     public function payment(Request $request){
         $data = $request->all();
         $data['customer'] = $this->get_booking($request);
-        return view('sunsun.front.payment',['data' => $data]);
+        $this->make_bill($data);
+        //dd($data);
+        return view('sunsun.front.payment',$data);
     }
+
+    public function make_bill (&$data) {
+        $info_booking = $data['customer'];
+        $price_course = 0; $price_options = 0;
+        foreach ($info_booking['info'] as $booking) {
+
+            $price_course += $this->get_price_course($booking);
+            $price_options += $this->get_price_option($booking);
+
+            //dd($info_booking['info']);
+        }
+        dd($info_booking);
+    }
+
+    public function get_price_option ($booking) {
+        $price_option = 0;
+        $data_option_price = MsKubun::where('kubun_type','029')->get();
+        if (isset($booking['lunch_guest_num'])) { // an trua
+            $lunch = json_decode($booking['lunch_guest_num'], true);
+            if ($lunch['kubun_id'] !== "01") {
+                $price_lunch_each_people = $data_option_price->where('kubun_id','01')->get()->first();
+                $price_luch = (int) $lunch->notes * (int) $price_lunch_each_people->kubun_value; //$lunch->notes => number people || $price_lunch_each_people->kubun_value => price for each people
+                $price_option += $price_luch;
+            }
+
+        }
+        if (isset($booking['stay_room_type'])) { // o lai
+            $stay_room_type = json_decode($booking['stay_room_type']);
+            if ($stay_room_type->kubun_id !== '01') {
+                if (isset($booking['stay_guest_num'])) {
+                    $stay_guest_num = json_decode($booking['stay_guest_num']);
+                    if ($stay_guest_num->notes == 1) {
+                        $guest_num_price_op = $data_option_price->where('kubun_id','02')->get()->first();
+                        $price_option += $guest_num_price_op->kubun_value;
+                    } else {
+                        $guest_num_price_op = $data_option_price->where('kubun_id','03')->get()->first();
+                    }
+                }
+                dd($stay_guest_num);
+            }
+
+        }
+        return $price_option;
+
+    }
+
+    public function get_price_course ($booking) {
+        $course = json_decode($booking['course'], true);
+        $course_price = 0;
+        switch ($course['kubun_id']){
+            case '01': // bình thường
+                if ($booking['age_type'] == '3') {
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','01']])->get()->first();
+                    $course_price = $course_price_op->kubun_value;
+                }
+                else if ($booking['age_type'] == '2') {
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','02']])->get()->first();
+                    $course_price = $course_price_op->kubun_value;
+                }
+                else if ($booking['age_type'] == '1') {
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','01']])->get()->first();
+                    $course_price = $course_price_op->kubun_value;
+                }
+                break;
+            case '02': // 1 day refresh
+                $course_price_op = MsKubun::where([['kubun_type','025'],['kubun_id','01']])->get()->first();
+                $course_price = $course_price_op->kubun_value;
+                break;
+            case '03': // nguyên sàn
+                $quantity = json_decode( $booking['service_guest_num'], true);
+                $number_customer = (int)$quantity['notes'];
+                $course_price_op = MsKubun::where([['kubun_type','026']])->get();
+                $price_op = $course_price_op->where('kubun_id', '01')->first();
+                $price = $price_op->kubun_value;
+                if($number_customer > (int)$price_op->notes) {
+                    $price_op_more_people = $course_price_op->where('kubun_id', '02')->first();
+                    $price_more = (int)$price_op_more_people->kubun_value;
+                    $price = $price + ($number_customer - (int)$price_op->notes) * $price_more;
+
+                }
+                $course_price = $price;
+                break;
+            case '04': // ăn kiêng
+                $day = count($booking['date']);
+                $price_op_fasting =  MsKubun::where('kubun_type','027')->get();
+                $one_day = $price_op_fasting->where('kubun_id','01')->first();
+                $one_day_price = (int)$one_day->kubun_value;
+                $for_special_day = $price_op_fasting->where('kubun_id','02')->first();
+                $for_special_day_price = (int)$for_special_day->kubun_value;
+                if ($day == 5) { //$for_special_day_price
+                    $course_price = $for_special_day_price;
+                } else {
+                    $course_price = $day * $one_day_price;
+                }
+                break;
+            case "05": // pet
+                $course_price_op = MsKubun::where([['kubun_type','028'],['kubun_id','01']])->get()->first();
+                $course_price = $course_price_op->kubun_value;
+                break;
+
+        }
+        return $course_price;
+    }
+
 
     public function make_payment(Request $request){
         $data = $request->all();
-        
+
         $data['customer'] = $this->get_booking($request);
         if(count($data['customer']['info']) == 0){
             return redirect("/booking");
@@ -136,12 +242,12 @@ class BookingController extends Controller
             $Yoyaku->save();
         }
 
-        echo "Thanks you!";
-        
+        echo "Thanks!";
+
         // $request->session()->forget($this->session_info);
     }
 
-    public function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){ 
+    public function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){
         $course = json_decode($customer['course']);
         if($course->kubun_id == '01'){
             foreach($customer['time'] as $time){
@@ -151,7 +257,7 @@ class BookingController extends Controller
                 $YoyakuDanjikiJikan->service_time_1 = $time['value'];
                 $YoyakuDanjikiJikan->notes = $time['bed'];
                 $YoyakuDanjikiJikan->save();
-            } 
+            }
         }elseif($course->kubun_id == '04'){
             $plan_date_start = isset($customer['plan_date_start-value'])?$customer['plan_date_start-value']:"";
             $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
@@ -165,7 +271,7 @@ class BookingController extends Controller
                 $YoyakuDanjikiJikan->notes = $date['from']['bed'] . "-" . $date['to']['bed'];
 
                 $YoyakuDanjikiJikan->save();
-            } 
+            }
         }
     }
 
@@ -204,7 +310,7 @@ class BookingController extends Controller
         $service_pet_num = isset($customer['service_pet_num'])?json_decode($customer['service_pet_num']):"";
         $breakfast = isset($customer['breakfast'])?json_decode($customer['breakfast']):"";
 
-        
+
         $Yoyaku->name = $name;
         $Yoyaku->phone = $phone;
         $Yoyaku->email = $email;
@@ -235,7 +341,7 @@ class BookingController extends Controller
                 $Yoyaku->whitening_time = $whitening_time;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
-            
+
             if($parent){
                 $Yoyaku->service_date_start = $date;
                 $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
@@ -248,9 +354,9 @@ class BookingController extends Controller
             }else{
                 $Yoyaku->service_date_start = $parent_date;
             }
-            
 
-            
+
+
         }elseif($course->kubun_id == '02'){
             $date = isset($customer['date-value'])?$customer['date-value']:"";
             $time1 = isset($customer['time1-value'])?$customer['time1-value']:"";
@@ -271,7 +377,7 @@ class BookingController extends Controller
                 $Yoyaku->whitening_time = $whitening_time;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
-        
+
             if($parent){
                 $Yoyaku->service_date_start = $date;
                 $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
@@ -356,8 +462,8 @@ class BookingController extends Controller
                 $Yoyaku->service_date_start = $parent_date;
             }
         }
-        
-        
+
+
     }
 
 
