@@ -87,280 +87,249 @@
             </div>
             <div class="main-content">
                 <div class="main-content__table">
-                    <div class="main-col__time head bg-time-male">時間</div>
+                    <div class="main-col__time head">時間</div>
                     <div class="main-col__male">
-                        <div class="main-col__item head bg-time-male js-edit-booking">
+                        <div class="main-col__item head js-edit-booking">
                         男性①
                         </div>
-                        <div class="main-col__item head bg-time-male">
+                        <div class="main-col__item head">
                         男性②
                         </div>
-                        <div class="main-col__item head bg-time-male">
+                        <div class="main-col__item head last">
                         男性③
                         </div>
                     </div>
-                    <div class="main-col__space-1"></div>
+                    <div class="main-col__space-1 head"></div>
                     <div class="main-col__famale">
-                        <div class="main-col__item head bg-female">
+                        <div class="main-col__item head first">
                         女性①
                         </div>
-                        <div class="main-col__item head bg-female">
+                        <div class="main-col__item head">
                         女性②
                         </div>
-                        <div class="main-col__item head bg-female">
+                        <div class="main-col__item head">
                         女性③
                         </div>
-                        <div class="main-col__item head bg-female">
+                        <div class="main-col__item head last">
                         女性④
                         </div>
                     </div>
-                    <div class="main-col__space-2"></div>
-                    <div class="main-col__pet head bg-pet-wt">ペット浴</div>
+                    <div class="main-col__space-2 head"></div>
+                    <div class="main-col__wt head">ホワイトニング</div>
                     <div class="main-col__space-3"></div>
-                    <div class="main-col__wt head bg-pet-wt">ホワイトニング</div>
+                    <div class="main-col__pet head">ペット酵素浴</div>
                 </div>
-                @php $i = 0; @endphp
+                @php $i = 1; @endphp
                 @foreach($time_range as $time)
                     @php $i++; @endphp
-                    @if($time['begin_time'] == NULL)
                     <div class="main-content__table">
-                        <div class="main-col__time @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp d-flex justify-content-center align-items-center">
+                        <div class="main-col__time d-flex justify-content-center align-items-center 
+                            @php 
+                            if($i == (count($time_range) + 1) ){ echo ' bottom'; }    
+                            if(isset($time['first_free'])){
+                                echo 'first_free';
+                            }
+                            if(isset($time['begin_free'])){
+                                echo 'begin_free';
+                            }
+                            @endphp">
+
                             <div class="">
                                 <div class="time">{{ $time['time'] }}</div>
-                                <div class="time_range">{{ '(' . $time['time_range'] . ')' }}</div>
+                                @if($time['time_range'] != '')
+                                    <div class="time_range">{{ '(' . $time['time_range'] . ')' }}</div>
+                                @else
+                                    <div class="time_range" style="visibility: hidden;">.</div>
+                                @endif
                             </div>
                         </div>
-                        <div class="main-col__male">
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
-                            </div>
-                        </div>
-                        <div class="main-col__space-1"></div>
-                        <div class="main-col__famale">
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
-                            </div>
-                        </div>
-                        <div class="main-col__space-2"></div>
-                        @if($time['other_time'] != NULL)
-                        <div class="main-col__pet">
-                            <div class="main-col__pet__header">
-                                <div class="heading-pet-wt">
-                                    <div class="heading-pet-wt-data">
-                                    {{$time['other_time']}}
-                                    </div>
+                        @if($time['time'] == '')
+                            <div class="main-col__male">
+                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                </div>
+                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                    @if(isset($time['begin_time']))
+                                        <div>{{ $time['begin_time'] }}</div>
+                                    @endif
+                                </div>
+                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif last">
                                 </div>
                             </div>
-                            <div class="main-col__pet__body main-col__data">
-                                <div class="padding-pet-wt">
-                                    @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
+                            <div class="main-col__space-1 bg-free @if(isset($time['first_free'])) first_free @endif"></div>
+                            <div class="main-col__famale">
+                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif first">
+                                </div>
+                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                </div>
+                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                </div>
+                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif last">
                                 </div>
                             </div>
-                        </div>
-                        <div class="main-col__space-3"></div>
-                        <div class="main-col__wt">
-                            <div class="main-col__pet__header">
-                                <div class="heading-pet-wt">
-                                    <div class="heading-pet-wt-data">
-                                    {{$time['other_time']}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-col__pet__body main-col__data">
-                                <div class="padding-pet-wt">
-                                    @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
-                                </div>
-                            </div>
-                        </div>
                         @else
-                        <div class="main-col__pet space-white">
-                        </div>
-                        <div class="main-col__space-3"></div>
-                        <div class="main-col__wt space-white">
-                        </div>
+                            <div class="main-col__male">
+                                <div class="main-col__item main-col__data
+                                    @php
+                                    if($i%2 == 0){ echo 'bg-male'; }
+                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }   
+                                    if(isset($time['begin_free'])){
+                                        echo 'begin_free';
+                                    }
+                                    @endphp
+                                    ">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
+                                </div>
+                                <div class="main-col__item main-col__data 
+                                    @php 
+                                    if($i%2 == 0){ echo 'bg-male'; } 
+                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }   
+                                    if(isset($time['begin_free'])){
+                                        echo 'begin_free';
+                                    }
+                                    @endphp
+                                    ">
+                                    @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
+                                </div>
+                                <div class="main-col__item main-col__data 
+                                    @php if($i%2 == 0){ echo 'bg-male'; } 
+                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }   
+                                    if(isset($time['begin_free'])){
+                                        echo 'begin_free';
+                                    }
+                                    @endphp 
+                                    last">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
+                                </div>
+                            </div>
+                            <div class="main-col__space-1 
+                                @php 
+                                if($i == (count($time_range) + 1) ){ 
+                                    echo ' bottom'; 
+                                }   
+                                @endphp
+                                "></div>
+                            <div class="main-col__famale">
+                                <div class="main-col__item main-col__data 
+                                    @php 
+                                    if($i%2 == 0){ echo 'bg-female'; } 
+                                    if($i == (count($time_range) + 1) ){ 
+                                        echo ' bottom'; 
+                                    }   
+                                    if(isset($time['begin_free'])){
+                                        echo 'begin_free';
+                                    }
+                                    @endphp 
+                                    first">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
+                                </div>
+                                <div class="main-col__item main-col__data 
+                                    @php 
+                                    if($i%2 == 0){ echo 'bg-female'; } 
+                                    if($i == (count($time_range) + 1) ){ 
+                                        echo ' bottom'; 
+                                    }   
+                                    if(isset($time['begin_free'])){
+                                        echo 'begin_free';
+                                    }
+                                    @endphp
+                                    ">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
+                                </div>
+                                <div class="main-col__item main-col__data 
+                                    @php 
+                                    if($i%2 == 0){ echo 'bg-female'; } 
+                                    if($i == (count($time_range) + 1) ){ 
+                                        echo ' bottom'; 
+                                    }   
+                                    if(isset($time['begin_free'])){
+                                        echo 'begin_free';
+                                    }
+                                    @endphp
+                                    ">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
+                                </div>
+                                <div class="main-col__item main-col__data 
+                                    @php 
+                                    if($i%2 == 0){ echo ' bg-female'; } 
+                                    if($i == (count($time_range) + 1) ){ 
+                                        echo ' bottom'; 
+                                    }   
+                                    if(isset($time['begin_free'])){
+                                        echo 'begin_free';
+                                    }
+                                    @endphp 
+                                    last">
+                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
+                                </div>
+                            </div>
                         @endif
-                    </div>
-                    @elseif($time['begin_time'] == 1)
-                    <div class="main-content__table">
-                        <div class="main-col__time @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp d-flex justify-content-center align-items-center">
-                            <div class="">
-                                <div class="time">{{ $time['time'] }}</div>
-                                <div class="time_range">{{ '(' . $time['time_range'] . ')' }}</div>
-                            </div>
+                        <div class="main-col__space-2 
+                            @php 
+                            if($i == (count($time_range) + 1) ){ 
+                                echo ' bottom'; 
+                            } 
+                            if(isset($time['begin_free'])){
+                                echo 'begin_free';
+                            }  
+                            @endphp  
+                            ">
                         </div>
-                        <div class="main-col__male">
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
-                            </div>
-                        </div>
-                        <div class="main-col__space-1"></div>
-                        <div class="main-col__famale">
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
-                            </div>
-                        </div>
-                        <div class="main-col__space-2"></div>
-                        @if($time['other_time'] != NULL)
-                        <div class="main-col__pet">
-                            <div class="main-col__pet__header">
-                                <div class="heading-pet-wt">
-                                    <div class="heading-pet-wt-data">
-                                    {{$time['other_time']}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-col__pet__body main-col__data">
-                                <div class="padding-pet-wt">
-                                    @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
-                                </div>
+                        <div class="main-col__wt
+                            @php 
+                            if($i == (count($time_range) + 1) ){ 
+                                echo ' bottom'; 
+                            } 
+                            if(isset($time['begin_free'])){
+                                echo 'begin_free';
+                            }   
+                            if(isset($time['not_wt'])){
+                                echo ' not-wt ';
+                            }else if($i%2 == 0){ 
+                                echo ' bg-wt '; 
+                            } 
+                            if(isset($time['wt_new_user'])){
+                                echo ' wt-new_user '; 
+                            }
+
+                            if(isset($time['begin_new_user'])){
+                                echo ' begin_new_user '; 
+                            }
+                            @endphp
+                            @if(isset($time['first_free'])) 
+                            first_free 
+                            @endif
+                            @if(isset($time['end_new_user'])) 
+                            end_new_user 
+                            @endif
+                            
+                            ">
+                            <div class="
+                            @php
+                            if(isset($time['wt_new_user'])){
+                                echo ' wt-new_user '; 
+                            }
+                            @endphp
+                            " style="height: 100%;">
+                            ws
                             </div>
                         </div>
                         <div class="main-col__space-3"></div>
-                        <div class="main-col__wt">
-                            <div class="main-col__pet__header">
-                                <div class="heading-pet-wt">
-                                    <div class="heading-pet-wt-data">
-                                    {{$time['other_time']}}
-                                    </div>
-                                </div>
+                        @if(isset($time['pet_time_type']))
+                            @if($time['pet_time_type'] == 1)
+                            <div class="main-col__pet pet-col_first @if($i == 2) head-col_pet @endif">
+                                {{ $time['pet_time'] }}
                             </div>
-                            <div class="main-col__pet__body main-col__data">
-                                <div class="padding-pet-wt">
-                                    @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
-                                </div>
+                            @else
+                            <div class="main-col__pet pet-col_second">
+                                
                             </div>
-                        </div>
+                            @endif
                         @else
-                        <div class="main-col__pet space-white">
-                        </div>
-                        <div class="main-col__space-3"></div>
-                        <div class="main-col__wt space-white">
-                        </div>
+                            <div class="main-col__pet pet-col_white space-white">
+                            </div>
                         @endif
+                        
                     </div>
-                    @else
-                    <div class="main-content__table">
-                        <div class="main-col__time-male">
-                            <div class="begin_time">
-                            {{ $time['begin_time'] }}
-                            </div>
-                        </div>
-                        <div class="main-col__space-1"></div>
-                        <div class="main-col__new-famale">
-                            <div class="begin_time new">
-                            {{ $time['begin_time'] }}
-                            </div>
-                        </div>
-                        <div class="main-col__space-2"></div>
-                        @if($time['other_time'] != NULL)
-                        <div class="main-col__pet">
-                            <div class="heading-pet-wt">
-                                <div class="heading-pet-wt-data">
-                                {{$time['other_time']}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-col__space-3"></div>
-                        <div class="main-col__wt">
-                            <div class="heading-pet-wt">
-                                <div class="heading-pet-wt-data">
-                                {{$time['other_time']}}
-                                </div>
-                            </div>
-                        </div>
-                        @else
-                        <div class="main-col__pet space-white">
-                        </div>
-                        <div class="main-col__space-3"></div>
-                        <div class="main-col__wt space-white">
-                        </div>
-                        @endif
-                    </div>
-                    <div class="main-content__table">
-                        <div class="main-col__time @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp d-flex justify-content-center align-items-center">
-                            <div class="">
-                                <div class="time">{{ $time['time'] }}</div>
-                                <div class="time_range">{{ '(' . $time['time_range'] . ')' }}</div>
-                            </div>
-                        </div>
-                        <div class="main-col__male">
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-time-male'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
-                            </div>
-                        </div>
-                        <div class="main-col__space-1"></div>
-                        <div class="main-col__famale">
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
-                            </div>
-                            <div class="main-col__item main-col__data @php if($i%2 == 0){ echo 'bg-female'; } @endphp">
-                            @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
-                            </div>
-                        </div>
-                        <div class="main-col__space-2"></div>
-                        @if($time['pin_time'] == 1)
-                        <div class="main-col__pet bg-pet-wt main-col__data">
-                            <div class="padding-pet-wt">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'pet'])
-                            </div>
-                        </div>
-                        <div class="main-col__space-3"></div>
-                        <div class="main-col__wt bg-pet-wt main-col__data">
-                            <div class="padding-pet-wt">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
-                            </div>
-                        </div>
-                        @else
-                        <div class="main-col__pet space-white">
-                        </div>
-                        <div class="main-col__space-3"></div>
-                        <div class="main-col__wt space-white">
-                        </div>
-                        @endif
-                    </div>
-                    @endif
                 @endforeach
             </div>
         </div>
