@@ -4,7 +4,7 @@
 @parent
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/setting.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap4-datetimepicker/bootstrap-datetimepicker.min.css')}}">
-    
+
 @endsection
 @section('main')
 
@@ -56,5 +56,5 @@
 @endsection
 @section('script')
     @parent
-    <script src="{{asset('sunsun/admin/js/setting.js').config('version_files.html.css')}}"></script>
+    <script src="{{asset('sunsun/admin/js/setting.js').config('version_files.html.js')}}"></script>
 @endsection

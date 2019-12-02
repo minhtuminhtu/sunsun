@@ -38,15 +38,15 @@ class AdminController extends Controller
         //     ->whereYear('service_date_start',2019)
         //     ->whereMonth('service_date_start',11)
         //     ->get();
-              
-        
+
+
 
         $this->set_course($data, $date, $time_value);
         $this->set_stay_room($data, $date);
         $this->set_lunch($data, $date);
         $this->set_pick_up($data, $date);
-        
-        
+
+
         // dd($data);
 
         return view('sunsun.admin.day',$data);
@@ -64,7 +64,7 @@ class AdminController extends Controller
         FROM		tr_yoyaku as main
         WHERE 	main.stay_room_type <> '01' AND main.stay_room_type IS NOT NULL AND main.stay_checkin_date <= $date AND main.stay_checkout_date >= $date
         ");
-        
+
         for($i = 0; $i < count($stay_room_raw); $i++){
             $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
             $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
@@ -131,7 +131,7 @@ class AdminController extends Controller
         }
     }
     private function set_course(&$data, $date, $time_value){
-        
+
         $course_1_to_4_query = DB::select("
         (
             SELECT	main.booking_id
@@ -308,7 +308,7 @@ class AdminController extends Controller
                     $course_1_to_4[$i]->bus_arrive_time_slide = NULL;
                     $course_1_to_4[$i]->pick_up = NULL;
                     break;
-                } 
+                }
                 case '02': {
                     $course_1_to_4[$i]->transport = 'バス';
                     $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_1_to_4[$i]->bus_arrive_time_slide)->first();
@@ -316,11 +316,11 @@ class AdminController extends Controller
                     switch($course_1_to_4[$i]->pick_up){
                         case '01': $course_1_to_4[$i]->pick_up = '送迎有'; break;
                         case '02': $course_1_to_4[$i]->pick_up = NULL; break;
-                    }    
+                    }
                     break;
                 }
             }
-            
+
             switch($course_1_to_4[$i]->lunch){
                 case '01': $course_1_to_4[$i]->lunch = NULL; break;
                 case '02': $course_1_to_4[$i]->lunch = '昼食'; break;
@@ -369,7 +369,7 @@ class AdminController extends Controller
                     $course_5[$i]->bus_arrive_time_slide = NULL;
                     $course_5[$i]->pick_up = NULL;
                     break;
-                } 
+                }
                 case '02': {
                     $course_5[$i]->transport = 'バス';
                     $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_5[$i]->bus_arrive_time_slide)->first();
@@ -377,7 +377,7 @@ class AdminController extends Controller
                     switch($course_5[$i]->pick_up){
                         case '01': $course_5[$i]->pick_up = '送迎有'; break;
                         case '02': $course_5[$i]->pick_up = NULL; break;
-                    }    
+                    }
                     break;
                 }
             }
@@ -413,7 +413,7 @@ class AdminController extends Controller
                     $course_wt[$i]->bus_arrive_time_slide = NULL;
                     $course_wt[$i]->pick_up = NULL;
                     break;
-                } 
+                }
                 case '02': {
                     $course_wt[$i]->transport = 'バス';
                     $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$course_wt[$i]->bus_arrive_time_slide)->first();
@@ -421,7 +421,7 @@ class AdminController extends Controller
                     switch($course_wt[$i]->pick_up){
                         case '01': $course_wt[$i]->pick_up = '送迎有'; break;
                         case '02': $course_wt[$i]->pick_up = NULL; break;
-                    }    
+                    }
                     break;
                 }
             }
@@ -432,7 +432,7 @@ class AdminController extends Controller
             }
         }
 
-        
+
 
         for($i = 0; $i < count($time_value) ; $i++){
             $data['time_range'][$i]['data']['male_1'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '男性')->firstWhere('bed', '1');
@@ -445,14 +445,14 @@ class AdminController extends Controller
 
             $data['time_range'][$i]['data']['pet'] = $course_5->firstWhere('time',   $data['time_range'][$i]['other_time_value']);
             $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['other_time_value']);
-            
+
         }
 
 
 
 
         // dd($data['time_range']);
-    } 
+    }
     private function get_time_value_array(){
         $time_range = config('const.time_admin');
         $time_value = [];
@@ -628,7 +628,7 @@ class AdminController extends Controller
         ");
 
         $course_wt = collect($course_wt_query);
-        
+
         $check_room = [];
         foreach($day_range_normal as $day){
             for($i = 0; $i < count($data['time_range']); $i++){
@@ -637,7 +637,7 @@ class AdminController extends Controller
                 //     $check_room[] = $check;
                 //     $data['time_range'][$i]['day'][$day]['male'] = ['1','2','3'];
                 // }else{
-                    
+
                 // }
                 $data['time_range'][$i]['day'][$day]['male'] = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
                 $data['time_range'][$i]['day'][$day]['female'] = $week_course->where('gender', '02')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
@@ -645,7 +645,7 @@ class AdminController extends Controller
                 $data['time_range'][$i]['day'][$day]['wt'] = $course_wt->where('service_date', $day)->where('time', $data['time_range'][$i]['other_time_value']);
             }
         }
-        
+
 
 
 
@@ -660,7 +660,7 @@ class AdminController extends Controller
             $dates[$d->format('Ymd')]['full_date'] = $d->format('Ymd');
             $dates[$d->format('Ymd')]['day'] = ltrim($d->format('d'), "0");
             $dates[$d->format('Ymd')]['week_day'] = $this->get_week_day($d->format('Y/m/d'));
-            
+
         }
         return array_values($dates);
     }
@@ -706,22 +706,22 @@ class AdminController extends Controller
         //$num_weeks = $this->get_month($month, $year);
         //dd($data['data_date']->all());
 
-        // $number_month_day = date("t",mktime(0,0,0,$month,1,$year)); 
+        // $number_month_day = date("t",mktime(0,0,0,$month,1,$year));
         // for($i = 1; $i <= $number_month_day; $i++){
         //     $month = sprintf("%02d", $month);
         //     $day = sprintf("%02d", $i);
-        //     $data['month']['number_first_day'] = 
+        //     $data['month']['number_first_day'] =
         //     $data['month']['number_week'] = $this->week_of_month(\DateTime::createFromFormat('m/Y', $month . "/" .$year), $number_month_day);
         //     $data['day'][$year.$month.$day]['day'] = $year.$month.$day;
         //     $data['day'][$year.$month.$day]['weekday'] = date('w', strtotime($year . "/" . $month . "/" . $day));
         // }
 
-        
+
 
         $data['week'] = $this->get_month($month,$year);
         for($i = 0 ; $i < count($data['week']); $i++){
             $data['week_range'][$i] = $this->get_list_dates($data['week'][$i]['start'], $data['week'][$i]['end'], $month);
-        } 
+        }
 
         $this->set_monthly_course($data);
 
@@ -849,13 +849,13 @@ class AdminController extends Controller
             $monthly_data[$day]['female'][1] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1315')->where('time','<=' , '1615');
             $monthly_data[$day]['male'][2] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1745')->where('time','<=' , '1845');
             $monthly_data[$day]['female'][2] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1745')->where('time','<=' , '1845');
-            
+
             $monthly_data[$day]['pet'][0] = $course_5->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1100');
             $monthly_data[$day]['pet'][1] = $course_5->where('service_date', $day)->where('time','>=' , '1315')->where('time','<=' , '1530');
-            
+
             $monthly_data[$day]['wt'][0] = $course_wt->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1100');
             $monthly_data[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1315')->where('time','<=' , '1530');
-        
+
         }
 
 
@@ -875,12 +875,12 @@ class AdminController extends Controller
             }else{
                 $dates[$d->format('Ymd')]['full_date'] = NULL;
             }
-            
+
         }
         return array_values($dates);
     }
 
-    
+
 
     private function get_month ($month, $year){
         $date = Carbon::createFromDate($year,$month);
@@ -892,69 +892,6 @@ class AdminController extends Controller
             $data[$week_num]['end']= Carbon::createFromDate($year,$month,$i)->endOfweek()->format('Y/m/d');
         }
         return array_values($data);
-    }
-    public function setting() {
-        $data = config('const.db.kubun_type');
-        return view('sunsun.admin.setting',['data' => $data]);
-    }
-    public function get_setting_type(Request $request) {
-        $data = $request->all();
-        $MsKubun = MsKubun::all();
-        $data['kubun_type'] = $MsKubun->where('kubun_type',$data['kubun_type'])->sortBy('sort_no');
-        return view('sunsun.admin.parts.setting_type',$data)->render();
-    }
-    public function get_setting_kubun_type(Request $request) {
-        $data = $request->all();
-        if($data['new'] == 0){
-            $MsKubun = MsKubun::all();
-            $data['kubun_id'] = $MsKubun->where('kubun_type',$data['kubun_type'])->where('kubun_id',$data['kubun_id']);
-        }
-        // dd($data);
-        return view('sunsun.admin.parts.setting_kubun_type',$data)->render();
-    }
-
-    public function update_setting_sort_no(Request $request) {
-
-        $data = $request->all();
-        // dd($data);
-        if($data['type'] == 'up'){
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'] - 1)->update(['sort_no' =>$data['sort_no']]);
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] -1]);
-        }else{
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'] + 1)->update(['sort_no' =>$data['sort_no']]);
-            MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', '-1')->update(['sort_no' =>$data['sort_no'] +1]);
-        }
-    }
-    public function update_setting_kubun_type(Request $request) {
-        $data = $request->all();
-        if((strlen($data['kubun_id']) == 0 )  || (strlen($data['kubun_id']) > 2 ) || (strlen($data['kubun_value']) == 0 ) || (strlen($data['kubun_value']) > 255 )){
-            return response()->json([
-                    'msg' => "length error!",
-                ], 400);
-        }
-
-
-        if($data['new'] == 1){
-            if (MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->count() > 0) {
-                return response()->json([
-                    'msg' => "kubun_id exist!",
-                ], 400);
-            }
-            $MsKubun = MsKubun::create(['kubun_type' => $data['kubun_type'],'kubun_id' => $data['kubun_id'], 'kubun_value' => $data['kubun_value'],'sort_no' => $data['sort_no'], 'notes'=> $data['notes']]);
-        }else{
-            MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $data['kubun_id'])->update(['kubun_value' => $data['kubun_value'], 'notes'=> $data['notes']]);
-        }
-    }
-    public function delete_setting_kubun_type(Request $request) {
-        $data = $request->all();
-        foreach ($data['arr_delete'] as $value) {
-            MsKubun::where('kubun_type', $data['kubun_type'])->where('kubun_id', $value)->delete();
-        }
-        return response()->json([
-                'msg' => 'success',
-            ], 200);
     }
 
 }
