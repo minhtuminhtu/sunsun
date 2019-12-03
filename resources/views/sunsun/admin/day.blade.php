@@ -310,7 +310,6 @@
                             }
                             @endphp
                             " style="height: 100%;">
-                            ws
                             </div>
                         </div>
                         <div class="main-col__space-3"></div>
