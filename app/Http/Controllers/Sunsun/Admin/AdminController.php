@@ -354,6 +354,8 @@ class AdminController extends Controller
                     , main.transport
                     , main.bus_arrive_time_slide
                     , main.pick_up
+                    , main.service_pet_num
+                    , main.notes
                     , main.phone
                     , main.payment_method
                     , main.service_date_start
@@ -381,10 +383,19 @@ class AdminController extends Controller
                     break;
                 }
             }
+            switch($course_5[$i]->repeat_user){
+                case '01': $course_5[$i]->repeat_user = '新規'; break;
+                case '02': $course_5[$i]->repeat_user = NULL; break;
+            }
             switch($course_5[$i]->payment_method){
                 case '1': $course_5[$i]->payment_method = 'クレカ'; break;
                 case '2': $course_5[$i]->payment_method = '現金'; break;
                 case '3': $course_5[$i]->payment_method = '回数券'; break;
+            }
+            switch($course_5[$i]->service_pet_num){
+                case '01': $course_5[$i]->service_pet_num = 1; break;
+                case '02': $course_5[$i]->service_pet_num = 2; break;
+                case '03': $course_5[$i]->service_pet_num = 3; break;
             }
         }
 
@@ -393,6 +404,7 @@ class AdminController extends Controller
                     , main.ref_booking_id
                     , main.repeat_user
                     , main.course
+                    , main.gender
                     , main.age_value
                     , main.name
                     , main.transport
@@ -425,10 +437,24 @@ class AdminController extends Controller
                     break;
                 }
             }
+            switch($course_wt[$i]->course){
+                case '01': $course_wt[$i]->course = '入浴'; break;
+                case '02': $course_wt[$i]->course = 'リ'; break;
+                case '03': $course_wt[$i]->course = '貸切'; break;
+                case '04': $course_wt[$i]->course = '断食'; break;
+            }
+            switch($course_wt[$i]->repeat_user){
+                case '01': $course_wt[$i]->repeat_user = '新規'; break;
+                case '02': $course_wt[$i]->repeat_user = NULL; break;
+            }
             switch($course_wt[$i]->payment_method){
                 case '1': $course_wt[$i]->payment_method = 'クレカ'; break;
                 case '2': $course_wt[$i]->payment_method = '現金'; break;
                 case '3': $course_wt[$i]->payment_method = '回数券'; break;
+            }
+            switch($course_wt[$i]->gender){
+                case '01': $course_wt[$i]->gender = '男性'; break;
+                case '02': $course_wt[$i]->gender = '女性'; break;
             }
         }
 
@@ -444,7 +470,7 @@ class AdminController extends Controller
             $data['time_range'][$i]['data']['female_4'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '4');
 
             $data['time_range'][$i]['data']['pet'] = $course_5->firstWhere('time',   $data['time_range'][$i]['pet_time_value']);
-            $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['pet_time_value']);
+            $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['wt_time_value']);
 
         }
 
@@ -642,7 +668,7 @@ class AdminController extends Controller
                 $data['time_range'][$i]['day'][$day]['male'] = $week_course->where('gender', '01')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
                 $data['time_range'][$i]['day'][$day]['female'] = $week_course->where('gender', '02')->where('service_date', $day)->where('time', $data['time_range'][$i]['time_value']);
                 $data['time_range'][$i]['day'][$day]['pet'] = $course_5->where('service_date', $day)->where('time', $data['time_range'][$i]['pet_time_value']);
-                $data['time_range'][$i]['day'][$day]['wt'] = $course_wt->where('service_date', $day)->where('time', $data['time_range'][$i]['pet_time_value']);
+                $data['time_range'][$i]['day'][$day]['wt'] = $course_wt->where('service_date', $day)->where('time', $data['time_range'][$i]['wt_time_value']);
             }
         }
 

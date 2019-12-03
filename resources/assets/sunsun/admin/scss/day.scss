@@ -485,4 +485,12 @@ input#plan_date_end{
     border-top: 0px !important;
 }
 
+.main-col__pet:not(.space-white):not(.head) {
+    cursor: pointer;
+}
+.main-col__wt:not(.not-wt):not(.head) {
+    cursor: pointer;
+}
+
+
 

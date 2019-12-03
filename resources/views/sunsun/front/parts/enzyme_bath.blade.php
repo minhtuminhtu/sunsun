@@ -114,6 +114,12 @@
             </div>
         </div>
     </div>
+    <div class="booking-field">
+        <div class="node-text booking-laber-padding">
+            <div>※バスの場合、到着時間の30分以内は選択できません。希望時間が選択できない場合は　バス到着時間をご確認ください。</div>
+            <div>※酵素浴を1日2回以上利用される場合は[酵素浴　追加]をクリックし、2回目の時間を選択してください。</div>
+        </div>
+    </div>
 </div>
 
 <div class="booking-line font-weight-bold mt-3">
@@ -138,7 +144,7 @@
                     @endif
                 @endforeach
             </select>
-            <p class="node-text text-left mt-2 mb-2">ランチは11:30からです</p>
+            <p class="node-text text-left mt-2 mb-2">ランチは11:30～12:30にご用意させていただきます</p>
         </div>
     </div>
     <div class="booking-field">
