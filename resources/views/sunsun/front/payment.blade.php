@@ -43,25 +43,31 @@
                             <tbody>
                             <tr>
                                 <td class="text-left">入酵料</td>
-                                <td class="text-right">2</td>
-                                <td class="text-right">6,780</td>
+                                <td class="text-right">{{$bill['course']['quantity']}}</td>
+                                <td class="text-right">{{number_format($bill['course']['price'])}}</td>
                             </tr>
-                            <tr>
-                                <td class="text-left">ランチ</td>
-                                <td class="text-right">2</td>
-                                <td class="text-right">2,400</td>
-                            </tr>
-                            <tr>
-                                <td class="text-left">宿泊 A</td>
-                                <td class="text-right">1</td>
-                                <td class="text-right">7,000</td>
-                            </tr>
+                            @foreach($bill['options'] as $key => $option)
+                                @if($key == '02_03')
+                                    <tr>
+                                        <td class="text-left">宿泊 {{$option['room']}}</td>
+                                        <td class="text-right">{{$option['quantity']}}</td>
+                                        <td class="text-right">{{number_format($option['price'])}}</td>
+                                    </tr>
+                                @else
+                                <tr>
+                                    <td class="text-left">{{$option['name']}}</td>
+                                    <td class="text-right">{{$option['quantity']}}</td>
+                                    <td class="text-right">{{number_format($option['price'])}}</td>
+                                </tr>
+                                @endif
+                            @endforeach
+
                             </tbody>
                             <tfoot>
                             <tr>
                                 <th scope="col" style="width: 50%" class="text-left price-laber">{{config('booking.total.label')}}</th>
                                 <th scope="col" style="width: 15%" class="text-right price-laber"></th>
-                                <th scope="col" style="width: 35%" class="text-right price-laber">16,180</th>
+                                <th scope="col" style="width: 35%" class="text-right price-laber">{{number_format($bill['total'])}}</th>
                             </tr>
                             </tfoot>
                         </table>
