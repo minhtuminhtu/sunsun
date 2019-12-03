@@ -37,7 +37,7 @@
                             <p class="text-left pt-2">{{config('booking.repeat_user.label')}}</p>
                         </div>
                         <div class="booking-field-content">
-                            <select name="repeat_user" class="form-control">
+                            <select name="repeat_user" id="repeat_user" class="form-control">
                                 @foreach($repeat_user as $value)
                                     @if(isset($data_booking->repeat_user) && ($value->kubun_id == $data_booking->repeat_user))
                                         <option selected value='@json($value)'>{{ $value->kubun_value }}</option>

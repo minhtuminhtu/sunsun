@@ -30,9 +30,9 @@
         <input name="time-value" id="time-value" type="hidden" value="1230">
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time_room_time1" id="time_room_time1" type="hidden" value="0930">
-                <input name="time_room_time2" id="time_room_time2" type="hidden" value="1030">
-                <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="9:30～10:30">
+                <input name="time_room_time1" id="time_room_time1" type="hidden" value="0">
+                <input name="time_room_time2" id="time_room_time2" type="hidden" value="0">
+                <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="00:00～00:00">
             </div>
 
         </div>

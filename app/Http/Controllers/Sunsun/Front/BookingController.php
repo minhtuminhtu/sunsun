@@ -116,7 +116,7 @@ class BookingController extends Controller
 
             //dd($info_booking['info']);
         }
-        dd($info_booking);
+        dd($price_course);
     }
 
     public function get_price_option ($booking) {
@@ -485,6 +485,7 @@ class BookingController extends Controller
         }else{
             $data['bed'] = $data['bed_female'];
         }
+        // dd($data);
         return view('sunsun.front.parts.booking_time',
             [
                 'data' => $data
@@ -502,11 +503,23 @@ class BookingController extends Controller
             ])
             ->render();
     }
+    public function book_time_room_wt (Request $request) {
+        $data = $request->all();
+        $this->fetch_kubun_data($data);
+        $data['bed'] = $data['bed_pet'];
+        // dd($data);
+        return view('sunsun.front.parts.booking_room_wt',
+            [
+                'data' => $data
+            ])
+            ->render();
+    }
 
     public function book_time_room_pet (Request $request) {
         $data = $request->all();
         $this->fetch_kubun_data($data);
         $data['bed'] = $data['bed_pet'];
+        
         return view('sunsun.front.parts.booking_room_pet',
             [
                 'data' => $data
@@ -542,6 +555,7 @@ class BookingController extends Controller
         $data['bed_pet'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
 
         $data['time_slide_pet'] = $MsKubun->where('kubun_type','020')->sortBy('sort_no');
+        $data['time_slide_wt'] = $MsKubun->where('kubun_type','021')->sortBy('sort_no');
 
         $data['breakfast'] = $MsKubun->where('kubun_type','022')->sortBy('sort_no');
     }

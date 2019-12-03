@@ -65,9 +65,9 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time1-value" id="time1-value" type="hidden" value="1345">
+                <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="0">
                 <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="1">
-                <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="13:45">
+                <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00">
             </div>
 
         </div>
@@ -78,9 +78,9 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time2-value" id="time2-value" type="hidden" value="1415">
+                <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="0">
                 <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="1">
-                <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="14:15">
+                <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00">
             </div>
 
         </div>
@@ -117,8 +117,8 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time_view' type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="9:30～10:30" />
-                <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0930-1030"/>
+                <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="" value="00:00～00:00" />
+                <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
             </div>
         </div>
     </div>

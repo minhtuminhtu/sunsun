@@ -101,6 +101,7 @@
                 <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ isset($first_time_data)?$first_time_data:'00:00' }}" />
                 <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ isset($first_time['service_time_1'])?$first_time['service_time_1']:'0' }}">
                 <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ isset($first_time['notes'])?$first_time['notes']:'0' }}">
+                <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
             </div>
             <div class="time-content">
             </div>
@@ -169,8 +170,8 @@
         <div class="booking-field-content">
             <div class="node-text">ホワイトニング時間</div> 
             <div class="timedate-block set-time">
-                <input name='whitening-time_view' type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" value="9:30～10:30" />
-                <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0930-1030"/>
+                <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" value="00:00～00:00" />
+                <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
             </div>
         </div>
     </div>
