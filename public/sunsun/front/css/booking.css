@@ -871,7 +871,8 @@ td.disabled.disabled-date.range.day {
 }
 
 .btn-collapse {
-  margin-left: 10px;
+  margin-left: 1.25vw;
+  margin-top: -0.75vw;
   cursor: pointer;
   color: #ced4da !important;
   width: 2.5vw;
