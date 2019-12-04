@@ -32,7 +32,7 @@
                     @include('sunsun.front.parts.payment_method', ['new' => '0', 'data_booking' => $data_booking])
                     @endif
 
-                    <img class=" btn-collapse btn-collapse-top"  data-toggle="collapse" data-target=".collapse-top" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
+                    <img class=" btn-collapse btn-collapse-top" id="btn-collapse-top"  data-toggle="collapse" data-target=".collapse-top" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
                     <div class="collapse collapse-top show" id="">
                         <div class="booking-field">
                             <div class="booking-field-label booking-laber-padding">

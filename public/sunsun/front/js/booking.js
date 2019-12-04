@@ -861,6 +861,30 @@ var load_after_ajax = function load_after_ajax() {
       }
     });
   });
+  $('.collapse-top').off('hide.bs.collapse');
+  $('.collapse-top').on('hide.bs.collapse', function () {
+    $('#btn-collapse-top').attr("src", "/sunsun/svg/plus.svg");
+  });
+  $('.collapse-top').off('show.bs.collapse');
+  $('.collapse-top').on('show.bs.collapse', function () {
+    $('#btn-collapse-top').attr("src", "/sunsun/svg/hide.svg");
+  });
+  $('.collapse-between').off('hide.bs.collapse');
+  $('.collapse-between').on('hide.bs.collapse', function () {
+    $('#btn-collapse-between').attr("src", "/sunsun/svg/plus.svg");
+  });
+  $('.collapse-between').off('show.bs.collapse');
+  $('.collapse-between').on('show.bs.collapse', function () {
+    $('#btn-collapse-between').attr("src", "/sunsun/svg/hide.svg");
+  });
+  $('.collapse-finish').off('hide.bs.collapse');
+  $('.collapse-finish').on('hide.bs.collapse', function () {
+    $('#btn-collapse-finish').attr("src", "/sunsun/svg/plus.svg");
+  });
+  $('.collapse-finish').off('show.bs.collapse');
+  $('.collapse-finish').on('show.bs.collapse', function () {
+    $('#btn-collapse-finish').attr("src", "/sunsun/svg/hide.svg");
+  });
   $('#date-value').val(today.format('YYYYMMDD'));
   $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
   $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
