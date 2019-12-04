@@ -860,30 +860,44 @@ var load_after_ajax = function load_after_ajax() {
         });
       }
     });
-  });
-  $('.collapse-top').off('hide.bs.collapse');
-  $('.collapse-top').on('hide.bs.collapse', function () {
-    $('#btn-collapse-top').attr("src", "/sunsun/svg/plus.svg");
-  });
-  $('.collapse-top').off('show.bs.collapse');
-  $('.collapse-top').on('show.bs.collapse', function () {
-    $('#btn-collapse-top').attr("src", "/sunsun/svg/hide.svg");
-  });
-  $('.collapse-between').off('hide.bs.collapse');
-  $('.collapse-between').on('hide.bs.collapse', function () {
+  }); // $('.collapse-top').off('hidden.bs.collapse');
+  // $('.collapse-top').on('hidden.bs.collapse', function () {
+  //     $('#btn-collapse-top').attr("src","/sunsun/svg/plus.svg");
+  // })
+  // $('.collapse-top').off('shown.bs.collapse');
+  // $('.collapse-top').on('shown.bs.collapse', function () {
+  //     $('#btn-collapse-top').attr("src","/sunsun/svg/hide.svg");
+  // })
+
+  $('.collapse-between').off('hidden.bs.collapse');
+  $('.collapse-between').on('hidden.bs.collapse', function () {
+    $('.booking-block-between').css("padding", "0");
     $('#btn-collapse-between').attr("src", "/sunsun/svg/plus.svg");
   });
-  $('.collapse-between').off('show.bs.collapse');
-  $('.collapse-between').on('show.bs.collapse', function () {
+  $('.collapse-between').off('shown.bs.collapse');
+  $('.collapse-between').on('shown.bs.collapse', function () {
     $('#btn-collapse-between').attr("src", "/sunsun/svg/hide.svg");
   });
-  $('.collapse-finish').off('hide.bs.collapse');
-  $('.collapse-finish').on('hide.bs.collapse', function () {
+  $('.collapse-between').off('hide.bs.collapse');
+  $('.collapse-between').on('hide.bs.collapse', function () {});
+  $('.collapse-between').off('show.bs.collapse');
+  $('.collapse-between').on('show.bs.collapse', function () {
+    $('.booking-block-between').css("padding", "");
+  });
+  $('.collapse-finish').off('hidden.bs.collapse');
+  $('.collapse-finish').on('hidden.bs.collapse', function () {
+    $('.booking-block-finish').css("padding", "0");
     $('#btn-collapse-finish').attr("src", "/sunsun/svg/plus.svg");
   });
+  $('.collapse-finish').off('shown.bs.collapse');
+  $('.collapse-finish').on('shown.bs.collapse', function () {
+    $('#btn-collapse-finish').attr("src", "/sunsun/svg/hide.svg");
+  });
+  $('.collapse-finish').off('hide.bs.collapse');
+  $('.collapse-finish').on('hide.bs.collapse', function () {});
   $('.collapse-finish').off('show.bs.collapse');
   $('.collapse-finish').on('show.bs.collapse', function () {
-    $('#btn-collapse-finish').attr("src", "/sunsun/svg/hide.svg");
+    $('.booking-block-finish').css("padding", "");
   });
   $('#date-value').val(today.format('YYYYMMDD'));
   $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");

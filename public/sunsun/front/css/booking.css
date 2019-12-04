@@ -561,6 +561,7 @@ label.form-check-label {
   padding-left: 0.75vw;
   margin-bottom: 1vh;
   font-size: 1.15vw;
+  display: flex;
 }
 
 .booking-field-label.age-css {
@@ -869,13 +870,8 @@ td.disabled.disabled-date.range.day {
   align-items: center;
 }
 
-.btn-collapse-top.btn-collapse {
-  margin-bottom: 0.5vw;
-}
-
 .btn-collapse {
-  margin-bottom: 0.5vw;
-  padding-left: 10px;
+  margin-left: 10px;
   cursor: pointer;
   color: #ced4da !important;
   width: 2.5vw;

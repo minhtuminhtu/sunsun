@@ -260,22 +260,22 @@
   }
 
   .booking-block {
-    background-color: #fff !important;
+    background-color: #fff;
     padding: 0px 2.5vw 0.75vw 2.5vw;
   }
 
   .booking-block-top {
-    background-color: #fff !important;
+    background-color: #fff;
     padding: 2.5vw 2.5vw 0px 2.5vw;
   }
 
   .booking-block-between {
-    background-color: #fff !important;
+    background-color: #fff;
     padding: 2.5vw 2.5vw 0.75vw 2.5vw;
   }
 
   .booking-block-finish {
-    background-color: #fff !important;
+    background-color: #fff;
     padding: 2.5vw 2.5vw 0.75vw 2.5vw;
   }
 
@@ -553,6 +553,7 @@
     padding-left: 1vw;
     margin-bottom: 0.25vh;
     font-size: 4vw !important;
+    display: flex;
   }
 
   .booking-field-label.age-css {
@@ -738,13 +739,9 @@
     font: 400 4vw Arial;
   }
 
-  .btn-collapse-top.btn-collapse {
-    margin-bottom: 1.75vw;
-  }
-
   .btn-collapse {
-    margin-bottom: 1.75vw;
-    padding-left: 10px !important;
+    margin-top: -1vw !important;
+    margin-left: 4vw !important;
     cursor: pointer;
     width: 7vw !important;
   }

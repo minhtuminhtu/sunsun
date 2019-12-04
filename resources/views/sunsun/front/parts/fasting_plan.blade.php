@@ -95,12 +95,12 @@
 </div>
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
-    オプション
+        <div>オプション</div>
+        <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
 <div class="booking-block-between">
-    <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
     <div class="collapse collapse-between show" id="">
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
@@ -123,12 +123,12 @@
 @if(!isset($add_new_user))
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
-    宿泊
+        <div>宿泊</div>
+        <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
     </div>
 <!-- <hr class="booking-line-line"> -->
 </div>
 <div class="booking-block-finish">
-    <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
     <div class="collapse collapse-finish show" id="">
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
