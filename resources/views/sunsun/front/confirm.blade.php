@@ -28,7 +28,7 @@
 
                                 @if($course->kubun_id == '01')
                                     <div class="linex mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -175,7 +175,7 @@
                                     @endif
                                 @elseif($course->kubun_id == '02')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -311,7 +311,7 @@
                                     @endif
                                 @elseif($course->kubun_id == '03')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -443,7 +443,7 @@
                                     @endif
                                 @elseif($course->kubun_id == '04')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -581,7 +581,7 @@
                                     @endif
                                 @elseif($course->kubun_id == '05')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif

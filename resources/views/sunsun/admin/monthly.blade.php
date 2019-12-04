@@ -183,13 +183,13 @@
                         <div class="table-col">
                             <div class="data-item-head noselect">&#160;</div>
                             <div class="data-item">
-                                <div class="item">09:45‐12:30</div>
+                                <div class="item">09:30‐13:30</div>
                             </div>
                             <div class="data-item">
-                                <div class="item">13:15‐18:00</div>
+                                <div class="item">13:30‐18:00</div>
                             </div>
                             <div class="data-item">
-                                <div class="item">17:45‐20:30</div>
+                                <div class="item">18:00‐20:30</div>
                             </div>
                         </div>
                         @foreach($week as $key => $day)
@@ -270,10 +270,10 @@
                                         <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '0'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '0'])</span>
+                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '0'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '0'])</span>
+                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '0'])</span>
                                     </div>
                                 </div>
                                 <div class="data-item {{ $day['full_date'] }}">
@@ -284,10 +284,10 @@
                                         <span class="text-red">@include('sunsun.admin.layouts.monthly_data', ['type' => 'female', 'time' => '1'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '1'])</span>
+                                        <span class="text-wt">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '1'])</span>
                                     </div>
                                     <div class="item">
-                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'wt', 'time' => '1'])</span>
+                                        <span class="text-yellow">@include('sunsun.admin.layouts.monthly_data', ['type' => 'pet', 'time' => '1'])</span>
                                     </div>
                                 </div>
                                 <div class="data-item {{ $day['full_date'] }}">

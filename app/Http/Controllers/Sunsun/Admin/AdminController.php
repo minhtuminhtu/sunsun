@@ -133,7 +133,7 @@ class AdminController extends Controller
     private function set_course(&$data, $date, $time_value){
 
         $course_1_to_4_query = DB::select("
-        (
+        (   
             SELECT	main.booking_id
                   , main.ref_booking_id
                   , main.repeat_user
@@ -152,6 +152,7 @@ class AdminController extends Controller
                   , main.payment_method
                   , time.service_date
                   , time.service_time_1 as time
+                  , 0 as turn
                   , SUBSTRING(time.notes, 1, 1) as bed
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
@@ -178,6 +179,7 @@ class AdminController extends Controller
                     , main.payment_method
                     , main.service_date_start
                     , main.service_time_1 as time
+                    , 1 as turn
                     , SUBSTRING(main.bed, 1, 1) as bed
             FROM		tr_yoyaku as main
             WHERE 	main.course = '02' AND main.service_date_start = $date
@@ -202,6 +204,7 @@ class AdminController extends Controller
                     , main.payment_method
                     , main.service_date_start
                     , main.service_time_2 as time
+                    , 2 as turn
                     , SUBSTRING(main.bed, 3, 1) as bed
             FROM		tr_yoyaku as main
             WHERE 	main.course = '02' AND main.service_date_start = $date
@@ -226,6 +229,7 @@ class AdminController extends Controller
                     , main.payment_method
                     , main.service_date_start
                     , main.service_time_1 as time
+                    , 0 as turn
                     , main.bed
             FROM		tr_yoyaku as main
             WHERE 	main.course = '03' AND main.service_date_start = $date
@@ -250,6 +254,7 @@ class AdminController extends Controller
                   , main.payment_method
                   , time.service_date
                   , time.service_time_1 as time
+                  , 1 as turn
                   , SUBSTRING(time.notes, 1, 1) as bed
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
@@ -276,6 +281,7 @@ class AdminController extends Controller
                   , main.payment_method
                   , time.service_date
                   , time.service_time_2 as time
+                  , 2 as turn
                   , SUBSTRING(time.notes, 3, 1) as bed
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
@@ -284,8 +290,23 @@ class AdminController extends Controller
         )
         ");
         $course_1_to_4 = collect($course_1_to_4_query);
+        $course_1_unique_id = $course_1_to_4->where('course', '01')->unique('booking_id');
 
-        // dd( $course_1_to_4);
+        foreach($course_1_unique_id as $c_1_u_id){
+            $temp_set_turn = $course_1_to_4->where('booking_id', $c_1_u_id->booking_id);
+            $turn = 1;
+            foreach($temp_set_turn as $temp){
+                if($turn == 1){
+                    $temp->turn = 0;
+                }else{
+                    $temp->turn = $turn;
+                }
+                $turn++;
+            }
+            
+        }
+        
+        // dd($course_1_to_4);
 
         for($i = 0; $i < count($course_1_to_4); $i++){
             switch($course_1_to_4[$i]->course){
@@ -325,18 +346,33 @@ class AdminController extends Controller
                 case '01': $course_1_to_4[$i]->lunch = NULL; break;
                 case '02': $course_1_to_4[$i]->lunch = '昼食'; break;
             }
-            switch($course_1_to_4[$i]->lunch){
-                case '01': $course_1_to_4[$i]->lunch = NULL; break;
-                case '02': $course_1_to_4[$i]->lunch = '昼食'; break;
+            switch($course_1_to_4[$i]->whitening){
+                case '01': $course_1_to_4[$i]->whitening = NULL; break;
+                case '02': $course_1_to_4[$i]->whitening = '歯白'; break;
             }
             switch($course_1_to_4[$i]->pet_keeping){
                 case '01': $course_1_to_4[$i]->pet_keeping = NULL; break;
-                case '02': $course_1_to_4[$i]->pet_keeping = 'ﾍﾟｯﾄ預かり'; break;
+                case '02': $course_1_to_4[$i]->pet_keeping = 'Pet'; break;
             }
             switch($course_1_to_4[$i]->stay_room_type){
                 case '01': $course_1_to_4[$i]->stay_room_type = NULL; break;
-                default: $course_1_to_4[$i]->stay_room_type = '宿泊'; break;
+                case '02': {
+                    $temp_kubun = MsKubun::where('kubun_type','011')->where('kubun_id',$course_1_to_4[$i]->stay_room_type)->first();
+                    $course_1_to_4[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
+                    break;
+                } 
+                case '03': {
+                    $temp_kubun = MsKubun::where('kubun_type','011')->where('kubun_id',$course_1_to_4[$i]->stay_room_type)->first();
+                    $course_1_to_4[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
+                    break;
+                } 
+                case '04': {
+                    $temp_kubun = MsKubun::where('kubun_type','011')->where('kubun_id',$course_1_to_4[$i]->stay_room_type)->first();
+                    $course_1_to_4[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
+                    break;
+                } 
             }
+           
             switch($course_1_to_4[$i]->payment_method){
                 case '1': $course_1_to_4[$i]->payment_method = 'クレカ'; break;
                 case '2': $course_1_to_4[$i]->payment_method = '現金'; break;
@@ -870,18 +906,18 @@ class AdminController extends Controller
 
 
         foreach($week_list_day as $day){
-            $monthly_data[$day]['male'][0] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '0945')->where('time','<=' , '1045');
-            $monthly_data[$day]['female'][0] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '0945')->where('time','<=' , '1045');
-            $monthly_data[$day]['male'][1] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1315')->where('time','<=' , '1645');
-            $monthly_data[$day]['female'][1] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1315')->where('time','<=' , '1615');
-            $monthly_data[$day]['male'][2] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1745')->where('time','<=' , '1845');
-            $monthly_data[$day]['female'][2] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1745')->where('time','<=' , '1845');
+            $monthly_data[$day]['male'][0] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '0930')->where('time','<=' , '1330');
+            $monthly_data[$day]['female'][0] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '0930')->where('time','<=' , '1330');
+            $monthly_data[$day]['male'][1] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1330')->where('time','<=' , '1800');
+            $monthly_data[$day]['female'][1] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1330')->where('time','<=' , '1800');
+            $monthly_data[$day]['male'][2] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1800')->where('time','<=' , '2030');
+            $monthly_data[$day]['female'][2] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1800')->where('time','<=' , '2030');
 
-            $monthly_data[$day]['pet'][0] = $course_5->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1100');
-            $monthly_data[$day]['pet'][1] = $course_5->where('service_date', $day)->where('time','>=' , '1315')->where('time','<=' , '1530');
+            $monthly_data[$day]['pet'][0] = $course_5->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1330');
+            $monthly_data[$day]['pet'][1] = $course_5->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
 
-            $monthly_data[$day]['wt'][0] = $course_wt->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1100');
-            $monthly_data[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1315')->where('time','<=' , '1530');
+            $monthly_data[$day]['wt'][0] = $course_wt->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1330');
+            $monthly_data[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
 
         }
 

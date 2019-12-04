@@ -17,7 +17,7 @@
     @endif
 @else
     @if(is_object($time['data'][$row]))
-        <span>[{{ $time['data'][$row]->course }}]</span>
+        <span>[{{ $time['data'][$row]->course }}{{  config('const.laber.bed')[$time['data'][$row]->turn] }}]</span>
         <span>{{ $time['data'][$row]->gender }}</span>
         <span>{{ isset($time['data'][$row]->age_value)?'('.$time['data'][$row]->age_value.'歳)':'' }}</span>
         <br>
@@ -41,12 +41,15 @@
         @endif
 
 
-        @if(($time['data'][$row]->lunch != NULL)||($time['data'][$row]->stay_room_type != NULL)||($time['data'][$row]->pet_keeping != NULL))
-        <br>
-        <span>{{ $time['data'][$row]->lunch }}</span>
-        <span>{{ $time['data'][$row]->pet_keeping }}</span>
+        @if(($time['data'][$row]->lunch != NULL)||($time['data'][$row]->whitening != NULL)||($time['data'][$row]->pet_keeping != NULL)||($time['data'][$row]->stay_room_type != NULL))
+            <br>
+            <span>{{ $time['data'][$row]->lunch }}</span>
+            <span>{{ $time['data'][$row]->whitening }}</span>
+            <span>{{ $time['data'][$row]->pet_keeping }}</span>
             @if(!isset($time['data'][$row]->ref_booking_id))
-            <span>{{ $time['data'][$row]->stay_room_type }}</span>
+                @if(isset($time['data'][$row]->stay_room_type))
+                <span>宿泊{{ $time['data'][$row]->stay_room_type }}</span>
+                @endif
             @endif
         @endif
         @if(!isset($time['data'][$row]->ref_booking_id))
