@@ -637,6 +637,15 @@
     .dropdown-menu{
         font: 400 4vw Arial;
     }
+
+    .btn-collapse-top.btn-collapse {
+        margin-bottom: 2.5vw;
+    }
+    .btn-collapse {
+        margin-bottom: 1.75vw;
+        margin-left: 10px !important;
+        cursor: pointer;
+    }
 }
 @media only screen and (min-width: 768px){
     .mean-bar{
