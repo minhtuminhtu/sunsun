@@ -96,7 +96,7 @@
     <!-- <hr class="booking-line-line"> -->
 </div>
 <div class="booking-block-between">
-    <i class="fas fa-plus btn-collapse" data-toggle="collapse" data-target=".collapse-between"></i>
+    <img class=" btn-collapse"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
     <div class="collapse collapse-between show" id="">
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
@@ -152,7 +152,7 @@
 <!-- <hr class="booking-line-line"> -->
 </div>
 <div class="booking-block-finish">
-    <i class="fas fa-plus btn-collapse" data-toggle="collapse" data-target=".collapse-finish"></i>
+    <img class=" btn-collapse"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
     <div class="collapse collapse-finish show" id="">
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
