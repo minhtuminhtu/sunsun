@@ -76,8 +76,7 @@ class BookingController extends Controller
             $time_required = $this->plus_time_string ($time_bus_arrived, $time_required_arrived); // time required go early for BUS
             $check_bus = true;
         }
-        $error['transport'] = $transport;
-        $error['config'] = config('const.db.kubun_id_value.course.NORMAL');
+
 
         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL') || $course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // tắm bình thường 01
             $time_customer_choice = $data['time'];

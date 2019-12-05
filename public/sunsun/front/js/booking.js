@@ -452,11 +452,16 @@ $(function () {
       },
       success: function success(json) {
         console.log(json);
-        /*if (btn_click.hasClass('add-new-people')) {
-            window.location.href = $site_url +'/booking?add_new_user=on';
+
+        if (json.status == "OK") {
+          if (btn_click.hasClass('add-new-people')) {
+            window.location.href = $site_url + '/booking?add_new_user=on';
+          } else {
+            window.location.href = $site_url + '/confirm';
+          }
         } else {
-            window.location.href = $site_url +'/confirm';
-        }*/
+          alert('please fill all data');
+        }
       },
       complete: function complete() {
         loader.css({
