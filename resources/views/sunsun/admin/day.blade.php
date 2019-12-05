@@ -274,6 +274,7 @@
                             @endphp  
                             ">
                         </div>
+                        @if(!isset($time['not_wt']))
                         <div class="main-col__wt
                             @php 
                             if($i == (count($time_range) + 1) ){ 
@@ -282,9 +283,7 @@
                             if(isset($time['begin_free'])){
                                 echo 'begin_free';
                             }   
-                            if(isset($time['not_wt'])){
-                                echo ' not-wt ';
-                            }else if($i%2 == 0){ 
+                            if($i%2 == 0){ 
                                 echo ' bg-wt '; 
                             } 
                             if(isset($time['wt_new_user'])){
@@ -310,17 +309,80 @@
                             }
                             @endphp
                             " style="height: 100%;">
+                            @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
                             </div>
                         </div>
+                        @else
+                        <div class="main-col__wt not-wt
+                        @php 
+                            if($i == (count($time_range) + 1) ){ 
+                                echo ' bottom'; 
+                            } 
+                            if(isset($time['begin_free'])){
+                                echo 'begin_free';
+                            }   
+                            if($i%2 == 0){ 
+                                echo ' bg-wt '; 
+                            } 
+                            if(isset($time['wt_new_user'])){
+                                echo ' wt-new_user '; 
+                            }
+
+                            if(isset($time['begin_new_user'])){
+                                echo ' begin_new_user '; 
+                            }
+                            @endphp
+                            @if(isset($time['first_free'])) 
+                            first_free 
+                            @endif
+                            @if(isset($time['end_new_user'])) 
+                            end_new_user 
+                            @endif">
+                        </div>
+                        @endif
                         <div class="main-col__space-3"></div>
                         @if(isset($time['pet_time_type']))
                             @if($time['pet_time_type'] == 1)
                             <div class="main-col__pet pet-col_first @if($i == 2) head-col_pet @endif">
-                                {{ $time['pet_time'] }}
+                                <div>{{ $time['pet_time'] }}</div>
+                                <div>
+                                    @if(is_object($time['data']['pet']))
+                                        @if(isset($time['data']['pet']->booking_id))
+                                            <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                        @endif
+                                        @if(isset($time['data']['pet']->ref_booking_id))
+                                            <span>{{ $time['data']['pet']->name }}同行者様</span>
+                                        @else
+                                            <span>{{ $time['data']['pet']->name }}様</span>
+                                        @endif
+                                        <span class="text-red">{{ $time['data']['pet']->repeat_user }}</span>
+
+                                        @if(isset($time['data']['pet']->booking_id))
+                                            <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                        @endif
+
+                                        @if(!isset($time['data']['pet']->ref_booking_id))
+                                            <br>
+                                            <span>{{ $time['data']['pet']->transport }}</span>
+                                            <span>{{ $time['data']['pet']->bus_arrive_time_slide }}</span>
+                                            <span class="text-red">{{ $time['data']['pet']->pick_up }}</span>
+                                        @endif  
+                                    @endif
+                                </div>
                             </div>
                             @else
                             <div class="main-col__pet pet-col_second">
-                                
+                            @if(is_object($time['data']['pet']))
+                                @if(isset($time['data']['pet']->booking_id))
+                                    <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                @endif
+                                <span>{{ $time['data']['pet']->service_pet_num }}匹 {{ $time['data']['pet']->notes }}</span>
+                                @if(!isset($time['data']['pet']->ref_booking_id))
+                                    <span>{{ $time['data']['pet']->phone }}</span>
+                                    <br>
+                                    <span>支払：{{ $time['data']['pet']->payment_method }}</span>
+                                @endif
+                            @endif
                             </div>
                             @endif
                         @else

@@ -51,10 +51,13 @@
         </div>
         <!-- End of row -->
     </div>
-    <div class="mean-bar"><a id="nav" class="meanmenu-reveal" style="right: 0px; left: auto; text-align: center; text-indent: 0px; font-size: 18px;"><span></span><span></span><span></span></a>
+    <div class="mean-bar">
+        <a id="nav" class="meanmenu-reveal" data-toggle="collapse" data-target=".nav-menu" style="right: 0px; left: auto; text-align: center; text-indent: 0px; font-size: 18px;">
+            <span></span><span></span><span></span>
+        </a>
         <nav class="mean-nav">
             <p><a href="https://sun33.thebase.in/" class="text-white">ネットショップ</a> ｜ <a href="http://sun-sun33.com/archives/category/voice" class="text-white">お客様の声</a> ｜ <a href="http://sun-sun33.com/shop" class="text-white">アクセス</a></p>
-            <ul id="nav-menu" style="display:none;">
+            <ul class="nav-menu collapse">
                 <li><a href="http://sun-sun33.com/">トップページ</a></li>
                 <li><a href="http://sun-sun33.com/about">酵素風呂とは?</a></li>
                 <li><a href="http://sun-sun33.com/menu">メニュー・ご利用料金</a></li>

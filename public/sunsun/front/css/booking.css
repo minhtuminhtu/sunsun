@@ -200,7 +200,7 @@ main .fa-calendar-alt:hover {
   opacity: 0.7;
 }
 
-.btn-update.btn-update-left {
+.btn-cancel.btn-cancel-left {
   background: #ffc107;
 }
 
@@ -561,6 +561,7 @@ label.form-check-label {
   padding-left: 0.75vw;
   margin-bottom: 1vh;
   font-size: 1.15vw;
+  display: flex;
 }
 
 .booking-field-label.age-css {
@@ -867,5 +868,13 @@ td.disabled.disabled-date.range.day {
   height: 1.75rem;
   justify-content: center;
   align-items: center;
+}
+
+.btn-collapse {
+  margin-left: 1.25vw;
+  margin-top: -0.75vw;
+  cursor: pointer;
+  color: #ced4da !important;
+  width: 2.5vw;
 }
 

@@ -17,18 +17,25 @@
                     </div> -->
                     <div class="body-confirm">
                         <div>
+                            @php
+                            $i = 0;
+                            @endphp
                             
                             @foreach($customer['info'] as $key => $data)
 
                                 @php 
                                     $course = json_decode($data['course']);
                                     $repeat_user = json_decode($data['repeat_user']);
+                                    $i++;
                                 @endphp
 
 
                                 @if($course->kubun_id == '01')
                                     <div class="linex mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        @if($i != 1)
+                                        <p>予約{{ $i }}</p>
+                                        @endif
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -97,7 +104,25 @@
 
                                     @if($age_type == '3')
                                     <div class="linex"> 
-                                        <p> 年齢：{{ $age_value }}歳</p>
+                                        <p> 大人：{{ $age_value }}歳</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
+                                    @elseif($age_type == '1')
+                                    <div class="linex"> 
+                                        <p>小学生</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
+                                    @elseif($age_type == '2')
+                                    <div class="linex"> 
+                                        <p>学生<span class="node-text">(中学生以上)</span></p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
@@ -105,6 +130,8 @@
                                         </div>
                                     </div>
                                     @endif
+
+
                                     <div class="linex"> 
                                         <p>コース: {{ $course->kubun_value }}</p>
                                         <div class="line1">
@@ -137,7 +164,7 @@
                                                 $whitening = json_decode($data['whitening']);
                                                 $pet_keeping = json_decode($data['pet_keeping']);
                                             @endphp
-                                            <p>昼食: {{ $lunch->kubun_value }}</p> 
+                                            <p>ランチ: {{ $lunch->kubun_value }}</p> 
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
                                             @if($whitening->kubun_id == '02')
                                             <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
@@ -175,7 +202,10 @@
                                     @endif
                                 @elseif($course->kubun_id == '02')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        @if($i != 1)
+                                            <p>予約{{ $i }}</p>
+                                        @endif
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -242,7 +272,7 @@
                                         </div>
                                     </div>
                                     <div class="linex"> 
-                                        <p> 年齢：{{ $age_value }}歳</p>
+                                        <p>{{ $age_value }}歳</p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2"> 
@@ -311,7 +341,10 @@
                                     @endif
                                 @elseif($course->kubun_id == '03')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        @if($i != 1)
+                                            <p>予約{{ $i }}</p>
+                                        @endif
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -405,7 +438,7 @@
                                                 $pet_keeping = json_decode($data['pet_keeping']);
                                                 $lunch_guest_num = json_decode($data['lunch_guest_num']);
                                             @endphp
-                                            <p>昼食 ：{{ $lunch_guest_num->kubun_value }}</p>
+                                            <p>ランチ ：{{ $lunch_guest_num->kubun_value }}</p>
                                             <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
                                             @if($whitening->kubun_id == '02')
                                             <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
@@ -443,7 +476,10 @@
                                     @endif
                                 @elseif($course->kubun_id == '04')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        @if($i != 1)
+                                            <p>予約{{ $i }}</p>
+                                        @endif
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif
@@ -511,7 +547,7 @@
                                         </div>
                                     </div>
                                     <div class="linex"> 
-                                        <p> 年齢：{{ $age_value }}歳</p>
+                                        <p>{{ $age_value }}歳</p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
@@ -581,7 +617,10 @@
                                     @endif
                                 @elseif($course->kubun_id == '05')
                                     <div class="linex  mt-0">
-                                        <p>ご利用回数： {{ $repeat_user->kubun_value }}</p>
+                                        @if($i != 1)
+                                            <p>予約{{ $i }}</p>
+                                        @endif
+                                        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
                                             <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                         @endif

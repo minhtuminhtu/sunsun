@@ -153,7 +153,7 @@ return [
     ],
     'laber' => [
         'bed' => [
-            '0' => '⓪ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳',
+            '0' => '',
             '1' => '①',
             '2' => '②',
             '3' => '③',
@@ -174,6 +174,7 @@ return [
             'pet_time_type' => 1,
             'pet_time' => '9:30～10:30',
             'pet_time_value' => '0930-1030',
+            'wt_time_value' => NULL,
             'begin_time' => '朝',
             'not_wt' => 1,
             'begin_new_user' => 1
@@ -185,6 +186,7 @@ return [
             'pet_time_type' => 2,
             'pet_time' => '9:30～10:30',
             'pet_time_value' => '0930-1030',
+            'wt_time_value' => '1000-1030',
             'wt_new_user' => 1
         ],
         '2' =>  [
@@ -194,6 +196,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => '1030-1100',
             'pet_begin' => 1,
             'begin_new_user' => 1
         ],
@@ -204,6 +207,7 @@ return [
             'pet_time_type' => 1,
             'pet_time' => '11:00～12:00',
             'pet_time_value' => '1100-1200',
+            'wt_time_value' => '1100-1130',
             'begin_free' => '1',
             'wt_new_user' => 1,
             'week_bottom' => 1
@@ -215,6 +219,7 @@ return [
             'pet_time_type' => 2,
             'pet_time' => '11:00～12:00',
             'pet_time_value' => '1100-1200',
+            'wt_time_value' => '1200-1230',
             'first_free' => '1',
             'end_new_user' => 1
         ],
@@ -225,6 +230,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => '1230-1300',
             'begin_time' => '昼',
         ],
         '6' =>  [
@@ -234,6 +240,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => '1300-1330',
             'week_bottom' => 2
         ],
         '7' =>  [
@@ -243,6 +250,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => '1330-1400',
             'pet_begin' => 1,
             'begin_new_user' => 1,
         ],
@@ -253,6 +261,7 @@ return [
             'pet_time_type' => 1,
             'pet_time' => '14:00～15:00',
             'pet_time_value' => '1400-1500',
+            'wt_time_value' => '1400-1430',
             'wt_new_user' => 1
         ],
         '9' =>  [
@@ -262,6 +271,7 @@ return [
             'pet_time_type' => 2,
             'pet_time' => '14:00～15:00',
             'pet_time_value' => '1400-1500',
+            'wt_time_value' => NULL,
             'begin_free' => '1',
             'not_wt' => 1,
             'week_bottom' => 2
@@ -273,6 +283,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => '1500-1530',
             'pet_begin' => 1,
             'begin_time' => 'メンテナンス',
             'first_free' => '1',
@@ -285,6 +296,7 @@ return [
             'pet_time_type' => 1,
             'pet_time' => '15:30～16:30',
             'pet_time_value' => '1530-1630',
+            'wt_time_value' => '1530-1600',
             'wt_new_user' => 1
         ],
         '12' =>  [
@@ -294,6 +306,7 @@ return [
             'pet_time_type' => 2,
             'pet_time' => '15:30～16:30',
             'pet_time_value' => '1530-1630',
+            'wt_time_value' => NULL,
             'not_wt' => 1,
         ],
         '13' =>  [
@@ -303,6 +316,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => '1630-1700',
             'begin_free' => '1',
             'week_bottom' => 2
         ],
@@ -313,6 +327,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => NULL,
             'begin_time' => '夜',
             'first_free' => '1',
             'not_wt' => 1,
@@ -324,6 +339,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => NULL,
             'not_wt' => 1,
         ],
         '16' =>  [
@@ -333,6 +349,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => NULL,
             'not_wt' => 1,
         ],
         '17' =>  [
@@ -342,6 +359,7 @@ return [
             'pet_time_type' => NULL,
             'pet_time' => NULL,
             'pet_time_value' => NULL,
+            'wt_time_value' => NULL,
             'not_wt' => 1,
         ],
     ]

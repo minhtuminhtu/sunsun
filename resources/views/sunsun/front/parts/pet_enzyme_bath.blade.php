@@ -9,18 +9,18 @@
         }
     @endphp
     @if(!isset($add_new_user))
-    <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
-        <div class="booking-field-label  booking-laber-padding">
-            <p class="text-left pt-2">{{config('booking.date.label')}}</p>
-        </div>
-        <input name="date-view" id="date-view" type="hidden" value="">
-        <input name="date-value" id="date-value" type="hidden" value="">
-        <div class="booking-field-content">
-            <div class="timedate-block date-warp">
-                <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="{{ $booking_date }}" />
+        <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
+            <div class="booking-field-label  booking-laber-padding">
+                <p class="text-left pt-2">{{config('booking.date.label')}}</p>
+            </div>
+            <input name="date-view" id="date-view" type="hidden" value="">
+            <input name="date-value" id="date-value" type="hidden" value="">
+            <div class="booking-field-content">
+                <div class="timedate-block date-warp">
+                    <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="{{ $booking_date }}" />
+                </div>
             </div>
         </div>
-    </div>
     @endif
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
@@ -33,7 +33,7 @@
                 <input name="time_room_time1" id="time_room_time1" type="hidden" value="0">
                 <input name="time_room_time2" id="time_room_time2" type="hidden" value="0">
                 <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="00:00～00:00">
-                <input name="time[0][data-json]" class="data-json_input" id="time[0][data-json]" type="hidden" value="">
+                <input name="time_room_pet_json" class="data-json_input" id="time_room_pet_json" type="hidden" value="">
             </div>
 
         </div>

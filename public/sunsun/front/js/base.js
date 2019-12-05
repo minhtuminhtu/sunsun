@@ -93,9 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$('#nav').on('click', function () {
-  $('#nav-menu').toggle();
-});
+
 
 /***/ }),
 

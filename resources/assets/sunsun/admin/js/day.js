@@ -67,6 +67,29 @@ $(function () {
         
     });
 
+    $('.main-col__pet').not(".space-white").not(".head").off('click');
+    $('.main-col__pet').not(".space-white").not(".head").on('click', function (e) {
+        var booking_id = $(this).find('.booking-id').val();
+        if(booking_id == undefined){
+            booking_id = 0;
+        }
+        show_booking(booking_id);
+        
+    });
+    $('.main-col__wt').not(".not-wt").not(".head").off('click');
+    $('.main-col__wt').not(".not-wt").not(".head").on('click', function (e) {
+        var booking_id = $(this).find('.booking-id').val();
+        if(booking_id == undefined){
+            booking_id = 0;
+        }
+        show_booking(booking_id);
+        
+    });
+
+    
+    $('#edit_booking').on('click','.btn-cancel',function (e) {
+        $('#edit_booking').modal('hide');
+    })
     
     
 });
