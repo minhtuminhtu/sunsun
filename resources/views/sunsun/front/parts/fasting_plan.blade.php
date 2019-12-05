@@ -1,6 +1,5 @@
 @php
     $course_data = json_decode($course_data, true);
-    $course_time = json_decode($course_time, true);
 @endphp
 <div class="booking-block">
     <div class="collapse collapse-top show" id="">
