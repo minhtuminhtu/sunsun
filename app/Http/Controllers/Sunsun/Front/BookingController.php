@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Sunsun\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sunsun\Front\BookingRequest;
 use Illuminate\Http\Request;
 
 use App\Models\MsKubun;
 use App\Models\Yoyaku;
 use App\Models\YoyakuDanjikiJikan;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -44,8 +46,75 @@ class BookingController extends Controller
     }
 
     public function save_booking(Request $request) {
+        $error = $this->validate_booking($request->all());
+        if (count($error) > 0) {
+            return $error;
+        }
         $this->save_session($request, $request->all());
         return ['status'=> 'OK'];
+    }
+
+    public function validate_booking($data) {
+        $error = [];
+        $transport = $data['transport'];
+        $transport = json_decode($transport, true);
+        $repeat_user = json_decode($data['repeat_user'], true);
+        $course = json_decode($data['course'], true);
+
+        $gender = $data['gender'];
+
+        $check_bus = false;
+        if ($transport['kubun_id'] == config('const.db.kubun_id_value.transport.BUS') ) { // nếu đi xe bus'02'
+            if ($repeat_user['kubun_id'] == config('const.db.kubun_id_value.repeat_user.NEW')) { // はじめて
+                $time_required_arrived = config('const.db.time_validate.transport.bus.NEW'); // người tắm lần đầu 01
+            } else { //　リピート
+                $time_required_arrived = config('const.db.time_validate.transport.bus.OLD');  // người cũ 02
+            }
+            $bus_arrive_time_slide = $data['bus_arrive_time_slide'];
+            $bus_arrive_time_slide = json_decode($bus_arrive_time_slide, true);
+            $time_bus_arrived = $bus_arrive_time_slide['notes'];
+            $time_required = $this->plus_time_string ($time_bus_arrived, $time_required_arrived); // time required go early for BUS
+            $check_bus = true;
+        }
+        $error['transport'] = $transport;
+        $error['config'] = config('const.db.kubun_id_value.course.NORMAL');
+
+        if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL') || $course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // tắm bình thường 01
+            $time_customer_choice = $data['time'];
+            foreach ($time_customer_choice as $key => $time) {
+                $data_json_time = json_decode($time['data-json'], true );
+                if ($data_json_time == null) { // check nếu chưa chọn time
+                    $error['error_time_transport'][$key]['element'] = $time['element'];
+                } else {
+                    if ($check_bus) { // validate nếu đi xe bus
+                        if ($data_json_time['notes'] < $time_required) { // check required time. time choice always >= time required
+                            $error['error_time_transport'][$key]['data'] = $data_json_time;
+                            $error['error_time_transport'][$key]['element'] = $time['element'];
+                        }
+                        // check room gender
+                    }
+                }
+
+                //$error['data_json_time'] = $data_json_time;
+            }
+        }
+
+
+        return $error;
+
+    }
+
+
+    public function plus_time_string ($time, $plus) {
+        $time_hour = substr($time, 0,2);
+        $time_minutes = substr($time, 2,4);
+        $bus_minutes_more = (int)$time_minutes + $plus;
+
+        $hours_more = floor($bus_minutes_more / 60);
+        $minutes_more = ($bus_minutes_more % 60);
+        $time_bus_hour = (int)$time_hour + $hours_more;
+        $time_required = (string)sprintf('%02d', $time_bus_hour). (string)sprintf('%02d', $minutes_more);
+        return $time_required;
     }
 
     /**
@@ -547,58 +616,309 @@ class BookingController extends Controller
         return $like_booking_id.sprintf('%04d', ($result->count() + 1) );
     }
 
+    public function get_time_validate_bus ($repeat_user, $transport, $bus_arrive_time_slide ) {
+        if ($transport['kubun_id'] == config('const.db.kubun_id_value.transport.BUS') ) { // nếu đi xe bus'02'
+            if ($repeat_user['kubun_id'] == config('const.db.kubun_id_value.repeat_user.NEW')) { // はじめて
+                $time_required_min = config('const.db.time_validate.transport.bus.NEW'); // người tắm lần đầu 01
+            } else { //　リピート
+                $time_required_min = config('const.db.time_validate.transport.bus.OLD');  // người cũ 02
+            }
+            $time_bus_arrived = $bus_arrive_time_slide['notes'];
+            return $this->plus_time_string ($time_bus_arrived, $time_required_min); // time required go early for BUS
+        }
+        return false;
+    }
 
     public function get_time_room(Request $request){
         $data = $request->all();
-        $result = json_decode($data['gender']);
-        $this->fetch_kubun_data($data);
-        $data['gender'] = $result->kubun_value;
+        $kubun_type_time = config('const.db.kubun_type_value.TIME'); // 013 kubun_type
+        $repeat_user = json_decode($data['repeat_user'], true);
+        $transport = json_decode($data['transport'], true);
+        $gender = json_decode($data['gender'], true);
+        $course = json_decode($data['course'], true);
+        $data_get_attr = json_decode($data['data_get_attr'], true);
+        $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
 
-        if($result->kubun_id == '01'){
-            $data['bed'] = $data['bed_male'];
-        }else{
-            $data['bed'] = $data['bed_female'];
+        $validate_time = null;
+
+        $this->fetch_kubun_data($data);
+
+        if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
+            $day_book_time = $data['date-value'];
+            if ((count($data['time']) > 0 && isset($data_get_attr['new'])) || (count($data['time']) > 1)) {
+                $time_vali = collect($data['time'])->max('value');
+                if ($time_vali != '0') {
+                    $validate_time = $this->plus_time_string($time_vali, 120); // plus 2h between 2 times shower
+                }
+            }
+        } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
+            $day_book_time = $data['date-value'];
+            if ($data_get_attr['date_type'] == 'shower_1' && $data['time2-value'] != '0') {
+                $validate_time = $this->plus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
+            } else if ($data_get_attr['date_type'] == 'shower_2' && $data['time1-value'] != '0') {
+                $validate_time = $this->plus_time_string($data['time1-value'], 120); // plus 2h between 2 times shower
+            }
+            //dd($data);
+        } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')) { // fasting plan
+            $type = $data_get_attr['date_type'];
+            $date_select = $data['date'];
+            $day_book_time = $date_select;
+            if ($type == 'to') {
+                $date_select = $data['date'];
+                $tmp_time = [];
+                foreach ($date_select as $key => $value) {
+                    $date = $data_get_attr['date'];
+                    if ($date == $value['day']['value']) {
+                        $tmp_time[] = $value['from']['value'];
+                    }
+                }
+                $time_validate = collect($tmp_time)->max();
+
+                $validate_time = $this->plus_time_string($time_validate, 120); // plus 2h between 2 times shower
+            }
+
         }
-        // dd($data);
-        return view('sunsun.front.parts.booking_time',
-            [
-                'data' => $data
-            ])
-            ->render();
+        // check time bus
+        if ($bus_arrive_time_slide != null) {
+            $check_bus = $this->get_time_validate_bus($repeat_user, $transport, $bus_arrive_time_slide );
+            if ($check_bus !== false && $validate_time < $check_bus) {
+                $validate_time = $check_bus;
+            }
+        }
+
+        $data_time = [];
+        if($gender['kubun_id'] == '01'){ // for man
+            $kubun_type_bed_male = config('const.db.kubun_type_value.bed_male'); // 017 kubun_type
+            $data_time['beds'] = $data['bed_male'];
+            $data_time_room = $this->get_time_room_booking($kubun_type_time, $kubun_type_bed_male, $validate_time);
+        }else{ //for woman
+            $kubun_type_bed_female = config('const.db.kubun_type_value.bed_female'); // 018 kubun_type
+            $data_time['beds'] = $data['bed_female'];
+            $data_time_room = $this->get_time_room_booking($kubun_type_time, $kubun_type_bed_female, $validate_time);
+        }
+        //dd($data_time_room);
+        $tmp_time_room = [];
+        foreach ($data_time_room as $key => $time_room) {
+            $tmp_time_room[$time_room->kubun_id][] = $time_room;
+        }
+        $data_time['time_room'] = $tmp_time_room;
+        //dd($data);
+        $data_time['gender'] = $gender;
+        if (isset($data_get_attr['new'])) {
+            $data_time['new'] = 1;
+        }
+        return view('sunsun.front.parts.booking_time',$data_time)->render();
     }
+
+
 
     public function book_room (Request $request) {
         $data = $request->all();
         $this->fetch_kubun_data($data);
+
         $data['bed'] = $data['bed_male'];
+
         return view('sunsun.front.parts.booking_room',
             [
                 'data' => $data
             ])
             ->render();
     }
+
+    /**
+     * @param $time_kubun_type
+     * @param $room_kubun_type
+     * @param null $time_bath is the time validate if shower many times
+     * @return array
+     */
+    public function get_time_room_booking ($time_kubun_type, $room_kubun_type, $time_bath = null) {
+        $data_sql = [
+            'time_kubun_type' => $time_kubun_type,
+            'room_kubun_type' => $room_kubun_type,
+        ];
+        if ($time_bath !== null) {
+            $data_sql['time_bath'] = $time_bath;
+        }
+        $sql_select = "
+                -- SELECT time & room
+               SELECT 
+                mk1.* 
+                , mk2.kubun_id as kubun_id_room
+                ,  mk2.kubun_value as kubun_value_room
+                , mk2.notes as notes_room
+        ";
+        if ($time_bath !== null) {
+            $sql_select .= "
+                 , CASE
+                    WHEN mk1.notes > :time_bath THEN 1
+                    ELSE 0
+                    END as status_time_validate
+            ";
+        }
+        $sql = "$sql_select
+            FROM ms_kubun mk1
+            INNER JOIN ms_kubun mk2 ON mk2.kubun_type = :room_kubun_type
+            WHERE mk1.kubun_type = :time_kubun_type
+            ORDER BY  mk2.sort_no, mk1.sort_no
+        ";
+
+        return DB::select($sql, $data_sql);
+    }
     public function book_time_room_wt (Request $request) {
         $data = $request->all();
-        $this->fetch_kubun_data($data);
-        $data['bed'] = $data['bed_pet'];
+        $repeat_user = json_decode($data['repeat_user'], true);
+        $transport = json_decode($data['transport'], true);
+        $course = json_decode($data['course'], true);
+        $data_get_attr = json_decode($data['data_get_attr'], true);
+        $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
+        $validate_time = null;
+        if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
+            $day_book_time = $data['date-value'];
+            $time_vali = collect($data['time'])->max('value');
+            if ($time_vali != '0') {
+                $validate_time = $this->plus_time_string($time_vali, 120); // plus 2h between 2 times shower
+            }
+        } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
+            $day_book_time = $data['date-value'];
+            $validate_time_1 = $this->plus_time_string($data['time1-value'], 15 + 45);  // 15 + 45 p tắm bt
+            $validate_time_2 = $this->plus_time_string($data['time2-value'], 15 + 45);  // 15 + 45 p tắm bt
+            $validate_time = collect([$validate_time_1,$validate_time_2])->max();
+
+            //dd($data);
+        } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) { // All room
+            $day_book_time = $data['date-value'];
+            $validate_time = $this->plus_time_string($data['time_room_value'], 15 + 45); // 15 + 45 p tắm bt
+
+        }
+        // check time bus
+        if ($bus_arrive_time_slide != null) {
+            $check_bus = $this->get_time_validate_bus($repeat_user, $transport, $bus_arrive_time_slide );
+            if ($check_bus !== false && $validate_time < $check_bus) {
+                $validate_time = $check_bus;
+            }
+        }
         // dd($data);
-        return view('sunsun.front.parts.booking_room_wt',
-            [
-                'data' => $data
-            ])
-            ->render();
+        $time_kubun_type_whitening = config('const.db.kubun_type_value.TIME_WHITENING'); //021
+        $kubun_type_bed_male = config('const.db.kubun_type_value.bed_pet'); // 19
+        $data_time_room = $this->get_time_room_whitening($time_kubun_type_whitening, $kubun_type_bed_male, $validate_time,$repeat_user);
+        $tmp_time_wt = [];
+        foreach ($data_time_room as $key => $time_room) {
+            $tmp_time_wt[$time_room->kubun_id][] = $time_room;
+        }
+        //dd($tmp_time_wt);
+        $data_time['time_whitening'] = $tmp_time_wt;
+        $MsKubun = MsKubun::all();
+        $data_time['beds'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
+        return view('sunsun.front.parts.booking_room_wt',$data_time)->render();
+    }
+
+    public function get_time_room_whitening ($time_kubun_type, $room_kubun_type, $time_bath = null, $repeat_user) {
+        $data_sql = [
+            'time_kubun_type' => $time_kubun_type,
+            'room_kubun_type' => $room_kubun_type,
+        ];
+        if ($time_bath !== null) {
+            $data_sql['time_bath'] = $time_bath;
+        }
+        if ($repeat_user['kubun_id'] == config('const.db.kubun_id_value.repeat_user.NEW')) { // はじめて
+            $data_sql['hand_code'] = 1;
+        } else { //　リピート
+            $data_sql['hand_code'] = 0;
+        }
+        $sql_select = "
+                -- SELECT time & room
+               SELECT 
+                mk1.* 
+                , mk2.kubun_id as kubun_id_room
+                , mk2.kubun_value as kubun_value_room
+                , mk2.notes as notes_room
+                , SUBSTRING(mk1.notes, 11) as user_type
+                , SUBSTRING(mk1.notes, 1, 4) as time_start
+                , SUBSTRING(mk1.notes, 6, 4) as end_time
+        ";
+        if ($time_bath !== null) {
+            $sql_select .= "
+                 , CASE
+                    WHEN mk1.notes > :time_bath THEN 1
+                    ELSE 0
+                    END as status_time_validate
+            ";
+        }
+        $sql = "$sql_select
+            FROM ms_kubun mk1
+            INNER JOIN ms_kubun mk2 ON mk2.kubun_type = :room_kubun_type
+            WHERE mk1.kubun_type = :time_kubun_type
+                AND SUBSTRING(mk1.notes, 11) = :hand_code
+            ORDER BY  mk2.sort_no, mk1.sort_no
+        ";
+
+        return DB::select($sql, $data_sql);
     }
 
     public function book_time_room_pet (Request $request) {
         $data = $request->all();
-        $this->fetch_kubun_data($data);
-        $data['bed'] = $data['bed_pet'];
-        
-        return view('sunsun.front.parts.booking_room_pet',
-            [
-                'data' => $data
-            ])
-            ->render();
+        $repeat_user = json_decode($data['repeat_user'], true);
+        $transport = json_decode($data['transport'], true);
+        $course = json_decode($data['course'], true);
+        $data_get_attr = json_decode($data['data_get_attr'], true);
+        $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
+        $validate_time = null;
+        // check time bus
+        if ($bus_arrive_time_slide != null) {
+            $check_bus = $this->get_time_validate_bus($repeat_user, $transport, $bus_arrive_time_slide );
+            if ($check_bus !== false && $validate_time < $check_bus) {
+                $validate_time = $check_bus;
+            }
+        }
+        $MsKubun = MsKubun::all();
+        $data_time['beds'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
+        $time_kubun_type_pet = config('const.db.kubun_type_value.TIME_PET'); //020
+        $kubun_type_bed_pet = config('const.db.kubun_type_value.bed_pet'); // 19
+        $data_time_room_pet = $this->get_time_room_pet($time_kubun_type_pet, $kubun_type_bed_pet, $validate_time);
+        $tmp_time_pet = [];
+        foreach ($data_time_room_pet as $key => $time_room) {
+            $tmp_time_pet[$time_room->kubun_id][] = $time_room;
+        }
+        //dd($tmp_time_wt);
+        $data_time['time_pet'] = $tmp_time_pet;
+
+        return view('sunsun.front.parts.booking_room_pet',$data_time)->render();
+    }
+
+    public function get_time_room_pet ($time_kubun_type, $room_kubun_type, $time_bath = null) {
+        $data_sql = [
+            'time_kubun_type' => $time_kubun_type,
+            'room_kubun_type' => $room_kubun_type,
+        ];
+        if ($time_bath !== null) {
+            $data_sql['time_bath'] = $time_bath;
+        }
+        $sql_select = "
+                -- SELECT time & room
+               SELECT 
+                mk1.* 
+                , mk2.kubun_id as kubun_id_room
+                , mk2.kubun_value as kubun_value_room
+                , mk2.notes as notes_room
+                , SUBSTRING(mk1.notes, 1, 4) as time_start
+                , SUBSTRING(mk1.notes, 6, 4) as end_time
+        ";
+        if ($time_bath !== null) {
+            $sql_select .= "
+                 , CASE
+                    WHEN SUBSTRING(mk1.notes, 1, 4) > :time_bath THEN 1
+                    ELSE 0
+                    END as status_time_validate
+            ";
+        }
+        $sql = "$sql_select
+            FROM ms_kubun mk1
+            INNER JOIN ms_kubun mk2 ON mk2.kubun_type = :room_kubun_type
+            WHERE mk1.kubun_type = :time_kubun_type
+            ORDER BY  mk2.sort_no, mk1.sort_no
+        ";
+
+        return DB::select($sql, $data_sql);
     }
 
     public function fetch_kubun_data(&$data){

@@ -64,7 +64,7 @@
         $booking_date = '';
         if(isset($course_data['service_date_start'])){
             $booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
-        }  
+        }
     @endphp
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}} ">
         <div class="booking-field-label  booking-laber-padding">
@@ -102,10 +102,12 @@
                 <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ isset($first_time['service_time_1'])?$first_time['service_time_1']:'0' }}">
                 <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ isset($first_time['notes'])?$first_time['notes']:'0' }}">
                 <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
+                <input name="time[0][data-json]" class="data-json_input" id="time[0][data-json]" type="hidden" value="">
+                <input name="time[0][element]" id="time[0][element]" type="hidden" value="js-set-time">
             </div>
             <div class="time-content">
             </div>
-            
+
             <div class="block-content-2 margin-top-mini">
                 <div class="block-content-2-left"></div>
                 <div class="block-content-2-right">
@@ -165,13 +167,14 @@
     @endphp
     <div class="booking-field whitening"  @if($display_whitening) style="display:none;" @endif>
         <div class="booking-field-label booking-laber-padding">
-            
+
         </div>
         <div class="booking-field-content">
-            <div class="node-text">ホワイトニング時間</div> 
+            <div class="node-text">ホワイトニング時間</div>
             <div class="timedate-block set-time">
                 <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" value="00:00～00:00" />
                 <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
+                <input type="hidden" name="data-json-white" class="data-json_input">
             </div>
         </div>
     </div>
@@ -280,6 +283,6 @@
                 @endforeach
             </select>
         </div>
-    </div>            
+    </div>
 </div>
 @endif

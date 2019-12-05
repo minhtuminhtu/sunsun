@@ -28,6 +28,7 @@
                 <div class="">
                     <input type="hidden" class="bed" value="{{ $bed->kubun_value }}">
                     <input type="radio" name="time" value="{{ $time_slide_room->kubun_value }}">
+                    <input type="hidden" class="data-json" name="data-json" value="{{json_encode($bed)}}">
                 </div>
             </td>
             @endforeach

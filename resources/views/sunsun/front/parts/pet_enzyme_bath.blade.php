@@ -6,7 +6,7 @@
         $booking_date = '';
         if(isset($course_data['service_date_start'])){
             $booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
-        }  
+        }
     @endphp
     @if(!isset($add_new_user))
     <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
@@ -33,6 +33,7 @@
                 <input name="time_room_time1" id="time_room_time1" type="hidden" value="0">
                 <input name="time_room_time2" id="time_room_time2" type="hidden" value="0">
                 <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="00:00～00:00">
+                <input name="time[0][data-json]" class="data-json_input" id="time[0][data-json]" type="hidden" value="">
             </div>
 
         </div>

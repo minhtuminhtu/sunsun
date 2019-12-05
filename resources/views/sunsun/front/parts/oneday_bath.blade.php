@@ -65,9 +65,11 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="0">
+                <input name="time1-value" id="time1-value" class="time_value js-view-input" type="hidden" value="0">
                 <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="1">
-                <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00">
+                <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_1">
+                <input name="time[0][data-json]" class="data-json_input" id="time[0][data-json]" type="hidden" value="">
+                <input name="time[0][element]" id="time[0][element]" type="hidden" value="js-view-input">
             </div>
 
         </div>
@@ -78,9 +80,11 @@
         </div>
         <div class="booking-field-content">
             <div class="timedate-block set-time">
-                <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="0">
+                <input name="time2-value" id="time2-value" class="time_value js-view-input" type="hidden" value="0">
                 <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="1">
-                <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00">
+                <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_2">
+                <input name="time[1][data-json]" class="data-json_input" id="time[1][data-json]" type="hidden" value="">
+                <input name="time[1][element]" id="time[1][element]" type="hidden" value="js-view-input">
             </div>
 
         </div>
@@ -112,13 +116,14 @@
     </div>
     <div class="booking-field whitening" style="display:none;">
         <div class="booking-field-label booking-laber-padding">
-            
+
         </div>
         <div class="booking-field-content">
-            <div class="node-text">ホワイトニング時間</div> 
+            <div class="node-text">ホワイトニング時間</div>
             <div class="timedate-block set-time">
                 <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="" value="00:00～00:00" />
                 <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
+                <input type="hidden" name="data-json-white" class="data-json_input">
             </div>
         </div>
     </div>

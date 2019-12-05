@@ -85,13 +85,52 @@ return [
         ],
 
         'kubun_type_value' => [
+            'repeat_user' => '001',
             'transport' => '002',
             'pick_up' => '003',
             'course' => '005',
             'gender' => '006',
+            'TIME' => '013',
             'bed_male' => '017',
             'bed_female' => '018',
-            'bed_pet' => '019'
+            'bed_pet' => '019',
+            'TIME_PET' => '020',
+            'TIME_WHITENING' => '021'
+
+        ],
+
+        'kubun_id_value' => [
+            'repeat_user' => [
+                'NEW' => '01',
+                'OLD' => '02'
+            ],
+            'transport' => [
+                'PRIVATE_VEHICLE' => '01',
+                'BUS' => '02',
+            ],
+            'pick_up' => [
+                'OFF' => '01',
+                'ON' => '02'
+            ],
+            'course' => [
+                'NORMAL' => '01',
+                '1_DAY_REFRESH' => '02',
+                'BOTH_ALL_ROOM'=> '03',
+                'FASTING_PLAN' => '04',
+                'PET' => '05'
+            ],
+            'gender' => [
+                'MALE' => '01',
+                'FEMALE' => '02'
+            ],
+        ],
+        'time_validate' => [
+            'transport' => [
+                'bus' => [
+                    'NEW' => 45,
+                    'OLD' => 30
+                ],
+            ]
         ],
 
         'tr_yoyaku_danjiki_jikan' => [

@@ -50,7 +50,7 @@ $(function() {
 
 
 
-    
+
     let load_event = function(check = null) {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
@@ -89,7 +89,7 @@ $(function() {
         });
 
         DatePicker = {
-            hideOldDays: function(){ 
+            hideOldDays: function(){
                 var x = $('td.old.day');
                 if(x.length > 0){
                     x.css('visibility', 'hidden');
@@ -185,8 +185,8 @@ $(function() {
 
         var range_date_temp = [];
 
-       
-        
+
+
         $('#range_date_start').datepicker().on('hide', function () {
             $('#range_date_end').focus();
         });
@@ -195,7 +195,7 @@ $(function() {
             if($.inArray(moment(new Date($('#plan_date_start').val())).format('YYYY-MM-DD'), range_date_temp) == -1){
                 $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
             }
-            
+
             $('#plan_date_end').datepicker({
                 language: 'ja',
                 dateFormat: 'yyyy/mm/dd',
@@ -215,20 +215,20 @@ $(function() {
                 let date_hl = moment(element + " 00:00 +0000", 'YYYY-MM-DD HH:mm Z').utc().format("X") + "000";
                 if((index == 0) || (index == (highlight.length - 1))){
                     if(((start)&&(index == 0)) || ((!start)&&(index == (highlight.length - 1)))){
-                        $( "td[data-date='" + date_hl + "']" ).css('background-image','linear-gradient(to bottom, #08c, #0044cc)'); 
+                        $( "td[data-date='" + date_hl + "']" ).css('background-image','linear-gradient(to bottom, #08c, #0044cc)');
                     }else{
-                        $( "td[data-date='" + date_hl + "']" ).css('background','#9e9e9e'); 
+                        $( "td[data-date='" + date_hl + "']" ).css('background','#9e9e9e');
                     }
-                    $( "td[data-date='" + date_hl + "']" ).css('color','#fff'); 
+                    $( "td[data-date='" + date_hl + "']" ).css('color','#fff');
                 }else{
-                    $( "td[data-date='" + date_hl + "']" ).css('background','#eee'); 
-                    $( "td[data-date='" + date_hl + "']" ).css('border-radius','unset'); 
-                    $( "td[data-date='" + date_hl + "']" ).css('color','#212529'); 
+                    $( "td[data-date='" + date_hl + "']" ).css('background','#eee');
+                    $( "td[data-date='" + date_hl + "']" ).css('border-radius','unset');
+                    $( "td[data-date='" + date_hl + "']" ).css('color','#212529');
                 }
             });
         }
 
-        
+
 
 
         $('#plan_date_start').datepicker().on('show', function(e) {
@@ -242,7 +242,7 @@ $(function() {
         $('#plan_date_end').datepicker().on('hide', function(e) {
             range_date_temp = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
         });
-        
+
 
 
 
@@ -251,9 +251,9 @@ $(function() {
 
         $('.input-daterange').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
-            
+
         });
-        
+
         $('.agecheck').on('click', function() {
             $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
@@ -288,12 +288,12 @@ $(function() {
         load_pick_time_event();
         load_pick_time_room_event();
         load_pick_time_wt_event();
-        load_pick_time_pet_event();   
+        load_pick_time_pet_event();
     };
     load_event();
 
 
-    
+
 
     modal_choice_time.on('hidden.bs.modal', function () {
         modal_choice_time.find('.modal-body-time').empty();
@@ -303,8 +303,12 @@ $(function() {
     modal_choice_time.on('click','#js-save-time',function (e) {
         let time = modal_choice_time.find('input[name=time]:checked').val();
         let bed = modal_choice_time.find('input[name=time]:checked').parent().find('.bed').val();
+        let data_json = modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]').val();
         var num = $('.booking-time').length;
         var time_value = time_value = time.replace(/[^0-9]/g,'');
+
+
+
         if($('#new-time').val() == 1){
             $(".time-content").append('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly"  value="" /><input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value=""><input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value=""></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
             load_time_delete_event();
@@ -328,12 +332,15 @@ $(function() {
         $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
         $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
         $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
-        
-        function pad(n, width) { 
-            n = n + ''; 
-            return n.length >= width ? n :  
-                new Array(width - n.length + 1).join('0') + n; 
-        } 
+
+        $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json);
+
+        console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
+        function pad(n, width) {
+            n = n + '';
+            return n.length >= width ? n :
+                new Array(width - n.length + 1).join('0') + n;
+        }
 
         if(time.includes("～")){
             var res = time.split("～");
@@ -341,7 +348,7 @@ $(function() {
             $('.set-time.edit input.time').parent().find('#time_room_time2').val(pad(res[1].replace(/[^0-9]/g,''), 4));
             $('.set-time.edit input.time').parent().find('#whitening-time_value').val(pad(res[0].replace(/[^0-9]/g,''), 4) + '-' + pad(res[1].replace(/[^0-9]/g,''), 4));
         }
-        
+
 
         modal_choice_time.modal('hide');
     })
@@ -357,12 +364,13 @@ $(function() {
             beforeSend: function () {
                 loader.css({'display': 'block'});
             },
-            success: function (r) {
-                if (btn_click.hasClass('add-new-people')) {
+            success: function (json) {
+                console.log(json);
+                /*if (btn_click.hasClass('add-new-people')) {
                     window.location.href = $site_url +'/booking?add_new_user=on';
                 } else {
                     window.location.href = $site_url +'/confirm';
-                }
+                }*/
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -370,12 +378,47 @@ $(function() {
         });
     });
 
-    
+
 
     let load_time_list = function(check = null) {
         if(!check){
-            $('.time-list').append('<div class="booking-field choice-time"><input value="0" class="time_index" type="hidden" ><div class="booking-field-label label-data pt-2"><label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label><input name="date['+ 0 +'][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" ><input name="date['+ 0 +'][day][value]" value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" /><input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date['+ 0 +'][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" /><input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date['+ 0 +'][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-            $('.time-list').append('<div class="booking-field choice-time"><input value="1" class="time_index" type="hidden" ><div class="booking-field-label label-data pt-2"><label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label><input name="date['+ 1 +'][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" ><input name="date['+ 1 +'][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" /><input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date['+ 1 +'][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" /><input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date['+ 1 +'][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('' +
+                '<div class="booking-field choice-time">' +
+                '<input value="0" class="time_index" type="hidden" >' +
+                '<div class="booking-field-label label-data pt-2">' +
+                '<label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label>' +
+                '<input name="date['+ 0 +'][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" >' +
+                '<input name="date['+ 0 +'][day][value]" value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" type="hidden" >' +
+                '</div>    <div class="booking-field-content date-time">' +
+                '<div class="choice-data-time set-time">    ' +
+                '<div class="set-time">' +
+                '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+                '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                '<input name="date['+ 0 +'][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly"  value="00:00" />    ' +
+                '</div>    <div class="icon-time mt-1">' +
+                '</div>' +
+                '</div>' +
+                '<div class="choice-data-time set-time time-end">    ' +
+                '<div class="set-time">' +
+                '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+                '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                '<input name="date['+ 0 +'][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to"  readonly="readonly"  value="00:00" />    ' +
+                '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            $('.time-list').append('' +
+                '<div class="booking-field choice-time">' +
+                '<input value="1" class="time_index" type="hidden" >' +
+                '<div class="booking-field-label label-data pt-2">' +
+                '<label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label>' +
+                '<input name="date['+ 1 +'][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" >' +
+                '<input name="date['+ 1 +'][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
+                '<div class="choice-data-time set-time">    <div class="set-time">' +
+                '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+                '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                '<input name="date['+ 1 +'][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="00:00" />   ' +
+                ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
+                '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+                '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                '<input name="date['+ 1 +'][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="to" readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
         }
         $(".range_date").change(function(){
             var date_arr = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
@@ -387,7 +430,19 @@ $(function() {
                 var month = check.format('MM');
                 var day   = check.format('DD');
                 var week_day =  check.weekday();
-                $('.time-list').append('<div class="booking-field choice-time"><input value="' + index + '" class="time_index" type="hidden" ><div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label><input name="date['+ index +'][day][view]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" ><input name="date['+ index +'][day][value]" value="' + year + month +  day +'" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time"><input name="date['+ index +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" /><input name="date['+ index +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date['+ index +'][from][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date['+ index +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" /><input name="date['+ index +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date['+ index +'][to][view]" type="text" class="time form-control js-set-time bg-white"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+                $('.time-list').append('<div class="booking-field choice-time">' +
+                    '<input value="' + index + '" class="time_index" type="hidden" >' +
+                    '<div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label>' +
+                    '<input name="date['+ index +'][day][view]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" >' +
+                    '<input name="date['+ index +'][day][value]" value="' + year + month +  day +'" type="hidden" ></div>   ' +
+                    ' <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time">' +
+                    '<input name="date['+ index +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+                    '<input name="date['+ index +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                    '<input name="date['+ index +'][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="' + year + month +  day +'" data-date_type="form"  readonly="readonly"  value="00:00" />    ' +
+                    '</div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
+                    '<input name="date['+ index +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+                    '<input name="date['+ index +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                    '<input name="date['+ index +'][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="' + year + month +  day +'" data-date_type="to"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
             });
             let check2 = moment(new Date($('#plan_date_start').val()));
             let check1 = moment(new Date($('#plan_date_end').val()));
@@ -413,11 +468,11 @@ let load_time_delete_event = function(){
     });
 }
 
-function pad(n, width) { 
-    n = n + ''; 
-    return n.length >= width ? n :  
-        new Array(width - n.length + 1).join('0') + n; 
-} 
+function pad(n, width) {
+    n = n + '';
+    return n.length >= width ? n :
+        new Array(width - n.length + 1).join('0') + n;
+}
 
 let load_pick_time_event = function(){
     modal_choice_time = $('#choice_date_time');
@@ -426,77 +481,19 @@ let load_pick_time_event = function(){
     set_time.off('click');
     set_time.on('click', function() {
 
-        var course = JSON.parse($('#course').val());
-        console.log(course.kubun_id);
-
-        var repeat_user = JSON.parse($('#repeat_user').val());
-        var transport = JSON.parse($('#transport').val());
-        var repeat_time_check = 0;
-
-        if(transport.kubun_id != '01'){
-            var bus_arrive_time_slide = JSON.parse($('#bus_arrive_time_slide').val());
-            repeat_time_check = bus_arrive_time_slide.notes;
-            if(repeat_user.kubun_id == '01'){
-                repeat_time_check = parseInt(repeat_time_check) + 45;
-            }else{
-                repeat_time_check = parseInt(repeat_time_check) + 30;
-            }
-            repeat_time_check = pad(repeat_time_check, 4);
-        }
-
-        if(course.kubun_id == '01'){
-            var disable_time_2h = [document.getElementById('time\[0\]\[value\]').value];
-            for(var i = 1; i <= $('.block-content-1 ').length; i++){
-                disable_time_2h.push(document.getElementById('time\[' + i + '\]\[value\]').value);
-            }
-            const index = disable_time_2h.indexOf($(this).parent().find('.time_value').val());
-            disable_time_2h.splice(index, 1);
-
-            
-        }else if(course.kubun_id == '02'){
-            var disable_time_2h = [$('#time1-value').val(), $('#time2-value').val()];
-            const index = disable_time_2h.indexOf($(this).parent().find('.time_value').val());
-            disable_time_2h.splice(index, 1);
-        }else if(course.kubun_id == '04'){
-            var time_index = $(this).parent().parent().parent().parent().find('.time_index').val();
-            var disable_time_2h = [$(this).parent().parent().parent().find('.time_from').val(), $(this).parent().parent().parent().find('.time_to').val()];
-            const index = disable_time_2h.indexOf($(this).parent().find('.time_value').val());
-            disable_time_2h.splice(index, 1);
-        }
-
-
-        if((course.kubun_id == '01') || (course.kubun_id == '02') || (course.kubun_id == '03')){
-            var whitening = JSON.parse($('#whitening').val());
-            console.log(whitening.kubun_id);
-            if(whitening.kubun_id == '02'){
-                console.log($('#whitening-time_value').val());
-                if($('#whitening-time_value').val().length != 1){
-                    var whitening_check = $('#whitening-time_value').val().substr(0, 4);
-                }
-            }
-        }
-        
-        
-        
-        
-
-
-        // console.log(repeat_time_check);
-        console.log(disable_time_2h);
-        console.log(time_index);
-
         let set_time_click = $(this);
+        let $data = $('form.booking').serializeArray();
+        let $get_date = {};
+        $get_date.name = "data_get_attr";
+        let $value = {};
+        $value.date = set_time_click.attr('data-date_value');
+        $value.date_type = set_time_click.attr('data-date_type');
+        $get_date.value = JSON.stringify($value);
+        $data.push($get_date);
         $.ajax({
             url: '/get_time_room',
             type: 'POST',
-            data: {
-                'gender': $('select[name=gender]').val(),
-                'repeat_user' : repeat_user,
-                'disable_time_2h' : disable_time_2h,
-                'repeat_time_check' : repeat_time_check,
-                'time_index' : time_index,
-                'whitening_check' : whitening_check
-            },
+            data:  $data,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
@@ -545,6 +542,14 @@ let load_pick_time_room_event = function(){
         }
 
         let set_time_click = $(this);
+        let $data = $('form.booking').serializeArray();
+        let $get_date = {};
+        $get_date.name = "data_get_attr";
+        let $value = {};
+        $value.date = set_time_click.attr('data-date_value');
+        $value.date_type = set_time_click.attr('data-date_type');
+        $get_date.value = JSON.stringify($value);
+        $data.push($get_date);
         $.ajax({
             url: $site_url +'/book_room',
             type: 'POST',
@@ -572,53 +577,20 @@ let load_pick_time_wt_event = function(){
     let get_room_wt = $('.js-set-room_wt');
     get_room_wt.off('click');
     get_room_wt.on('click', function() {
-        // console.log($('#repeat_user').val());
-
-
-        var repeat_user = JSON.parse($('#repeat_user').val());
-        var transport = JSON.parse($('#transport').val());
-        var repeat_time_check = 0;
-
-        if(transport.kubun_id != '01'){
-            var bus_arrive_time_slide = JSON.parse($('#bus_arrive_time_slide').val());
-            repeat_time_check = bus_arrive_time_slide.notes;
-            if(repeat_user.kubun_id == '01'){
-                repeat_time_check = parseInt(repeat_time_check) + 45;
-            }else{
-                repeat_time_check = parseInt(repeat_time_check) + 30;
-            }
-            repeat_time_check = pad(repeat_time_check, 4);
-        }
-
-        console.log(repeat_time_check);
-
-
-        console.log(repeat_user.kubun_id)
-        var course = JSON.parse($('#course').val());
-        console.log(course.kubun_id);
-
-        if(course.kubun_id == '01'){
-            var disable_time_15min = [document.getElementById('time\[0\]\[value\]').value];
-            for(var i = 1; i <= $('.block-content-1 ').length; i++){
-                disable_time_15min.push(document.getElementById('time\[' + i + '\]\[value\]').value);
-            }
-        }else if(course.kubun_id == '02'){
-            var disable_time_15min = [$('#time1-value').val(), $('#time2-value').val()];
-        }else if(course.kubun_id == '03'){
-            var disable_time_15min = [$('#time_room_value').val()];
-        }
-
-        console.log(disable_time_15min);
-
         let set_time_click = $(this);
+        let $data = $('form.booking').serializeArray();
+        let $get_date = {};
+        $get_date.name = "data_get_attr";
+        $data.push($get_date);
+
         $.ajax({
             url: $site_url +'/book_time_room_wt',
             type: 'POST',
-            data: {
+            data: $data /*{
                 'rp_user': repeat_user.kubun_id,
                 'repeat_time_check' : repeat_time_check,
                 'disable_time_15min' : disable_time_15min
-            },
+            }*/,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
@@ -639,30 +611,18 @@ let load_pick_time_pet_event = function(){
     get_room_pet.off('click');
     get_room_pet.on('click', function() {
         let set_time_click = $(this);
-        var repeat_user = JSON.parse($('#repeat_user').val());
-        var transport = JSON.parse($('#transport').val());
-        var repeat_time_check = 0;
-
-        if(transport.kubun_id != '01'){
-            var bus_arrive_time_slide = JSON.parse($('#bus_arrive_time_slide').val());
-            repeat_time_check = bus_arrive_time_slide.notes;
-            if(repeat_user.kubun_id == '01'){
-                repeat_time_check = parseInt(repeat_time_check) + 45;
-            }else{
-                repeat_time_check = parseInt(repeat_time_check) + 30;
-            }
-            repeat_time_check = pad(repeat_time_check, 4);
-        }
-
-        console.log(repeat_time_check);
-
+        let $data = $('form.booking').serializeArray();
+        let $get_date = {};
+        $get_date.name = "data_get_attr";
+        let $value = {};
+        $value.date = set_time_click.attr('data-date_value');
+        $value.date_type = set_time_click.attr('data-date_type');
+        $get_date.value = JSON.stringify($value);
+        $data.push($get_date);
         $.ajax({
             url: $site_url +'/book_time_room_pet',
             type: 'POST',
-            data: {
-                'gender': $('select[name=date]').val(),
-                'repeat_time_check' : repeat_time_check
-            },
+            data: $data,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
@@ -691,50 +651,21 @@ let load_after_ajax = function(){
 
     $('#add-time').off('click');
     $('#add-time').on('click', function() {
-        var disable_time_2h = [document.getElementById('time\[0\]\[value\]').value];
-
-        for(var i = 1; i <= $('.block-content-1 ').length; i++){
-             disable_time_2h.push(document.getElementById('time\[' + i + '\]\[value\]').value);
-        }
-        console.log(disable_time_2h);
-
-        var repeat_user = JSON.parse($('#repeat_user').val());
-        var transport = JSON.parse($('#transport').val());
-        var repeat_time_check = 0;
-
-        if(transport.kubun_id != '01'){
-            var bus_arrive_time_slide = JSON.parse($('#bus_arrive_time_slide').val());
-            repeat_time_check = bus_arrive_time_slide.notes;
-            if(repeat_user.kubun_id == '01'){
-                repeat_time_check = parseInt(repeat_time_check) + 45;
-            }else{
-                repeat_time_check = parseInt(repeat_time_check) + 30;
-            }
-            repeat_time_check = pad(repeat_time_check, 4);
-        }
-
-
-        var whitening = JSON.parse($('#whitening').val());
-        console.log(whitening.kubun_id);
-        if(whitening.kubun_id == '02'){
-            console.log($('#whitening-time_value').val());
-            if($('#whitening-time_value').val().length != 1){
-                var whitening_check = $('#whitening-time_value').val().substr(0, 4);
-            }
-        }
-
 
         let set_time_click = $(this);
+        let $data = $('form.booking').serializeArray();
+        let $get_date = {};
+        $get_date.name = "data_get_attr";
+        let $value = {};
+        $value.date = set_time_click.attr('data-date_value');
+        $value.date_type = set_time_click.attr('data-date_type');
+        $value.new = 1;
+        $get_date.value = JSON.stringify($value);
+        $data.push($get_date);
         $.ajax({
             url: '/get_time_room',
             type: 'POST',
-            data: {
-                'gender': $('select[name=gender]').val(),
-                'new' : 1,
-                'disable_time_2h' : disable_time_2h,
-                'repeat_time_check' : repeat_time_check,
-                'whitening_check' : whitening_check
-            },
+            data: $data,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
@@ -752,7 +683,7 @@ let load_after_ajax = function(){
 
 
 
-    
+
     $('#date-value').val(today.format('YYYYMMDD'));
     $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
 
