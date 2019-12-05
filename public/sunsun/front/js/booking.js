@@ -381,9 +381,14 @@ $(function () {
   };
 
   load_event();
+  modal_choice_time.off('hidden.bs.modal');
   modal_choice_time.on('hidden.bs.modal', function () {
     modal_choice_time.find('.modal-body-time').empty();
     $('.set-time').removeClass('edit');
+
+    if (window.location.href.includes("admin")) {
+      $('body').addClass('modal-open');
+    }
   });
   modal_choice_time.off('click', '#js-save-time');
   modal_choice_time.on('click', '#js-save-time', function (e) {
@@ -871,33 +876,26 @@ var load_after_ajax = function load_after_ajax() {
 
   $('.collapse-between').off('hidden.bs.collapse');
   $('.collapse-between').on('hidden.bs.collapse', function () {
-    $('.booking-block-between').css("padding", "0");
     $('#btn-collapse-between').attr("src", "/sunsun/svg/plus.svg");
   });
   $('.collapse-between').off('shown.bs.collapse');
   $('.collapse-between').on('shown.bs.collapse', function () {
     $('#btn-collapse-between').attr("src", "/sunsun/svg/hide.svg");
   });
-  $('.collapse-between').off('hide.bs.collapse');
-  $('.collapse-between').on('hide.bs.collapse', function () {});
-  $('.collapse-between').off('show.bs.collapse');
-  $('.collapse-between').on('show.bs.collapse', function () {
-    $('.booking-block-between').css("padding", "");
-  });
   $('.collapse-finish').off('hidden.bs.collapse');
   $('.collapse-finish').on('hidden.bs.collapse', function () {
-    $('.booking-block-finish').css("padding", "0");
     $('#btn-collapse-finish').attr("src", "/sunsun/svg/plus.svg");
   });
   $('.collapse-finish').off('shown.bs.collapse');
   $('.collapse-finish').on('shown.bs.collapse', function () {
     $('#btn-collapse-finish').attr("src", "/sunsun/svg/hide.svg");
   });
-  $('.collapse-finish').off('hide.bs.collapse');
-  $('.collapse-finish').on('hide.bs.collapse', function () {});
-  $('.collapse-finish').off('show.bs.collapse');
-  $('.collapse-finish').on('show.bs.collapse', function () {
-    $('.booking-block-finish').css("padding", "");
+  $(document).on('touchmove', function () {
+    $('#date').blur();
+    $('#range_date_start').blur();
+    $('#range_date_end').blur();
+    $('#plan_date_start').blur();
+    $('#plan_date_end').blur();
   });
   $('#date-value').val(today.format('YYYYMMDD'));
   $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");

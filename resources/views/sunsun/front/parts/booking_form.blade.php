@@ -211,7 +211,7 @@
                 </div>
                 <div class="confirm-button">
                     <div class="button-left">
-                        <button type="button" class="btn btn-block text-white btn-update btn-update-left">Cancel</button>
+                        <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">Cancel</button>
                     </div>
                     <div class="button-right">
                         <button type="submit" class="btn btn-block text-white btn-update">Update</button>

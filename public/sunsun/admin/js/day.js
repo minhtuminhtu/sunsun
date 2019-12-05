@@ -187,6 +187,9 @@ $(function () {
 
     show_booking(booking_id);
   });
+  $('#edit_booking').on('click', '.btn-cancel', function (e) {
+    $('#edit_booking').modal('hide');
+  });
 });
 
 /***/ }),
