@@ -103,6 +103,8 @@
                     <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ isset($first_time['service_time_1'])?$first_time['service_time_1']:'0' }}">
                     <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ isset($first_time['notes'])?$first_time['notes']:'0' }}">
                     <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
+                    <input name="time[0][data-json]" class="data-json_input" id="time[0][data-json]" type="hidden" value="">
+                    <input name="time[0][element]" id="time[0][element]" type="hidden" value="js-set-time">
                 </div>
                 <div class="time-content">
                 </div>
@@ -188,8 +190,8 @@
                     <div class="timedate-block set-time">
                         <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" value="00:00～00:00" />
                         <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
-                        <input name="time[0][data-json]" class="data-json_input" id="" type="hidden" value="">
-                        <input name="time[0][element]" id="time[0][element]" type="hidden" value="js-set-time">
+                        <input name="whitening_time" class="data-json_input" id="" type="hidden" value="">
+                        <input name="whitening_time_element" id="time[0][element]" type="hidden" value="js-set-time">
                     </div>
                 </div>
             </div>
