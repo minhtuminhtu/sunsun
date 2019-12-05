@@ -706,6 +706,7 @@ var load_pick_time_pet_event = function load_pick_time_pet_event() {
 };
 
 var load_after_ajax = function load_after_ajax() {
+  load_time_delete_event();
   var days_short = ["日", "月", "火", "水", "木", "金", "土"];
   var today = moment();
 

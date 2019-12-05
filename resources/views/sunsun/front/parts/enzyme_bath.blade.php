@@ -1,6 +1,5 @@
 @php
     $course_data = json_decode($course_data, true);
-    $course_time = json_decode($course_time, true);
 @endphp
 <div class="booking-block">
     <div class="collapse collapse-top show" id="">
@@ -97,11 +96,47 @@
                 <p class="text-left pt-2">{{config('booking.time.label')}}</p>
             </div>
 
+            @if(is_array($course_time))
+                @php 
+                $i = 0;
+                @endphp
+                @foreach($course_time as $s_time)
+                    @php
+                        $s_time_data = substr($s_time['service_time_1'], 0, 2) . ":" . substr($s_time['service_time_1'], 2, 2);
+                    @endphp
+                    @if($i == 0)
+                    <div class="booking-field-content">
+                        <div class="timedate-block set-time">
+                            <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ $s_time_data }}" />
+                            <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ $s_time['service_time_1'] }}">
+                            <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ $s_time['notes'] }}">
+                            <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
+                        </div>
+                        <div class="time-content">
+                    @else
+                        <div class="block-content-1 margin-top-mini">
+                            <div class="block-content-1-left">
+                                <div class="timedate-block set-time">
+                                    <input name="time[{{ $i }}][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ $s_time_data }}" />
+                                    <input name="time[{{ $i }}][value]" class="time_value" id="time[{{ $i }}][value]" type="hidden" value="{{ $s_time['service_time_1'] }}">
+                                    <input name="time[{{ $i }}][bed]" class="time_bed" id="time[{{ $i }}][bed]" type="hidden" value="{{ $s_time['notes'] }}">
+                                </div>
+                            </div>
+                            <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>
+                        </div>
+                    @endif
+                    @php
+                        $i++;
+                    @endphp
+                @endforeach
+                    </div>
+                </div>
+            @else
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
-                    <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ isset($first_time_data)?$first_time_data:'00:00' }}" />
-                    <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ isset($first_time['service_time_1'])?$first_time['service_time_1']:'0' }}">
-                    <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ isset($first_time['notes'])?$first_time['notes']:'0' }}">
+                    <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="00:00" />
+                    <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="0">
+                    <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="0">
                     <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
                     <input name="time[0][data-json]" class="data-json_input" id="time[0][data-json]" type="hidden" value="">
                     <input name="time[0][element]" id="time[0][element]" type="hidden" value="js-set-time">
@@ -109,6 +144,7 @@
                 <div class="time-content">
                 </div>
             </div>
+            @endif
         </div>
         <div class="booking-field pb-0">
             <div class="node-text booking-laber-padding">

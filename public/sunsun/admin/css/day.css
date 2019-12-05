@@ -210,12 +210,6 @@
   margin: 0 auto !important;
 }
 
-.foot-confirm {
-  width: 24vw;
-  max-width: 24vw;
-  margin: 0 auto !important;
-}
-
 .booking-field {
   display: flex;
   padding-bottom: 1vh;
@@ -432,8 +426,10 @@
 }
 
 .foot-confirm {
-  width: 31vw !important;
-  max-width: 31vw !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 0.75vw;
 }
 
 .main-col__data {
@@ -502,10 +498,6 @@ input#plan_date_start {
 
 input#plan_date_end {
   width: 12.5vw;
-}
-
-.foot-confirm {
-  padding: 0 0.75vw;
 }
 
 .choice-time .choice-data-time > div input {
@@ -586,5 +578,49 @@ input#plan_date_end {
 
 .main-col__wt:not(.not-wt):not(.head) {
   cursor: pointer;
+}
+
+.pet-top_ele {
+  height: 100%;
+}
+
+.pet-top_head {
+  height: 1.75vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet-top_content {
+  height: calc(100% - 1.75vw);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.pet-bottom_ele {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.history-button {
+  margin-top: 0.5vw;
+  margin-bottom: -1vw;
+}
+
+.booking-history {
+  display: flex;
+  margin-top: 0.75vw;
+}
+
+.booking-history .booking-history-label {
+  width: 50%;
+  margin-left: 1vw;
+}
+
+.booking-history .booking-history-content {
+  width: 50%;
+  margin-right: 1vw;
 }
 

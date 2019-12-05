@@ -344,45 +344,53 @@
                         @if(isset($time['pet_time_type']))
                             @if($time['pet_time_type'] == 1)
                             <div class="main-col__pet pet-col_first @if($i == 2) head-col_pet @endif">
-                                <div>{{ $time['pet_time'] }}</div>
-                                <div>
-                                    @if(is_object($time['data']['pet']))
-                                        @if(isset($time['data']['pet']->booking_id))
-                                            <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
-                                        @endif
-                                        @if(isset($time['data']['pet']->ref_booking_id))
-                                            <span>{{ $time['data']['pet']->name }}同行者様</span>
-                                        @else
-                                            <span>{{ $time['data']['pet']->name }}様</span>
-                                        @endif
-                                        <span class="text-red">{{ $time['data']['pet']->repeat_user }}</span>
+                                <div class="pet-top_ele">
+                                    <div class="pet-top_head">{{ $time['pet_time'] }}</div>
+                                    <div class="pet-top_content">
+                                        <div>
+                                            @if(is_object($time['data']['pet']))
+                                                @if(isset($time['data']['pet']->booking_id))
+                                                    <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                                @endif
+                                                @if(isset($time['data']['pet']->ref_booking_id))
+                                                    <span>{{ $time['data']['pet']->name }}同行者様</span>
+                                                @else
+                                                    <span>{{ $time['data']['pet']->name }}様</span>
+                                                @endif
+                                                <span class="text-red">{{ $time['data']['pet']->repeat_user }}</span>
 
-                                        @if(isset($time['data']['pet']->booking_id))
-                                            <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
-                                        @endif
+                                                @if(isset($time['data']['pet']->booking_id))
+                                                    <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                                @endif
 
-                                        @if(!isset($time['data']['pet']->ref_booking_id))
-                                            <br>
-                                            <span>{{ $time['data']['pet']->transport }}</span>
-                                            <span>{{ $time['data']['pet']->bus_arrive_time_slide }}</span>
-                                            <span class="text-red">{{ $time['data']['pet']->pick_up }}</span>
-                                        @endif  
-                                    @endif
+                                                @if(!isset($time['data']['pet']->ref_booking_id))
+                                                    <br>
+                                                    <span>{{ $time['data']['pet']->transport }}</span>
+                                                    <span>{{ $time['data']['pet']->bus_arrive_time_slide }}</span>
+                                                    <span class="text-red">{{ $time['data']['pet']->pick_up }}</span>
+                                                @endif  
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             @else
                             <div class="main-col__pet pet-col_second">
-                            @if(is_object($time['data']['pet']))
-                                @if(isset($time['data']['pet']->booking_id))
-                                    <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
-                                @endif
-                                <span>{{ $time['data']['pet']->service_pet_num }}匹 {{ $time['data']['pet']->notes }}</span>
-                                @if(!isset($time['data']['pet']->ref_booking_id))
-                                    <span>{{ $time['data']['pet']->phone }}</span>
-                                    <br>
-                                    <span>支払：{{ $time['data']['pet']->payment_method }}</span>
-                                @endif
-                            @endif
+                                <div class="pet-bottom_content">
+                                    <div class="pet-bottom_content">
+                                    @if(is_object($time['data']['pet']))
+                                        @if(isset($time['data']['pet']->booking_id))
+                                            <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                        @endif
+                                        <span>{{ $time['data']['pet']->service_pet_num }}匹 {{ $time['data']['pet']->notes }}</span>
+                                        @if(!isset($time['data']['pet']->ref_booking_id))
+                                            <span>{{ $time['data']['pet']->phone }}</span>
+                                            <br>
+                                            <span>支払：{{ $time['data']['pet']->payment_method }}</span>
+                                        @endif
+                                    @endif
+                                    </div>
+                                </div>
                             </div>
                             @endif
                         @else

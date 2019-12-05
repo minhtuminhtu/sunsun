@@ -62,7 +62,11 @@ class AdminController extends Controller
                 main.stay_guest_num,
                 main.breakfast
         FROM		tr_yoyaku as main
-        WHERE 	main.stay_room_type <> '01' AND main.stay_room_type IS NOT NULL AND main.stay_checkin_date <= $date AND main.stay_checkout_date >= $date
+        WHERE 	main.stay_room_type <> '01' 
+        AND main.stay_room_type IS NOT NULL 
+        AND main.stay_checkin_date <= $date 
+        AND main.stay_checkout_date >= $date
+        AND main.history_id IS NULL 
         ");
 
         for($i = 0; $i < count($stay_room_raw); $i++){
@@ -90,7 +94,9 @@ class AdminController extends Controller
                 main.ref_booking_id,
 				main.lunch_guest_num
         FROM	tr_yoyaku as main
-        WHERE   (main.lunch <> '01' OR main.lunch_guest_num <> '01') AND main.service_date_start = $date
+        WHERE   (main.lunch <> '01' OR main.lunch_guest_num <> '01') 
+        AND main.service_date_start = $date
+        AND main.history_id IS NULL 
         ");
 
         for($i = 0; $i < count($data['lunch']); $i++){
@@ -117,7 +123,11 @@ class AdminController extends Controller
         WHERE tr_yoyaku.ref_booking_id IS NOT NULL
         GROUP BY tr_yoyaku.ref_booking_id
         ) cou ON cou.ref_booking_id = main.booking_id
-        WHERE main.transport = '02' AND main.ref_booking_id IS NULL AND main.pick_up = '01' AND main.service_date_start = $date
+        WHERE main.transport = '02' 
+        AND main.ref_booking_id IS NULL 
+        AND main.pick_up = '01' 
+        AND main.service_date_start = $date
+        AND main.history_id IS NULL 
         ORDER BY main.bus_arrive_time_slide
         ");
         for($i = 0; $i < count($data['pick_up']); $i++){
@@ -157,7 +167,7 @@ class AdminController extends Controller
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '01'  AND time.service_date = $date
+            WHERE 	main.course = '01'  AND main.history_id IS NULL AND time.service_date = $date
         )
         UNION
         (
@@ -182,7 +192,7 @@ class AdminController extends Controller
                     , 1 as turn
                     , SUBSTRING(main.bed, 1, 1) as bed
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '02' AND main.service_date_start = $date
+            WHERE 	main.course = '02' AND main.history_id IS NULL AND main.service_date_start = $date
         )
         UNION
         (
@@ -207,7 +217,7 @@ class AdminController extends Controller
                     , 2 as turn
                     , SUBSTRING(main.bed, 3, 1) as bed
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '02' AND main.service_date_start = $date
+            WHERE 	main.course = '02' AND main.history_id IS NULL AND main.service_date_start = $date
         )
         UNION
         (
@@ -232,7 +242,7 @@ class AdminController extends Controller
                     , 0 as turn
                     , main.bed
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '03' AND main.service_date_start = $date
+            WHERE 	main.course = '03' AND main.history_id IS NULL AND main.service_date_start = $date
         )
         UNION
         (
@@ -259,7 +269,7 @@ class AdminController extends Controller
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '04'  AND time.service_date = $date
+            WHERE 	main.course = '04'  AND main.history_id IS NULL AND time.service_date = $date
         )
         UNION
         (
@@ -286,7 +296,7 @@ class AdminController extends Controller
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '04'  AND time.service_date = $date
+            WHERE 	main.course = '04'  AND main.history_id IS NULL AND time.service_date = $date
         )
         ");
         $course_1_to_4 = collect($course_1_to_4_query);
@@ -397,7 +407,7 @@ class AdminController extends Controller
                     , main.service_date_start
                     ,CONCAT(main.service_time_1, '-', main.service_time_2) as time
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '05' AND main.service_date_start = $date
+            WHERE 	main.course = '05' AND main.history_id IS NULL AND main.service_date_start = $date
         ");
         $course_5 = collect($course_5_query);
         for($i = 0; $i < count($course_5); $i++){
@@ -451,7 +461,7 @@ class AdminController extends Controller
                     , main.service_date_start
                     , main.whitening_time as time
             FROM	tr_yoyaku as main
-            WHERE 	main.service_date_start = $date
+            WHERE 	main.service_date_start = $date AND main.history_id IS NULL 
         ");
         $course_wt = collect($course_wt_query);
         for($i = 0; $i < count($course_wt); $i++){
@@ -528,19 +538,40 @@ class AdminController extends Controller
         $data = $request->all();
         $booking = new BookingController();
         $booking->fetch_kubun_data($data);
-        if($data['booking_id'] != 0){
+        if(isset($data['booking_id']) &&($data['booking_id'] != 0)){
             $data['data_booking'] = Yoyaku::where('booking_id', $data['booking_id'])->first();
             $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['booking_id'])->get();
+            $data['history_booking'] = Yoyaku::where('history_id', $data['booking_id'])->orderBy('booking_id', 'DESC')->get();
         }else{
             $data['data_booking'] = [];
             $data['data_time'] = [];
+            $data['booking_id'] = NULL;
         }
+        // dd($data);
+        return view('sunsun.admin.parts.booking',$data)->render();
+    }
+
+
+    public function booking_history(Request $request){
+        $data = $request->all();
+        $booking = new BookingController();
+        $booking->fetch_kubun_data($data);
+        $data['data_booking'] = Yoyaku::where('booking_id', $data['course_history'])->first();
+        $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['course_history'])->get();
+        $data['history_booking'] = Yoyaku::where('history_id', $data['current_booking_id'])->orderBy('booking_id', 'DESC')->get();
+        $data['booking_id'] = $data['current_booking_id'];
+        // dd($data['data_booking']->booking_id);
         return view('sunsun.admin.parts.booking',$data)->render();
     }
 
     public function update_booking (Request $request){
         $data = $request->all();
-        dd($data);
+        $data['customer'] = $data;
+        $data['customer']['info'] = ['0' => $data];
+
+        $booking = new BookingController();
+        $booking->update_or_new_booking($data);
+        return \Response::json(array('success'=>true,'result'=>$data));
     }
 
 

@@ -850,19 +850,6 @@ td.disabled.disabled-date.range.day {
   margin-top: 0.75vw;
 }
 
-.booking-history {
-  display: flex;
-  margin-top: 0.75vw;
-}
-
-.booking-history .booking-history-label {
-  width: 35%;
-}
-
-.booking-history .booking-history-content {
-  width: 65%;
-}
-
 .time-col {
   display: flex;
   height: 1.75rem;

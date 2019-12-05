@@ -360,8 +360,29 @@ class BookingController extends Controller
             return redirect("/booking");
         }
 
-
+        $this->update_or_new_booking($data);
         // dd($data);
+        echo "Thanks!";
+
+        // $request->session()->forget($this->session_info);
+    }
+
+
+    public function update_or_new_booking($data){
+        //Update
+        if(isset($data['booking_id'])){
+            $booking_id = $this->new_booking($data); 
+
+            Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
+            Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
+
+        //New
+        }else{
+            $this->new_booking($data);  
+        }
+    }
+
+    private function new_booking($data){
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
@@ -383,11 +404,11 @@ class BookingController extends Controller
             }
             $Yoyaku->save();
         }
-
-        echo "Thanks!";
-
-        // $request->session()->forget($this->session_info);
+        return  $Yoyaku->booking_id;
     }
+
+
+
 
     public function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){
         $course = json_decode($customer['course']);
@@ -957,6 +978,13 @@ class BookingController extends Controller
         $data = $request->all();
         $this->fetch_kubun_data($data);
         $json = json_decode($data['service']);
+
+        if(count(json_decode($data['course_time'], true)) == 0){
+            $data['course_time'] = NULL;
+        }else{
+            $data['course_time'] = json_decode($data['course_time'], true);
+        }
+
 
 
         if ($json->kubun_id == "01") {

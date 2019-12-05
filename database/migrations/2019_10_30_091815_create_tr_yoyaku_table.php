@@ -17,6 +17,7 @@ class CreateTrYoyakuTable extends Migration
             $table->bigIncrements('tr_yoyaku_id');
             $table->string('booking_id',12);
             $table->string('ref_booking_id',12)->nullable();
+            $table->string('history_id',12)->nullable();
             $table->string('name',255)->nullable();
             $table->string('phone',255)->nullable();
             $table->string('email',255)->nullable();
