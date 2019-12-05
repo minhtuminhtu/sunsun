@@ -190,7 +190,7 @@
                 @endphp
                 <input type="hidden" id="pick_course" value='@json($picked_course)'>
                 <input type="hidden" id="course_data" value='{{ isset($data_booking)?json_encode($data_booking):"" }}'>
-                <input type="hidden" id="course_time" value='{{ isset($data_time)?json_encode($data_time):"" }}'>
+                <input type="hidden" id="course_time" value='{{ isset($data_time)?json_encode($data_time):"{}" }}'>
                 <div class="service-warp">
 
                 </div>
