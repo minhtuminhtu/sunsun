@@ -686,6 +686,7 @@ let load_pick_time_pet_event = function(){
 }
 
 let load_after_ajax = function(){
+    load_time_delete_event();
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
     if(today.weekday() == 3){

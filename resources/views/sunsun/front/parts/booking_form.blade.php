@@ -19,6 +19,10 @@
                     </div>
                 @endif
 
+                @if(isset($booking_id))
+                    <input type="hidden" name="booking_id" id="booking_id" value="{{ $booking_id }}">
+                @endif
+
                 <!-- <div class="booking-line font-weight-bold">
                     <div class="booking-line-laber">
                     </div>
@@ -195,40 +199,39 @@
             </div>
             <div class="foot-confirm">
                 @if(isset($data_booking))
-                <div class="">
-                    <div class="booking-history">
-                        <div class="booking-history-label booking-laber-padding">
-                            <p class="text-left pt-2">History</p>
-                        </div>
-                        <div class="booking-history-content">
-                            <select name="course" id="course" class="form-control">
-                                <option value='@json($value)'>12:30 2019/12/29</option>
-                                <option value='@json($value)'>12:30 2019/12/29</option>
-                                <option value='@json($value)'>12:30 2019/12/29</option>
+                    @if(isset($history_booking) && (count($history_booking) != 0))
+                        <div class="history-button">
+                            <select name="course_history" id="course_history" class="form-control">
+                                @foreach($history_booking as $hi)
+                                    @if($data_booking->booking_id == $hi->booking_id)
+                                        <option selected value='{{ $hi->booking_id }}'>{{ $hi->created_at }}</option>
+                                    @else
+                                        <option value='{{ $hi->booking_id }}'>{{ $hi->created_at }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
+                    @endif
+                    <div class="confirm-button">
+                        <div class="button-left">
+                            <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">Cancel</button>
+                        </div>
+                        <div class="button-right">
+                            <button type="button" class="btn btn-block text-white btn-update">Update</button>
+                        </div>
                     </div>
-                </div>
-                <div class="confirm-button">
-                    <div class="button-left">
-                        <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">Cancel</button>
-                    </div>
-                    <div class="button-right">
-                        <button type="submit" class="btn btn-block text-white btn-update">Update</button>
-                    </div>
-                </div>
                 @else
-                <div class="confirm-button">
-                    <div class="button-left">
-                        @if(isset($add_new_user) && $add_new_user == 'on')
-                            <input type="hidden" name="add_new_user" value="on">
-                        @endif
-                        <button type="button" class="btn btn-block text-white btn-booking btn-confirm-left add-new-people">予約追加</button>
+                    <div class="confirm-button">
+                        <div class="button-left">
+                            @if(isset($add_new_user) && $add_new_user == 'on')
+                                <input type="hidden" name="add_new_user" value="on">
+                            @endif
+                            <button type="button" class="btn btn-block text-white btn-booking btn-confirm-left add-new-people">予約追加</button>
+                        </div>
+                        <div class="button-right">
+                            <button type="submit" class="btn btn-block text-white btn-booking">予約確認へ</button>
+                        </div> 
                     </div>
-                    <div class="button-right">
-                        <button type="submit" class="btn btn-block text-white btn-booking">予約確認へ</button>
-                    </div> 
-                </div>
                 @endif
             </div>
         </div>
