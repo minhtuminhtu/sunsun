@@ -100,39 +100,36 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show" id="">
-    <div class="booking-block-between">
-        <div class="" id="">
-            <div class="booking-field">
-                <div class="booking-field-label  booking-laber-padding">
-                    <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
-                </div>
-                <div class="booking-field-content">
-                    <select name="pet_keeping" class="form-control">
-                        @foreach($pet_keeping as $value)
-                            @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
-                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @else
-                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
+<div class="booking-block-between">
+    <div class="collapse collapse-between show" id="">
+        <div class="booking-field">
+            <div class="booking-field-label  booking-laber-padding">
+                <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
+            </div>
+            <div class="booking-field-content">
+                <select name="pet_keeping" class="form-control">
+                    @foreach($pet_keeping as $value)
+                        @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
+                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @else
+                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
 </div>
 @if(!isset($add_new_user))
-<div class="booking-line font-weight-bold mt-3">
-    <div class="booking-line-laber">
-        <div>宿泊</div>
-        <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+    <div class="booking-line font-weight-bold mt-3">
+        <div class="booking-line-laber">
+            <div>宿泊</div>
+            <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        </div>
+        <!-- <hr class="booking-line-line"> -->
     </div>
-<!-- <hr class="booking-line-line"> -->
-</div>
-<div class="collapse collapse-finish show" id="">
     <div class="booking-block-finish">
-        <div class="" id="">
+        <div class="collapse collapse-finish show" id="">
             <div class="booking-field">
                 <div class="booking-field-label  booking-laber-padding">
                     <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
@@ -188,5 +185,4 @@
             </div>
         </div>
     </div>
-</div>
 @endif

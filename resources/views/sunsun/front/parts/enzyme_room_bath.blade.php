@@ -5,18 +5,18 @@
 <div class="booking-block">
     <div class="collapse collapse-top show" id="">
         @if(!isset($add_new_user))
-        <input name="date-view" id="date-view" type="hidden" value="">
-        <input name="date-value" id="date-value" type="hidden" value="">
-        <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
-            <div class="booking-field-label  booking-laber-padding">
-                <p class="text-left pt-2">{{config('booking.date.label')}}</p>
-            </div>
-            <div class="booking-field-content">
-                <div class="timedate-block date-warp">
-                    <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="" />
+            <input name="date-view" id="date-view" type="hidden" value="">
+            <input name="date-value" id="date-value" type="hidden" value="">
+            <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
+                <div class="booking-field-label  booking-laber-padding">
+                    <p class="text-left pt-2">{{config('booking.date.label')}}</p>
+                </div>
+                <div class="booking-field-content">
+                    <div class="timedate-block date-warp">
+                        <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="" />
+                    </div>
                 </div>
             </div>
-        </div>
         @endif
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
@@ -58,84 +58,82 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show" id="">
-    <div class="booking-block-between">
-        <div class="" id="">
-            <div class="booking-field">
-                <div class="booking-field-label  booking-laber-padding">
-                    <p class="text-left pt-2">{{config('booking.number_lunch_book.label')}}</p>
-                </div>
-                <div class="booking-field-content">
-                    <select name="lunch_guest_num" class="form-control">
-                        @foreach($lunch_guest_num as $value)
-                            @if(isset($course_data['lunch_guest_num']) && ($value->kubun_id == $course_data['lunch_guest_num']))
-                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @else
-                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
+<div class="booking-block-between">
+    <div class="collapse collapse-between show" id="">
+        <div class="booking-field">
+            <div class="booking-field-label  booking-laber-padding">
+                <p class="text-left pt-2">{{config('booking.number_lunch_book.label')}}</p>
             </div>
+            <div class="booking-field-content">
+                <select name="lunch_guest_num" class="form-control">
+                    @foreach($lunch_guest_num as $value)
+                        @if(isset($course_data['lunch_guest_num']) && ($value->kubun_id == $course_data['lunch_guest_num']))
+                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @else
+                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+        </div>
 
-            <div class="booking-field">
-                <div class="booking-field-label  booking-laber-padding">
-                    <p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
-                </div>
-                <div class="booking-field-content">
-                    <select name="whitening" id="whitening"  class="form-control">
-                        @foreach($whitening as $value)
-                            @if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
-                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @else
-                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+        <div class="booking-field">
+            <div class="booking-field-label  booking-laber-padding">
+                <p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
+            </div>
+            <div class="booking-field-content">
+                <select name="whitening" id="whitening"  class="form-control">
+                    @foreach($whitening as $value)
+                        @if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
+                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @else
+                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="booking-field whitening" style="display:none;">
+            <div class="booking-field-label booking-laber-padding">
+
+            </div>
+            <div class="booking-field-content">
+                <div class="node-text">ホワイトニング時間</div>
+                <div class="timedate-block set-time">
+                    <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="" value="00:00～00:00" />
+                    <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
+                    <input type="hidden" name="data-json-white" class="data-json_input">
                 </div>
             </div>
-            <div class="booking-field whitening" style="display:none;">
-                <div class="booking-field-label booking-laber-padding">
-                    
-                </div>
-                <div class="booking-field-content">
-                    <div class="node-text">ホワイトニング時間</div> 
-                    <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="" value="00:00～00:00" />
-                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
-                    </div>
-                </div>
+        </div>
+        <div class="booking-field">
+            <div class="booking-field-label  booking-laber-padding">
+                <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
             </div>
-            <div class="booking-field">
-                <div class="booking-field-label  booking-laber-padding">
-                    <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
-                </div>
-                <div class="booking-field-content">
-                    <select name="pet_keeping" class="form-control">
-                        @foreach($pet_keeping as $value)
-                            @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
-                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @else
-                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
+            <div class="booking-field-content">
+                <select name="pet_keeping" class="form-control">
+                    @foreach($pet_keeping as $value)
+                        @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
+                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @else
+                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
 </div>
 @if(!isset($add_new_user))
-<div class="booking-line font-weight-bold mt-3">
-    <div class="booking-line-laber">
-        <div>宿泊</div>
-        <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+    <div class="booking-line font-weight-bold mt-3">
+        <div class="booking-line-laber">
+            <div>宿泊</div>
+            <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        </div>
+        <!-- <hr class="booking-line-line"> -->
     </div>
-<!-- <hr class="booking-line-line"> -->
-</div>
-<div class="collapse collapse-finish show" id="">
     <div class="booking-block-finish">
-        <div class="" id="">
+        <div class="collapse collapse-finish show" id="">
             <div class="booking-field">
                 <div class="booking-field-label  booking-laber-padding">
                     <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
@@ -207,5 +205,4 @@
             </div>
         </div>
     </div>
-</div>
 @endif

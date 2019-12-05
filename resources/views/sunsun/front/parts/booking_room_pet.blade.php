@@ -2,45 +2,34 @@
     <thead>
     <tr>
         <th></th>
-        @foreach($data['bed'] as $bed)
+        @foreach($beds as $bed)
             <th>ベッド <br>{{ config('const.laber.bed')[$bed->sort_no] }}</th>
         @endforeach
     </tr>
     </thead>
     <tbody>
-    @php
-    function check_disable_time($data, $time){
-        if($time < $data['repeat_time_check']){
-            return false;
-        }
-        return true;
-    }
-    @endphp
-    @foreach($data['time_slide_pet'] as $time_slide_pet)
-        @if(check_disable_time($data, substr($time_slide_pet->notes, 0, 4)))
+    @foreach($time_pet as $times)
         <tr>
-            <td>{{ $time_slide_pet->kubun_value }}</td>
-            @foreach($data['bed'] as $bed)
             <td>
-                <div class="">
-                    <input type="radio" name="time" value="{{ $time_slide_pet->kubun_value }}">
+                <div class="time-col">
+                    <div>{{collect($times)->first()->kubun_value}}～</div>
                 </div>
             </td>
+            @foreach($times as $time)
+                <td>
+                    <div class="time-col">
+                        @if(isset($time->status_time_validate) && $time->status_time_validate == 0)
+                            ×
+                        @else
+                            <div class="">
+                                <input type="radio" name="time" value="{{ $time->kubun_value }}">
+                                <input type="hidden" name="data-json" value="{{json_encode($time)}}">
+                            </div>
+                        @endif
+                    </div>
+                </td>
             @endforeach
-            
         </tr>
-        @else
-        <tr>
-            <td>{{ $time_slide_pet->kubun_value }}</td>
-            @foreach($data['bed'] as $bed)
-            <td>
-                <div class="">×</div>
-            </td>
-            @endforeach
-            
-        </tr>
-        @endif
     @endforeach
-
     </tbody>
 </table>
