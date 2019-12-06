@@ -133,6 +133,11 @@ $(function () {
             },
         });
     })
+
+    $('#edit_booking').on('click','#credit-card',function (e) {
+        return false;
+    })
+    
     
     
 });

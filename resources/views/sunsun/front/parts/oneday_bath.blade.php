@@ -63,6 +63,8 @@
             <div class="booking-field-label  booking-laber-padding pl-1">
                 <p class="text-left pt-2 pl-3  node-text">{{config('booking.time.laber1')}}</p>
             </div>
+
+            
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
                     <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="0">
