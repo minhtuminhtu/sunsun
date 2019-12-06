@@ -34,10 +34,12 @@
         @endif
 
         @if(!isset($time['data'][$row]->ref_booking_id))
-        <br>
-        <span>{{ $time['data'][$row]->transport }}</span>
-        <span>{{ $time['data'][$row]->bus_arrive_time_slide }}</span>
-        <span class="text-red">{{ $time['data'][$row]->pick_up }}</span>
+            @if(isset($time['data'][$row]->transport))
+            <br>
+            <span>{{ $time['data'][$row]->transport }}</span>
+            <span>{{ $time['data'][$row]->bus_arrive_time_slide }}</span>
+            <span class="text-red">{{ $time['data'][$row]->pick_up }}</span>
+            @endif
         @endif
 
 
@@ -56,10 +58,12 @@
             @endif
         @endif
         @if(!isset($time['data'][$row]->ref_booking_id))
-        <br>
-        <span>{{ $time['data'][$row]->phone }}</span>
-        <br>
-        <span>支払：{{ $time['data'][$row]->payment_method }}</span>
+            @if(isset($time['data'][$row]->phone))
+            <br>
+            <span>{{ $time['data'][$row]->phone }}</span>
+            <br>
+            <span>支払：{{ $time['data'][$row]->payment_method }}</span>
+            @endif
         @endif
     @endif
 @endif

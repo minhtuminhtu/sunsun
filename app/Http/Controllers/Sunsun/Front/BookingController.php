@@ -1099,7 +1099,7 @@ class BookingController extends Controller
         $data['course_data'] = json_decode($data['course_data'], true);
 
         if(isset( $data['course_data']['whitening_time'])){
-            $data['course_data']['whitening_time'] =    substr($data['course_data']['whitening_time'], 0, 2) . ":" .
+            $data['course_data']['whitening_time-view'] =    substr($data['course_data']['whitening_time'], 0, 2) . ":" .
                                                         substr($data['course_data']['whitening_time'], 2, 2) . "～".
                                                         substr($data['course_data']['whitening_time'], 5, 2) . ":".
                                                         substr($data['course_data']['whitening_time'], 7, 2);

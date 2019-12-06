@@ -205,16 +205,16 @@ class AdminController extends Controller
                     , main.gender
                     , main.age_value
                     , main.name
-                    , main.transport
-                    , main.bus_arrive_time_slide
-                    , main.pick_up
-                    , main.lunch
-                    , main.whitening
-                    , main.pet_keeping
-                    , main.stay_room_type
-                    , main.breakfast
-                    , main.phone
-                    , main.payment_method
+                    , NULL as transport
+                    , NULL as bus_arrive_time_slide
+                    , NULL as pick_up
+                    , NULL as lunch
+                    , NULL as whitening
+                    , NULL as pet_keeping
+                    , NULL as stay_room_type
+                    , NULL as breakfast
+                    , NULL as phone
+                    , NULL as payment_method
                     , main.service_date_start
                     , main.service_time_2 as time
                     , 2 as turn
@@ -285,16 +285,16 @@ class AdminController extends Controller
                   , main.gender
                   , main.age_value
                   , main.name
-                  , main.transport
-                  , main.bus_arrive_time_slide
-                  , main.pick_up
-                  , main.lunch
-                  , main.whitening
-                  , main.pet_keeping
-                  , main.stay_room_type
-                  , main.breakfast
-                  , main.phone
-                  , main.payment_method
+                  , NULL as transport
+                  , NULL as bus_arrive_time_slide
+                  , NULL as pick_up
+                  , NULL as lunch
+                  , NULL as whitening
+                  , NULL as pet_keeping
+                  , NULL as stay_room_type
+                  , NULL as breakfast
+                  , NULL as phone
+                  , NULL as payment_method
                   , time.service_date
                   , time.service_time_2 as time
                   , 2 as turn
@@ -316,6 +316,16 @@ class AdminController extends Controller
                     $temp->turn = 0;
                 }else{
                     $temp->turn = $turn;
+                    $temp->transport = NULL;
+                    $temp->bus_arrive_time_slide = NULL;
+                    $temp->pick_up = NULL; 
+                    $temp->lunch = NULL; 
+                    $temp->whitening = NULL;
+                    $temp->pet_keeping = NULL;
+                    $temp->stay_room_type = NULL;
+                    $temp->breakfast = NULL;
+                    $temp->phone = NULL;
+                    $temp->payment_method = NULL;
                 }
                 $turn++;
             }
