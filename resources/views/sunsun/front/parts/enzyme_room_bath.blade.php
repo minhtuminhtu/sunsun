@@ -34,10 +34,12 @@
             <input name="time-value" id="time-value" type="hidden" value="1230">
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
-                    <input name="time_room_value" id="time_room_value" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
+
+                    <input name="time_room_value" id="time_room_value"  id="time_room_view" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
                     <input name="time_room_bed" id="time_room_bed" type="hidden" value="{{ isset($bed)?$bed:'0' }}">
                     <input name="time_room_view" type="text" class="form-control time js-set-room bg-white"  readonly="readonly" id="" value="{{ isset($time)?$time.'～':'00:00～' }}">
-                    <input type="hidden" name="time_room_json" class="data-json_input">
+                    <input name="time[0][json]" class="data-json_input"  type="hidden" value="">
+                    <input name="time[0][element]" type="hidden" value="time_room_view">
                 </div>
 
             </div>

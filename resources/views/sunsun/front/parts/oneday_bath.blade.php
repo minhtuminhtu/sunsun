@@ -61,7 +61,7 @@
                 $bed2 = substr($course_data['bed'], 2, 1);
             }
         @endphp
-        
+
         <div class="booking-field">
             <div class="booking-laber-padding">
                 <p class="text-left pt-2 mb-0">{{config('booking.time.label')}}</p>
@@ -75,11 +75,12 @@
 
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
+
                     <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
                     <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="{{ isset($bed1)?$bed1:'0' }}">
-                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="{{ isset($time1)?$time1:'00:00' }}" data-date_type="shower_1">
-                    <input name="time1-view_json" class="data-json_input" id="time1-view_json" type="hidden" value="">
-                    <input name="time1-view_element" id="time1-view_element" type="hidden" value="js-view-input">
+                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="time1-view" value="{{ isset($time1)?$time1:'00:00' }}" data-date_type="shower_1">
+                    <input name="time[0][json]" class="data-json_input"  type="hidden" value="">
+                    <input name="time[0][element]" type="hidden" value="time1-view">
                 </div>
 
             </div>
@@ -92,9 +93,9 @@
                 <div class="timedate-block set-time">
                     <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_2'])?$course_data['service_time_2']:'0' }}">
                     <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="{{ isset($bed2)?$bed2:'0' }}">
-                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="{{ isset($time2)?$time2:'00:00' }}" data-date_type="shower_2">
-                    <input name="time2-view_json" class="data-json_input" id="time2-view_json" type="hidden" value="">
-                    <input name="time2-view_element" id="time2-view_element" type="hidden" value="js-view-input">
+                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly"  id="time2-view" value="{{ isset($time2)?$time2:'00:00' }}" data-date_type="shower_2">
+                    <input name="time[1][json]" class="data-json_input"  type="hidden" value="">
+                    <input name="time[1][element]" type="hidden" value="time2-view">
                 </div>
 
             </div>
