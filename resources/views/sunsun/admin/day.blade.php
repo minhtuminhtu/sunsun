@@ -384,6 +384,7 @@
                                         @endif
                                         <span>{{ $time['data']['pet']->service_pet_num }}匹 {{ $time['data']['pet']->notes }}</span>
                                         @if(!isset($time['data']['pet']->ref_booking_id))
+                                            <br>
                                             <span>{{ $time['data']['pet']->phone }}</span>
                                             <br>
                                             <span>支払：{{ $time['data']['pet']->payment_method }}</span>
