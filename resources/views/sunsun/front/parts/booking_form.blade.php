@@ -202,6 +202,7 @@
                     @if(isset($history_booking) && (count($history_booking) != 0))
                         <div class="history-button">
                             <select name="course_history" id="course_history" class="form-control">
+                                <option value='0'>Newest</option>
                                 @foreach($history_booking as $hi)
                                     @if($data_booking->booking_id == $hi->booking_id)
                                         <option selected value='{{ $hi->booking_id }}'>{{ $hi->created_at }}</option>

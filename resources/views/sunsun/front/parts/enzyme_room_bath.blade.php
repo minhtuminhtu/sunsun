@@ -1,6 +1,3 @@
-@php
-    $course_data = json_decode($course_data, true);
-@endphp
 <div class="booking-block">
     <div class="collapse collapse-top show" id="">
         @if(!isset($add_new_user))
@@ -171,16 +168,16 @@
                 <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
                 <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">
                 <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="">
-                <div class="booking-field booking-room input-daterange" id="choice-range-day">
-                    <div class="field-start-day">
+                <div class="booking-field booking-room input-daterange  date-range_block" id="choice-range-day">
+                    <div class="field-start-day  date-range_block_left">
                         <p class="node-text">{{config('booking.range_date.checkin')}}</p>
                         <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
                     </div>
-                    <div class="">
+                    <div class=" date-range_block_center">
                         <p>&nbsp;</p>
                         <p class="character-date pt-2">～</p>
                     </div>
-                    <div class="field-end-day">
+                    <div class="field-end-day  date-range_block_right">
                         <p class="node-text">{{config('booking.range_date.checkout')}}</p>
                         <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="">
                     </div>

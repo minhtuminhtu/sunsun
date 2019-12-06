@@ -635,7 +635,7 @@ class AdminController extends Controller
                 FROM		tr_yoyaku as main
                 LEFT JOIN tr_yoyaku_danjiki_jikan as time
                 ON			main.booking_id = time.booking_id
-                WHERE 	main.course = '01'
+                WHERE 	main.course = '01' AND main.history_id IS NULL 
             )
             UNION
             (
@@ -648,7 +648,7 @@ class AdminController extends Controller
                 FROM		tr_yoyaku as main
                 LEFT JOIN tr_yoyaku_danjiki_jikan as time
                 ON			main.booking_id = time.booking_id
-                WHERE 	main.course = '04'
+                WHERE 	main.course = '04' AND main.history_id IS NULL 
             )
             UNION
             (
@@ -661,7 +661,7 @@ class AdminController extends Controller
                 FROM		tr_yoyaku as main
                 LEFT JOIN tr_yoyaku_danjiki_jikan as time
                 ON			main.booking_id = time.booking_id
-                WHERE 	main.course = '04'
+                WHERE 	main.course = '04' AND main.history_id IS NULL 
             )
             UNION
             (
@@ -672,7 +672,7 @@ class AdminController extends Controller
                     , main.service_time_1 as time
                     , SUBSTRING(main.bed, 1, 1) as bed
                 FROM		tr_yoyaku as main
-                WHERE 	main.course = '02'
+                WHERE 	main.course = '02' AND main.history_id IS NULL 
             )
             UNION
             (
@@ -683,7 +683,7 @@ class AdminController extends Controller
                     , main.service_time_2 as time
                     , SUBSTRING(main.bed, 3, 1) as bed
                 FROM		tr_yoyaku as main
-                WHERE 	main.course = '02'
+                WHERE 	main.course = '02' AND main.history_id IS NULL 
             )
             UNION
             (
@@ -694,7 +694,7 @@ class AdminController extends Controller
                     , main.service_time_1 as time
                     , main.bed
                 FROM		tr_yoyaku as main
-                WHERE 	main.course = '03'
+                WHERE 	main.course = '03' AND main.history_id IS NULL 
             )
         ");
         $week_course = collect($week_course_query);
@@ -705,7 +705,7 @@ class AdminController extends Controller
                     , main.service_date_start as service_date
                     ,CONCAT(main.service_time_1, '-', main.service_time_2) as time
             FROM	tr_yoyaku as main
-            WHERE 	main.course = '05'
+            WHERE 	main.course = '05' AND main.history_id IS NULL 
         ");
 
         $course_5 = collect($course_5_query);
@@ -717,7 +717,7 @@ class AdminController extends Controller
                     , main.service_date_start as service_date
                     , main.whitening_time as time
             FROM	tr_yoyaku as main
-            WHERE main.whitening <> '01'
+            WHERE main.whitening <> '01' AND main.history_id IS NULL 
         ");
 
         $course_wt = collect($course_wt_query);
@@ -834,7 +834,7 @@ class AdminController extends Controller
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '01'
+            WHERE 	main.course = '01' AND main.history_id IS NULL 
         )
         UNION
         (
@@ -845,7 +845,7 @@ class AdminController extends Controller
                     , main.service_time_1 as time
                     , SUBSTRING(main.bed, 1, 1) as bed
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '02'
+            WHERE 	main.course = '02' AND main.history_id IS NULL 
         )
         UNION
         (
@@ -856,7 +856,7 @@ class AdminController extends Controller
                     , main.service_time_2 as time
                     , SUBSTRING(main.bed, 3, 1) as bed
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '02'
+            WHERE 	main.course = '02' AND main.history_id IS NULL 
         )
         UNION
         (
@@ -867,7 +867,7 @@ class AdminController extends Controller
                     , main.service_time_1 as time
                     , main.bed
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '03'
+            WHERE 	main.course = '03' AND main.history_id IS NULL 
         )
         UNION
         (
@@ -880,7 +880,7 @@ class AdminController extends Controller
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '04'
+            WHERE 	main.course = '04' AND main.history_id IS NULL 
         )
         UNION
         (
@@ -893,7 +893,7 @@ class AdminController extends Controller
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '04'
+            WHERE 	main.course = '04' AND main.history_id IS NULL 
         )
         ");
 
@@ -905,7 +905,7 @@ class AdminController extends Controller
                     , main.service_date_start as service_date
                     , main.service_time_1 as time
             FROM	tr_yoyaku as main
-            WHERE 	main.course = '05'
+            WHERE 	main.course = '05' AND main.history_id IS NULL 
         ");
 
         $course_5 = collect($course_5_query);
@@ -917,7 +917,7 @@ class AdminController extends Controller
                     , main.service_date_start as service_date
                     , SUBSTRING(main.whitening_time, 1, 4) as time
             FROM	tr_yoyaku as main
-            WHERE main.whitening <> '01'
+            WHERE main.whitening <> '01' AND main.history_id IS NULL 
         ");
 
         $course_wt = collect($course_wt_query);

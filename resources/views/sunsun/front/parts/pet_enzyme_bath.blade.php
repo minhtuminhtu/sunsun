@@ -1,6 +1,3 @@
-@php
-    $course_data = json_decode($course_data, true);
-@endphp
 <div class="booking-block">
     @php
         $booking_date = '';

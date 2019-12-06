@@ -41,18 +41,26 @@ a:hover {
         padding-left: 20px;
         padding-right: 10px;
     }
-    .choice-data-time {
-        float: left;
-        >div {
-            float: left;
-            input {
-                width: 9vw;
-            }
-        }
-    }
+    // .choice-data-time {
+    //     float: left;
+    //     >div {
+    //         float: left;
+    //         input {
+    //             width: 9vw;
+    //         }
+    //     }
+    // }
 }
-.time-end {
-    float: right !important;
+.booking-field-content.date-time{
+    display: flex;
+}
+.time-start{
+    width: 100%;
+    margin-right: 0.5vw;
+}
+.time-end{
+    width: 100%;
+    margin-left: 0.5vw;
 }
 main {
     .main-body-head {
