@@ -204,34 +204,38 @@ $(function () {
   $('#edit_booking').on('change', '#course_history', function (e) {
     var current_booking_id = $('#edit_booking').find("#booking_id").val();
     var course_history = $("#course_history").val();
+
+    if (course_history != 0) {
+      $.ajax({
+        url: $site_url + '/admin/booking_history',
+        type: 'POST',
+        data: {
+          'new': 0,
+          'current_booking_id': current_booking_id,
+          'course_history': course_history
+        },
+        dataType: 'text',
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(html) {
+          booking_edit.find('.mail-booking').html(html);
+          booking_edit.modal('show');
+        },
+        // error: function () {
+        //     // alert("error!");
+        // },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    }
+
     e.preventDefault();
-    $.ajax({
-      url: $site_url + '/admin/booking_history',
-      type: 'POST',
-      data: {
-        'new': 0,
-        'current_booking_id': current_booking_id,
-        'course_history': course_history
-      },
-      dataType: 'text',
-      beforeSend: function beforeSend() {
-        loader.css({
-          'display': 'block'
-        });
-      },
-      success: function success(html) {
-        booking_edit.find('.mail-booking').html(html);
-        booking_edit.modal('show');
-      },
-      // error: function () {
-      //     // alert("error!");
-      // },
-      complete: function complete() {
-        loader.css({
-          'display': 'none'
-        });
-      }
-    });
   });
   $('#edit_booking').on('click', '#credit-card', function (e) {
     return false;
