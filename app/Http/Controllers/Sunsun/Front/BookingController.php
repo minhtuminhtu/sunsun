@@ -787,6 +787,7 @@ class BookingController extends Controller
     public function book_time_room_wt (Request $request) {
         $data = $request->all();
         $repeat_user = json_decode($data['repeat_user'], true);
+        $whitening_repeat = $data['whitening_repeat'];
         $transport = json_decode($data['transport'], true);
         $course = json_decode($data['course'], true);
         $data_get_attr = json_decode($data['data_get_attr'], true);
@@ -820,7 +821,7 @@ class BookingController extends Controller
         // dd($data);
         $time_kubun_type_whitening = config('const.db.kubun_type_value.TIME_WHITENING'); //021
         $kubun_type_bed_male = config('const.db.kubun_type_value.bed_pet'); // 19
-        $data_time_room = $this->get_time_room_whitening($time_kubun_type_whitening, $kubun_type_bed_male, $validate_time,$repeat_user);
+        $data_time_room = $this->get_time_room_whitening($time_kubun_type_whitening, $kubun_type_bed_male, $validate_time,$repeat_user, $whitening_repeat);
         $tmp_time_wt = [];
         foreach ($data_time_room as $key => $time_room) {
             $tmp_time_wt[$time_room->kubun_id][] = $time_room;
@@ -832,7 +833,7 @@ class BookingController extends Controller
         return view('sunsun.front.parts.booking_room_wt',$data_time)->render();
     }
 
-    public function get_time_room_whitening ($time_kubun_type, $room_kubun_type, $time_bath = null, $repeat_user) {
+    public function get_time_room_whitening ($time_kubun_type, $room_kubun_type, $time_bath = null, $repeat_user, $whitening_repeat) {
         $data_sql = [
             'time_kubun_type' => $time_kubun_type,
             'room_kubun_type' => $room_kubun_type,
@@ -840,11 +841,9 @@ class BookingController extends Controller
         if ($time_bath !== null) {
             $data_sql['time_bath'] = $time_bath;
         }
-        if ($repeat_user['kubun_id'] == config('const.db.kubun_id_value.repeat_user.NEW')) { // はじめて
-            $data_sql['hand_code'] = 1;
-        } else { //　リピート
-            $data_sql['hand_code'] = 0;
-        }
+
+        $data_sql['hand_code'] = $whitening_repeat;
+
         $sql_select = "
                 -- SELECT time & room
                SELECT 
