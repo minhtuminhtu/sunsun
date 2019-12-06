@@ -199,7 +199,7 @@
             </div>
             <div class="foot-confirm">
                 @if(isset($data_booking))
-                    @if(isset($history_booking) && (count($history_booking) != 0))
+                    <!-- @if(isset($history_booking) && (count($history_booking) != 0))
                         <div class="history-button">
                             <select name="course_history" id="course_history" class="form-control">
                                 <option value='0'>Newest</option>
@@ -212,13 +212,16 @@
                                 @endforeach
                             </select>
                         </div>
-                    @endif
+                    @endif -->
+                    <div class="history-button">
+                        <a href="">履歴</a>
+                    </div>
                     <div class="confirm-button">
                         <div class="button-left">
-                            <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">Cancel</button>
+                            <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">キャンセル</button>
                         </div>
                         <div class="button-right">
-                            <button type="button" class="btn btn-block text-white btn-update">Update</button>
+                            <button type="button" class="btn btn-block text-white btn-update">更新</button>
                         </div>
                     </div>
                 @else

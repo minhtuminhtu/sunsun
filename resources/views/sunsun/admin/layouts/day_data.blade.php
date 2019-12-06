@@ -45,14 +45,23 @@
 
         @if(($time['data'][$row]->lunch != NULL)||($time['data'][$row]->whitening != NULL)||($time['data'][$row]->pet_keeping != NULL)||($time['data'][$row]->stay_room_type != NULL))
             <br>
+            @if(isset($time['data'][$row]->lunch))
             <span>{{ $time['data'][$row]->lunch }}</span>
+            @endif
+            
+            @if(isset($time['data'][$row]->whitening))
             <span>{{ $time['data'][$row]->whitening }}</span>
+            @endif
+
+            @if(isset($time['data'][$row]->pet_keeping))
             <span>{{ $time['data'][$row]->pet_keeping }}</span>
+            @endif
+
             @if(!isset($time['data'][$row]->ref_booking_id))
                 @if(isset($time['data'][$row]->stay_room_type))
                     <span>宿泊{{ $time['data'][$row]->stay_room_type }}({{ $time['data'][$row]->stay_guest_num }})</span>
                     @if(isset($time['data'][$row]->breakfast))
-                        {{ $time['data'][$row]->breakfast }}
+                        <span>{{ $time['data'][$row]->breakfast }}</span>
                     @endif
                 @endif
             @endif

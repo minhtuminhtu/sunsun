@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Sunsun\Front;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sunsun\Front\BookingRequest;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 use App\Models\MsKubun;
 use App\Models\Yoyaku;
 use App\Models\YoyakuDanjikiJikan;
@@ -1099,7 +1099,28 @@ class BookingController extends Controller
             $data['course_time'] = NULL;
         }else{
             $data['course_time'] = json_decode($data['course_time'], true);
+            $date_arr = [];
+
+            foreach($data['course_time'] as $date){
+                $date_arr[] = $date['service_date'];
+            }
+            $data['date_unique_time'] = $date_arr;
+            $weekMap = [
+                0 => '日',
+                1 => '月',
+                2 => '火',
+                3 => '水',
+                4 => '木',
+                5 => '金',
+                6 => '土',
+            ];
+            $dayOfTheWeek = Carbon::now()->dayOfWeek;
+            $weekday = $weekMap[$dayOfTheWeek];
+            
+            dd($weekday);
         }
+
+
 
         $data['course_data'] = json_decode($data['course_data'], true);
 
