@@ -110,8 +110,10 @@
 </div>
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
-        <div>オプション</div>
-        <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        <div class="line-laber">オプション</div>
+        <div class="line-button">
+            <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        </div>
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
@@ -138,8 +140,10 @@
 @if(!isset($add_new_user))
     <div class="booking-line font-weight-bold mt-3">
         <div class="booking-line-laber">
-            <div>宿泊</div>
-            <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            <div class="line-laber">宿泊</div>
+            <div class="line-button">
+                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            </div>
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>

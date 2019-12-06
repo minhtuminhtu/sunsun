@@ -80,7 +80,7 @@
                 padding: 0px 1.25vw 2.5vw 2.5vw;
             }
             .index-field-foot{
-                padding: 2.5vw 2.5vw 0px 7.5vw;
+                padding: 2vw 2vw 0px 4vw;
             }
             ol{
                 li{
@@ -482,6 +482,12 @@
             margin-bottom: 0.25vh;
             font-size: 4vw !important;
             display: flex;
+            .line-laber{
+                width: 25%;
+            }
+            .line-button{
+                width: 75%;
+            }
         }
     }
     .booking-field-label.age-css{
@@ -583,7 +589,7 @@
         font-size: 0.8rem !important;
     }
     .title-table-time {
-        padding: 5px 0;
+        padding: 2vw 0;
     }
     .btn-modal-left{
         margin-right: 5px !important;

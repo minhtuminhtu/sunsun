@@ -4,7 +4,7 @@
             <div class="booking-field-label">
             </div>
             <div class="booking-field-content">
-                <p class="node-text text-left mt-1 mb-0">入浴時間約30分</p>
+                <p class="node-text text-left mt-1 mb-0">入浴時間約20分</p>
                 <p class="node-text text-left mb-2">(全体の滞在時間約90分)</p>
             </div>
         </div>
@@ -156,7 +156,7 @@
                 <div class="block-content-2 margin-top-mini">
                     <div class="block-content-2-left"></div>
                     <div class="block-content-2-right">
-                        <button type="button" class="btn btn-block form-control color-active text-dark" id="add-time">時間追加</button>
+                        <button type="button" class="btn btn-block form-control color-active text-dark" id="add-time">酵素浴追加</button>
                     </div>
                 </div>
             </div>
@@ -167,8 +167,10 @@
 
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
-        <div>オプション</div>
-        <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        <div class="line-laber">オプション</div>
+        <div class="line-button">
+            <img class="btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        </div>
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
@@ -268,8 +270,10 @@
 @if(!isset($add_new_user))
     <div class="booking-line font-weight-bold mt-3">
         <div class="booking-line-laber">
-            <div>宿泊</div>
-            <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            <div class="line-laber">宿泊</div>
+            <div class="line-button">
+                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            </div>
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>

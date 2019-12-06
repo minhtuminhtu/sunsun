@@ -33,7 +33,8 @@
                                 @if($course->kubun_id == '01')
                                     <div class="linex mt-0">
                                         @if($i != 1)
-                                        <p>予約{{ $i }}</p>
+                                        <p class="font-weight-bold">予約{{ $i }}</p>
+                                        <br>
                                         @endif
                                         <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
@@ -104,7 +105,7 @@
 
                                     @if($age_type == '3')
                                     <div class="linex"> 
-                                        <p> 大人：{{ $age_value }}歳</p>
+                                        <p>年齢：大人 {{ $age_value }}歳</p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
@@ -113,7 +114,7 @@
                                     </div>
                                     @elseif($age_type == '1')
                                     <div class="linex"> 
-                                        <p>小学生</p>
+                                        <p>年齢：小学生</p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
@@ -122,7 +123,7 @@
                                     </div>
                                     @elseif($age_type == '2')
                                     <div class="linex"> 
-                                        <p>学生<span class="node-text">(中学生以上)</span></p>
+                                        <p>年齢：学生<span class="node-text">(中学生以上)</span></p>
                                         <div class="line1">
                                         </div>
                                         <div class="line2">
