@@ -158,6 +158,7 @@ class AdminController extends Controller
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
+                  , main.breakfast
                   , main.phone
                   , main.payment_method
                   , time.service_date
@@ -185,6 +186,7 @@ class AdminController extends Controller
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
+                    , main.breakfast
                     , main.phone
                     , main.payment_method
                     , main.service_date_start
@@ -210,6 +212,7 @@ class AdminController extends Controller
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
+                    , main.breakfast
                     , main.phone
                     , main.payment_method
                     , main.service_date_start
@@ -235,6 +238,7 @@ class AdminController extends Controller
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
+                    , main.breakfast
                     , main.phone
                     , main.payment_method
                     , main.service_date_start
@@ -260,6 +264,7 @@ class AdminController extends Controller
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
+                  , main.breakfast
                   , main.phone
                   , main.payment_method
                   , time.service_date
@@ -287,6 +292,7 @@ class AdminController extends Controller
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
+                  , main.breakfast
                   , main.phone
                   , main.payment_method
                   , time.service_date
@@ -381,6 +387,10 @@ class AdminController extends Controller
                     $course_1_to_4[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
                     break;
                 } 
+            }
+            switch($course_1_to_4[$i]->breakfast){
+                case '01': $course_1_to_4[$i]->breakfast = NULL; break;
+                case '02': $course_1_to_4[$i]->breakfast = '朝食有'; break;
             }
            
             switch($course_1_to_4[$i]->payment_method){

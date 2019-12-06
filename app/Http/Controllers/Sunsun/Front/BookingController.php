@@ -505,7 +505,9 @@ class BookingController extends Controller
             $Yoyaku->whitening = $whitening->kubun_id;
             if($whitening->kubun_id == '02'){
                 $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $whitening_repeat = isset($customer['whitening_repeat'])?$customer['whitening_repeat']:"";
                 $Yoyaku->whitening_time = $whitening_time;
+                $Yoyaku->whitening_repeat = $whitening_repeat;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 
@@ -541,7 +543,9 @@ class BookingController extends Controller
             $Yoyaku->whitening = $whitening->kubun_id;
             if($whitening->kubun_id == '02'){
                 $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $whitening_repeat = isset($customer['whitening_repeat'])?$customer['whitening_repeat']:"";
                 $Yoyaku->whitening_time = $whitening_time;
+                $Yoyaku->whitening_repeat = $whitening_repeat;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 
@@ -572,7 +576,9 @@ class BookingController extends Controller
             $Yoyaku->whitening = $whitening->kubun_id;
             if($whitening->kubun_id == '02'){
                 $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $whitening_repeat = isset($customer['whitening_repeat'])?$customer['whitening_repeat']:"";
                 $Yoyaku->whitening_time = $whitening_time;
+                $Yoyaku->whitening_repeat = $whitening_repeat;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 

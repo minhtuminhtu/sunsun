@@ -40,6 +40,7 @@ class CreateTrYoyakuTable extends Migration
             $table->string('lunch',2)->nullable();
             $table->string('lunch_guest_num',2)->nullable();
             $table->string('whitening',2)->nullable();
+            $table->string('whitening_repeat',1)->nullable();
             $table->string('whitening_time',9)->nullable();
             $table->string('pet_keeping',2)->nullable();
             $table->string('stay_room_type',2)->nullable();
