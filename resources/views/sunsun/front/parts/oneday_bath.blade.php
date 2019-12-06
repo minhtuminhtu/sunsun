@@ -66,9 +66,9 @@
                 <div class="timedate-block set-time">
                     <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="0">
                     <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="1">
-                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_1">
-                    <input name="time1-view_json" class="data-json_input" id="time1-view_json" type="hidden" value="">
-                    <input name="time1-view_element" id="time1-view_element" type="hidden" value="js-view-input">
+                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="time1-view" value="00:00" data-date_type="shower_1">
+                    <input name="time[0][json]" class="data-json_input"  type="hidden" value="">
+                    <input name="time[0][element]" type="hidden" value="time1-view">
                 </div>
 
             </div>
@@ -81,9 +81,9 @@
                 <div class="timedate-block set-time">
                     <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="0">
                     <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="1">
-                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_2">
-                    <input name="time2-view_json" class="data-json_input" id="time2-view_json" type="hidden" value="">
-                    <input name="time2-view_element" id="time2-view_element" type="hidden" value="js-view-input">
+                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="time2-view" value="00:00" data-date_type="shower_2">
+                    <input name="time[1][json]" class="data-json_input"  type="hidden" value="">
+                    <input name="time[1][element]" type="hidden" value="time2-view">
                 </div>
 
             </div>

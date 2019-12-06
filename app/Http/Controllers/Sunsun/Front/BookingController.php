@@ -61,8 +61,6 @@ class BookingController extends Controller
         $repeat_user = json_decode($data['repeat_user'], true);
         $course = json_decode($data['course'], true);
 
-        //$gender = $data['gender'];
-
         $check_bus = false;
         if ($transport['kubun_id'] == config('const.db.kubun_id_value.transport.BUS') ) { // nếu đi xe bus'02'
             if ($repeat_user['kubun_id'] == config('const.db.kubun_id_value.repeat_user.NEW')) { // はじめて
@@ -77,26 +75,92 @@ class BookingController extends Controller
             $check_bus = true;
         }
 
+        $check_gender = false;
+        $kubun_type_bed = '';
+        if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')
+            || $course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')
+            || $course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')) {
+            $gender = json_decode($data['gender'], true);
+            if($gender['kubun_id'] == '01'){ // for man
+                $kubun_type_bed = config('const.db.kubun_type_value.bed_male'); // 017 kubun_type
+            }else{ //for woman
+                $kubun_type_bed = config('const.db.kubun_type_value.bed_female'); // 018 kubun_type
+            }
+            $check_gender = true;
+        }
 
-        /*if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL') || $course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // tắm bình thường 01
-            $time_customer_choice = $data['time'];
-            foreach ($time_customer_choice as $key => $time) {
-                $data_json_time = json_decode($time['data-json'], true );
-                if ($data_json_time == null) { // check nếu chưa chọn time
-                    $error['error_time_transport'][$key]['element'] = $time['element'];
-                } else {
-                    if ($check_bus) { // validate nếu đi xe bus
-                        if ($data_json_time['notes'] < $time_required) { // check required time. time choice always >= time required
-                            $error['error_time_transport'][$key]['data'] = $data_json_time;
-                            $error['error_time_transport'][$key]['element'] = $time['element'];
-                        }
-                        // check room gender
+
+        $time_customer_choice = $data['time'];
+        foreach ($time_customer_choice as $key => $time) {
+            if ($course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')) {
+                $data_json_time_1 = json_decode($time['from']['json'], true );//dd($time);
+                $data_json_time_2 = json_decode($time['to']['json'], true );
+                if ($check_bus) { // validate nếu đi xe bus
+                    if ($data_json_time_1['notes'] < $time_required) { // check required time. time choice always >= time required
+                        $error['error_time_transport'][]['element'] = $time['from']['element'];
+                    } else {
+                        $error['clear_border_red'][]['element'] = $time['from']['element'];
+                    }
+                    if ($data_json_time_2['notes'] < $time_required) { // check required time. time choice always >= time required
+                        $error['error_time_transport'][]['element'] = $time['to']['element'];
+                    } else {
+                        $error['clear_border_red'][]['element'] = $time['to']['element'];
+                    }
+                }
+                if ($check_gender) {
+                    if ($kubun_type_bed != $data_json_time_1['gender_type']) {
+                        //$error['error_time_transport'][$key]['data'] = $data_json_time;
+                        $error['error_time_gender'][]['element'] = $time['from']['element'];
+                    } else {
+                        $error['clear_border_red'][]['element'] = $time['from']['element'];
+                    }
+                    if ($kubun_type_bed < $data_json_time_1['gender_type']) { // check required time. time choice always >= time required
+                        $error['error_time_transport'][]['element'] = $time['to']['element'];
+                    } else {
+                        $error['clear_border_red'][]['element'] = $time['to']['element'];
                     }
                 }
 
-                //$error['data_json_time'] = $data_json_time;
+            } else {
+                $data_json_time = json_decode($time['json'], true );
+                if ($data_json_time == null) { // check nếu chưa chọn time
+                    //$error['error_time_transport'][$key]['element'] = $time['element'];
+                } else {
+                    if ($check_bus) { // validate nếu đi xe bus
+                        if ($course['kubun_id'] == config('const.db.kubun_id_value.course.PET')){
+                            if ($data_json_time['time_start'] < $time_required) { // check required time. time choice always >= time required
+                                //$error['error_time_transport'][$key]['data'] = $data_json_time;
+                                $error['error_time_transport'][$key]['element'] = $time['element'];
+                            } else {
+                                $error['clear_border_red'][$key]['element'] = $time['element'];
+                            }
+                        } else {
+                            if ($data_json_time['notes'] < $time_required) { // check required time. time choice always >= time required
+                                //$error['error_time_transport'][$key]['data'] = $data_json_time;
+                                $error['error_time_transport'][$key]['element'] = $time['element'];
+                            } else {
+                                $error['clear_border_red'][$key]['element'] = $time['element'];
+                            }
+                        }
+
+                    }
+
+
+                    if ($check_gender) { // check gender
+                        if ($kubun_type_bed != $data_json_time['gender_type']) {
+                            //$error['error_time_transport'][$key]['data'] = $data_json_time;
+                            $error['error_time_gender'][$key]['element'] = $time['element'];
+                        } else {
+                            $error['clear_border_red'][$key]['element'] = $time['element'];
+                        }
+                    }
+                }
             }
-        }*/
+        }
+
+        if (isset($error['error_time_transport']) == false && isset($error['error_time_gender']) == false) {
+            $error = [];
+        }
 
 
         return $error;
@@ -752,11 +816,27 @@ class BookingController extends Controller
     public function book_room (Request $request) {
         $data = $request->all();
         $repeat_user = json_decode($data['repeat_user'], true);
-        $transport = json_decode($data['transport'], true);
         $course = json_decode($data['course'], true);
         $data_get_attr = json_decode($data['data_get_attr'], true);
-        $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
         $validate_time = null;
+
+        $sections_booking = $this->get_booking($request);
+        //dd($sections_booking);
+        if (count($sections_booking) > 0) { // Th add thêm người
+            $transport = json_decode($sections_booking['transport'], true);
+            $bus_arrive_time_slide = json_decode($sections_booking['bus_arrive_time_slide'], true);
+            $day_book_time = $sections_booking['date-value'];
+            if (isset($sections_booking['date-value'])) { // date Tắm bình thường 1 day refresh
+                $day_book_time = $sections_booking['date-value'];
+            }
+        } else { // th booking mới
+            $transport = json_decode($data['transport'], true);
+            $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
+            if (isset($data['date-value'])) { // date Tắm bình thường 1 day refresh
+                $day_book_time = $data['date-value'];
+            }
+        }
+
 
         // check time bus
         if ($bus_arrive_time_slide != null) {
@@ -966,9 +1046,15 @@ class BookingController extends Controller
             INNER JOIN ms_kubun mk2 ON mk2.kubun_type = :room_kubun_type
             WHERE mk1.kubun_type = :time_kubun_type
                 AND SUBSTRING(mk1.notes, 11) = :hand_code
+        ";
+        if ($data_sql['hand_code'] == 0) {
+            $sql .= "
+                OR SUBSTRING(mk1.notes, 11) = '1'
+            ";
+        }
+        $sql .= "
             ORDER BY  mk2.sort_no, mk1.sort_no
         ";
-
         return DB::select($sql, $data_sql);
     }
 

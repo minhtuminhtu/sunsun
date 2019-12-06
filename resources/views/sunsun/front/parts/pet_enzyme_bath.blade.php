@@ -29,8 +29,9 @@
             <div class="timedate-block set-time">
                 <input name="time_room_time1" id="time_room_time1" type="hidden" value="0">
                 <input name="time_room_time2" id="time_room_time2" type="hidden" value="0">
-                <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  readonly="readonly" id="" value="00:00～00:00">
-                <input name="time_room_pet_json" class="data-json_input" id="time_room_pet_json" type="hidden" value="">
+                <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white" id="time_room_pet_0" readonly="readonly" id="" value="00:00～00:00">
+                <input name="time[0][json]" class="data-json_input" id="time_room_pet_json" type="hidden" value="">
+                <input name="time[0][element]" id="" type="hidden" value="time_room_pet_0">
             </div>
 
         </div>

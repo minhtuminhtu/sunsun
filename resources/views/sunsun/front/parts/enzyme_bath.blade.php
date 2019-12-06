@@ -94,7 +94,7 @@
             </div>
 
             @if(is_array($course_time))
-                @php 
+                @php
                 $i = 0;
                 @endphp
                 @foreach($course_time as $s_time)
@@ -131,12 +131,12 @@
             @else
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
-                    <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="00:00" />
+                    <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_0" readonly="readonly" value="00:00" />
                     <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="0">
                     <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="0">
                     <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
-                    <input name="time[0][data-json]" class="data-json_input" id="time[0][data-json]" type="hidden" value="">
-                    <input name="time[0][element]" id="time[0][element]" type="hidden" value="js-set-time">
+                    <input name="time[0][json]" class="data-json_input" id="" type="hidden" value="">
+                    <input name="time[0][element]" id="time[0][element]" type="hidden" value="error_time_0">
                 </div>
                 <div class="time-content">
                 </div>
