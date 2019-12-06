@@ -46,16 +46,16 @@
                             <div>
                                 <div class="font-bold">月</div>
                                 <div class="data-item">
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-blue">男</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-red">女</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-wt">WT</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-yellow">Pet</span>
                                     </div>
                                 </div>
@@ -65,16 +65,16 @@
                             <div>
                                 <div class="font-bold">火</div>
                                 <div class="data-item">
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-blue">男</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-red">女</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-wt">WT</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-yellow">Pet</span>
                                     </div>
                                 </div>
@@ -84,16 +84,16 @@
                             <div>
                                 <div class="font-bold">水</div>
                                 <div class="data-item">
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-blue">男</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-red">女</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-wt">WT</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-yellow">Pet</span>
                                     </div>
                                 </div>
@@ -103,16 +103,16 @@
                             <div>
                                 <div class="font-bold">木</div>
                                 <div class="data-item">
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-blue">男</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-red">女</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-wt">WT</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-yellow">Pet</span>
                                     </div>
                                 </div>
@@ -122,16 +122,16 @@
                             <div>
                                 <div class="font-bold">金</div>
                                 <div class="data-item">
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-blue">男</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-red">女</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-wt">WT</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-yellow">Pet</span>
                                     </div>
                                 </div>
@@ -141,16 +141,16 @@
                             <div>
                                 <div class="font-bold">土</div>
                                 <div class="data-item">
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-blue">男</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-red">女</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-wt">WT</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-yellow">Pet</span>
                                     </div>
                                 </div>
@@ -160,16 +160,16 @@
                             <div>
                                 <div class="font-bold">日</div>
                                 <div class="data-item">
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-blue">男</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-red">女</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-wt">WT</span>
                                     </div>
-                                    <div class="item">
+                                    <div class="item head">
                                         <span class="text-yellow">Pet</span>
                                     </div>
                                 </div>

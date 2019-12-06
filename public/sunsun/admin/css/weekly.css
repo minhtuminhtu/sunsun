@@ -667,3 +667,13 @@ table th {
   border-bottom-style: double !important;
 }
 
+html,
+body {
+  font-size: 1vw;
+}
+
+.item:not(.head) {
+  font-size: 0.75vw;
+  line-height: 145%;
+}
+
