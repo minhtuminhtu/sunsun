@@ -92,7 +92,7 @@
   }
 
   main .index-field .index-field-foot {
-    padding: 2.5vw 2.5vw 0px 7.5vw;
+    padding: 2vw 2vw 0px 4vw;
   }
 
   main .index-field ol li {
@@ -556,6 +556,14 @@
     display: flex;
   }
 
+  .booking-line .booking-line-laber .line-laber {
+    width: 25%;
+  }
+
+  .booking-line .booking-line-laber .line-button {
+    width: 75%;
+  }
+
   .booking-field-label.age-css {
     width: 25% !important;
   }
@@ -670,7 +678,7 @@
   }
 
   .title-table-time {
-    padding: 5px 0;
+    padding: 2vw 0;
   }
 
   .btn-modal-left {

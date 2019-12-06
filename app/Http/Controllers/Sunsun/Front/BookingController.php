@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Sunsun\Front;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sunsun\Front\BookingRequest;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 use App\Models\MsKubun;
 use App\Models\Yoyaku;
 use App\Models\YoyakuDanjikiJikan;
@@ -563,13 +563,20 @@ class BookingController extends Controller
 
             $Yoyaku->gender = $gender->kubun_id;
             $Yoyaku->age_type = $age_type;
-            $Yoyaku->age_value = $age_value;
+            if($age_type == 3){
+                $Yoyaku->age_value = $age_value;
+            }else{
+                $Yoyaku->age_value = NULL;
+            }
+           
             $Yoyaku->bed = $bed;
             $Yoyaku->lunch = $lunch->kubun_id;
             $Yoyaku->whitening = $whitening->kubun_id;
             if($whitening->kubun_id == '02'){
                 $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $whitening_repeat = isset($customer['whitening_repeat'])?$customer['whitening_repeat']:"";
                 $Yoyaku->whitening_time = $whitening_time;
+                $Yoyaku->whitening_repeat = $whitening_repeat;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 
@@ -605,7 +612,9 @@ class BookingController extends Controller
             $Yoyaku->whitening = $whitening->kubun_id;
             if($whitening->kubun_id == '02'){
                 $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $whitening_repeat = isset($customer['whitening_repeat'])?$customer['whitening_repeat']:"";
                 $Yoyaku->whitening_time = $whitening_time;
+                $Yoyaku->whitening_repeat = $whitening_repeat;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 
@@ -636,7 +645,9 @@ class BookingController extends Controller
             $Yoyaku->whitening = $whitening->kubun_id;
             if($whitening->kubun_id == '02'){
                 $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
+                $whitening_repeat = isset($customer['whitening_repeat'])?$customer['whitening_repeat']:"";
                 $Yoyaku->whitening_time = $whitening_time;
+                $Yoyaku->whitening_repeat = $whitening_repeat;
             }
             $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 
@@ -1174,12 +1185,33 @@ class BookingController extends Controller
             $data['course_time'] = NULL;
         }else{
             $data['course_time'] = json_decode($data['course_time'], true);
+            $date_arr = [];
+
+            foreach($data['course_time'] as $date){
+                $date_arr[] = $date['service_date'];
+            }
+            $data['date_unique_time'] = $date_arr;
+            $weekMap = [
+                0 => '日',
+                1 => '月',
+                2 => '火',
+                3 => '水',
+                4 => '木',
+                5 => '金',
+                6 => '土',
+            ];
+            $dayOfTheWeek = Carbon::now()->dayOfWeek;
+            $weekday = $weekMap[$dayOfTheWeek];
+            
+            // dd($weekday);
         }
+
+
 
         $data['course_data'] = json_decode($data['course_data'], true);
 
         if(isset( $data['course_data']['whitening_time'])){
-            $data['course_data']['whitening_time'] =    substr($data['course_data']['whitening_time'], 0, 2) . ":" .
+            $data['course_data']['whitening_time-view'] =    substr($data['course_data']['whitening_time'], 0, 2) . ":" .
                                                         substr($data['course_data']['whitening_time'], 2, 2) . "～".
                                                         substr($data['course_data']['whitening_time'], 5, 2) . ":".
                                                         substr($data['course_data']['whitening_time'], 7, 2);

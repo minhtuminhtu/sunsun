@@ -155,9 +155,12 @@ class AdminController extends Controller
                   , main.bus_arrive_time_slide
                   , main.pick_up
                   , main.lunch
+                  , main.lunch_guest_num
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
+                  , main.stay_guest_num
+                  , main.breakfast
                   , main.phone
                   , main.payment_method
                   , time.service_date
@@ -182,9 +185,12 @@ class AdminController extends Controller
                     , main.bus_arrive_time_slide
                     , main.pick_up
                     , main.lunch
+                    , main.lunch_guest_num
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
+                    , main.stay_guest_num
+                    , main.breakfast
                     , main.phone
                     , main.payment_method
                     , main.service_date_start
@@ -203,15 +209,18 @@ class AdminController extends Controller
                     , main.gender
                     , main.age_value
                     , main.name
-                    , main.transport
-                    , main.bus_arrive_time_slide
-                    , main.pick_up
-                    , main.lunch
-                    , main.whitening
-                    , main.pet_keeping
-                    , main.stay_room_type
-                    , main.phone
-                    , main.payment_method
+                    , NULL as transport
+                    , NULL as bus_arrive_time_slide
+                    , NULL as pick_up
+                    , NULL as lunch
+                    , main.lunch_guest_num
+                    , NULL as whitening
+                    , NULL as pet_keeping
+                    , NULL as stay_room_type
+                    , main.stay_guest_num
+                    , NULL as breakfast
+                    , NULL as phone
+                    , NULL as payment_method
                     , main.service_date_start
                     , main.service_time_2 as time
                     , 2 as turn
@@ -232,9 +241,12 @@ class AdminController extends Controller
                     , main.bus_arrive_time_slide
                     , main.pick_up
                     , main.lunch
+                    , main.lunch_guest_num
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
+                    , main.stay_guest_num
+                    , main.breakfast
                     , main.phone
                     , main.payment_method
                     , main.service_date_start
@@ -257,9 +269,12 @@ class AdminController extends Controller
                   , main.bus_arrive_time_slide
                   , main.pick_up
                   , main.lunch
+                  , main.lunch_guest_num
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
+                  , main.stay_guest_num
+                  , main.breakfast
                   , main.phone
                   , main.payment_method
                   , time.service_date
@@ -280,15 +295,18 @@ class AdminController extends Controller
                   , main.gender
                   , main.age_value
                   , main.name
-                  , main.transport
-                  , main.bus_arrive_time_slide
-                  , main.pick_up
-                  , main.lunch
-                  , main.whitening
-                  , main.pet_keeping
-                  , main.stay_room_type
-                  , main.phone
-                  , main.payment_method
+                  , NULL as transport
+                  , NULL as bus_arrive_time_slide
+                  , NULL as pick_up
+                  , NULL as lunch
+                  , main.lunch_guest_num
+                  , NULL as whitening
+                  , NULL as pet_keeping
+                  , NULL as stay_room_type
+                  , main.stay_guest_num
+                  , NULL as breakfast
+                  , NULL as phone
+                  , NULL as payment_method
                   , time.service_date
                   , time.service_time_2 as time
                   , 2 as turn
@@ -310,6 +328,16 @@ class AdminController extends Controller
                     $temp->turn = 0;
                 }else{
                     $temp->turn = $turn;
+                    $temp->transport = NULL;
+                    $temp->bus_arrive_time_slide = NULL;
+                    $temp->pick_up = NULL; 
+                    $temp->lunch = NULL; 
+                    $temp->whitening = NULL;
+                    $temp->pet_keeping = NULL;
+                    $temp->stay_room_type = NULL;
+                    $temp->breakfast = NULL;
+                    $temp->phone = NULL;
+                    $temp->payment_method = NULL;
                 }
                 $turn++;
             }
@@ -352,10 +380,12 @@ class AdminController extends Controller
                 }
             }
 
-            switch($course_1_to_4[$i]->lunch){
-                case '01': $course_1_to_4[$i]->lunch = NULL; break;
-                case '02': $course_1_to_4[$i]->lunch = '昼食'; break;
+            if(((isset($course_1_to_4[$i]->lunch)) && ($course_1_to_4[$i]->lunch != '01')) || ((isset($course_1_to_4[$i]->lunch_guest_num)) && ($course_1_to_4[$i]->lunch_guest_num != '01'))){
+                $course_1_to_4[$i]->lunch = '昼食';
+            }else{
+                $course_1_to_4[$i]->lunch = NULL;
             }
+            
             switch($course_1_to_4[$i]->whitening){
                 case '01': $course_1_to_4[$i]->whitening = NULL; break;
                 case '02': $course_1_to_4[$i]->whitening = '歯白'; break;
@@ -381,6 +411,28 @@ class AdminController extends Controller
                     $course_1_to_4[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
                     break;
                 } 
+            }
+            switch($course_1_to_4[$i]->stay_guest_num){
+                case '01': {
+                    $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$course_1_to_4[$i]->stay_guest_num)->first();
+                    $course_1_to_4[$i]->stay_guest_num =  $temp_kubun->notes;
+                    break;
+                } 
+                case '02': {
+                    $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$course_1_to_4[$i]->stay_guest_num)->first();
+                    $course_1_to_4[$i]->stay_guest_num =  $temp_kubun->notes;
+                    break;
+                } 
+                case '03': {
+                    $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$course_1_to_4[$i]->stay_guest_num)->first();
+                    $course_1_to_4[$i]->stay_guest_num =  $temp_kubun->notes;
+                    break;
+                } 
+            }
+
+            switch($course_1_to_4[$i]->breakfast){
+                case '01': $course_1_to_4[$i]->breakfast = NULL; break;
+                case '02': $course_1_to_4[$i]->breakfast = '朝食有'; break;
             }
            
             switch($course_1_to_4[$i]->payment_method){

@@ -34,29 +34,45 @@
         @endif
 
         @if(!isset($time['data'][$row]->ref_booking_id))
-        <br>
-        <span>{{ $time['data'][$row]->transport }}</span>
-        <span>{{ $time['data'][$row]->bus_arrive_time_slide }}</span>
-        <span class="text-red">{{ $time['data'][$row]->pick_up }}</span>
+            @if(isset($time['data'][$row]->transport))
+            <br>
+            <span>{{ $time['data'][$row]->transport }}</span>
+            <span>{{ $time['data'][$row]->bus_arrive_time_slide }}</span>
+            <span class="text-red">{{ $time['data'][$row]->pick_up }}</span>
+            @endif
         @endif
 
 
         @if(($time['data'][$row]->lunch != NULL)||($time['data'][$row]->whitening != NULL)||($time['data'][$row]->pet_keeping != NULL)||($time['data'][$row]->stay_room_type != NULL))
             <br>
+            @if(isset($time['data'][$row]->lunch))
             <span>{{ $time['data'][$row]->lunch }}</span>
+            @endif
+            
+            @if(isset($time['data'][$row]->whitening))
             <span>{{ $time['data'][$row]->whitening }}</span>
+            @endif
+
+            @if(isset($time['data'][$row]->pet_keeping))
             <span>{{ $time['data'][$row]->pet_keeping }}</span>
+            @endif
+
             @if(!isset($time['data'][$row]->ref_booking_id))
                 @if(isset($time['data'][$row]->stay_room_type))
-                <span>宿泊{{ $time['data'][$row]->stay_room_type }}</span>
+                    <span>宿泊{{ $time['data'][$row]->stay_room_type }}({{ $time['data'][$row]->stay_guest_num }})</span>
+                    @if(isset($time['data'][$row]->breakfast))
+                        <span>{{ $time['data'][$row]->breakfast }}</span>
+                    @endif
                 @endif
             @endif
         @endif
         @if(!isset($time['data'][$row]->ref_booking_id))
-        <br>
-        <span>{{ $time['data'][$row]->phone }}</span>
-        <br>
-        <span>支払：{{ $time['data'][$row]->payment_method }}</span>
+            @if(isset($time['data'][$row]->phone))
+            <br>
+            <span>{{ $time['data'][$row]->phone }}</span>
+            <br>
+            <span>支払：{{ $time['data'][$row]->payment_method }}</span>
+            @endif
         @endif
     @endif
 @endif

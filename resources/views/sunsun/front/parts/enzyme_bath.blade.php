@@ -4,7 +4,7 @@
             <div class="booking-field-label">
             </div>
             <div class="booking-field-content">
-                <p class="node-text text-left mt-1 mb-0">入浴時間約30分</p>
+                <p class="node-text text-left mt-1 mb-0">入浴時間約20分</p>
                 <p class="node-text text-left mb-2">(全体の滞在時間約90分)</p>
             </div>
         </div>
@@ -156,7 +156,7 @@
                 <div class="block-content-2 margin-top-mini">
                     <div class="block-content-2-left"></div>
                     <div class="block-content-2-right">
-                        <button type="button" class="btn btn-block form-control color-active text-dark" id="add-time">時間追加</button>
+                        <button type="button" class="btn btn-block form-control color-active text-dark" id="add-time">酵素浴追加</button>
                     </div>
                 </div>
             </div>
@@ -167,8 +167,10 @@
 
 <div class="booking-line font-weight-bold mt-3">
     <div class="booking-line-laber">
-        <div>オプション</div>
-        <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        <div class="line-laber">オプション</div>
+        <div class="line-button">
+            <img class="btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+        </div>
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
@@ -218,10 +220,16 @@
                 <div class="booking-field-label booking-laber-padding">
                 </div>
                 <div class="booking-field-content">
-                    <div class="node-text">Repeat</div>
+                    <div class="node-text">ご利用</div>
                     <select name="whitening_repeat" id="whitening_repeat" class="form-control">
-                        <option value='1'>New</option>
-                        <option value='0'>Repeat</option>
+                        @if(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 1))
+                            <option selected value='1'>はじめて</option>
+                            <option value='0'>リピート</option>
+                        @else
+                            <option value='1'>はじめて</option>
+                            <option selected value='0'>リピート</option>
+                        @endif
+                        
                     </select>
                 </div>
             </div>
@@ -232,8 +240,8 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'00:00～00:00' }}" />
-                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
+                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'00:00～00:00' }}"/>
                         <input name="whitening_time" class="data-json_input" id="" type="hidden" value="">
                         <input name="whitening_time_element" id="time[0][element]" type="hidden" value="js-set-time">
                     </div>
@@ -262,8 +270,10 @@
 @if(!isset($add_new_user))
     <div class="booking-line font-weight-bold mt-3">
         <div class="booking-line-laber">
-            <div>宿泊</div>
-            <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            <div class="line-laber">宿泊</div>
+            <div class="line-button">
+                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            </div>
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>

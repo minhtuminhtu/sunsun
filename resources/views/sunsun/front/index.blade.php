@@ -34,8 +34,12 @@
                                 </div>
                             </div>
                             <div class="index-field-foot">
-                                <input type="checkbox" class="form-check-input" id="confirm">
-                                <label for="confirm">上記注意事項を確認し、同意いたします。</label>
+                                <div class="checkbox-left">
+                                    <input type="checkbox" class="" id="confirm">
+                                </div>
+                                <div class="content-right">
+                                    <span>上記注意事項を確認し、同意いたします。</span>
+                                </div>
                             </div>
                         </div>
                     </div>

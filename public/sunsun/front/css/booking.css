@@ -89,7 +89,20 @@ main .index-field .index-field-head {
 }
 
 main .index-field .index-field-foot {
-  padding: 0.75vw 0.75vw 0px 2.75vw;
+  padding: 0.75vw 0.75vw 0px 2vw;
+  display: flex;
+}
+
+main .index-field .index-field-foot .checkbox-left {
+  width: 5%;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main .index-field .index-field-foot .content-right {
+  width: 95%;
 }
 
 main .index-field ol li {
@@ -562,6 +575,14 @@ label.form-check-label {
   display: flex;
 }
 
+.booking-line .booking-line-laber .line-laber {
+  width: 25%;
+}
+
+.booking-line .booking-line-laber .line-button {
+  width: 75%;
+}
+
 .booking-field-label.age-css {
   width: 25%;
 }
@@ -671,7 +692,7 @@ a.no-effect {
 }
 
 .title-table-time {
-  padding: 5px 0;
+  padding: 0.75vw 0;
 }
 
 .btn-modal-left {
