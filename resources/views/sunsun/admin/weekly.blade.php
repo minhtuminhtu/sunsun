@@ -32,9 +32,9 @@
                     </div>
                     <div class="right-content">
                         <ul>
-                            <li>〇：全床空き</li>
-                            <li>２：残床数</li>
-                            <li>×：満床</li>
+                            <li class="text-right">〇：全床空き</li>
+                            <li class="text-right">２：残床数</li>
+                            <li class="text-right">×：満床</li>
                         </ul>
                     </div>
                 </div>

@@ -31,9 +31,9 @@
                 <div class="right-content">
                     <div>
                         <ul>
-                            <li>●：全床空き</li>
-                            <li>▲：空き有</li>
-                            <li>×：満床</li>
+                            <li class="text-right">●：全床空き</li>
+                            <li class="text-right">▲：空き有</li>
+                            <li class="text-right">×：満床</li>
                         </ul>
                     </div>   
                 </div>

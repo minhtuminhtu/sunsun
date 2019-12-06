@@ -604,17 +604,28 @@ class AdminController extends Controller
     }
 
 
-    public function booking_history(Request $request){
-        $data = $request->all();
-        $booking = new BookingController();
-        $booking->fetch_kubun_data($data);
-        $data['data_booking'] = Yoyaku::where('booking_id', $data['course_history'])->first();
-        $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['course_history'])->get();
-        $data['history_booking'] = Yoyaku::where('history_id', $data['current_booking_id'])->orderBy('booking_id', 'DESC')->get();
-        $data['booking_id'] = $data['current_booking_id'];
-        // dd($data['data_booking']->booking_id);
-        return view('sunsun.admin.parts.booking',$data)->render();
-    }
+    // public function booking_history(Request $request){
+    //     $data = $request->all();
+    //     $booking = new BookingController();
+    //     $booking->fetch_kubun_data($data);
+    //     $data['data_booking'] = Yoyaku::where('booking_id', $data['course_history'])->first();
+    //     $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['course_history'])->get();
+    //     $data['history_booking'] = Yoyaku::where('history_id', $data['current_booking_id'])->orderBy('booking_id', 'DESC')->get();
+    //     $data['booking_id'] = $data['current_booking_id'];
+    //     // dd($data['data_booking']->booking_id);
+    //     return view('sunsun.admin.parts.booking',$data)->render();
+    // }
+        public function show_history(Request $request){
+            $data = $request->all();
+            $booking = new BookingController();
+            $booking->fetch_kubun_data($data);
+            $data['data_booking'] = Yoyaku::where('booking_id', $data['course_history'])->first();
+            $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['course_history'])->get();
+            $data['history_booking'] = Yoyaku::where('history_id', $data['current_booking_id'])->orderBy('booking_id', 'DESC')->get();
+            $data['booking_id'] = $data['current_booking_id'];
+            // dd($data['data_booking']->booking_id);
+            return view('sunsun.admin.parts.history',$data)->render();
+        }
 
     public function update_booking (Request $request){
         $data = $request->all();
