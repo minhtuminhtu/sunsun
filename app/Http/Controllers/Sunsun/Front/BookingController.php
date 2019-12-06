@@ -1117,7 +1117,7 @@ class BookingController extends Controller
             $dayOfTheWeek = Carbon::now()->dayOfWeek;
             $weekday = $weekMap[$dayOfTheWeek];
             
-            dd($weekday);
+            // dd($weekday);
         }
 
 
