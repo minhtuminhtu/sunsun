@@ -246,10 +246,15 @@
   width: 15%;
 }
 
+body {
+  font-size: 1vw;
+}
+
 .main-content__table {
   display: flex;
   text-align: center;
-  font-size: 0.85vw;
+  font-size: 0.75vw;
+  line-height: 170%;
 }
 
 .main-content__table .main-col__time-male {

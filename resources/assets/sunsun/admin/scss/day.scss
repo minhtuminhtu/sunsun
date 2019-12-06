@@ -207,10 +207,14 @@
         }
     }
 }
+body {
+    font-size: 1vw;
+}
 .main-content__table{
     display: flex;
     text-align: center;
-    font-size: 0.85vw;
+    font-size: 0.75vw;
+    line-height: 170%;
     .main-col__time-male{
         width: 42.3%;
         background-color: #4472c4;
