@@ -563,35 +563,6 @@ var load_pick_time_room_event = function load_pick_time_room_event() {
   var get_room = $('.js-set-room');
   get_room.off('click');
   get_room.on('click', function () {
-    var repeat_user = JSON.parse($('#repeat_user').val());
-    var transport = JSON.parse($('#transport').val());
-    var repeat_time_check = 0;
-
-    if (transport.kubun_id != '01') {
-      var bus_arrive_time_slide = JSON.parse($('#bus_arrive_time_slide').val());
-      repeat_time_check = bus_arrive_time_slide.notes;
-
-      if (repeat_user.kubun_id == '01') {
-        repeat_time_check = parseInt(repeat_time_check) + 45;
-      } else {
-        repeat_time_check = parseInt(repeat_time_check) + 30;
-      }
-
-      repeat_time_check = pad(repeat_time_check, 4);
-    }
-
-    console.log(repeat_time_check);
-    var whitening = JSON.parse($('#whitening').val());
-    console.log(whitening.kubun_id);
-
-    if (whitening.kubun_id == '02') {
-      console.log($('#whitening-time_value').val());
-
-      if ($('#whitening-time_value').val().length != 1) {
-        var whitening_check = $('#whitening-time_value').val().substr(0, 4);
-      }
-    }
-
     var set_time_click = $(this);
     var $data = $('form.booking').serializeArray();
     var $get_date = {};
@@ -604,11 +575,13 @@ var load_pick_time_room_event = function load_pick_time_room_event() {
     $.ajax({
       url: $site_url + '/book_room',
       type: 'POST',
-      data: {
-        'sex': $('select[name=date]').val(),
-        'repeat_time_check': repeat_time_check,
-        'whitening_check': whitening_check
-      },
+      data: $data
+      /*{
+      'sex': $('select[name=date]').val(),
+      'repeat_time_check' : repeat_time_check,
+      'whitening_check' : whitening_check
+      }*/
+      ,
       dataType: 'text',
       beforeSend: function beforeSend() {
         loader.css({
@@ -839,7 +812,7 @@ var load_once_time = function load_once_time() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

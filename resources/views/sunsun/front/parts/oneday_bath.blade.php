@@ -66,7 +66,9 @@
                 <div class="timedate-block set-time">
                     <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="0">
                     <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="1">
-                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00">
+                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_1">
+                    <input name="time1-view_json" class="data-json_input" id="time1-view_json" type="hidden" value="">
+                    <input name="time1-view_element" id="time1-view_element" type="hidden" value="js-view-input">
                 </div>
 
             </div>
@@ -79,7 +81,9 @@
                 <div class="timedate-block set-time">
                     <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="0">
                     <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="1">
-                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00">
+                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_2">
+                    <input name="time2-view_json" class="data-json_input" id="time2-view_json" type="hidden" value="">
+                    <input name="time2-view_element" id="time2-view_element" type="hidden" value="js-view-input">
                 </div>
 
             </div>
@@ -121,6 +125,7 @@
                 <div class="timedate-block set-time">
                     <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="" value="00:00～00:00" />
                     <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="0"/>
+                    <input type="hidden" name="whitening-json" class="data-json_input">
                 </div>
             </div>
         </div>

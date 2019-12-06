@@ -61,7 +61,7 @@ class BookingController extends Controller
         $repeat_user = json_decode($data['repeat_user'], true);
         $course = json_decode($data['course'], true);
 
-        $gender = $data['gender'];
+        //$gender = $data['gender'];
 
         $check_bus = false;
         if ($transport['kubun_id'] == config('const.db.kubun_id_value.transport.BUS') ) { // nếu đi xe bus'02'
@@ -78,7 +78,7 @@ class BookingController extends Controller
         }
 
 
-        if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL') || $course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // tắm bình thường 01
+        /*if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL') || $course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // tắm bình thường 01
             $time_customer_choice = $data['time'];
             foreach ($time_customer_choice as $key => $time) {
                 $data_json_time = json_decode($time['data-json'], true );
@@ -96,7 +96,7 @@ class BookingController extends Controller
 
                 //$error['data_json_time'] = $data_json_time;
             }
-        }
+        }*/
 
 
         return $error;
@@ -148,6 +148,10 @@ class BookingController extends Controller
             } else {
                 $info_customer['date-view-from'] = $data['plan_date_start-view'];
                 $info_customer['date-view-to'] = $data['plan_date_end-view'];
+            }
+
+            if (isset($data['date-value'])) { // Tắm bt (01),
+                $info_customer['date-value'] = $data['date-value'];
             }
         }
 
@@ -371,14 +375,14 @@ class BookingController extends Controller
     public function update_or_new_booking($data){
         //Update
         if(isset($data['booking_id'])){
-            $booking_id = $this->new_booking($data); 
+            $booking_id = $this->new_booking($data);
 
             Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
             Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
 
         //New
         }else{
-            $this->new_booking($data);  
+            $this->new_booking($data);
         }
     }
 
@@ -651,20 +655,33 @@ class BookingController extends Controller
 
     public function get_time_room(Request $request){
         $data = $request->all();
-        $kubun_type_time = config('const.db.kubun_type_value.TIME'); // 013 kubun_type
         $repeat_user = json_decode($data['repeat_user'], true);
-        $transport = json_decode($data['transport'], true);
         $gender = json_decode($data['gender'], true);
         $course = json_decode($data['course'], true);
         $data_get_attr = json_decode($data['data_get_attr'], true);
-        $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
-
         $validate_time = null;
+
+        $sections_booking = $this->get_booking($request);
+        //dd($sections_booking);
+        if (count($sections_booking) > 0) { // Th add thêm người
+            $transport = json_decode($sections_booking['transport'], true);
+            $bus_arrive_time_slide = json_decode($sections_booking['bus_arrive_time_slide'], true);
+            $day_book_time = $sections_booking['date-value'];
+            if (isset($sections_booking['date-value'])) { // date Tắm bình thường 1 day refresh
+                $day_book_time = $sections_booking['date-value'];
+            }
+        } else { // th booking mới
+            $transport = json_decode($data['transport'], true);
+            $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
+            if (isset($data['date-value'])) { // date Tắm bình thường 1 day refresh
+                $day_book_time = $data['date-value'];
+            }
+        }
+
 
         $this->fetch_kubun_data($data);
 
         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
-            $day_book_time = $data['date-value'];
             if ((count($data['time']) > 0 && isset($data_get_attr['new'])) || (count($data['time']) > 1)) {
                 $time_vali = collect($data['time'])->max('value');
                 if ($time_vali != '0') {
@@ -672,7 +689,6 @@ class BookingController extends Controller
                 }
             }
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
-            $day_book_time = $data['date-value'];
             if ($data_get_attr['date_type'] == 'shower_1' && $data['time2-value'] != '0') {
                 $validate_time = $this->plus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
             } else if ($data_get_attr['date_type'] == 'shower_2' && $data['time1-value'] != '0') {
@@ -706,6 +722,7 @@ class BookingController extends Controller
             }
         }
 
+        $kubun_type_time = config('const.db.kubun_type_value.TIME'); // 013 kubun_type
         $data_time = [];
         if($gender['kubun_id'] == '01'){ // for man
             $kubun_type_bed_male = config('const.db.kubun_type_value.bed_male'); // 017 kubun_type
@@ -734,15 +751,79 @@ class BookingController extends Controller
 
     public function book_room (Request $request) {
         $data = $request->all();
-        $this->fetch_kubun_data($data);
+        $repeat_user = json_decode($data['repeat_user'], true);
+        $transport = json_decode($data['transport'], true);
+        $course = json_decode($data['course'], true);
+        $data_get_attr = json_decode($data['data_get_attr'], true);
+        $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
+        $validate_time = null;
 
-        $data['bed'] = $data['bed_male'];
+        // check time bus
+        if ($bus_arrive_time_slide != null) {
+            $check_bus = $this->get_time_validate_bus($repeat_user, $transport, $bus_arrive_time_slide );
+            if ($check_bus !== false && $validate_time < $check_bus) {
+                $validate_time = $check_bus;
+            }
+        }
+        // dd($data);
+        $time_kubun_type_book_room = config('const.db.kubun_type_value.TIME_BOOK_ROOM'); //014
+        $kubun_type_bed_male = config('const.db.kubun_type_value.bed_male'); // 017
+        $data_time_room = $this->get_time_booking_all_room($time_kubun_type_book_room, $kubun_type_bed_male, $validate_time);
+        $tmp_time_room = [];
+        foreach ($data_time_room as $key => $time_room) {
+            $tmp_time_room[$time_room->kubun_id][] = $time_room;
+        }
+        //dd($tmp_time_wt);
+        $data_time['time_book_all_room'] = $tmp_time_room;
+        $MsKubun = MsKubun::all();
+        $data_time['beds'] = $MsKubun->where('kubun_type','017')->sortBy('sort_no');
+        return view('sunsun.front.parts.booking_room',$data_time)->render();
 
-        return view('sunsun.front.parts.booking_room',
-            [
-                'data' => $data
-            ])
-            ->render();
+    }
+
+    public function get_time_booking_all_room ($time_kubun_type, $room_kubun_type, $time_bath = null) {
+        $data_sql = [
+            'time_kubun_type' => $time_kubun_type,
+            'room_kubun_type' => $room_kubun_type,
+            'bed_male' => '017',
+            'bed_female' => '018'
+        ];
+        if ($time_bath !== null) {
+            $data_sql['time_bath'] = $time_bath;
+        }
+        $sql_select = "
+                -- SELECT time & room
+               SELECT 
+                mk1.* 
+                , mk2.kubun_id as kubun_id_room
+                , mk2.kubun_value as kubun_value_room
+                , mk2.notes as notes_room
+                , SUBSTRING(mk1.notes, 11) as user_type
+                , SUBSTRING(mk1.notes, 1, 4) as time_start
+                , SUBSTRING(mk1.notes, 6, 4) as end_time
+                , CASE
+                    WHEN mk2.kubun_type = :bed_male THEN 'male'
+                    WHEN mk2.kubun_type = :bed_female THEN 'female'
+                    ELSE 'other'
+                    END as gender
+                , mk2.kubun_type as gender_type
+        ";
+        if ($time_bath !== null) {
+            $sql_select .= "
+                 , CASE
+                    WHEN mk1.notes > :time_bath THEN 1
+                    ELSE 0
+                    END as status_time_validate
+            ";
+        }
+        $sql = "$sql_select
+            FROM ms_kubun mk1
+            INNER JOIN ms_kubun mk2 ON mk2.kubun_type = :room_kubun_type
+            WHERE mk1.kubun_type = :time_kubun_type
+            ORDER BY  mk2.sort_no, mk1.sort_no
+        ";
+
+        return DB::select($sql, $data_sql);
     }
 
     /**
@@ -755,6 +836,8 @@ class BookingController extends Controller
         $data_sql = [
             'time_kubun_type' => $time_kubun_type,
             'room_kubun_type' => $room_kubun_type,
+            'bed_male' => '017',
+            'bed_female' => '018'
         ];
         if ($time_bath !== null) {
             $data_sql['time_bath'] = $time_bath;
@@ -764,8 +847,15 @@ class BookingController extends Controller
                SELECT 
                 mk1.* 
                 , mk2.kubun_id as kubun_id_room
-                ,  mk2.kubun_value as kubun_value_room
+                , mk2.kubun_value as kubun_value_room
                 , mk2.notes as notes_room
+                , CASE
+                    WHEN mk2.kubun_type = :bed_male THEN 'male'
+                    WHEN mk2.kubun_type = :bed_female THEN 'female'
+                    ELSE 'other'
+                    END as gender
+                , mk2.kubun_type as gender_type
+                
         ";
         if ($time_bath !== null) {
             $sql_select .= "
@@ -837,6 +927,8 @@ class BookingController extends Controller
         $data_sql = [
             'time_kubun_type' => $time_kubun_type,
             'room_kubun_type' => $room_kubun_type,
+            'bed_male' => '017',
+            'bed_female' => '018'
         ];
         if ($time_bath !== null) {
             $data_sql['time_bath'] = $time_bath;
@@ -854,6 +946,12 @@ class BookingController extends Controller
                 , SUBSTRING(mk1.notes, 11) as user_type
                 , SUBSTRING(mk1.notes, 1, 4) as time_start
                 , SUBSTRING(mk1.notes, 6, 4) as end_time
+                , CASE
+                    WHEN mk2.kubun_type = :bed_male THEN 'male'
+                    WHEN mk2.kubun_type = :bed_female THEN 'female'
+                    ELSE 'other'
+                    END as gender
+                , mk2.kubun_type as gender_type
         ";
         if ($time_bath !== null) {
             $sql_select .= "
@@ -908,6 +1006,8 @@ class BookingController extends Controller
         $data_sql = [
             'time_kubun_type' => $time_kubun_type,
             'room_kubun_type' => $room_kubun_type,
+            'bed_male' => '017',
+            'bed_female' => '018'
         ];
         if ($time_bath !== null) {
             $data_sql['time_bath'] = $time_bath;
@@ -921,6 +1021,12 @@ class BookingController extends Controller
                 , mk2.notes as notes_room
                 , SUBSTRING(mk1.notes, 1, 4) as time_start
                 , SUBSTRING(mk1.notes, 6, 4) as end_time
+                , CASE
+                    WHEN mk2.kubun_type = :bed_male THEN 'male'
+                    WHEN mk2.kubun_type = :bed_female THEN 'female'
+                    ELSE 'other'
+                    END as gender
+                , mk2.kubun_type as gender_type
         ";
         if ($time_bath !== null) {
             $sql_select .= "
