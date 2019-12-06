@@ -544,7 +544,7 @@ class AdminController extends Controller
             $data['history_booking'] = Yoyaku::where('history_id', $data['booking_id'])->orderBy('booking_id', 'DESC')->get();
         }else{
             $data['data_booking'] = [];
-            $data['data_time'] = [];
+            $data['data_time'] =  [];
             $data['booking_id'] = NULL;
         }
         // dd($data);
