@@ -218,10 +218,10 @@
                 <div class="booking-field-label booking-laber-padding">
                 </div>
                 <div class="booking-field-content">
-                    <div class="node-text">Repeat</div>
+                    <div class="node-text">ご利用</div>
                     <select name="whitening_repeat" id="whitening_repeat" class="form-control">
-                        <option value='1'>New</option>
-                        <option value='0'>Repeat</option>
+                        <option value='1'>はじめて</option>
+                        <option value='0'>リピート</option>
                     </select>
                 </div>
             </div>
