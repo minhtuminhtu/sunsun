@@ -409,21 +409,16 @@
 .modal-content.modal-time {
     margin-right: 1.5vw;
 }
-input#range_date_start {
-    width: 12.5vw;
+.date-range_block_left {
+    width: 100%;
 }
-input#range_date_end {
-    width: 12.5vw;
+.date-range_block_center {
+    width: 10%;
 }
-input#plan_date_start{
-    width: 12.5vw;
+.date-range_block_right {
+    width: 100%;
 }
-input#plan_date_end{
-    width: 12.5vw;
-}
-.choice-time .choice-data-time > div input {
-    width: 8.5vw !important;
-}
+
 .main-col__item.main-col__data.bg-free {
     cursor: unset;
 }

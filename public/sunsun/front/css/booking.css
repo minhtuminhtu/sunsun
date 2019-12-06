@@ -51,20 +51,18 @@ a:hover {
   padding-right: 10px;
 }
 
-.choice-time .choice-data-time {
-  float: left;
+.booking-field-content.date-time {
+  display: flex;
 }
 
-.choice-time .choice-data-time > div {
-  float: left;
-}
-
-.choice-time .choice-data-time > div input {
-  width: 9vw;
+.time-start {
+  width: 100%;
+  margin-right: 0.5vw;
 }
 
 .time-end {
-  float: right !important;
+  width: 100%;
+  margin-left: 0.5vw;
 }
 
 main .main-body-head h1 {

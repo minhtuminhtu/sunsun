@@ -985,6 +985,15 @@ class BookingController extends Controller
             $data['course_time'] = json_decode($data['course_time'], true);
         }
 
+        $data['course_data'] = json_decode($data['course_data'], true);
+
+        if(isset( $data['course_data']['whitening_time'])){
+            $data['course_data']['whitening_time'] =    substr($data['course_data']['whitening_time'], 0, 2) . ":" .
+                                                        substr($data['course_data']['whitening_time'], 2, 2) . "～".
+                                                        substr($data['course_data']['whitening_time'], 5, 2) . ":".
+                                                        substr($data['course_data']['whitening_time'], 7, 2);
+        }
+
 
 
         if ($json->kubun_id == "01") {

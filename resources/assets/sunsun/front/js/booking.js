@@ -400,7 +400,7 @@ $(function() {
                 '<input name="date['+ 0 +'][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" >' +
                 '<input name="date['+ 0 +'][day][value]" value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" type="hidden" >' +
                 '</div>    <div class="booking-field-content date-time">' +
-                '<div class="choice-data-time set-time">    ' +
+                '<div class="choice-data-time set-time time-start">    ' +
                 '<div class="set-time">' +
                 '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
                 '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
@@ -421,7 +421,7 @@ $(function() {
                 '<label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label>' +
                 '<input name="date['+ 1 +'][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" >' +
                 '<input name="date['+ 1 +'][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
-                '<div class="choice-data-time set-time">    <div class="set-time">' +
+                '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
                 '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
                 '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
                 '<input name="date['+ 1 +'][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="00:00" />   ' +
@@ -445,7 +445,7 @@ $(function() {
                     '<div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label>' +
                     '<input name="date['+ index +'][day][view]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" >' +
                     '<input name="date['+ index +'][day][value]" value="' + year + month +  day +'" type="hidden" ></div>   ' +
-                    ' <div class="booking-field-content date-time"><div class="choice-data-time set-time">    <div class="set-time">' +
+                    ' <div class="booking-field-content date-time"><div class="choice-data-time set-time time-start">    <div class="set-time">' +
                     '<input name="date['+ index +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
                     '<input name="date['+ index +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
                     '<input name="date['+ index +'][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="' + year + month +  day +'" data-date_type="form"  readonly="readonly"  value="00:00" />    ' +
