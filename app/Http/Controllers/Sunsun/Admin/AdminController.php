@@ -155,6 +155,7 @@ class AdminController extends Controller
                   , main.bus_arrive_time_slide
                   , main.pick_up
                   , main.lunch
+                  , main.lunch_guest_num
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
@@ -184,6 +185,7 @@ class AdminController extends Controller
                     , main.bus_arrive_time_slide
                     , main.pick_up
                     , main.lunch
+                    , main.lunch_guest_num
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
@@ -211,6 +213,7 @@ class AdminController extends Controller
                     , NULL as bus_arrive_time_slide
                     , NULL as pick_up
                     , NULL as lunch
+                    , main.lunch_guest_num
                     , NULL as whitening
                     , NULL as pet_keeping
                     , NULL as stay_room_type
@@ -238,6 +241,7 @@ class AdminController extends Controller
                     , main.bus_arrive_time_slide
                     , main.pick_up
                     , main.lunch
+                    , main.lunch_guest_num
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
@@ -265,6 +269,7 @@ class AdminController extends Controller
                   , main.bus_arrive_time_slide
                   , main.pick_up
                   , main.lunch
+                  , main.lunch_guest_num
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
@@ -294,6 +299,7 @@ class AdminController extends Controller
                   , NULL as bus_arrive_time_slide
                   , NULL as pick_up
                   , NULL as lunch
+                  , main.lunch_guest_num
                   , NULL as whitening
                   , NULL as pet_keeping
                   , NULL as stay_room_type
@@ -374,10 +380,12 @@ class AdminController extends Controller
                 }
             }
 
-            switch($course_1_to_4[$i]->lunch){
-                case '01': $course_1_to_4[$i]->lunch = NULL; break;
-                case '02': $course_1_to_4[$i]->lunch = '昼食'; break;
+            if(((isset($course_1_to_4[$i]->lunch)) && ($course_1_to_4[$i]->lunch != '01')) || ((isset($course_1_to_4[$i]->lunch_guest_num)) && ($course_1_to_4[$i]->lunch_guest_num != '01'))){
+                $course_1_to_4[$i]->lunch = '昼食';
+            }else{
+                $course_1_to_4[$i]->lunch = NULL;
             }
+            
             switch($course_1_to_4[$i]->whitening){
                 case '01': $course_1_to_4[$i]->whitening = NULL; break;
                 case '02': $course_1_to_4[$i]->whitening = '歯白'; break;

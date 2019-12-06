@@ -54,10 +54,12 @@
 
 
         @php
-            $time1 = substr($course_data['service_time_1'], 0, 2) . ":" . substr($course_data['service_time_1'], 2, 2);
-            $time2 = substr($course_data['service_time_2'], 0, 2) . ":" . substr($course_data['service_time_2'], 2, 2);
-            $bed1 = substr($course_data['bed'], 0, 1);
-            $bed2 = substr($course_data['bed'], 2, 1);
+            if(isset($course_data['service_time_1'])){
+                $time1 = substr($course_data['service_time_1'], 0, 2) . ":" . substr($course_data['service_time_1'], 2, 2);
+                $time2 = substr($course_data['service_time_2'], 0, 2) . ":" . substr($course_data['service_time_2'], 2, 2);
+                $bed1 = substr($course_data['bed'], 0, 1);
+                $bed2 = substr($course_data['bed'], 2, 1);
+            }
         @endphp
         
         <div class="booking-field">

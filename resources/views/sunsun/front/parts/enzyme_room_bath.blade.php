@@ -1,6 +1,12 @@
 <div class="booking-block">
     <div class="collapse collapse-top show" id="">
         @if(!isset($add_new_user))
+            @php
+                $booking_date = '';
+                if(isset($course_data['service_date_start'])){
+                    $booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
+                }
+            @endphp
             <input name="date-view" id="date-view" type="hidden" value="">
             <input name="date-value" id="date-value" type="hidden" value="">
             <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
@@ -9,11 +15,17 @@
                 </div>
                 <div class="booking-field-content">
                     <div class="timedate-block date-warp">
-                        <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="" />
+                        <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="{{ $booking_date }}" />
                     </div>
                 </div>
             </div>
         @endif
+        @php
+            if(isset($course_data['service_time_1'])){
+                $time = ltrim(substr($course_data['service_time_1'], 0, 2), '0') . ":" . substr($course_data['service_time_1'], 2, 2);
+                $bed = substr($course_data['bed'], 0, 1);
+            }
+        @endphp
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
                 <p class="text-left pt-2">{{config('booking.time.label')}}</p>
@@ -22,9 +34,9 @@
             <input name="time-value" id="time-value" type="hidden" value="1230">
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
-                    <input name="time_room_value" id="time_room_value" type="hidden" value="0">
-                    <input name="time_room_bed" id="time_room_bed" type="hidden" value="1">
-                    <input name="time_room_view" type="text" class="form-control time js-set-room bg-white"  readonly="readonly" id="" value="00:00～">
+                    <input name="time_room_value" id="time_room_value" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
+                    <input name="time_room_bed" id="time_room_bed" type="hidden" value="{{ isset($bed)?$bed:'0' }}">
+                    <input name="time_room_view" type="text" class="form-control time js-set-room bg-white"  readonly="readonly" id="" value="{{ isset($time)?$time.'～':'00:00～' }}">
                     <input type="hidden" name="time_room_json" class="data-json_input">
                 </div>
 
