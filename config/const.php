@@ -91,6 +91,7 @@ return [
             'course' => '005',
             'gender' => '006',
             'TIME' => '013',
+            'TIME_BOOK_ROOM' => '014',
             'bed_male' => '017',
             'bed_female' => '018',
             'bed_pet' => '019',

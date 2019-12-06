@@ -28,6 +28,7 @@
                     <input name="time_room_value" id="time_room_value" type="hidden" value="0">
                     <input name="time_room_bed" id="time_room_bed" type="hidden" value="1">
                     <input name="time_room_view" type="text" class="form-control time js-set-room bg-white"  readonly="readonly" id="" value="00:00～">
+                    <input type="hidden" name="time_room_json" class="data-json_input">
                 </div>
 
             </div>

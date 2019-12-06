@@ -524,33 +524,6 @@ let load_pick_time_room_event = function(){
     get_room.off('click');
     get_room.on('click', function() {
 
-
-        var repeat_user = JSON.parse($('#repeat_user').val());
-        var transport = JSON.parse($('#transport').val());
-        var repeat_time_check = 0;
-
-        if(transport.kubun_id != '01'){
-            var bus_arrive_time_slide = JSON.parse($('#bus_arrive_time_slide').val());
-            repeat_time_check = bus_arrive_time_slide.notes;
-            if(repeat_user.kubun_id == '01'){
-                repeat_time_check = parseInt(repeat_time_check) + 45;
-            }else{
-                repeat_time_check = parseInt(repeat_time_check) + 30;
-            }
-            repeat_time_check = pad(repeat_time_check, 4);
-        }
-
-        console.log(repeat_time_check);
-
-        var whitening = JSON.parse($('#whitening').val());
-        console.log(whitening.kubun_id);
-        if(whitening.kubun_id == '02'){
-            console.log($('#whitening-time_value').val());
-            if($('#whitening-time_value').val().length != 1){
-                var whitening_check = $('#whitening-time_value').val().substr(0, 4);
-            }
-        }
-
         let set_time_click = $(this);
         let $data = $('form.booking').serializeArray();
         let $get_date = {};
@@ -563,11 +536,11 @@ let load_pick_time_room_event = function(){
         $.ajax({
             url: $site_url +'/book_room',
             type: 'POST',
-            data: {
+            data: $data /*{
                 'sex': $('select[name=date]').val(),
                 'repeat_time_check' : repeat_time_check,
                 'whitening_check' : whitening_check
-            },
+            }*/,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
