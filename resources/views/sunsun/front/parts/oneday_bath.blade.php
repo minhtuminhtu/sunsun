@@ -51,6 +51,15 @@
                 </div>
             </div>
         @endif
+
+
+        @php
+            $time1 = substr($course_data['service_time_1'], 0, 2) . ":" . substr($course_data['service_time_1'], 2, 2);
+            $time2 = substr($course_data['service_time_2'], 0, 2) . ":" . substr($course_data['service_time_2'], 2, 2);
+            $bed1 = substr($course_data['bed'], 0, 1);
+            $bed2 = substr($course_data['bed'], 2, 1);
+        @endphp
+        
         <div class="booking-field">
             <div class="booking-laber-padding">
                 <p class="text-left pt-2 mb-0">{{config('booking.time.label')}}</p>
@@ -64,9 +73,9 @@
 
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
-                    <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="0">
-                    <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="1">
-                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_1">
+                    <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
+                    <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="{{ isset($bed1)?$bed1:'0' }}">
+                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="{{ isset($time1)?$time1:'00:00' }}" data-date_type="shower_1">
                     <input name="time1-view_json" class="data-json_input" id="time1-view_json" type="hidden" value="">
                     <input name="time1-view_element" id="time1-view_element" type="hidden" value="js-view-input">
                 </div>
@@ -79,9 +88,9 @@
             </div>
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
-                    <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="0">
-                    <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="1">
-                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="00:00" data-date_type="shower_2">
+                    <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_2'])?$course_data['service_time_2']:'0' }}">
+                    <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="{{ isset($bed2)?$bed2:'0' }}">
+                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="" value="{{ isset($time2)?$time2:'00:00' }}" data-date_type="shower_2">
                     <input name="time2-view_json" class="data-json_input" id="time2-view_json" type="hidden" value="">
                     <input name="time2-view_element" id="time2-view_element" type="hidden" value="js-view-input">
                 </div>
@@ -203,7 +212,7 @@
                     $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
                 }
             @endphp
-            <div class="booking-field room" style="display:none;">
+            <div class="booking-field room" @if($room_whitening) style="display:none;" @endif>
                 <div class="booking-field-label  booking-laber-padding">
                     <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
                 </div>
@@ -219,15 +228,15 @@
                     </select>
                 </div>
             </div>
-            <div class="booking-field room"  style="display:none;">
+            <div class="booking-field room"  @if($room_whitening) style="display:none;" @endif>
                 <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
                 <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
-                <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">
-                <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="">
+                <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="{{ isset($course_data['stay_checkin_date'])?$course_data['stay_checkin_date']:'' }}">
+                <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="{{ isset($course_data['stay_checkout_date'])?$course_data['stay_checkout_date']:'' }}">
                 <div class="booking-field booking-room input-daterange  date-range_block" id="choice-range-day">
                     <div class="field-start-day  date-range_block_left">
                         <p class="node-text">{{config('booking.range_date.checkin')}}</p>
-                        <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="">
+                        <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start"  value="{{ isset($range_date_start)?$range_date_start:'' }}">
                     </div>
                     <div class=" date-range_block_center">
                         <p>&nbsp;</p>
@@ -235,11 +244,11 @@
                     </div>
                     <div class="field-end-day  date-range_block_right">
                         <p class="node-text">{{config('booking.range_date.checkout')}}</p>
-                        <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="">
+                        <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end"  value="{{ isset($range_date_end)?$range_date_end:'' }}">
                     </div>
                 </div>
             </div>
-            <div class="booking-field room" style="display:none;">
+            <div class="booking-field room" @if($room_whitening) style="display:none;" @endif>
                 <div class="booking-field-label booking-laber-padding">
                     <p class="text-left pt-2">モーニング</p>
                 </div>

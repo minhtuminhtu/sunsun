@@ -90,7 +90,29 @@
                 </select>
             </div>
         </div>
-        <div class="booking-field whitening" style="display:none;">
+        @php
+            $display_whitening = true;
+            if(isset($course_data["whitening"]) && ($course_data['whitening'] == '02')){
+                $display_whitening = false;
+            }
+        @endphp
+        <div class="booking-field whitening"  @if($display_whitening) style="display:none;" @endif>
+            <div class="booking-field-label booking-laber-padding">
+            </div>
+            <div class="booking-field-content">
+                <div class="node-text">ご利用</div>
+                <select name="whitening_repeat" id="whitening_repeat" class="form-control">
+                    @if(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 1))
+                        <option selected value='1'>はじめて</option>
+                        <option value='0'>リピート</option>
+                    @else
+                        <option value='1'>はじめて</option>
+                        <option selected value='0'>リピート</option>
+                    @endif
+                </select>
+            </div>
+        </div>
+        <div class="booking-field whitening" @if($display_whitening) style="display:none;" @endif>
             <div class="booking-field-label booking-laber-padding">
 
             </div>
