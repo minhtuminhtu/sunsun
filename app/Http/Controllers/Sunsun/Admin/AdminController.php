@@ -158,6 +158,7 @@ class AdminController extends Controller
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
+                  , main.stay_guest_num
                   , main.breakfast
                   , main.phone
                   , main.payment_method
@@ -186,6 +187,7 @@ class AdminController extends Controller
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
+                    , main.stay_guest_num
                     , main.breakfast
                     , main.phone
                     , main.payment_method
@@ -212,6 +214,7 @@ class AdminController extends Controller
                     , NULL as whitening
                     , NULL as pet_keeping
                     , NULL as stay_room_type
+                    , main.stay_guest_num
                     , NULL as breakfast
                     , NULL as phone
                     , NULL as payment_method
@@ -238,6 +241,7 @@ class AdminController extends Controller
                     , main.whitening
                     , main.pet_keeping
                     , main.stay_room_type
+                    , main.stay_guest_num
                     , main.breakfast
                     , main.phone
                     , main.payment_method
@@ -264,6 +268,7 @@ class AdminController extends Controller
                   , main.whitening
                   , main.pet_keeping
                   , main.stay_room_type
+                  , main.stay_guest_num
                   , main.breakfast
                   , main.phone
                   , main.payment_method
@@ -292,6 +297,7 @@ class AdminController extends Controller
                   , NULL as whitening
                   , NULL as pet_keeping
                   , NULL as stay_room_type
+                  , main.stay_guest_num
                   , NULL as breakfast
                   , NULL as phone
                   , NULL as payment_method
@@ -398,6 +404,24 @@ class AdminController extends Controller
                     break;
                 } 
             }
+            switch($course_1_to_4[$i]->stay_guest_num){
+                case '01': {
+                    $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$course_1_to_4[$i]->stay_guest_num)->first();
+                    $course_1_to_4[$i]->stay_guest_num =  $temp_kubun->notes;
+                    break;
+                } 
+                case '02': {
+                    $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$course_1_to_4[$i]->stay_guest_num)->first();
+                    $course_1_to_4[$i]->stay_guest_num =  $temp_kubun->notes;
+                    break;
+                } 
+                case '03': {
+                    $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$course_1_to_4[$i]->stay_guest_num)->first();
+                    $course_1_to_4[$i]->stay_guest_num =  $temp_kubun->notes;
+                    break;
+                } 
+            }
+
             switch($course_1_to_4[$i]->breakfast){
                 case '01': $course_1_to_4[$i]->breakfast = NULL; break;
                 case '02': $course_1_to_4[$i]->breakfast = '朝食有'; break;

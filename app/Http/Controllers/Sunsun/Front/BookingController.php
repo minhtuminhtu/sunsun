@@ -499,7 +499,12 @@ class BookingController extends Controller
 
             $Yoyaku->gender = $gender->kubun_id;
             $Yoyaku->age_type = $age_type;
-            $Yoyaku->age_value = $age_value;
+            if($age_type == 3){
+                $Yoyaku->age_value = $age_value;
+            }else{
+                $Yoyaku->age_value = NULL;
+            }
+           
             $Yoyaku->bed = $bed;
             $Yoyaku->lunch = $lunch->kubun_id;
             $Yoyaku->whitening = $whitening->kubun_id;

@@ -50,7 +50,7 @@
             <span>{{ $time['data'][$row]->pet_keeping }}</span>
             @if(!isset($time['data'][$row]->ref_booking_id))
                 @if(isset($time['data'][$row]->stay_room_type))
-                    <span>宿泊{{ $time['data'][$row]->stay_room_type }}</span>
+                    <span>宿泊{{ $time['data'][$row]->stay_room_type }}({{ $time['data'][$row]->stay_guest_num }})</span>
                     @if(isset($time['data'][$row]->breakfast))
                         {{ $time['data'][$row]->breakfast }}
                     @endif
