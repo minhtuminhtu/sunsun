@@ -229,7 +229,7 @@
                             <option value='1'>はじめて</option>
                             <option selected value='0'>リピート</option>
                         @endif
-                        
+
                     </select>
                 </div>
             </div>
@@ -240,10 +240,10 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
-                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'00:00～00:00' }}"/>
-                        <input name="whitening_time" class="data-json_input" id="" type="hidden" value="">
-                        <input name="whitening_time_element" id="time[0][element]" type="hidden" value="js-set-time">
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="whitening-time_view"  value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
+                        <input name='whitening-time_value' type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'00:00～00:00' }}"/>
+                        <input name="whitening_data[json]" class="data-json_input" id="" type="hidden" value="">
+                        <input name="whitening_data[element]" id="" type="hidden" value="whitening-time_view">
                     </div>
                 </div>
             </div>

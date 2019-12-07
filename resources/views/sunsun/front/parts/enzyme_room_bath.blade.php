@@ -135,9 +135,10 @@
             <div class="booking-field-content">
                 <div class="node-text">ホワイトニング時間</div>
                 <div class="timedate-block set-time">
-                    <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
-                    <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
-                    <input type="hidden" name="data-json-white" class="data-json_input">
+                    <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"   readonly="readonly" id="" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
+                    <input name='whitening-time_value' type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
+                    <input name="whitening_data[json]" class="data-json_input" id="" type="hidden" value="">
+                    <input name="whitening_data[element]" id="" type="hidden" value="whitening-time_view">
                 </div>
             </div>
         </div>
