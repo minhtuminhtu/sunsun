@@ -34,6 +34,8 @@ $(function () {
         current_day.find('input').trigger("input");
     });
     let booking_edit = $('#edit_booking');
+    
+    
     let show_booking = function (booking_id) {
         $.ajax({
             url: '/admin/edit_booking',
@@ -105,29 +107,30 @@ $(function () {
         });
     })
 
-    $('#edit_booking').on('click','.show_history',function (e) {
-        e.preventDefault();
-        let current_booking_id = $('#edit_booking').find("#booking_id").val();
-        let show_history = $('#history_modal');
-        $.ajax({
-            url: $site_url +'/admin/show_history',
-            type: 'POST',
-            data: {
-                'booking_id' : current_booking_id
-            },
-            dataType: 'text',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (html) {
-                booking_edit.find('.modal-body-history').html(html);
-                show_history.modal('show'); 
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-        });
-    })
+
+    // $('#edit_booking').on('click','.show_history',function (e) {
+    //     e.preventDefault();
+    //     let current_booking_id = $('#edit_booking').find("#booking_id").val();
+    //     let show_history = $('#history_modal');
+    //     $.ajax({
+    //         url: $site_url +'/admin/show_history',
+    //         type: 'POST',
+    //         data: {
+    //             'booking_id' : current_booking_id
+    //         },
+    //         dataType: 'text',
+    //         beforeSend: function () {
+    //             loader.css({'display': 'block'});
+    //         },
+    //         success: function (html) {
+    //             $('#modal_second').find('.modal_second-body').html(html);
+    //             $('#modal_second').modal('show'); 
+    //         },
+    //         complete: function () {
+    //             loader.css({'display': 'none'});
+    //         },
+    //     });
+    // })
 
     $('#edit_booking').on('change','#course_history',function (e) {
         let current_booking_id = $('#edit_booking').find("#booking_id").val();

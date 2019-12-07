@@ -617,12 +617,118 @@ class AdminController extends Controller
     // }
         public function show_history(Request $request){
             $data = $request->all();
-            $booking = new BookingController();
-            $booking->fetch_kubun_data($data);
-            $data['data_booking'] = Yoyaku::where('booking_id', $data['course_history'])->first();
-            $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['course_history'])->get();
-            $data['history_booking'] = Yoyaku::where('history_id', $data['current_booking_id'])->orderBy('booking_id', 'DESC')->get();
-            $data['booking_id'] = $data['current_booking_id'];
+            
+            // $booking = new BookingController();
+            // $booking->fetch_kubun_data($data);
+            // $data['data_booking'] = Yoyaku::where('booking_id', $data['booking_id'])->first();
+            $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['booking_id'])->get();
+            $history_booking = Yoyaku::where('history_id', $data['booking_id'])->orderBy('booking_id', 'DESC')->get();
+
+
+            $history_booking = collect($history_booking);
+            
+            for($i = 0; $i < count($history_booking); $i++){
+                switch($history_booking[$i]->course){
+                    case '01': $history_booking[$i]->course = '入浴'; break;
+                    case '02': $history_booking[$i]->course = 'リ'; break;
+                    case '03': $history_booking[$i]->course = '貸切'; break;
+                    case '04': $history_booking[$i]->course = '断食'; break;
+                }
+                switch($history_booking[$i]->repeat_user){
+                    case '01': $history_booking[$i]->repeat_user = '新規'; break;
+                    case '02': $history_booking[$i]->repeat_user = NULL; break;
+                }
+                switch($history_booking[$i]->gender){
+                    case '01': $history_booking[$i]->gender = '男性'; break;
+                    case '02': $history_booking[$i]->gender = '女性'; break;
+                }
+
+                
+                switch($history_booking[$i]->transport){
+                    case '01': {
+                        $history_booking[$i]->transport = '車';
+                        $history_booking[$i]->bus_arrive_time_slide = NULL;
+                        $history_booking[$i]->pick_up = NULL;
+                        break;
+                    }
+                    case '02': {
+                        $history_booking[$i]->transport = 'バス';
+                        $bus_slide = MsKubun::where('kubun_type','003')->where('kubun_id',$history_booking[$i]->bus_arrive_time_slide)->first();
+                        $history_booking[$i]->bus_arrive_time_slide = ltrim(explode("着", $bus_slide->kubun_value)[0], '0')."着";
+                        
+                        switch($history_booking[$i]->pick_up){
+                            case '01': $history_booking[$i]->pick_up = '送迎有'; break;
+                            case '02': $history_booking[$i]->pick_up = NULL; break;
+                        }
+                        break;
+                    }
+                }
+    
+                if(((isset($history_booking[$i]->lunch)) && ($history_booking[$i]->lunch != '01')) || ((isset($history_booking[$i]->lunch_guest_num)) && ($history_booking[$i]->lunch_guest_num != '01'))){
+                    $history_booking[$i]->lunch = '昼食';
+                }else{
+                    $history_booking[$i]->lunch = NULL;
+                }
+                
+                switch($history_booking[$i]->whitening){
+                    case '01': $history_booking[$i]->whitening = NULL; break;
+                    case '02': $history_booking[$i]->whitening = '歯白'; break;
+                }
+                switch($history_booking[$i]->pet_keeping){
+                    case '01': $history_booking[$i]->pet_keeping = NULL; break;
+                    case '02': $history_booking[$i]->pet_keeping = 'Pet'; break;
+                }
+                switch($history_booking[$i]->stay_room_type){
+                    case '01': $history_booking[$i]->stay_room_type = NULL; break;
+                    case '02': {
+                        $temp_kubun = MsKubun::where('kubun_type','011')->where('kubun_id',$history_booking[$i]->stay_room_type)->first();
+                        $history_booking[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
+                        break;
+                    } 
+                    case '03': {
+                        $temp_kubun = MsKubun::where('kubun_type','011')->where('kubun_id',$history_booking[$i]->stay_room_type)->first();
+                        $history_booking[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
+                        break;
+                    } 
+                    case '04': {
+                        $temp_kubun = MsKubun::where('kubun_type','011')->where('kubun_id',$history_booking[$i]->stay_room_type)->first();
+                        $history_booking[$i]->stay_room_type =  substr($temp_kubun->kubun_value, 0, 1);
+                        break;
+                    } 
+                }
+                switch($history_booking[$i]->stay_guest_num){
+                    case '01': {
+                        $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$history_booking[$i]->stay_guest_num)->first();
+                        $history_booking[$i]->stay_guest_num =  $temp_kubun->notes;
+                        break;
+                    } 
+                    case '02': {
+                        $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$history_booking[$i]->stay_guest_num)->first();
+                        $history_booking[$i]->stay_guest_num =  $temp_kubun->notes;
+                        break;
+                    } 
+                    case '03': {
+                        $temp_kubun = MsKubun::where('kubun_type','012')->where('kubun_id',$history_booking[$i]->stay_guest_num)->first();
+                        $history_booking[$i]->stay_guest_num =  $temp_kubun->notes;
+                        break;
+                    } 
+                }
+    
+                switch($history_booking[$i]->breakfast){
+                    case '01': $history_booking[$i]->breakfast = NULL; break;
+                    case '02': $history_booking[$i]->breakfast = '朝食有'; break;
+                }
+               
+                switch($history_booking[$i]->payment_method){
+                    case '1': $history_booking[$i]->payment_method = 'クレカ'; break;
+                    case '2': $history_booking[$i]->payment_method = '現金'; break;
+                    case '3': $history_booking[$i]->payment_method = '回数券'; break;
+                }
+            }
+
+            $data['history_booking'] =  $history_booking;
+
+            // dd($data);
             // dd($data['data_booking']->booking_id);
             return view('sunsun.admin.parts.history',$data)->render();
         }

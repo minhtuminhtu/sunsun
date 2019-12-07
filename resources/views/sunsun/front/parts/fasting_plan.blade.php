@@ -163,22 +163,24 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="booking-block-between">
-    <div class="collapse collapse-between show" id="">
-        <div class="booking-field">
-            <div class="booking-field-label  booking-laber-padding">
-                <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
-            </div>
-            <div class="booking-field-content">
-                <select name="pet_keeping" class="form-control">
-                    @foreach($pet_keeping as $value)
-                        @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
-                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                        @else
-                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                        @endif
-                    @endforeach
-                </select>
+<div class="collapse collapse-between show" id="">
+    <div class="booking-block-between">
+        <div class="" id="">
+            <div class="booking-field">
+                <div class="booking-field-label  booking-laber-padding">
+                    <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
+                </div>
+                <div class="booking-field-content">
+                    <select name="pet_keeping" class="form-control">
+                        @foreach($pet_keeping as $value)
+                            @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
+                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @else
+                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -193,67 +195,69 @@
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
-    <div class="booking-block-finish">
-        <div class="collapse collapse-finish show" id="">
-            <div class="booking-field">
-                <div class="booking-field-label  booking-laber-padding">
-                    <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
-                </div>
-                <div class="booking-field-content">
-                    <select name="stay_room_type" id="room" class="form-control">
-                        @foreach($stay_room_type as $value)
-                            @if(isset($course_data['stay_room_type']) && ($value->kubun_id == $course_data['stay_room_type']))
-                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @else
-                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            @php
-                $room_whitening = true;
-                if(isset($course_data["stay_room_type"]) && ($course_data['stay_room_type'] != '01')){
-                    $room_whitening = false;
-                    $range_date_start= substr($course_data['stay_checkin_date'], 0, 4).'/'.substr($course_data['stay_checkin_date'], 4, 2).'/'.substr($course_data['stay_checkin_date'], 6, 2);
-                    $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
-                }
-            @endphp
-            <div class="booking-field room" @if($room_whitening) style="display:none;" @endif>
-                <div class="booking-field-label  booking-laber-padding">
-                    <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
-                </div>
-                <div class="booking-field-content">
-                    <select name="stay_guest_num" class="form-control">
-                        @foreach($stay_guest_num as $value)
-                            @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
-                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @else
-                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="booking-field room"  @if($room_whitening) style="display:none;" @endif>
-                <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
-                <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
-                <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="{{ isset($course_data['stay_checkin_date'])?$course_data['stay_checkin_date']:'' }}">
-                <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="{{ isset($course_data['stay_checkout_date'])?$course_data['stay_checkout_date']:'' }}">
-                <div class="booking-field booking-room input-daterange date-range_block" id="choice-range-day">
-                    <div class="field-start-day date-range_block_left">
-                        <p class="node-text">{{config('booking.range_date.checkin')}}</p>
-                        <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="{{ isset($range_date_start)?$range_date_start:'' }}">
+    <div class="collapse collapse-finish show" id="">
+        <div class="booking-block-finish">
+            <div class="" id="">
+                <div class="booking-field">
+                    <div class="booking-field-label  booking-laber-padding">
+                        <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
                     </div>
-                    <div class="date-range_block_center">
-                        <p>&nbsp;</p>
-                        <p class="character-date pt-2">～</p>
+                    <div class="booking-field-content">
+                        <select name="stay_room_type" id="room" class="form-control">
+                            @foreach($stay_room_type as $value)
+                                @if(isset($course_data['stay_room_type']) && ($value->kubun_id == $course_data['stay_room_type']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @else
+                                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="field-end-day  date-range_block_right">
-                        <p class="node-text">{{config('booking.range_date.checkout')}}</p>
-                        <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="{{ isset($range_date_end)?$range_date_end:'' }}">
+                </div>
+                @php
+                    $room_whitening = true;
+                    if(isset($course_data["stay_room_type"]) && ($course_data['stay_room_type'] != '01')){
+                        $room_whitening = false;
+                        $range_date_start= substr($course_data['stay_checkin_date'], 0, 4).'/'.substr($course_data['stay_checkin_date'], 4, 2).'/'.substr($course_data['stay_checkin_date'], 6, 2);
+                        $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
+                    }
+                @endphp
+                <div class="booking-field room" @if($room_whitening) style="display:none;" @endif>
+                    <div class="booking-field-label  booking-laber-padding">
+                        <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
                     </div>
+                    <div class="booking-field-content">
+                        <select name="stay_guest_num" class="form-control">
+                            @foreach($stay_guest_num as $value)
+                                @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @else
+                                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="booking-field room"  @if($room_whitening) style="display:none;" @endif>
+                    <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
+                    <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
+                    <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="{{ isset($course_data['stay_checkin_date'])?$course_data['stay_checkin_date']:'' }}">
+                    <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="{{ isset($course_data['stay_checkout_date'])?$course_data['stay_checkout_date']:'' }}">
+                    <div class="booking-field booking-room input-daterange date-range_block" id="choice-range-day">
+                        <div class="field-start-day date-range_block_left">
+                            <p class="node-text">{{config('booking.range_date.checkin')}}</p>
+                            <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="{{ isset($range_date_start)?$range_date_start:'' }}">
+                        </div>
+                        <div class="date-range_block_center">
+                            <p>&nbsp;</p>
+                            <p class="character-date pt-2">～</p>
+                        </div>
+                        <div class="field-end-day  date-range_block_right">
+                            <p class="node-text">{{config('booking.range_date.checkout')}}</p>
+                            <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="{{ isset($range_date_end)?$range_date_end:'' }}">
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>

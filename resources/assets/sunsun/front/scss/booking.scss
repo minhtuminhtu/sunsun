@@ -726,7 +726,7 @@ ul.dropdown-menu {
 }
 
 .btn.btn-border:focus{
-    border-color: rgb(224, 168, 0);
+    border-color: rgb(224, 168, 0) !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(224, 168, 0);
     outline: 0 none;
 }

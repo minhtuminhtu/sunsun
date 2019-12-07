@@ -625,3 +625,35 @@ span {
   display: inline-block !important;
 }
 
+.show_history {
+  cursor: pointer;
+}
+
+.history-bar {
+  height: 40vh;
+  max-height: 40vh;
+  overflow-y: scroll;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.history-block {
+  display: flex;
+  justify-content: center;
+  padding: 0.5vw 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.history-block.head {
+  border-top: 0px;
+}
+
+.modal-backdrop.show {
+  opacity: 0.8 !important;
+}
+
+.title-table-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

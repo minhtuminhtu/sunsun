@@ -201,7 +201,7 @@
                 @if(isset($data_booking))
                     @if(isset($history_booking) && (count($history_booking) != 0))
                         <div class="history-button">
-                            <div class="show_history">履歴</div>
+                            <div class="show_history" style="text-decoration: underline;">履歴</div>
                         </div>
                     @endif
                     <div class="confirm-button">
