@@ -204,7 +204,8 @@
                                 @elseif($course->kubun_id == '02')
                                     <div class="linex  mt-0">
                                         @if($i != 1)
-                                            <p>予約{{ $i }}</p>
+                                            <p class="font-weight-bold">予約{{ $i }}</p>
+                                            <br>
                                         @endif
                                         <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
@@ -343,7 +344,8 @@
                                 @elseif($course->kubun_id == '03')
                                     <div class="linex  mt-0">
                                         @if($i != 1)
-                                            <p>予約{{ $i }}</p>
+                                            <p class="font-weight-bold">予約{{ $i }}</p>
+                                            <br>
                                         @endif
                                         <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
@@ -478,7 +480,8 @@
                                 @elseif($course->kubun_id == '04')
                                     <div class="linex  mt-0">
                                         @if($i != 1)
-                                            <p>予約{{ $i }}</p>
+                                            <p class="font-weight-bold">予約{{ $i }}</p>
+                                            <br>
                                         @endif
                                         <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')
@@ -619,7 +622,8 @@
                                 @elseif($course->kubun_id == '05')
                                     <div class="linex  mt-0">
                                         @if($i != 1)
-                                            <p>予約{{ $i }}</p>
+                                            <p class="font-weight-bold">予約{{ $i }}</p>
+                                            <br>
                                         @endif
                                         <p>ご利用： {{ $repeat_user->kubun_value }}</p>
                                         @if($repeat_user->kubun_id != '02')

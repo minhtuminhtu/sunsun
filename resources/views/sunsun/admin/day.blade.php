@@ -14,21 +14,23 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="main-head__top" style="display: flex">
-                    <span class="datepicker-control current-date">
-                        ≪ <input type="text" value="{{$date}}"> ≫
-                        <span class="icon-calendar">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                               class="fa fa-calendar-alt">
-                            </i>
+                <div class="main-head__top" style="display: flex; justify-content: space-between;">
+                    <div>
+                        <span class="datepicker-control current-date">
+                            ≪ <input type="text" value="{{$date}}"> ≫
+                            <span class="icon-calendar">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"
+                                class="fa fa-calendar-alt">
+                                </i>
+                            </span>
                         </span>
-                    </span>
-                    <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
-                   <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
-                    <span class="node-day">
-                        <span>入浴：酵素浴　リ：1日リフレッシュプラン</span> <br>
-                        <span>貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</span>
-                    </span>
+                        <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
+                    <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
+                    </div>
+                    <div class="node-day">
+                        <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
+                        <div class="text-right">貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
+                    </div>
                 </div>
                 <div class="main-head__middle">
                     <div class="middle_box">
@@ -384,6 +386,7 @@
                                         @endif
                                         <span>{{ $time['data']['pet']->service_pet_num }}匹 {{ $time['data']['pet']->notes }}</span>
                                         @if(!isset($time['data']['pet']->ref_booking_id))
+                                            <br>
                                             <span>{{ $time['data']['pet']->phone }}</span>
                                             <br>
                                             <span>支払：{{ $time['data']['pet']->payment_method }}</span>

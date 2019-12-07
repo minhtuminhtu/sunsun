@@ -78,20 +78,7 @@
             </div>
         </div>
 
-        @php
-            $first_time = NULL;
-            $first_time_data = NULL;
-            if(is_array($course_time)){
-                foreach($course_time as $first_time){
-                    break;
-                }
-                if(isset($first_time['service_time_1'])){
-                    $first_time_data = substr($first_time['service_time_1'], 0, 2) . ":" . substr($first_time['service_time_1'], 2, 2);
-                }
-            }
-        @endphp
-
-        {{  $first_time_data }}
+        
         <div>
             <div class="booking-field-100  booking-laber-padding">
                 <p class="text-left pt-2">{{config('booking.range_time_eat.label')}}</p>
@@ -102,8 +89,67 @@
                     <br> 入浴の間は2時間以上空けてください。
                 </p>
             </div>
+            @if(isset($date_unique_time))
+            <div class="time-list" value="1">
+                @php 
+                $i = 0;
+                @endphp
+                @foreach($date_unique_time as $key => $unique_time)
+                    @php
+                        $time_start = NULL;
+                        $time_end = NULL;
+                        if(is_array($course_time)){
+                            foreach($course_time as $time){
+                                if($key == $time['service_date']){
+                                    break;
+                                }
+                            }
+                        }
+                        $time_start = substr($time['service_time_1'], 0, 2) . ":" . substr($time['service_time_1'], 2, 2);
+                        $time_end = substr($time['service_time_2'], 0, 2) . ":" . substr($time['service_time_2'], 2, 2);
+                        $bed_start = substr($time['notes'], 0, 1);
+                        $bed_end = substr($time['notes'], 2, 3);
+                    @endphp
+                    <div class="booking-field choice-time">
+                        <input value="0" class="time_index" type="hidden">
+                        <div class="booking-field-label label-data pt-2">
+                            <label class="">{{ $unique_time }}</label>
+                            <input name="date[{{ $i }}][day][view]" value="{{ isset($time['service_date'])?$time['service_date']:'' }}" type="hidden">
+                            <input name="date[{{ $i }}][day][value]" value="{{ isset($time['service_date'])?$time['service_date']:'' }}" type="hidden">
+                        </div>
+                        <div class="booking-field-content date-time">
+                            <div class="choice-data-time set-time time-start">
+                                <div class="set-time">
+                                    <input name="date[{{ $i }}][from][value]" type="hidden" class="time_from time_value" readonly="readonly" value="{{ isset($time['service_time_1'])?$time['service_time_1']:'0' }}" />
+                                    <input name="date[{{ $i }}][from][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_start)?$bed_start:'0' }}" />
+                                    <input name="date[{{ $i }}][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly" value="{{ isset($time_start)?$time_start:'00:00' }}" />
+                                    <input name="time[{{ $i }}][from][json]" type="hidden" class="data-json_input" value="1" />
+                                    <input name="time[{{ $i }}][from][element]" type="hidden" value="time_bath_10" />
+                                </div>
+                                <div class="icon-time mt-1">
+                                </div>
+                            </div>
+                            <div class="choice-data-time set-time time-end">
+                                <div class="set-time">
+                                    <input name="date[{{ $i }}][to][value]" type="hidden" class="time_to time_value" readonly="readonly" value="{{ isset($time['service_time_2'])?$time['service_time_2']:'0' }}" />
+                                    <input name="date[{{ $i }}][to][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_end)?$bed_end:'0' }}" />
+                                    <input name="date[{{ $i }}][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to" readonly="readonly" value="{{ isset($time_end)?$time_end:'00:00' }}" />
+                                    <input name="time[{{ $i }}][to][json]" type="hidden" class="data-json_input" value="1" />
+                                    <input name="time[{{ $i }}][to][element]" type="hidden" value="time_bath_11" />
+                                </div>
+                                <div class="icon-time mt-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                @php 
+                $i++;
+                @endphp
+                @endforeach
+            </div>
+            @else
             <div class="time-list">
             </div>
+            @endif
             <div class="clearfix"></div>
         </div>
     </div>

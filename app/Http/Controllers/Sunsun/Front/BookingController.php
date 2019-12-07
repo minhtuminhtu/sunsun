@@ -1341,7 +1341,7 @@ class BookingController extends Controller
             $date_arr = [];
 
             foreach($data['course_time'] as $date){
-                $date_arr[$date['service_date']] = $date['service_date'];
+                $date_arr[$date['service_date']] = NULL;
             }
 
             $weekMap = [
@@ -1355,17 +1355,17 @@ class BookingController extends Controller
             ];
 
             foreach($date_arr as $key => $d){
-                $dayOfTheWeek = Carbon::createFromFormat('Ymd', $date_arr[0])->dayOfWeek;
-                $day = Carbon::createFromFormat('Ymd', $date_arr[0])->format('d');
-                $month = Carbon::createFromFormat('Ymd', $date_arr[0])->format('m');
-                $date_arr[$key]['parse_day'] = $month . "/" . $day ."(" . $dayOfTheWeek . ")";
+                $dayOfTheWeek = Carbon::createFromFormat('Ymd', $key)->dayOfWeek;
+                $day = Carbon::createFromFormat('Ymd', $key)->format('d');
+                $month = Carbon::createFromFormat('Ymd', $key)->format('m');
+                $date_arr[$key] = $month . "/" . $day ."(" . $weekMap[$dayOfTheWeek] . ")";
             }
-
 
             $weekday = $weekMap[$dayOfTheWeek];
             $data['date_unique_time'] = $date_arr;
 
             // dd($weekday);
+
         }
 
 

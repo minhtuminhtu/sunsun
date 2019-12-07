@@ -426,7 +426,8 @@ $(function() {
     };
 
     let load_time_list = function(check = null) {
-        if(!check){
+        let check_admin_set = $(".time-list").attr("value");
+        if((!check) && !(check_admin_set == 1)){
             $('.time-list').append('' +
                 '<div class="booking-field choice-time">' +
                 '<input value="0" class="time_index" type="hidden" >' +

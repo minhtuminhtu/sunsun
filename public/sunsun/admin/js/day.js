@@ -201,6 +201,33 @@ $(function () {
       }
     });
   });
+  $('#edit_booking').on('click', '.show_history', function (e) {
+    e.preventDefault();
+    var current_booking_id = $('#edit_booking').find("#booking_id").val();
+    var show_history = $('#history_modal');
+    $.ajax({
+      url: $site_url + '/admin/show_history',
+      type: 'POST',
+      data: {
+        'booking_id': current_booking_id
+      },
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        booking_edit.find('.modal-body-history').html(html);
+        show_history.modal('show');
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
   $('#edit_booking').on('change', '#course_history', function (e) {
     var current_booking_id = $('#edit_booking').find("#booking_id").val();
     var course_history = $("#course_history").val();
@@ -251,7 +278,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
 
 
 /***/ })

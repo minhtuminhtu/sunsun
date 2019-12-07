@@ -199,23 +199,11 @@
             </div>
             <div class="foot-confirm">
                 @if(isset($data_booking))
-                    <!-- @if(isset($history_booking) && (count($history_booking) != 0))
+                    @if(isset($history_booking) && (count($history_booking) != 0))
                         <div class="history-button">
-                            <select name="course_history" id="course_history" class="form-control">
-                                <option value='0'>Newest</option>
-                                @foreach($history_booking as $hi)
-                                    @if($data_booking->booking_id == $hi->booking_id)
-                                        <option selected value='{{ $hi->booking_id }}'>{{ $hi->created_at }}</option>
-                                    @else
-                                        <option value='{{ $hi->booking_id }}'>{{ $hi->created_at }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                            <div class="show_history">履歴</div>
                         </div>
-                    @endif -->
-                    <div class="history-button">
-                        <a href="">履歴</a>
-                    </div>
+                    @endif
                     <div class="confirm-button">
                         <div class="button-left">
                             <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">キャンセル</button>
