@@ -1146,7 +1146,7 @@ class BookingController extends Controller
         })->toArray());
     }
 
-    public function book_room (Request $request) {
+    /*public function book_room (Request $request) {
         $data = $request->all();
         $repeat_user = json_decode($data['repeat_user'], true);
         $course = json_decode($data['course'], true);
@@ -1196,7 +1196,7 @@ class BookingController extends Controller
         $data_time['beds'] = $MsKubun->where('kubun_type',$kubun_type_bed_male)->sortBy('sort_no');
         return view('sunsun.front.parts.booking_room',$data_time)->render();
 
-    }
+    }*/
 
     /*public function get_time_booking_all_room ($time_kubun_type, $room_kubun_type, $time_bath, $day_book_time, $time_bus) {
         $sql_get_booking = $this->sql_get_booking_yoyaku();
