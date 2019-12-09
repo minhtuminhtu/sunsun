@@ -744,6 +744,42 @@ let load_after_ajax = function(){
 
 
 
+    $('#modal_second').off('hidden.bs.modal');
+    $('#modal_second').on('hidden.bs.modal', function () {
+        $('#edit_booking').css("z-index", "");
+        $('body').addClass('modal-open');
+    });
+
+
+    $('#edit_booking').off('click','.show_history');
+    $('#edit_booking').on('click','.show_history',function (e) {
+        e.preventDefault();
+        let current_booking_id = $('#edit_booking').find("#booking_id").val();
+        // let show_history = $('#history_modal');
+        $.ajax({
+            url: $site_url +'/admin/show_history',
+            type: 'POST',
+            data: {
+                'booking_id' : current_booking_id,
+                'is_history' : true
+            },
+            dataType: 'text',
+            beforeSend: function () {
+                loader.css({'display': 'block'});
+            },
+            success: function (html) {
+                $('#modal_second').find('.modal_second-body').html(html);
+                $('#modal_second').modal({
+                    show: true,
+                    backdrop: false
+                }); 
+                $('#edit_booking').css("z-index", "0");
+            },
+            complete: function () {
+                loader.css({'display': 'none'});
+            },
+        });
+    })
 
     $(document).on('touchmove', function () {
         $('#date').blur();
