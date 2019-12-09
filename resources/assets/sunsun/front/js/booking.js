@@ -114,15 +114,30 @@ $(function() {
             }
         };
 
-        $('#date').datepicker({
-            language: 'ja',
-            dateFormat: "yyyy/mm/dd",
-            startDate: new Date(),
-            autoclose: true,
-            daysOfWeekDisabled: "3,4",
-            weekStart: 1,
-            orientation: 'bottom',
-        });
+        if(window.location.href.includes("admin")){
+            console.log('admin');
+            $('#date').datepicker({
+                container: '.mail-booking',
+                language: 'ja',
+                dateFormat: "yyyy/mm/dd",
+                startDate: new Date(),
+                autoclose: true,
+                daysOfWeekDisabled: "3,4",
+                weekStart: 1,
+                orientation: 'bottom',
+            });
+        }else{
+            $('#date').datepicker({
+                language: 'ja',
+                dateFormat: "yyyy/mm/dd",
+                startDate: new Date(),
+                autoclose: true,
+                daysOfWeekDisabled: "3,4",
+                weekStart: 1,
+                orientation: 'bottom',
+            });
+        }
+        
         $('#date').datepicker().off('hide');
         $('#date').datepicker().on('hide', function(e) {
             change_day();
@@ -141,18 +156,33 @@ $(function() {
         }
 
 
+        if(window.location.href.includes("admin")){
+            $('.input-daterange').datepicker({
+                container: '.mail-booking',
+                language: 'ja',
+                dateFormat: 'yyyy/mm/dd',
+                autoclose: true,
+                startDate: new Date(),
+                daysOfWeekDisabled: "3,4",
+                // daysOfWeekHighlighted: "1,2",
+                weekStart: 1,
+                orientation: 'bottom',
+            });
+    
+        }else{
+            $('.input-daterange').datepicker({
+                language: 'ja',
+                dateFormat: 'yyyy/mm/dd',
+                autoclose: true,
+                startDate: new Date(),
+                daysOfWeekDisabled: "3,4",
+                // daysOfWeekHighlighted: "1,2",
+                weekStart: 1,
+                orientation: 'bottom',
+            });    
+        }
 
-        $('.input-daterange').datepicker({
-            language: 'ja',
-            dateFormat: 'yyyy/mm/dd',
-            autoclose: true,
-            startDate: new Date(),
-            daysOfWeekDisabled: "3,4",
-            // daysOfWeekHighlighted: "1,2",
-            weekStart: 1,
-            orientation: 'bottom',
-        });
-
+        
         let get_end_date = function(){
             var start_date = moment(new Date($('#plan_date_start').val()));
             var end_date;
@@ -165,27 +195,58 @@ $(function() {
             return end_date;
         }
 
-        $('#plan_date_start').datepicker({
-            language: 'ja',
-            dateFormat: 'yyyy/mm/dd',
-            autoclose: true,
-            startDate: new Date(),
-            daysOfWeekDisabled: "3,4",
-            // daysOfWeekHighlighted: "1,2",
-            weekStart: 1,
-            orientation: 'bottom',
-        });
-        $('#plan_date_end').datepicker({
-            language: 'ja',
-            dateFormat: 'yyyy/mm/dd',
-            autoclose: true,
-            startDate: new Date(),
-            endDate: get_end_date(),
-            daysOfWeekDisabled: "3,4,5,6",
-            weekStart: 1,
-            orientation: 'bottom',
-        });
+        if(window.location.href.includes("admin")){
+            $('#plan_date_start').datepicker({
+                container: '.mail-booking',
+                language: 'ja',
+                dateFormat: 'yyyy/mm/dd',
+                autoclose: true,
+                startDate: new Date(),
+                daysOfWeekDisabled: "3,4",
+                // daysOfWeekHighlighted: "1,2",
+                weekStart: 1,
+                orientation: 'bottom',
+            });
+    
+        }else{
+            $('#plan_date_start').datepicker({
+                language: 'ja',
+                dateFormat: 'yyyy/mm/dd',
+                autoclose: true,
+                startDate: new Date(),
+                daysOfWeekDisabled: "3,4",
+                // daysOfWeekHighlighted: "1,2",
+                weekStart: 1,
+                orientation: 'bottom',
+            });
+        }
+        
 
+        if(window.location.href.includes("admin")){
+            $('#plan_date_end').datepicker({
+                container: '.mail-booking',
+                language: 'ja',
+                dateFormat: 'yyyy/mm/dd',
+                autoclose: true,
+                startDate: new Date(),
+                endDate: get_end_date(),
+                daysOfWeekDisabled: "3,4,5,6",
+                weekStart: 1,
+                orientation: 'bottom',
+            });
+    
+        }else{
+            $('#plan_date_end').datepicker({
+                language: 'ja',
+                dateFormat: 'yyyy/mm/dd',
+                autoclose: true,
+                startDate: new Date(),
+                endDate: get_end_date(),
+                daysOfWeekDisabled: "3,4,5,6",
+                weekStart: 1,
+                orientation: 'bottom',
+            });
+        }
 
         var range_date_temp = [];
 
@@ -200,16 +261,31 @@ $(function() {
                 $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
             }
 
-            $('#plan_date_end').datepicker({
-                language: 'ja',
-                dateFormat: 'yyyy/mm/dd',
-                autoclose: true,
-                startDate: new Date($('#plan_date_start').val()),
-                endDate: get_end_date(),
-                daysOfWeekDisabled: "3,4",
-                weekStart: 1,
-                orientation: 'bottom',
-            });
+            
+            if(window.location.href.includes("admin")){
+                $('#plan_date_end').datepicker({
+                    container: '.mail-booking',
+                    language: 'ja',
+                    dateFormat: 'yyyy/mm/dd',
+                    autoclose: true,
+                    startDate: new Date($('#plan_date_start').val()),
+                    endDate: get_end_date(),
+                    daysOfWeekDisabled: "3,4",
+                    weekStart: 1,
+                    orientation: 'bottom',
+                });
+            }else{
+                $('#plan_date_end').datepicker({
+                    language: 'ja',
+                    dateFormat: 'yyyy/mm/dd',
+                    autoclose: true,
+                    startDate: new Date($('#plan_date_start').val()),
+                    endDate: get_end_date(),
+                    daysOfWeekDisabled: "3,4",
+                    weekStart: 1,
+                    orientation: 'bottom',
+                });
+            }
             $('#plan_date_end').focus();
         });
         let highlight = function(start){
@@ -370,6 +446,70 @@ $(function() {
 
 
         modal_choice_time.modal('hide');
+    })
+
+    $('#modal_second').off('click','#js-save-time');
+    $('#modal_second').on('click','#js-save-time',function (e) {
+        let time = $('#modal_second').find('input[name=time]:checked').val();
+        let bed = $('#modal_second').find('input[name=time]:checked').parent().find('.bed').val();
+        let data_json = $('#modal_second').find('input[name=time]:checked').parent().find('input[name=data-json]').val();
+        var num = $('.booking-time').length;
+        var time_value = time_value = time.replace(/[^0-9]/g,'');
+
+
+        if($('#new-time').val() == 1){
+            let $html = $('' +
+                '<div class="block-content-1 margin-top-mini"> ' +
+                '<div class="block-content-1-left"><div class="timedate-block set-time">    ' +
+                '<input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_' + num + '" readonly="readonly"  value="" />' +
+                '<input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value="">' +
+                '<input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value="">' +
+                '<input name="time[' + num + '][json]" class="data-json_input" id="time[' + num + '][json]" type="hidden" >' +
+                '<input name="time[' + num + '][element]" id="" type="hidden" value="error_time_' + num + '">'+
+                '</div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+            $html.find('.data-json_input').val(data_json);
+            $(".time-content").append($html);
+            load_time_delete_event();
+            load_pick_time_event();
+            $('.booking-time').last().val(time);
+            $('.time_value').last().val(time_value);
+            $('.time_bed').last().val(bed);
+
+        }else{
+            $('.set-time.edit input.time').val(time);
+            $('.set-time.edit input.time').parent().find('.time_value').val(time_value);
+            $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
+        }
+        $('.set-time.edit input.time').parent().find('#time1-value').val(time_value);
+        $('.set-time.edit input.time').parent().find('#time2-value').val(time_value);
+        $('.set-time.edit input.time').parent().find('#time1-bed').val(bed);
+        $('.set-time.edit input.time').parent().find('#time2-bed').val(bed);
+        $('.set-time.edit input.time').parent().find('#time_room_value').val(pad(time_value, 4));
+        $('.set-time.edit input.time').parent().find('#time_room_bed').val(bed);
+
+
+        $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
+        $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
+        $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
+
+        $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json);
+
+        console.log($('#modal_second').find('input[name=time]:checked').parent().find('input[name=data-json]'));
+        function pad(n, width) {
+            n = n + '';
+            return n.length >= width ? n :
+                new Array(width - n.length + 1).join('0') + n;
+        }
+
+        if(time.includes("～")){
+            var res = time.split("～");
+            $('.set-time.edit input.time').parent().find('#time_room_time1').val(pad(res[0].replace(/[^0-9]/g,''), 4));
+            $('.set-time.edit input.time').parent().find('#time_room_time2').val(pad(res[1].replace(/[^0-9]/g,''), 4));
+            $('.set-time.edit input.time').parent().find('#whitening-time_value').val(pad(res[0].replace(/[^0-9]/g,''), 4) + '-' + pad(res[1].replace(/[^0-9]/g,''), 4));
+        }
+
+
+        $('#modal_second').modal('hide');
     })
 
     $('.btn-booking').click(function (e) {
@@ -559,8 +699,17 @@ let load_pick_time_event = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                modal_choice_time.find('.modal-body-time').html(html);
-                modal_choice_time.modal('show');
+                if(window.location.href.includes("admin")){
+                    $('#modal_second').find('.modal_second-body').html(html);
+                    $('#modal_second').modal({
+                        show: true,
+                        backdrop: false
+                    }); 
+                    $('#edit_booking').css("z-index", "0");
+                }else{
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal('show');
+                }
             },
                 complete: function () {
                 loader.css({'display': 'none'});
@@ -596,8 +745,17 @@ let load_pick_time_room_event = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                modal_choice_time.find('.modal-body-time').html(html);
-                modal_choice_time.modal('show');
+                if(window.location.href.includes("admin")){
+                    $('#modal_second').find('.modal_second-body').html(html);
+                    $('#modal_second').modal({
+                        show: true,
+                        backdrop: false
+                    }); 
+                    $('#edit_booking').css("z-index", "0");
+                }else{
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal('show');
+                }
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -629,8 +787,17 @@ let load_pick_time_wt_event = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                modal_choice_time.find('.modal-body-time').html(html);
-                modal_choice_time.modal('show');
+                if(window.location.href.includes("admin")){
+                    $('#modal_second').find('.modal_second-body').html(html);
+                    $('#modal_second').modal({
+                        show: true,
+                        backdrop: false
+                    }); 
+                    $('#edit_booking').css("z-index", "0");
+                }else{
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal('show');
+                }
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -661,8 +828,17 @@ let load_pick_time_pet_event = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                modal_choice_time.find('.modal-body-time').html(html);
-                modal_choice_time.modal('show');
+                if(window.location.href.includes("admin")){
+                    $('#modal_second').find('.modal_second-body').html(html);
+                    $('#modal_second').modal({
+                        show: true,
+                        backdrop: false
+                    }); 
+                    $('#edit_booking').css("z-index", "0");
+                }else{
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal('show');
+                }
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -705,8 +881,17 @@ let load_after_ajax = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                modal_choice_time.find('.modal-body-time').html(html);
-                modal_choice_time.modal('show');
+                if(window.location.href.includes("admin")){
+                    $('#modal_second').find('.modal_second-body').html(html);
+                    $('#modal_second').modal({
+                        show: true,
+                        backdrop: false
+                    }); 
+                    $('#edit_booking').css("z-index", "0");
+                }else{
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal('show');
+                }
             },
                 complete: function () {
                 loader.css({'display': 'none'});
