@@ -33,10 +33,10 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
 
     Route::post('/get_time_room',['as' => '.get_time_room', 'uses' => 'BookingController@get_time_room']);
-    Route::post('/book_room',['as' => '.book_room', 'uses' => 'BookingController@book_room']);
+    Route::post('/book_room',['as' => '.book_room', 'uses' => 'BookingController@get_time_room']);
     Route::post('/book_time_room_wt',['as' => '.book_time_room_wt', 'uses' => 'BookingController@book_time_room_wt']);
     Route::post('/book_time_room_pet',['as' => '.book_time_room_pet', 'uses' => 'BookingController@book_time_room_pet']);
-    //Route::post('/add_new_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@add_new_booking']);
+    Route::post('/add_new_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@add_new_booking']);
     Route::post('/save_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@save_booking']);
 
 });
