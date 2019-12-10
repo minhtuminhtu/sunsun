@@ -884,3 +884,7 @@ td.disabled.disabled-date.range.day {
   width: 2.5vw;
 }
 
+.modal-backdrop.show {
+  opacity: 0.8;
+}
+
