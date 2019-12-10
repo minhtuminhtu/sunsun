@@ -430,7 +430,7 @@ $(function() {
 
         $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json);
 
-        console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
+        //console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
         function pad(n, width) {
             n = n + '';
             return n.length >= width ? n :

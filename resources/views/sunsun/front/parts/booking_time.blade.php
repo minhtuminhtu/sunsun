@@ -2,7 +2,7 @@
 <div>
     <input type="hidden" id="new-time" value="{{ isset($new)?$new:'' }}">
     <div class="title-table-time">
-        <span class="font-weight-bold">{{$gender['kubun_value']}}</span> {{----}}
+        <span class="font-weight-bold">{{isset($gender['kubun_value'])?$gender['kubun_value']:'ホワイトニング時間'}}</span> {{----}}
     </div>
     <table class="table-statistics">
         <thead>
