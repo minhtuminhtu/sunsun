@@ -588,19 +588,19 @@ class BookingController extends Controller
 
         $Yoyaku->course = $course->kubun_id;
         if($course->kubun_id == '01'){
-            $this->set_course_1($parent, $customer, $Yoyaku);
+            $this->set_course_1($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '02'){
-            $this->set_course_2($parent, $customer, $Yoyaku);
+            $this->set_course_2($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '03'){
-            $this->set_course_3($parent, $customer, $Yoyaku);
+            $this->set_course_3($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '04'){
-            $this->set_course_4($parent, $customer, $Yoyaku);
+            $this->set_course_4($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '05'){
-            $this->set_course_5($parent, $customer, $Yoyaku);
+            $this->set_course_5($parent, $parent_date, $customer, $Yoyaku);
         }
     }
 
-    private function set_course_1($parent, $customer, &$Yoyaku){
+    private function set_course_1($parent, $parent_date, $customer, &$Yoyaku){
         //Basic
         $gender = isset($customer['gender'])?json_decode($customer['gender']):"";
         $age_type = isset($customer['age_type'])?$customer['age_type']:"";
@@ -655,7 +655,7 @@ class BookingController extends Controller
         }
     }
 
-    private function set_course_2($parent, $customer, &$Yoyaku){
+    private function set_course_2($parent, $parent_date, $customer, &$Yoyaku){
         //Basic
         $gender = isset($customer['gender'])?json_decode($customer['gender']):"";
         $age_value = isset($customer['age_value'])?$customer['age_value']:"";
@@ -707,7 +707,7 @@ class BookingController extends Controller
         }
     }
 
-    private function set_course_3($parent, $customer, &$Yoyaku){
+    private function set_course_3($parent, $parent_date, $customer, &$Yoyaku){
         //Basic
         $date = isset($customer['date-value'])?$customer['date-value']:"";
         $time = isset($customer['time_room_value'])?$customer['time_room_value']:"";
@@ -753,7 +753,7 @@ class BookingController extends Controller
         }
     }
 
-    private function set_course_4($parent, $customer, &$Yoyaku){
+    private function set_course_4($parent, $parent_date, $customer, &$Yoyaku){
         //Basic
         $gender = isset($customer['gender'])?json_decode($customer['gender']):"";
         $age_value = isset($customer['age_value'])?$customer['age_value']:"";
@@ -787,7 +787,7 @@ class BookingController extends Controller
         }
     }
 
-    private function set_course_5($parent, $customer, &$Yoyaku){
+    private function set_course_5($parent, $parent_date, $customer, &$Yoyaku){
         //Basic
         $date = isset($customer['date-value'])?$customer['date-value']:"";
         $time1 = isset($customer['time_room_time1'])?$customer['time_room_time1']:"";

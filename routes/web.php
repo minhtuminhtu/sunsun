@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Yoyaku;
+use App\Models\Lock;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,8 @@ use App\Models\Yoyaku;
 */
 
 Route::get('/testlock', function () {
-        
+    $lock = Lock::find(1);
+    dd($lock->tr_yoyaku);
 });
 Route::get('/demo', function () {
     

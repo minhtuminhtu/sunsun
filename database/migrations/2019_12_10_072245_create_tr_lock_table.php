@@ -14,9 +14,9 @@ class CreateTrLockTable extends Migration
     public function up()
     {
         Schema::create('tr_lock', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('tr_yoyaku',255)->nullable();
-            $table->string('tr_yoyaku_danjiki_jikan',255)->nullable();
+            $table->bigIncrements('tr_lock_id');
+            $table->string('tr_yoyaku',1)->nullable();
+            $table->string('tr_yoyaku_danjiki_jikan',1)->nullable();
         });
     }
 
