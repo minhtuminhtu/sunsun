@@ -524,6 +524,10 @@ class BookingController extends Controller
 
 
 
+    public function demo_transition(){
+        
+    }
+
 
     public function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){
         $course = json_decode($customer['course']);

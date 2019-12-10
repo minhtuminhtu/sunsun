@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Yoyaku;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +12,52 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/testlock', function () {
+        
+});
+Route::get('/demo', function () {
+    
+
+    ini_set('max_execution_time', '0');
+
+    DB::raw("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
+    for($i= 0; $i< 1000; $i++){
+        $Yoyaku = new Yoyaku();
+        $Yoyaku->booking_id = 2;
+        $Yoyaku->course = 7;
+        $Yoyaku->save();
+    }
+
+
+    DB::raw("UNLOCK TABLE");
+
+
+    DB::beginTransaction();
+
+    
+    try {
+
+        $Yoyaku1 = new Yoyaku();
+        $Yoyaku1->tr_yoyaku_id = 2;
+        $Yoyaku1->booking_id = 2;
+        $Yoyaku1->course = 7;
+        $Yoyaku1->save();
+
+
+        throw new \ErrorException('Error found');
+
+        DB::commit();
+    } catch (Exception $e) {
+        DB::rollBack();
+        
+        // throw new Exception($e->getMessage());
+    }
+
+    
+});
+    
+
 
 Route::get('/reset', function () {
     \Artisan::call('migrate:reset');
