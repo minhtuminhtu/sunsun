@@ -900,13 +900,13 @@ class BookingController extends Controller
         $validate_time = [];
         $this->get_validate_time_choice ($course, $data, $data_get_attr, $validate_time, $day_book_time);
         $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
-        $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course);
+        $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr);
 
 
         return view('sunsun.front.parts.booking_time',$data_time)->render();
     }
 
-    public function get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course ) {
+    public function get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr ) {
         $kubun_type_time = config('const.db.kubun_type_value.TIME'); // 013 kubun_type
         $data_time = [];
         if ($course['kubun_id'] == '03') {
