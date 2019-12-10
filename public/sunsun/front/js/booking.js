@@ -502,8 +502,7 @@ $(function () {
     $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
     $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
     $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
-    $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json);
-    console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
+    $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json); //console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
 
     function pad(n, width) {
       n = n + '';

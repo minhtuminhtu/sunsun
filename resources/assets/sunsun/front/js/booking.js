@@ -512,6 +512,7 @@ $(function() {
         $('#modal_second').modal('hide');
     })
 
+
     $('.btn-booking').click(function (e) {
         e.preventDefault();
         let btn_click = $(this);
