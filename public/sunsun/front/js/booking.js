@@ -502,8 +502,7 @@ $(function () {
     $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
     $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
     $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
-    $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json);
-    console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
+    $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json); //console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
 
     function pad(n, width) {
       n = n + '';
@@ -1070,7 +1069,7 @@ var load_once_time = function load_once_time() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })
