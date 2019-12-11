@@ -14,8 +14,8 @@ class TrLockSeeder extends Seeder
     {
 
         DB::table('tr_lock')->insert([
-            'tr_yoyaku' => 1,
-            'tr_yoyaku_danjiki_jikan' => 1
+            'tr_yoyaku' => 0,
+            'tr_yoyaku_danjiki_jikan' => 0
         ]);
 
 

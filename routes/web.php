@@ -15,46 +15,71 @@ use App\Models\Lock;
 */
 
 Route::get('/testlock', function () {
+    ini_set('max_execution_time', '0');
     $lock = Lock::find(1);
-    dd($lock->tr_yoyaku);
+
+
+    if(($lock->tr_yoyaku == 0) && ($lock->tr_yoyaku_danjiki_jikan == 0)){
+
+
+        Lock::lockForUpdate()->find(1)->update(['tr_yoyaku' => 1, 'tr_yoyaku_danjiki_jikan' => 1]);
+
+        // for($i= 0; $i< 100; $i++){
+        //     $Yoyaku = new Yoyaku();
+        //     $Yoyaku->booking_id = 2;
+        //     $Yoyaku->course = 7;
+        //     $Yoyaku->save();
+        // }
+        echo "aaa";
+
+        Lock::lockForUpdate()->find(1)->update(['tr_yoyaku' => 0, 'tr_yoyaku_danjiki_jikan' => 0]);
+
+    }else{
+        echo "Locked";
+    }
+
+    
+
 });
 Route::get('/demo', function () {
     
 
-    ini_set('max_execution_time', '0');
+    DB::unprepared("UNLOCK TABLE");
+});
+Route::get('/demo_lock', function () {
+    
+  
+    DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
+    try{
+        DB::beginTransaction();
+        try {
+            $Yoyaku1 = new Yoyaku();
+            $Yoyaku1->tr_yoyaku_id = 2;
+            $Yoyaku1->booking_id = 2;
+            $Yoyaku1->course = 7;
+            $Yoyaku1->save();
 
-    DB::raw("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
-    for($i= 0; $i< 1000; $i++){
-        $Yoyaku = new Yoyaku();
-        $Yoyaku->booking_id = 2;
-        $Yoyaku->course = 7;
-        $Yoyaku->save();
+            throw new \ErrorException('Error found');
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            
+            // throw new Exception($e->getMessage());
+        }
+    }catch(Exception $e){
+        dd($e);
     }
 
 
-    DB::raw("UNLOCK TABLE");
 
-
-    DB::beginTransaction();
+    DB::unprepared("UNLOCK TABLE");
+    sleep(10);
 
     
-    try {
-
-        $Yoyaku1 = new Yoyaku();
-        $Yoyaku1->tr_yoyaku_id = 2;
-        $Yoyaku1->booking_id = 2;
-        $Yoyaku1->course = 7;
-        $Yoyaku1->save();
 
 
-        throw new \ErrorException('Error found');
-
-        DB::commit();
-    } catch (Exception $e) {
-        DB::rollBack();
-        
-        // throw new Exception($e->getMessage());
-    }
+    
 
     
 });
