@@ -14,33 +14,6 @@ use App\Models\Lock;
 |
 */
 
-Route::get('/testlock', function () {
-    ini_set('max_execution_time', '0');
-    $lock = Lock::find(1);
-
-
-    if(($lock->tr_yoyaku == 0) && ($lock->tr_yoyaku_danjiki_jikan == 0)){
-
-
-        Lock::lockForUpdate()->find(1)->update(['tr_yoyaku' => 1, 'tr_yoyaku_danjiki_jikan' => 1]);
-
-        // for($i= 0; $i< 100; $i++){
-        //     $Yoyaku = new Yoyaku();
-        //     $Yoyaku->booking_id = 2;
-        //     $Yoyaku->course = 7;
-        //     $Yoyaku->save();
-        // }
-        echo "aaa";
-
-        Lock::lockForUpdate()->find(1)->update(['tr_yoyaku' => 0, 'tr_yoyaku_danjiki_jikan' => 0]);
-
-    }else{
-        echo "Locked";
-    }
-
-    
-
-});
 Route::get('/demo', function () {
     
 
