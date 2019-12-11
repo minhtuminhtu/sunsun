@@ -27,13 +27,15 @@ Route::get('/demo_lock', function () {
         DB::beginTransaction();
         try {
             $Yoyaku1 = new Yoyaku();
-            $Yoyaku1->tr_yoyaku_id = 2;
             $Yoyaku1->booking_id = 2;
             $Yoyaku1->course = 7;
             $Yoyaku1->save();
 
-            throw new \ErrorException('Error found');
+            new_test();
 
+            
+            get_exeption();
+            
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -43,19 +45,18 @@ Route::get('/demo_lock', function () {
     }catch(Exception $e){
         dd($e);
     }
-
-
-
     DB::unprepared("UNLOCK TABLE");
-    sleep(10);
-
-    
-
-
-    
-
-    
 });
+function get_exeption(){
+    throw new \ErrorException('Error found');
+}
+
+function new_test(){
+    $Yoyaku1 = new Yoyaku();
+    $Yoyaku1->booking_id = 2;
+    $Yoyaku1->course = 7;
+    $Yoyaku1->save();
+}
     
 
 
@@ -79,6 +80,9 @@ Route::namespace('Sunsun\Front')->group(function (){
 
 
     Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
+
+    Route::post('/get_free_room',['as' => '.get_free_room', 'uses' => 'BookingController@get_free_room']);
+    
 
     Route::post('/get_time_room',['as' => '.get_time_room', 'uses' => 'BookingController@get_time_room']);
     Route::post('/book_room',['as' => '.book_room', 'uses' => 'BookingController@get_time_room']);

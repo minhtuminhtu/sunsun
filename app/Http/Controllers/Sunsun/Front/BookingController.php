@@ -195,8 +195,38 @@ class BookingController extends Controller
             }
         }
 
+        $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type'], true)['kubun_id']:'01';
+        if($stay_room_type != '01'){
+            $range_date_start = $data['range_date_start-value'];
+            $range_date_end = $data['range_date_end-value'];
+
+            $number_dup = DB::select("
+            SELECT 	main.booking_id,
+                    main.stay_checkin_date,
+                    main.stay_checkout_date
+            FROM	tr_yoyaku main
+            WHERE	main.stay_room_type = $stay_room_type
+            AND	(   ( main.stay_checkin_date <= $range_date_end AND main.stay_checkout_date >= $range_date_end )
+                OR 	( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date >= $range_date_end )
+                OR 	( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date >= $range_date_start )
+                OR 	( main.stay_checkin_date >= $range_date_start AND main.stay_checkout_date <= $range_date_end )
+                )
+            ");
+
+            if(count($number_dup) != 0){
+                $error['room_select_error']['start']['element'] = 'range_date_start';
+                $error['room_select_error']['end']['element'] = 'range_date_end';
+            }else{
+                $error['clear_border_red']['start']['element'] = 'range_date_start';
+                $error['clear_border_red']['end']['element'] = 'range_date_end';
+            }
+        }
+        
+        // dd($error);
+
         if (isset($error['error_time_transport']) == false
             && isset($error['error_time_gender']) == false
+            && isset($error['room_select_error']) == false
             &&  isset($error['error_time_empty']) == false) {
             $error = [];
         }
@@ -343,6 +373,44 @@ class BookingController extends Controller
         $data['bill'] = $bill;
     }
 
+    public function get_free_room(Request $request){
+        $data = $request->all();
+        $room_type = $data['room'];
+        $range_day = DB::select("
+        SELECT 	main.stay_checkin_date,
+                main.stay_checkout_date
+        FROM	tr_yoyaku main
+        WHERE	main.stay_room_type = '$room_type'
+        ");
+        $date_selected = [];
+        foreach($range_day as $da){
+            foreach($this->get_list_days($da->stay_checkin_date, $da->stay_checkout_date) as $d){
+                array_push($date_selected, $d);
+            }
+        }
+        return [
+            'now' => $this->get_nearly_active(count($date_selected)!=0?max($date_selected):null, $date_selected),
+            'date_selected' => $date_selected
+        ];
+    }
+    private function get_nearly_active($max_date_selected, $date_selected){
+        $now = Carbon::now();
+        $active_day = Carbon::parse($max_date_selected);
+        for($d = $now; $d->lte($active_day->addDay(7)); $d->addDay(1)) {
+            if(!in_array($d->format('Y/m/d'), $date_selected) && ($d->dayOfWeek != 3) && ($d->dayOfWeek != 4)){
+                return $d->format('Y/m/d');
+            }
+        }
+    }
+    private function get_list_days($from , $to){
+        $from = Carbon::parse($from);
+        $to = Carbon::parse($to);
+        $dates = [];
+        for($d = $from; $d->lte($to); $d->addDay()) {
+            $dates[] = $d->format('Y/m/d');
+        }
+        return $dates;
+    }
     public function get_price_option ($booking, &$bill) {
         $course = json_decode($booking['course'], true);
         $data_option_price = MsKubun::where('kubun_type','029')->get(); // get all options price
@@ -532,35 +600,50 @@ class BookingController extends Controller
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
-        foreach($data['customer']['info'] as $customer){
-            $Yoyaku = new Yoyaku;
-            if($parent){
-                $parent_id = $Yoyaku->booking_id = $this->get_booking_id();
-                $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
-                $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
-                $Yoyaku->ref_booking_id = NULL;
-                $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
-                $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
-                $parent = false;
-            }else{
-                $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
-                $Yoyaku->ref_booking_id = $parent_id;
-                $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
-                $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
+
+        DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
+        try{
+            DB::beginTransaction();
+            try {
+                $this->final_validate($data);
+                foreach($data['customer']['info'] as $customer){
+                    $Yoyaku = new Yoyaku;
+                    if($parent){
+                        $parent_id = $Yoyaku->booking_id = $this->get_booking_id();
+                        $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
+                        $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
+                        $Yoyaku->ref_booking_id = NULL;
+                        $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
+                        $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
+                        $parent = false;
+                    }else{
+                        $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
+                        $Yoyaku->ref_booking_id = $parent_id;
+                        $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
+                        $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
+                    }
+                    $Yoyaku->save();
+                }
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+                // throw new Exception($e->getMessage());
             }
-            $Yoyaku->save();
+        }catch(Exception $e){
+            // dd($e);
         }
+        DB::unprepared("UNLOCK TABLE");
         return  $Yoyaku->booking_id;
     }
 
 
-
-    public function demo_transition(){
+    private function final_validate(&$data){
 
     }
 
 
-    public function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){
+
+    private function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){
         $course = json_decode($customer['course']);
         if($course->kubun_id == '01'){
             foreach($customer['time'] as $time){
@@ -591,7 +674,7 @@ class BookingController extends Controller
 
 
 
-    public function set_booking_course(&$Yoyaku, $data, $customer,$parent, $parent_date){
+    private function set_booking_course(&$Yoyaku, $data, $customer,$parent, $parent_date){
         //General payment
         $Yoyaku->name = isset($data['name'])?$data['name']:null;
         $Yoyaku->phone = isset($data['phone'])?$data['phone']:null;

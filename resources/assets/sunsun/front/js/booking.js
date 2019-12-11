@@ -61,12 +61,7 @@ $(function() {
         if($('#date').val() == ""){
             $('#date').val(strToday);
         }
-        if($('#range_date_start').val() == ""){
-            $('#range_date_start').val(strToday);
-        }
-        if($('#range_date_end').val() == ""){
-            $('#range_date_end').val(strTomorrow);
-        }
+        
         if($('#plan_date_start').val() == ""){
             $('#plan_date_start').val(strToday);
         }
@@ -74,15 +69,59 @@ $(function() {
             $('#plan_date_end').val(strTomorrow);
         }
 
+        $('#room').off('change');
         $('#room').on('change', function() {
             var room =  JSON.parse($('#room').val());
             if(room.kubun_id == '01'){
                 $('.room').hide();
             }else{
-                $('.room').show();
+                $.ajax({
+                    url: $site_url +'/get_free_room',
+                    type: 'POST',
+                    data:  {
+                        room: room.kubun_id
+                    },
+                    dataType: 'text',
+                    beforeSend: function () {
+                        loader.css({'display': 'block'});
+                    },
+                    success: function (html) {
+                        console.log(html);
+                        html = JSON.parse(html);
+                        console.log(html.now);
+                        $('.input-daterange').datepicker('destroy');
+                        $('#range_date_start').val(html.now);
+                        $('#range_date_end').val(html.now);
+                        $('.input-daterange').datepicker({
+                            language: 'ja',
+                            dateFormat: 'yyyy/mm/dd',
+                            autoclose: true,
+                            startDate: new Date(),
+                            daysOfWeekDisabled: "3,4",
+                            datesDisabled: html.date_selected,
+                            weekStart: 1,
+                            orientation: 'bottom',
+                        });
+                        
+                        let range_start = moment(new Date($('#range_date_start').val()));
+                        let range_end = moment(new Date($('#range_date_end').val()));
+                        $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
+                        $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
+                    
+                        $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
+                        $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
+
+                        $('.room').show();
+                    },
+                    complete: function () {
+                        loader.css({'display': 'none'});
+                    },
+                });
+                
             }
         });
 
+        $('#whitening').off('change');
         $('#whitening').on('change', function() {
             var whitening =  JSON.parse($('#whitening').val());
             if(whitening.kubun_id == '01'){
@@ -135,6 +174,7 @@ $(function() {
                 daysOfWeekDisabled: "3,4",
                 weekStart: 1,
                 orientation: 'bottom',
+                datesDisabled: ['2019-12-17','2019-12-16'],
             });
         }
 
@@ -253,7 +293,7 @@ $(function() {
 
 
         $('#range_date_start').datepicker().on('hide', function () {
-            $('#range_date_end').focus();
+            // $('#range_date_end').focus();
         });
         $('#plan_date_start').datepicker().on('hide', function () {
             $('#plan_date_end').datepicker('destroy');
@@ -358,12 +398,12 @@ $(function() {
         }
 
         $(".room_range_date").on('change blur', function() {
-            var check2 = moment(new Date($('#range_date_start').val()));
-            var check1 = moment(new Date($('#range_date_end').val()));
-            $('#range_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
-            $('#range_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
-            $('#range_date_start-value').val(check2.format('YYYYMMDD'));
-            $('#range_date_end-value').val(check1.format('YYYYMMDD'));
+            var range_start = moment(new Date($('#range_date_start').val()));
+            var range_end = moment(new Date($('#range_date_end').val()));
+            $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
+            $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
+            $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
+            $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
         });
         load_pick_time_event();
         load_pick_time_room_event();
@@ -565,6 +605,11 @@ $(function() {
         }
         if (typeof json.error_time_empty  !== "undefined") {
             $.each(json.error_time_empty, function (index, item) {
+                $('#'+item.element).css({'border': 'solid 1px #f50000'});
+            })
+        }
+        if (typeof json.room_select_error  !== "undefined") {
+            $.each(json.room_select_error, function (index, item) {
                 $('#'+item.element).css({'border': 'solid 1px #f50000'});
             })
         }
@@ -975,11 +1020,7 @@ let load_after_ajax = function(){
     $('#date-value').val(today.format('YYYYMMDD'));
     $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
 
-    $('#range_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
-    $('#range_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
 
-    $('#range_date_start-value').val(today.format('YYYYMMDD'));
-    $('#range_date_end-value').val(tomorrow.format('YYYYMMDD'));
 
 
     $('#plan_date_start-value').val(today.format('YYYY') + today.format('MM') + today.format('DD'));
