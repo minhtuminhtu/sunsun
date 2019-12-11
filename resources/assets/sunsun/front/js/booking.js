@@ -137,7 +137,7 @@ $(function() {
                 orientation: 'bottom',
             });
         }
-        
+
         $('#date').datepicker().off('hide');
         $('#date').datepicker().on('hide', function(e) {
             change_day();
@@ -168,7 +168,7 @@ $(function() {
                 weekStart: 1,
                 orientation: 'bottom',
             });
-    
+
         }else{
             $('.input-daterange').datepicker({
                 language: 'ja',
@@ -179,10 +179,10 @@ $(function() {
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
                 orientation: 'bottom',
-            });    
+            });
         }
 
-        
+
         let get_end_date = function(){
             var start_date = moment(new Date($('#plan_date_start').val()));
             var end_date;
@@ -207,7 +207,7 @@ $(function() {
                 weekStart: 1,
                 orientation: 'bottom',
             });
-    
+
         }else{
             $('#plan_date_start').datepicker({
                 language: 'ja',
@@ -220,7 +220,7 @@ $(function() {
                 orientation: 'bottom',
             });
         }
-        
+
 
         if(window.location.href.includes("admin")){
             $('#plan_date_end').datepicker({
@@ -234,7 +234,7 @@ $(function() {
                 weekStart: 1,
                 orientation: 'bottom',
             });
-    
+
         }else{
             $('#plan_date_end').datepicker({
                 language: 'ja',
@@ -261,7 +261,7 @@ $(function() {
                 $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
             }
 
-            
+
             if(window.location.href.includes("admin")){
                 $('#plan_date_end').datepicker({
                     container: '.mail-booking',
@@ -563,6 +563,11 @@ $(function() {
                 $('select[name=gender]').css({'border': 'solid 1px #f50000'});
             })
         }
+        if (typeof json.error_time_empty  !== "undefined") {
+            $.each(json.error_time_empty, function (index, item) {
+                $('#'+item.element).css({'border': 'solid 1px #f50000'});
+            })
+        }
 
     };
 
@@ -582,7 +587,7 @@ $(function() {
                 '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
                 '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
                 '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly"  value="00:00" />    ' +
-                '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="1" />' +
+                '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
                 '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
                 '</div>    <div class="icon-time mt-1">' +
                 '</div>' +
@@ -592,7 +597,7 @@ $(function() {
                 '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
                 '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
                 '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to"  readonly="readonly"  value="00:00" />    ' +
-                '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="1" />' +
+                '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
                 '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
                 '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
             $('.time-list').append('' +
@@ -606,12 +611,12 @@ $(function() {
                 '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
                 '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
                 '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="00:00" />   ' +
-                '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="1" />' +
+                '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
                 '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
                 ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
                 '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
                 '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="1" />' +
+                '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
                 '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
                 '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="to" readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
 
@@ -636,11 +641,11 @@ $(function() {
                     '<input name="date['+ index +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
                     '<input name="date['+ index +'][from][view]" type="text" id="time_bath_'+ index +'1"  class="time form-control js-set-time bg-white" data-date_value="' + year + month +  day +'" data-date_type="form"  readonly="readonly"  value="00:00" />    ' +
                     '<input name="time['+ index +'][from][element]" type="hidden" value="time_bath_'+ index +'1" />' +
-                    '<input name="time['+ index +'][from][json]" type="hidden" class="data-json_input" value="1" />' +
+                    '<input name="time['+ index +'][from][json]" type="hidden" class="data-json_input" value="" />' +
                     '</div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
                     '<input name="date['+ index +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
                     '<input name="date['+ index +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                    '<input name="time['+ index +'][to][json]" type="hidden" class="data-json_input" value="1" />' +
+                    '<input name="time['+ index +'][to][json]" type="hidden" class="data-json_input" value="" />' +
                     '<input name="time['+ index +'][to][element]" type="hidden" value="time_bath_'+ index +'2" />' +
                     '<input name="date['+ index +'][to][view]" type="text" id="time_bath_'+ index +'2" class="time form-control js-set-time bg-white" data-date_value="' + year + month +  day +'" data-date_type="to"  readonly="readonly"  value="00:00" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
             });
@@ -705,7 +710,7 @@ let load_pick_time_event = function(){
                     $('#modal_second').modal({
                         show: true,
                         backdrop: false
-                    }); 
+                    });
                     $('#edit_booking').css("z-index", "0");
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
@@ -735,11 +740,7 @@ let load_pick_time_room_event = function(){
         $.ajax({
             url: $site_url +'/book_room',
             type: 'POST',
-            data: $data /*{
-                'sex': $('select[name=date]').val(),
-                'repeat_time_check' : repeat_time_check,
-                'whitening_check' : whitening_check
-            }*/,
+            data: $data ,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
@@ -751,7 +752,7 @@ let load_pick_time_room_event = function(){
                     $('#modal_second').modal({
                         show: true,
                         backdrop: false
-                    }); 
+                    });
                     $('#edit_booking').css("z-index", "0");
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
@@ -777,11 +778,7 @@ let load_pick_time_wt_event = function(){
         $.ajax({
             url: $site_url +'/book_time_room_wt',
             type: 'POST',
-            data: $data /*{
-                'rp_user': repeat_user.kubun_id,
-                'repeat_time_check' : repeat_time_check,
-                'disable_time_15min' : disable_time_15min
-            }*/,
+            data: $data ,
             dataType: 'text',
             beforeSend: function () {
                 loader.css({'display': 'block'});
@@ -793,7 +790,7 @@ let load_pick_time_wt_event = function(){
                     $('#modal_second').modal({
                         show: true,
                         backdrop: false
-                    }); 
+                    });
                     $('#edit_booking').css("z-index", "0");
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
@@ -834,7 +831,7 @@ let load_pick_time_pet_event = function(){
                     $('#modal_second').modal({
                         show: true,
                         backdrop: false
-                    }); 
+                    });
                     $('#edit_booking').css("z-index", "0");
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
@@ -887,7 +884,7 @@ let load_after_ajax = function(){
                     $('#modal_second').modal({
                         show: true,
                         backdrop: false
-                    }); 
+                    });
                     $('#edit_booking').css("z-index", "0");
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
@@ -958,7 +955,7 @@ let load_after_ajax = function(){
                 $('#modal_second').modal({
                     show: true,
                     backdrop: false
-                }); 
+                });
                 $('#edit_booking').css("z-index", "0");
             },
             complete: function () {
