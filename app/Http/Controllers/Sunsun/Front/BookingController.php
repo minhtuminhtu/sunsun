@@ -229,7 +229,7 @@ class BookingController extends Controller
         if (isset($error['error_time_transport']) == false
             && isset($error['error_time_gender']) == false
             && isset($error['room_select_error']) == false
-            &&  isset($error['error_time_empty']) == false) {
+            && isset($error['error_time_empty']) == false) {
             $error = [];
         }
 
@@ -662,9 +662,9 @@ class BookingController extends Controller
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
                         $Yoyaku->ref_booking_id = NULL;
                         $result = $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
-                        if(!$result){
-                            throw new \Exception('Course error');
-                        }
+                        // if(!$result){
+                        //     throw new \Exception('Course error');
+                        // }
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
                     }else{
@@ -672,9 +672,9 @@ class BookingController extends Controller
                         $return_booking_id = $booking_id;
                         $Yoyaku->ref_booking_id = $parent_id;
                         $result = $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
-                        if(!$result){
-                            throw new \Exception('Course error');
-                        }
+                        // if(!$result){
+                        //     throw new \Exception('Course error');
+                        // }
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
                     }
                     $Yoyaku->save();
@@ -699,6 +699,7 @@ class BookingController extends Controller
         if($course->kubun_id == '01'){
             foreach($customer['time'] as $time){
                 // $result = $this->validate_course_human($gender->kubun_id, $parent_date, $time['value'], $time['bed']);
+                $result = true;
                 if($result){
                     $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
                     $YoyakuDanjikiJikan->booking_id = $parent_id;
@@ -779,13 +780,13 @@ class BookingController extends Controller
 
         $Yoyaku->course = $course->kubun_id;
         if($course->kubun_id == '01'){
-            $this->set_course_1($parent, $parent_date, $customer, $Yoyaku);
+            $result = $this->set_course_1($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '02'){
-            $this->set_course_2($parent, $parent_date, $customer, $Yoyaku);
+            $result = $this->set_course_2($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '03'){
-            $this->set_course_3($parent, $parent_date, $customer, $Yoyaku);
+            $result = $this->set_course_3($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '04'){
-            $this->set_course_4($parent, $parent_date, $customer, $Yoyaku);
+            $result = $this->set_course_4($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '05'){
             $result = $this->set_course_5($parent, $parent_date, $customer, $Yoyaku);
         }
