@@ -591,6 +591,21 @@ $(function() {
                 $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
             })
         }
+
+        if ((typeof json.error_time_transport !== "undefined" )
+            || (typeof json.error_time_gender  !== "undefined")
+            || (typeof json.error_time_empty  !== "undefined")
+            || (typeof json.room_select_error  !== "undefined")
+        ){
+            Swal({
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                type: 'error',
+                confirmButtonText: 'Try again!',
+                footer: '<a href>Why do I have this issue?</a>'
+            })
+        }
+        
         if (typeof json.error_time_transport !== "undefined" ) {
             $.each(json.error_time_transport, function (index, item) {
                 $('#'+item.element).css({'border': 'solid 1px #f50000'});
@@ -711,10 +726,19 @@ $(function() {
 let load_time_delete_event = function(){
     $('.svg-button').off('click');
     $('.svg-button').on('click', function() {
-        var r = confirm("Are you sure to delete this time?");
-        if (r == true) {
-            $($(this).parent().parent().remove());
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+              $($(this).parent().parent().remove());
+            }
+        })
     });
 }
 

@@ -2,8 +2,10 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}"/>
+    <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}"/>
+    <script src="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.css')}}"/>
 @endsection
 @section('page_title', '事前注意')
 @section('main')
@@ -58,7 +60,8 @@
 @endsection
 
 @section('script')
-    @parent
+    @parent  
+    
     <script>
         $('#confirm').on('change', function() {
             if($(this).is(":checked")){

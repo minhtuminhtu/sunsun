@@ -20,7 +20,6 @@
     @include('sunsun.front.layouts.header')
 @endsection
 
-
 @section("footer")
     @include('sunsun.front.layouts.footer')
     <div id="js-loading">

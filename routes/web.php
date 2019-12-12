@@ -2,6 +2,8 @@
 
 use App\Models\Yoyaku;
 use App\Models\Lock;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,49 +16,51 @@ use App\Models\Lock;
 |
 */
 
-Route::get('/demo', function () {
+// Route::get('/demo', function () {
+    
     
 
-    DB::unprepared("UNLOCK TABLE");
-});
-Route::get('/demo_lock', function () {
+//     echo "aaa";
+//     // DB::unprepared("UNLOCK TABLE");
+// });
+// Route::get('/demo_lock', function () {
     
   
-    DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
-    try{
-        DB::beginTransaction();
-        try {
-            $Yoyaku1 = new Yoyaku();
-            $Yoyaku1->booking_id = 2;
-            $Yoyaku1->course = 7;
-            $Yoyaku1->save();
+//     DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
+//     try{
+//         DB::beginTransaction();
+//         try {
+//             $Yoyaku1 = new Yoyaku();
+//             $Yoyaku1->booking_id = 2;
+//             $Yoyaku1->course = 7;
+//             $Yoyaku1->save();
 
-            new_test();
+//             new_test();
 
             
-            get_exeption();
-            
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-            
-            // throw new Exception($e->getMessage());
-        }
-    }catch(Exception $e){
-        dd($e);
-    }
-    DB::unprepared("UNLOCK TABLE");
-});
-function get_exeption(){
-    throw new \ErrorException('Error found');
-}
+//             get_exeption();
 
-function new_test(){
-    $Yoyaku1 = new Yoyaku();
-    $Yoyaku1->booking_id = 2;
-    $Yoyaku1->course = 7;
-    $Yoyaku1->save();
-}
+//             DB::commit();
+//         } catch (Exception $e) {
+//             DB::rollBack();
+            
+//             // throw new Exception($e->getMessage());
+//         }
+//     }catch(Exception $e){
+//         dd($e);
+//     }
+//     DB::unprepared("UNLOCK TABLE");
+// });
+// function get_exeption(){
+//     throw new \ErrorException('Error found');
+// }
+
+// function new_test(){
+//     $Yoyaku1 = new Yoyaku();
+//     $Yoyaku1->booking_id = 2;
+//     $Yoyaku1->course = 7;
+//     $Yoyaku1->save();
+// }
     
 
 
@@ -69,6 +73,8 @@ Route::get('/reset', function () {
 
 Route::namespace('Sunsun\Front')->group(function (){
     Route::get('/', function () {
+        // Alert::warning('Warning Title', 'Warning Message');
+        // alert()->warning('Title','Lorem Lorem Lorem');
         return view('sunsun.front.index');
     })->name('home');
 

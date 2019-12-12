@@ -5,3 +5,5 @@
 @include('sunsun.front.parts.booking_modal')
 <script src="{{asset('sunsun/front/js/booking.js').config('version_files.html.js')}}"></script>
 <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.js')}}"></script>
+<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+@include('sweetalert::alert')

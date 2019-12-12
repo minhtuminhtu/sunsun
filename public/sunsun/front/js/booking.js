@@ -652,6 +652,16 @@ $(function () {
       });
     }
 
+    if (typeof json.error_time_transport !== "undefined" || typeof json.error_time_gender !== "undefined" || typeof json.error_time_empty !== "undefined" || typeof json.room_select_error !== "undefined") {
+      Swal({
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        type: 'error',
+        confirmButtonText: 'Try again!',
+        footer: '<a href>Why do I have this issue?</a>'
+      });
+    }
+
     if (typeof json.error_time_transport !== "undefined") {
       $.each(json.error_time_transport, function (index, item) {
         $('#' + item.element).css({
@@ -729,11 +739,21 @@ $(function () {
 var load_time_delete_event = function load_time_delete_event() {
   $('.svg-button').off('click');
   $('.svg-button').on('click', function () {
-    var r = confirm("Are you sure to delete this time?");
+    var _this = this;
 
-    if (r == true) {
-      $($(this).parent().parent().remove());
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(function (result) {
+      if (result.value) {
+        $($(_this).parent().parent().remove());
+      }
+    });
   });
 };
 
