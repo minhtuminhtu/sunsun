@@ -17,6 +17,7 @@ class BookingController extends Controller
 
     public function index(Request $request){
         $request->session()->forget($this->session_info);
+        
         return view('sunsun.front.booking.index');
     }
 
@@ -639,7 +640,7 @@ class BookingController extends Controller
 
 
     private function final_validate(&$data){
-
+        
     }
 
 

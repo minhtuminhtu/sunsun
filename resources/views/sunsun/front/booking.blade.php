@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/checkbox/build.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
+    <script src="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.css')}}"/>
 @endsection
 @section('page_title', '予約入力')
 
@@ -19,6 +21,7 @@
     @parent
     <!-- The Modal -->
     @include('sunsun.front.parts.booking_modal')
+    
 @endsection
 @section('script')
     @parent
