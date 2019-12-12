@@ -758,11 +758,14 @@ td.disabled.disabled-date.range.day {
     margin-top: -0.75vw;
     cursor: pointer;
     color: #ced4da !important;
-    width: 2.5vw;   
+    width: 2.5vw;
 }
 .modal-backdrop.show {
     opacity: 0.8;
 }
+p.note-error {
+    font-size: 1vw;
+    color: red;
+}
 
 
-    

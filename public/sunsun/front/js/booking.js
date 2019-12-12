@@ -638,6 +638,8 @@ $(function () {
   });
 
   var make_color_input_error = function make_color_input_error(json) {
+    $('p.note-error').remove();
+
     if (typeof json.clear_border_red !== "undefined") {
       $.each(json.clear_border_red, function (index, item) {
         $('#' + item.element).css({
@@ -669,9 +671,11 @@ $(function () {
 
     if (typeof json.error_time_transport !== "undefined") {
       $.each(json.error_time_transport, function (index, item) {
-        $('#' + item.element).css({
+        var input_error_transport = $('#' + item.element);
+        input_error_transport.css({
           'border': 'solid 1px #f50000'
         });
+        input_error_transport.parent().after('<p class="note-error"> Your time have to after time bus arrived</p>');
         $('#bus_arrive_time_slide').closest('button').css({
           'border': 'solid 1px #f50000'
         });
@@ -680,9 +684,11 @@ $(function () {
 
     if (typeof json.error_time_gender !== "undefined") {
       $.each(json.error_time_gender, function (index, item) {
-        $('#' + item.element).css({
+        var input_error_gender = $('#' + item.element);
+        input_error_gender.css({
           'border': 'solid 1px #f50000'
         });
+        input_error_gender.parent().after('<p class="note-error"> Your time not is gender select please select again</p>');
         $('select[name=gender]').css({
           'border': 'solid 1px #f50000'
         });
@@ -691,9 +697,11 @@ $(function () {
 
     if (typeof json.error_time_empty !== "undefined") {
       $.each(json.error_time_empty, function (index, item) {
-        $('#' + item.element).css({
+        var input_error_required = $('#' + item.element);
+        input_error_required.css({
           'border': 'solid 1px #f50000'
         });
+        input_error_required.parent().after('<p class="note-error"> Please choice your time</p>');
       });
     }
 
@@ -1130,7 +1138,7 @@ var load_once_time = function load_once_time() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })

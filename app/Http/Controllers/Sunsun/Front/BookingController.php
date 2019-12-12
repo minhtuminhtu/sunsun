@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Sunsun\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sunsun\Front\BookingRequest;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Models\MsKubun;
 use App\Models\Yoyaku;
 use App\Models\YoyakuDanjikiJikan;
-use Illuminate\Support\Collection;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use function Sodium\randombytes_random16;
 
 class BookingController extends Controller
 {
@@ -91,16 +89,18 @@ class BookingController extends Controller
             $check_gender = true;
         }
 
+        // whitening
         if (isset($data['whitening_data'])) {
             $whitening = json_decode($data['whitening'], true);
-            if ($check_bus || $whitening['kubun_id'] == '02') {
+            if ($whitening['kubun_id'] == '02') {
                 $data_json_time = json_decode($data['whitening_data']['json'], true );
                 if ($data_json_time == null) {
                     $error['error_time_empty']['whitening']['element'] = $data['whitening_data']['element'];
                     //return $error;
                 } else {
-                    if ($check_bus) {
-                        if ($data_json_time['time_start'] < $time_required) { // check required time. time choice always >= time required
+                    if ($check_bus && $whitening['kubun_id'] == '02') {
+                        $time_start_whitening = substr($data_json_time['notes'], 0,4);
+                        if ($time_start_whitening < $time_required) { // check required time. time choice always >= time required
                             $error['error_time_transport'][]['element'] = $data['whitening_data']['element'];
                         } else {
                             $error['clear_border_red'][]['element'] = $data['whitening_data']['element'];
@@ -169,7 +169,8 @@ class BookingController extends Controller
                 } else {
                     if ($check_bus) { // validate nếu đi xe bus
                         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.PET')){
-                            if ($data_json_time['time_start'] < $time_required) { // check required time. time choice always >= time required
+                            $time_start_whitening = substr($data_json_time['notes'], 0,4);
+                            if ($time_start_whitening < $time_required) { // check required time. time choice always >= time required
                                 $error['error_time_transport'][$key]['element'] = $time['element'];
                             } else {
                                 $error['clear_border_red'][$key]['element'] = $time['element'];
@@ -222,7 +223,7 @@ class BookingController extends Controller
                 $error['clear_border_red']['end']['element'] = 'range_date_end';
             }
         }
-        
+
         // dd($error);
 
         if (isset($error['error_time_transport']) == false
