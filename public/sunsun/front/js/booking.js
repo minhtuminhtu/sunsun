@@ -657,9 +657,10 @@ $(function () {
     if (typeof json.error_time_transport !== "undefined" || typeof json.error_time_gender !== "undefined" || typeof json.error_time_empty !== "undefined" || typeof json.room_select_error !== "undefined") {
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
+        title: 'エラー',
         text: 'Something went wrong!',
-        confirmButtonText: 'Try again!',
+        confirmButtonColor: '#d7751e',
+        confirmButtonText: 'もう一度やり直してください。',
         showClass: {
           popup: 'animated fadeInDown faster'
         },
@@ -701,7 +702,7 @@ $(function () {
         input_error_required.css({
           'border': 'solid 1px #f50000'
         });
-        input_error_required.parent().after('<p class="note-error"> Please choice your time</p>');
+        input_error_required.parent().after('<p class="note-error"> 予約時間を選択してください。</p>');
       });
     }
 
@@ -755,13 +756,14 @@ var load_time_delete_event = function load_time_delete_event() {
     var _this = this;
 
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: '削除しますか？',
+      text: "しかし、復旧できません。よろしいですか!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: '#d7751e',
+      cancelButtonColor: '#343a40',
+      confirmButtonText: 'はい',
+      cancelButtonText: 'いいえ'
     }).then(function (result) {
       if (result.value) {
         $($(_this).parent().parent().remove());

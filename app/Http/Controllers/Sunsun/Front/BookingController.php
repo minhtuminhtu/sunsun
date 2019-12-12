@@ -577,8 +577,14 @@ class BookingController extends Controller
         }
 
         $data['customer'] = $this->get_booking($request);
-        if(count($data['customer']['info']) == 0){
-            return redirect("/booking");
+        if(
+            (isset($data['customer']['info']) == false)
+            || ((isset($data['customer']['info'])) &&(count($data['customer']['info']) == 0))
+        ){
+            return [
+                'status' => 'error',
+                'message' => 'Booking not found!'
+            ];
         }
 
         $value = 'success';
@@ -652,6 +658,9 @@ class BookingController extends Controller
         try{
             $return_booking_id = null;
             DB::beginTransaction();
+            if(isset($data['customer']['info']) == false){
+                throw new \Exception('Course not found!');
+            }
             try {
                 foreach($data['customer']['info'] as $customer){
                     $Yoyaku = new Yoyaku;
@@ -661,32 +670,26 @@ class BookingController extends Controller
                         $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
                         $Yoyaku->ref_booking_id = NULL;
-                        $result = $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
-                        // if(!$result){
-                        //     throw new \Exception('Course error');
-                        // }
+                        $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
                     }else{
                         $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
                         $return_booking_id = $booking_id;
                         $Yoyaku->ref_booking_id = $parent_id;
-                        $result = $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
-                        // if(!$result){
-                        //     throw new \Exception('Course error');
-                        // }
+                        $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
                     }
                     $Yoyaku->save();
                 }
                 DB::commit();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollBack();
                 $return_booking_id = null;
                 DB::unprepared("UNLOCK TABLE");
                 return  $return_booking_id;
             }         
-        }catch(Exception $e2){
+        }catch(\Exception $e2){
             // dd($e);
         }
         DB::unprepared("UNLOCK TABLE");
@@ -697,28 +700,25 @@ class BookingController extends Controller
     private function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){
         $course = json_decode($customer['course']);
         if($course->kubun_id == '01'){
+            $gender = json_decode($customer['gender']);
             foreach($customer['time'] as $time){
-                // $result = $this->validate_course_human($gender->kubun_id, $parent_date, $time['value'], $time['bed']);
-                $result = true;
-                if($result){
-                    $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
-                    $YoyakuDanjikiJikan->booking_id = $parent_id;
-                    $YoyakuDanjikiJikan->service_date = $parent_date;
-                    $YoyakuDanjikiJikan->service_time_1 = $time['value'];
-                    $YoyakuDanjikiJikan->notes = $time['bed'];
-                    $YoyakuDanjikiJikan->save();
-                }else{
-                    throw new \ErrorException('Course 1 error');
-                }
-                
+                $this->validate_course_human($gender->kubun_id, $parent_date, $time['value'], $time['bed']);
+
+                $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
+                $YoyakuDanjikiJikan->booking_id = $parent_id;
+                $YoyakuDanjikiJikan->service_date = $parent_date;
+                $YoyakuDanjikiJikan->service_time_1 = $time['value'];
+                $YoyakuDanjikiJikan->notes = $time['bed'];
+
+                $YoyakuDanjikiJikan->save();
             }
         }elseif($course->kubun_id == '04'){
             $plan_date_start = isset($customer['plan_date_start-value'])?$customer['plan_date_start-value']:"";
             $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
- 
+            $gender = json_decode($customer['gender']);
             foreach($customer['date'] as $date){
-                // $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['from']['value'], $date['from']['bed']);
-                // $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['to']['value'], $date['to']['bed']);
+                $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['from']['value'], $date['from']['bed']);
+                $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['to']['value'], $date['to']['bed']);
 
                 $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
                 $YoyakuDanjikiJikan->booking_id = $parent_id;
@@ -733,22 +733,89 @@ class BookingController extends Controller
     }
 
     private function validate_course_human($gender, $date, $time, $bed){
-        // $course_1_validate = DB::select("
-        //     SELECT 	    main.booking_id
-        //     FROM 		tr_yoyaku main
-        //     INNER JOIN  tr_yoyaku_danjiki_jikan time
-        //     ON          main.booking_id = time.booking_id
-        //     WHERE	    main.course = '01'
-        //     AND         main.gender = 	$gender
-        //     AND         time.service_date = $date
-        //     AND         time.service_time_1 = $time
-        //     AND         time.notes = $bed
-        // ");
-        $result = true;
-        // if(isset($course_1_validate) && (count($course_1_validate) != 0)){
-        //     $result = false;
-        // }
-        return $result;
+        $course_1_2_4_validate = DB::select("
+            (
+                SELECT 			main.booking_id 
+                FROM			tr_yoyaku main
+                INNER JOIN 	    tr_yoyaku_danjiki_jikan time 
+                ON				main.booking_id = time.booking_id
+                WHERE			main.course = '01'
+                AND             main.gender = $gender
+                AND             time.service_date = $date
+                AND             time.service_time_1 = $time
+                AND             time.notes = $bed
+                AND main.history_id IS NULL
+            )
+            UNION
+            (
+                SELECT 			main.booking_id 
+                FROM			tr_yoyaku main
+                WHERE			main.course = '02'
+                AND             main.gender = $gender
+                AND             main.service_date_start = $date
+                AND             main.service_time_1 = $time
+                AND             SUBSTRING(main.bed, 1, 1) = $bed
+                AND main.history_id IS NULL
+            )
+            UNION
+            (
+                SELECT 			main.booking_id 
+                FROM			tr_yoyaku main
+                WHERE			main.course = '02'
+                AND             main.gender = $gender
+                AND             main.service_date_start = $date
+                AND             main.service_time_2 = $time
+                AND             SUBSTRING(main.bed, 3, 1) = $bed
+                AND main.history_id IS NULL
+            )
+            UNION
+            (
+                SELECT 			main.booking_id 
+                FROM			tr_yoyaku main
+                INNER JOIN 	    tr_yoyaku_danjiki_jikan time 
+                ON				main.booking_id = time.booking_id
+                WHERE			main.course = '04'
+                AND             main.gender = $gender
+                AND             time.service_date = $date
+                AND             time.service_time_1 = $time
+                AND             SUBSTRING(time.notes, 1, 1) = $bed
+                AND main.history_id IS NULL
+            )
+            UNION
+            (
+                SELECT 			main.booking_id 
+                FROM			tr_yoyaku main
+                INNER JOIN 	    tr_yoyaku_danjiki_jikan time 
+                ON				main.booking_id = time.booking_id
+                WHERE			main.course = '04'
+                AND             main.gender = $gender
+                AND             time.service_date = $date
+                AND             time.service_time_1 = $time
+                AND             SUBSTRING(time.notes, 3, 1) = $bed
+                AND main.history_id IS NULL
+            )
+        
+        ");
+
+        if($gender == '01'){
+            $course_3_validate = DB::select("
+                SELECT 			main.booking_id 
+                FROM			tr_yoyaku main
+                WHERE			main.course = '03'
+                AND             main.service_date_start = $date
+                AND             main.service_time_1 = $time
+                AND             main.bed = $bed
+                AND main.history_id IS NULL
+            ");
+        }
+
+
+        if(
+            (isset($course_1_2_4_validate) && (count($course_1_2_4_validate) != 0))
+            || (isset($course_3_validate) && (count($course_3_validate) != 0))
+        ){
+            throw new \ErrorException('Course error!');
+        }
     }
     
 
@@ -780,17 +847,16 @@ class BookingController extends Controller
 
         $Yoyaku->course = $course->kubun_id;
         if($course->kubun_id == '01'){
-            $result = $this->set_course_1($parent, $parent_date, $customer, $Yoyaku);
+            $this->set_course_1($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '02'){
-            $result = $this->set_course_2($parent, $parent_date, $customer, $Yoyaku);
+            $this->set_course_2($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '03'){
-            $result = $this->set_course_3($parent, $parent_date, $customer, $Yoyaku);
+            $this->set_course_3($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '04'){
-            $result = $this->set_course_4($parent, $parent_date, $customer, $Yoyaku);
+            $this->set_course_4($parent, $parent_date, $customer, $Yoyaku);
         }elseif($course->kubun_id == '05'){
-            $result = $this->set_course_5($parent, $parent_date, $customer, $Yoyaku);
+            $this->set_course_5($parent, $parent_date, $customer, $Yoyaku);
         }
-        return $result;
     }
 
     private function set_course_1($parent, $parent_date, $customer, &$Yoyaku){
@@ -872,6 +938,8 @@ class BookingController extends Controller
         $bed1 = isset($customer['time1-bed'])?$customer['time1-bed']:"";
         $bed2 = isset($customer['time2-bed'])?$customer['time2-bed']:"";
 
+        
+
         $Yoyaku->gender = $gender->kubun_id;
         $Yoyaku->age_value = $age_value;
         $Yoyaku->service_time_1 = $time1;
@@ -895,8 +963,12 @@ class BookingController extends Controller
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;
                 $Yoyaku->breakfast = $breakfast->kubun_id;
             }
+            $this->validate_course_human($gender->kubun_id, $date,  $time1, $bed1);
+            $this->validate_course_human($gender->kubun_id, $date,  $time2, $bed2);
         }else{
             $Yoyaku->service_date_start = $parent_date;
+            $this->validate_course_human($gender->kubun_id, $parent_date,  $time1, $bed1);
+            $this->validate_course_human($gender->kubun_id, $parent_date,  $time2, $bed2);
         }
     }
 
@@ -941,8 +1013,10 @@ class BookingController extends Controller
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;
                 $Yoyaku->breakfast = $breakfast->kubun_id;
             }
+            $this->validate_course_human('01', $date,  $time, $bed);
         }else{
             $Yoyaku->service_date_start = $parent_date;
+            $this->validate_course_human('01', $parent_date,  $time, $bed);
         }
     }
 
@@ -1000,7 +1074,6 @@ class BookingController extends Controller
             $result = $this->validate_course_pet($date, $time1, $time2);
             $Yoyaku->service_date_start = $parent_date;
         }
-        return $result;
     }
 
     private function validate_course_pet($date, $time1, $time2){
@@ -1011,14 +1084,11 @@ class BookingController extends Controller
                 AND             main.service_date_start = $date
                 AND             main.service_time_1 = $time1
                 AND             main.service_time_2 = $time2
+                AND main.history_id IS NULL
         ");
-        $result = true;
-
         if(isset($course_5_validate) && (count($course_5_validate) != 0)){
-            $result = false;
-            // throw new \ErrorException('Course 4 error');
+            throw new \ErrorException('Course 4 error');
         }
-        return $result;
     }
 
 

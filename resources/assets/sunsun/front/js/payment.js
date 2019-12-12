@@ -31,12 +31,23 @@ $(function() {
                 if (typeof html.error !== 'undefined') {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops...',
+                        title: 'エラー',
                         text: 'Something went wrong!',
-                        confirmButtonText: 'Try again!'
+                        confirmButtonColor: '#d7751e',
+                        confirmButtonText: 'もう一度やり直してください。'
                     })
+                    $('p.note-error').remove();
                     $.each(html.error, function (index, item) {
                         $('#'+item).css({'border': 'solid 1px #f50000'});
+                        switch(item) {
+                            case 'name': $('#'+item).parent().after('<p class="note-error"> 入力されている名前は無効になっています。</p>');
+                                    break;
+                            case 'phone': $('#'+item).parent().after('<p class="note-error"> 電話番号は無効になっています。</p>');
+                                    break;
+                            case 'email': $('#'+item).parent().after('<p class="note-error"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
+                                    break;
+                        }
+                        
                     })
                     $.each(html.clear, function (index, item) {
                         $('#'+item).css({'border': 'solid 1px #ced4da'});
@@ -45,14 +56,15 @@ $(function() {
                     if ((typeof html.status !== 'undefined') && (html.status == 'success')) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Success!'
+                            title: '成功'
                         })
                     }else if ((typeof html.status !== 'undefined') && (html.status == 'error')){
                         Swal.fire({
                             icon: 'error',
-                            title: 'Oops...',
+                            title: 'エラー',
                             text: html.message,
-                            confirmButtonText: 'Try again!'
+                            confirmButtonColor: '#d7751e',
+                            confirmButtonText: 'もう一度やり直してください。'
                         })
                     }
                     

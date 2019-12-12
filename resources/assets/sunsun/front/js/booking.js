@@ -600,9 +600,10 @@ $(function() {
         ){
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'エラー',
                 text: 'Something went wrong!',
-                confirmButtonText: 'Try again!',
+                confirmButtonColor: '#d7751e',
+                confirmButtonText: 'もう一度やり直してください。',
                 showClass: {
                     popup: 'animated fadeInDown faster'
                 },
@@ -632,7 +633,7 @@ $(function() {
             $.each(json.error_time_empty, function (index, item) {
                 let input_error_required = $('#'+item.element);
                 input_error_required.css({'border': 'solid 1px #f50000'});
-                input_error_required.parent().after('<p class="note-error"> Please choice your time</p>');
+                input_error_required.parent().after('<p class="note-error"> 予約時間を選択してください。</p>');
             })
         }
         if (typeof json.room_select_error  !== "undefined") {
@@ -739,13 +740,14 @@ let load_time_delete_event = function(){
     $('.svg-button').off('click');
     $('.svg-button').on('click', function() {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: '削除しますか？',
+            text: "しかし、復旧できません。よろしいですか!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonColor: '#d7751e',
+            cancelButtonColor: '#343a40',
+            confirmButtonText: 'はい',
+            cancelButtonText: 'いいえ'
         }).then((result) => {
             if (result.value) {
               $($(this).parent().parent().remove());
