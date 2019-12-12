@@ -790,7 +790,7 @@ class BookingController extends Controller
                 WHERE			main.course = '04'
                 AND             main.gender = $gender
                 AND             time.service_date = $date
-                AND             time.service_time_1 = $time
+                AND             time.service_time_2 = $time
                 AND             SUBSTRING(time.notes, 3, 1) = $bed
                 AND main.history_id IS NULL
             )
