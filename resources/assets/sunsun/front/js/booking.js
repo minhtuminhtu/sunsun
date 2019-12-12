@@ -61,7 +61,7 @@ $(function() {
         if($('#date').val() == ""){
             $('#date').val(strToday);
         }
-        
+
         if($('#plan_date_start').val() == ""){
             $('#plan_date_start').val(strToday);
         }
@@ -102,12 +102,12 @@ $(function() {
                             weekStart: 1,
                             orientation: 'bottom',
                         });
-                        
+
                         let range_start = moment(new Date($('#range_date_start').val()));
                         let range_end = moment(new Date($('#range_date_end').val()));
                         $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
                         $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
-                    
+
                         $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
                         $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
 
@@ -117,7 +117,7 @@ $(function() {
                         loader.css({'display': 'none'});
                     },
                 });
-                
+
             }
         });
 
@@ -584,6 +584,7 @@ $(function() {
     });
 
     let make_color_input_error = (json) => {
+        $('p.note-error').remove();
         if (typeof json.clear_border_red !== "undefined" ) {
             $.each(json.clear_border_red, function (index, item) {
                 $('#'+item.element).css({'border': 'solid 1px #ced4da'});
@@ -593,19 +594,25 @@ $(function() {
         }
         if (typeof json.error_time_transport !== "undefined" ) {
             $.each(json.error_time_transport, function (index, item) {
-                $('#'+item.element).css({'border': 'solid 1px #f50000'});
+                let input_error_transport = $('#'+item.element);
+                input_error_transport.css({'border': 'solid 1px #f50000'});
+                input_error_transport.parent().after('<p class="note-error"> Your time have to after time bus arrived</p>');
                 $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #f50000'});
             })
         }
         if (typeof json.error_time_gender  !== "undefined") {
             $.each(json.error_time_gender, function (index, item) {
-                $('#'+item.element).css({'border': 'solid 1px #f50000'});
+                let input_error_gender = $('#'+item.element);
+                input_error_gender.css({'border': 'solid 1px #f50000'});
+                input_error_gender.parent().after('<p class="note-error"> Your time not is gender select please select again</p>');
                 $('select[name=gender]').css({'border': 'solid 1px #f50000'});
             })
         }
         if (typeof json.error_time_empty  !== "undefined") {
             $.each(json.error_time_empty, function (index, item) {
-                $('#'+item.element).css({'border': 'solid 1px #f50000'});
+                let input_error_required = $('#'+item.element);
+                input_error_required.css({'border': 'solid 1px #f50000'});
+                input_error_required.parent().after('<p class="note-error"> Please choice your time</p>');
             })
         }
         if (typeof json.room_select_error  !== "undefined") {
