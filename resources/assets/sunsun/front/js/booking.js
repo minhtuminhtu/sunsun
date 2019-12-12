@@ -597,12 +597,17 @@ $(function() {
             || (typeof json.error_time_empty  !== "undefined")
             || (typeof json.room_select_error  !== "undefined")
         ){
-            Swal({
+            Swal.fire({
+                icon: 'error',
                 title: 'Oops...',
                 text: 'Something went wrong!',
-                type: 'error',
                 confirmButtonText: 'Try again!',
-                footer: '<a href>Why do I have this issue?</a>'
+                showClass: {
+                    popup: 'animated fadeInDown faster'
+                },
+                hideClass: {
+                    popup: 'animated fadeOutUp faster'
+                }
             })
         }
         
@@ -729,7 +734,7 @@ let load_time_delete_event = function(){
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
-            type: 'warning',
+            icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',

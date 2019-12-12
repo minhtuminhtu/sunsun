@@ -2,7 +2,6 @@
 
 use App\Models\Yoyaku;
 use App\Models\Lock;
-use RealRashid\SweetAlert\Facades\Alert;
 
 
 /*
@@ -73,8 +72,6 @@ Route::get('/reset', function () {
 
 Route::namespace('Sunsun\Front')->group(function (){
     Route::get('/', function () {
-        // Alert::warning('Warning Title', 'Warning Message');
-        // alert()->warning('Title','Lorem Lorem Lorem');
         return view('sunsun.front.index');
     })->name('home');
 

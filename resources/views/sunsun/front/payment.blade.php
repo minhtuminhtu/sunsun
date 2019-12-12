@@ -4,6 +4,9 @@
     @parent
     <link  rel="stylesheet" href="{{asset('sunsun/front/css/booking.css').config('version_files.html.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/booking-mobile.css').config('version_files.html.css')}}">
+    <script src="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('sunsun/lib/animate.css/animate.min.css')}}"/>
     <style>
         th {
             background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg.png");
@@ -81,7 +84,7 @@
                 </div>
                 <div class="foot-confirm">
                     <div class="confirm-button-payment">
-                        <button type="submit" class="btn btn-block btn-booking text-white">確認</button>
+                        <button id="make_payment" type="button" class="btn btn-block btn-booking text-white">確認</button>
                     </div>
                 </div>
             </form>
@@ -91,20 +94,7 @@
 
 @section('script')
     @parent
-    <script>
-        $('.payment-method').on('change', function() {
-            if($(this).prop("id") == 'credit-card'){
-                $('.credit-card').show();
-            }else{
-                $('.credit-card').hide();
-            }
-        });
-        $('#card-expire').on('keypress', function() {
-            if($(this).val().length == 2 ){
-                $('#card-expire').val($('#card-expire').val() + "/");
-            }
-        });
-    </script>
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
+    <script src="{{asset('sunsun/front/js/payment.js').config('version_files.html.css')}}"></script>
 @endsection
 

@@ -3,7 +3,7 @@
         <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
     </div>
     <div class="booking-field-content">
-        <input name="name" type="text" class="form-control date-book-input" maxlength="255" value="{{ isset($data_booking->name)?$data_booking->name:'' }}" required/>
+        <input name="name" id="name" type="text" class="form-control date-book-input" maxlength="255" value="{{ isset($data_booking->name)?$data_booking->name:'' }}"/>
         <!-- <p class="node-text text-red">Name is required!</p> -->
     </div>
 </div>
@@ -13,7 +13,7 @@
         <p class="node-text pt-2" style="line-height: 100%;">当日の連絡先</p>
     </div>
     <div class="booking-field-content">
-        <input name="phone" type="text" class="form-control date-book-input" maxlength="255" value="{{ isset($data_booking->name)?$data_booking->phone:'' }}" required/>
+        <input name="phone" id="phone" type="text" class="form-control date-book-input" maxlength="255" value="{{ isset($data_booking->name)?$data_booking->phone:'' }}"/>
         <!-- <p class="node-text text-red">Phone is required!</p> -->
     </div>
 </div>
@@ -22,7 +22,7 @@
         <p class="text-md-left pt-2">{{config('booking.email.label')}}</p>
     </div>
     <div class="booking-field-content">
-        <input name="email" type="text" class="form-control date-book-input" maxlength="255" value="{{ isset($data_booking->name)?$data_booking->email:'' }}" required/>
+        <input name="email" id="email" type="text" class="form-control date-book-input" maxlength="255" value="{{ isset($data_booking->name)?$data_booking->email:'' }}"/>
         <!-- <p class="node-text text-red">Email is required!</p> -->
     </div>
 </div>
