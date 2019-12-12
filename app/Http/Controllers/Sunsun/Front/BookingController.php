@@ -12,9 +12,6 @@ use App\Models\YoyakuDanjikiJikan;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use function Sodium\randombytes_random16;
-use RealRashid\SweetAlert\Facades\Alert;
-Alert::warning('Warning Title', 'Warning Message');
-
 
 class BookingController extends Controller
 {
