@@ -239,24 +239,27 @@
                     </div>
                 </div>
                 <div class="booking-field room"  @if($room_whitening) style="display:none;" @endif>
-                    <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
-                    <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
-                    <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="{{ isset($course_data['stay_checkin_date'])?$course_data['stay_checkin_date']:'' }}">
-                    <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="{{ isset($course_data['stay_checkout_date'])?$course_data['stay_checkout_date']:'' }}">
-                    <div class="booking-field booking-room input-daterange date-range_block" id="choice-range-day">
-                        <div class="field-start-day date-range_block_left">
-                            <p class="node-text">{{config('booking.range_date.checkin')}}</p>
-                            <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="{{ isset($range_date_start)?$range_date_start:'' }}">
+                    <div>
+                        <div>
+                            <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
+                            <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
+                            <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">
+                            <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="">
+                            <div class="range_room booking-room input-daterange  date-range_block" id="choice-range-day">
+                                <div class="field-start-day date-range_block_left">
+                                    <p class="node-text">{{config('booking.range_date.checkin')}}</p>
+                                    <input name="range_date_start" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_start" value="{{ isset($range_date_start)?$range_date_start:'' }}">
+                                </div>
+                                <div class="field-center date-range_block_center">
+                                    <p>&nbsp;</p>
+                                    <p class="character-date pt-2">～</p>
+                                </div>
+                                <div class="field-end-day date-range_block_right">
+                                    <p class="node-text">{{config('booking.range_date.checkout')}}</p>
+                                    <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="{{ isset($range_date_end)?$range_date_end:'' }}">
+                                </div>
+                            </div>
                         </div>
-                        <div class="date-range_block_center">
-                            <p>&nbsp;</p>
-                            <p class="character-date pt-2">～</p>
-                        </div>
-                        <div class="field-end-day  date-range_block_right">
-                            <p class="node-text">{{config('booking.range_date.checkout')}}</p>
-                            <input name="range_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input room_range_date bg-white"  readonly="readonly" id="range_date_end" value="{{ isset($range_date_end)?$range_date_end:'' }}">
-                        </div>
-
                     </div>
                 </div>
             </div>
