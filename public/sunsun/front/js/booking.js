@@ -666,7 +666,8 @@ $(function () {
         },
         hideClass: {
           popup: 'animated fadeOutUp faster'
-        }
+        },
+        allowOutsideClick: false
       });
     }
 
@@ -763,7 +764,8 @@ var load_time_delete_event = function load_time_delete_event() {
       confirmButtonColor: '#d7751e',
       cancelButtonColor: '#343a40',
       confirmButtonText: 'はい',
-      cancelButtonText: 'いいえ'
+      cancelButtonText: 'いいえ',
+      allowOutsideClick: false
     }).then(function (result) {
       if (result.value) {
         $($(_this).parent().parent().remove());

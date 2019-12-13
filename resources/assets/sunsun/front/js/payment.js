@@ -34,7 +34,8 @@ $(function() {
                         title: 'エラー',
                         text: 'Something went wrong!',
                         confirmButtonColor: '#d7751e',
-                        confirmButtonText: 'もう一度やり直してください。'
+                        confirmButtonText: 'もう一度やり直してください。',
+                        allowOutsideClick: false
                     })
                     $('p.note-error').remove();
                     $.each(html.error, function (index, item) {
@@ -64,7 +65,8 @@ $(function() {
                             title: 'エラー',
                             text: html.message,
                             confirmButtonColor: '#d7751e',
-                            confirmButtonText: 'もう一度やり直してください。'
+                            confirmButtonText: 'もう一度やり直してください。',
+                            allowOutsideClick: false
                         })
                     }
                     

@@ -609,7 +609,8 @@ $(function() {
                 },
                 hideClass: {
                     popup: 'animated fadeOutUp faster'
-                }
+                },
+                allowOutsideClick: false
             })
         }
         
@@ -747,7 +748,8 @@ let load_time_delete_event = function(){
             confirmButtonColor: '#d7751e',
             cancelButtonColor: '#343a40',
             confirmButtonText: 'はい',
-            cancelButtonText: 'いいえ'
+            cancelButtonText: 'いいえ',
+            allowOutsideClick: false
         }).then((result) => {
             if (result.value) {
               $($(this).parent().parent().remove());
