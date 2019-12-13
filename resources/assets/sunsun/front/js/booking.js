@@ -601,7 +601,7 @@ $(function() {
             Swal.fire({
                 icon: 'error',
                 title: 'エラー',
-                text: 'Something went wrong!',
+                text: '入力した情報を再確認してください。',
                 confirmButtonColor: '#d7751e',
                 confirmButtonText: 'もう一度やり直してください。',
                 showClass: {
@@ -618,7 +618,7 @@ $(function() {
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
                 input_error_transport.css({'border': 'solid 1px #f50000'});
-                input_error_transport.parent().after('<p class="note-error"> Your time have to after time bus arrived</p>');
+                input_error_transport.parent().after('<p class="note-error node-text"> 予約時間は洲本ICのバスの送迎時間以降にならないといけないのです。</p>');
                 $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #f50000'});
             })
         }
@@ -626,7 +626,7 @@ $(function() {
             $.each(json.error_time_gender, function (index, item) {
                 let input_error_gender = $('#'+item.element);
                 input_error_gender.css({'border': 'solid 1px #f50000'});
-                input_error_gender.parent().after('<p class="note-error"> Your time not is gender select please select again</p>');
+                input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
                 $('select[name=gender]').css({'border': 'solid 1px #f50000'});
             })
         }
@@ -634,13 +634,14 @@ $(function() {
             $.each(json.error_time_empty, function (index, item) {
                 let input_error_required = $('#'+item.element);
                 input_error_required.css({'border': 'solid 1px #f50000'});
-                input_error_required.parent().after('<p class="note-error"> 予約時間を選択してください。</p>');
+                input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
             })
         }
         if (typeof json.room_select_error  !== "undefined") {
             $.each(json.room_select_error, function (index, item) {
                 $('#'+item.element).css({'border': 'solid 1px #f50000'});
             })
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
         }
 
     };

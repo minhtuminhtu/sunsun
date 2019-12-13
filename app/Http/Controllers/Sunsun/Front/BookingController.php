@@ -583,7 +583,7 @@ class BookingController extends Controller
         ){
             return [
                 'status' => 'error',
-                'message' => 'Booking not found!'
+                'message' => '予約されたデータが見つかりません。'
             ];
         }
 
@@ -642,7 +642,7 @@ class BookingController extends Controller
         }else{
             $result = [
                 'status' => 'error',
-                'message' => 'There was an error during the booking process!'
+                'message' => '重複されているから、予約したデータはキャンセルされます。'
             ];
         }
 
@@ -859,6 +859,26 @@ class BookingController extends Controller
         }
     }
 
+
+    private function validate_stay_room($room_type, $checkin, $checkout){
+        $room_validate = DB::select("
+            SELECT 	main.booking_id,
+                    main.stay_checkin_date,
+                    main.stay_checkout_date
+            FROM	tr_yoyaku main
+            WHERE	main.stay_room_type = $room_type
+            AND	(   ( main.stay_checkin_date <= $checkout AND main.stay_checkout_date >= $checkout )
+                OR 	( main.stay_checkin_date <= $checkin AND main.stay_checkout_date >= $checkout )
+                OR 	( main.stay_checkin_date <= $checkin AND main.stay_checkout_date >= $checkin )
+                OR 	( main.stay_checkin_date >= $checkin AND main.stay_checkout_date <= $checkout )
+                )
+            AND main.history_id IS NULL
+        ");
+        if(isset($room_validate) && (count($room_validate) != 0)){
+            throw new \ErrorException('Course error!');
+        }
+    }
+
     private function set_course_1($parent, $parent_date, $customer, &$Yoyaku){
         //Basic
         $gender = isset($customer['gender'])?json_decode($customer['gender']):"";
@@ -904,6 +924,7 @@ class BookingController extends Controller
             $Yoyaku->service_date_start = $date;
             $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
             if($stay_room_type->kubun_id != '01'){
+                $this->validate_stay_room($stay_room_type->kubun_id, $stay_checkin_date, $stay_checkout_date);
                 $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
                 $Yoyaku->stay_checkin_date = $stay_checkin_date;
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;
@@ -958,6 +979,7 @@ class BookingController extends Controller
             $Yoyaku->service_date_start = $date;
             $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
             if($stay_room_type->kubun_id != '01'){
+                $this->validate_stay_room($stay_room_type->kubun_id, $stay_checkin_date, $stay_checkout_date);
                 $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
                 $Yoyaku->stay_checkin_date = $stay_checkin_date;
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;
@@ -1008,6 +1030,7 @@ class BookingController extends Controller
             $Yoyaku->service_date_start = $date;
             $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
             if($stay_room_type->kubun_id != '01'){
+                $this->validate_stay_room($stay_room_type->kubun_id, $stay_checkin_date, $stay_checkout_date);
                 $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
                 $Yoyaku->stay_checkin_date = $stay_checkin_date;
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;
@@ -1045,6 +1068,7 @@ class BookingController extends Controller
         if($parent){
             $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
             if($stay_room_type->kubun_id != '01'){
+                $this->validate_stay_room($stay_room_type->kubun_id, $stay_checkin_date, $stay_checkout_date);
                 $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
                 $Yoyaku->stay_checkin_date = $stay_checkin_date;
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;

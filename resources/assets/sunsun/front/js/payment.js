@@ -32,7 +32,7 @@ $(function() {
                     Swal.fire({
                         icon: 'error',
                         title: 'エラー',
-                        text: 'Something went wrong!',
+                        text: ' 入力した情報を再確認してください。',
                         confirmButtonColor: '#d7751e',
                         confirmButtonText: 'もう一度やり直してください。',
                         allowOutsideClick: false
@@ -41,11 +41,11 @@ $(function() {
                     $.each(html.error, function (index, item) {
                         $('#'+item).css({'border': 'solid 1px #f50000'});
                         switch(item) {
-                            case 'name': $('#'+item).parent().after('<p class="note-error"> 入力されている名前は無効になっています。</p>');
+                            case 'name': $('#'+item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
                                     break;
-                            case 'phone': $('#'+item).parent().after('<p class="note-error"> 電話番号は無効になっています。</p>');
+                            case 'phone': $('#'+item).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
                                     break;
-                            case 'email': $('#'+item).parent().after('<p class="note-error"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
+                            case 'email': $('#'+item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
                                     break;
                         }
                         
@@ -65,7 +65,7 @@ $(function() {
                             title: 'エラー',
                             text: html.message,
                             confirmButtonColor: '#d7751e',
-                            confirmButtonText: 'もう一度やり直してください。',
+                            confirmButtonText: html.message,
                             allowOutsideClick: false
                         })
                     }

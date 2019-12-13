@@ -893,3 +893,11 @@ p.note-error {
   color: red;
 }
 
+.range_room {
+  display: flex;
+}
+
+.swal2-container.swal2-backdrop-show {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
