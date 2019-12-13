@@ -605,10 +605,10 @@ $(function() {
                 confirmButtonColor: '#d7751e',
                 confirmButtonText: 'もう一度やり直してください。',
                 showClass: {
-                    popup: 'animated fadeInDown faster'
+                    popup: 'animated zoomIn faster'
                 },
                 hideClass: {
-                    popup: 'animated fadeOutUp faster'
+                    popup: 'animated zoomOut faster'
                 },
                 allowOutsideClick: false
             })
@@ -741,21 +741,55 @@ $(function() {
 let load_time_delete_event = function(){
     $('.svg-button').off('click');
     $('.svg-button').on('click', function() {
-        Swal.fire({
-            title: '削除しますか？',
-            text: "しかし、復旧できません。よろしいですか!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d7751e',
-            cancelButtonColor: '#343a40',
-            confirmButtonText: 'はい',
-            cancelButtonText: 'いいえ',
-            allowOutsideClick: false
-        }).then((result) => {
-            if (result.value) {
-              $($(this).parent().parent().remove());
-            }
-        })
+        if (window.location.href.includes("admin")) {
+            Swal.fire({
+                target: '#edit_booking',
+                title: '削除しますか？',
+                text: "しかし、復旧できません。よろしいですか!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d7751e',
+                cancelButtonColor: '#343a40',
+                confirmButtonText: 'はい',
+                cancelButtonText: 'いいえ',
+                showClass: {
+                    popup: 'animated zoomIn faster'
+                },
+                hideClass: {
+                    popup: 'animated zoomOut faster'
+                },
+                // customClass: {
+                //     popup: 'modal-dialog'
+                // },
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.value) {
+                $($(this).parent().parent().remove());
+                }
+            })
+        } else {
+            Swal.fire({
+                title: '削除しますか？',
+                text: "しかし、復旧できません。よろしいですか!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d7751e',
+                cancelButtonColor: '#343a40',
+                confirmButtonText: 'はい',
+                cancelButtonText: 'いいえ',
+                showClass: {
+                    popup: 'animated zoomIn faster'
+                },
+                hideClass: {
+                    popup: 'animated zoomOut faster'
+                },
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.value) {
+                $($(this).parent().parent().remove());
+                }
+            })
+        }
     });
 }
 

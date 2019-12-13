@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Yoyaku;
-use App\Models\Lock;
+
 
 
 /*
@@ -18,7 +18,7 @@ use App\Models\Lock;
 // Route::get('/demo', function () {
     
     
-
+    
 //     echo "aaa";
 //     // DB::unprepared("UNLOCK TABLE");
 // });

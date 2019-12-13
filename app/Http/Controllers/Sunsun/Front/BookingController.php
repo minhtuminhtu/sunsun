@@ -10,6 +10,7 @@ use App\Models\YoyakuDanjikiJikan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
@@ -670,14 +671,18 @@ class BookingController extends Controller
                         $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
                         $Yoyaku->ref_booking_id = NULL;
+                        Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
+                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
                     }else{
                         $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
                         $return_booking_id = $booking_id;
                         $Yoyaku->ref_booking_id = $parent_id;
+                        Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
+                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
                     }
                     $Yoyaku->save();
@@ -861,6 +866,9 @@ class BookingController extends Controller
 
 
     private function validate_stay_room($room_type, $checkin, $checkout){
+        Log::debug($room_type);
+        Log::debug($checkin);
+        Log::debug($checkout);
         $room_validate = DB::select("
             SELECT 	main.booking_id,
                     main.stay_checkin_date,
@@ -874,7 +882,25 @@ class BookingController extends Controller
                 )
             AND main.history_id IS NULL
         ");
+        Log::debug($room_validate);
         if(isset($room_validate) && (count($room_validate) != 0)){
+            throw new \ErrorException('Course error!');
+        }
+    }
+
+    private function whitening_validate($date, $time){
+        Log::debug('wt_validate');
+        Log::debug($date);
+        Log::debug($time);
+        $wt_validate = DB::select("
+            SELECT 	main.booking_id
+            FROM	tr_yoyaku main
+            WHERE	main.service_date_start = '$date'
+            AND     main.whitening_time = '$time'
+            AND main.history_id IS NULL
+        ");
+        Log::debug($wt_validate);
+        if(isset($wt_validate) && (count($wt_validate) != 0)){
             throw new \ErrorException('Course error!');
         }
     }
@@ -930,8 +956,14 @@ class BookingController extends Controller
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;
                 $Yoyaku->breakfast = $breakfast->kubun_id;
             }
+            if($whitening->kubun_id == '02'){
+                $this->whitening_validate($date, $whitening_time);
+            }
         }else{
             $Yoyaku->service_date_start = $parent_date;
+            if($whitening->kubun_id == '02'){
+                $this->whitening_validate($parent_date, $whitening_time);
+            }
         }
     }
 
@@ -987,10 +1019,16 @@ class BookingController extends Controller
             }
             $this->validate_course_human($gender->kubun_id, $date,  $time1, $bed1);
             $this->validate_course_human($gender->kubun_id, $date,  $time2, $bed2);
+            if($whitening->kubun_id == '02'){
+                $this->whitening_validate($date, $whitening_time);
+            }
         }else{
             $Yoyaku->service_date_start = $parent_date;
             $this->validate_course_human($gender->kubun_id, $parent_date,  $time1, $bed1);
             $this->validate_course_human($gender->kubun_id, $parent_date,  $time2, $bed2);
+            if($whitening->kubun_id == '02'){
+                $this->whitening_validate($parent_date, $whitening_time);
+            }
         }
     }
 
@@ -1037,9 +1075,15 @@ class BookingController extends Controller
                 $Yoyaku->breakfast = $breakfast->kubun_id;
             }
             $this->validate_course_human('01', $date,  $time, $bed);
+            if($whitening->kubun_id == '02'){
+                $this->whitening_validate($date, $whitening_time);
+            }
         }else{
             $Yoyaku->service_date_start = $parent_date;
             $this->validate_course_human('01', $parent_date,  $time, $bed);
+            if($whitening->kubun_id == '02'){
+                $this->whitening_validate($parent_date, $whitening_time);
+            }
         }
     }
 
@@ -1056,8 +1100,8 @@ class BookingController extends Controller
         //Stay
         $stay_room_type = isset($customer['stay_room_type'])?json_decode($customer['stay_room_type']):"";
         $stay_guest_num = isset($customer['stay_guest_num'])?json_decode($customer['stay_guest_num']):"";
-        $stay_checkin_date = isset($customer['stay_checkin_date'])?json_decode($customer['stay_checkin_date']):"";
-        $stay_checkout_date = isset($customer['stay_checkout_date'])?json_decode($customer['stay_checkout_date']):"";
+        $stay_checkin_date = isset($customer['range_date_start-value'])?$customer['range_date_start-value']:"";
+        $stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
 
         $Yoyaku->gender = $gender->kubun_id;
         $Yoyaku->age_value = $age_value;
@@ -1065,10 +1109,14 @@ class BookingController extends Controller
 
         $Yoyaku->service_date_start = $plan_date_start;
         $Yoyaku->service_date_end = $plan_date_end;
+        Log::debug('course 4 ' . $stay_room_type->kubun_id);
         if($parent){
+            Log::debug('qua 1 ');
             $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
             if($stay_room_type->kubun_id != '01'){
+                Log::debug('qua 2');
                 $this->validate_stay_room($stay_room_type->kubun_id, $stay_checkin_date, $stay_checkout_date);
+                Log::debug('qua');
                 $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
                 $Yoyaku->stay_checkin_date = $stay_checkin_date;
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;

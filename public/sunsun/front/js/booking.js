@@ -662,10 +662,10 @@ $(function () {
         confirmButtonColor: '#d7751e',
         confirmButtonText: 'もう一度やり直してください。',
         showClass: {
-          popup: 'animated fadeInDown faster'
+          popup: 'animated zoomIn faster'
         },
         hideClass: {
-          popup: 'animated fadeOutUp faster'
+          popup: 'animated zoomOut faster'
         },
         allowOutsideClick: false
       });
@@ -757,21 +757,55 @@ var load_time_delete_event = function load_time_delete_event() {
   $('.svg-button').on('click', function () {
     var _this = this;
 
-    Swal.fire({
-      title: '削除しますか？',
-      text: "しかし、復旧できません。よろしいですか!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d7751e',
-      cancelButtonColor: '#343a40',
-      confirmButtonText: 'はい',
-      cancelButtonText: 'いいえ',
-      allowOutsideClick: false
-    }).then(function (result) {
-      if (result.value) {
-        $($(_this).parent().parent().remove());
-      }
-    });
+    if (window.location.href.includes("admin")) {
+      Swal.fire({
+        target: '#edit_booking',
+        title: '削除しますか？',
+        text: "しかし、復旧できません。よろしいですか!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d7751e',
+        cancelButtonColor: '#343a40',
+        confirmButtonText: 'はい',
+        cancelButtonText: 'いいえ',
+        showClass: {
+          popup: 'animated zoomIn faster'
+        },
+        hideClass: {
+          popup: 'animated zoomOut faster'
+        },
+        // customClass: {
+        //     popup: 'modal-dialog'
+        // },
+        allowOutsideClick: false
+      }).then(function (result) {
+        if (result.value) {
+          $($(_this).parent().parent().remove());
+        }
+      });
+    } else {
+      Swal.fire({
+        title: '削除しますか？',
+        text: "しかし、復旧できません。よろしいですか!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d7751e',
+        cancelButtonColor: '#343a40',
+        confirmButtonText: 'はい',
+        cancelButtonText: 'いいえ',
+        showClass: {
+          popup: 'animated zoomIn faster'
+        },
+        hideClass: {
+          popup: 'animated zoomOut faster'
+        },
+        allowOutsideClick: false
+      }).then(function (result) {
+        if (result.value) {
+          $($(_this).parent().parent().remove());
+        }
+      });
+    }
   });
 };
 

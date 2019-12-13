@@ -889,7 +889,6 @@ td.disabled.disabled-date.range.day {
 }
 
 p.note-error {
-  font-size: 1vw;
   color: red;
 }
 
@@ -898,6 +897,6 @@ p.note-error {
 }
 
 .swal2-container.swal2-backdrop-show {
-  background: rgba(0, 0, 0, 0.8) !important;
+  background: rgba(0, 0, 0, 0.8);
 }
 

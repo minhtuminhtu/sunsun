@@ -131,6 +131,12 @@ $(function () {
             text: ' 入力した情報を再確認してください。',
             confirmButtonColor: '#d7751e',
             confirmButtonText: 'もう一度やり直してください。',
+            showClass: {
+              popup: 'animated zoomIn faster'
+            },
+            hideClass: {
+              popup: 'animated zoomOut faster'
+            },
             allowOutsideClick: false
           });
           $('p.note-error').remove();
@@ -162,7 +168,13 @@ $(function () {
           if (typeof html.status !== 'undefined' && html.status == 'success') {
             Swal.fire({
               icon: 'success',
-              title: '成功'
+              title: '成功',
+              showClass: {
+                popup: 'animated zoomIn faster'
+              },
+              hideClass: {
+                popup: 'animated zoomOut faster'
+              }
             });
           } else if (typeof html.status !== 'undefined' && html.status == 'error') {
             Swal.fire({
@@ -171,6 +183,12 @@ $(function () {
               text: html.message,
               confirmButtonColor: '#d7751e',
               confirmButtonText: html.message,
+              showClass: {
+                popup: 'animated zoomIn faster'
+              },
+              hideClass: {
+                popup: 'animated zoomOut faster'
+              },
               allowOutsideClick: false
             });
           }
