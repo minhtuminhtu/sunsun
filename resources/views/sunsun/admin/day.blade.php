@@ -439,32 +439,8 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="modal_second">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-time">
-                <!-- Modal body -->
-                <div class="modal_second-body">
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer" style="padding: 10px;">
-                    <button type="button" class="btn btn-modal-left text-white color-primary" id="js-save-time" style="padding: 0.375rem 2rem;">
-                        保存
-                    </button>
-                    <button type="button" class="btn btn-outline-dark  btn-modal-right" style="padding: 0.375rem 1rem;"
-                            data-dismiss="modal_second" data-target="#modal_second" data-toggle="modal"
-                            data-backdrop="static" data-keyboard="false">
-                        閉じる
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 @endsection
-
+@include('sunsun.front.parts.booking_modal')
 @section('script')
     @parent
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>

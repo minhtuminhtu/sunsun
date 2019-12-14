@@ -216,8 +216,8 @@
                     </div>
                 </div>
                 <div class="booking-field room"  @if($room_whitening) style="display:none;" @endif>
-                    <div>
-                        <div>
+                    <div style="width: 100%;">
+                        <div style="width: 100%;">
                             <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
                             <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
                             <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">

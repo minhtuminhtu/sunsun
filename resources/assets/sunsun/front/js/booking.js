@@ -174,7 +174,7 @@ $(function() {
                 daysOfWeekDisabled: "3,4",
                 weekStart: 1,
                 orientation: 'bottom',
-                datesDisabled: ['2019-12-17','2019-12-16'],
+                // datesDisabled: ['2019-12-17','2019-12-16'],
             });
         }
 
@@ -412,6 +412,12 @@ $(function() {
     };
     load_event();
 
+    modal_choice_time.on('show.bs.modal', function (e) {
+        $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
+    })
+    // modal_choice_time.on('hide.bs.modal', function (e) {
+    //     $('.modal .modal-dialog').attr('class', 'modal-dialog  zoomOut  animated faster');
+    // })
 
     modal_choice_time.off('hidden.bs.modal');
     modal_choice_time.on('hidden.bs.modal', function () {
@@ -419,6 +425,7 @@ $(function() {
         $('.set-time').removeClass('edit');
 
         if(window.location.href.includes("admin")){
+            $('#edit_booking').css("z-index", "");
             $('body').addClass('modal-open');
         }
     });
@@ -452,6 +459,8 @@ $(function() {
             $('.time_bed').last().val(bed);
 
         }else{
+            console.log('set time');
+            console.log($('.set-time.edit input.time').parent());
             $('.set-time.edit input.time').val(time);
             $('.set-time.edit input.time').parent().find('.time_value').val(time_value);
             $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
@@ -488,69 +497,6 @@ $(function() {
         modal_choice_time.modal('hide');
     })
 
-    $('#modal_second').off('click','#js-save-time');
-    $('#modal_second').on('click','#js-save-time',function (e) {
-        let time = $('#modal_second').find('input[name=time]:checked').val();
-        let bed = $('#modal_second').find('input[name=time]:checked').parent().find('.bed').val();
-        let data_json = $('#modal_second').find('input[name=time]:checked').parent().find('input[name=data-json]').val();
-        var num = $('.booking-time').length;
-        var time_value = time_value = time.replace(/[^0-9]/g,'');
-
-
-        if($('#new-time').val() == 1){
-            let $html = $('' +
-                '<div class="block-content-1 margin-top-mini"> ' +
-                '<div class="block-content-1-left"><div class="timedate-block set-time">    ' +
-                '<input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_' + num + '" readonly="readonly"  value="" />' +
-                '<input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value="">' +
-                '<input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value="">' +
-                '<input name="time[' + num + '][json]" class="data-json_input" id="time[' + num + '][json]" type="hidden" >' +
-                '<input name="time[' + num + '][element]" id="" type="hidden" value="error_time_' + num + '">'+
-                '</div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
-            $html.find('.data-json_input').val(data_json);
-            $(".time-content").append($html);
-            load_time_delete_event();
-            load_pick_time_event();
-            $('.booking-time').last().val(time);
-            $('.time_value').last().val(time_value);
-            $('.time_bed').last().val(bed);
-
-        }else{
-            $('.set-time.edit input.time').val(time);
-            $('.set-time.edit input.time').parent().find('.time_value').val(time_value);
-            $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
-        }
-        $('.set-time.edit input.time').parent().find('#time1-value').val(time_value);
-        $('.set-time.edit input.time').parent().find('#time2-value').val(time_value);
-        $('.set-time.edit input.time').parent().find('#time1-bed').val(bed);
-        $('.set-time.edit input.time').parent().find('#time2-bed').val(bed);
-        $('.set-time.edit input.time').parent().find('#time_room_value').val(pad(time_value, 4));
-        $('.set-time.edit input.time').parent().find('#time_room_bed').val(bed);
-
-
-        $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
-        $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
-        $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
-
-        $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json);
-
-        console.log($('#modal_second').find('input[name=time]:checked').parent().find('input[name=data-json]'));
-        function pad(n, width) {
-            n = n + '';
-            return n.length >= width ? n :
-                new Array(width - n.length + 1).join('0') + n;
-        }
-
-        if(time.includes("～")){
-            var res = time.split("～");
-            $('.set-time.edit input.time').parent().find('#time_room_time1').val(pad(res[0].replace(/[^0-9]/g,''), 4));
-            $('.set-time.edit input.time').parent().find('#time_room_time2').val(pad(res[1].replace(/[^0-9]/g,''), 4));
-            $('.set-time.edit input.time').parent().find('#whitening-time_value').val(pad(res[0].replace(/[^0-9]/g,''), 4) + '-' + pad(res[1].replace(/[^0-9]/g,''), 4));
-        }
-
-
-        $('#modal_second').modal('hide');
-    })
 
 
     $('.btn-booking').click(function (e) {
@@ -826,8 +772,8 @@ let load_pick_time_event = function(){
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
                 if(window.location.href.includes("admin")){
-                    $('#modal_second').find('.modal_second-body').html(html);
-                    $('#modal_second').modal({
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal({
                         show: true,
                         backdrop: false
                     });
@@ -868,8 +814,8 @@ let load_pick_time_room_event = function(){
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
                 if(window.location.href.includes("admin")){
-                    $('#modal_second').find('.modal_second-body').html(html);
-                    $('#modal_second').modal({
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal({
                         show: true,
                         backdrop: false
                     });
@@ -906,8 +852,8 @@ let load_pick_time_wt_event = function(){
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
                 if(window.location.href.includes("admin")){
-                    $('#modal_second').find('.modal_second-body').html(html);
-                    $('#modal_second').modal({
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal({
                         show: true,
                         backdrop: false
                     });
@@ -947,8 +893,8 @@ let load_pick_time_pet_event = function(){
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
                 if(window.location.href.includes("admin")){
-                    $('#modal_second').find('.modal_second-body').html(html);
-                    $('#modal_second').modal({
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal({
                         show: true,
                         backdrop: false
                     });
@@ -1000,8 +946,8 @@ let load_after_ajax = function(){
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
                 if(window.location.href.includes("admin")){
-                    $('#modal_second').find('.modal_second-body').html(html);
-                    $('#modal_second').modal({
+                    modal_choice_time.find('.modal-body-time').html(html);
+                    modal_choice_time.modal({
                         show: true,
                         backdrop: false
                     });
@@ -1047,11 +993,6 @@ let load_after_ajax = function(){
 
 
 
-    $('#modal_second').off('hidden.bs.modal');
-    $('#modal_second').on('hidden.bs.modal', function () {
-        $('#edit_booking').css("z-index", "");
-        $('body').addClass('modal-open');
-    });
 
 
     $('#edit_booking').off('click','.show_history');
@@ -1071,8 +1012,8 @@ let load_after_ajax = function(){
                 loader.css({'display': 'block'});
             },
             success: function (html) {
-                $('#modal_second').find('.modal_second-body').html(html);
-                $('#modal_second').modal({
+                modal-body-time.find('.modal_time-body').html(html);
+                modal-body-time.modal({
                     show: true,
                     backdrop: false
                 });

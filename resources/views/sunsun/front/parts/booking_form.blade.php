@@ -32,8 +32,10 @@
                 <div class="booking-block-top">
 
                     @if(isset($new) && (!$new))
-                    @include('sunsun.front.parts.payment_form', ['new' => '0', 'data_booking' => $data_booking])
-                    @include('sunsun.front.parts.payment_method', ['new' => '0', 'data_booking' => $data_booking])
+                        @include('sunsun.front.parts.payment_form', ['new' => '0', 'data_booking' => $data_booking])
+                        @include('sunsun.front.parts.payment_method', ['new' => '0', 'data_booking' => $data_booking])
+                    @else
+                        @include('sunsun.front.parts.booking_modal')
                     @endif
 
                     <!-- <img class=" btn-collapse btn-collapse-top" id="btn-collapse-top"  data-toggle="collapse" data-target=".collapse-top" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" /> -->
@@ -206,7 +208,8 @@
                     @endif
                     <div class="confirm-button">
                         <div class="button-left">
-                            <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">キャンセル</button>
+                            <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left" data-dismiss="edit_booking" data-target="#edit_booking" data-toggle="modal"
+                        data-backdrop="static" data-keyboard="false">キャンセル</button>
                         </div>
                         <div class="button-right">
                             <button type="button" class="btn btn-block text-white btn-update">更新</button>
