@@ -132,10 +132,9 @@ $(function () {
   var booking_edit = $('#edit_booking');
   booking_edit.on('show.bs.modal', function (e) {
     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
-  });
-  booking_edit.on('hide.bs.modal', function (e) {
-    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
-  });
+  }); // booking_edit.on('hide.bs.modal', function (e) {
+  //     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
+  // })
 
   var show_booking = function show_booking(booking_id) {
     $.ajax({
@@ -231,7 +230,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
 
 
 /***/ })

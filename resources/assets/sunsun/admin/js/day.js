@@ -39,9 +39,9 @@ $(function () {
     booking_edit.on('show.bs.modal', function (e) {
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
     })
-    booking_edit.on('hide.bs.modal', function (e) {
-        $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
-    })
+    // booking_edit.on('hide.bs.modal', function (e) {
+    //     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
+    // })
     
     let show_booking = function (booking_id) {
         $.ajax({
