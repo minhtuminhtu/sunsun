@@ -166,16 +166,17 @@ $(function () {
           });
         } else {
           if (typeof html.status !== 'undefined' && html.status == 'success') {
-            Swal.fire({
-              icon: 'success',
-              title: '成功',
-              showClass: {
-                popup: 'animated zoomIn faster'
-              },
-              hideClass: {
-                popup: 'animated zoomOut faster'
-              }
-            });
+            /*Swal.fire({
+                icon: 'success',
+                title: '成功',
+                showClass: {
+                    popup: 'animated zoomIn faster'
+                },
+                hideClass: {
+                    popup: 'animated zoomOut faster'
+                }
+            })*/
+            window.location.href = $site_url + "/complete";
           } else if (typeof html.status !== 'undefined' && html.status == 'error') {
             Swal.fire({
               icon: 'error',
@@ -212,7 +213,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
 
 
 /***/ })

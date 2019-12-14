@@ -12,12 +12,15 @@
         }
     </style>
 @endsection
+@if(Route::current()->getName() == 'testing')
+    Hello This is testing
+@endif
 @section('page_title', 'ログイン')
 @section('main')
     <main class="main-body">
         <div class="">
             <div class="user-warp">
-            {!! Form::open(['action' => ['Sunsun\Auth\LoginController@login'], 'method' => 'POST', 'class' => 'form']) !!}
+            {!! Form::open(['action' => (Route::current()->getName()=='admin-login')? ['Sunsun\Auth\AdminLoginController@login']: ['Sunsun\Auth\LoginController@login'], 'method' => 'POST', 'class' => 'form']) !!}
                 @if ($errors->has('email'))
                     <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>

@@ -16,15 +16,15 @@ use App\Models\Yoyaku;
 */
 
 // Route::get('/demo', function () {
-    
-    
-    
+
+
+
 //     echo "aaa";
 //     // DB::unprepared("UNLOCK TABLE");
 // });
 // Route::get('/demo_lock', function () {
-    
-  
+
+
 //     DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
 //     try{
 //         DB::beginTransaction();
@@ -36,13 +36,13 @@ use App\Models\Yoyaku;
 
 //             new_test();
 
-            
+
 //             get_exeption();
 
 //             DB::commit();
 //         } catch (Exception $e) {
 //             DB::rollBack();
-            
+
 //             // throw new Exception($e->getMessage());
 //         }
 //     }catch(Exception $e){
@@ -60,7 +60,7 @@ use App\Models\Yoyaku;
 //     $Yoyaku1->course = 7;
 //     $Yoyaku1->save();
 // }
-    
+
 
 
 Route::get('/reset', function () {
@@ -71,6 +71,13 @@ Route::get('/reset', function () {
 });
 
 Route::namespace('Sunsun\Front')->group(function (){
+    Route::get('/main', function (){
+        return view('sunsun.front.main');
+    })->name('main');
+    Route::get('/thanks', function (){
+
+    })->name('thanks');
+
     Route::get('/', function () {
         return view('sunsun.front.index');
     })->name('home');
@@ -78,6 +85,7 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
     Route::any('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
     Route::any('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
+    Route::get('/complete',['as' => '.complete', 'uses' => 'BookingController@complete']);
     Route::post('/make_payment',['as' => '.make_payment', 'uses' => 'BookingController@make_payment']);
 
 
@@ -85,7 +93,7 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
 
     Route::post('/get_free_room',['as' => '.get_free_room', 'uses' => 'BookingController@get_free_room']);
-    
+
 
     Route::post('/get_time_room',['as' => '.get_time_room', 'uses' => 'BookingController@get_time_room']);
     Route::post('/book_room',['as' => '.book_room', 'uses' => 'BookingController@get_time_room']);
@@ -100,7 +108,9 @@ Route::namespace('Sunsun\Front')->group(function (){
 Route::namespace('Sunsun\Auth')->group(function (){
     Route::get('/register', ['as' => 'register',  'uses' => 'MsUserController@register']);
     Route::get('/login', ['as' => 'login',  'uses' => 'LoginController@showLoginForm']);
+    Route::get('/admin/login', ['as' => 'admin-login',  'uses' => 'LoginController@showLoginForm']);
     Route::post('/login', ['as' => 'auth', 'uses' => 'LoginController@login']);
+    Route::post('/login-admin', ['as' => 'auth-admin', 'uses' => 'AdminLoginController@login']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
     Route::Post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
 });
@@ -113,6 +123,7 @@ Route::middleware('auth')->namespace('Sunsun\Auth')->group(function (){
 });
 // Admin
 Route::middleware('auth', 'can:admin')->prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
+    Route::get('/',['as' => '.index', 'uses' => 'AdminController@index']);
     Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);
     Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
     Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
