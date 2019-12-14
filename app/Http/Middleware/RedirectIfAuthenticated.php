@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use App\Models\MsUser;
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class RedirectIfAuthenticated
 {
@@ -19,11 +21,14 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            $ms_user = Auth::user();
-            if ($ms_user->is_admin()) {
-                return redirect()->route('admin.day');
+            //$ms_user = Auth::user();
+            $currentRoute = Route::getCurrentRoute()->getName();
+            if (Str::startsWith($currentRoute, 'admin')) {
+                return redirect()->route('admin.index');
+
+            } else {
+                return redirect()->route('home');
             }
-            return redirect('/');
         }
 
         return $next($request);

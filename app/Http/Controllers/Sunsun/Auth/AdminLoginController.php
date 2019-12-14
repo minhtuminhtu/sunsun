@@ -9,8 +9,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Route;
 
-class LoginController extends Controller
+class AdminLoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +56,11 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        /*$ms_user = Auth::user();
-        if ($ms_user->is_admin()) {
-            return route('admin.day');
-        }*/
+        $ms_user = Auth::user();
+        $currentRoute = Route::getCurrentRoute()->getName();
+        if ($ms_user->is_admin() && $currentRoute == "auth-admin") {
+            return route('admin.index');
+        }
         return route('home');
     }
 

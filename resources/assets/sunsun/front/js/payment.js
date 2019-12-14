@@ -14,7 +14,7 @@ $(function() {
         }
     });
 
-    
+
     $('#make_payment').off('click');
     $('#make_payment').on('click', function() {
         let data = $('form.booking').serializeArray();
@@ -54,14 +54,14 @@ $(function() {
                             case 'email': $('#'+item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
                                     break;
                         }
-                        
+
                     })
                     $.each(html.clear, function (index, item) {
                         $('#'+item).css({'border': 'solid 1px #ced4da'});
                     })
                 }else{
                     if ((typeof html.status !== 'undefined') && (html.status == 'success')) {
-                        Swal.fire({
+                        /*Swal.fire({
                             icon: 'success',
                             title: '成功',
                             showClass: {
@@ -70,7 +70,8 @@ $(function() {
                             hideClass: {
                                 popup: 'animated zoomOut faster'
                             }
-                        })
+                        })*/
+                        window.location.href = $site_url+"/complete";
                     }else if ((typeof html.status !== 'undefined') && (html.status == 'error')){
                         Swal.fire({
                             icon: 'error',
@@ -87,7 +88,7 @@ $(function() {
                             allowOutsideClick: false
                         })
                     }
-                    
+
                 }
             },
             complete: function () {

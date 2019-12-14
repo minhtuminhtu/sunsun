@@ -18,7 +18,7 @@ class BookingController extends Controller
 
     public function index(Request $request){
         $request->session()->forget($this->session_info);
-        
+
         return view('sunsun.front.booking.index');
     }
 
@@ -693,7 +693,7 @@ class BookingController extends Controller
                 $return_booking_id = null;
                 DB::unprepared("UNLOCK TABLE");
                 return  $return_booking_id;
-            }         
+            }
         }catch(\Exception $e2){
             // dd($e);
         }
@@ -822,7 +822,7 @@ class BookingController extends Controller
             throw new \ErrorException('Course error!');
         }
     }
-    
+
 
 
 
@@ -991,7 +991,7 @@ class BookingController extends Controller
         $bed1 = isset($customer['time1-bed'])?$customer['time1-bed']:"";
         $bed2 = isset($customer['time2-bed'])?$customer['time2-bed']:"";
 
-        
+
 
         $Yoyaku->gender = $gender->kubun_id;
         $Yoyaku->age_value = $age_value;
@@ -2098,6 +2098,10 @@ class BookingController extends Controller
         } elseif ($json->kubun_id == "05") {
             return view('sunsun.front.parts.pet_enzyme_bath',$data)->render();
         }
+    }
+
+    public function complete() {
+        return view('sunsun.front.complete');
     }
 
 }
