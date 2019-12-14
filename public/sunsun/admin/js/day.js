@@ -130,6 +130,12 @@ $(function () {
     current_day.find('input').trigger("input");
   });
   var booking_edit = $('#edit_booking');
+  booking_edit.on('show.bs.modal', function (e) {
+    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
+  });
+  booking_edit.on('hide.bs.modal', function (e) {
+    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
+  });
 
   var show_booking = function show_booking(booking_id) {
     $.ajax({
@@ -172,27 +178,37 @@ $(function () {
     var booking_id = $(this).find('.booking-id').val();
     show_booking(booking_id);
   });
-  $('#edit_booking').on('click', '.btn-cancel', function (e) {
-    $('#edit_booking').modal('hide');
-  });
+  $('#edit_booking').off('click', '.btn-update');
   $('#edit_booking').on('click', '.btn-update', function (e) {
     e.preventDefault();
+    var data = $('form.booking').serializeArray();
+    console.log(data);
     $.ajax({
       url: $site_url + '/admin/update_booking',
       type: 'POST',
-      data: $('form.booking').serializeArray(),
+      data: data,
       dataType: 'JSON',
       beforeSend: function beforeSend() {
         loader.css({
           'display': 'block'
         });
       },
-      success: function success(r) {
-        $('#edit_booking').modal('hide');
-        window.location.reload();
-      },
-      error: function error() {
-        alert("error!");
+      success: function success(html) {
+        Swal.fire({
+          icon: 'error',
+          title: 'エラー',
+          text: ' 入力した情報を再確認してください。',
+          confirmButtonColor: '#d7751e',
+          confirmButtonText: 'もう一度やり直してください。',
+          showClass: {
+            popup: 'animated zoomIn faster'
+          },
+          hideClass: {
+            popup: 'animated zoomOut faster'
+          },
+          allowOutsideClick: false
+        }); // $('#edit_booking').modal('hide');
+        // window.location.reload(); 
       },
       complete: function complete() {
         loader.css({
@@ -200,65 +216,6 @@ $(function () {
         });
       }
     });
-  }); // $('#edit_booking').on('click','.show_history',function (e) {
-  //     e.preventDefault();
-  //     let current_booking_id = $('#edit_booking').find("#booking_id").val();
-  //     let show_history = $('#history_modal');
-  //     $.ajax({
-  //         url: $site_url +'/admin/show_history',
-  //         type: 'POST',
-  //         data: {
-  //             'booking_id' : current_booking_id
-  //         },
-  //         dataType: 'text',
-  //         beforeSend: function () {
-  //             loader.css({'display': 'block'});
-  //         },
-  //         success: function (html) {
-  //             $('#modal_second').find('.modal_second-body').html(html);
-  //             $('#modal_second').modal('show'); 
-  //         },
-  //         complete: function () {
-  //             loader.css({'display': 'none'});
-  //         },
-  //     });
-  // })
-
-  $('#edit_booking').on('change', '#course_history', function (e) {
-    var current_booking_id = $('#edit_booking').find("#booking_id").val();
-    var course_history = $("#course_history").val();
-
-    if (course_history != 0) {
-      $.ajax({
-        url: $site_url + '/admin/booking_history',
-        type: 'POST',
-        data: {
-          'new': 0,
-          'current_booking_id': current_booking_id,
-          'course_history': course_history
-        },
-        dataType: 'text',
-        beforeSend: function beforeSend() {
-          loader.css({
-            'display': 'block'
-          });
-        },
-        success: function success(html) {
-          booking_edit.find('.mail-booking').html(html);
-          booking_edit.modal('show');
-        },
-        // error: function () {
-        //     // alert("error!");
-        // },
-        complete: function complete() {
-          loader.css({
-            'display': 'none'
-          });
-        }
-      });
-    }
-
-    e.preventDefault();
   });
   $('#edit_booking').on('click', '#credit-card', function (e) {
     return false;

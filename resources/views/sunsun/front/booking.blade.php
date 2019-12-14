@@ -18,7 +18,6 @@
 @section('footer')
     @parent
     <!-- The Modal -->
-    @include('sunsun.front.parts.booking_modal')
     
 @endsection
 @section('script')

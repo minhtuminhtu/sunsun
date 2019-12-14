@@ -5,7 +5,16 @@
 </div>
 <div class="pl-4 mt-2">
     <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input payment-method" id="credit-card" name="payment-method" value="1" {{ isset($data_booking->payment_method)?(($data_booking->payment_method == 1)?'checked':''):'' }}  @if(isset($new) && (!$new))  readonly="readonly"  @else  checked  @endif>
+        <input type="radio" class="custom-control-input payment-method" id="credit-card" name="payment-method" value="1" 
+        {{ 
+            isset($data_booking->payment_method)?(($data_booking->payment_method == 1)?'checked':''):'' 
+        }}  
+        @if(isset($new) && (!$new))
+          disabled  
+        @else  
+          checked  
+        @endif
+        />
         <label class="custom-control-label" for="credit-card">クレジットカード</label>
     </div>
 </div>

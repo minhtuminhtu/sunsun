@@ -657,25 +657,6 @@ span {
   align-items: center;
 }
 
-#modal_second table {
-  width: 100%;
-}
-
-#modal_second table th,
-#modal_second table td {
-  border: 1px solid #ccc;
-  vertical-align: middle;
-  text-align: center;
-}
-
-#modal_second .title-table-time {
-  text-align: center;
-}
-
-#modal_second {
-  padding-right: 0px !important;
-}
-
 .swal2-container.swal2-backdrop-show {
   overflow-y: scroll !important;
 }

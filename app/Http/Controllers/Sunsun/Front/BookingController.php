@@ -1109,14 +1109,11 @@ class BookingController extends Controller
 
         $Yoyaku->service_date_start = $plan_date_start;
         $Yoyaku->service_date_end = $plan_date_end;
-        Log::debug('course 4 ' . $stay_room_type->kubun_id);
+
         if($parent){
-            Log::debug('qua 1 ');
             $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
             if($stay_room_type->kubun_id != '01'){
-                Log::debug('qua 2');
                 $this->validate_stay_room($stay_room_type->kubun_id, $stay_checkin_date, $stay_checkout_date);
-                Log::debug('qua');
                 $Yoyaku->stay_guest_num = $stay_guest_num->kubun_id;
                 $Yoyaku->stay_checkin_date = $stay_checkin_date;
                 $Yoyaku->stay_checkout_date = $stay_checkout_date;
