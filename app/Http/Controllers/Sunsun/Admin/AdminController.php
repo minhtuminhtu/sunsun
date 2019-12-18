@@ -743,8 +743,25 @@ class AdminController extends Controller
         $data['customer']['info'] = ['0' => $data];
 
         $booking = new BookingController();
+
+
+        $validate_booking = $booking->validate_booking($data);
+        $validate_payment = $booking->validate_payment_info($data);
+
+        if((isset($validate_payment['error'])) || (isset($validate_booking) && (count($validate_booking) != 0))){
+            return [
+                'status' => false,
+                'type' => 'validate',
+                'message' => [
+                    'booking' => $validate_booking,
+                    'payment' => $validate_payment
+                ]
+            ];
+        }
+        
         $booking->update_or_new_booking($data);
-        return \Response::json(array('success'=>true,'result'=>$data));
+
+        
     }
 
 

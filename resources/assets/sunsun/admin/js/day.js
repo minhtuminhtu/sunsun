@@ -90,7 +90,7 @@ $(function () {
     $('#edit_booking').on('click','.btn-update',function (e) {
         e.preventDefault();
         let data = $('form.booking').serializeArray();
-        console.log(data);
+        // console.log(data);
         $.ajax({
             url: $site_url +'/admin/update_booking',
             type: 'POST',
@@ -100,20 +100,27 @@ $(function () {
                 loader.css({'display': 'block'});
             },
             success: function (html) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'エラー',
-                    text: ' 入力した情報を再確認してください。',
-                    confirmButtonColor: '#d7751e',
-                    confirmButtonText: 'もう一度やり直してください。',
-                    showClass: {
-                        popup: 'animated zoomIn faster'
-                    },
-                    hideClass: {
-                        popup: 'animated zoomOut faster'
-                    },
-                    allowOutsideClick: false
-                })
+                console.log(html);
+                if((html.status == false) && (html.type == 'validate')){
+                    make_color_input_error(html.message.booking);
+                    make_payment_validate(html.message.payment);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'エラー',
+                        text: '入力した情報を再確認してください。',
+                        confirmButtonColor: '#d7751e',
+                        confirmButtonText: 'もう一度やり直してください。',
+                        showClass: {
+                            popup: 'animated zoomIn faster'
+                        },
+                        hideClass: {
+                            popup: 'animated zoomOut faster'
+                        },
+                        allowOutsideClick: false
+                    })
+                }else{
+
+                }
                 // $('#edit_booking').modal('hide');
                 // window.location.reload(); 
             },
@@ -128,7 +135,66 @@ $(function () {
         return false;
     })
 
+
+    let make_payment_validate = (array) => {
+            $('p.note-error').remove();
+            $.each(array.error, function (index, item) {
+                $('#'+item).css({'border': 'solid 1px #f50000'});
+                switch(item) {
+                    case 'name': $('#'+item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
+                        break;
+                    case 'phone': $('#'+item).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
+                        break;
+                    case 'email': $('#'+item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
+                        break;
+                }
+
+            })
+            $.each(array.clear, function (index, item) {
+                $('#'+item).css({'border': 'solid 1px #ced4da'});
+            })
+    }
+
     
-    
+    let make_color_input_error = (json) => {
+        $('p.note-error').remove();
+        if (typeof json.clear_border_red !== "undefined" ) {
+            $.each(json.clear_border_red, function (index, item) {
+                $('#'+item.element).css({'border': 'solid 1px #ced4da'});
+                $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
+                $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
+            })
+        }        
+        if (typeof json.error_time_transport !== "undefined" ) {
+            $.each(json.error_time_transport, function (index, item) {
+                let input_error_transport = $('#'+item.element);
+                input_error_transport.css({'border': 'solid 1px #f50000'});
+                input_error_transport.parent().after('<p class="note-error node-text"> 予約時間は洲本ICのバスの送迎時間以降にならないといけないのです。</p>');
+                $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #f50000'});
+            })
+        }
+        if (typeof json.error_time_gender  !== "undefined") {
+            $.each(json.error_time_gender, function (index, item) {
+                let input_error_gender = $('#'+item.element);
+                input_error_gender.css({'border': 'solid 1px #f50000'});
+                input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
+                $('select[name=gender]').css({'border': 'solid 1px #f50000'});
+            })
+        }
+        if (typeof json.error_time_empty  !== "undefined") {
+            $.each(json.error_time_empty, function (index, item) {
+                let input_error_required = $('#'+item.element);
+                input_error_required.css({'border': 'solid 1px #f50000'});
+                input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
+            })
+        }
+        if (typeof json.room_select_error  !== "undefined") {
+            $.each(json.room_select_error, function (index, item) {
+                $('#'+item.element).css({'border': 'solid 1px #f50000'});
+            })
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
+        }
+
+    };
     
 });

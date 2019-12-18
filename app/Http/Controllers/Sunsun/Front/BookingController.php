@@ -600,7 +600,7 @@ class BookingController extends Controller
         return isset($result)?$result:$success;
     }
 
-    private function validate_payment_info(&$data){
+    public function validate_payment_info(&$data){
         $error = [];
         $data['name'] = trim($data['name']);
         if($data['name'] == null){
