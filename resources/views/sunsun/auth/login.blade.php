@@ -10,6 +10,9 @@
             font-size: 0.85rem;
             color: red;
         }
+        .user-warp {
+            padding-top: 5vw;
+        }
     </style>
 @endsection
 @if(Route::current()->getName() == 'testing')
@@ -51,6 +54,7 @@
                         {{Form::button('ログイン', ['type'=> 'submit','class'=>'btn btn-block btn-booking text-white confirm-rules'])}}
                     </div>
                 </div>
+                @if(\Route::current()->getName()=='login')
                 <div class="pt-3">
                     <div class="form-group text-center pb-0 mb-0 mt-5" style="margin-top: 15px">
                         アカウントを持っていない？
@@ -59,6 +63,7 @@
                         <a href="/register" class="center-link">ユーザー登録</a>
                     </div>
                 </div>
+                @endif
             {!! Form::close() !!}
             </div>
         </div>
