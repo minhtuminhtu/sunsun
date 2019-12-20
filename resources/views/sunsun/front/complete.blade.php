@@ -44,7 +44,8 @@
                             <img src="{{asset('sunsun/imgs/icons/success.svg')}}" alt="success" width="50px">
                         </div>
                         <h2 class="success-title">THANK YOU FOR YOUR PURCHASE</h2>
-                        <p class="success-detail">Your order munber is 20191201</p>
+                        <p class="success-detail">Your order number is {{ $bookingID  }}</p>
+                        <p class="success-detail">Your payment number is {{ $tranID  }}</p>
                         <a href="http://sun-sun33.com/"><button class="btn btn-back-home">Go home</button></a>
                     </div>
                 </div>

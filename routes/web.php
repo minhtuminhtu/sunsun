@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Yoyaku;
-
+use Illuminate\Support\Facades\Log;
 
 
 /*
@@ -15,13 +15,10 @@ use App\Models\Yoyaku;
 |
 */
 
-// Route::get('/demo', function () {
+ Route::get('/demo', function () {
 
 
-
-//     echo "aaa";
-//     // DB::unprepared("UNLOCK TABLE");
-// });
+ });
 // Route::get('/demo_lock', function () {
 
 
@@ -85,7 +82,7 @@ Route::namespace('Sunsun\Front')->group(function (){
     Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
     Route::any('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
     Route::any('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
-    Route::get('/complete',['as' => '.complete', 'uses' => 'BookingController@complete']);
+    Route::post('/complete',['as' => '.complete', 'uses' => 'BookingController@complete']);
     Route::post('/make_payment',['as' => '.make_payment', 'uses' => 'BookingController@make_payment']);
 
 

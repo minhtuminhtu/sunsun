@@ -154,25 +154,83 @@ $(function() {
     $('#make_payment').off('click');
     $('#make_payment').on('click', function() {
         makePayment();
-        let data = $('form.booking').serializeArray();
-        console.log(data);
-        $.ajax({
-            url: '/make_payment',
-            type: 'POST',
-            data:  data,
-            dataType: 'text',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (html) {
-                html = JSON.parse(html);
-                if (typeof html.error !== 'undefined') {
+    });
+    let makePayment = function () {
+        if($('input[type=radio][name=payment-method]:checked').val() === '1'){
+            doPurchase();
+        }
+    }
+});
+
+let callBackMakePayment = function() {
+    let data = $('form.booking').serializeArray();
+    $('#Token').val("");
+    console.log(data);
+    $.ajax({
+        url: '/make_payment',
+        type: 'POST',
+        data:  data,
+        dataType: 'text',
+        beforeSend: function () {
+            loader.css({'display': 'block'});
+        },
+        success: function (html) {
+            html = JSON.parse(html);
+            if (typeof html.error !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'エラー',
+                    text: ' 入力した情報を再確認してください。',
+                    confirmButtonColor: '#d7751e',
+                    confirmButtonText: 'もう一度やり直してください。',
+                    showClass: {
+                        popup: 'animated zoomIn faster'
+                    },
+                    hideClass: {
+                        popup: 'animated zoomOut faster'
+                    },
+                    allowOutsideClick: false
+                })
+                $('p.note-error').remove();
+                $.each(html.error, function (index, item) {
+                    $('#'+item).css({'border': 'solid 1px #f50000'});
+                    switch(item) {
+                        case 'name': $('#'+item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
+                            break;
+                        case 'phone': $('#'+item).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
+                            break;
+                        case 'email': $('#'+item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
+                            break;
+                    }
+
+                })
+                $.each(html.clear, function (index, item) {
+                    $('#'+item).css({'border': 'solid 1px #ced4da'});
+                })
+            }else{
+                if ((typeof html.status !== 'undefined') && (html.status == 'success')) {
+                    /*Swal.fire({
+                        icon: 'success',
+                        title: '成功',
+                        showClass: {
+                            popup: 'animated zoomIn faster'
+                        },
+                        hideClass: {
+                            popup: 'animated zoomOut faster'
+                        }
+                    })*/
+                    // console.log(html.message.bookingID);
+                    $('#bookingID').val(html.message.bookingID);
+                    $('#tranID').val(html.message.tranID);
+                    $('#completeForm').submit();
+                    // window.location.href = $site_url+"/complete";
+                }else if ((typeof html.status !== 'undefined') && (html.status == 'error')){
                     Swal.fire({
                         icon: 'error',
                         title: 'エラー',
-                        text: ' 入力した情報を再確認してください。',
+                        text: html.message,
                         confirmButtonColor: '#d7751e',
-                        confirmButtonText: 'もう一度やり直してください。',
+                        confirmButtonText: html.message,
                         showClass: {
                             popup: 'animated zoomIn faster'
                         },
@@ -181,66 +239,16 @@ $(function() {
                         },
                         allowOutsideClick: false
                     })
-                    $('p.note-error').remove();
-                    $.each(html.error, function (index, item) {
-                        $('#'+item).css({'border': 'solid 1px #f50000'});
-                        switch(item) {
-                            case 'name': $('#'+item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
-                                    break;
-                            case 'phone': $('#'+item).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
-                                    break;
-                            case 'email': $('#'+item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
-                                    break;
-                        }
-
-                    })
-                    $.each(html.clear, function (index, item) {
-                        $('#'+item).css({'border': 'solid 1px #ced4da'});
-                    })
-                }else{
-                    if ((typeof html.status !== 'undefined') && (html.status == 'success')) {
-                        /*Swal.fire({
-                            icon: 'success',
-                            title: '成功',
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            }
-                        })*/
-
-                        // window.location.href = $site_url+"/complete";
-                    }else if ((typeof html.status !== 'undefined') && (html.status == 'error')){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'エラー',
-                            text: html.message,
-                            confirmButtonColor: '#d7751e',
-                            confirmButtonText: html.message,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            allowOutsideClick: false
-                        })
-                    }
-
                 }
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-        });
+
+            }
+        },
+        complete: function () {
+            loader.css({'display': 'none'});
+        },
     });
-    let makePayment = function () {
-        if($('input[type=radio][name=payment-method]:checked').val() === '1'){
-            doPurchase();
-        }
-    }
-});
+
+}
 
 function doPurchase() {
     Multipayment.init("tshop00042155");
@@ -263,4 +271,17 @@ function doPurchase() {
         holdername : cardHoldname,
         tokennumber : 1
     }, execPurchase);
+}
+
+if ((typeof execPurchase) === 'undefined') {
+    execPurchase = function (response) {
+        console.log(response);
+        if (response.resultCode != "000") {
+            window.alert("購入処理中にエラーが発生しました");
+            // $('.credit-card-line').css({'border': 'solid 1px #f50000'});
+        } else {
+            $('#Token').val(response.tokenObject.token);
+            callBackMakePayment();
+        }
+    };
 }

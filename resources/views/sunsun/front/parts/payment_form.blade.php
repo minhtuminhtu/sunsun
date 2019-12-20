@@ -1,4 +1,5 @@
 <input type="hidden" name="Token" id="Token"value="">
+<input type="hidden" name="Amount" id="Amount"value="{{number_format($bill['total'])}}">
 <div class="booking-field">
     <div class="booking-field-label @if(isset($new) && (!$new)) {{ 'booking-laber-padding' }} @endif">
         <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
