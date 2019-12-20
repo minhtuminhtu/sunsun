@@ -96,5 +96,17 @@
     @parent
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
     <script src="{{asset('sunsun/front/js/payment.js').config('version_files.html.css')}}"></script>
+    <script src="https://stg.static.mul-pay.jp/ext/js/token.js" ></script>
+    <script>
+        function execPurchase(response) {
+            console.log(response);
+            if (response.resultCode != "000") {
+                window.alert("購入処理中にエラーが発生しました");
+                // $('.credit-card-line').css({'border': 'solid 1px #f50000'});
+            } else {
+                $('#Token').val(response.tokenObject.token);
+            }
+        }
+    </script>
 @endsection
 

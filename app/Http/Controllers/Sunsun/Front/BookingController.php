@@ -572,6 +572,12 @@ class BookingController extends Controller
     public function make_payment(Request $request){
         $data = $request->all();
         // dd($data);
+        return [
+            'status' => 'success',
+            'message' => 'abc'
+        ];
+
+
         $error = $this->validate_payment_info($data);
         if (isset($error['error']) && (count($error['error']) != 0)){
             return $error;
@@ -740,9 +746,9 @@ class BookingController extends Controller
     private function validate_course_human($gender, $date, $time, $bed){
         $course_1_2_4_validate = DB::select("
             (
-                SELECT 			main.booking_id 
+                SELECT 			main.booking_id
                 FROM			tr_yoyaku main
-                INNER JOIN 	    tr_yoyaku_danjiki_jikan time 
+                INNER JOIN 	    tr_yoyaku_danjiki_jikan time
                 ON				main.booking_id = time.booking_id
                 WHERE			main.course = '01'
                 AND             main.gender = $gender
@@ -753,7 +759,7 @@ class BookingController extends Controller
             )
             UNION
             (
-                SELECT 			main.booking_id 
+                SELECT 			main.booking_id
                 FROM			tr_yoyaku main
                 WHERE			main.course = '02'
                 AND             main.gender = $gender
@@ -764,7 +770,7 @@ class BookingController extends Controller
             )
             UNION
             (
-                SELECT 			main.booking_id 
+                SELECT 			main.booking_id
                 FROM			tr_yoyaku main
                 WHERE			main.course = '02'
                 AND             main.gender = $gender
@@ -775,9 +781,9 @@ class BookingController extends Controller
             )
             UNION
             (
-                SELECT 			main.booking_id 
+                SELECT 			main.booking_id
                 FROM			tr_yoyaku main
-                INNER JOIN 	    tr_yoyaku_danjiki_jikan time 
+                INNER JOIN 	    tr_yoyaku_danjiki_jikan time
                 ON				main.booking_id = time.booking_id
                 WHERE			main.course = '04'
                 AND             main.gender = $gender
@@ -788,9 +794,9 @@ class BookingController extends Controller
             )
             UNION
             (
-                SELECT 			main.booking_id 
+                SELECT 			main.booking_id
                 FROM			tr_yoyaku main
-                INNER JOIN 	    tr_yoyaku_danjiki_jikan time 
+                INNER JOIN 	    tr_yoyaku_danjiki_jikan time
                 ON				main.booking_id = time.booking_id
                 WHERE			main.course = '04'
                 AND             main.gender = $gender
@@ -799,12 +805,12 @@ class BookingController extends Controller
                 AND             SUBSTRING(time.notes, 3, 1) = $bed
                 AND main.history_id IS NULL
             )
-        
+
         ");
 
         if($gender == '01'){
             $course_3_validate = DB::select("
-                SELECT 			main.booking_id 
+                SELECT 			main.booking_id
                 FROM			tr_yoyaku main
                 WHERE			main.course = '03'
                 AND             main.service_date_start = $date
@@ -1410,8 +1416,8 @@ class BookingController extends Controller
         }
         $sql_select = "
                 -- SELECT time & room
-               SELECT 
-                mk1.* 
+               SELECT
+                mk1.*
                 , mk2.kubun_id as kubun_id_room
                 , mk2.kubun_value as kubun_value_room
                 , mk2.notes as notes_room
@@ -1430,11 +1436,11 @@ class BookingController extends Controller
         if ($time_bus !== null) {
             if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
                 $sql_bus = "
-                 AND SUBSTRING(mk1.notes, 1 ,4) > :time_bus 
+                 AND SUBSTRING(mk1.notes, 1 ,4) > :time_bus
                 ";
             } else {
                 $sql_bus = "
-                 AND mk1.notes > :time_bus 
+                 AND mk1.notes > :time_bus
             ";
             }
 
@@ -1481,24 +1487,24 @@ class BookingController extends Controller
 
         $sql_get_check_room_free ="
             , CASE
-                    $sql_validate_ss 
-                    WHEN ytm.course IS NULL $sql_bus $sql_time_path THEN 1 
+                    $sql_validate_ss
+                    WHEN ytm.course IS NULL $sql_bus $sql_time_path THEN 1
                     ELSE 0
                     END as status_time_validate
         ";
         $sql_join = "
             FROM ms_kubun mk1
             INNER JOIN ms_kubun mk2 ON mk2.kubun_type = :room_kubun_type
-            LEFT JOIN 
+            LEFT JOIN
                  (
                     $sql_get_booking
                  )as ytm
-	            ON 
-                    (mk1.notes = ytm.service_time_1 AND mk2.kubun_value = ytm.bed_service_1) 
+	            ON
+                    (mk1.notes = ytm.service_time_1 AND mk2.kubun_value = ytm.bed_service_1)
                     OR (mk1.notes = ytm.service_time_2 AND mk2.kubun_value = ytm.bed_service_2 )
                     OR (
-                            ytm.course = '03' AND ytm.gender_ytm = '01' AND mk2.kubun_value = ytm.bed_service_2 
-                            AND mk1.notes >= ytm.service_time_1 AND mk1.notes <= ytm.service_time_2  
+                            ytm.course = '03' AND ytm.gender_ytm = '01' AND mk2.kubun_value = ytm.bed_service_2
+                            AND mk1.notes >= ytm.service_time_1 AND mk1.notes <= ytm.service_time_2
                        )
                     $sql_join_on
         ";
@@ -1529,30 +1535,30 @@ class BookingController extends Controller
     public function sql_get_booking_yoyaku ($sql_where = "") {
         return "
             SELECT
-                CASE 
+                CASE
                     WHEN ty.course = '01' OR ty.course = '04' THEN tydj.service_time_1
                     ELSE ty.service_time_1
                     END AS service_time_1
-                , CASE 
+                , CASE
                     WHEN ty.course = '01' OR ty.course = '04' THEN tydj.service_time_2
                     WHEN  ty.course = '03' THEN ty.service_time_1 + '0100'
                     ELSE ty.service_time_2
                     END AS service_time_2
-                    
-                , CASE 
+
+                , CASE
                     WHEN ty.course = '01' OR ty.course = '04'  THEN SUBSTRING(tydj.notes, 1 ,1)
                     ELSE SUBSTRING(ty.bed, 1 ,1)
                     END AS bed_service_1
-                , CASE 
+                , CASE
                     WHEN ty.course = '01' OR ty.course = '04'   THEN SUBSTRING(tydj.notes, 3 ,1)
                     WHEN  ty.course = '03' THEN SUBSTRING(ty.bed, 1 ,1)
                     ELSE SUBSTRING(ty.bed, 3 ,1)
                     END AS bed_service_2
-                , CASE 
+                , CASE
                     WHEN ty.course = '01' OR ty.course = '04'   THEN tydj.service_date
                     ELSE ty.service_date_start
                     END AS service_date
-                , 
+                ,
                    ty.course
                 , ty.service_time_1 as service_time_1_ty
                 , ty.service_time_2 as service_time_2_ty
@@ -1567,14 +1573,14 @@ class BookingController extends Controller
                 , ty.whitening_time
 			FROM tr_yoyaku  ty
 			LEFT JOIN tr_yoyaku_danjiki_jikan tydj ON ty.booking_id = tydj.booking_id
-			WHERE ( 
+			WHERE (
 			        ty.gender = ':gender_booking' -- 01 for male 02 for female
 			        OR ( '01' = ':gender_booking' AND	 ty.gender IS NULL AND ty.course = '03'  ) -- book all room for bed male
 			        $sql_where
 			      )
-			AND 
-			    (  
-			        ( (ty.course = '01' OR ty.course = '04')  AND tydj.service_date = ':date_booking' ) 
+			AND
+			    (
+			        ( (ty.course = '01' OR ty.course = '04')  AND tydj.service_date = ':date_booking' )
 				    OR (ty.service_date_start =  ':date_booking' )
 				    -- OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' ) check them
 			    )

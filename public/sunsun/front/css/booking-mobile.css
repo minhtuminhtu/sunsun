@@ -367,10 +367,11 @@
 
   .booking-warp .credit-card .credit-card-line .card-img {
     width: 20%;
+    visibility: visible;
   }
 
   .booking-warp .credit-card .credit-card-line .card-img .scale-image {
-    max-width: 30px;
+    max-width: 40px;
   }
 
   .booking-warp .credit-card .credit-card-line .card-number {
@@ -385,11 +386,11 @@
   }
 
   .booking-warp .credit-card .credit-card-line2 .card-expire {
-    width: 60%;
+    width: 100%;
   }
 
   .booking-warp .credit-card .credit-card-line2 .card-secret {
-    width: 40%;
+    width: 25%;
   }
 
   .booking-warp.booking {
@@ -752,6 +753,18 @@
     margin-left: 4vw !important;
     cursor: pointer;
     width: 7vw !important;
+  }
+
+  .floatinglabel > :nth-child(1) {
+    position: absolute;
+    top: 5px;
+    left: 3vw;
+    pointer-events: none;
+    font-size: 3vw;
+    color: #ced4da;
+    line-height: 18px;
+    display: none;
+    z-index: 100;
   }
 }
 

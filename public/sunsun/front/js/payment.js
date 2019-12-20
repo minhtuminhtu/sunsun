@@ -102,10 +102,169 @@ $(function () {
       $('.credit-card').hide();
     }
   });
-  $('#card-expire').off('keypress');
-  $('#card-expire').on('keypress', function () {
-    if ($(this).val().length == 2) {
-      $('#card-expire').val($('#card-expire').val() + "/");
+  $('#card-number, #card-expire, #card-secret').off('keypress');
+  $('#card-number, #card-expire, #card-secret').on('keypress', function (e) {
+    if (e.which < 48 || e.which > 57) {
+      e.preventDefault();
+    }
+  });
+  $('#card-number').off('keyup');
+  $('#card-number').on('keyup', function (e) {
+    if ($('#card-number').val().length !== 0) {
+      $('#card-number').val($('#card-number').val().replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim());
+
+      switch (getCardType($('#card-number').val().replace(/\s/g, ''))) {
+        case "VISA":
+          {
+            $(".card-img").html('<i class="fab fa-cc-visa fa-2x"></i>');
+            break;
+          }
+
+        case "MASTERCARD":
+          {
+            $(".card-img").html('<i class="fab fa-cc-mastercard fa-2x"></i>');
+            break;
+          }
+
+        case "AMEX":
+          {
+            $(".card-img").html('<i class="fab fa-cc-amex fa-2x"></i>');
+            break;
+          }
+        // case "MAESTRO": {
+        //     $(".card-img").html("MAESTRO");
+        //     break;
+        // }
+
+        case "JCB":
+          {
+            $(".card-img").html('<i class="fab fa-cc-jcb fa-2x"></i>');
+            break;
+          }
+
+        default:
+          {
+            $(".card-img").html('<img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">');
+            break;
+          }
+      }
+
+      $(this).parent().find('span:first-child').css('display', 'inline');
+      $(this).removeClass('typing-none');
+      $(this).addClass('typing');
+    } else {
+      console.log("bbb");
+      $(this).parent().find('span:first-child').css('display', 'none');
+      $(this).removeClass('typing');
+      $(this).addClass('typing-none');
+    }
+  });
+
+  function getCardType(cardNum) {
+    if (!luhnCheck(cardNum)) {
+      return "";
+    }
+
+    var payCardType = "";
+    var regexMap = [{
+      regEx: /^4[0-9]{5}/ig,
+      cardType: "VISA"
+    }, {
+      regEx: /^5[1-5][0-9]{4}/ig,
+      cardType: "MASTERCARD"
+    }, {
+      regEx: /^3[47][0-9]{3}/ig,
+      cardType: "AMEX"
+    }, {
+      regEx: /^(5[06-8]\d{4}|6\d{5})/ig,
+      cardType: "MAESTRO"
+    }, {
+      regEx: /^(?:2131|1800|35\d{3})\d{11}$/ig,
+      cardType: "JCB"
+    }];
+
+    for (var j = 0; j < regexMap.length; j++) {
+      if (cardNum.match(regexMap[j].regEx)) {
+        payCardType = regexMap[j].cardType;
+        break;
+      }
+    }
+
+    if (cardNum.indexOf("50") === 0 || cardNum.indexOf("60") === 0 || cardNum.indexOf("65") === 0) {
+      var g = "508500-508999|606985-607984|608001-608500|652150-653149";
+      var i = g.split("|");
+
+      for (var d = 0; d < i.length; d++) {
+        var c = parseInt(i[d].split("-")[0], 10);
+        var f = parseInt(i[d].split("-")[1], 10);
+
+        if (cardNum.substr(0, 6) >= c && cardNum.substr(0, 6) <= f && cardNum.length >= 6) {
+          payCardType = "RUPAY";
+          break;
+        }
+      }
+    }
+
+    return payCardType;
+  }
+
+  function luhnCheck(cardNum) {
+    // Luhn Check Code from https://gist.github.com/4075533
+    // accept only digits, dashes or spaces
+    var numericDashRegex = /^[\d\-\s]+$/;
+    if (!numericDashRegex.test(cardNum)) return false; // The Luhn Algorithm. It's so pretty.
+
+    var nCheck = 0,
+        nDigit = 0,
+        bEven = false;
+    var strippedField = cardNum.replace(/\D/g, "");
+
+    for (var n = strippedField.length - 1; n >= 0; n--) {
+      var cDigit = strippedField.charAt(n);
+      nDigit = parseInt(cDigit, 10);
+
+      if (bEven) {
+        if ((nDigit *= 2) > 9) nDigit -= 9;
+      }
+
+      nCheck += nDigit;
+      bEven = !bEven;
+    }
+
+    return nCheck % 10 === 0;
+  }
+
+  $('#card-expire').off('keyup');
+  $('#card-expire').on('keyup', function () {
+    if ($('#card-expire').val().length !== 0) {
+      $(this).parent().find('span:first-child').css('display', 'inline');
+      $(this).removeClass('typing-none');
+      $(this).addClass('typing');
+      var expiredDate = $('#card-expire').val().replace(/\D/g, '').replace(/(\d{2})/g, '$1/').trim();
+
+      if (expiredDate.length == 6 || expiredDate.length == 3) {
+        expiredDate = expiredDate.slice(0, -1);
+      }
+
+      $('#card-expire').val(expiredDate);
+    } else {
+      $(this).parent().find('span:first-child').css('display', 'none');
+      $(this).removeClass('typing');
+      $(this).addClass('typing-none');
+    }
+  });
+  $('#card-secret').off('keyup');
+  $('#card-secret').on('keyup', function () {
+    if ($('#card-secret').val().length !== 0) {
+      console.log("aaa");
+      $(this).parent().find('span:first-child').css('display', 'inline');
+      $(this).removeClass('typing-none');
+      $(this).addClass('typing');
+    } else {
+      console.log("bbb");
+      $(this).parent().find('span:first-child').css('display', 'none');
+      $(this).removeClass('typing');
+      $(this).addClass('typing-none');
     }
   });
   $('#make_payment').off('click');
@@ -176,7 +335,7 @@ $(function () {
                     popup: 'animated zoomOut faster'
                 }
             })*/
-            window.location.href = $site_url + "/complete";
+            makePayment(); // window.location.href = $site_url+"/complete";
           } else if (typeof html.status !== 'undefined' && html.status == 'error') {
             Swal.fire({
               icon: 'error',
@@ -202,7 +361,25 @@ $(function () {
       }
     });
   });
+
+  var makePayment = function makePayment() {
+    if ($('input[type=radio][name=payment-method]:checked').val() === '1') {
+      console.log("abc");
+      doPurchase();
+    }
+  };
 });
+
+function doPurchase(cardno, expire, securitycode, holdername, tokennumber) {
+  Multipayment.init("tshop00042155");
+  Multipayment.getToken({
+    cardno: '48545',
+    expire: '201501',
+    securitycode: '111',
+    holdername: 'ABCXYZ',
+    tokennumber: 1
+  }, execPurchase);
+}
 
 /***/ }),
 

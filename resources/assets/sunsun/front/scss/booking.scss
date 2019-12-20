@@ -328,28 +328,26 @@ label.form-check-label {
 
         .credit-card-line{
             border: 0px;
-            width: 60%;
+            width: 100%;
             display: flex;
             .card-img{
-                width: 20%;
-                .scale-image{
-                    max-width: 30px;
-                }
+                width: 0%;
+                visibility: hidden;
             }
             .card-number{
-                width: 80%;
+                width: 100%;
             }
         }
         .credit-card-line2{
             margin-top: 0px;
             border: 0px;
-            width: 40%;
+            width: 80%;
             display: flex;
             .card-expire{
-                width: 60%;
+                width: 100%;
             }
             .card-secret{
-                width: 40%;
+                width: 73%;
             }
         }
 
@@ -771,5 +769,33 @@ p.note-error {
 }
 .swal2-container.swal2-backdrop-show {
     background: rgba(0,0,0,.8);
+}
+
+
+.floatinglabel > :nth-child(1) {
+    position: absolute;
+    top: 5px;
+    left: 12px;
+    pointer-events: none;
+    font-size: 0.75vw;
+    color: #ced4da;
+    //font-weight: bold;
+    line-height: 18px;
+    display: none;
+    z-index: 100;
+}
+.floatinglabel {
+    display: inline-block;
+    position: relative;
+}
+.floatinglabel > input[type=text], .floatinglabel > input[type=number], .floatinglabel > input[type=password], .floatinglabel > input[type=email], .floatinglabel > textarea, .floatinglabel > select {
+    width: 100%;
+    transition: all 0.1s ease-in-out 0s;
+}
+.typing-none{
+    margin: 7px 0;
+}
+.typing{
+    margin: 14px 0 0 0;
 }
 
