@@ -256,12 +256,10 @@ $(function () {
   $('#card-secret').off('keyup');
   $('#card-secret').on('keyup', function () {
     if ($('#card-secret').val().length !== 0) {
-      console.log("aaa");
       $(this).parent().find('span:first-child').css('display', 'inline');
       $(this).removeClass('typing-none');
       $(this).addClass('typing');
     } else {
-      console.log("bbb");
       $(this).parent().find('span:first-child').css('display', 'none');
       $(this).removeClass('typing');
       $(this).addClass('typing-none');
@@ -364,19 +362,21 @@ $(function () {
 
   var makePayment = function makePayment() {
     if ($('input[type=radio][name=payment-method]:checked').val() === '1') {
-      console.log("abc");
       doPurchase();
     }
   };
 });
 
-function doPurchase(cardno, expire, securitycode, holdername, tokennumber) {
+function doPurchase() {
   Multipayment.init("tshop00042155");
+  var cardExpire = $('#card-expire').val().replace(/\D/g, '');
+  cardExpireMonth = cardExpire.split('|')[0];
+  cardExpireYear = "20" + cardExpire.split('|')[1];
   Multipayment.getToken({
-    cardno: '48545',
-    expire: '201501',
-    securitycode: '111',
-    holdername: 'ABCXYZ',
+    cardno: $('#card-number').val().replace(/\s/g, ''),
+    expire: cardExpireYear + '' + cardExpireMonth,
+    securitycode: $('#card-secret').val().replace(/\D/g, ''),
+    holdername: 'HOLDER NAME',
     tokennumber: 1
   }, execPurchase);
 }

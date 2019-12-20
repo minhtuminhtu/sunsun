@@ -1431,6 +1431,7 @@ class BookingController extends Controller
                 , ytm.course as course_ytm
                 , ytm.booking_id
                 , :date_booking as date_booking
+                , mk2.sort_no as sort_no_kubun
         ";
         $sql_bus = "";
         if ($time_bus !== null) {
