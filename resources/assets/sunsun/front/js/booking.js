@@ -434,8 +434,8 @@ $(function() {
     modal_choice_time.off('click','#js-save-time');
     modal_choice_time.on('click','#js-save-time',function (e) {
         let time = modal_choice_time.find('input[name=time]:checked').val();
-        let bed = modal_choice_time.find('input[name=time]:checked').parent().find('.bed').val();
-        let data_json = modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]').val();
+        let bed = modal_choice_time.find('input[name=time]:checked').closest('div').find('.bed').val();
+        let data_json = modal_choice_time.find('input[name=time]:checked').closest('div').find('input[name=data-json]').val();
         var num = $('.booking-time').length;
         var time_value = time_value = time.replace(/[^0-9]/g,'');
 
@@ -559,7 +559,7 @@ $(function() {
                 allowOutsideClick: false
             })
         }
-        
+
         if (typeof json.error_time_transport !== "undefined" ) {
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
