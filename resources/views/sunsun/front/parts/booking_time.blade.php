@@ -14,22 +14,26 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($time_room as $times)
+        @foreach($time_room as $key_r => $times)
             <tr>
                 <td>
                     <div class="time-col">
                         <div>{{collect($times)->first()->kubun_value}}</div>
                     </div>
                 </td>
-                @foreach($times as $time)
+                @foreach($times as $key_t => $time)
                     <td>
                         <div class="time-col">
                             @if(isset($time->status_time_validate) && $time->status_time_validate == 0)
                                 ×
                             @else
                                 <div>
+                                    <label class="container-radio">
+                                        <input type="radio" name="time" value="{{$time->kubun_value}}">
+                                        <span class="checkmark"></span>
+                                    </label>
+
                                     <input type="hidden" class="bed" value="{{ $time->kubun_value_room }}">
-                                    <input type="radio" name="time" value="{{$time->kubun_value}}">
                                     <input type="hidden" name="data-json" value="{{json_encode($time)}}">
                                 </div>
                             @endif

@@ -36,11 +36,12 @@
                                 </div>
                             </div>
                             <div class="index-field-foot">
-                                <div class="checkbox-left">
-                                    <input type="checkbox" class="" id="confirm">
-                                </div>
-                                <div class="content-right">
-                                    <span>上記注意事項を確認し、同意いたします。</span>
+                                <div class="content-right container-checkbox">
+                                    <label for="confirm">
+                                        <input type="checkbox" class="" id="confirm">
+                                        <span class="checkmark"></span>
+                                        <span style="line-height: 27px;">上記注意事項を確認し、同意いたします。</span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -60,8 +61,8 @@
 @endsection
 
 @section('script')
-    @parent  
-    
+    @parent
+
     <script>
         $('#confirm').on('change', function() {
             if($(this).is(":checked")){

@@ -10,6 +10,9 @@
              font-size: 0.85rem;
             color: red;
         }
+        .form-label {
+            width: auto;
+        }
     </style>
 @endsection
 @section('page_title', 'ユーザー登録')

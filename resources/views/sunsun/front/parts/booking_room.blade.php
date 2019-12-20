@@ -25,7 +25,8 @@
                             @if(isset($time->status_time_validate) && $time->status_time_validate == 0)
                                 ×
                             @else
-                                <div class="">
+                                <div class="container-radio">
+                                    <span class="checkmark"></span>
                                     <input type="hidden" class="bed" value="{{ $time->kubun_value_room }}">
                                     <input type="radio" name="time" value="{{ $time->kubun_value }}">
                                     <input type="hidden" class="data-json" name="data-json" value="{{json_encode($time)}}">

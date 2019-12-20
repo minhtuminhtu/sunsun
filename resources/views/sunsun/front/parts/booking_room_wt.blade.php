@@ -27,7 +27,10 @@
                                 ×
                             @else
                                 <div class="">
-                                    <input type="radio" name="time" value="{{ $time->kubun_value }}">
+                                    <label class="container-radio">
+                                        <input type="radio" name="time" value="{{ $time->kubun_value }}">
+                                        <span class="checkmark"></span>
+                                    </label>
                                     <input type="hidden" name="data-json" value="{{json_encode($time)}}">
                                 </div>
                             @endif
