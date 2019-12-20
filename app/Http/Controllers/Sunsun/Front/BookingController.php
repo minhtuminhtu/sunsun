@@ -1515,7 +1515,7 @@ class BookingController extends Controller
         ";
         $sql_group = "
             GROUP BY mk1.ms_kubun_id, mk1.kubun_type, mk1.kubun_id, mk1.kubun_value, mk1.sort_no, mk1.notes, mk2.kubun_id
-                    , mk2.kubun_value, mk2.notes, gender, gender_type, status_time_validate, sunsun.mk2.sort_no
+                    , mk2.kubun_value, mk2.notes, gender, gender_type, status_time_validate
                     , ytm.booking_id,  ytm.gender_ytm, course_ytm
             ORDER BY  mk2.sort_no, mk1.sort_no
         ";

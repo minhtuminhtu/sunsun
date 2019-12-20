@@ -516,8 +516,8 @@ $(function () {
   modal_choice_time.off('click', '#js-save-time');
   modal_choice_time.on('click', '#js-save-time', function (e) {
     var time = modal_choice_time.find('input[name=time]:checked').val();
-    var bed = modal_choice_time.find('input[name=time]:checked').parent().find('.bed').val();
-    var data_json = modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]').val();
+    var bed = modal_choice_time.find('input[name=time]:checked').closest('div').find('.bed').val();
+    var data_json = modal_choice_time.find('input[name=time]:checked').closest('div').find('input[name=data-json]').val();
     var num = $('.booking-time').length;
     var time_value = time_value = time.replace(/[^0-9]/g, '');
 
@@ -1132,7 +1132,7 @@ var load_once_time = function load_once_time() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
 
 
 /***/ })
