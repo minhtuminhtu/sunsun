@@ -153,7 +153,9 @@ $(function() {
 
     $('#make_payment').off('click');
     $('#make_payment').on('click', function() {
+        makePayment();
         let data = $('form.booking').serializeArray();
+        console.log(data);
         $.ajax({
             url: '/make_payment',
             type: 'POST',
@@ -207,7 +209,7 @@ $(function() {
                                 popup: 'animated zoomOut faster'
                             }
                         })*/
-                        makePayment();
+
                         // window.location.href = $site_url+"/complete";
                     }else if ((typeof html.status !== 'undefined') && (html.status == 'error')){
                         Swal.fire({
@@ -236,21 +238,29 @@ $(function() {
     let makePayment = function () {
         if($('input[type=radio][name=payment-method]:checked').val() === '1'){
             doPurchase();
-
         }
     }
 });
 
 function doPurchase() {
     Multipayment.init("tshop00042155");
-    let cardExpire =  $('#card-expire').val().replace(/\D/g,'');
-    cardExpireMonth = cardExpire.split('|')[0];
-    cardExpireYear = "20" + cardExpire.split('|')[1];
+    let cardNumber = $('#card-number').val().replace(/\s/g, '');
+    let cardExpire =  $('#card-expire').val();
+    let cardSecure = $('#card-secret').val().replace(/\D/g,'');
+    let cardHoldname = 'HOLDER NAME';
+    cardExpireMonth = cardExpire.split('/')[0];
+    cardExpireYear = "20" + cardExpire.split('/')[1];
+    cardExpire = cardExpireYear.toString()  +  cardExpireMonth.toString();
+
+
+    // console.log(cardNumber);
+    // console.log(cardExpire);
+    // console.log(cardSecure);
     Multipayment.getToken({
-        cardno : $('#card-number').val().replace(/\s/g, ''),
-        expire : cardExpireYear + '' +  cardExpireMonth,
-        securitycode : $('#card-secret').val().replace(/\D/g,''),
-        holdername : 'HOLDER NAME',
+        cardno : cardNumber,
+        expire : cardExpire,
+        securitycode : cardSecure,
+        holdername : cardHoldname,
         tokennumber : 1
     }, execPurchase);
 }

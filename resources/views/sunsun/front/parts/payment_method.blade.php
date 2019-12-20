@@ -19,11 +19,10 @@
     </div>
 </div>
 <div class="credit-card" @if(isset($new) && (!$new))  style="display:none;"  @endif>
-    <input type="hidden" id="Token"value="">
     <div class="credit-card-line">
         <div class="card-number floatinglabel">
             <span>Card Number</span>
-            <input type="text" id="card-number" class="form-control typing-none" value="4111111111111111" placeholder="Card Number" maxlength="23">
+            <input type="text" id="card-number" class="form-control typing-none" value="" placeholder="Card Number" maxlength="23">
         </div>
         <div class="card-img d-flex justify-content-center align-items-center">
             <img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">
@@ -32,11 +31,11 @@
     <div class="credit-card-line2">
         <div class="card-expire floatinglabel">
             <span>MM/YY</span>
-            <input type="text" id="card-expire" class="form-control typing-none" value="1501" placeholder="MM/YY" maxlength="5">
+            <input type="text" id="card-expire" class="form-control typing-none" value="" placeholder="MM/YY" maxlength="5">
         </div>
         <laber class="card-secret floatinglabel">
             <span>CVV</span>
-            <input type="password" id="card-secret" class="form-control typing-none" value="111" placeholder="CVC" maxlength="3">
+            <input type="password" id="card-secret" class="form-control typing-none" value="" placeholder="CVC" maxlength="3">
         </laber>
     </div>
 </div>

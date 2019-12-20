@@ -571,10 +571,11 @@ class BookingController extends Controller
 
     public function make_payment(Request $request){
         $data = $request->all();
-        // dd($data);
+        dd($data);
+
         return [
             'status' => 'success',
-            'message' => 'abc'
+            'message' => $data['Token']
         ];
 
 

@@ -267,7 +267,9 @@ $(function () {
   });
   $('#make_payment').off('click');
   $('#make_payment').on('click', function () {
+    makePayment();
     var data = $('form.booking').serializeArray();
+    console.log(data);
     $.ajax({
       url: '/make_payment',
       type: 'POST',
@@ -333,7 +335,7 @@ $(function () {
                     popup: 'animated zoomOut faster'
                 }
             })*/
-            makePayment(); // window.location.href = $site_url+"/complete";
+            // window.location.href = $site_url+"/complete";
           } else if (typeof html.status !== 'undefined' && html.status == 'error') {
             Swal.fire({
               icon: 'error',
@@ -369,14 +371,21 @@ $(function () {
 
 function doPurchase() {
   Multipayment.init("tshop00042155");
-  var cardExpire = $('#card-expire').val().replace(/\D/g, '');
-  cardExpireMonth = cardExpire.split('|')[0];
-  cardExpireYear = "20" + cardExpire.split('|')[1];
+  var cardNumber = $('#card-number').val().replace(/\s/g, '');
+  var cardExpire = $('#card-expire').val();
+  var cardSecure = $('#card-secret').val().replace(/\D/g, '');
+  var cardHoldname = 'HOLDER NAME';
+  cardExpireMonth = cardExpire.split('/')[0];
+  cardExpireYear = "20" + cardExpire.split('/')[1];
+  cardExpire = cardExpireYear.toString() + cardExpireMonth.toString(); // console.log(cardNumber);
+  // console.log(cardExpire);
+  // console.log(cardSecure);
+
   Multipayment.getToken({
-    cardno: $('#card-number').val().replace(/\s/g, ''),
-    expire: cardExpireYear + '' + cardExpireMonth,
-    securitycode: $('#card-secret').val().replace(/\D/g, ''),
-    holdername: 'HOLDER NAME',
+    cardno: cardNumber,
+    expire: cardExpire,
+    securitycode: cardSecure,
+    holdername: cardHoldname,
     tokennumber: 1
   }, execPurchase);
 }
@@ -390,7 +399,7 @@ function doPurchase() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
 
 
 /***/ })
