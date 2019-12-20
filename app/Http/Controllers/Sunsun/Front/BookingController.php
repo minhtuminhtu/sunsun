@@ -1431,7 +1431,7 @@ class BookingController extends Controller
                 , ytm.course as course_ytm
                 , ytm.booking_id
                 , :date_booking as date_booking
-                , mk2.sort_no as sort_no_kubun
+
         ";
         $sql_bus = "";
         if ($time_bus !== null) {
@@ -1517,7 +1517,7 @@ class BookingController extends Controller
             GROUP BY mk1.ms_kubun_id, mk1.kubun_type, mk1.kubun_id, mk1.kubun_value, mk1.sort_no, mk1.notes, mk2.kubun_id
                     , mk2.kubun_value, mk2.notes, gender, gender_type, status_time_validate
                     , ytm.booking_id,  ytm.gender_ytm, course_ytm
-            ORDER BY  mk2.sort_no, mk1.sort_no
+            ORDER BY mk1.sort_no
         ";
         $sql = "$sql_select
                 $sql_get_check_room_free
