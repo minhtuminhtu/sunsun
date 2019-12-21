@@ -15,34 +15,60 @@ $(function() {
             e.preventDefault();
         }
     })
+
+    let cardType;
     $('#card-number').off('keyup');
     $('#card-number').on('keyup', function(e) {
 
         if($('#card-number').val().length !== 0){
-            $('#card-number').val($('#card-number').val().replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim());
-            switch (getCardType($('#card-number').val().replace(/\s/g, ''))) {
+            $('#card-number').val($('#card-number').val().replace(/\D/g, '').replace(/(\d{4})/g, '$1 ').trim());
+            switch (getCardType($('#card-number').val().replace(/\D/g, ''))) {
                 case "VISA": {
-                    $(".card-img").html('<i class="fab fa-cc-visa fa-2x"></i>');
+                    if(cardType !== "VISA"){
+                        $(".card-img").html('<img src="sunsun/svg/cc-visa.svg" class="img-fluid scale-image" alt="">');
+                    }
+
+                    cardType = "VISA";
                     break;
                 }
                 case "MASTERCARD": {
-                    $(".card-img").html('<i class="fab fa-cc-mastercard fa-2x"></i>');
+                    if(cardType !== "MASTERCARD"){
+                        $(".card-img").html('<img src="sunsun/svg/cc-mastercard.svg" class="img-fluid scale-image" alt="">');
+                    }
+
+                    cardType = "MASTERCARD";
                     break;
                 }
                 case "AMEX": {
-                    $(".card-img").html('<i class="fab fa-cc-amex fa-2x"></i>');
+                    if(cardType !== "AMEX"){
+                        $(".card-img").html('<img src="sunsun/svg/cc-amex.svg" class="img-fluid scale-image" alt="">');
+                    }
+
+                    cardType = "AMEX";
                     break;
                 }
-                // case "MAESTRO": {
-                //     $(".card-img").html("MAESTRO");
-                //     break;
-                // }
+                case "MAESTRO": {
+                    if(cardType !== "MAESTRO"){
+                        $(".card-img").html('<img src="sunsun/svg/cc-maestro.svg" class="img-fluid scale-image" alt="">');
+                    }
+
+                    cardType = "MAESTRO";
+                    break;
+                }
                 case "JCB": {
-                    $(".card-img").html('<i class="fab fa-cc-jcb fa-2x"></i>');
+                    if(cardType !== "JCB"){
+                        $(".card-img").html('<img src="sunsun/svg/cc-jcb.svg" class="img-fluid scale-image" alt="">');
+                    }
+
+                    cardType = "JCB";
                     break;
                 }
                 default: {
-                    $(".card-img").html('<img src="https://galacticglasses.com/image/bank_def.png" class="img-fluid scale-image" alt="">');
+                    if(cardType !== "NONE"){
+                        $(".card-img").html('<img src="sunsun/svg/cc-blank.svg" class="img-fluid scale-image" alt="">');
+                    }
+
+                    cardType = "NONE";
                     break;
                 }
             }
@@ -58,7 +84,6 @@ $(function() {
         }
     });
     function getCardType(cardNum) {
-
         if(!luhnCheck(cardNum)){
             return "";
         }
@@ -122,6 +147,10 @@ $(function() {
     $('#card-expire').off('keyup');
     $('#card-expire').on('keyup', function() {
         if($('#card-expire').val().length !== 0){
+            if(($('#card-expire').val().length === 1) && ($('#card-expire').val() > 1) ){
+                $('#card-expire').val("0" + $('#card-expire').val());
+            }
+
             $(this).parent().find('span:first-child').css('display', 'inline');
             $(this).removeClass('typing-none');
             $(this).addClass('typing');
@@ -143,6 +172,8 @@ $(function() {
             $(this).parent().find('span:first-child').css('display', 'inline');
             $(this).removeClass('typing-none');
             $(this).addClass('typing');
+            let  secretCard = $('#card-secret').val().replace(/\D/g,'');
+            $('#card-secret').val(secretCard);
         }else{
             $(this).parent().find('span:first-child').css('display', 'none')
             $(this).removeClass('typing');
@@ -252,7 +283,7 @@ let callBackMakePayment = function() {
 
 function doPurchase() {
     Multipayment.init("tshop00042155");
-    let cardNumber = $('#card-number').val().replace(/\s/g, '');
+    let cardNumber = $('#card-number').val().replace(/\D/g, '');
     let cardExpire =  $('#card-expire').val();
     let cardSecure = $('#card-secret').val().replace(/\D/g,'');
     let cardHoldname = 'HOLDER NAME';
