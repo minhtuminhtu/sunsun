@@ -843,6 +843,7 @@ class BookingController extends Controller
             $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
             $gender = json_decode($customer['gender']);
             foreach($customer['date'] as $date){
+                Log::debug('course 4', $customer);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['from']['value'], $date['from']['bed']);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['to']['value'], $date['to']['bed']);
 
@@ -852,7 +853,7 @@ class BookingController extends Controller
                 $YoyakuDanjikiJikan->service_time_1 = $date['from']['value'];
                 $YoyakuDanjikiJikan->service_time_2 = $date['to']['value'];
                 $YoyakuDanjikiJikan->notes = $date['from']['bed'] . "-" . $date['to']['bed'];
-                $YoyakuDanjikiJikan->time_json = $time['json'];
+//                $YoyakuDanjikiJikan->time_json = $time['json'];
 
                 $YoyakuDanjikiJikan->save();
             }
