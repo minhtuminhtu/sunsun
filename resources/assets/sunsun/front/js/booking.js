@@ -545,11 +545,12 @@ $(function() {
             || (typeof json.room_select_error  !== "undefined")
         ){
             Swal.fire({
-                icon: 'error',
-                title: 'エラー',
+                icon: 'warning',
+                // title: 'エラー',
                 text: '入力した情報を再確認してください。',
                 confirmButtonColor: '#d7751e',
-                confirmButtonText: 'もう一度やり直してください。',
+                confirmButtonText: '閉じる',
+                width: 350,
                 showClass: {
                     popup: 'animated zoomIn faster'
                 },

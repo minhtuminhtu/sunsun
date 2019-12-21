@@ -31,6 +31,12 @@
             background: #d7751e;
             color: #ffffff;
         }
+        .mean-container {
+            display: inline;
+        }
+        .main-footer {
+            margin-top: 10px;
+        }
     </style>
 @endsection
 @section('page_title', '予約確認')

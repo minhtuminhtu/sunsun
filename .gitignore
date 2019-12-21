@@ -10,3 +10,5 @@ node_modules
 .vscode
 sunsun.zip
 vendor
+.gitignore
+public

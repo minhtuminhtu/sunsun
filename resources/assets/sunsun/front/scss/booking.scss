@@ -798,4 +798,21 @@ p.note-error {
 .typing{
     margin: 14px 0 0 0;
 }
+.swal2-actions {
+    margin: 1em auto 0;
+    .swal2-styled {
+        padding: .3em 1em;
+    }
+}
+.swal2-content {
+    font-size: 1em;
+}
 
+.swal2-icon {
+    width: 3em;
+    height: 3em;
+    margin: 0.25em auto 0.875em;
+    .swal2-icon-content {
+        font-size: 1.8em;
+    }
+}

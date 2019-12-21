@@ -448,8 +448,21 @@ class BookingController extends Controller
                         $guest_num_price_op = $data_option_price->where('kubun_id','03')->first();
                         $price_stay += $guest_num_price_op->kubun_value;
                     }
-                    $days = $booking['range_date_end-value'] - $booking['range_date_start-value']; // chua tính những ngày nghỉ
-                    $price_stay = $price_stay * $days;
+                    $date_end = new Carbon();
+                    $date_start = new Carbon();
+                    $date_end->setDate(substr($booking['range_date_end-value'], 0 , 4),substr($booking['range_date_end-value'], 4 , 2),substr($booking['range_date_end-value'], 6 , 2));
+                    $date_start->setDate(substr($booking['range_date_start-value'], 0 , 4),substr($booking['range_date_start-value'], 4 , 2),substr($booking['range_date_start-value'], 6 , 2));
+                    $all_dates = array();
+                    while ($date_start->lte($date_end)){
+                        $all_dates[] = $date_start->toDateString();
+                        if($date_start->dayOfWeek == Carbon::THURSDAY || $date_start->dayOfWeek == Carbon::TUESDAY) {
+                            $date_off[] = $date_start;
+                        }
+                        $date_start->addDay();
+                    }
+                    //dd($date_off);
+                    //$days = $booking['range_date_end-value'] - $booking['range_date_start-value']; // chua tính những ngày nghỉ
+                    $price_stay = $price_stay * count($all_dates);
                     if (isset($bill['options']['02_03']['price'])) {
                         ++ $bill['options']['02_03']['quantity'];
                         $bill['options']['02_03']['price'] += $price_stay;
