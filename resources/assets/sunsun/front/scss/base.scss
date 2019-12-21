@@ -138,8 +138,10 @@ header {
 
     display: block;
     position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
+    padding: 0;
+    margin: 0;
+    //padding-left: 30px;
+    //margin-bottom: 12px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -186,8 +188,10 @@ header {
 .container-radio {
     display: block;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
+    padding: 0;
+    margin: 0;
+    //padding-left: 35px;
+    //margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
     -webkit-user-select: none;

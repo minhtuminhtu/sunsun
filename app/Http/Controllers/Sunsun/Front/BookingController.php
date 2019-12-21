@@ -417,18 +417,29 @@ class BookingController extends Controller
     public function get_price_option ($booking, &$bill) {
         $course = json_decode($booking['course'], true);
         $data_option_price = MsKubun::where('kubun_type','029')->get(); // get all options price
-        if (isset($booking['lunch_guest_num'])) { // an trua 01
+
+        //dd($booking);
+        if (isset($booking['lunch']) || isset($booking['lunch_guest_num'])) { // an trua 01
             $price_luch = 0;
-            $lunch = json_decode($booking['lunch_guest_num'], true);
+            if (isset($booking['lunch'])) {
+                $lunch = json_decode($booking['lunch'], true);
+            } else { // th book all room 03
+                $lunch = json_decode($booking['lunch_guest_num'], true);
+            }
+
             if ($lunch['kubun_id'] !== "01") {
                 $price_lunch_each_people = $data_option_price->where('kubun_id','01')->first();
-                $price_luch = (int) $lunch['notes'] * (int) $price_lunch_each_people->kubun_value; //$lunch->notes => number people || $price_lunch_each_people->kubun_value => price for each people
+                $num_person = 1;
+                if (isset($booking['lunch_guest_num'])) {
+                    $num_person = (int) $lunch['notes'];
+                }
+                $price_luch = $num_person * (int) $price_lunch_each_people->kubun_value;
 
                 if (isset($bill['options']['01']['price'])) {
                     $bill['options']['01']['price'] += $price_luch;
-                    ++ $bill['options']['01']['quantity'];
+                    $bill['options']['01']['quantity'] += $num_person;
                 } else {
-                    $bill['options']['01']['quantity'] = 1;
+                    $bill['options']['01']['quantity'] = $num_person;
                     $bill['options']['01']['price'] = $price_luch;
                     $bill['options']['01']['name'] = 'ランチ';
                 }
@@ -468,7 +479,7 @@ class BookingController extends Controller
                         $bill['options']['02_03']['price'] += $price_stay;
                     } else {
                         $bill['options']['02_03']['room'] = $stay_room_type['kubun_value'];
-                        $bill['options']['02_03']['quantity'] = 1;
+                        $bill['options']['02_03']['quantity'] = $stay_guest_num['notes'];
                         $bill['options']['02_03']['price'] = $price_stay;
                         $bill['options']['02_03']['name'] = '宿泊(部屋ﾀｲﾌﾟ)';
                     }
@@ -529,7 +540,7 @@ class BookingController extends Controller
         switch ($course['kubun_id']){
             case '01': // bình thường
                 if ($booking['age_type'] == '3') {
-                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','01']])->get()->first();
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','03']])->get()->first();
                     $course_price = $course_price_op->kubun_value;
                 }
                 else if ($booking['age_type'] == '2') {
