@@ -199,11 +199,12 @@ $(function () {
           make_color_input_error(html.message.booking);
           make_payment_validate(html.message.payment);
           Swal.fire({
-            icon: 'error',
-            title: 'エラー',
+            icon: 'warning',
+            // title: 'エラー',
             text: '入力した情報を再確認してください。',
             confirmButtonColor: '#d7751e',
-            confirmButtonText: 'もう一度やり直してください。',
+            confirmButtonText: '閉じる',
+            width: 350,
             showClass: {
               popup: 'animated zoomIn faster'
             },
@@ -213,7 +214,7 @@ $(function () {
             allowOutsideClick: false
           });
         } else {} // $('#edit_booking').modal('hide');
-        // window.location.reload(); 
+        // window.location.reload();
 
       },
       complete: function complete() {
@@ -328,7 +329,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
 
 
 /***/ })

@@ -33,16 +33,16 @@ $(function () {
         date_day.datepicker("setDate", date);
         current_day.find('input').trigger("input");
     });
-    
+
     let booking_edit = $('#edit_booking');
-    
+
     booking_edit.on('show.bs.modal', function (e) {
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
     })
     // booking_edit.on('hide.bs.modal', function (e) {
     //     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
     // })
-    
+
     let show_booking = function (booking_id) {
         $.ajax({
             url: '/admin/edit_booking',
@@ -70,20 +70,20 @@ $(function () {
     $('.main-col__data').not(".bg-free").on('click', function (e) {
         var booking_id = $(this).find('.booking-id').val();
         show_booking(booking_id);
-        
+
     });
 
     $('.main-col__pet').not(".space-white").not(".head").off('click');
     $('.main-col__pet').not(".space-white").not(".head").on('click', function (e) {
         var booking_id = $(this).find('.booking-id').val();
         show_booking(booking_id);
-        
+
     });
     $('.main-col__wt').not(".not-wt").not(".head").off('click');
     $('.main-col__wt').not(".not-wt").not(".head").on('click', function (e) {
         var booking_id = $(this).find('.booking-id').val();
         show_booking(booking_id);
-        
+
     });
 
     $('#edit_booking').off('click','.btn-update');
@@ -105,11 +105,12 @@ $(function () {
                     make_color_input_error(html.message.booking);
                     make_payment_validate(html.message.payment);
                     Swal.fire({
-                        icon: 'error',
-                        title: 'エラー',
+                        icon: 'warning',
+                        // title: 'エラー',
                         text: '入力した情報を再確認してください。',
                         confirmButtonColor: '#d7751e',
-                        confirmButtonText: 'もう一度やり直してください。',
+                        confirmButtonText: '閉じる',
+                        width: 350,
                         showClass: {
                             popup: 'animated zoomIn faster'
                         },
@@ -122,7 +123,7 @@ $(function () {
 
                 }
                 // $('#edit_booking').modal('hide');
-                // window.location.reload(); 
+                // window.location.reload();
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -155,7 +156,7 @@ $(function () {
             })
     }
 
-    
+
     let make_color_input_error = (json) => {
         $('p.note-error').remove();
         if (typeof json.clear_border_red !== "undefined" ) {
@@ -164,7 +165,7 @@ $(function () {
                 $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
                 $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
             })
-        }        
+        }
         if (typeof json.error_time_transport !== "undefined" ) {
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
@@ -196,5 +197,5 @@ $(function () {
         }
 
     };
-    
+
 });
