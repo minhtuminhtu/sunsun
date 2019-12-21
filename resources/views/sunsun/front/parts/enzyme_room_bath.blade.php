@@ -122,9 +122,12 @@
                         @if(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 1))
                             <option selected value='1'>はじめて</option>
                             <option value='0'>リピート</option>
-                        @else
+                        @elseif(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 1))
                             <option value='1'>はじめて</option>
                             <option selected value='0'>リピート</option>
+                        @else
+                            <option value='1'>はじめて</option>
+                            <option value='0'>リピート</option>
                         @endif
                     </select>
                 </div>

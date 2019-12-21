@@ -290,47 +290,48 @@
         width: 100vw !important;
         max-width: 100vw !important;
         .credit-card{
-            display: block;
-            border: 1px solid #dee2e6;
             margin: 10px 10px 20px 55px;
-            .form-control {
-                border: 0;
-                box-shadow: none;
-            }
-            .form-control:focus {
-                border: 0;
-                box-shadow: none;
-            }
+            .cc-block {
+                display: block;
+                border: 1px solid transparent !important;
+                .form-control {
+                    border: 0;
+                    box-shadow: none;
+                }
+                .form-control:focus {
+                    border: 0;
+                    box-shadow: none;
+                }
 
 
-            .credit-card-line{
-                border: 1px solid #dee2e6;
-                width: 100%;
-                display: flex;
-                .card-img{
-                    width: 20%;
-                    visibility: visible;
-                    .scale-image{
-                        max-width: 3rem;
+                .credit-card-line{
+                    border: 1px solid #dee2e6;
+                    width: 100%;
+                    display: flex;
+                    .card-img{
+                        width: 20%;
+                        visibility: visible;
+                        .scale-image{
+                            max-width: 3rem;
+                        }
+                    }
+                    .card-number{
+                        width: 80%;
                     }
                 }
-                .card-number{
-                    width: 80%;
-                }
-            }
-            .credit-card-line2{
-                margin-top: 1.25vw;
-                border: 1px solid #dee2e6;
-                width: 100%;
-                display: flex;
-                .card-expire{
+                .credit-card-line2{
+                    margin-top: 1.25vw;
+                    border: 1px solid #dee2e6;
                     width: 100%;
-                }
-                .card-secret{
-                    width: 25%;
+                    display: flex;
+                    .card-expire{
+                        width: 100%;
+                    }
+                    .card-secret{
+                        width: 25%;
+                    }
                 }
             }
-
         }
     }
     .booking-warp.booking{
@@ -402,13 +403,13 @@
     .mean-container .mean-bar {
         float: left;
         width: 100%;
-        position: relatives;
+        position: relative;
         background-color: #523e29;
         padding: 2px 0;
         margin-bottom: 5vw;
         min-height: 30px;
         z-index: 999999;
-        background-image: url();
+        //background-image: url();
         background-position: left top;
         background-repeat: no-repeat;
     }
@@ -667,9 +668,29 @@
         display: none;
         z-index: 100;
     }
+
+    .credit-card-line.error {
+        border: 1px solid #f50000 !important;
+    }
+    .credit-card-line2.error {
+        border: 1px solid #f50000 !important;
+    }
+
 }
 @media only screen and (min-width: 768px){
     .mean-bar{
         display: none;
+    }
+    .credit-card-line.error {
+        border-bottom: 1px solid #f50000 !important;
+        border-left: 1px solid #f50000 !important;
+        border-top: 1px solid #f50000 !important;
+        border-right: 1px solid transparent !important;
+    }
+    .credit-card-line2.error {
+        border-bottom: 1px solid #f50000 !important;
+        border-right: 1px solid #f50000 !important;
+        border-top: 1px solid #f50000 !important;
+        border-left: 1px solid transparent !important;
     }
 }

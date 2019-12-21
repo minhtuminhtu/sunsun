@@ -19,24 +19,26 @@
     </div>
 </div>
 <div class="credit-card" @if(isset($new) && (!$new))  style="display:none;"  @endif>
-    <div class="credit-card-line">
-        <div class="card-number floatinglabel">
-            <span>Card Number</span>
-            <input type="text" id="card-number" class="form-control typing-none" value="" placeholder="Card Number" maxlength="23">
+    <div class="cc-block">
+        <div class="credit-card-line">
+            <div class="card-number floatinglabel">
+                <span>Card Number</span>
+                <input type="text" id="card-number" class="form-control typing-none" value="" placeholder="Card Number" maxlength="23">
+            </div>
+            <div class="card-img d-flex justify-content-center align-items-center">
+                <img src="{{ asset('sunsun/svg/cc-blank.svg') }}" class="img-fluid scale-image" alt="">
+            </div>
         </div>
-        <div class="card-img d-flex justify-content-center align-items-center">
-            <img src="{{ asset('sunsun/svg/cc-blank.svg') }}" class="img-fluid scale-image" alt="">
+        <div class="credit-card-line2">
+            <div class="card-expire floatinglabel">
+                <span>MM/YY</span>
+                <input type="text" id="card-expire" class="form-control typing-none" value="" placeholder="MM/YY" maxlength="5">
+            </div>
+            <laber class="card-secret floatinglabel">
+                <span>CVV</span>
+                <input type="password" id="card-secret" class="form-control typing-none" value="" placeholder="CVC" maxlength="4">
+            </laber>
         </div>
-    </div>
-    <div class="credit-card-line2">
-        <div class="card-expire floatinglabel">
-            <span>MM/YY</span>
-            <input type="text" id="card-expire" class="form-control typing-none" value="" placeholder="MM/YY" maxlength="5">
-        </div>
-        <laber class="card-secret floatinglabel">
-            <span>CVV</span>
-            <input type="password" id="card-secret" class="form-control typing-none" value="" placeholder="CVC" maxlength="4">
-        </laber>
     </div>
 </div>
 <div class="pl-4 mt-2">

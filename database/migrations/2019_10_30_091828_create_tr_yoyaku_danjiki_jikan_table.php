@@ -20,6 +20,7 @@ class CreateTrYoyakuDanjikiJikanTable extends Migration
             $table->string('service_time_1',255)->nullable();
             $table->string('service_time_2',255)->nullable();
             $table->string('notes',255)->nullable();
+            $table->longText('time_json')->nullable();
             // $table->primary(['booking_id','service_date','service_time_1']);
             $table->timestamps();
         });
