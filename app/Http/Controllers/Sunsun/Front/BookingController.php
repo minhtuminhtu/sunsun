@@ -571,13 +571,7 @@ class BookingController extends Controller
 
     public function make_payment(Request $request){
         $data = $request->all();
-        dd($data);
-
-        return [
-            'status' => 'success',
-            'message' => $data['Token']
-        ];
-
+//        dd($data);
 
         $error = $this->validate_payment_info($data);
         if (isset($error['error']) && (count($error['error']) != 0)){
@@ -633,10 +627,10 @@ class BookingController extends Controller
 
 
     public function update_or_new_booking($data){
+        $result = [];
         //Update
         if(isset($data['booking_id'])){
             $booking_id = $this->new_booking($data);
-
             Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
             Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
 
@@ -645,8 +639,11 @@ class BookingController extends Controller
             $result = $this->new_booking($data);
         }
 
-        if(isset($result)){
-            $result = null;
+        if(isset($result['bookingID'])){
+            $result = [
+                'status' => 'success',
+                'message' => $result
+            ];
         }else{
             $result = [
                 'status' => 'error',
@@ -664,6 +661,7 @@ class BookingController extends Controller
 
         DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
         try{
+            $result = [];
             $return_booking_id = null;
             DB::beginTransaction();
             if(isset($data['customer']['info']) == false){
@@ -695,19 +693,97 @@ class BookingController extends Controller
                     $Yoyaku->save();
                 }
                 DB::commit();
+                $result = $this->call_payment_api($data, $return_booking_id);
             } catch (\Exception $e) {
                 DB::rollBack();
-                $return_booking_id = null;
                 DB::unprepared("UNLOCK TABLE");
-                return  $return_booking_id;
+                return  $result;
             }
         }catch(\Exception $e2){
             // dd($e);
         }
         DB::unprepared("UNLOCK TABLE");
-        return  $return_booking_id;
+        return  $result;
     }
 
+    private function call_payment_api(&$data, $booking_id){
+        if(($data['Token'] == '') || ($data['Amount'] == '')){
+            throw new \ErrorException('Token error!');
+        }
+
+        $amount = preg_replace('~\D~', '', $data['Amount']);
+
+        if($data['payment-method'] == 1){
+            return $this->create_tran($booking_id, $amount, $data['Token']);
+        }else{
+            return [];
+        }
+
+    }
+
+    private function create_tran($booking_id, $amount, $token){
+        $headers = array(
+            'Connection' => 'keep-alive',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'no-cache',
+            'Accept' => 'text/plain, */*; q=0.01',
+            'Origin' => 'http://localhost:3000',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
+            'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Sec-Fetch-Site' => 'cross-site',
+            'Sec-Fetch-Mode' => 'cors',
+            'Referer' => 'http://localhost:3000/',
+            'Accept-Encoding' => 'gzip, deflate, br',
+            'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
+        );
+        $data = array(
+            'ShopID' => 'tshop00042155',
+            'ShopPass' => 'ppvvwqmq',
+            'OrderID' => $booking_id,
+            'Amount' => $amount,
+            'JobCd' => 'CAPTURE'
+        );
+        $response = \Requests::post('https://pt01.mul-pay.jp/payment/EntryTran.idPass', $headers, $data);
+        parse_str($response->body, $params);
+
+        if(($params['AccessID'] == '') || ($params['AccessPass'] == '')){
+            throw new \ErrorException('Create tran error!');
+        }
+        return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
+    }
+    private function exec_tran($accessID, $accessPass, $booking_id, $token){
+        $headers = array(
+            'Connection' => 'keep-alive',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'no-cache',
+            'Accept' => 'text/plain, */*; q=0.01',
+            'Origin' => 'http://localhost:3000',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
+            'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Sec-Fetch-Site' => 'cross-site',
+            'Sec-Fetch-Mode' => 'cors',
+            'Referer' => 'http://localhost:3000/',
+            'Accept-Encoding' => 'gzip, deflate, br',
+            'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
+        );
+        $data = array(
+            'AccessID' => $accessID,
+            'AccessPass' => $accessPass,
+            'OrderID' => $booking_id,
+            'Method' => '1',
+            'PayTimes' => '1',
+            'Token' => $token
+        );
+        $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $headers, $data);
+        Log::debug($response->body);
+        parse_str($response->body, $params);
+        if($params['ACS'] == 0){
+            return [
+                'tranID' => $params['TranID'],
+                'bookingID' => $booking_id
+            ];
+        }
+    }
 
     private function set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date){
         $course = json_decode($customer['course']);
@@ -2106,8 +2182,9 @@ class BookingController extends Controller
         }
     }
 
-    public function complete() {
-        return view('sunsun.front.complete');
+    public function complete(Request $request) {
+        $data = $request->all();
+        return view('sunsun.front.complete', $data);
     }
 
 }
