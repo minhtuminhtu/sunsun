@@ -99,6 +99,11 @@
 @endsection
 
 @section('script')
+    <script>
+        function payment_init() {
+            Multipayment.init('{{ env("SHOP_ID", "tshop00042155")  }}');
+        }
+    </script>
     @parent
     <script  type="text/javascript" src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
     <script  type="text/javascript" src="{{asset('sunsun/front/js/payment.js').config('version_files.html.css')}}"></script>

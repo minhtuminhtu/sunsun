@@ -771,8 +771,8 @@ class BookingController extends Controller
             'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
         );
         $data = array(
-            'ShopID' => 'tshop00042155',
-            'ShopPass' => 'ppvvwqmq',
+            'ShopID' => env("SHOP_ID", "tshop00042155"),
+            'ShopPass' => env("SHOP_PASS", "ppvvwqmq"),
             'OrderID' => $booking_id,
             'Amount' => $amount,
             'JobCd' => 'CAPTURE'

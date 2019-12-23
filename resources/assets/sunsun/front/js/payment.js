@@ -284,7 +284,8 @@ let callBackMakePayment = function() {
 }
 
 function doPurchase() {
-    Multipayment.init("tshop00042155");
+    payment_init();
+    // Multipayment.init("tshop00042155");
     let cardNumber = $('#card-number').val().replace(/\D/g, '');
     let cardExpire =  $('#card-expire').val();
     let cardSecure = $('#card-secret').val().replace(/\D/g,'');
