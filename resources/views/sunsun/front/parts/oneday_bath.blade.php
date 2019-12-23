@@ -1,5 +1,5 @@
 <div class="booking-block">
-    <div class="collapse collapse-top show" id="">
+    <div class="collapse collapse-top show">
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
                 <p class="text-left pt-2">{{config('booking.gender.label')}}</p>
@@ -112,9 +112,9 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show" id="">
+<div class="collapse collapse-between show">
     <div class="booking-block-between">
-        <div class="" id="">
+        <div class="">
             <div class="booking-field">
                 <div class="booking-field-label  booking-laber-padding">
                     <p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
@@ -163,10 +163,10 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" id="" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
                         <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
-                        <input name="whitening_data[json]" class="data-json_input" id="" type="hidden" value="">
-                        <input name="whitening_data[element]" id="" type="hidden" value="whitening-time_view">
+                        <input name="whitening_data[json]" class="data-json_input" type="hidden" value="">
+                        <input name="whitening_data[element]" type="hidden" value="whitening-time_view">
                     </div>
                 </div>
             </div>
@@ -199,9 +199,9 @@
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
-    <div class="collapse collapse-finish show" id="">
+    <div class="collapse collapse-finish show">
         <div class="booking-block-finish">
-            <div class="" id="">
+            <div class="">
                 <div class="booking-field">
                     <div class="booking-field-label  booking-laber-padding">
                         <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>

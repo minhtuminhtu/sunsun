@@ -1,5 +1,5 @@
 <div class="booking-block">
-    <div class="collapse collapse-top show" id="">
+    <div class="collapse collapse-top show">
         @if(!isset($add_new_user))
             @php
                 $booking_date = '';
@@ -37,7 +37,7 @@
 
                     <input name="time_room_value" id="time_room_value"  type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
                     <input name="time_room_bed" id="time_room_bed" type="hidden" value="{{ isset($bed)?$bed:'0' }}">
-                    <input name="time_room_view" type="text" id="time_room_view" class="form-control time js-set-room bg-white"  readonly="readonly" id="" value="{{ isset($time)?$time.'～':'00:00～' }}">
+                    <input name="time_room_view" type="text" id="time_room_view" class="form-control time js-set-room bg-white"  readonly="readonly" value="{{ isset($time)?$time.'～':'00:00～' }}">
                     <input name="time[0][json]" class="data-json_input"  type="hidden" value="">
                     <input name="time[0][element]" type="hidden" value="time_room_view">
                 </div>
@@ -71,9 +71,9 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show" id="">
+<div class="collapse collapse-between show">
     <div class="booking-block-between">
-        <div class="" id="">
+        <div class="">
             <div class="booking-field">
                 <div class="booking-field-label  booking-laber-padding">
                     <p class="text-left pt-2">{{config('booking.number_lunch_book.label')}}</p>
@@ -139,10 +139,10 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" id="" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
                         <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
-                        <input name="whitening_data[json]" class="data-json_input" id="" type="hidden" value="">
-                        <input name="whitening_data[element]" id="" type="hidden" value="whitening-time_view">
+                        <input name="whitening_data[json]" class="data-json_input" type="hidden" value="">
+                        <input name="whitening_data[element]" type="hidden" value="whitening-time_view">
                     </div>
                 </div>
             </div>
@@ -175,9 +175,9 @@
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
-    <div class="collapse collapse-finish show" id="">
+    <div class="collapse collapse-finish show">
         <div class="booking-block-finish">
-            <div class="" id="">
+            <div class="">
                 <div class="booking-field">
                     <div class="booking-field-label  booking-laber-padding">
                         <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>

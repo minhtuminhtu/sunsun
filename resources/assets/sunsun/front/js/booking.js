@@ -38,7 +38,7 @@ $(function() {
             },
             success: function (html) {
                 $('.service-warp').empty().append(html).hide().fadeIn('slow');
-                load_event();
+                load_event(true);
                 load_after_ajax();
                 load_time_list();
             },
@@ -55,12 +55,13 @@ $(function() {
 
 
 
-    let load_event = function(check = null) {
+    let load_event = function(date_check = false) {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
-        if($('#date').val() == ""){
+        if(($('#date').val() == "") && ($('#date').val() !== undefined)){
             $('#date').val(strToday);
         }
+
 
         if($('#plan_date_start').val() == ""){
             $('#plan_date_start').val(strToday);
@@ -187,13 +188,28 @@ $(function() {
         });
 
 
-
-
-        if($('#date').val() != ""){
-            var date_value = moment(new Date($('#date').val()));
-            var date_pick = date_value.format('Y') + "/" + date_value.format('MM') + "/" + date_value.format('DD');
-            $('#date').val(date_pick + "(" + days_short[moment(new Date(date_pick)).weekday()] + ")");
+        if(date_check){
+            if(($('#date').val() !== undefined) && ($('#date').val() != '')){
+                let date_value = moment(new Date($('#date').val()));
+                // console.log('begin1');
+                // console.log(date_value);
+                // console.log($('#date').val());
+                // console.log('end1');
+                //
+                // let date_pick = date_value.format('Y') + "/" + date_value.format('MM') + "/" + date_value.format('DD');
+                // // $('#date').val(date_pick + "(" + days_short[moment(new Date(date_pick)).weekday()] + ")");
+                //
+                //
+                //
+                let current_date = date_value.format('Y') + '/' + date_value.format('MM') + '/' + date_value.format('DD') + "(" + days_short[date_value.weekday()] + ")";
+                $('#date').val(current_date);
+                // console.log(date_value.weekday());
+                //
+                //
+                // // $('#date').val();
+            }
         }
+
 
 
         if(window.location.href.includes("admin")){
