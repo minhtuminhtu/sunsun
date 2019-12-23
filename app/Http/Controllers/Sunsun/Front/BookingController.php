@@ -777,6 +777,8 @@ class BookingController extends Controller
             'Amount' => $amount,
             'JobCd' => 'CAPTURE'
         );
+        Log::debug('data');
+        Log::debug($data);
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/EntryTran.idPass', $headers, $data);
         parse_str($response->body, $params);
 
