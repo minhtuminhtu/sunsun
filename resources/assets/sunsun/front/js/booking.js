@@ -406,16 +406,52 @@ $(function() {
         });
 
         function change_day(){
-            var check = moment(new Date($('#date').val()));
-            var days_short = new Array("日","月","火","水","木","金","土");
-            $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
-            $('#date-value').val(check.format('YYYYMMDD'));
-            $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
+            $('#error_time_0').val('00:00');
+            $('#time\\[0\\]\\[value\\]').val(0);
+            $('#time\\[0\\]\\[bed\\]').val(0);
+            $('#time\\[0\\]\\[json\\]').val('');
+            $('.time-content').empty();
+
+            $('#time1-value').val(0);
+            $('#time1-bed').val(0);
+            $('#time1-view').val('00:00');
+            $('#time\\[0\\]\\[json\\]').val('');
+
+            $('#time2-value').val(0);
+            $('#time2-bed').val(0);
+            $('#time2-view').val('00:00');
+            $('#time\\[1\\]\\[json\\]').val('');
+
+            $('#time_room_value').val(0);
+            $('#time_room_bed').val(0);
+            $('#time_room_view').val('00:00～');
+            $('#time\\[0\\]\\[json\\]').val('');
+
+            $('#time_room_time1').val('0');
+            $('#time_room_time2').val('0');
+            $('#time_room_pet_0').val('00:00～00:00');
+            $('#time_room_pet_json').val('');
+
+            $('#whitening-time_view').val('00:00～00:00');
+            $('#whitening-time_value').val('0');
+            $('#whitening_data\\[json\\]').val('');
+
+
+
+
+
+
+
+            let new_day = moment(new Date($('#date').val()));
+            let days_short = new Array("日","月","火","水","木","金","土");
+            $('#date').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
+            $('#date-value').val(new_day.format('YYYYMMDD'));
+            $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
         }
 
         $(".room_range_date").on('change blur', function() {
-            var range_start = moment(new Date($('#range_date_start').val()));
-            var range_end = moment(new Date($('#range_date_end').val()));
+            let range_start = moment(new Date($('#range_date_start').val()));
+            let range_end = moment(new Date($('#range_date_end').val()));
             $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
             $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
             $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
