@@ -214,6 +214,7 @@ class BookingController extends Controller
                 OR 	( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date >= $range_date_start )
                 OR 	( main.stay_checkin_date >= $range_date_start AND main.stay_checkout_date <= $range_date_end )
                 )
+            AND main.history_id IS NULL
             ");
 
             if(count($number_dup) != 0){
@@ -384,6 +385,7 @@ class BookingController extends Controller
                 main.stay_checkout_date
         FROM	tr_yoyaku main
         WHERE	main.stay_room_type = '$room_type'
+        AND main.history_id IS NULL
         ");
         $date_selected = [];
         foreach($range_day as $da){
@@ -2255,6 +2257,10 @@ class BookingController extends Controller
 
     public function complete(Request $request) {
         $data = $request->all();
+//        dd($data);
+        if(isset($data['bookingID']) == false){
+            return redirect("/booking");
+        }
         return view('sunsun.front.complete', $data);
     }
 

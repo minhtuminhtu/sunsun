@@ -192,7 +192,7 @@
 .booking-field .booking-field-label {
     width: 35% !important;
 }
-  
+
 .booking-field .booking-field-content {
     width: 65% !important;
     .block-content-1{
@@ -261,7 +261,7 @@ body {
             flex-basis: 100%;
             border-right: 1px dashed #000;
             border-bottom: 1px dashed #000;
-            background-color: #ffccff;   
+            background-color: #ffccff;
             padding: 0.3vw;
         }
     }
@@ -331,7 +331,7 @@ body {
     background-color: #fff !important;
 }
 .bg-free{
-    background-color: #ffd966!important;
+    background-color: #d9d9d9!important;
 }
 
 .bg-male{
@@ -425,6 +425,7 @@ body {
 
 .main-col__item.main-col__data.bg-free {
     cursor: unset;
+    border-right: 1px solid #d9d9d9;
 }
 .main-col__item.first {
     border-left: 1px solid#000 !important;
@@ -469,7 +470,7 @@ body {
     border: 1px solid red !important;
 }
 .wt-new_user {
-    border: 2px solid red !important;   
+    border: 2px solid red !important;
 }
 
 .main-col__wt.begin_new_user {
@@ -556,4 +557,7 @@ span {
 
 .swal2-container.swal2-backdrop-show {
     overflow-y: scroll !important;
+}
+.bg-free.body_free {
+    border-bottom: 0px !important;
 }

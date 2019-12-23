@@ -7,7 +7,7 @@
 @endsection
 @section('main')
     <main>
-        <div class="container">   
+        <div class="container">
         </div>
         <div class="container-90">
             <div class="breadcrumb-sunsun">
@@ -60,7 +60,7 @@
                             <span>{{ $lu->name }} 様　{{ isset($lu->lunch_guest_num)?"同行者".$lu->lunch."名":""}}</span> <br>
                             @endif
                             @endforeach
-                            
+
                         </div>
                     </div>
                     <div class="middle_box">
@@ -125,14 +125,14 @@
                 @foreach($time_range as $time)
                     @php $i++; @endphp
                     <div class="main-content__table">
-                        <div class="main-col__time d-flex justify-content-center align-items-center 
-                            @php 
-                            if($i == (count($time_range) + 1) ){ echo ' bottom'; }    
+                        <div class="main-col__time d-flex justify-content-center align-items-center
+                            @php
+                            if($i == (count($time_range) + 1) ){ echo ' bottom'; }
                             if(isset($time['first_free'])){
-                                echo 'first_free';
+                                echo ' first_free';
                             }
                             if(isset($time['begin_free'])){
-                                echo 'begin_free';
+                                echo ' begin_free';
                             }
                             @endphp">
 
@@ -147,25 +147,74 @@
                         </div>
                         @if($time['time'] == '')
                             <div class="main-col__male">
-                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                <div class="main-col__item main-col__data bg-free
+                                    @if(isset($time['first_free'])) first_free @endif
+                                    @php
+                                    if(isset($time['body_free'])){
+                                        echo ' body_free';
+                                    }
+                                    @endphp
+                                ">
                                 </div>
-                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                <div class="main-col__item main-col__data bg-free
+                                    @if(isset($time['first_free'])) first_free @endif
+                                    @php
+                                        if(isset($time['body_free'])){
+                                            echo ' body_free';
+                                        }
+                                    @endphp
+                                ">
                                     @if(isset($time['begin_time']))
                                         <div>{{ $time['begin_time'] }}</div>
                                     @endif
                                 </div>
-                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif last">
+                                <div class="main-col__item main-col__data bg-free
+                                    @if(isset($time['first_free'])) first_free @endif last
+                                     @php
+                                    if(isset($time['body_free'])){
+                                            echo ' body_free';
+                                        }
+                                    @endphp
+                                ">
                                 </div>
                             </div>
                             <div class="main-col__space-1 bg-free @if(isset($time['first_free'])) first_free @endif"></div>
                             <div class="main-col__famale">
-                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif first">
+                                <div class="main-col__item main-col__data bg-free
+                                    @if(isset($time['first_free'])) first_free @endif first
+                                     @php
+                                    if(isset($time['body_free'])){
+                                            echo ' body_free';
+                                        }
+                                    @endphp
+                                ">
                                 </div>
-                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                <div class="main-col__item main-col__data bg-free
+                                    @if(isset($time['first_free'])) first_free @endif
+                                    @php
+                                        if(isset($time['body_free'])){
+                                            echo ' body_free';
+                                        }
+                                    @endphp
+                                ">
                                 </div>
-                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif">
+                                <div class="main-col__item main-col__data bg-free
+                                    @if(isset($time['first_free'])) first_free @endif
+                                    @php
+                                        if(isset($time['body_free'])){
+                                            echo ' body_free';
+                                        }
+                                    @endphp
+                                ">
                                 </div>
-                                <div class="main-col__item main-col__data bg-free @if(isset($time['first_free'])) first_free @endif last">
+                                <div class="main-col__item main-col__data bg-free
+                                    @if(isset($time['first_free'])) first_free @endif last
+                                     @php
+                                        if(isset($time['body_free'])){
+                                            echo ' body_free';
+                                        }
+                                     @endphp
+                                ">
                                 </div>
                             </div>
                         @else
@@ -173,7 +222,7 @@
                                 <div class="main-col__item main-col__data
                                     @php
                                     if($i%2 == 0){ echo 'bg-male'; }
-                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }   
+                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }
                                     if(isset($time['begin_free'])){
                                         echo 'begin_free';
                                     }
@@ -181,10 +230,10 @@
                                     ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
                                 </div>
-                                <div class="main-col__item main-col__data 
-                                    @php 
-                                    if($i%2 == 0){ echo 'bg-male'; } 
-                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }   
+                                <div class="main-col__item main-col__data
+                                    @php
+                                    if($i%2 == 0){ echo 'bg-male'; }
+                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }
                                     if(isset($time['begin_free'])){
                                         echo 'begin_free';
                                     }
@@ -192,44 +241,44 @@
                                     ">
                                     @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
                                 </div>
-                                <div class="main-col__item main-col__data 
-                                    @php if($i%2 == 0){ echo 'bg-male'; } 
-                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }   
+                                <div class="main-col__item main-col__data
+                                    @php if($i%2 == 0){ echo 'bg-male'; }
+                                    if($i == (count($time_range) + 1) ){ echo ' bottom'; }
                                     if(isset($time['begin_free'])){
                                         echo 'begin_free';
                                     }
-                                    @endphp 
+                                    @endphp
                                     last">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
                                 </div>
                             </div>
-                            <div class="main-col__space-1 
-                                @php 
-                                if($i == (count($time_range) + 1) ){ 
-                                    echo ' bottom'; 
-                                }   
+                            <div class="main-col__space-1
+                                @php
+                                if($i == (count($time_range) + 1) ){
+                                    echo ' bottom';
+                                }
                                 @endphp
                                 "></div>
                             <div class="main-col__famale">
-                                <div class="main-col__item main-col__data 
-                                    @php 
-                                    if($i%2 == 0){ echo 'bg-female'; } 
-                                    if($i == (count($time_range) + 1) ){ 
-                                        echo ' bottom'; 
-                                    }   
+                                <div class="main-col__item main-col__data
+                                    @php
+                                    if($i%2 == 0){ echo 'bg-female'; }
+                                    if($i == (count($time_range) + 1) ){
+                                        echo ' bottom';
+                                    }
                                     if(isset($time['begin_free'])){
                                         echo 'begin_free';
                                     }
-                                    @endphp 
+                                    @endphp
                                     first">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
                                 </div>
-                                <div class="main-col__item main-col__data 
-                                    @php 
-                                    if($i%2 == 0){ echo 'bg-female'; } 
-                                    if($i == (count($time_range) + 1) ){ 
-                                        echo ' bottom'; 
-                                    }   
+                                <div class="main-col__item main-col__data
+                                    @php
+                                    if($i%2 == 0){ echo 'bg-female'; }
+                                    if($i == (count($time_range) + 1) ){
+                                        echo ' bottom';
+                                    }
                                     if(isset($time['begin_free'])){
                                         echo 'begin_free';
                                     }
@@ -237,12 +286,12 @@
                                     ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
                                 </div>
-                                <div class="main-col__item main-col__data 
-                                    @php 
-                                    if($i%2 == 0){ echo 'bg-female'; } 
-                                    if($i == (count($time_range) + 1) ){ 
-                                        echo ' bottom'; 
-                                    }   
+                                <div class="main-col__item main-col__data
+                                    @php
+                                    if($i%2 == 0){ echo 'bg-female'; }
+                                    if($i == (count($time_range) + 1) ){
+                                        echo ' bottom';
+                                    }
                                     if(isset($time['begin_free'])){
                                         echo 'begin_free';
                                     }
@@ -250,64 +299,64 @@
                                     ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
                                 </div>
-                                <div class="main-col__item main-col__data 
-                                    @php 
-                                    if($i%2 == 0){ echo ' bg-female'; } 
-                                    if($i == (count($time_range) + 1) ){ 
-                                        echo ' bottom'; 
-                                    }   
+                                <div class="main-col__item main-col__data
+                                    @php
+                                    if($i%2 == 0){ echo ' bg-female'; }
+                                    if($i == (count($time_range) + 1) ){
+                                        echo ' bottom';
+                                    }
                                     if(isset($time['begin_free'])){
                                         echo 'begin_free';
                                     }
-                                    @endphp 
+                                    @endphp
                                     last">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
                                 </div>
                             </div>
                         @endif
-                        <div class="main-col__space-2 
-                            @php 
-                            if($i == (count($time_range) + 1) ){ 
-                                echo ' bottom'; 
-                            } 
+                        <div class="main-col__space-2
+                            @php
+                            if($i == (count($time_range) + 1) ){
+                                echo ' bottom';
+                            }
                             if(isset($time['begin_free'])){
                                 echo 'begin_free';
-                            }  
-                            @endphp  
+                            }
+                            @endphp
                             ">
                         </div>
                         @if(!isset($time['not_wt']))
                         <div class="main-col__wt
-                            @php 
-                            if($i == (count($time_range) + 1) ){ 
-                                echo ' bottom'; 
-                            } 
+                            @php
+                            if($i == (count($time_range) + 1) ){
+                                echo ' bottom';
+                            }
                             if(isset($time['begin_free'])){
                                 echo 'begin_free';
-                            }   
-                            if($i%2 == 0){ 
-                                echo ' bg-wt '; 
-                            } 
+                            }
+                            if($i%2 == 0){
+                                echo ' bg-wt ';
+                            }
                             if(isset($time['wt_new_user'])){
-                                echo ' wt-new_user '; 
+                                echo ' wt-new_user ';
                             }
 
                             if(isset($time['begin_new_user'])){
-                                echo ' begin_new_user '; 
+                                echo ' begin_new_user ';
                             }
                             @endphp
-                            @if(isset($time['first_free'])) 
-                            first_free 
+                            @if(isset($time['first_free']))
+                            first_free
                             @endif
-                            @if(isset($time['end_new_user'])) 
-                            end_new_user 
+                            @if(isset($time['end_new_user']))
+                            end_new_user
                             @endif
-                            
+
                             ">
                             <div class="
                             @php
                             if(isset($time['wt_new_user'])){
-                                echo ' wt-new_user '; 
+                                echo ' wt-new_user ';
                             }
                             @endphp
                             " style="height: 100%;">
@@ -316,29 +365,29 @@
                         </div>
                         @else
                         <div class="main-col__wt not-wt
-                        @php 
-                            if($i == (count($time_range) + 1) ){ 
-                                echo ' bottom'; 
-                            } 
+                        @php
+                            if($i == (count($time_range) + 1) ){
+                                echo ' bottom';
+                            }
                             if(isset($time['begin_free'])){
                                 echo 'begin_free';
-                            }   
-                            if($i%2 == 0){ 
-                                echo ' bg-wt '; 
-                            } 
+                            }
+                            if($i%2 == 0){
+                                echo ' bg-wt ';
+                            }
                             if(isset($time['wt_new_user'])){
-                                echo ' wt-new_user '; 
+                                echo ' wt-new_user ';
                             }
 
                             if(isset($time['begin_new_user'])){
-                                echo ' begin_new_user '; 
+                                echo ' begin_new_user ';
                             }
                             @endphp
-                            @if(isset($time['first_free'])) 
-                            first_free 
+                            @if(isset($time['first_free']))
+                            first_free
                             @endif
-                            @if(isset($time['end_new_user'])) 
-                            end_new_user 
+                            @if(isset($time['end_new_user']))
+                            end_new_user
                             @endif">
                         </div>
                         @endif
@@ -370,7 +419,7 @@
                                                     <span>{{ $time['data']['pet']->transport }}</span>
                                                     <span>{{ $time['data']['pet']->bus_arrive_time_slide }}</span>
                                                     <span class="text-red">{{ $time['data']['pet']->pick_up }}</span>
-                                                @endif  
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
@@ -400,7 +449,7 @@
                             <div class="main-col__pet pet-col_white space-white">
                             </div>
                         @endif
-                        
+
                     </div>
                 @endforeach
             </div>
