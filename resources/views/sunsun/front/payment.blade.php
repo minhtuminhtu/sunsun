@@ -101,7 +101,7 @@
 @section('script')
     <script>
         function payment_init() {
-            Multipayment.init('{{ env("SHOP_ID", "tshop00042155")  }}');
+            Multipayment.init('{{ env("SHOP_ID")  }}');
         }
     </script>
     @parent

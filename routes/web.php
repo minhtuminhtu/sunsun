@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 
  Route::get('/demo', function () {
 
-
+    echo  "'" . env("SHOP_PASS") . "'";
  });
 // Route::get('/demo_lock', function () {
 
