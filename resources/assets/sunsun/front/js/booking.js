@@ -94,7 +94,15 @@ $(function() {
                         console.log(html.now);
                         $('.input-daterange').datepicker('destroy');
                         $('#range_date_start').val(html.now);
-                        $('#range_date_end').val(html.now);
+                        let valid_date = moment(new Date(html.now));
+                        console.log(valid_date.weekday());
+                        if(valid_date.weekday() == 2){
+                            $('#range_date_end').val(valid_date.add(3, 'days').format('Y/MM/DD'));
+                        }else{
+                            $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
+                        }
+                        
+                        
                         $('.input-daterange').datepicker({
                             language: 'ja',
                             dateFormat: 'yyyy/mm/dd',

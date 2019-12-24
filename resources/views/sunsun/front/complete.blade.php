@@ -54,7 +54,7 @@
                         @if(isset($tranID))
                         <p class="success-detail">Your payment number is {{ $tranID  }}</p>
                         @endif
-                        <a href="http://sun-sun33.com/"><button class="btn btn-back-home">Go home</button></a>
+                        <a href="http://sun-sun33.com/"><button class="btn btn-back-home">ホームへ</button></a>
                     </div>
                 </div>
             </div>

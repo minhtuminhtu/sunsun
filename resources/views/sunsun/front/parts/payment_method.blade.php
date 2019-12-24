@@ -23,7 +23,7 @@
         <div class="credit-card-line">
             <div class="card-number floatinglabel">
                 <span>Card Number</span>
-                <input type="text" id="card-number" class="form-control typing-none" value="" placeholder="Card Number" maxlength="23">
+                <input type="text" id="card-number" class="form-control typing-none" value="" placeholder="Card Number" maxlength="19">
             </div>
             <div class="card-img d-flex justify-content-center align-items-center">
                 <img src="{{ asset('sunsun/svg/cc-blank.svg') }}" class="img-fluid scale-image" alt="">
@@ -36,7 +36,7 @@
             </div>
             <laber class="card-secret floatinglabel">
                 <span>CVV</span>
-                <input type="password" id="card-secret" class="form-control typing-none" value="" placeholder="CVC" maxlength="4">
+                <input type="password" id="card-secret" class="form-control typing-none" value="" placeholder="CVC" maxlength="3">
             </laber>
         </div>
     </div>

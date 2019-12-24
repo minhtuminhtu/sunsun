@@ -47,14 +47,14 @@ $(function() {
                     cardType = "AMEX";
                     break;
                 }
-                case "MAESTRO": {
-                    if(cardType !== "MAESTRO"){
-                        $(".card-img").html('<img src="sunsun/svg/cc-maestro.svg" class="img-fluid scale-image" alt="">');
-                    }
+                // case "MAESTRO": {
+                //     if(cardType !== "MAESTRO"){
+                //         $(".card-img").html('<img src="sunsun/svg/cc-maestro.svg" class="img-fluid scale-image" alt="">');
+                //     }
 
-                    cardType = "MAESTRO";
-                    break;
-                }
+                //     cardType = "MAESTRO";
+                //     break;
+                // }
                 case "JCB": {
                     if(cardType !== "JCB"){
                         $(".card-img").html('<img src="sunsun/svg/cc-jcb.svg" class="img-fluid scale-image" alt="">');
@@ -92,7 +92,7 @@ $(function() {
             {regEx: /^4[0-9]{5}/ig,cardType: "VISA"},
             {regEx: /^5[1-5][0-9]{4}/ig,cardType: "MASTERCARD"},
             {regEx: /^3[47][0-9]{3}/ig,cardType: "AMEX"},
-            {regEx: /^(5[06-8]\d{4}|6\d{5})/ig,cardType: "MAESTRO"},
+            // {regEx: /^(5[06-8]\d{4}|6\d{5})/ig,cardType: "MAESTRO"},
             {regEx: /^(?:2131|1800|35\d{3})\d{11}$/ig,cardType: "JCB"}
 
         ];

@@ -18,7 +18,7 @@
             <tr>
                 <td>
                     <div class="time-col">
-                        <div>{{collect($times)->first()->kubun_value}}</div>
+                        <span>{{collect($times)->first()->kubun_value}}</span>
                     </div>
                 </td>
                 @foreach($times as $key_t => $time)
