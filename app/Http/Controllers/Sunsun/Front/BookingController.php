@@ -214,6 +214,7 @@ class BookingController extends Controller
                 OR 	( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date >= $range_date_start )
                 OR 	( main.stay_checkin_date >= $range_date_start AND main.stay_checkout_date <= $range_date_end )
                 )
+            AND main.history_id IS NULL
             ");
 
             if(count($number_dup) != 0){
@@ -384,6 +385,7 @@ class BookingController extends Controller
                 main.stay_checkout_date
         FROM	tr_yoyaku main
         WHERE	main.stay_room_type = '$room_type'
+        AND main.history_id IS NULL
         ");
         $date_selected = [];
         foreach($range_day as $da){
@@ -540,7 +542,7 @@ class BookingController extends Controller
         switch ($course['kubun_id']){
             case '01': // bình thường
                 if ($booking['age_type'] == '3') {
-                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','03']])->get()->first();
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','01']])->get()->first();
                     $course_price = $course_price_op->kubun_value;
                 }
                 else if ($booking['age_type'] == '2') {
@@ -548,7 +550,7 @@ class BookingController extends Controller
                     $course_price = $course_price_op->kubun_value;
                 }
                 else if ($booking['age_type'] == '1') {
-                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','01']])->get()->first();
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','03']])->get()->first();
                     $course_price = $course_price_op->kubun_value;
                 }
                 break;
@@ -595,7 +597,8 @@ class BookingController extends Controller
 
     public function make_payment(Request $request){
         $data = $request->all();
-//        dd($data);
+        Log::debug('payment_data');
+        Log::debug($data);
 
         $error = $this->validate_payment_info($data);
         if (isset($error['error']) && (count($error['error']) != 0)){
@@ -716,31 +719,40 @@ class BookingController extends Controller
                     }
                     $Yoyaku->save();
                 }
-                DB::commit();
                 $result = $this->call_payment_api($data, $return_booking_id);
-            } catch (\Exception $e) {
+                DB::commit();
+            } catch (\Exception $e1) {
                 DB::rollBack();
+                $this->add_column_null($return_booking_id);
                 DB::unprepared("UNLOCK TABLE");
+                Log::debug($e1->getMessage());
                 return  $result;
             }
         }catch(\Exception $e2){
-            // dd($e);
+            Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
         return  $result;
     }
 
+    private function add_column_null($booking_id){
+        $Yoyaku = new Yoyaku;
+        $Yoyaku->booking_id = $booking_id;
+        $Yoyaku->course = 0;
+        $Yoyaku->save();
+    }
+
     private function call_payment_api(&$data, $booking_id){
-        if(($data['Token'] == '') || ($data['Amount'] == '')){
-            throw new \ErrorException('Token error!');
-        }
-
-        $amount = preg_replace('~\D~', '', $data['Amount']);
-
         if($data['payment-method'] == 1){
+            if(!isset($data['Token']) || !isset($data['Amount'])){
+                throw new \ErrorException('Token error!');
+            }
+            $amount = preg_replace('~\D~', '', $data['Amount']);
             return $this->create_tran($booking_id, $amount, $data['Token']);
         }else{
-            return [];
+            return [
+                'bookingID' => $booking_id
+            ];
         }
 
     }
@@ -761,16 +773,20 @@ class BookingController extends Controller
             'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
         );
         $data = array(
-            'ShopID' => 'tshop00042155',
-            'ShopPass' => 'ppvvwqmq',
+            'ShopID' =>  env("SHOP_ID"),
+            'ShopPass' => env("SHOP_PASS"),
             'OrderID' => $booking_id,
             'Amount' => $amount,
             'JobCd' => 'CAPTURE'
         );
+        Log::debug('data');
+        Log::debug($data);
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/EntryTran.idPass', $headers, $data);
         parse_str($response->body, $params);
 
-        if(($params['AccessID'] == '') || ($params['AccessPass'] == '')){
+        if(!isset($params['AccessID']) || !isset($params['AccessPass'])){
+            Log::debug('Create tran body');
+            Log::debug($response->body);
             throw new \ErrorException('Create tran error!');
         }
         return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
@@ -799,6 +815,7 @@ class BookingController extends Controller
             'Token' => $token
         );
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $headers, $data);
+        Log::debug('Exec tran body');
         Log::debug($response->body);
         parse_str($response->body, $params);
         if($params['ACS'] == 0){
@@ -821,6 +838,7 @@ class BookingController extends Controller
                 $YoyakuDanjikiJikan->service_date = $parent_date;
                 $YoyakuDanjikiJikan->service_time_1 = $time['value'];
                 $YoyakuDanjikiJikan->notes = $time['bed'];
+                $YoyakuDanjikiJikan->time_json = $time['json'];
 
                 $YoyakuDanjikiJikan->save();
             }
@@ -829,6 +847,7 @@ class BookingController extends Controller
             $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
             $gender = json_decode($customer['gender']);
             foreach($customer['date'] as $date){
+                Log::debug('course 4', $customer);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['from']['value'], $date['from']['bed']);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['to']['value'], $date['to']['bed']);
 
@@ -838,6 +857,7 @@ class BookingController extends Controller
                 $YoyakuDanjikiJikan->service_time_1 = $date['from']['value'];
                 $YoyakuDanjikiJikan->service_time_2 = $date['to']['value'];
                 $YoyakuDanjikiJikan->notes = $date['from']['bed'] . "-" . $date['to']['bed'];
+//                $YoyakuDanjikiJikan->time_json = $time['json'];
 
                 $YoyakuDanjikiJikan->save();
             }
@@ -1247,7 +1267,7 @@ class BookingController extends Controller
             $result = $this->validate_course_pet($date, $time1, $time2);
             $Yoyaku->service_date_start = $date;
         }else{
-            $result = $this->validate_course_pet($date, $time1, $time2);
+            $result = $this->validate_course_pet($parent_date, $time1, $time2);
             $Yoyaku->service_date_start = $parent_date;
         }
     }
@@ -2237,6 +2257,10 @@ class BookingController extends Controller
 
     public function complete(Request $request) {
         $data = $request->all();
+//        dd($data);
+        if(isset($data['bookingID']) == false){
+            return redirect("/booking");
+        }
         return view('sunsun.front.complete', $data);
     }
 

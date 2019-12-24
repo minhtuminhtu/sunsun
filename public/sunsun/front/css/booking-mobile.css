@@ -344,53 +344,56 @@
   }
 
   .booking-warp .credit-card {
-    display: block;
-    border: 1px solid #dee2e6;
     margin: 10px 10px 20px 55px;
   }
 
-  .booking-warp .credit-card .form-control {
+  .booking-warp .credit-card .cc-block {
+    display: block;
+    border: 1px solid transparent !important;
+  }
+
+  .booking-warp .credit-card .cc-block .form-control {
     border: 0;
     box-shadow: none;
   }
 
-  .booking-warp .credit-card .form-control:focus {
+  .booking-warp .credit-card .cc-block .form-control:focus {
     border: 0;
     box-shadow: none;
   }
 
-  .booking-warp .credit-card .credit-card-line {
+  .booking-warp .credit-card .cc-block .credit-card-line {
     border: 1px solid #dee2e6;
     width: 100%;
     display: flex;
   }
 
-  .booking-warp .credit-card .credit-card-line .card-img {
+  .booking-warp .credit-card .cc-block .credit-card-line .card-img {
     width: 20%;
     visibility: visible;
   }
 
-  .booking-warp .credit-card .credit-card-line .card-img .scale-image {
-    max-width: 3rem;
+  .booking-warp .credit-card .cc-block .credit-card-line .card-img .scale-image {
+    max-width: 2.25rem;
   }
 
-  .booking-warp .credit-card .credit-card-line .card-number {
+  .booking-warp .credit-card .cc-block .credit-card-line .card-number {
     width: 80%;
   }
 
-  .booking-warp .credit-card .credit-card-line2 {
+  .booking-warp .credit-card .cc-block .credit-card-line2 {
     margin-top: 1.25vw;
     border: 1px solid #dee2e6;
     width: 100%;
     display: flex;
   }
 
-  .booking-warp .credit-card .credit-card-line2 .card-expire {
+  .booking-warp .credit-card .cc-block .credit-card-line2 .card-expire {
     width: 100%;
   }
 
-  .booking-warp .credit-card .credit-card-line2 .card-secret {
-    width: 25%;
+  .booking-warp .credit-card .cc-block .credit-card-line2 .card-secret {
+    width: 35%;
   }
 
   .booking-warp.booking {
@@ -470,13 +473,12 @@
   .mean-container .mean-bar {
     float: left;
     width: 100%;
-    position: relatives;
+    position: relative;
     background-color: #523e29;
     padding: 2px 0;
     margin-bottom: 5vw;
     min-height: 30px;
     z-index: 999999;
-    background-image: url();
     background-position: left top;
     background-repeat: no-repeat;
   }
@@ -766,11 +768,33 @@
     display: none;
     z-index: 100;
   }
+
+  .credit-card-line.error {
+    border: 1px solid #f50000 !important;
+  }
+
+  .credit-card-line2.error {
+    border: 1px solid #f50000 !important;
+  }
 }
 
 @media only screen and (min-width: 768px) {
   .mean-bar {
     display: none;
+  }
+
+  .credit-card-line.error {
+    border-bottom: 1px solid #f50000 !important;
+    border-left: 1px solid #f50000 !important;
+    border-top: 1px solid #f50000 !important;
+    border-right: 1px solid transparent !important;
+  }
+
+  .credit-card-line2.error {
+    border-bottom: 1px solid #f50000 !important;
+    border-right: 1px solid #f50000 !important;
+    border-top: 1px solid #f50000 !important;
+    border-left: 1px solid transparent !important;
   }
 }
 

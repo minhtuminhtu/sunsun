@@ -222,7 +222,8 @@ return [
             'pet_time_value' => '1100-1200',
             'wt_time_value' => '1200-1230',
             'first_free' => '1',
-            'end_new_user' => 1
+            'end_new_user' => 1,
+            'body_free' => 1
         ],
         '5' =>  [
             'time' => '',
@@ -233,6 +234,7 @@ return [
             'pet_time_value' => NULL,
             'wt_time_value' => '1230-1300',
             'begin_time' => '昼',
+            'body_free' => 1
         ],
         '6' =>  [
             'time' => '',

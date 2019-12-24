@@ -38,7 +38,7 @@ $(function() {
             },
             success: function (html) {
                 $('.service-warp').empty().append(html).hide().fadeIn('slow');
-                load_event();
+                load_event(true);
                 load_after_ajax();
                 load_time_list();
             },
@@ -55,12 +55,15 @@ $(function() {
 
 
 
-    let load_event = function(check = null) {
+    let load_event = function(date_check = false) {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
-        if($('#date').val() == "" && $('#date') !== undefined){
+
+        if(($('#date').val() == "") && ($('#date').val() !== undefined)){
+
             $('#date').val(strToday);
         }
+
 
         if($('#plan_date_start').val() == ""){
             $('#plan_date_start').val(strToday);
@@ -188,12 +191,29 @@ $(function() {
 
 
 
+        if(date_check){
+            if(($('#date').val() !== undefined) && ($('#date').val() != '')){
+                let date_value = moment(new Date($('#date').val()));
+                // console.log('begin1');
+                // console.log(date_value);
+                // console.log($('#date').val());
+                // console.log('end1');
+                //
+                // let date_pick = date_value.format('Y') + "/" + date_value.format('MM') + "/" + date_value.format('DD');
+                // // $('#date').val(date_pick + "(" + days_short[moment(new Date(date_pick)).weekday()] + ")");
+                //
+                //
+                //
+                let current_date = date_value.format('Y') + '/' + date_value.format('MM') + '/' + date_value.format('DD') + "(" + days_short[date_value.weekday()] + ")";
+                $('#date').val(current_date);
+                // console.log(date_value.weekday());
+                //
+                //
+                // // $('#date').val();
+            }
 
-        if($('#date').val() != "" && $('#date') !== undefined){
-            var date_value = moment(new Date($('#date').val()));
-            var date_pick = date_value.format('Y') + "/" + date_value.format('MM') + "/" + date_value.format('DD');
-            $('#date').val(date_pick + "(" + days_short[moment(new Date(date_pick)).weekday()] + ")");
         }
+
 
 
         if(window.location.href.includes("admin")){
@@ -390,16 +410,52 @@ $(function() {
         });
 
         function change_day(){
-            var check = moment(new Date($('#date').val()));
-            var days_short = new Array("日","月","火","水","木","金","土");
-            $('#date').val(check.format('YYYY') + "/" + check.format('MM') + "/" + check.format('DD') + "(" + days_short[check.weekday()] + ")");
-            $('#date-value').val(check.format('YYYYMMDD'));
-            $('#date-view').val(check.format('YYYY') + "年" + check.format('MM') + "月" + check.format('DD') + "日(" + days_short[check.weekday()] + ")");
+            $('#error_time_0').val('00:00');
+            $('#time\\[0\\]\\[value\\]').val(0);
+            $('#time\\[0\\]\\[bed\\]').val(0);
+            $('#time\\[0\\]\\[json\\]').val('');
+            $('.time-content').empty();
+
+            $('#time1-value').val(0);
+            $('#time1-bed').val(0);
+            $('#time1-view').val('00:00');
+            $('#time\\[0\\]\\[json\\]').val('');
+
+            $('#time2-value').val(0);
+            $('#time2-bed').val(0);
+            $('#time2-view').val('00:00');
+            $('#time\\[1\\]\\[json\\]').val('');
+
+            $('#time_room_value').val(0);
+            $('#time_room_bed').val(0);
+            $('#time_room_view').val('00:00～');
+            $('#time\\[0\\]\\[json\\]').val('');
+
+            $('#time_room_time1').val('0');
+            $('#time_room_time2').val('0');
+            $('#time_room_pet_0').val('00:00～00:00');
+            $('#time_room_pet_json').val('');
+
+            $('#whitening-time_view').val('00:00～00:00');
+            $('#whitening-time_value').val('0');
+            $('#whitening_data\\[json\\]').val('');
+
+
+
+
+
+
+
+            let new_day = moment(new Date($('#date').val()));
+            let days_short = new Array("日","月","火","水","木","金","土");
+            $('#date').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
+            $('#date-value').val(new_day.format('YYYYMMDD'));
+            $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
         }
 
         $(".room_range_date").on('change blur', function() {
-            var range_start = moment(new Date($('#range_date_start').val()));
-            var range_end = moment(new Date($('#range_date_end').val()));
+            let range_start = moment(new Date($('#range_date_start').val()));
+            let range_end = moment(new Date($('#range_date_end').val()));
             $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
             $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
             $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
@@ -415,9 +471,32 @@ $(function() {
     modal_choice_time.on('show.bs.modal', function (e) {
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
     })
-    // modal_choice_time.on('hide.bs.modal', function (e) {
-    //     $('.modal .modal-dialog').attr('class', 'modal-dialog  zoomOut  animated faster');
-    // })
+    modal_choice_time.on('hide.bs.modal', function (e) {
+        if(window.location.href.includes("admin")){
+            console.log("admin");
+        }else{
+
+
+            // setTimeout(function(){ alert("Hello"); }, 5000);
+        }
+    })
+
+    let modal_time_hidden = function(){
+        if(window.location.href.includes("admin")){
+            $('.modal .modal-dialog').first().attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
+        }else{
+            $('.modal .modal-dialog').attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
+            $('.modal-backdrop.show').css('opacity', '0');
+        }
+        setTimeout(function(){
+            modal_choice_time.modal('hide');
+        }, 500);
+    }
+
+    $('#btn-cancel').off('click');
+    $('#btn-cancel').on('click', function(e) {
+        modal_time_hidden();
+    });
 
     modal_choice_time.off('hidden.bs.modal');
     modal_choice_time.on('hidden.bs.modal', function () {
@@ -493,8 +572,7 @@ $(function() {
             $('.set-time.edit input.time').parent().find('#whitening-time_value').val(pad(res[0].replace(/[^0-9]/g,''), 4) + '-' + pad(res[1].replace(/[^0-9]/g,''), 4));
         }
 
-
-        modal_choice_time.modal('hide');
+        modal_time_hidden();
     })
 
 
@@ -776,12 +854,17 @@ let load_pick_time_event = function(){
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal({
                         show: true,
-                        backdrop: false
+                        backdrop: false,
+                        keyboard: false
                     });
                     $('#edit_booking').css("z-index", "0");
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal('show');
+                    modal_choice_time.modal({
+                        show: true,
+                        backdrop: 'static',
+                        keyboard: false
+                    });
                 }
             },
                 complete: function () {
@@ -818,12 +901,17 @@ let load_pick_time_room_event = function(){
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal({
                         show: true,
-                        backdrop: false
+                        backdrop: false,
+                        keyboard: false
                     });
                     $('#edit_booking').css("z-index", "0");
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal('show');
+                    modal_choice_time.modal({
+                        show: true,
+                        backdrop: 'static',
+                        keyboard: false
+                    });
                 }
             },
             complete: function () {
@@ -856,6 +944,7 @@ let load_pick_time_wt_event = function(){
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal({
                         show: true,
+                        backdrop: 'static',
                         backdrop: false
                     });
                     $('#edit_booking').css("z-index", "0");
@@ -897,6 +986,7 @@ let load_pick_time_pet_event = function(){
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal({
                         show: true,
+                        backdrop: 'static',
                         backdrop: false
                     });
                     $('#edit_booking').css("z-index", "0");

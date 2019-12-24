@@ -355,6 +355,7 @@ body {
 
 .main-col__space-1.head {
   border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 
 .main-col__space-2.head {
@@ -395,7 +396,7 @@ body {
 }
 
 .bg-free {
-  background-color: #ffd966 !important;
+  background-color: #d9d9d9 !important;
 }
 
 .bg-male {
@@ -503,6 +504,7 @@ body {
 
 .main-col__item.main-col__data.bg-free {
   cursor: unset;
+  border-right: 1px solid #d9d9d9;
 }
 
 .main-col__item.first {
@@ -659,5 +661,17 @@ span {
 
 .swal2-container.swal2-backdrop-show {
   overflow-y: scroll !important;
+}
+
+.bg-free.body_free {
+  border-bottom: 0px !important;
+}
+
+.main-col__space-1.bg-free {
+  border-bottom: 1px dashed #000;
+}
+
+.begin_time_font {
+  font-size: 1.15vw;
 }
 

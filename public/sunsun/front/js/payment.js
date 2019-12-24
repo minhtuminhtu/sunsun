@@ -306,6 +306,8 @@ $(function () {
   var makePayment = function makePayment() {
     if ($('input[type=radio][name=payment-method]:checked').val() === '1') {
       doPurchase();
+    } else {
+      callBackMakePayment();
     }
   };
 });
@@ -410,7 +412,8 @@ var callBackMakePayment = function callBackMakePayment() {
 };
 
 function doPurchase() {
-  Multipayment.init("tshop00042155");
+  payment_init(); // Multipayment.init("tshop00042155");
+
   var cardNumber = $('#card-number').val().replace(/\D/g, '');
   var cardExpire = $('#card-expire').val();
   var cardSecure = $('#card-secret').val().replace(/\D/g, '');
@@ -433,10 +436,16 @@ function doPurchase() {
 if (typeof execPurchase === 'undefined') {
   execPurchase = function execPurchase(response) {
     console.log(response);
+    $('p.note-error').remove();
 
     if (response.resultCode != "000") {
-      window.alert("購入処理中にエラーが発生しました"); // $('.credit-card-line').css({'border': 'solid 1px #f50000'});
+      // window.alert("購入処理中にエラーが発生しました");
+      $('.credit-card-line').addClass('error');
+      $('.credit-card-line2').addClass('error');
+      $('.cc-block').after("<p class=\"note-error node-text\">無効なカード</p>");
     } else {
+      $('.credit-card-line').removeClass('error');
+      $('.credit-card-line2').removeClass('error');
       $('#Token').val(response.tokenObject.token);
       callBackMakePayment();
     }

@@ -51,7 +51,9 @@
                         </div>
                         <h2 class="success-title">THANK YOU FOR YOUR PURCHASE</h2>
                         <p class="success-detail">Your order number is {{ $bookingID  }}</p>
+                        @if(isset($tranID))
                         <p class="success-detail">Your payment number is {{ $tranID  }}</p>
+                        @endif
                         <a href="http://sun-sun33.com/"><button class="btn btn-back-home">Go home</button></a>
                     </div>
                 </div>

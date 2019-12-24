@@ -1,5 +1,5 @@
 <div class="booking-block">
-    <div class="collapse collapse-top show" id="">
+    <div class="collapse collapse-top show">
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
             </div>
@@ -163,9 +163,9 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show" id="">
+<div class="collapse collapse-between show">
     <div class="booking-block-between">
-        <div class="" id="">
+        <div class="">
             <div class="booking-field">
                 <div class="booking-field-label  booking-laber-padding">
                     <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
@@ -195,9 +195,9 @@
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
-    <div class="collapse collapse-finish show" id="">
+    <div class="collapse collapse-finish show">
         <div class="booking-block-finish">
-            <div class="" id="">
+            <div class="">
                 <div class="booking-field">
                     <div class="booking-field-label  booking-laber-padding">
                         <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>

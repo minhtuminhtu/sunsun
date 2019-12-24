@@ -208,8 +208,7 @@
                     @endif
                     <div class="confirm-button">
                         <div class="button-left">
-                            <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left" data-dismiss="edit_booking" data-target="#edit_booking" data-toggle="modal"
-                        data-backdrop="static" data-keyboard="false">キャンセル</button>
+                            <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">キャンセル</button>
                         </div>
                         <div class="button-right">
                             <button type="button" class="btn btn-block text-white btn-update">更新</button>
