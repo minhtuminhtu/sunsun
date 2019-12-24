@@ -370,6 +370,7 @@ class BookingController extends Controller
             $bill['course']['price'] += $this->get_price_course($booking, $bill);
             $this->get_price_option($booking, $bill);
 
+            Log::debug($booking);
             //dd($info_booking['info']);
         }
         //dd($bill);
@@ -1734,7 +1735,7 @@ class BookingController extends Controller
 			    (
 			        ( (ty.course = '01' OR ty.course = '04')  AND tydj.service_date = ':date_booking' )
 				    OR (ty.service_date_start =  ':date_booking' )
-				    -- OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' ) check them
+				    OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' )
 			    )
         ";
     }
