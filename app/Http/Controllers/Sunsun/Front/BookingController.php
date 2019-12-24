@@ -1563,9 +1563,9 @@ class BookingController extends Controller
             foreach ($time_bath as $time) {
                 $time_max = $time['max']; $time_min = $time['min'];
                 if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
-                    $sql_time_path .= " AND ( SUBSTRING(mk1.notes, 1 ,4) > '$time_max' OR SUBSTRING(mk1.notes, 1 ,4) < '$time_min') ";
+                    $sql_time_path .= " AND ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_max' OR SUBSTRING(mk1.notes, 1 ,4) <= '$time_min') ";
                 } else {
-                    $sql_time_path .= " AND ( mk1.notes > '$time_max' OR mk1.notes < '$time_min') ";
+                    $sql_time_path .= " AND ( mk1.notes >= '$time_max' OR mk1.notes <= '$time_min') ";
                 }
 
             }
@@ -1714,7 +1714,7 @@ class BookingController extends Controller
 			    (
 			        ( (ty.course = '01' OR ty.course = '04')  AND tydj.service_date = ':date_booking' )
 				    OR (ty.service_date_start =  ':date_booking' )
-				    -- OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' ) check them
+				    OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' )
 			    )
         ";
     }
