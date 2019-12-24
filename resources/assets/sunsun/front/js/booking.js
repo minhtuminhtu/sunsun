@@ -624,7 +624,6 @@ $(function() {
         ){
             Swal.fire({
                 icon: 'warning',
-                // title: 'エラー',
                 text: '入力した情報を再確認してください。',
                 confirmButtonColor: '#d7751e',
                 confirmButtonText: '閉じる',
@@ -769,7 +768,6 @@ let load_time_delete_event = function(){
         if (window.location.href.includes("admin")) {
             Swal.fire({
                 target: '#edit_booking',
-                title: '削除しますか？',
                 text: "しかし、復旧できません。よろしいですか!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -777,6 +775,7 @@ let load_time_delete_event = function(){
                 cancelButtonColor: '#343a40',
                 confirmButtonText: 'はい',
                 cancelButtonText: 'いいえ',
+                width: 350,
                 showClass: {
                     popup: 'animated zoomIn faster'
                 },
@@ -794,7 +793,6 @@ let load_time_delete_event = function(){
             })
         } else {
             Swal.fire({
-                title: '削除しますか？',
                 text: "しかし、復旧できません。よろしいですか!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -802,6 +800,7 @@ let load_time_delete_event = function(){
                 cancelButtonColor: '#343a40',
                 confirmButtonText: 'はい',
                 cancelButtonText: 'いいえ',
+                width: 350,
                 showClass: {
                     popup: 'animated zoomIn faster'
                 },

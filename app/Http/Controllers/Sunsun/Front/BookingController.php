@@ -366,8 +366,20 @@ class BookingController extends Controller
         $bill['options'] = [];
         $bill['price_option'] = 0;
         foreach ($info_booking['info'] as $booking) {
-            ++ $bill['course']['quantity'];
-            $bill['course']['price'] += $this->get_price_course($booking, $bill);
+            
+            $booking_course = json_decode($booking['course'], true);
+            Log::debug("ahihi");
+            Log::debug($booking_course['kubun_id']);
+            if($booking_course['kubun_id'] == '01'){
+                foreach($booking['time'] as $booking_t){
+                    ++ $bill['course']['quantity']; 
+                    $bill['course']['price'] += $this->get_price_course($booking, $bill);
+                }
+            }else{
+                ++ $bill['course']['quantity'];
+                $bill['course']['price'] += $this->get_price_course($booking, $bill);
+            }
+            
             $this->get_price_option($booking, $bill);
 
             Log::debug($booking);

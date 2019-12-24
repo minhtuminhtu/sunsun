@@ -331,11 +331,11 @@ var callBackMakePayment = function callBackMakePayment() {
 
       if (typeof html.error !== 'undefined') {
         Swal.fire({
-          icon: 'error',
-          title: 'エラー',
+          icon: 'warning',
           text: ' 入力した情報を再確認してください。',
           confirmButtonColor: '#d7751e',
-          confirmButtonText: 'もう一度やり直してください。',
+          confirmButtonText: '閉じる',
+          width: 350,
           showClass: {
             popup: 'animated zoomIn faster'
           },
@@ -387,11 +387,11 @@ var callBackMakePayment = function callBackMakePayment() {
           $('#completeForm').submit(); // window.location.href = $site_url+"/complete";
         } else if (typeof html.status !== 'undefined' && html.status == 'error') {
           Swal.fire({
-            icon: 'error',
-            title: 'エラー',
+            icon: 'warning',
             text: html.message,
             confirmButtonColor: '#d7751e',
             confirmButtonText: html.message,
+            width: 350,
             showClass: {
               popup: 'animated zoomIn faster'
             },
@@ -461,7 +461,7 @@ if (typeof execPurchase === 'undefined') {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
 
 
 /***/ })

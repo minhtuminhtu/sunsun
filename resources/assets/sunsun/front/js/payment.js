@@ -211,11 +211,11 @@ let callBackMakePayment = function() {
             html = JSON.parse(html);
             if (typeof html.error !== 'undefined') {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'エラー',
+                    icon: 'warning',
                     text: ' 入力した情報を再確認してください。',
                     confirmButtonColor: '#d7751e',
-                    confirmButtonText: 'もう一度やり直してください。',
+                    confirmButtonText: '閉じる',
+                    width: 350,
                     showClass: {
                         popup: 'animated zoomIn faster'
                     },
@@ -259,11 +259,11 @@ let callBackMakePayment = function() {
                     // window.location.href = $site_url+"/complete";
                 }else if ((typeof html.status !== 'undefined') && (html.status == 'error')){
                     Swal.fire({
-                        icon: 'error',
-                        title: 'エラー',
+                        icon: 'warning',
                         text: html.message,
                         confirmButtonColor: '#d7751e',
                         confirmButtonText: html.message,
+                        width: 350,
                         showClass: {
                             popup: 'animated zoomIn faster'
                         },
