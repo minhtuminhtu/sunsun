@@ -58,7 +58,9 @@ $(function() {
     let load_event = function(date_check = false) {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
+
         if(($('#date').val() == "") && ($('#date').val() !== undefined)){
+
             $('#date').val(strToday);
         }
 
@@ -188,6 +190,7 @@ $(function() {
         });
 
 
+
         if(date_check){
             if(($('#date').val() !== undefined) && ($('#date').val() != '')){
                 let date_value = moment(new Date($('#date').val()));
@@ -208,6 +211,7 @@ $(function() {
                 //
                 // // $('#date').val();
             }
+
         }
 
 
