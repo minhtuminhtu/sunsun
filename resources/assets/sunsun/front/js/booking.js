@@ -58,7 +58,7 @@ $(function() {
     let load_event = function(check = null) {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
-        if($('#date').val() == ""){
+        if($('#date').val() == "" && $('#date') !== undefined){
             $('#date').val(strToday);
         }
 
@@ -189,7 +189,7 @@ $(function() {
 
 
 
-        if($('#date').val() != ""){
+        if($('#date').val() != "" && $('#date') !== undefined){
             var date_value = moment(new Date($('#date').val()));
             var date_pick = date_value.format('Y') + "/" + date_value.format('MM') + "/" + date_value.format('DD');
             $('#date').val(date_pick + "(" + days_short[moment(new Date(date_pick)).weekday()] + ")");
