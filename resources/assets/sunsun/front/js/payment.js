@@ -289,7 +289,7 @@ function doPurchase() {
     let cardNumber = $('#card-number').val().replace(/\D/g, '');
     let cardExpire =  $('#card-expire').val();
     let cardSecure = $('#card-secret').val().replace(/\D/g,'');
-    let cardHoldname = 'HOLDER NAME';
+    // let cardHoldname = 'HOLDER NAME';
     cardExpireMonth = cardExpire.split('/')[0];
     cardExpireYear = "20" + cardExpire.split('/')[1];
     cardExpire = cardExpireYear.toString()  +  cardExpireMonth.toString();
@@ -302,7 +302,7 @@ function doPurchase() {
         cardno : cardNumber,
         expire : cardExpire,
         securitycode : cardSecure,
-        holdername : cardHoldname,
+        // holdername : cardHoldname,
         tokennumber : 1
     }, execPurchase);
 }

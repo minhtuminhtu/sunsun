@@ -833,6 +833,8 @@ class BookingController extends Controller
                 'tranID' => $params['TranID'],
                 'bookingID' => $booking_id
             ];
+        }else{
+            throw new \ErrorException('Exec tran error!');
         }
     }
 
