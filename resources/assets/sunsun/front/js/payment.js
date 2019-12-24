@@ -262,7 +262,7 @@ let callBackMakePayment = function() {
                         icon: 'warning',
                         text: html.message,
                         confirmButtonColor: '#d7751e',
-                        confirmButtonText: html.message,
+                        confirmButtonText: '閉じる',
                         width: 350,
                         showClass: {
                             popup: 'animated zoomIn faster'

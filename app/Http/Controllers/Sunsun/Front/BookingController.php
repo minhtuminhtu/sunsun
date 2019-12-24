@@ -776,12 +776,10 @@ class BookingController extends Controller
             'Pragma' => 'no-cache',
             'Cache-Control' => 'no-cache',
             'Accept' => 'text/plain, */*; q=0.01',
-            'Origin' => 'http://localhost:3000',
             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
             'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
             'Sec-Fetch-Site' => 'cross-site',
             'Sec-Fetch-Mode' => 'cors',
-            'Referer' => 'http://localhost:3000/',
             'Accept-Encoding' => 'gzip, deflate, br',
             'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
         );
@@ -810,12 +808,10 @@ class BookingController extends Controller
             'Pragma' => 'no-cache',
             'Cache-Control' => 'no-cache',
             'Accept' => 'text/plain, */*; q=0.01',
-            'Origin' => 'http://localhost:3000',
             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
             'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
             'Sec-Fetch-Site' => 'cross-site',
             'Sec-Fetch-Mode' => 'cors',
-            'Referer' => 'http://localhost:3000/',
             'Accept-Encoding' => 'gzip, deflate, br',
             'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
         );
@@ -829,9 +825,10 @@ class BookingController extends Controller
         );
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $headers, $data);
         Log::debug('Exec tran body');
+        Log::debug('Token' .  $token);
         Log::debug($response->body);
         parse_str($response->body, $params);
-        if($params['ACS'] == 0){
+        if(isset($params['ACS']) && ($params['ACS'] == 0)){
             return [
                 'tranID' => $params['TranID'],
                 'bookingID' => $booking_id
