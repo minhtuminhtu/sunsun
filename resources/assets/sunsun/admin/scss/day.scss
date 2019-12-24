@@ -299,6 +299,7 @@ body {
 
 .main-col__space-1.head {
     border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 .main-col__space-2.head {
     border-top: 1px solid #000;
@@ -560,4 +561,10 @@ span {
 }
 .bg-free.body_free {
     border-bottom: 0px !important;
+}
+.main-col__space-1.bg-free {
+    border-bottom: 1px dashed #000;
+}
+.begin_time_font{
+    font-size: 1.15vw;
 }

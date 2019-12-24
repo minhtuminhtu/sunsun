@@ -133,8 +133,19 @@ $(function () {
   booking_edit.on('show.bs.modal', function (e) {
     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
   }); // booking_edit.on('hide.bs.modal', function (e) {
-  //     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
   // })
+
+  var booking_edit_hidden = function booking_edit_hidden() {
+    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
+    setTimeout(function () {
+      booking_edit.modal('hide');
+    }, 500);
+  };
+
+  $('#edit_booking').off('click', '.btn-cancel');
+  $('#edit_booking').on('click', '.btn-cancel', function (e) {
+    booking_edit_hidden();
+  });
 
   var show_booking = function show_booking(booking_id) {
     $.ajax({
@@ -152,7 +163,11 @@ $(function () {
       },
       success: function success(html) {
         booking_edit.find('.mail-booking').html(html);
-        booking_edit.modal('show');
+        booking_edit.modal({
+          show: true,
+          backdrop: 'static',
+          keyboard: false
+        });
       },
       complete: function complete() {
         loader.css({

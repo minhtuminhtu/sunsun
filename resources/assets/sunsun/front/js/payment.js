@@ -315,7 +315,7 @@ if ((typeof execPurchase) === 'undefined') {
             // window.alert("購入処理中にエラーが発生しました");
             $('.credit-card-line').addClass('error');
             $('.credit-card-line2').addClass('error');
-            $('.cc-block').after( "<p class=\"note-error node-text\">Invalid Credit Card Number</p>" );
+            $('.cc-block').after( "<p class=\"note-error node-text\">無効なカード</p>" );
         } else {
             $('.credit-card-line').removeClass('error');
             $('.credit-card-line2').removeClass('error');

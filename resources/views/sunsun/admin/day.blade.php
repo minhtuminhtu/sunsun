@@ -164,12 +164,9 @@
                                         }
                                     @endphp
                                 ">
-                                    @if(isset($time['begin_time']))
-                                        <div>{{ $time['begin_time'] }}</div>
-                                    @endif
                                 </div>
                                 <div class="main-col__item main-col__data bg-free
-                                    @if(isset($time['first_free'])) first_free @endif last
+                                    @if(isset($time['first_free'])) first_free @endif
                                      @php
                                     if(isset($time['body_free'])){
                                             echo ' body_free';
@@ -178,16 +175,26 @@
                                 ">
                                 </div>
                             </div>
-                            <div class="main-col__space-1 bg-free @if(isset($time['first_free'])) first_free @endif"></div>
+                            <div class="main-col__space-1 bg-free 
+                                @if(isset($time['first_free'])) first_free @endif
+                                @php
+                                    if(isset($time['body_free'])){
+                                        echo ' body_free';
+                                    }
+                                @endphp
+                            "></div>
                             <div class="main-col__famale">
                                 <div class="main-col__item main-col__data bg-free
-                                    @if(isset($time['first_free'])) first_free @endif first
-                                     @php
+                                    @if(isset($time['first_free'])) first_free @endif
+                                    @php
                                     if(isset($time['body_free'])){
-                                            echo ' body_free';
-                                        }
+                                        echo ' body_free';
+                                    }
                                     @endphp
                                 ">
+                                @if(isset($time['begin_time']))
+                                    <div class="begin_time_font">{{ $time['begin_time'] }}</div>
+                                @endif
                                 </div>
                                 <div class="main-col__item main-col__data bg-free
                                     @if(isset($time['first_free'])) first_free @endif

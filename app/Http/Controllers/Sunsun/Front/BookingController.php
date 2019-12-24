@@ -542,7 +542,7 @@ class BookingController extends Controller
         switch ($course['kubun_id']){
             case '01': // bình thường
                 if ($booking['age_type'] == '3') {
-                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','03']])->get()->first();
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','01']])->get()->first();
                     $course_price = $course_price_op->kubun_value;
                 }
                 else if ($booking['age_type'] == '2') {
@@ -550,7 +550,7 @@ class BookingController extends Controller
                     $course_price = $course_price_op->kubun_value;
                 }
                 else if ($booking['age_type'] == '1') {
-                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','01']])->get()->first();
+                    $course_price_op = MsKubun::where([['kubun_type','024'],['kubun_id','03']])->get()->first();
                     $course_price = $course_price_op->kubun_value;
                 }
                 break;

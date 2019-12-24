@@ -93,6 +93,8 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 $(function () {
   var modal_choice_time = $('#choice_date_time');
   var days_short = ["日", "月", "火", "水", "木", "金", "土"];
@@ -538,10 +540,31 @@ $(function () {
   load_event();
   modal_choice_time.on('show.bs.modal', function (e) {
     $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
-  }); // modal_choice_time.on('hide.bs.modal', function (e) {
-  //     $('.modal .modal-dialog').attr('class', 'modal-dialog  zoomOut  animated faster');
-  // })
+  });
+  modal_choice_time.on('hide.bs.modal', function (e) {
+    if (window.location.href.includes("admin")) {
+      console.log("admin");
+    } else {// setTimeout(function(){ alert("Hello"); }, 5000);
+    }
+  });
 
+  var modal_time_hidden = function modal_time_hidden() {
+    if (window.location.href.includes("admin")) {
+      $('.modal .modal-dialog').first().attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
+    } else {
+      $('.modal .modal-dialog').attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
+      $('.modal-backdrop.show').css('opacity', '0');
+    }
+
+    setTimeout(function () {
+      modal_choice_time.modal('hide');
+    }, 500);
+  };
+
+  $('#btn-cancel').off('click');
+  $('#btn-cancel').on('click', function (e) {
+    modal_time_hidden();
+  });
   modal_choice_time.off('hidden.bs.modal');
   modal_choice_time.on('hidden.bs.modal', function () {
     modal_choice_time.find('.modal-body-time').empty();
@@ -600,7 +623,7 @@ $(function () {
       $('.set-time.edit input.time').parent().find('#whitening-time_value').val(pad(res[0].replace(/[^0-9]/g, ''), 4) + '-' + pad(res[1].replace(/[^0-9]/g, ''), 4));
     }
 
-    modal_choice_time.modal('hide');
+    modal_time_hidden();
   });
   $('.btn-booking').click(function (e) {
     e.preventDefault();
@@ -845,12 +868,17 @@ var load_pick_time_event = function load_pick_time_event() {
           modal_choice_time.find('.modal-body-time').html(html);
           modal_choice_time.modal({
             show: true,
-            backdrop: false
+            backdrop: false,
+            keyboard: false
           });
           $('#edit_booking').css("z-index", "0");
         } else {
           modal_choice_time.find('.modal-body-time').html(html);
-          modal_choice_time.modal('show');
+          modal_choice_time.modal({
+            show: true,
+            backdrop: 'static',
+            keyboard: false
+          });
         }
       },
       complete: function complete() {
@@ -892,12 +920,17 @@ var load_pick_time_room_event = function load_pick_time_room_event() {
           modal_choice_time.find('.modal-body-time').html(html);
           modal_choice_time.modal({
             show: true,
-            backdrop: false
+            backdrop: false,
+            keyboard: false
           });
           $('#edit_booking').css("z-index", "0");
         } else {
           modal_choice_time.find('.modal-body-time').html(html);
-          modal_choice_time.modal('show');
+          modal_choice_time.modal({
+            show: true,
+            backdrop: 'static',
+            keyboard: false
+          });
         }
       },
       complete: function complete() {
@@ -933,10 +966,10 @@ var load_pick_time_wt_event = function load_pick_time_wt_event() {
 
         if (window.location.href.includes("admin")) {
           modal_choice_time.find('.modal-body-time').html(html);
-          modal_choice_time.modal({
+          modal_choice_time.modal(_defineProperty({
             show: true,
-            backdrop: false
-          });
+            backdrop: 'static'
+          }, "backdrop", false));
           $('#edit_booking').css("z-index", "0");
         } else {
           modal_choice_time.find('.modal-body-time').html(html);
@@ -980,10 +1013,10 @@ var load_pick_time_pet_event = function load_pick_time_pet_event() {
 
         if (window.location.href.includes("admin")) {
           modal_choice_time.find('.modal-body-time').html(html);
-          modal_choice_time.modal({
+          modal_choice_time.modal(_defineProperty({
             show: true,
-            backdrop: false
-          });
+            backdrop: 'static'
+          }, "backdrop", false));
           $('#edit_booking').css("z-index", "0");
         } else {
           modal_choice_time.find('.modal-body-time').html(html);
