@@ -140,7 +140,7 @@
                                         <tbody>
                                             <tr>
                                                 <td style="font-family:'Open Sans', Arial, sans-serif; font-size:18px; line-height:22px; color:#000 ; letter-spacing:2px; padding-bottom:12px; display:flex" valign="top" align="center">
-                                                    <img src="http://booking.sun-sun33.com/sunsun/imgs/icons/success.svg" class="img-fluid">
+                                                    <img src="http://booking.sun-sun33.com/sunsun/imgs/icons/success.png" style="max-width: 50px">
                                                     <div style="margin-left: 15px"> Order success</div>
                                                 </td>
                                             </tr>

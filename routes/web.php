@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use Mail;
+// use Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,12 +18,12 @@ use Mail;
 |
 */
 
- Route::get('/demo', function () {
+//  Route::get('/demo', function () {
     
-    Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
-        $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
-    });
- });
+//     Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
+//         $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
+//     });
+//  });
 // Route::get('/demo_lock', function () {
 
 
