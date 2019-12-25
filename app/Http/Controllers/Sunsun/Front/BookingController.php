@@ -257,7 +257,7 @@ class BookingController extends Controller
         $time_hour = (int)substr($time, 0,2);
         $time_minutes = substr($time, 2,4);
         if ($time_minutes < $minus){
-            if ($minus > 60) {
+            if ($minus >= 60) {
                 $hours = (int)floor($minus / 60);
                 $minutes = ($minus % 60);
                 $time_hour = $time_hour - $hours;
@@ -366,20 +366,20 @@ class BookingController extends Controller
         $bill['options'] = [];
         $bill['price_option'] = 0;
         foreach ($info_booking['info'] as $booking) {
-            
+
             $booking_course = json_decode($booking['course'], true);
             Log::debug("ahihi");
             Log::debug($booking_course['kubun_id']);
             if($booking_course['kubun_id'] == '01'){
                 foreach($booking['time'] as $booking_t){
-                    ++ $bill['course']['quantity']; 
+                    ++ $bill['course']['quantity'];
                     $bill['course']['price'] += $this->get_price_course($booking, $bill);
                 }
             }else{
                 ++ $bill['course']['quantity'];
                 $bill['course']['price'] += $this->get_price_course($booking, $bill);
             }
-            
+
             $this->get_price_option($booking, $bill);
 
             Log::debug($booking);
@@ -1381,7 +1381,7 @@ class BookingController extends Controller
                                     $ss_time = json_decode($v_time['json'], true);
                                     if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) {
                                         $range_time_validate[$key]['start_time'] = $ss_time['notes'];
-                                        $range_time_validate[$key]['end_time'] =  $this->plus_time_string($ss_time['notes'], 120);
+                                        $range_time_validate[$key]['end_time'] =  $this->plus_time_string($ss_time['notes'], 60);
                                         $range_time_validate[$key]['bed'] = $ss_time['kubun_id_room'];
                                     } else {
                                         $validate_ss_time[$key][$k_time]['time'] = $ss_time['notes'];
@@ -1422,7 +1422,7 @@ class BookingController extends Controller
             $time_kubun_type_book_room = config('const.db.kubun_type_value.TIME_BOOK_ROOM'); //014
             $kubun_type_bed_male = config('const.db.kubun_type_value.bed_male'); // 017
             $data_time['beds'] = $data['bed_male'];
-            $data_time_room = $this->get_time_room_booking($time_kubun_type_book_room, $kubun_type_bed_male, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate);
+            $data_time_room = $this->get_time_room_booking($time_kubun_type_book_room, $kubun_type_bed_male, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate, $course);
         } else {
             if($gender['kubun_id'] == '01'){ // for man
                 $kubun_type_bed_male = config('const.db.kubun_type_value.bed_male'); // 017 kubun_type
@@ -1513,9 +1513,11 @@ class BookingController extends Controller
      * @param $validate_ss_time
      * @param $data_course array
      * @param $range_time_validate
+     * @parram $course array
      * @return array
      */
-    public function get_time_room_booking ($time_kubun_type, $room_kubun_type, $time_bath, $day_book_time, $time_bus, $validate_ss_time, $data_course = array(), $range_time_validate = []) {
+    public function get_time_room_booking ($time_kubun_type, $room_kubun_type, $time_bath
+        , $day_book_time, $time_bus, $validate_ss_time, $data_course = array(), $range_time_validate = [], $course = array()) {
 
         $gender = '';
         $sql_join_on = '';
@@ -1527,7 +1529,7 @@ class BookingController extends Controller
         } else if ($room_kubun_type == '018') {
             $gender = '02';
         } else if ($time_kubun_type == config('const.db.kubun_type_value.TIME_PET')) {
-            $sql_join_on = " OR (ytm.course = '05' AND mk1.notes = CONCAT(ytm.service_time_1,'-', ytm.service_time_2)) ";
+            $sql_join_on .= " OR (ytm.course = '05' AND mk1.notes = CONCAT(ytm.service_time_1,'-', ytm.service_time_2)) ";
             $sql_pet_where = " OR (ty.course = '05') ";
             $sql_where_yoyaku = $sql_pet_where;
         } else if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING'))  { // 021
@@ -1545,6 +1547,9 @@ class BookingController extends Controller
         $sql_get_booking = str_replace(':date_booking', $time_date_booking, $sql_get_booking);
         $sql_get_booking = str_replace(':gender_booking', $gender, $sql_get_booking);
 
+        if (isset($course['kubun_id']) && $course['kubun_id'] == '03') {
+            $sql_join_on .= "";
+        }
 
         $data_sql = [
             'time_kubun_type' => $time_kubun_type,
@@ -1604,6 +1609,7 @@ class BookingController extends Controller
         }
 
         $sql_validate_ss = "";
+
         if (count($validate_ss_time) > 0) {
             $sql_validate_ss .= "WHEN '01' = '01'  AND (";
             $count = 0;
@@ -1618,9 +1624,18 @@ class BookingController extends Controller
                     if ($count != 0) {
                         $or = " OR ";
                     }
-                    $sql_validate_ss .= "
+                    if (isset($course['kubun_id']) && $course['kubun_id'] == '03') {
+                        $time_2 = $this->minus_time_string($time, 60);
+                        $sql_validate_ss .= "
+                        $or ( mk1.notes <= '$time' AND mk1.notes >= '$time_2'  $sql_bed )
+                    ";
+                    } else {
+                        $sql_validate_ss .= "
                         $or ( mk1.notes = '$time'  $sql_bed )
                     ";
+                    }
+
+
                     $count ++;
                 }
             }
@@ -1640,7 +1655,7 @@ class BookingController extends Controller
                     $or = " OR ";
                 }
                 $sql_range .= "
-                        $or ( mk1.notes >= '$start_time' AND mk1.notes <= '$end_time' AND mk2.kubun_id =  '$bed' AND mk2.kubun_type = '017' )
+                        $or ( mk1.notes >= '$start_time' AND mk1.notes < '$end_time' AND mk2.kubun_id =  '$bed' AND mk2.kubun_type = '017' )
                     ";
                 $count_range ++;
 

@@ -166,7 +166,11 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\auth\js\validate-form.js */"./resources/assets/sunsun/auth/js/validate-form.js");
+=======
+module.exports = __webpack_require__(/*! C:\Users\tranv\docker\src\sunsun\resources\assets\sunsun\auth\js\validate-form.js */"./resources/assets/sunsun/auth/js/validate-form.js");
+>>>>>>> master
 
 
 /***/ })
