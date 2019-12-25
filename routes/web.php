@@ -4,7 +4,9 @@ use App\Models\Yoyaku;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
-
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,10 +18,12 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-//  Route::get('/demo', function () {
+ Route::get('/demo', function () {
     
-//     echo  "'" . env("SHOP_PASS") . "'";
-//  });
+    Mail::send('mailfb', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
+        $message->to('minhtu.bk14@gmail.com', 'Visitor')->subject('Visitor Feedback!');
+    });
+ });
 // Route::get('/demo_lock', function () {
 
 
