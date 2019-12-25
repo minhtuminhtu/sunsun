@@ -186,7 +186,7 @@
             Thank you for choosing us.
         </div>
         <div class="content_text">
-            BookingID: #201912250004
+            BookingID: #{{ $booking_id }}
         </div>
         <div class="content_text">
             If you have any question, give us a call at
