@@ -1369,7 +1369,7 @@ class BookingController extends Controller
                                     $ss_time = json_decode($v_time['json'], true);
                                     if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) {
                                         $range_time_validate[$key]['start_time'] = $ss_time['notes'];
-                                        $range_time_validate[$key]['end_time'] =  $this->plus_time_string($ss_time['notes'], 120);
+                                        $range_time_validate[$key]['end_time'] =  $this->plus_time_string($ss_time['notes'], 60);
                                         $range_time_validate[$key]['bed'] = $ss_time['kubun_id_room'];
                                     } else {
                                         $validate_ss_time[$key][$k_time]['time'] = $ss_time['notes'];
@@ -1628,7 +1628,7 @@ class BookingController extends Controller
                     $or = " OR ";
                 }
                 $sql_range .= "
-                        $or ( mk1.notes >= '$start_time' AND mk1.notes <= '$end_time' AND mk2.kubun_id =  '$bed' AND mk2.kubun_type = '017' )
+                        $or ( mk1.notes >= '$start_time' AND mk1.notes < '$end_time' AND mk2.kubun_id =  '$bed' AND mk2.kubun_type = '017' )
                     ";
                 $count_range ++;
 
