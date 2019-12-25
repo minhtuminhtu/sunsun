@@ -47,14 +47,14 @@ $(function() {
                     cardType = "AMEX";
                     break;
                 }
-                case "MAESTRO": {
-                    if(cardType !== "MAESTRO"){
-                        $(".card-img").html('<img src="sunsun/svg/cc-maestro.svg" class="img-fluid scale-image" alt="">');
-                    }
+                // case "MAESTRO": {
+                //     if(cardType !== "MAESTRO"){
+                //         $(".card-img").html('<img src="sunsun/svg/cc-maestro.svg" class="img-fluid scale-image" alt="">');
+                //     }
 
-                    cardType = "MAESTRO";
-                    break;
-                }
+                //     cardType = "MAESTRO";
+                //     break;
+                // }
                 case "JCB": {
                     if(cardType !== "JCB"){
                         $(".card-img").html('<img src="sunsun/svg/cc-jcb.svg" class="img-fluid scale-image" alt="">');
@@ -92,7 +92,7 @@ $(function() {
             {regEx: /^4[0-9]{5}/ig,cardType: "VISA"},
             {regEx: /^5[1-5][0-9]{4}/ig,cardType: "MASTERCARD"},
             {regEx: /^3[47][0-9]{3}/ig,cardType: "AMEX"},
-            {regEx: /^(5[06-8]\d{4}|6\d{5})/ig,cardType: "MAESTRO"},
+            // {regEx: /^(5[06-8]\d{4}|6\d{5})/ig,cardType: "MAESTRO"},
             {regEx: /^(?:2131|1800|35\d{3})\d{11}$/ig,cardType: "JCB"}
 
         ];
@@ -211,11 +211,11 @@ let callBackMakePayment = function() {
             html = JSON.parse(html);
             if (typeof html.error !== 'undefined') {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'エラー',
+                    icon: 'warning',
                     text: ' 入力した情報を再確認してください。',
                     confirmButtonColor: '#d7751e',
-                    confirmButtonText: 'もう一度やり直してください。',
+                    confirmButtonText: '閉じる',
+                    width: 350,
                     showClass: {
                         popup: 'animated zoomIn faster'
                     },
@@ -259,11 +259,11 @@ let callBackMakePayment = function() {
                     // window.location.href = $site_url+"/complete";
                 }else if ((typeof html.status !== 'undefined') && (html.status == 'error')){
                     Swal.fire({
-                        icon: 'error',
-                        title: 'エラー',
+                        icon: 'warning',
                         text: html.message,
                         confirmButtonColor: '#d7751e',
-                        confirmButtonText: html.message,
+                        confirmButtonText: '閉じる',
+                        width: 350,
                         showClass: {
                             popup: 'animated zoomIn faster'
                         },
@@ -289,7 +289,7 @@ function doPurchase() {
     let cardNumber = $('#card-number').val().replace(/\D/g, '');
     let cardExpire =  $('#card-expire').val();
     let cardSecure = $('#card-secret').val().replace(/\D/g,'');
-    let cardHoldname = 'HOLDER NAME';
+    // let cardHoldname = 'HOLDER NAME';
     cardExpireMonth = cardExpire.split('/')[0];
     cardExpireYear = "20" + cardExpire.split('/')[1];
     cardExpire = cardExpireYear.toString()  +  cardExpireMonth.toString();
@@ -302,7 +302,7 @@ function doPurchase() {
         cardno : cardNumber,
         expire : cardExpire,
         securitycode : cardSecure,
-        holdername : cardHoldname,
+        // holdername : cardHoldname,
         tokennumber : 1
     }, execPurchase);
 }

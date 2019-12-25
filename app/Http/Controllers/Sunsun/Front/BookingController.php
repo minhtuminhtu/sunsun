@@ -217,7 +217,7 @@ class BookingController extends Controller
             AND main.history_id IS NULL
             ");
 
-            if(count($number_dup) != 0){
+            if((count($number_dup) != 0) || ($range_date_start == $range_date_end)){
                 $error['room_select_error']['start']['element'] = 'range_date_start';
                 $error['room_select_error']['end']['element'] = 'range_date_end';
             }else{
@@ -366,10 +366,23 @@ class BookingController extends Controller
         $bill['options'] = [];
         $bill['price_option'] = 0;
         foreach ($info_booking['info'] as $booking) {
-            ++ $bill['course']['quantity'];
-            $bill['course']['price'] += $this->get_price_course($booking, $bill);
+            
+            $booking_course = json_decode($booking['course'], true);
+            Log::debug("ahihi");
+            Log::debug($booking_course['kubun_id']);
+            if($booking_course['kubun_id'] == '01'){
+                foreach($booking['time'] as $booking_t){
+                    ++ $bill['course']['quantity']; 
+                    $bill['course']['price'] += $this->get_price_course($booking, $bill);
+                }
+            }else{
+                ++ $bill['course']['quantity'];
+                $bill['course']['price'] += $this->get_price_course($booking, $bill);
+            }
+            
             $this->get_price_option($booking, $bill);
 
+            Log::debug($booking);
             //dd($info_booking['info']);
         }
         //dd($bill);
@@ -763,12 +776,10 @@ class BookingController extends Controller
             'Pragma' => 'no-cache',
             'Cache-Control' => 'no-cache',
             'Accept' => 'text/plain, */*; q=0.01',
-            'Origin' => 'http://localhost:3000',
             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
             'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
             'Sec-Fetch-Site' => 'cross-site',
             'Sec-Fetch-Mode' => 'cors',
-            'Referer' => 'http://localhost:3000/',
             'Accept-Encoding' => 'gzip, deflate, br',
             'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
         );
@@ -797,12 +808,10 @@ class BookingController extends Controller
             'Pragma' => 'no-cache',
             'Cache-Control' => 'no-cache',
             'Accept' => 'text/plain, */*; q=0.01',
-            'Origin' => 'http://localhost:3000',
             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
             'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
             'Sec-Fetch-Site' => 'cross-site',
             'Sec-Fetch-Mode' => 'cors',
-            'Referer' => 'http://localhost:3000/',
             'Accept-Encoding' => 'gzip, deflate, br',
             'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
         );
@@ -816,13 +825,16 @@ class BookingController extends Controller
         );
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $headers, $data);
         Log::debug('Exec tran body');
+        Log::debug('Token' .  $token);
         Log::debug($response->body);
         parse_str($response->body, $params);
-        if($params['ACS'] == 0){
+        if(isset($params['ACS']) && ($params['ACS'] == 0)){
             return [
                 'tranID' => $params['TranID'],
                 'bookingID' => $booking_id
             ];
+        }else{
+            throw new \ErrorException('Exec tran error!');
         }
     }
 

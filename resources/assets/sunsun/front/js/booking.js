@@ -94,7 +94,15 @@ $(function() {
                         console.log(html.now);
                         $('.input-daterange').datepicker('destroy');
                         $('#range_date_start').val(html.now);
-                        $('#range_date_end').val(html.now);
+                        let valid_date = moment(new Date(html.now));
+                        console.log(valid_date.weekday());
+                        if(valid_date.weekday() == 2){
+                            $('#range_date_end').val(valid_date.add(3, 'days').format('Y/MM/DD'));
+                        }else{
+                            $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
+                        }
+                        
+                        
                         $('.input-daterange').datepicker({
                             language: 'ja',
                             dateFormat: 'yyyy/mm/dd',
@@ -624,7 +632,6 @@ $(function() {
         ){
             Swal.fire({
                 icon: 'warning',
-                // title: 'エラー',
                 text: '入力した情報を再確認してください。',
                 confirmButtonColor: '#d7751e',
                 confirmButtonText: '閉じる',
@@ -769,7 +776,6 @@ let load_time_delete_event = function(){
         if (window.location.href.includes("admin")) {
             Swal.fire({
                 target: '#edit_booking',
-                title: '削除しますか？',
                 text: "しかし、復旧できません。よろしいですか!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -777,6 +783,7 @@ let load_time_delete_event = function(){
                 cancelButtonColor: '#343a40',
                 confirmButtonText: 'はい',
                 cancelButtonText: 'いいえ',
+                width: 350,
                 showClass: {
                     popup: 'animated zoomIn faster'
                 },
@@ -794,7 +801,6 @@ let load_time_delete_event = function(){
             })
         } else {
             Swal.fire({
-                title: '削除しますか？',
                 text: "しかし、復旧できません。よろしいですか!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -802,6 +808,7 @@ let load_time_delete_event = function(){
                 cancelButtonColor: '#343a40',
                 confirmButtonText: 'はい',
                 cancelButtonText: 'いいえ',
+                width: 350,
                 showClass: {
                     popup: 'animated zoomIn faster'
                 },

@@ -2,6 +2,7 @@
 
 use App\Models\Yoyaku;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 /*
@@ -15,10 +16,10 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
- Route::get('/demo', function () {
-
-    echo  "'" . env("SHOP_PASS") . "'";
- });
+//  Route::get('/demo', function () {
+    
+//     echo  "'" . env("SHOP_PASS") . "'";
+//  });
 // Route::get('/demo_lock', function () {
 
 
@@ -58,7 +59,67 @@ use Illuminate\Support\Facades\Log;
 //     $Yoyaku1->save();
 // }
 
-
+Route::get('/clear', function () {
+    $booking_id = date("Ymd")."0001";
+    DB::select("
+        UPDATE `tr_yoyaku` 
+        SET 
+            `booking_id`= '$booking_id'
+            ,`ref_booking_id`= null
+            ,`history_id`=null
+            ,`name`=null
+            ,`phone`=null
+            ,`email`=null
+            ,`repeat_user`=null
+            ,`transport`=null
+            ,`bus_arrive_time_slide`=null
+            ,`bus_arrive_time_value`=null
+            ,`pick_up`=null
+            ,`course`='00'
+            ,`gender`=null
+            ,`age_type`=null
+            ,`age_value`=null
+            ,`service_date_start`=null
+            ,`service_date_end`=null
+            ,`service_time_1`=null
+            ,`service_time_2`=null
+            ,`time_json`=null
+            ,`bed`=null
+            ,`service_guest_num`=null
+            ,`service_pet_num`=null
+            ,`lunch`=null
+            ,`lunch_guest_num`=null
+            ,`whitening`=null
+            ,`whitening_repeat`=null
+            ,`whitening_time`=null
+            ,`pet_keeping`=null
+            ,`stay_room_type`=null
+            ,`stay_guest_num`=null
+            ,`stay_checkin_date`=null
+            ,`stay_checkout_date`=null
+            ,`breakfast`=null
+            ,`payment_method`=null
+            ,`notes`=null
+            ,`created_at`=null
+            ,`updated_at`=null
+        WHERE 1
+    ");
+    DB::select("
+        UPDATE 
+            `tr_yoyaku_danjiki_jikan` 
+        SET 
+            `booking_id`='$booking_id'
+            ,`service_date`=0
+            ,`service_time_1`=null
+            ,`service_time_2`=null
+            ,`notes`=null
+            ,`time_json`=null
+            ,`created_at`=null
+            ,`updated_at`=null
+        WHERE 1
+    ");
+    echo "Clear done!";
+});
 
 Route::get('/reset', function () {
     \Artisan::call('migrate:reset');
