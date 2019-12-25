@@ -405,14 +405,7 @@
                                         $age_value = isset($data['age_value'])?$data['age_value']:"";
                                         $service_guest_num = isset($data['service_guest_num'])?json_decode($data['service_guest_num']):"";
                                     @endphp
-                                    <div class="linex"> 
-                                        <p>人数：{{ $service_guest_num->kubun_value }}</p>
-                                        <div class="line1">
-                                        </div>
-                                        <div class="line2">
-                                            
-                                        </div>
-                                    </div>
+                                    
                                     <div class="linex"> 
                                         <p>コース: {{ $course->kubun_value }}</p>
                                         <div class="line1">
@@ -428,7 +421,14 @@
                                         <div class="line2">
                                         </div>
                                     </div>
-
+                                    <div class="linex"> 
+                                        <p>人数：{{ $service_guest_num->kubun_value }}</p>
+                                        <div class="line1">
+                                        </div>
+                                        <div class="line2">
+                                            
+                                        </div>
+                                    </div>
 
                                     <hr class="line-x">
                                     <div class="line"> 
@@ -524,6 +524,7 @@
                                                 </div>
                                             </div>
                                         @endif
+                                    @endif
                                         <div class="line"> 
                                             <div class="line1">
                                             予約日: 
@@ -533,8 +534,6 @@
                                                 <p>{{ $data['plan_date_end-view'] }}</p>
                                             </div>
                                         </div>
-                                        
-                                    @endif
                                 
                                     @php 
                                         $gender = json_decode($data['gender']);
@@ -682,6 +681,13 @@
                                         $notes = $data['notes'];
                                     @endphp
                                     <div class="linex"> 
+                                        <p>予約時間: {{ $data['time_room'] }}</p>
+                                        <div class="line1"> 
+                                        </div>
+                                        <div class="line2">
+                                        </div>
+                                    </div>
+                                    <div class="linex"> 
                                         <p>ペット数：{{ $service_pet_num->kubun_value }}</p>
                                         <div class="line1">
                                         </div>
@@ -705,13 +711,7 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="linex"> 
-                                        <p>予約時間: {{ $data['time_room'] }}</p>
-                                        <div class="line1"> 
-                                        </div>
-                                        <div class="line2">
-                                        </div>
-                                    </div>
+                                    
                                     
                                 @endif
                                 @if($key >= 0)

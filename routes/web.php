@@ -20,8 +20,8 @@ use Mail;
 
  Route::get('/demo', function () {
     
-    Mail::send('mailfb', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
-        $message->to('minhtu.bk14@gmail.com', 'Visitor')->subject('Visitor Feedback!');
+    Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
+        $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
     });
  });
 // Route::get('/demo_lock', function () {
