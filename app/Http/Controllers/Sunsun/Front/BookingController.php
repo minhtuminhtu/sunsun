@@ -1548,7 +1548,16 @@ class BookingController extends Controller
         $sql_get_booking = str_replace(':gender_booking', $gender, $sql_get_booking);
 
         if (isset($course['kubun_id']) && $course['kubun_id'] == '03') {
-            $sql_join_on .= "";
+            /**
+             * book all room
+             *  time book all room block 2 time continually so if time after time all room can book is not empty
+             * => can not book this time
+             */
+            $sql_join_on .= " 
+            OR  (
+                    (  ytm.service_time_1 < (mk1.notes + '0100')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1)
+                    OR ( ytm.service_time_2  < (mk1.notes + '0100') AND ytm.service_time_2 >= mk1.notes AND mk2.kubun_value = ytm.bed_service_2)
+			    ) ";
         }
 
         $data_sql = [
