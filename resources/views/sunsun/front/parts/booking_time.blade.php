@@ -9,7 +9,7 @@
         <tr>
             <th></th>
             @foreach($beds as $bed)
-                <th>ベッド <br>{{ config('const.laber.bed')[$bed->sort_no] }}</th>
+                <th>{{ config('const.laber.bed')[$bed->sort_no] }}</th>
             @endforeach
         </tr>
         </thead>

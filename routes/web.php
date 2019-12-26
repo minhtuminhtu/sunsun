@@ -4,7 +4,9 @@ use App\Models\Yoyaku;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
-
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+// use Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +20,9 @@ use Illuminate\Support\Facades\DB;
 
 //  Route::get('/demo', function () {
     
-//     echo  "'" . env("SHOP_PASS") . "'";
+//     \Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
+//         $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
+//     });
 //  });
 // Route::get('/demo_lock', function () {
 
@@ -59,7 +63,7 @@ use Illuminate\Support\Facades\DB;
 //     $Yoyaku1->save();
 // }
 
-Route::get('/clear', function () {
+Route::get('/null_clear', function () {
     $booking_id = date("Ymd")."0001";
     DB::select("
         UPDATE `tr_yoyaku` 
@@ -121,14 +125,14 @@ Route::get('/clear', function () {
     echo "Clear done!";
 });
 
-Route::get('/reset', function () {
-    \Artisan::call('migrate:reset');
-    \Artisan::call('migrate');
-    \Artisan::call('db:seed');
-    echo "Reset done!";
-});
+// Route::get('/reset', function () {
+//     \Artisan::call('migrate:reset');
+//     \Artisan::call('migrate');
+//     \Artisan::call('db:seed');
+//     echo "Reset done!";
+// });
 
-Route::namespace('Sunsun\Front')->group(function (){
+Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
     Route::get('/main', function (){
         return view('sunsun.front.main');
     })->name('main');

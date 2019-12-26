@@ -698,11 +698,13 @@ class BookingController extends Controller
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
-
+        $result = [];
+        $return_booking_id = null;
+        $email = null;
         DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
         try{
-            $result = [];
-            $return_booking_id = null;
+            // Log::debug($data);
+            $email = trim($data['email']);
             DB::beginTransaction();
             if(isset($data['customer']['info']) == false){
                 throw new \Exception('Course not found!');
@@ -734,6 +736,7 @@ class BookingController extends Controller
                 }
                 $result = $this->call_payment_api($data, $return_booking_id);
                 DB::commit();
+                
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
@@ -745,7 +748,16 @@ class BookingController extends Controller
             Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
+        $this->send_email($return_booking_id, $email);
         return  $result;
+    }
+
+    private function send_email($booking_id, $email){
+        Log::debug('sendding to' . $email . ' booking_id ' . $booking_id);
+        \Mail::send('sunsun.mails.bill', array('booking_id'=>"$booking_id"), function($message) use ($booking_id, $email){
+            $message->to($email)->subject('Sun-sun33 - Reservation #' . $booking_id);
+        });
+        Log::debug('sent to' . $email . ' booking_id ' . $booking_id);
     }
 
     private function add_column_null($booking_id){

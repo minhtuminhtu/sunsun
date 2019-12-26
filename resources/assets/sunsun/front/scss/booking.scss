@@ -270,7 +270,8 @@ a.no-effect{
     display: flex;
     max-width: 100%;
     .age-left{
-        width: 60%;
+        width: 80%;
+        display: flex;
     }
 }
 .timedate-block{
@@ -798,4 +799,12 @@ p.note-error {
 }
 .typing{
     margin: 14px 0 0 0;
+}
+td.time-td {
+    width: 50% !important;
+}
+.age_title {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 }

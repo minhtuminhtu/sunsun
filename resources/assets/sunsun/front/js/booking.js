@@ -1110,8 +1110,8 @@ let load_after_ajax = function(){
                 loader.css({'display': 'block'});
             },
             success: function (html) {
-                modal-body-time.find('.modal_time-body').html(html);
-                modal-body-time.modal({
+                modal_choice_time.find('.modal-body-time').html(html);
+                modal_choice_time.modal({
                     show: true,
                     backdrop: false
                 });

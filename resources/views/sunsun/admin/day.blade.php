@@ -4,6 +4,7 @@
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
+    
 @endsection
 @section('main')
     <main>
@@ -14,23 +15,35 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="main-head__top" style="display: flex; justify-content: space-between;">
-                    <div>
-                        <span class="datepicker-control current-date">
-                            ≪ <input type="text" value="{{$date}}"> ≫
-                            <span class="icon-calendar">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                class="fa fa-calendar-alt">
-                                </i>
+                <div class="main-head__top" style="display: flex;">
+                    <div class="main-head__left">
+                        <div>
+                            <span class="datepicker-control current-date">
+                                ≪ <input type="text" value="{{$date}}"> ≫
+                                <span class="icon-calendar">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"
+                                    class="fa fa-calendar-alt">
+                                    </i>
+                                </span>
                             </span>
-                        </span>
-                        <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
-                    <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
+                            <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
+                        <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
+                        </div>
+                        <div class="node-day">
+                            <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
+                            <div class="text-right">貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
+                        </div>
                     </div>
-                    <div class="node-day">
-                        <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
-                        <div class="text-right">貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
-                    </div>
+                    <div class="main-head_right">
+                        <div class="bs-example">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search..." name="search" id="search" disabled>
+                                    <div class="input-group-append search-button"></div>
+                                </div>
+                                <ul class="list-group name-search list-result" id="result">
+                                </ul>
+                        </div>
+                    </div>                    
                 </div>
                 <div class="main-head__middle">
                     <div class="middle_box">
@@ -504,5 +517,38 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
     <script src="{{asset('sunsun/admin/js/day.js').config('version_files.html.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#search').prop("disabled", false);
+            $('#search').keyup(function(event) {
+                var searchField = $('#search').val();
+                console.log(searchField.length);
+                if(searchField.length == 0){
+                    $('#result').html('');
+                    // $('.search-button').html('');
+                }else{
+                    $('#result').html('');
+                    var expression = new RegExp(searchField, "i");
+                    var data =  @json($search);
+                    $.each(data, function(key, value) {
+                        if (value.name.search(expression) != -1){
+                            $('#result').append('<li class="list-group-item link-class">'
+                                                + "<input type='hidden' class='search-expert' value='" + JSON.stringify(value.expert_data) + "' />"
+                                                + "<input type='hidden' class='search-element' value='" + value.name + "' />"
+                                                + '<div class="name-field">' + value.name + '</div>'
+                                                + '</li>');
+                            load_search_event();
+                        
+                        }
+                    });
+                    // $('.search-button').html('<div class="input-group-text"><i class="fas fa-times"></i></div>');
+                }
+            });
+        });
+
+        
+    </script>
+
+
 @endsection
 

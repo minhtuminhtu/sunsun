@@ -1,3 +1,4 @@
+
 $(function () {
     let main_head__top = $('.main-head__top'),
         current_day = $('.current-date'),
@@ -53,6 +54,10 @@ $(function () {
     $('#edit_booking').on('click','.btn-cancel',function (e) {
         booking_edit_hidden();
     });
+
+    
+
+    
 
     let show_booking = function (booking_id) {
         $.ajax({
@@ -213,4 +218,87 @@ $(function () {
 
     };
 
+    // $('.search-button').off('click');
+    // $('.search-button').on('click',function (e) {
+    //     $('#search').val('');
+    //     $('#result').html('');
+    //     $('.search-button').html('');
+    // });
+
+    if ((typeof load_search_event) === 'undefined') {
+        load_search_event = function(){
+            $('.list-group-item').off('click');
+            $('.list-group-item').on('click',function (e) {
+                var name = $(this).find('.search-element').val();
+                var expert = JSON.parse($(this).find('.search-expert').val());
+                console.log(name);
+                console.log(expert);
+                var data_expert = '';
+                $.each(expert, function(key, value) {
+                    var check_re = value.ref_booking_id == null ? '' : '同行者'; 
+                    var course_re = '';
+                    switch(value.course) {
+                        case '01':
+                            course_re = '入浴';
+                            break;
+                        case '02':
+                            course_re = 'リ';
+                            break;
+                        case '03':
+                            course_re = '貸切';
+                            break;
+                        case '04':
+                            course_re = '断食';
+                            break;
+                        case '05':
+                            course_re = 'Pet';
+                            break;
+                        default:
+                            course_re = '';
+                            break;
+                    }
+                    var day = moment(value.service_date);
+                    console.log(day.format('Y/M/D'));
+                    var date = day.format('Y/M/D')
+                    var hour = parseInt(value.time.substr(0, 2), 10);
+                    var minute = value.time.substr(2, 2);
+                    data_expert += '<li class="list-group-item link-class list-body">'
+                    + value.name
+                    + check_re
+                    + " [" 
+                    + course_re
+                    + "] "
+                    + date
+                    + " "
+                    + hour
+                    + ":"
+                    + minute
+                    + '</li>';
+                })
+                
+                Swal.fire({
+                    html:
+                    '<ul><li class="list-group-item link-class list-head">' + name + '</li>'
+                    + data_expert
+                    + '</ul>',
+                    text: ' 入力した情報を再確認してください。',
+                    confirmButtonColor: '#d7751e',
+                    confirmButtonText: '閉じる',
+                    width: 500,
+                    showClass: {
+                        popup: 'animated zoomIn faster'
+                    },
+                    hideClass: {
+                        popup: 'animated zoomOut faster'
+                    },
+                    allowOutsideClick: false
+                })
+                $('#search').val('');
+                $('#result').html('');
+                $('.search-button').html('');
+            });
+        };
+    } 
+
 });
+
