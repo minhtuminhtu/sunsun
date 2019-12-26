@@ -1555,8 +1555,8 @@ class BookingController extends Controller
              */
             $sql_join_on .= " 
             OR  (
-                    (  ytm.service_time_1 < (mk1.notes + '0100')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1)
-                    OR ( ytm.service_time_2  < (mk1.notes + '0100') AND ytm.service_time_2 >= mk1.notes AND mk2.kubun_value = ytm.bed_service_2)
+                    (  ytm.service_time_1 < (mk1.notes + '0100')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1 AND mk2.kubun_type = '017')
+                    OR ( ytm.service_time_2  < (mk1.notes + '0100') AND ytm.service_time_2 >= mk1.notes AND mk2.kubun_value = ytm.bed_service_2 AND mk2.kubun_type = '017')
 			    ) ";
         }
 
