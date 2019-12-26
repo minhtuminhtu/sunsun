@@ -525,15 +525,6 @@
                                             </div>
                                         @endif
                                     @endif
-                                        <div class="line"> 
-                                            <div class="line1">
-                                            予約日: 
-                                            </div>
-                                            <div class="line2">
-                                                <p>{{ $data['plan_date_start-view'] }}～</p>
-                                                <p>{{ $data['plan_date_end-view'] }}</p>
-                                            </div>
-                                        </div>
                                 
                                     @php 
                                         $gender = json_decode($data['gender']);
@@ -563,6 +554,15 @@
                                         </div>
                                         <div class="line2">
                                             
+                                        </div>
+                                    </div>
+                                    <div class="line"> 
+                                        <div class="line1">
+                                        予約日: 
+                                        </div>
+                                        <div class="line2">
+                                            <p>{{ $data['plan_date_start-view'] }}～</p>
+                                            <p>{{ $data['plan_date_end-view'] }}</p>
                                         </div>
                                     </div>
                                     <div class="line"> 
