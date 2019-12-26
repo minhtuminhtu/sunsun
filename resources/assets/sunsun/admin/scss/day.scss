@@ -568,3 +568,12 @@ span {
 .begin_time_font{
     font-size: 1.15vw;
 }
+.main-head__left{
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%;
+}
+.main-head_right{
+    width: 30%;
+    margin-left: 3vw;
+}

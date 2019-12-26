@@ -1,3 +1,4 @@
+
 $(function () {
     let main_head__top = $('.main-head__top'),
         current_day = $('.current-date'),

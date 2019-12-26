@@ -4,6 +4,7 @@
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
+    
 @endsection
 @section('main')
     <main>
@@ -14,23 +15,36 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="main-head__top" style="display: flex; justify-content: space-between;">
-                    <div>
-                        <span class="datepicker-control current-date">
-                            ≪ <input type="text" value="{{$date}}"> ≫
-                            <span class="icon-calendar">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                class="fa fa-calendar-alt">
-                                </i>
+                <div class="main-head__top" style="display: flex;">
+                    <div class="main-head__left">
+                        <div>
+                            <span class="datepicker-control current-date">
+                                ≪ <input type="text" value="{{$date}}"> ≫
+                                <span class="icon-calendar">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"
+                                    class="fa fa-calendar-alt">
+                                    </i>
+                                </span>
                             </span>
-                        </span>
-                        <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
-                    <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
+                            <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
+                        <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
+                        </div>
+                        <div class="node-day">
+                            <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
+                            <div class="text-right">貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
+                        </div>
                     </div>
-                    <div class="node-day">
-                        <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
-                        <div class="text-right">貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
-                    </div>
+                    <div class="main-head_right">
+                        <!-- <select class="selectpicker" data-live-search="true"  data-width="auto" title="Search...">
+                            <option data-subtext="2019/8/20 10:15">渋野日向子 [入浴] </option>
+                            <option data-subtext="2019/8/20 10:15">渋野日向子 [入浴] </option>
+                            <option data-subtext="2019/8/20 10:15">渋野日向子同行者 [入浴] </option>
+                        </select> -->
+                        <div class="ui-widget">
+                            <label for="tags">Tags: </label>
+                            <input id="tags">
+                        </div>
+                    </div>                    
                 </div>
                 <div class="main-head__middle">
                     <div class="middle_box">
@@ -504,5 +518,39 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}"
             charset="UTF-8"></script>
     <script src="{{asset('sunsun/admin/js/day.js').config('version_files.html.js')}}"></script>
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <!-- <script>
+        $( function() {
+            var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+            ];
+            $( "#tags" ).autocomplete({
+            source: availableTags
+            });
+        } );
+    </script> -->
+
 @endsection
 
