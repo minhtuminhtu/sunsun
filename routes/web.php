@@ -63,7 +63,7 @@ use Illuminate\Http\Request;
 //     $Yoyaku1->save();
 // }
 
-Route::get('/clear', function () {
+Route::get('/null_clear', function () {
     $booking_id = date("Ymd")."0001";
     DB::select("
         UPDATE `tr_yoyaku` 
@@ -125,14 +125,14 @@ Route::get('/clear', function () {
     echo "Clear done!";
 });
 
-Route::get('/reset', function () {
-    \Artisan::call('migrate:reset');
-    \Artisan::call('migrate');
-    \Artisan::call('db:seed');
-    echo "Reset done!";
-});
+// Route::get('/reset', function () {
+//     \Artisan::call('migrate:reset');
+//     \Artisan::call('migrate');
+//     \Artisan::call('db:seed');
+//     echo "Reset done!";
+// });
 
-Route::namespace('Sunsun\Front')->group(function (){
+Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
     Route::get('/main', function (){
         return view('sunsun.front.main');
     })->name('main');
