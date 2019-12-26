@@ -582,7 +582,29 @@ span {
 }
 .list-result{
     width: calc( (90vw*30/130) - 0.75vw);
+    max-height: 40vh !important;
+    overflow-y: auto;
 }
 .list-group-item {
+    cursor: pointer;
+    text-align: left;
+}
+#search {
+    border-radius: 0.25rem !important;
+}
+.form-control:focus{
+    border-color: rgb(224, 168, 0);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(224, 168, 0);
+    outline: 0 none;
+}
+li.list-group-item.list-head {
+    border-bottom: 3px solid rgba(0, 0, 0, 0.125);
+    cursor: unset;
+}
+.list-group-item.list-body{
+    cursor: unset;
+    text-align: left;
+}
+.search-button{
     cursor: pointer;
 }
