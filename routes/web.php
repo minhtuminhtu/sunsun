@@ -18,12 +18,21 @@ use Illuminate\Http\Request;
 |
 */
 
-//  Route::get('/demo', function () {
+ Route::get('/demo', function () {
     
-//     \Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
-//         $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
-//     });
-//  });
+    // \Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
+    //     $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
+    // });
+    if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header('WWW-Authenticate: Basic realm="My Realm"');
+        header('HTTP/1.0 401 Unauthorized');
+        echo 'Text to send if user hits Cancel button';
+        exit;
+    } else {
+        echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
+        echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
+    }
+ });
 // Route::get('/demo_lock', function () {
 
 

@@ -3,6 +3,7 @@
 @section('head')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
     
 @endsection
@@ -17,17 +18,27 @@
             <div class="main-head">
                 <div class="main-head__top" style="display: flex;">
                     <div class="main-head__left">
-                        <div>
-                            <span class="datepicker-control current-date">
-                                ≪ <input type="text" value="{{$date}}"> ≫
-                                <span class="icon-calendar">
-                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                    class="fa fa-calendar-alt">
-                                    </i>
-                                </span>
+                        <div class="control-view">
+                            <span>
+                                <button class="btn btn-block btn-main control-date prev-date" href="javascript:void(0)">≪前日</button>
                             </span>
-                            <span style="    margin-left: 5px;margin-right: 5px;"> <a class="control-date prev-date" href="javascript:void(0)">≪前日</a></span>
-                        <span><a class="control-date next-date" href="javascript:void(0)">翌日≫</a></span>
+                            <div class="control-view__date">
+                                <span class="datepicker-control current-date">
+                                    <div class="control-align_center">
+                                        <input type="text" value="{{$date}}">
+                                    </div>
+                                </span>
+                                <div class="control-align_center">
+                                    <span class="icon-calendar">
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <span>
+                                    <button class="btn btn-block btn-main control-date next-date" href="javascript:void(0)">翌日≫</button>
+                                </span>
+                            </div>
                         </div>
                         <div class="node-day">
                             <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
@@ -37,7 +48,7 @@
                     <div class="main-head_right">
                         <div class="bs-example">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search..." name="search" id="search" disabled>
+                                    <input type="text" class="form-control" placeholder="予約名前" name="search" id="search" disabled>
                                     <div class="input-group-append search-button"></div>
                                 </div>
                                 <ul class="list-group name-search list-result" id="result">

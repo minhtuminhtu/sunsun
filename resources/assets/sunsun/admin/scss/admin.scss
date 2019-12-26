@@ -60,3 +60,20 @@ footer {
 a {
     text-decoration: underline;
 }
+.btn-main{
+    background-color: #d7751e !important;
+    color: #fff !important;
+}
+.control-view{
+    display: flex;
+}
+.control-view__date{
+    margin: 0 1vw;
+    display: flex;
+}
+.control-align_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 2px);
+}

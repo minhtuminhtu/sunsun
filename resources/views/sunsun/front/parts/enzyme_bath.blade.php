@@ -111,7 +111,7 @@
                             <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ $s_time['service_time_1'] }}">
                             <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ $s_time['notes'] }}">
                             <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
-                            <input name="time[0][json]" class="data-json_input" id="time[0][json]" type="hidden" value="">
+                            <input name="time[0][json]" class="data-json_input" id="time[0][json]" type="hidden" value="{{ $s_time['time_json'] }}">
                             <input name="time[0][element]" id="time[0][element]" type="hidden" value="error_time_0">
                             <input name="time[0][edit]" id="edit_0_time" type="hidden" value="0">
                         </div>
@@ -124,7 +124,7 @@
                                     <input name="time[{{ $i }}][value]" class="time_value" id="time[{{ $i }}][value]" type="hidden" value="{{ $s_time['service_time_1'] }}">
                                     <input name="time[{{ $i }}][bed]" class="time_bed" id="time[{{ $i }}][bed]" type="hidden" value="{{ $s_time['notes'] }}">
                                     <input name="time[{{$i}}][json]" class="data-json_input" type="hidden" value="">
-                                    <input name="time[{{$i}}][element]" id="time[0][element]" type="hidden" value="error_time_0">
+                                    <input name="time[{{$i}}][element]" id="time[0][element]" type="hidden" value="error_time_">
                                     <input name="time[{{$i}}][edit]" id="edit_{{$i}}_time" type="hidden" value="0">
                                 </div>
                             </div>
