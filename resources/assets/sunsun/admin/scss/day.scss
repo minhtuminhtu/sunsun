@@ -577,3 +577,12 @@ span {
     width: 30%;
     margin-left: 3vw;
 }
+.name-search{
+    position: absolute;
+}
+.list-result{
+    width: calc( (90vw*30/130) - 0.75vw);
+}
+.list-group-item {
+    cursor: pointer;
+}
