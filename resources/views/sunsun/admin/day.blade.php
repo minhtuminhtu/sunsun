@@ -19,25 +19,21 @@
                 <div class="main-head__top" style="display: flex;">
                     <div class="main-head__left">
                         <div class="control-view">
-                            <span>
-                                <button class="btn btn-block btn-main control-date prev-date" href="javascript:void(0)">≪前日</button>
-                            </span>
-                            <div class="control-view__date">
-                                <span class="datepicker-control current-date">
-                                    <div class="control-align_center">
-                                        <input type="text" value="{{$date}}">
-                                    </div>
-                                </span>
-                                <div class="control-align_center">
-                                    <span class="icon-calendar">
-                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt"></i>
-                                    </span>
-                                </div>
+                            <div class="control-align_center">
+                                <button class="btn btn-block btn-main control-date control-date-left prev-date" href="javascript:void(0)">〈  前日</button>
                             </div>
-                            <div>
-                                <span>
-                                    <button class="btn btn-block btn-main control-date next-date" href="javascript:void(0)">翌日≫</button>
+                            <div class="control-align_center day-width__value">
+                                <span class="">
+                                    <input class="bg-white input-date__value" id="input-current__date" readonly="readonly" type="text" value="{{$date}}">
                                 </span>
+                            </div>
+                            <div class="control-align_center">
+                                <span class="" id="button-current__date">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt icon-calendar"></i>
+                                </span>
+                            </div>
+                            <div class="control-align_center">
+                                <button class="btn btn-block btn-main control-date control-date-right next-date" href="javascript:void(0)">翌日 〉</button>
                             </div>
                         </div>
                         <div class="node-day">
@@ -115,35 +111,35 @@
                 <div class="main-content__table">
                     <div class="main-col__time head">時間</div>
                     <div class="main-col__male">
-                        <div class="main-col__item head js-edit-booking">
+                        <div class="main-col__item head bg-title__male js-edit-booking">
                         男性①
                         </div>
-                        <div class="main-col__item head">
+                        <div class="main-col__item head bg-title__male">
                         男性②
                         </div>
-                        <div class="main-col__item head last">
+                        <div class="main-col__item head bg-title__male">
                         男性③
                         </div>
                     </div>
                     <div class="main-col__space-1 head"></div>
                     <div class="main-col__famale">
-                        <div class="main-col__item head first">
+                        <div class="main-col__item head bg-title__female first">
                         女性①
                         </div>
-                        <div class="main-col__item head">
+                        <div class="main-col__item head bg-title__female">
                         女性②
                         </div>
-                        <div class="main-col__item head">
+                        <div class="main-col__item head bg-title__female">
                         女性③
                         </div>
-                        <div class="main-col__item head last">
+                        <div class="main-col__item head bg-title__female last">
                         女性④
                         </div>
                     </div>
                     <div class="main-col__space-2 head"></div>
-                    <div class="main-col__wt head">ホワイトニング</div>
+                    <div class="main-col__wt head bg-title__wt">ホワイトニング</div>
                     <div class="main-col__space-3"></div>
-                    <div class="main-col__pet head">ペット酵素浴</div>
+                    <div class="main-col__pet head bg-title__pet">ペット酵素浴</div>
                 </div>
                 @php $i = 1; @endphp
                 @foreach($time_range as $time)
@@ -156,8 +152,15 @@
                                 echo ' first_free';
                             }
                             if(isset($time['begin_free'])){
-                                echo ' begin_free';
+                                echo ' begin_free ';
                             }
+                            if($i%2 == 0){ echo ' bg-time '; }
+                            if(isset($time['begin_time'])){
+                                echo ' bg-time ';
+                            }
+
+
+
                             @endphp">
 
                             <div class="">
@@ -279,7 +282,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
-                                    last">
+                                    ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
                                 </div>
                             </div>
@@ -347,9 +350,6 @@
                         @endif
                         <div class="main-col__space-2
                             @php
-                            if($i == (count($time_range) + 1) ){
-                                echo ' bottom';
-                            }
                             if(isset($time['begin_free'])){
                                 echo 'begin_free';
                             }

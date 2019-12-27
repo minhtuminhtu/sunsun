@@ -19,21 +19,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-//  Route::get('/demo', function () {
-    
-//     // \Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
-//     //     $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
-//     // });
-//     if (!isset($_SERVER['PHP_AUTH_USER'])) {
-//         header('WWW-Authenticate: Basic realm="My Realm"');
-//         header('HTTP/1.0 401 Unauthorized');
-//         echo 'Text to send if user hits Cancel button';
-//         exit;
-//     } else {
-//         echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
-//         echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
-//     }
-//  });
 Route::middleware('begin.auth')->get('/aaa', function () {
     return "aaa";
 });
@@ -50,13 +35,6 @@ Route::get('/getdata', function () {
 });
  
 
-//  Route::middleware(['begin.auth'])->group(function () {
-//     //All the routes are placed in here
-//     Route::get('/bbb', function () {
-    
-//         echo "bbb";
-//      });
-// });
 // Route::get('/demo_lock', function () {
 
 

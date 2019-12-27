@@ -1,7 +1,7 @@
 
 $(function () {
     let main_head__top = $('.main-head__top'),
-        current_day = $('.current-date'),
+        current_day = $('#input-current__date'),
         date_day = current_day.datepicker({
         language: 'ja',
         dateFormat: 'yyyy/mm/dd',
@@ -12,6 +12,11 @@ $(function () {
             var sun = new Date(mon.getTime());
             sun.setDate(sun.getDate() + 6);
         }
+    });
+    
+    $('#button-current__date').off('click');
+    $('#button-current__date').on('click', function(e) {
+        $('#input-current__date').focus();
     });
     current_day.on('input change','input',function (e) {
         let date = $(this).val().split('/').join('');

@@ -18,17 +18,25 @@
             <div class="main-content">
                 <div class="main-content-head">
                     <div class="left-content">
-                    <span class="datepicker-control week-picker" id="week-picker-wrapper">
-                            ≪ <input type="text" readonly="readonly" value="{{$date_from.' - '.$date_to}}" class="bg-white" style="width: 12.8rem;"> ≫
-                            <span class="icon-calendar">
-                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                                class="fa fa-calendar-alt js-calendar-day">
-                                </i>
-                            </span>
-                    </span>
-                        <a class="control-date week-prev" href="javascript:void(0)">≪前週</a>
-                        <a class="control-date week-next" href="javascript:void(0)">翌週≫</a>
-                        <input type="hidden" value="{{$date_from}}" id="date_start_week">
+                        <div class="control-view"  id="week-picker-wrapper">
+                            <div class="control-align_center">
+                                <button class="btn btn-block btn-main control-date control-date-left week-prev" href="javascript:void(0)">〈 前週</button>
+                            </div>
+                            <div class="control-align_center">
+                                <span class="">
+                                    <input type="text" readonly="readonly"  id="input-current__weekly"  value="{{$date_from.' - '.$date_to}}" class="bg-white input-date__value">
+                                </span>
+                            </div>
+                            <div class="control-align_center">
+                                <span class="" id="button-current__weekly">
+                                    <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt js-calendar-day icon-calendar"></i>
+                                </span>
+                            </div>
+                            <div class="control-align_center">
+                                <button class="btn btn-block btn-main control-date control-date-right week-next" href="javascript:void(0)">翌週 〉</button>
+                            </div>
+                            <input type="hidden" value="{{$date_from}}" id="date_start_week">
+                        </div>
                     </div>
                     <div class="right-content">
                         <ul>

@@ -13,20 +13,25 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="main-head__top">
-                    <span class="datepicker-control current-date">
-                        ≪ <input type="text" readonly="readonly" class="bg-white" value="{{ $year.'/'.$month }}" style="width: 4.2rem" >  ≫
-                        <span class="icon-calendar">
-                            <i data-time-icon="icon-time" data-date-icon="icon-calendar"
-                               class="fa fa-calendar-alt">
-                            </i>
-                        </span>
-                    </span>
-                    <a class="control-month prev-month" href="javascript:void(0)">≪前月</a>
-                    <a class="control-month next-month" href="javascript:void(0)">翌月≫</a>
-                </div>
-                <div class="main-head__middle">
-
+                <div class="left-content">
+                    <div class="control-view">
+                        <div class="control-align_center">
+                            <button class="btn btn-block btn-main control-month control-date-left prev-month" href="javascript:void(0)">〈 前月</button>
+                        </div>
+                        <div class="control-align_center monthly-width__value">
+                            <span class="current-date">
+                                <input type="text" readonly="readonly" class="bg-white  input-date__value" value="{{ $year.'/'.$month }}">
+                            </span>
+                        </div>
+                        <div class="control-align_center">
+                            <span class="current-date">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt icon-calendar"></i>
+                            </span>
+                        </div>
+                        <div class="control-align_center">
+                            <button class="btn btn-block btn-main control-month control-date-right next-month" href="javascript:void(0)">翌月 〉</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="right-content">
                     <div>

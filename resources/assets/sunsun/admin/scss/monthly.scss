@@ -107,20 +107,13 @@ html, body {
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Opera and Firefox */
 }
-.bg-white{
-    cursor: pointer !important;
-    background-color: #fff;
-}
+
 .main-head {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
 }
 
-.main-head__top {
-    width: 50%;
-}
 .right-content {
-    width: 50%;
     display: flex;
     justify-content: flex-end;
 }
@@ -133,4 +126,7 @@ html, body {
 .item:not(.head){
     font-size: 0.75vw;
     line-height: 145%;
+}
+.monthly-width__value{
+    width: 25%;
 }
