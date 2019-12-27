@@ -18,21 +18,21 @@ use Illuminate\Http\Request;
 |
 */
 
- Route::get('/demo', function () {
+//  Route::get('/demo', function () {
     
-    // \Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
-    //     $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
-    // });
-    if (!isset($_SERVER['PHP_AUTH_USER'])) {
-        header('WWW-Authenticate: Basic realm="My Realm"');
-        header('HTTP/1.0 401 Unauthorized');
-        echo 'Text to send if user hits Cancel button';
-        exit;
-    } else {
-        echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
-        echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
-    }
- });
+//     // \Mail::send('sunsun.mails.bill', array('name'=>'Sunsun','email'=>'noreply.sun.sun33@gmail.com', 'content'=>'test'), function($message){
+//     //     $message->to('minhtu.bk14@gmail.com')->subject('Sun-sun33 - Reservation #92881468');
+//     // });
+//     if (!isset($_SERVER['PHP_AUTH_USER'])) {
+//         header('WWW-Authenticate: Basic realm="My Realm"');
+//         header('HTTP/1.0 401 Unauthorized');
+//         echo 'Text to send if user hits Cancel button';
+//         exit;
+//     } else {
+//         echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
+//         echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
+//     }
+//  });
 //  Route::middleware('begin.auth')->get('/aaa', function () {
 //      return "aaa";
 //  });
@@ -151,7 +151,7 @@ Route::get('/null_clear', function () {
 //     echo "Reset done!";
 // });
 
-Route::middleware('begin.auth')->namespace('Sunsun\Front')->group(function (){
+Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
     Route::get('/main', function (){
         return view('sunsun.front.main');
     })->name('main');
