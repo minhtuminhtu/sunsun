@@ -19,12 +19,12 @@
                             <button class="btn btn-block btn-main control-month control-date-left prev-month" href="javascript:void(0)">〈 前月</button>
                         </div>
                         <div class="control-align_center monthly-width__value">
-                            <span class="current-date">
-                                <input type="text" readonly="readonly" class="bg-white  input-date__value" value="{{ $year.'/'.$month }}">
+                            <span class="">
+                                <input type="text" readonly="readonly"  id="input-current__monthly" class="bg-white  input-date__value" value="{{ $year.'/'.$month }}">
                             </span>
                         </div>
                         <div class="control-align_center">
-                            <span class="current-date">
+                            <span class=""   id="button-current__monthly">
                                 <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt icon-calendar"></i>
                             </span>
                         </div>

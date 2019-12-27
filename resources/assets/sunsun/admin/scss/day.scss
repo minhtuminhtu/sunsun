@@ -260,7 +260,7 @@ body {
             flex-basis: 100%;
             border-right: 2px solid #fff;
             border-bottom: 2px solid #fff;
-            background-color: #ffccff;
+            background-color: rgb(255, 221, 255);
             padding: 0.3vw;
         }
     }
@@ -278,7 +278,7 @@ body {
         border-left: 1px solid #ced4da;
         border-right: 1px solid #ced4da;
         border-bottom: 2px solid #fff;
-        background-color: rgb(209, 255, 223);
+        background-color: rgb(176, 244, 230);
         display: block;
         .main-col__pet__body{
             height: 100%;
@@ -340,10 +340,10 @@ body {
     background-color: rgb(185, 212, 237) !important;
 }
 .bg-female{
-    background-color: rgb(255, 151, 255) !important;
+    background-color: rgb(255, 179, 255) !important;
 }
 .bg-wt{
-    background-color: rgb(139, 255, 175) !important;
+    background-color: rgb(103, 234, 202) !important;
 }
 .not-wt {
     background-color: #d9d9d9 !important;
@@ -471,9 +471,9 @@ body {
 .main-col__wt.wt-new_user {
     border: 1px solid red !important;
 }
-.wt-new_user {
-    border: 1px solid red !important;
-}
+// .wt-new_user {
+//     border: 1px solid red !important;
+// }
 
 .main-col__wt.begin_new_user {
     border-bottom: 0px !important;
@@ -620,7 +620,7 @@ li.list-group-item.list-head {
     color: #fff !important;
 }
 .bg-title__female{
-    background-color: rgb(184,0,184) !important;
+    background-color: rgb(204,51,153) !important;
     color: #fff !important;
 }
 .bg-title__wt{
