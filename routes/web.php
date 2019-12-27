@@ -33,6 +33,16 @@ use Illuminate\Http\Request;
         echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
     }
  });
+ Route::middleware('begin.auth')->get('/aaa', function () {
+     return "aaa";
+ });
+ Route::middleware(['begin.auth'])->group(function () {
+    //All the routes are placed in here
+    Route::get('/bbb', function () {
+    
+        echo "bbb";
+     });
+});
 // Route::get('/demo_lock', function () {
 
 
