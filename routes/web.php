@@ -33,16 +33,16 @@ use Illuminate\Http\Request;
         echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
     }
  });
- Route::middleware('begin.auth')->get('/aaa', function () {
-     return "aaa";
- });
- Route::middleware(['begin.auth'])->group(function () {
-    //All the routes are placed in here
-    Route::get('/bbb', function () {
+//  Route::middleware('begin.auth')->get('/aaa', function () {
+//      return "aaa";
+//  });
+//  Route::middleware(['begin.auth'])->group(function () {
+//     //All the routes are placed in here
+//     Route::get('/bbb', function () {
     
-        echo "bbb";
-     });
-});
+//         echo "bbb";
+//      });
+// });
 // Route::get('/demo_lock', function () {
 
 
@@ -151,7 +151,7 @@ Route::get('/null_clear', function () {
 //     echo "Reset done!";
 // });
 
-Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
+Route::middleware('begin.auth')->namespace('Sunsun\Front')->group(function (){
     Route::get('/main', function (){
         return view('sunsun.front.main');
     })->name('main');
