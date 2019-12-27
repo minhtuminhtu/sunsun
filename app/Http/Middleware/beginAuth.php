@@ -26,7 +26,7 @@ class beginAuth
         );
         if ($is_not_authenticated) {
             header('HTTP/1.1 401 Authorization Required');
-            header('WWW-Authenticate: Basic realm="Access denied"' . $_SERVER['PHP_AUTH_USER']);
+            header('WWW-Authenticate: Basic realm="Access denied"');
             exit;
         }
         return $next($request);
