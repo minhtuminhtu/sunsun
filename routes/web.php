@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 // use Mail;
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +41,12 @@ Route::get('/php', function () {
     phpinfo();
 });
 Route::get('/demo_logout', function () {
-    $_SERVER['PHP_AUTH_USER'] = '';
-    $_SERVER['PHP_AUTH_PW'] = '';
+    // $_SERVER['PHP_AUTH_USER'] = '';
+    // $_SERVER['PHP_AUTH_PW'] = '';
+    Auth::logout();
+});
+Route::get('/getdata', function () {
+    dd($_SERVER);
 });
  
 
@@ -160,7 +165,7 @@ Route::get('/null_clear', function () {
 //     echo "Reset done!";
 // });
 
-Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
+Route::middleware('begin.auth')->namespace('Sunsun\Front')->group(function (){
     Route::get('/main', function (){
         return view('sunsun.front.main');
     })->name('main');
