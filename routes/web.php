@@ -36,6 +36,11 @@ use Illuminate\Http\Request;
  Route::middleware('begin.auth')->get('/aaa', function () {
      return "aaa";
  });
+Route::get('/demo_logout', function () {
+    $_SERVER['PHP_AUTH_USER'] = '';
+    $_SERVER['PHP_AUTH_PW'] = '';
+});
+ 
 
 //  Route::middleware(['begin.auth'])->group(function () {
 //     //All the routes are placed in here
