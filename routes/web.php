@@ -33,9 +33,12 @@ use Illuminate\Http\Request;
 //         echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
 //     }
 //  });
- Route::middleware('begin.auth')->get('/aaa', function () {
-     return "aaa";
- });
+Route::middleware('begin.auth')->get('/aaa', function () {
+    return "aaa";
+});
+Routeget('/php', function () {
+    return php_info();
+});
 Route::get('/demo_logout', function () {
     $_SERVER['PHP_AUTH_USER'] = '';
     $_SERVER['PHP_AUTH_PW'] = '';
