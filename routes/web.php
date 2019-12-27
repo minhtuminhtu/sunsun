@@ -36,8 +36,8 @@ use Illuminate\Http\Request;
 Route::middleware('begin.auth')->get('/aaa', function () {
     return "aaa";
 });
-Routeget('/php', function () {
-    return php_info();
+Route::get('/php', function () {
+    phpinfo();
 });
 Route::get('/demo_logout', function () {
     $_SERVER['PHP_AUTH_USER'] = '';
