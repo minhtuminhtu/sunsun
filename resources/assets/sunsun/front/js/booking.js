@@ -101,8 +101,8 @@ $(function() {
                         }else{
                             $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
                         }
-                        
-                        
+
+
                         $('.input-daterange').datepicker({
                             language: 'ja',
                             dateFormat: 'yyyy/mm/dd',
@@ -516,7 +516,9 @@ $(function() {
             $('body').addClass('modal-open');
         }
     });
-
+    modal_choice_time.draggable({
+        handle: ".title-table-time"
+    });
 
     modal_choice_time.off('click','#js-save-time');
     modal_choice_time.on('click','#js-save-time',function (e) {
