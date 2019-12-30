@@ -33,7 +33,7 @@ Route::get('/demo_logout', function () {
 Route::get('/getdata', function () {
     dd($_SERVER);
 });
- 
+
 
 // Route::get('/demo_lock', function () {
 
@@ -136,47 +136,47 @@ Route::get('/null_clear', function () {
     echo "Clear done!";
 });
 
-// Route::get('/reset', function () {
-//     \Artisan::call('migrate:reset');
-//     \Artisan::call('migrate');
-//     \Artisan::call('db:seed');
-//     echo "Reset done!";
-// });
+ Route::get('/reset', function () {
+     \Artisan::call('migrate:reset');
+     \Artisan::call('migrate');
+     \Artisan::call('db:seed');
+     echo "Reset done!";
+ });
 
 
-Route::group(['middleware'=>'begin.auth'], function(){
-    Route::namespace('Sunsun\Front')->group(function (){
+/*Route::middleware('auth')->group(function(){*/
+    Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
         })->name('main');
         Route::get('/thanks', function (){
-    
+
         })->name('thanks');
-    
+
         Route::get('/', function () {
             return view('sunsun.front.index');
         })->name('home');
-    
+
         Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
         Route::any('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
         Route::any('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
         Route::post('/complete',['as' => '.complete', 'uses' => 'BookingController@complete']);
         Route::post('/make_payment',['as' => '.make_payment', 'uses' => 'BookingController@make_payment']);
-    
-    
-    
+
+
+
         Route::post('/get_service',['as' => '.get_service', 'uses' => 'BookingController@get_service']);
-    
+
         Route::post('/get_free_room',['as' => '.get_free_room', 'uses' => 'BookingController@get_free_room']);
-    
-    
+
+
         Route::post('/get_time_room',['as' => '.get_time_room', 'uses' => 'BookingController@get_time_room']);
         Route::post('/book_room',['as' => '.book_room', 'uses' => 'BookingController@get_time_room']);
         Route::post('/book_time_room_wt',['as' => '.book_time_room_wt', 'uses' => 'BookingController@book_time_room_wt']);
         Route::post('/book_time_room_pet',['as' => '.book_time_room_pet', 'uses' => 'BookingController@book_time_room_pet']);
         Route::post('/add_new_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@add_new_booking']);
         Route::post('/save_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@save_booking']);
-    
+
     });
 
     // Auth
@@ -215,7 +215,7 @@ Route::group(['middleware'=>'begin.auth'], function(){
         Route::post('/show_history',['as' => '.show_history', 'uses' => 'AdminController@show_history']);
         Route::post('/update_booking',['as' => '.update_booking', 'uses' => 'AdminController@update_booking']);
     });
-});
+/*});*/
 
 
 
