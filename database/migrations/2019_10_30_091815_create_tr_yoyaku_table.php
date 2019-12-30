@@ -50,6 +50,7 @@ class CreateTrYoyakuTable extends Migration
             $table->string('stay_checkout_date',8)->nullable();
             $table->string('breakfast',2)->nullable();
             $table->string('payment_method',1)->nullable();
+            $table->string('fake_booking_flg',1)->nullable();
             $table->string('notes',255)->nullable();
             $table->timestamps();
         });

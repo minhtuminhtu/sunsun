@@ -93,9 +93,10 @@ $(function () {
 
     $('.main-col__data').not(".bg-free").off('click');
     $('.main-col__data').not(".bg-free").on('click', function (e) {
-        var booking_id = $(this).find('.booking-id').val();
-        show_booking(booking_id);
-
+        if(!$(this).find('.control-align_center').text()){
+            var booking_id = $(this).find('.booking-id').val();
+            show_booking(booking_id);
+        }
     });
 
     $('.main-col__pet').not(".space-white").not(".head").off('click');

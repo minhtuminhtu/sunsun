@@ -93,6 +93,7 @@ class AdminController extends Controller
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
+                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -127,7 +128,7 @@ class AdminController extends Controller
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-
+                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -162,6 +163,7 @@ class AdminController extends Controller
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
+                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -196,6 +198,7 @@ class AdminController extends Controller
                     main.booking_id = $booking_id
                     AND main.ref_booking_id = $booking_id
                 )
+                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -232,6 +235,7 @@ class AdminController extends Controller
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
+                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -268,6 +272,7 @@ class AdminController extends Controller
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
+                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -302,6 +307,7 @@ class AdminController extends Controller
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
+                AND main.fake_booking_flg IS NULL
             )
             "); 
         return $expert_data;
@@ -313,8 +319,9 @@ class AdminController extends Controller
         FROM 		tr_yoyaku main
         WHERE		main.history_id IS NULL
         AND			main.name IS NOT NULL
-				AND			main.ref_booking_id IS NULL
-				AND			main.service_date_start = $date
+        AND			main.ref_booking_id IS NULL
+        AND         main.fake_booking_flg IS NULL
+		AND			main.service_date_start = $date
         ");
         for($i = 0; $i < count($all_data); $i++){
             Log::debug($all_data[$i]->booking_id);
@@ -339,6 +346,7 @@ class AdminController extends Controller
         AND main.stay_checkin_date <= $date 
         AND main.stay_checkout_date >= $date
         AND main.history_id IS NULL 
+        AND main.fake_booking_flg IS NULL
         ");
 
         for($i = 0; $i < count($stay_room_raw); $i++){
@@ -369,6 +377,7 @@ class AdminController extends Controller
         WHERE   (main.lunch <> '01' OR main.lunch_guest_num <> '01') 
         AND main.service_date_start = $date
         AND main.history_id IS NULL 
+        AND main.fake_booking_flg IS NULL
         ");
 
         for($i = 0; $i < count($data['lunch']); $i++){
@@ -400,6 +409,7 @@ class AdminController extends Controller
         AND main.pick_up = '01' 
         AND main.service_date_start = $date
         AND main.history_id IS NULL 
+        AND main.fake_booking_flg IS NULL
         ORDER BY main.bus_arrive_time_slide
         ");
         for($i = 0; $i < count($data['pick_up']); $i++){
@@ -439,10 +449,13 @@ class AdminController extends Controller
                   , time.service_time_1 as time
                   , 0 as turn
                   , SUBSTRING(time.notes, 1, 1) as bed
+                  , main.fake_booking_flg
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '01'  AND main.history_id IS NULL AND time.service_date = $date
+            WHERE 	main.course = '01'
+            AND     main.history_id IS NULL
+            AND     time.service_date = $date
         )
         UNION
         (
@@ -469,8 +482,11 @@ class AdminController extends Controller
                     , main.service_time_1 as time
                     , 1 as turn
                     , SUBSTRING(main.bed, 1, 1) as bed
+                    , main.fake_booking_flg
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '02' AND main.history_id IS NULL AND main.service_date_start = $date
+            WHERE 	main.course = '02'
+            AND     main.history_id IS NULL 
+            AND     main.service_date_start = $date
         )
         UNION
         (
@@ -497,8 +513,11 @@ class AdminController extends Controller
                     , main.service_time_2 as time
                     , 2 as turn
                     , SUBSTRING(main.bed, 3, 1) as bed
+                    , main.fake_booking_flg
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '02' AND main.history_id IS NULL AND main.service_date_start = $date
+            WHERE 	main.course = '02' 
+            AND     main.history_id IS NULL 
+            AND     main.service_date_start = $date
         )
         UNION
         (
@@ -525,8 +544,11 @@ class AdminController extends Controller
                     , main.service_time_1 as time
                     , 0 as turn
                     , main.bed
+                    , main.fake_booking_flg
             FROM		tr_yoyaku as main
-            WHERE 	main.course = '03' AND main.history_id IS NULL AND main.service_date_start = $date
+            WHERE 	main.course = '03' 
+            AND     main.history_id IS NULL
+            AND     main.service_date_start = $date
         )
         UNION
         (
@@ -553,10 +575,13 @@ class AdminController extends Controller
                   , time.service_time_1 as time
                   , 1 as turn
                   , SUBSTRING(time.notes, 1, 1) as bed
+                  , main.fake_booking_flg
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '04'  AND main.history_id IS NULL AND time.service_date = $date
+            WHERE 	main.course = '04'  
+            AND     main.history_id IS NULL 
+            AND     time.service_date = $date
         )
         UNION
         (
@@ -583,10 +608,13 @@ class AdminController extends Controller
                   , time.service_time_2 as time
                   , 2 as turn
                   , SUBSTRING(time.notes, 3, 1) as bed
+                  , main.fake_booking_flg
             FROM		tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON			main.booking_id = time.booking_id
-            WHERE 	main.course = '04'  AND main.history_id IS NULL AND time.service_date = $date
+            WHERE 	main.course = '04'  
+            AND     main.history_id IS NULL 
+            AND     time.service_date = $date
         )
         ");
         $course_1_to_4 = collect($course_1_to_4_query);

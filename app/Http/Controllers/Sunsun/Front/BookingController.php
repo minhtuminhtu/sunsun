@@ -43,6 +43,7 @@ class BookingController extends Controller
         // dd($data);
         if (isset($data['transport'])) {
             $this->save_session($request, $data);
+            $this->add_fake_booking($request, $data);
         }
         
         
@@ -59,29 +60,64 @@ class BookingController extends Controller
         }
 
         $this->save_session($request, $data);
-
-        $data['fake_booking'] = true;
-        $data['time_room_bed'] = 2;
-
-        $temp1 = json_decode($data['time'][0]['json'], true);
-        $temp1['kubun_id_room'] = '02';
-        $temp1['kubun_value_room'] = '2';
-        $data['time'][0]['json'] = json_encode($temp1);
-
-        $this->save_session($request, $data);
-
-        $data['fake_booking'] = true;
-        $data['time_room_bed'] = 3;
-
-        $temp2 = json_decode($data['time'][0]['json'], true);
-        $temp2['kubun_id_room'] = '03';
-        $temp2['kubun_value_room'] = '3';
-        $data['time'][0]['json'] = json_encode($temp2);
-
-        $this->save_session($request, $data);
-        // Log::debug($this->get_booking($request));
+        $this->add_fake_booking($request, $data);
+        
         return ['status'=> 'OK'];
     }
+    private function add_fake_booking($request, &$data){
+        $course = json_decode($data['course'], true);
+        if($course['kubun_id'] == '03'){
+            $data['fake_booking'] = 1;
+            $temp_json = json_decode($data['time'][0]['json'], true);
+            // 2 ô trống đầu tiên
+            $data['time_room_bed'] = 2;
+            $temp_json['kubun_id_room'] = '02';
+            $temp_json['kubun_value_room'] = '2';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            $this->save_session($request, $data);
+
+            $data['time_room_bed'] = 3;
+            $temp_json['kubun_id_room'] = '03';
+            $temp_json['kubun_value_room'] = '3';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            $this->save_session($request, $data);
+
+            // 3 ô trống phía dưới
+            if($temp_json['notes'] == '0945'){
+                $temp_json['notes'] = '1015';
+                $data['time_room_value'] = '1015';
+            }else if($temp_json['notes'] == '1315'){
+                $temp_json['notes'] = '1345';
+                $data['time_room_value'] = '1345';
+            }else if($temp_json['notes'] == '1515'){
+                $temp_json['notes'] = '1545';
+                $data['time_room_value'] = '1545';
+            }
+
+            $data['time_room_bed'] = 1;
+            $temp_json['kubun_id_room'] = '01';
+            $temp_json['kubun_value_room'] = '1';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            $this->save_session($request, $data);
+
+            $data['time_room_bed'] = 2;
+            $temp_json['kubun_id_room'] = '02';
+            $temp_json['kubun_value_room'] = '2';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            $this->save_session($request, $data);
+
+            $data['time_room_bed'] = 3;
+            $temp_json['kubun_id_room'] = '03';
+            $temp_json['kubun_value_room'] = '3';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            $this->save_session($request, $data);
+        }
+    } 
 
     public function validate_booking($data) {
         $error = [];
@@ -362,6 +398,7 @@ class BookingController extends Controller
 
         $uuid = \Str::uuid();
         $info_customer['info']["$uuid"] = $data;
+        Log::debug($info_customer);
         $request->session()->put($this->session_info,$info_customer);
     }
 
@@ -396,24 +433,25 @@ class BookingController extends Controller
         $bill['options'] = [];
         $bill['price_option'] = 0;
         foreach ($info_booking['info'] as $booking) {
-
-            $booking_course = json_decode($booking['course'], true);
-            Log::debug("ahihi");
-            Log::debug($booking_course['kubun_id']);
-            if($booking_course['kubun_id'] == '01'){
-                foreach($booking['time'] as $booking_t){
+            if((!isset($booking['fake_booking'])) || ($booking['fake_booking'] != '1')){
+                $booking_course = json_decode($booking['course'], true);
+                Log::debug("ahaha");
+                Log::debug($booking);
+                if($booking_course['kubun_id'] == '01'){
+                    foreach($booking['time'] as $booking_t){
+                        ++ $bill['course']['quantity'];
+                        $bill['course']['price'] += $this->get_price_course($booking, $bill);
+                    }
+                }else{
                     ++ $bill['course']['quantity'];
                     $bill['course']['price'] += $this->get_price_course($booking, $bill);
                 }
-            }else{
-                ++ $bill['course']['quantity'];
-                $bill['course']['price'] += $this->get_price_course($booking, $bill);
+
+                $this->get_price_option($booking, $bill);
+
+                Log::debug($booking);
+                //dd($info_booking['info']);
             }
-
-            $this->get_price_option($booking, $bill);
-
-            Log::debug($booking);
-            //dd($info_booking['info']);
         }
         //dd($bill);
         $bill['total'] = $bill['course']['price'] + $bill['price_option'];
@@ -1214,6 +1252,8 @@ class BookingController extends Controller
     }
 
     private function set_course_3($parent, $parent_date, $customer, &$Yoyaku){
+        //Fake booking
+        $fake_booking_flg = isset($customer['fake_booking'])?$customer['fake_booking']:"";
         //Basic
         $date = isset($customer['date-value'])?$customer['date-value']:"";
         $time = isset($customer['time_room_value'])?$customer['time_room_value']:"";
@@ -1232,6 +1272,7 @@ class BookingController extends Controller
         $stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
         $breakfast = isset($customer['breakfast'])?json_decode($customer['breakfast']):"";
 
+        $Yoyaku->fake_booking_flg = $fake_booking_flg;
         $Yoyaku->service_time_1 = $time;
         $Yoyaku->bed = $bed;
         $Yoyaku->service_guest_num = $service_guest_num->kubun_id;
@@ -1421,14 +1462,14 @@ class BookingController extends Controller
                             } else {
                                 if ($day_book_time == $day_book_time_ss) {
                                     $ss_time = json_decode($v_time['json'], true);
-                                    if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) {
-                                        $range_time_validate[$key]['start_time'] = $ss_time['notes'];
-                                        $range_time_validate[$key]['end_time'] =  $this->plus_time_string($ss_time['notes'], 60);
-                                        $range_time_validate[$key]['bed'] = $ss_time['kubun_id_room'];
-                                    } else {
+                                    // if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) {
+                                    //     $range_time_validate[$key]['start_time'] = $ss_time['notes'];
+                                    //     $range_time_validate[$key]['end_time'] =  $this->plus_time_string($ss_time['notes'], 60);
+                                    //     $range_time_validate[$key]['bed'] = $ss_time['kubun_id_room'];
+                                    // } else { rm thanh tv
                                         $validate_ss_time[$key][$k_time]['time'] = $ss_time['notes'];
                                         $validate_ss_time[$key][$k_time]['bed'] = $ss_time['kubun_id_room'];
-                                    }
+                                    //}
 
                                 }
                             }
@@ -1735,10 +1776,10 @@ class BookingController extends Controller
 	            ON
                     (mk1.notes = ytm.service_time_1 AND mk2.kubun_value = ytm.bed_service_1)
                     OR (mk1.notes = ytm.service_time_2 AND mk2.kubun_value = ytm.bed_service_2 )
-                    OR (
-                            ytm.course = '03' AND mk2.kubun_type = '017' AND mk2.kubun_value = ytm.bed_service_2
-                            AND mk1.notes >= ytm.service_time_1 AND mk1.notes < ytm.service_time_2
-                       )
+                    -- OR (
+                    --        ytm.course = '03' AND mk2.kubun_type = '017' AND mk2.kubun_value = ytm.bed_service_2
+                    --        AND mk1.notes >= ytm.service_time_1 AND mk1.notes < ytm.service_time_2
+                    --   )
                     $sql_join_on
         ";
         $sql_where = "
