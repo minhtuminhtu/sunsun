@@ -1565,11 +1565,12 @@ class BookingController extends Controller
              *  time book all room block 2 time continually so if time after time all room can book is not empty
              * => can not book this time
              */
-            $sql_join_on .= " 
+            /*
+            $sql_join_on .= "
             OR  (
                     (  ytm.service_time_1 < (mk1.notes + '0100')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1 AND mk2.kubun_type = '017')
                     OR ( ytm.service_time_2  < (mk1.notes + '0100') AND ytm.service_time_2 >= mk1.notes AND mk2.kubun_value = ytm.bed_service_2 AND mk2.kubun_type = '017')
-			    ) ";
+			    ) ";*/ // Remove Thanhtv 20191230
         }
 
         $data_sql = [
@@ -1742,7 +1743,7 @@ class BookingController extends Controller
                     END AS service_time_1
                 , CASE
                     WHEN ty.course = '01' OR ty.course = '04' THEN tydj.service_time_2
-                    WHEN  ty.course = '03' THEN ty.service_time_1 + '0100' - '0001'
+                    -- WHEN  ty.course = '03' THEN ty.service_time_1 + '0100' - '0001' Remove Thanhtv 20191230
                     ELSE ty.service_time_2
                     END AS service_time_2
 
