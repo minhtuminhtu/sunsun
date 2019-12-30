@@ -548,8 +548,8 @@ $(function() {
             $('.time_bed').last().val(bed);
 
         }else{
-            console.log('set time');
-            console.log($('.set-time.edit input.time').parent());
+            // console.log('set time');
+            // console.log($('.set-time.edit input.time').parent());
             $('.set-time.edit input.time').val(time);
             $('.set-time.edit input.time').parent().find('.time_value').val(time_value);
             $('.set-time.edit input.time').parent().find('.time_bed').val(bed);

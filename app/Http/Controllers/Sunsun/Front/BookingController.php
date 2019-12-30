@@ -40,18 +40,46 @@ class BookingController extends Controller
 
     public function add_new_booking(Request $request) {
         $data = $request->all();
+        // dd($data);
         if (isset($data['transport'])) {
             $this->save_session($request, $data);
         }
+        
+        
         return ['status'=> 'OK'];
     }
 
     public function save_booking(Request $request) {
-        $error = $this->validate_booking($request->all());
+        $data = $request->all();
+        // dd($data);
+
+        $error = $this->validate_booking($data);
         if (count($error) > 0) {
             return $error;
         }
-        $this->save_session($request, $request->all());
+
+        $this->save_session($request, $data);
+
+        $data['fake_booking'] = true;
+        $data['time_room_bed'] = 2;
+
+        $temp1 = json_decode($data['time'][0]['json'], true);
+        $temp1['kubun_id_room'] = '02';
+        $temp1['kubun_value_room'] = '2';
+        $data['time'][0]['json'] = json_encode($temp1);
+
+        $this->save_session($request, $data);
+
+        $data['fake_booking'] = true;
+        $data['time_room_bed'] = 3;
+
+        $temp2 = json_decode($data['time'][0]['json'], true);
+        $temp2['kubun_id_room'] = '03';
+        $temp2['kubun_value_room'] = '3';
+        $data['time'][0]['json'] = json_encode($temp2);
+
+        $this->save_session($request, $data);
+        // Log::debug($this->get_booking($request));
         return ['status'=> 'OK'];
     }
 
@@ -304,6 +332,7 @@ class BookingController extends Controller
         if ($request->session()->exists($this->session_info)) {
             $info_customer = $request->session()->get($this->session_info);
         } else {
+            
             $info_customer['transport'] =  $data['transport'];
             if ($data['transport'] !== config('booking.transport.options.car')) {
                 $info_customer['bus_arrive_time_slide'] = $data['bus_arrive_time_slide'];
@@ -331,7 +360,8 @@ class BookingController extends Controller
             }
         }
 
-        $info_customer['info'][time()] = $data;
+        $uuid = \Str::uuid();
+        $info_customer['info']["$uuid"] = $data;
         $request->session()->put($this->session_info,$info_customer);
     }
 
@@ -1422,8 +1452,9 @@ class BookingController extends Controller
         $this->get_validate_time_choice ($course, $data, $data_get_attr, $validate_time, $day_book_time);
         $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
         $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate);
+        $data_time['course'] = $course['kubun_id'];
 
-
+        // dd($data_time);
         return view('sunsun.front.parts.booking_time',$data_time)->render();
     }
 
