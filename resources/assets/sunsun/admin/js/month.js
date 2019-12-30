@@ -1,5 +1,5 @@
 $(function () {
-    let main_head__top = $('.main-head__top');
+    let main_head__top = $('.main-head');
     let current_day = $('#input-current__monthly');
     let date_day = current_day.datepicker({
         language: 'ja',
