@@ -736,7 +736,7 @@ class BookingController extends Controller
                 }
                 $result = $this->call_payment_api($data, $return_booking_id);
                 DB::commit();
-                
+
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
@@ -1689,6 +1689,7 @@ class BookingController extends Controller
                     $sql_range
                     $sql_validate_ss
                     WHEN ytm.course IS NULL $sql_bus $sql_time_path THEN 1
+                    -- WHEN ytm.course = '03' AND ytm.service_time_2 = mk1.notes THEN 1 -- course 03 lost 2 time 
                     ELSE 0
                     END as status_time_validate
         ";
@@ -1704,7 +1705,7 @@ class BookingController extends Controller
                     OR (mk1.notes = ytm.service_time_2 AND mk2.kubun_value = ytm.bed_service_2 )
                     OR (
                             ytm.course = '03' AND mk2.kubun_type = '017' AND mk2.kubun_value = ytm.bed_service_2
-                            AND mk1.notes >= ytm.service_time_1 AND mk1.notes <= ytm.service_time_2
+                            AND mk1.notes >= ytm.service_time_1 AND mk1.notes < ytm.service_time_2
                        )
                     $sql_join_on
         ";
@@ -1741,7 +1742,7 @@ class BookingController extends Controller
                     END AS service_time_1
                 , CASE
                     WHEN ty.course = '01' OR ty.course = '04' THEN tydj.service_time_2
-                    WHEN  ty.course = '03' THEN ty.service_time_1 + '0100'
+                    WHEN  ty.course = '03' THEN ty.service_time_1 + '0100' - '0001'
                     ELSE ty.service_time_2
                     END AS service_time_2
 
@@ -1983,31 +1984,39 @@ class BookingController extends Controller
             $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
 
         }
+        if ($repeat_user['kubun_id'] = '01') { // first time bath
+            $time_wait_bath = 45;
+        } else {
+            $time_wait_bath = 30;
+        }
         //dd($whitening_repeat);
-        if ($whitening_repeat == '1') {
+        if ($whitening_repeat == '0') {
             $time_wait = 15;
         } else {
             $time_wait = 30;
         }
+
         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
             foreach ($data['time'] as $key => $time_book) {
                 if ($time_book['value'] != '0') {
                     $validate_time[$key]['max'] = $this->plus_time_string($time_book['value'], 120 + $time_wait); // 120p tắm bt + time wait
-                    $validate_time[$key]['min'] = $this->minus_time_string($time_book['value'], 30 + $time_wait); // 30p tắm trang + time wait
+                    $validate_time[$key]['min'] = $this->minus_time_string($time_book['value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
                 }
             }
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
-            if ($data_get_attr['date_type'] == 'shower_1' && $data['time2-value'] != '0') {
-                $validate_time['1_DAY_REFRESH']['max'] = $this->plus_time_string($data['time2-value'], 120 + $time_wait); // 120p tắm bt + time wait
-                $validate_time['1_DAY_REFRESH']['min'] = $this->minus_time_string($data['time2-value'], 30 + $time_wait); // 30p tắm trang + time wait
-            } else if ($data_get_attr['date_type'] == 'shower_2' && $data['time1-value'] != '0') {
-                $validate_time['1_DAY_REFRESH']['max'] = $this->plus_time_string($data['time1-value'], 120 + $time_wait); // 120p tắm bt + time wait
-                $validate_time['1_DAY_REFRESH']['min'] = $this->minus_time_string($data['time1-value'], 30 + $time_wait); // 30p tắm trang + time wait
+            //dd($data['time1-value']);
+            if ($data['time2-value'] != '0') {
+                $validate_time['1_DAY_REFRESH_1']['max'] = $this->plus_time_string($data['time2-value'], 120 + $time_wait); // 120p tắm bt + time wait
+                $validate_time['1_DAY_REFRESH_1']['min'] = $this->minus_time_string($data['time2-value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
+            }
+            if ($data['time1-value'] != '0') {
+                $validate_time['1_DAY_REFRESH_2']['max'] = $this->plus_time_string($data['time1-value'], 120 + $time_wait); // 120p tắm bt + time wait
+                $validate_time['1_DAY_REFRESH_2']['min'] = $this->minus_time_string($data['time1-value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
             }
             //dd($data);
         }  else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) { // All room
             $validate_time['BOTH_ALL_ROOM']['max'] = $this->plus_time_string($data['time_room_value'], 120 + $time_wait); // 120p tắm bt + time wait
-            $validate_time['BOTH_ALL_ROOM']['min'] = $this->minus_time_string($data['time_room_value'], 30 + $time_wait); // 30p tắm trang + time wait
+            $validate_time['BOTH_ALL_ROOM']['min'] = $this->minus_time_string($data['time_room_value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
 
         }
         // check time bus

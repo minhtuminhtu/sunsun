@@ -31,6 +31,7 @@
 @endsection
 @section('script')
     <script src="{{mix('js/app.js')}}"></script>
+    <script src="{{asset('sunsun/lib/jquery-3.4.1/jquery-ui.min.js')}}"></script>
     <script>
         $.ajaxSetup({
             headers: {
