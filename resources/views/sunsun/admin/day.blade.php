@@ -8,6 +8,7 @@
     
 @endsection
 @section('main')
+    @include('sunsun.front.parts.booking_modal')
     <main>
         <div class="container">
         </div>
@@ -520,7 +521,7 @@
         </div>
     </div>
 @endsection
-@include('sunsun.front.parts.booking_modal')
+
 @section('script')
     @parent
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
@@ -562,4 +563,5 @@
 
 
 @endsection
+
 

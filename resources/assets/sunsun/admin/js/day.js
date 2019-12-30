@@ -18,26 +18,26 @@ $(function () {
     $('#button-current__date').on('click', function(e) {
         $('#input-current__date').focus();
     });
-    current_day.on('input change','input',function (e) {
+    current_day.on('input change',function (e) {
         let date = $(this).val().split('/').join('');
         window.location.href = $curent_url+"?date="+date;
     });
-    if (current_day.find('input').val() === '') {
+    if (current_day.val() === '') {
         date_day.datepicker("setDate", new Date());
-        current_day.find('input').trigger("input");
+        current_day.trigger("input");
     }
 
     main_head__top.on('click','.prev-date',function (e) {
         var date = date_day.datepicker('getDate');
         date.setTime(date.getTime() - (1000*60*60*24));
         date_day.datepicker("setDate", date);
-        current_day.find('input').trigger("input");
+        current_day.trigger("input");
     });
     main_head__top.on('click','.next-date',function (e) {
         var date = date_day.datepicker('getDate');
         date.setTime(date.getTime() + (1000*60*60*24));
         date_day.datepicker("setDate", date);
-        current_day.find('input').trigger("input");
+        current_day.trigger("input");
     });
 
     let booking_edit = $('#edit_booking');
