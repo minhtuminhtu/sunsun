@@ -798,8 +798,18 @@ class BookingController extends Controller
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
                     }else{
-                        $return_booking_id = $booking_id;
-                        $Yoyaku->booking_id = $booking_id;
+                        Log::debug('avc');
+                        Log::debug($customer);
+                        if(isset($customer['fake_booking'])){
+                            $return_booking_id = $booking_id;
+                            $Yoyaku->booking_id = $booking_id;
+                        }else{
+                            $booking_id = $this->get_booking_id();
+                            $return_booking_id = $booking_id;
+                            $Yoyaku->booking_id = $booking_id;
+                        }
+                        
+                        
                         $Yoyaku->ref_booking_id = $parent_id;
                         Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
