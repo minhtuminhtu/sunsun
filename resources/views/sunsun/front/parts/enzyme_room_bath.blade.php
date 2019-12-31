@@ -1,3 +1,8 @@
+@php
+    if( (!isset($course_data['course'])) || ($course_data['course'] != '03') ){
+        $course_data = NULL;
+    }
+@endphp
 <div class="booking-block">
     <div class="collapse collapse-top show">
         @if(!isset($add_new_user))
