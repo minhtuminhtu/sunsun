@@ -89,11 +89,11 @@ class AdminController extends Controller
                 WHERE 	main.course = '01'  
                 AND main.history_id IS NULL 
                 AND time.service_date = $date
+                AND main.fake_booking_flg IS NULL
                 AND (
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -124,11 +124,11 @@ class AdminController extends Controller
                 WHERE 	main.course = '02' 
                 AND main.history_id IS NULL 
                 AND main.service_date_start = $date
+                AND main.fake_booking_flg IS NULL
                 AND (   
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -159,11 +159,11 @@ class AdminController extends Controller
                 WHERE 	main.course = '02'
                 AND main.history_id IS NULL 
                 AND main.service_date_start = $date
+                AND main.fake_booking_flg IS NULL
                 AND (
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -194,11 +194,11 @@ class AdminController extends Controller
                 WHERE 	main.course = '03'
                 AND main.history_id IS NULL
                 AND main.service_date_start = $date
+                AND main.fake_booking_flg IS NULL
                 AND (
                     main.booking_id = $booking_id
-                    AND main.ref_booking_id = $booking_id
+                    OR main.ref_booking_id = $booking_id
                 )
-                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -231,11 +231,11 @@ class AdminController extends Controller
                 WHERE 	main.course = '04' 
                 AND main.history_id IS NULL
                 AND time.service_date = $date
+                AND main.fake_booking_flg IS NULL
                 AND (
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -268,11 +268,11 @@ class AdminController extends Controller
                 WHERE 	main.course = '04' 
                 AND main.history_id IS NULL
                 AND time.service_date = $date
+                AND main.fake_booking_flg IS NULL
                 AND (
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-                AND main.fake_booking_flg IS NULL
             )
             UNION
             (
@@ -303,25 +303,26 @@ class AdminController extends Controller
                 WHERE 	main.course = '05'
                 AND main.history_id IS NULL 
                 AND main.service_date_start = $date
+                AND main.fake_booking_flg IS NULL
                 AND (
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-                AND main.fake_booking_flg IS NULL
+                
             )
             "); 
         return $expert_data;
     }
     private function get_search($date){
         $all_data = DB::select("
-        SELECT 	main.booking_id,
-                        main.name
+        SELECT 	    main.booking_id,
+                    main.name
         FROM 		tr_yoyaku main
         WHERE		main.history_id IS NULL
         AND			main.name IS NOT NULL
         AND			main.ref_booking_id IS NULL
         AND         main.fake_booking_flg IS NULL
-		AND			main.service_date_start = $date
+        AND			main.service_date_start = $date
         ");
         for($i = 0; $i < count($all_data); $i++){
             Log::debug($all_data[$i]->booking_id);
