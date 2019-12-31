@@ -43,6 +43,7 @@ class CreateTrYoyakuTable extends Migration
             $table->string('whitening',2)->nullable();
             $table->string('whitening_repeat',1)->nullable();
             $table->string('whitening_time',9)->nullable();
+            $table->longText('whitening_time_json')->nullable();
             $table->string('pet_keeping',2)->nullable();
             $table->string('stay_room_type',2)->nullable();
             $table->string('stay_guest_num',2)->nullable();

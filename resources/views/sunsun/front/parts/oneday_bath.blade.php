@@ -63,6 +63,12 @@
                 $bed1 = substr($course_data['bed'], 0, 1);
                 $bed2 = substr($course_data['bed'], 2, 1);
             }
+            
+            if(isset($course_data['time_json'])){
+                $temp_time_json = explode('-', $course_data['time_json']);
+                $time1_json = $temp_time_json[0];
+                $time2_json = $temp_time_json[1];
+            }
         @endphp
 
         <div class="booking-field">
@@ -82,7 +88,7 @@
                     <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
                     <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="{{ isset($bed1)?$bed1:'0' }}">
                     <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="time1-view" value="{{ isset($time1)?$time1:'00:00' }}" data-date_type="shower_1">
-                    <input name="time[0][json]" class="data-json_input" id="time[0][json]"  type="hidden" value="">
+                    <input name="time[0][json]" class="data-json_input" id="time[0][json]"  type="hidden" value="{{ isset($time1_json)?$time1_json:'' }}">
                     <input name="time[0][element]" type="hidden" value="time1-view">
                 </div>
 
@@ -97,7 +103,7 @@
                     <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_2'])?$course_data['service_time_2']:'0' }}">
                     <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="{{ isset($bed2)?$bed2:'0' }}">
                     <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly"  id="time2-view" value="{{ isset($time2)?$time2:'00:00' }}" data-date_type="shower_2">
-                    <input name="time[1][json]" class="data-json_input" id="time[1][json]"  type="hidden" value="">
+                    <input name="time[1][json]" class="data-json_input" id="time[1][json]"  type="hidden" value="{{ isset($time2_json)?$time2_json:'' }}">
                     <input name="time[1][element]" type="hidden" value="time2-view">
                 </div>
 
@@ -149,7 +155,7 @@
                         @if(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 1))
                             <option selected value='1'>はじめて</option>
                             <option value='0'>リピート</option>
-                        @elseif(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 1))
+                        @elseif(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 0))
                             <option value='1'>はじめて</option>
                             <option selected value='0'>リピート</option>
                         @else
@@ -168,7 +174,7 @@
                     <div class="timedate-block set-time">
                         <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
                         <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
-                        <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="">
+                        <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="{{ isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:''  }}">
                         <input name="whitening_data[element]" type="hidden" value="whitening-time_view">
                     </div>
                 </div>

@@ -146,10 +146,9 @@ $(function () {
                         allowOutsideClick: false
                     })
                 }else{
-
+                    $('#edit_booking').modal('hide');
+                    window.location.reload();
                 }
-                // $('#edit_booking').modal('hide');
-                // window.location.reload();
             },
             complete: function () {
                 loader.css({'display': 'none'});

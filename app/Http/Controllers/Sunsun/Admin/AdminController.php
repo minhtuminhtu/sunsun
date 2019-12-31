@@ -922,7 +922,7 @@ class AdminController extends Controller
             // $booking->fetch_kubun_data($data);
             // $data['data_booking'] = Yoyaku::where('booking_id', $data['booking_id'])->first();
             $data['data_time'] = YoyakuDanjikiJikan::where('booking_id', $data['booking_id'])->get();
-            $history_booking = Yoyaku::where('history_id', $data['booking_id'])->orderBy('booking_id', 'DESC')->get();
+            $history_booking = Yoyaku::where('history_id', $data['booking_id'])->whereNull('fake_booking_flg')->orderBy('booking_id', 'DESC')->get();
 
 
             $history_booking = collect($history_booking);
@@ -1033,10 +1033,65 @@ class AdminController extends Controller
             return view('sunsun.admin.parts.history',$data)->render();
         }
 
+    private function add_fake_course(&$customer_info, $data){
+        $course = json_decode($data['course'], true);
+        if($course['kubun_id'] == '03'){
+            $data['fake_booking'] = 1;
+            $temp_json = json_decode($data['time'][0]['json'], true);
+            // 2 ô trống đầu tiên
+            $data['time_room_bed'] = 2;
+            $temp_json['kubun_id_room'] = '02';
+            $temp_json['kubun_value_room'] = '2';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            array_push($customer_info, $data);
+
+            $data['time_room_bed'] = 3;
+            $temp_json['kubun_id_room'] = '03';
+            $temp_json['kubun_value_room'] = '3';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            array_push($customer_info, $data);
+
+            // 3 ô trống phía dưới
+            if($temp_json['notes'] == '0945'){
+                $temp_json['notes'] = '1015';
+                $data['time_room_value'] = '1015';
+            }else if($temp_json['notes'] == '1315'){
+                $temp_json['notes'] = '1345';
+                $data['time_room_value'] = '1345';
+            }else if($temp_json['notes'] == '1515'){
+                $temp_json['notes'] = '1545';
+                $data['time_room_value'] = '1545';
+            }
+
+            $data['time_room_bed'] = 1;
+            $temp_json['kubun_id_room'] = '01';
+            $temp_json['kubun_value_room'] = '1';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            array_push($customer_info, $data);
+
+            $data['time_room_bed'] = 2;
+            $temp_json['kubun_id_room'] = '02';
+            $temp_json['kubun_value_room'] = '2';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            array_push($customer_info, $data);
+
+            $data['time_room_bed'] = 3;
+            $temp_json['kubun_id_room'] = '03';
+            $temp_json['kubun_value_room'] = '3';
+            $data['time'][0]['json'] = json_encode($temp_json);
+
+            array_push($customer_info, $data);
+        }
+    }
     public function update_booking (Request $request){
         $data = $request->all();
         $data['customer'] = $data;
         $data['customer']['info'] = ['0' => $data];
+        $this->add_fake_course($data['customer']['info'], $data);
 
         $booking = new BookingController();
 
@@ -1056,7 +1111,11 @@ class AdminController extends Controller
         }
         
         $booking->update_or_new_booking($data);
-
+        return [
+            'status' => true,
+            'type' => 'update',
+            'message' => null
+        ];
         
     }
 

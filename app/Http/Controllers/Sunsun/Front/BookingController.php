@@ -298,10 +298,7 @@ class BookingController extends Controller
             && isset($error['error_time_empty']) == false) {
             $error = [];
         }
-
-
         return $error;
-
     }
 
 
@@ -733,14 +730,19 @@ class BookingController extends Controller
         return $error;
     }
 
-
     public function update_or_new_booking($data){
         $result = [];
         //Update
         if(isset($data['booking_id'])){
-            $booking_id = $this->new_booking($data);
-            Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
-            Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
+            try{
+                $booking_id = $this->get_booking_id();
+                Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
+                Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
+                $this->new_booking($data, $booking_id, true);
+            } catch (\Exception $failed) {
+                Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => null]);
+                Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => null]);
+            }
 
         //New
         }else{
@@ -762,14 +764,14 @@ class BookingController extends Controller
         return  $result;
     }
 
-    private function new_booking($data){
+    private function new_booking($data, $booking_id = null, $is_update = false){
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
         $result = [];
         $return_booking_id = null;
         $email = null;
-        DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
+        DB::unprepared("LOCK TABLE tr_yoyaku READ, tr_yoyaku_danjiki_jikan READ");
         try{
             // Log::debug($data);
             $email = trim($data['email']);
@@ -780,8 +782,12 @@ class BookingController extends Controller
             try {
                 foreach($data['customer']['info'] as $customer){
                     $Yoyaku = new Yoyaku;
+                    if($booking_id == null){
+                        $booking_id = $this->get_booking_id();
+                    }
                     if($parent){
-                        $parent_id = $Yoyaku->booking_id = $this->get_booking_id();
+                        $parent_id = $booking_id;
+                        $Yoyaku->booking_id = $booking_id;
                         $return_booking_id = $parent_id;
                         $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
@@ -792,8 +798,8 @@ class BookingController extends Controller
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
                     }else{
-                        $booking_id = $Yoyaku->booking_id = $this->get_booking_id();
                         $return_booking_id = $booking_id;
+                        $Yoyaku->booking_id = $booking_id;
                         $Yoyaku->ref_booking_id = $parent_id;
                         Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
@@ -802,7 +808,9 @@ class BookingController extends Controller
                     }
                     $Yoyaku->save();
                 }
-                $result = $this->call_payment_api($data, $return_booking_id);
+                if(!$is_update){
+                    $result = $this->call_payment_api($data, $return_booking_id);
+                }
                 DB::commit();
 
             } catch (\Exception $e1) {
@@ -821,11 +829,11 @@ class BookingController extends Controller
     }
 
     private function send_email($booking_id, $email){
-        Log::debug('sendding to' . $email . ' booking_id ' . $booking_id);
+    //     Log::debug('sendding to' . $email . ' booking_id ' . $booking_id);
         \Mail::send('sunsun.mails.bill', array('booking_id'=>"$booking_id"), function($message) use ($booking_id, $email){
             $message->to($email)->subject('Sun-sun33 - Reservation #' . $booking_id);
         });
-        Log::debug('sent to' . $email . ' booking_id ' . $booking_id);
+        // Log::debug('sent to' . $email . ' booking_id ' . $booking_id);
     }
 
     private function add_column_null($booking_id){
@@ -882,6 +890,7 @@ class BookingController extends Controller
         }
         return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
     }
+
     private function exec_tran($accessID, $accessPass, $booking_id, $token){
         $headers = array(
             'Connection' => 'keep-alive',
@@ -930,6 +939,7 @@ class BookingController extends Controller
                 $YoyakuDanjikiJikan->service_date = $parent_date;
                 $YoyakuDanjikiJikan->service_time_1 = $time['value'];
                 $YoyakuDanjikiJikan->notes = $time['bed'];
+
                 $YoyakuDanjikiJikan->time_json = $time['json'];
 
                 $YoyakuDanjikiJikan->save();
@@ -938,7 +948,7 @@ class BookingController extends Controller
             $plan_date_start = isset($customer['plan_date_start-value'])?$customer['plan_date_start-value']:"";
             $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
             $gender = json_decode($customer['gender']);
-            foreach($customer['date'] as $date){
+            foreach($customer['date'] as $index => $date){
                 Log::debug('course 4', $customer);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['from']['value'], $date['from']['bed']);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['to']['value'], $date['to']['bed']);
@@ -949,7 +959,8 @@ class BookingController extends Controller
                 $YoyakuDanjikiJikan->service_time_1 = $date['from']['value'];
                 $YoyakuDanjikiJikan->service_time_2 = $date['to']['value'];
                 $YoyakuDanjikiJikan->notes = $date['from']['bed'] . "-" . $date['to']['bed'];
-//                $YoyakuDanjikiJikan->time_json = $time['json'];
+
+                $YoyakuDanjikiJikan->time_json = $customer['time'][$index]['from']['json'] . "-" . $customer['time'][$index]['to']['json'];
 
                 $YoyakuDanjikiJikan->save();
             }
@@ -1042,10 +1053,6 @@ class BookingController extends Controller
         }
     }
 
-
-
-
-
     private function set_booking_course(&$Yoyaku, $data, $customer,$parent, $parent_date){
         //General payment
         $Yoyaku->name = isset($data['name'])?$data['name']:null;
@@ -1082,7 +1089,6 @@ class BookingController extends Controller
             $this->set_course_5($parent, $parent_date, $customer, $Yoyaku);
         }
     }
-
 
     private function validate_stay_room($room_type, $checkin, $checkout){
         Log::debug($room_type);
@@ -1144,6 +1150,10 @@ class BookingController extends Controller
 
         $date = isset($customer['date-value'])?$customer['date-value']:"";
         $bed = isset($customer['bed'])?$customer['bed']:"";
+
+
+        $whitening_time_json = $customer['whitening_data']['json'];
+        $Yoyaku->whitening_time_json = $whitening_time_json;
 
 
         $Yoyaku->gender = $gender->kubun_id;
@@ -1210,7 +1220,17 @@ class BookingController extends Controller
         $bed1 = isset($customer['time1-bed'])?$customer['time1-bed']:"";
         $bed2 = isset($customer['time2-bed'])?$customer['time2-bed']:"";
 
+        $whitening_time_json = $customer['whitening_data']['json'];
+        $Yoyaku->whitening_time_json = $whitening_time_json;
 
+        //Time Json
+        $time0_json = isset($customer['time'][0]['json'])?$customer['time'][0]['json']:"";
+        $time1_json = isset($customer['time'][1]['json'])?$customer['time'][1]['json']:"";
+        $time_json = $time0_json . "-" . $time1_json;
+        // Log::debug('course 2 debug');
+        // Log::debug($customer);
+        
+        $Yoyaku->time_json = $time_json;
 
         $Yoyaku->gender = $gender->kubun_id;
         $Yoyaku->age_value = $age_value;
@@ -1253,7 +1273,7 @@ class BookingController extends Controller
 
     private function set_course_3($parent, $parent_date, $customer, &$Yoyaku){
         //Fake booking
-        $fake_booking_flg = isset($customer['fake_booking'])?$customer['fake_booking']:"";
+        $fake_booking_flg = isset($customer['fake_booking'])?$customer['fake_booking']:NULL;
         //Basic
         $date = isset($customer['date-value'])?$customer['date-value']:"";
         $time = isset($customer['time_room_value'])?$customer['time_room_value']:"";
@@ -1271,6 +1291,14 @@ class BookingController extends Controller
         $stay_checkin_date = isset($customer['range_date_start-value'])?$customer['range_date_start-value']:"";
         $stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
         $breakfast = isset($customer['breakfast'])?json_decode($customer['breakfast']):"";
+
+        $whitening_time_json = $customer['whitening_data']['json'];
+        $Yoyaku->whitening_time_json = $whitening_time_json;
+
+        //Time Json
+        $time_json = isset($customer['time'][0]['json'])?$customer['time'][0]['json']:"";
+        
+        $Yoyaku->time_json = $time_json;
 
         $Yoyaku->fake_booking_flg = $fake_booking_flg;
         $Yoyaku->service_time_1 = $time;
@@ -1352,6 +1380,11 @@ class BookingController extends Controller
         $time2 = isset($customer['time_room_time2'])?$customer['time_room_time2']:"";
         $service_pet_num = isset($customer['service_pet_num'])?json_decode($customer['service_pet_num']):"";
         $notes = isset($customer['notes'])?$customer['notes']:"";
+
+        //Time Json
+        $time_json = isset($customer['time'][0]['json'])?$customer['time'][0]['json']:"";
+        
+        $Yoyaku->time_json = $time_json;
 
         $Yoyaku->service_time_1 = $time1;
         $Yoyaku->service_time_2 = $time2;
@@ -1805,7 +1838,6 @@ class BookingController extends Controller
         return $time_request;
     }
 
-
     public function sql_get_booking_yoyaku ($sql_where = "") {
         return "
             SELECT
@@ -1857,7 +1889,8 @@ class BookingController extends Controller
 			        ( (ty.course = '01' OR ty.course = '04')  AND tydj.service_date = ':date_booking' )
 				    OR (ty.service_date_start =  ':date_booking' )
 				    OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' )
-			    )
+                )
+            AND ty.history_id IS NULL
         ";
     }
 

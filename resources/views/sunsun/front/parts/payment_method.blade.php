@@ -9,10 +9,8 @@
         {{
             isset($data_booking->payment_method)?(($data_booking->payment_method == 1)?'checked':''):''
         }}
-        @if(isset($new) && (!$new))
-          disabled
-        @else
-          checked
+        @if(!isset($new) || ($new != '0'))
+            checked
         @endif
         />
         <label class="custom-control-label" for="credit-card">クレジットカード</label>

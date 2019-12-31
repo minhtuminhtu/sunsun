@@ -112,6 +112,13 @@
                         $time_end = substr($time['service_time_2'], 0, 2) . ":" . substr($time['service_time_2'], 2, 2);
                         $bed_start = substr($time['notes'], 0, 1);
                         $bed_end = substr($time['notes'], 2, 3);
+
+
+                        if(isset($time['time_json'])){
+                            $temp_time_json = explode('-', $time['time_json']);
+                            $time1_json = $temp_time_json[0];
+                            $time2_json = $temp_time_json[1];
+                        }
                     @endphp
                     <div class="booking-field choice-time">
                         <input value="0" class="time_index" type="hidden">
@@ -126,7 +133,7 @@
                                     <input name="date[{{ $i }}][from][value]" type="hidden" class="time_from time_value" readonly="readonly" value="{{ isset($time['service_time_1'])?$time['service_time_1']:'0' }}" />
                                     <input name="date[{{ $i }}][from][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_start)?$bed_start:'0' }}" />
                                     <input name="date[{{ $i }}][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly" value="{{ isset($time_start)?$time_start:'00:00' }}" />
-                                    <input name="time[{{ $i }}][from][json]" type="hidden" class="data-json_input" value="" />
+                                    <input name="time[{{ $i }}][from][json]" type="hidden" class="data-json_input" value="{{ isset($time1_json)?$time1_json:'' }}" />
                                     <input name="time[{{ $i }}][from][element]" type="hidden" value="time_bath_10" />
                                 </div>
                                 <div class="icon-time mt-1">
@@ -137,7 +144,7 @@
                                     <input name="date[{{ $i }}][to][value]" type="hidden" class="time_to time_value" readonly="readonly" value="{{ isset($time['service_time_2'])?$time['service_time_2']:'0' }}" />
                                     <input name="date[{{ $i }}][to][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_end)?$bed_end:'0' }}" />
                                     <input name="date[{{ $i }}][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to" readonly="readonly" value="{{ isset($time_end)?$time_end:'00:00' }}" />
-                                    <input name="time[{{ $i }}][to][json]" type="hidden" class="data-json_input" value="" />
+                                    <input name="time[{{ $i }}][to][json]" type="hidden" class="data-json_input" value="{{ isset($time2_json)?$time1_json:'' }}" />
                                     <input name="time[{{ $i }}][to][element]" type="hidden" value="time_bath_11" />
                                 </div>
                                 <div class="icon-time mt-1"></div>
