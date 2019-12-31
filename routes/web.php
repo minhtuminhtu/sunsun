@@ -144,7 +144,7 @@ Route::get('/null_clear', function () {
  });
 
 
-Route::middleware('auth')->group(function(){
+Route::middleware('begin.auth')->group(function(){
     Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
