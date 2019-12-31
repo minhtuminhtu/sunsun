@@ -144,7 +144,7 @@ Route::get('/null_clear', function () {
  });
 
 
-/*Route::middleware('auth')->group(function(){*/
+Route::middleware('auth')->group(function(){
     Route::middleware('auth')->namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
@@ -215,7 +215,7 @@ Route::get('/null_clear', function () {
         Route::post('/show_history',['as' => '.show_history', 'uses' => 'AdminController@show_history']);
         Route::post('/update_booking',['as' => '.update_booking', 'uses' => 'AdminController@update_booking']);
     });
-/*});*/
+});
 
 
 
