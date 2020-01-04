@@ -13,8 +13,6 @@ a:hover {
     .title-table-time {
         text-align: center;
     }
-    .modal-footer {
-    }
 }
 .title-table-time {
     background-image: url('/sunsun/imgs/bg.png');
@@ -211,9 +209,6 @@ a.no-effect{
     100% {
         height:auto;
     }
-}
-.form {
-
 }
 .form input, form select {
     width: 100%;
@@ -807,4 +802,7 @@ td.time-td {
     display: flex;
     align-items: center;
     margin-left: 10px;
+}
+.validate_failed{
+    border: solid 1px #f50000 !important;
 }

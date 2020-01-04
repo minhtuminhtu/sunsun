@@ -50,6 +50,12 @@ class BookingController extends Controller
         return ['status'=> 'OK'];
     }
 
+    public function validate_before_booking(Request $request){
+        $data = $request->all();
+        $error = $this->validate_booking($data);
+        return $error;
+    }
+
     public function save_booking(Request $request) {
         $data = $request->all();
         // dd($data);
@@ -413,6 +419,12 @@ class BookingController extends Controller
     public function payment(Request $request){
         $data = $request->all();
         $data['customer'] = $this->get_booking($request);
+        if(\Auth::check()){
+            $data['auth_username'] = \Auth::user()->username;
+            $data['auth_email'] = \Auth::user()->email;
+            $data['auth_tel'] = \Auth::user()->tel;
+        }
+
         if($data['customer'] == null) {
             return redirect("/booking");
         }
@@ -1246,7 +1258,7 @@ class BookingController extends Controller
         $Yoyaku->age_value = $age_value;
         $Yoyaku->service_time_1 = $time1;
         $Yoyaku->service_time_2 = $time2;
-        $Yoyaku->bed = $bed1 . "-" .  $bed2;
+        $Yoyaku->bed = $bed1 . "-" . $bed2;
         $Yoyaku->whitening = $whitening->kubun_id;
         if($whitening->kubun_id == '02'){
             $whitening_time = isset($customer['whitening-time_value'])?$customer['whitening-time_value']:"";
@@ -1680,12 +1692,12 @@ class BookingController extends Controller
              *  time book all room block 2 time continually so if time after time all room can book is not empty
              * => can not book this time
              */
-            /*
+         
             $sql_join_on .= "
             OR  (
                     (  ytm.service_time_1 < (mk1.notes + '0100')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1 AND mk2.kubun_type = '017')
                     OR ( ytm.service_time_2  < (mk1.notes + '0100') AND ytm.service_time_2 >= mk1.notes AND mk2.kubun_value = ytm.bed_service_2 AND mk2.kubun_type = '017')
-			    ) ";*/ // Remove Thanhtv 20191230
+			    ) ";
         }
 
         $data_sql = [
@@ -1741,7 +1753,6 @@ class BookingController extends Controller
                 } else {
                     $sql_time_path .= " AND ( mk1.notes >= '$time_max' OR mk1.notes <= '$time_min') ";
                 }
-
             }
         }
 
@@ -1845,9 +1856,40 @@ class BookingController extends Controller
         $time_request = DB::select($sql, $data_sql);
         //$queries = DB::getQueryLog();
         //dd($queries);
+        if ($time_kubun_type == config('const.db.kubun_type_value.TIME_BOOK_ROOM'))  { // 014
+            $time_request = $this->fix_3_bed_to_1($time_request);
+        }
         return $time_request;
+
     }
 
+
+    private function fix_3_bed_to_1(&$time_request){
+        $time_temp = [];
+        $check_i = 1;
+        foreach($time_request as $time){
+            if(($time->notes == '0945') || ($time->notes == '1315') || ($time->notes == '1515')){
+
+                Log::debug('noran');
+                // Log::debug($time);
+                if($check_i == 1){
+                    $time_temp['0945'] = $time;
+                    $check_i++;
+                }else if($check_i == 2){
+                    $time_temp['1315'] = $time;
+                    $check_i++;
+                }else if($check_i == 3){
+                    $time_temp['1515'] = $time;
+                    $check_i++;
+                }else{
+                    if($time->status_time_validate == 0){
+                        $time_temp["$time->notes"]->status_time_validate = 0;
+                    }
+                }
+            }
+        }
+        return $time_temp;
+    }
     public function sql_get_booking_yoyaku ($sql_where = "") {
         return "
             SELECT

@@ -175,14 +175,15 @@ Route::middleware('begin.auth')->group(function(){
         Route::post('/book_time_room_wt',['as' => '.book_time_room_wt', 'uses' => 'BookingController@book_time_room_wt']);
         Route::post('/book_time_room_pet',['as' => '.book_time_room_pet', 'uses' => 'BookingController@book_time_room_pet']);
         Route::post('/add_new_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@add_new_booking']);
+        Route::post('/validate_before_booking',['as' => '.validate_before_booking', 'uses' => 'BookingController@validate_before_booking']);
         Route::post('/save_booking',['as' => '.add_new_booking', 'uses' => 'BookingController@save_booking']);
 
     });
 
     // Auth
     Route::namespace('Sunsun\Auth')->group(function (){
-        Route::middleware('begin.auth')->get('/register', ['as' => 'register',  'uses' => 'MsUserController@register']);
-        Route::middleware('begin.auth')->get('/login', ['as' => 'login',  'uses' => 'LoginController@showLoginForm']);
+        Route::get('/register', ['as' => 'register',  'uses' => 'MsUserController@register']);
+        Route::get('/login', ['as' => 'login',  'uses' => 'LoginController@showLoginForm']);
         Route::get('/admin/login', ['as' => 'admin-login',  'uses' => 'LoginController@showLoginForm']);
         Route::post('/login', ['as' => 'auth', 'uses' => 'LoginController@login']);
         Route::post('/login-admin', ['as' => 'auth-admin', 'uses' => 'AdminLoginController@login']);

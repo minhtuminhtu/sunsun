@@ -9,7 +9,6 @@ $(function() {
     }
     var tomorrow = moment(today).add(1, 'days');
 
-    load_once_time();
 
 
     let get_service = function(course, course_data, course_time) {
@@ -585,9 +584,84 @@ $(function() {
         modal_time_hidden();
     })
 
+    $('li.dropdown-item').off('click');
+    $('li.dropdown-item').on('click', function() {
+        $('li.dropdown-item').removeClass('active');
+        $(this).addClass('active');
+        $('#bus_arrive_time_slide').val($(this).find('.bus_arrive_time_slide').val());
+        $("#bus_time_first").text($(this).find(".bus_time_first").text());
+        $("#bus_time_second").text($(this).find(".bus_time_second").text());
+        let btn_click = $(this);
+        $.ajax({
+            url: $site_url +'/validate_before_booking',
+            type: 'POST',
+            data: $('form.booking').serializeArray(),
+            dataType: 'JSON',
+            beforeSend: function () {
+                loader.css({'display': 'block'});
+            },
+            success: function (json) {
+                console.log(json);
+                make_color_input_error(json , false);
+            },
+            complete: function () {
+                loader.css({'display': 'none'});
+            },
+        });
+    });
 
+    $('#repeat_user').off('change');
+    $('#repeat_user').on('change', function(e) {
+        let btn_click = $(this);
+        $.ajax({
+            url: $site_url +'/validate_before_booking',
+            type: 'POST',
+            data: $('form.booking').serializeArray(),
+            dataType: 'JSON',
+            beforeSend: function () {
+                loader.css({'display': 'block'});
+            },
+            success: function (json) {
+                console.log(json);
+                make_color_input_error(json , false);
+            },
+            complete: function () {
+                loader.css({'display': 'none'});
+            },
+        });
+    });
 
-    $('.btn-booking').click(function (e) {
+    
+    
+    $('#transport').off('change');
+    $('#transport').on('change', function(e) {
+        var transport =  JSON.parse($('#transport').val());
+        if(transport.kubun_id == '01'){
+            $('.bus').hide();
+        }else{
+            $('.bus').show();
+        }
+        let btn_click = $(this);
+        $.ajax({
+            url: $site_url +'/validate_before_booking',
+            type: 'POST',
+            data: $('form.booking').serializeArray(),
+            dataType: 'JSON',
+            beforeSend: function () {
+                loader.css({'display': 'block'});
+            },
+            success: function (json) {
+                console.log(json);
+                make_color_input_error(json , false);
+            },
+            complete: function () {
+                loader.css({'display': 'none'});
+            },
+        });
+    });
+
+    $('.btn-booking').off('click');
+    $('.btn-booking').on('click', function(e) {
         e.preventDefault();
         let btn_click = $(this);
         $.ajax({
@@ -617,21 +691,22 @@ $(function() {
         });
     });
 
-    let make_color_input_error = (json) => {
+    let make_color_input_error = (json, type = true) => {
         $('p.note-error').remove();
-        if (typeof json.clear_border_red !== "undefined" ) {
-            $.each(json.clear_border_red, function (index, item) {
-                $('#'+item.element).css({'border': 'solid 1px #ced4da'});
-                $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
-                $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
-            })
-        }
+        // if (typeof json.clear_border_red !== "undefined" ) {
+        //     $.each(json.clear_border_red, function (index, item) {
+        //         $('#'+item.element).css({'border': 'solid 1px #ced4da'});
+        //         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
+        //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
+        //     })
+        // }
 
-        if ((typeof json.error_time_transport !== "undefined" )
+        $('.validate_failed').removeClass('validate_failed');
+        if (((typeof json.error_time_transport !== "undefined" )
             || (typeof json.error_time_gender  !== "undefined")
             || (typeof json.error_time_empty  !== "undefined")
             || (typeof json.room_select_error  !== "undefined")
-        ){
+        ) && (type)){
             Swal.fire({
                 icon: 'warning',
                 text: '入力した情報を再確認してください。',
@@ -651,29 +726,29 @@ $(function() {
         if (typeof json.error_time_transport !== "undefined" ) {
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
-                input_error_transport.css({'border': 'solid 1px #f50000'});
+                input_error_transport.addClass('validate_failed');
                 input_error_transport.parent().after('<p class="note-error node-text"> 予約時間は洲本ICのバスの送迎時間以降にならないといけないのです。</p>');
-                $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #f50000'});
+                $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
             })
         }
         if (typeof json.error_time_gender  !== "undefined") {
             $.each(json.error_time_gender, function (index, item) {
                 let input_error_gender = $('#'+item.element);
-                input_error_gender.css({'border': 'solid 1px #f50000'});
+                input_error_gender.addClass('validate_failed');
                 input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
-                $('select[name=gender]').css({'border': 'solid 1px #f50000'});
+                $('select[name=gender]').addClass('validate_failed');
             })
         }
-        if (typeof json.error_time_empty  !== "undefined") {
+        if ((typeof json.error_time_empty  !== "undefined") && (type)) {
             $.each(json.error_time_empty, function (index, item) {
                 let input_error_required = $('#'+item.element);
-                input_error_required.css({'border': 'solid 1px #f50000'});
+                input_error_required.addClass('validate_failed');
                 input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
             })
         }
         if (typeof json.room_select_error  !== "undefined") {
             $.each(json.room_select_error, function (index, item) {
-                $('#'+item.element).css({'border': 'solid 1px #f50000'});
+                $('#'+item.element).addClass('validate_failed');
             })
             $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
         }
@@ -1063,6 +1138,91 @@ let load_after_ajax = function(){
         });
     });
 
+    $('#gender').off('change');
+    $('#gender').on('change', function(e) {
+        let btn_click = $(this);
+        $.ajax({
+            url: $site_url +'/validate_before_booking',
+            type: 'POST',
+            data: $('form.booking').serializeArray(),
+            dataType: 'JSON',
+            beforeSend: function () {
+                loader.css({'display': 'block'});
+            },
+            success: function (json) {
+                console.log(json);
+                make_color_input_error(json , false);
+            },
+            complete: function () {
+                loader.css({'display': 'none'});
+            },
+        });
+    });
+    let make_color_input_error = (json, type = true) => {
+        $('p.note-error').remove();
+        // if (typeof json.clear_border_red !== "undefined" ) {
+        //     $.each(json.clear_border_red, function (index, item) {
+        //         $('#'+item.element).css({'border': 'solid 1px #ced4da'});
+        //         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
+        //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
+        //     })
+        // }
+
+        $('.validate_failed').removeClass('validate_failed');
+        if (((typeof json.error_time_transport !== "undefined" )
+            || (typeof json.error_time_gender  !== "undefined")
+            || (typeof json.error_time_empty  !== "undefined")
+            || (typeof json.room_select_error  !== "undefined")
+        ) && (type)){
+            Swal.fire({
+                icon: 'warning',
+                text: '入力した情報を再確認してください。',
+                confirmButtonColor: '#d7751e',
+                confirmButtonText: '閉じる',
+                width: 350,
+                showClass: {
+                    popup: 'animated zoomIn faster'
+                },
+                hideClass: {
+                    popup: 'animated zoomOut faster'
+                },
+                allowOutsideClick: false
+            })
+        }
+
+        if (typeof json.error_time_transport !== "undefined" ) {
+            $.each(json.error_time_transport, function (index, item) {
+                let input_error_transport = $('#'+item.element);
+                input_error_transport.addClass('validate_failed');
+                input_error_transport.parent().after('<p class="note-error node-text"> 予約時間は洲本ICのバスの送迎時間以降にならないといけないのです。</p>');
+                $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
+            })
+        }
+        if (typeof json.error_time_gender  !== "undefined") {
+            $.each(json.error_time_gender, function (index, item) {
+                let input_error_gender = $('#'+item.element);
+                input_error_gender.addClass('validate_failed');
+                input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
+                $('select[name=gender]').addClass('validate_failed');
+            })
+        }
+        if ((typeof json.error_time_empty  !== "undefined") && (type)) {
+            $.each(json.error_time_empty, function (index, item) {
+                let input_error_required = $('#'+item.element);
+                input_error_required.addClass('validate_failed');
+                input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
+            })
+        }
+        if (typeof json.room_select_error  !== "undefined") {
+            $.each(json.room_select_error, function (index, item) {
+                $('#'+item.element).addClass('validate_failed');
+            })
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
+        }
+
+    };
+
+
     // $('.collapse-top').off('hidden.bs.collapse');
     // $('.collapse-top').on('hidden.bs.collapse', function () {
     //     $('#btn-collapse-top').attr("src","/sunsun/svg/plus.svg");
@@ -1156,25 +1316,6 @@ function get_dates(startDate, stopDate) {
         currentDate = moment(currentDate).add(1, 'days');
     }
     return dateArray;
-}
-let load_once_time = function(){
-    $('#transport').on('change', function() {
-        var transport =  JSON.parse($('#transport').val());
-        if(transport.kubun_id == '01'){
-            $('.bus').hide();
-        }else{
-            $('.bus').show();
-        }
-    });
-
-    $('li.dropdown-item').off('click');
-    $('li.dropdown-item').on('click', function() {
-        $('li.dropdown-item').removeClass('active');
-        $(this).addClass('active');
-        $('#bus_arrive_time_slide').val($(this).find('.bus_arrive_time_slide').val());
-        $("#bus_time_first").text($(this).find(".bus_time_first").text());
-        $("#bus_time_second").text($(this).find(".bus_time_second").text());
-    });
 }
 
 

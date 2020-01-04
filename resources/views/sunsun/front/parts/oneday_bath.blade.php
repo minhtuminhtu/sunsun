@@ -10,7 +10,7 @@
                 <p class="text-left pt-2">{{config('booking.gender.label')}}</p>
             </div>
             <div class="booking-field-content">
-                <select name="gender" class="form-control">
+                <select name="gender" id="gender" class="form-control">
                     @foreach($gender as $value)
                         @if(isset($course_data['gender']) && ($value->kubun_id == $course_data['gender']))
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>

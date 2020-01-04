@@ -7,197 +7,61 @@
     <meta name="format-detection" content="telephone=no">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <style type="text/css">
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-            -webkit-text-size-adjust: 100% !important;
-            -ms-text-size-adjust: 100% !important;
-            -webkit-font-smoothing: antialiased !important;
+		.h3_title {
+			font-size: 14px;
+			font-weight: 500;
+            margin-bottom: 0;
+            margin-left: 30px !important;
+		}
+        .p_title{
+            margin-left: 30px !important;
         }
-        
-        img {
-            border: 0 !important;
-            outline: none !important;
+        .main_title{
+            padding-top: 30px !important;
         }
-        
-        p {
-            margin: 0px !important;
-            padding: 0px !important;
-        }
-        
-        table {
-            border-collapse: collapse;
-            mso-table-lspace: 0px;
-            mso-table-rspace: 0px;
-        }
-        
-        td,
-        a,
-        span {
-            border-collapse: collapse;
-            mso-line-height-rule: exactly;
-        }
-        
-        .ExternalClass * {
-            line-height: 100%;
-        }
-        
-        .em_defaultlink a {
-            color: inherit !important;
-            text-decoration: none !important;
-        }
-        
-        span.MsoHyperlink {
-            mso-style-priority: 99;
-            color: inherit;
-        }
-        
-        span.MsoHyperlinkFollowed {
-            mso-style-priority: 99;
-            color: inherit;
-        }
-        
-        @media only screen and (min-width:481px) and (max-width:699px) {
-            .em_main_table {
-                width: 100% !important;
-            }
-            .em_wrapper {
-                width: 100% !important;
-            }
-            .em_hide {
-                display: none !important;
-            }
-            .em_img {
-                width: 100% !important;
-                height: auto !important;
-            }
-            .em_h20 {
-                height: 20px !important;
-            }
-            .em_padd {
-                padding: 20px 10px !important;
-            }
-        }
-        
-        @media screen and (max-width: 480px) {
-            .em_main_table {
-                width: 100% !important;
-            }
-            .em_wrapper {
-                width: 100% !important;
-            }
-            .em_hide {
-                display: none !important;
-            }
-            .em_img {
-                width: 100% !important;
-                height: auto !important;
-            }
-            .em_h20 {
-                height: 20px !important;
-            }
-            .em_padd {
-                padding: 20px 10px !important;
-            }
-            .em_text1 {
-                font-size: 16px !important;
-                line-height: 24px !important;
-            }
-            u + .em_body .em_full_wrap {
-                width: 100% !important;
-                width: 100vw !important;
-            }
-        }
-        
-        .head_img{
-            margin-top: 5vh!important;
-            margin-left: 5vw!important;
-            margin-right: 5vw!important;
-        }
-        .img-fluid_head{
-            width: 7rem;
-            max-width: 7rem !important;
-            height: auto!important;
-        }
-        .order_status{
-            margin-top: 10vh!important;
-            text-align: center!important;
-            color: #028720!important;
-        }
-        .order_status_image{
-            width: 4rem;
-            max-width:  4rem important;
-            height: auto!important;
-        }
-        .order_status_title{
-            font-family:'Open Sans', Arial, sans-serif!important;
-            font-size:18px!important;
-            line-height:22px!important;
-            margin-top: 1vh!important;
-        }
-        .content_block{
-            margin-top: 5vh!important;
-            display: block!important;
-            justify-content: center!important;
-        }
-        .content_text{
-            text-align: center!important;
-            font-family:'Open Sans', Arial, sans-serif!important;
-            font-size:18px!important;
-            line-height: 150%!important;
-        }
-        .bg-color-01 {
-            background-color: #513e29!important;
-            padding: 1vh 0!important;
-            text-align: center!important;
-        }
-        .fz-1_2 {
-            font-size: 0.75rem!important;
-        }
-        .text-white {
-            color: #fff!important;
+        .left_logo{
+            padding-top: 30px !important;
+            margin-left: 30px !important;
         }
         .footer {
-           position: fixed!important;
-           left: 0!important;
-           bottom: 0!important;
            width: 100%!important;
            color: white!important;
            text-align: center!important;
         }
-        
-    </style>
+        .footer-text{
+            background-color: #513e29;
+            color: #fff;
+            padding: 10px!important;
+        }
+        .mail-container{
+            width: 600px !important;
+            margin: 0 auto !important;
+            background-image: url('http://booking.sun-sun33.com/sunsun/imgs/bg.png');
+            padding-top: 10px !important;
+        }
+        .mail-data{
+            width: calc(100% - 20px);
+            height: calc(100% - 10px);
+            background-color: #fff;
+            margin: 0 10px 0 10px !important;
+        }
+	</style>
 </head>
-
-<body class="em_body">
-    <div class="head_img">
-        <img src="http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/header/logo.png" class="img-fluid_head" alt="ぬか天国 Sun燦 淡路島の酵素風呂">  
+<body class="mail-container">
+    <div  class="mail-data">
+        <h1 class="text-center left_logo" style="margin: 0;">
+            <img src="http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/header/logo.png" width="100px" style="margin-right: 10px;">
+        </h1>
+        <h1 class="text-center main_title" align="center" style="margin: 0;">
+            <img src="http://booking.sun-sun33.com/sunsun/imgs/icons/success.png" width="30px" style="margin-right: 10px;" alt="process..." data-auto-embed="attachment">Order Success
+        </h1>
+        <p  class="p_title">Thank you for choosing us.</p>
+        <h3 class="h3_title">BookingID: #<a href="http://booking.sun-sun33.com/bookinghistory/{{ $booking_id }}">{{ $booking_id }}</a></h3>
+        <h3 class="h3_title">If you have any question, give us a call at</h3>
+        <h3 class="h3_title" style="margin-top: 0; padding-bottom: 100px;">90-1790-1357</h3>
     </div>
-    <div class="order_status">
-        <img src="http://booking.sun-sun33.com/sunsun/imgs/icons/success.png" class="order_status_image">
-        <div class="order_status_title">
-            <div>
-                Order success
-            </div>
-        </div>
+    <div class="footer">
+        <p class="footer-text" style="margin: 0;">COPYRIGHT © 2019 ぬか天国 Sun燦 all rights reserved.</p>
     </div>
-    <div class="content_block">
-        <div class="content_text">
-            Thank you for choosing us.
-        </div>
-        <div class="content_text">
-            BookingID: #{{ $booking_id }}
-        </div>
-        <div class="content_text">
-            If you have any question, give us a call at
-        </div>
-        <div class="content_text">
-            90-1790-1357
-        </div>
-    </div>
-    
-<div class="container-fluid text-center bg-color-01 pt-3 pb-1 footer">
-    <p class="fz-1_2 text-white d-none d-md-block">COPYRIGHT © 2019 ぬか天国 Sun燦 all rights reserved.</p>
-</div>
 </body>
 </html>
