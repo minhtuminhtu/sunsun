@@ -11,10 +11,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Mail\ConfirmMail;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
     private $session_info = 'SESSION_BOOKING_USER';
+    private $session_html = 'SESSION_BOOKING_DATA';
 
     public function index(Request $request){
         $request->session()->forget($this->session_info);
@@ -412,6 +415,7 @@ class BookingController extends Controller
         }
         // dd($data);
         $data['customer']['info'] = array_values($data['customer']['info']);
+        $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
         return view('sunsun.front.confirm',$data);
 
     }
@@ -712,7 +716,7 @@ class BookingController extends Controller
             'status' => $value,
             'message' => $message
         ];
-        $result = $this->update_or_new_booking($data);
+        $result = $this->update_or_new_booking($data, $request);
 
         $request->session()->forget($this->session_info);
         return isset($result)?$result:$success;
@@ -742,7 +746,7 @@ class BookingController extends Controller
         return $error;
     }
 
-    public function update_or_new_booking($data){
+    public function update_or_new_booking($data, $request){
         $result = [];
         //Update
         if(isset($data['booking_id'])){
@@ -758,7 +762,7 @@ class BookingController extends Controller
 
         //New
         }else{
-            $result = $this->new_booking($data);
+            $result = $this->new_booking($data, $request);
         }
 
         if(isset($result['bookingID'])){
@@ -776,7 +780,7 @@ class BookingController extends Controller
         return  $result;
     }
 
-    private function new_booking($data, $booking_id = null, $is_update = false){
+    private function new_booking($data, $request, $booking_id = null, $is_update = false){
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
@@ -846,16 +850,17 @@ class BookingController extends Controller
             Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
-        $this->send_email($return_booking_id, $email);
+        $this->send_email($request, $data, $return_booking_id, $email);
         return  $result;
     }
 
-    private function send_email($booking_id, $email){
-    //     Log::debug('sendding to' . $email . ' booking_id ' . $booking_id);
-        \Mail::send('sunsun.mails.bill', array('booking_id'=>"$booking_id"), function($message) use ($booking_id, $email){
-            $message->to($email)->subject('Sun-sun33 - Reservation #' . $booking_id);
-        });
-        // Log::debug('sent to' . $email . ' booking_id ' . $booking_id);
+    private function send_email($request, $data, $booking_id, $email){
+        $booking_data = new \stdClass();
+        $booking_data->booking_id = $booking_id;
+        $booking_data->booking_data = $data;
+        $booking_data->booking_html = $request->session()->get($this->session_html);
+     
+        Mail::to($email)->send(new ConfirmMail($booking_data));
     }
 
     private function add_column_null($booking_id){
@@ -936,7 +941,7 @@ class BookingController extends Controller
         );
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $headers, $data);
         Log::debug('Exec tran body');
-        Log::debug('Token' .  $token);
+        Log::debug('Token: ' .  $token);
         Log::debug($response->body);
         parse_str($response->body, $params);
         if(isset($params['ACS']) && ($params['ACS'] == 0)){

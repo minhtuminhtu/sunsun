@@ -108,6 +108,9 @@
                             if($key == (count($time_range) - 1)){ 
                                 echo ' last '; 
                             }  
+                            if($i%2 == 1){ 
+                                echo ' bg-time-new '; 
+                            } 
                             if(isset($time['week_bottom'])){ 
                                 if($time['week_bottom'] == 2){
                                     echo ' week_bottom_boder '; 

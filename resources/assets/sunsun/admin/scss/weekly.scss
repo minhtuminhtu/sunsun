@@ -402,9 +402,9 @@ table {
         width: 13%;
         display: block;
         text-align: center;
-        border-bottom: 1px dashed #000;
-        border-left: 2px solid #000;
-        border-right: 2px solid #000;
+        border-bottom: 2px solid #fff;
+        border-left: 1px solid #ced4da;
+        border-right: 1px solid #ced4da;
     }
     .body-free{
         display: block;
@@ -415,7 +415,7 @@ table {
         .table-header{
             display: flex;
             .table-col{
-                border-right: 2px solid #000;
+                border-right: 1px solid #ced4da;
                 flex-basis: 100%;
                 text-align: center;
                 .table-data{
@@ -432,7 +432,7 @@ table {
                 position: relative;
                 width: 25%;
                 border-top: 0px;
-                border-right: 2px solid #000
+                border-right: 1px solid #ced4da
             }
         }
     }
@@ -456,28 +456,28 @@ table {
 }
 
 .table-col.first {
-    border-top: 2px solid #000 !important;
-    border-bottom: 2px solid #000 !important;
+    border-top: 1px solid #ced4da !important;
+    border-bottom: 1px solid #ced4da !important;
     padding-top: 0.6rem;
     padding-bottom: 0.2rem;
 }
 .table-col-none.first{
-    border-top: 2px solid #000 !important;
+    border-top: 1px solid #ced4da !important;
 }
 .table-col-none.last{
-    border-bottom: 2px solid #000 !important;
+    border-bottom: 1px solid #ced4da !important;
 }
 
 .table-col.last{
-    border-bottom: 2px solid #000 !important;
+    border-bottom: 1px solid #ced4da !important;
 }
 .weekly-time.last {
-    border-bottom: 2px solid #000 !important;
+    border-bottom: 1px solid #ced4da !important;
 }
 
 .weekly-time.first {
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-top: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
 }
 .data-col.last {
     border-bottom: 0px !important;
@@ -498,7 +498,7 @@ table {
     height: 2.3rem;
 }
 .weekly-time.body {
-    border-bottom: 1px solid #000 !important;
+    border-bottom: 2px solid #fff !important;
 }
 .weekly-table.body {
 }
@@ -508,10 +508,10 @@ table {
 }
 
 .data-col.pet-col_second {
-    border-bottom: 1px solid #000;
+    border-bottom: 2px solid #fff;
 }
 .data-col.pet_begin {
-    border-bottom: 1px solid #000;
+    border-bottom: 2px solid #fff;
 }
 
 .free_time{
@@ -537,73 +537,77 @@ table {
     width: 7vh;
 }
 .male-title {
-    background-color: #ddebf7 !important;
-    border-right: 1px solid #000;
+    color: #fff !important;
+    background-color: #2b6eab!important;
+    border-right: 2px solid #fff;
 }
 
 .female-title {
-    background-color: #ffccff !important;
-    border-right: 1px solid #000;
+    color: #fff !important;
+    background-color: #c39!important;
+    border-right: 2px solid #fff;
 }
 
 .pet-title {
-    background-color: #fce4d6 !important;
+    color: #fff !important;
+    background-color: #ffa333!important;
 }
 .wt-title {
-    background-color: #ccffff ;
-    border-right: 1px solid #000;
+    color: #fff !important;
+    background-color: #00a8a4!important;
+    border-right: 2px solid #fff;
 }
 .bg-male{
-    background-color: #9bc2e6;
+    background-color: #b9d4ed;
 }
 .bg-female{
-    background-color: #ff66ff;
+    background-color: #ffb3ff;
 }
 .bg-male-new{
     background-color: #ddebf7!important;
 }
 .bg-female-new{
-    background-color: #ff99cc!important;
+    background-color: #fdf!important;
 }
 .bg-pet{
-    background-color: #fce4d6;
+    background-color: #fff4e7;
 }
 .bg-wt{
-    background-color: #ccffff;
+    background-color: #b0f4e6;
 }
 .bg-wt-new{
-    background-color: #00ffff;
+    background-color: #67eaca;
 }
 .bg-white{
     cursor: pointer;
     background-color: #fff;
 }
 .bg-free{
-    background-color: #ffe699 !important;
-    border-right: 1px solid #000;
-    border-bottom: 1px dashed #000;
+    background-color: #d9d9d9!important;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 .bg-wt_free{
-    border-right: 1px solid #000;
-    border-bottom: 1px dashed #000;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 .font-bold {
     font-weight: 600;
 }
 .title.table-col {
-    border-bottom: 1px solid #000 !important;
+    border-bottom: 2px solid #fff !important;
 }
 .data-col.bg-male {
-    border-right: 1px solid #000;
-    border-bottom: 1px dashed #000;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 .data-col.bg-female {
-    border-right: 1px solid #000;
-    border-bottom: 1px dashed #000;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 .data-col.bg-wt {
-    border-right: 1px solid #000;
-    border-bottom: 1px dashed #000;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 .weekly-time.body {
     padding: 0.3rem 0 0 0 !important;
@@ -622,11 +626,12 @@ table {
     align-items: center;
 }
 .week_bottom {
-    border-bottom: 1px solid #000 !important;
+    border-bottom: 2px solid #fff !important;
 }
 .week_bottom_boder{
-    border-bottom-width: 5px !important;
+    border-bottom-width: 4px !important;
     border-bottom-style: double !important;
+    border-bottom-color: #ced4da !important;
 }
 html, body {
     font-size: 1vw;
@@ -634,6 +639,9 @@ html, body {
 .item:not(.head){
     font-size: 0.75vw;
     line-height: 145%;
+}
+.bg-time-new{
+    background-color: #e6e6e6;
 }
 
 
