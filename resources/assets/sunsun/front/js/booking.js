@@ -878,7 +878,7 @@ let load_time_delete_event = function(){
             })
         } else {
             Swal.fire({
-                text: "しかし、復旧できません。よろしいですか!",
+                text: "削除しますが、よろしいですか?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d7751e',
