@@ -24,7 +24,7 @@
 
                 <div class="form-group mb-3 {{ $errors->has('username') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('username', '名前') !!}
+                        {!! Form::label('username', '名前（カタカナ）') !!}
                     </div>
                     <div class="form-input">
                         {!! Form::text('username', old('username') , ['class' => 'form-control mb-0', 'required' => 'required']) !!}
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group mb-3 {{ $errors->has('email') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('email', 'Eメール') !!}
+                        {!! Form::label('email', 'メールアドレス') !!}
                     </div>
                     <div class="form-input">
                         {!! Form::text('email', old('email'), ['class' => 'form-control', 'required' => 'required', 'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$']) !!}
@@ -59,7 +59,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mb-3">
+                <!-- <div class="form-group mb-3">
                     <div class="form-label">
                         {!! Form::label('gender', '性別') !!}
                     </div>
@@ -74,7 +74,7 @@
                     <div class="form-input">
                         {!! Form::selectRange('birth_year', 1930, 2019, old('birth_year'),['class' => "form-control", 'required' => 'required'] ) !!}
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group" style="margin-top: 30px">
                     <div class="form-label">
                     </div>

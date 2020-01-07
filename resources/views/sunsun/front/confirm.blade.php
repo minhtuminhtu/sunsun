@@ -155,40 +155,42 @@
                                         </div>
 
                                         
-                                        
+                                        @php 
+                                            $lunch = (json_decode($data['lunch'])->kubun_value == "無し")?"":"1名";
+                                            $whitening = json_decode($data['whitening']);
+                                            $whitening_repeat = ($data['whitening_repeat'] == 1)?"（はじめて）":"（リピート）";;
+                                            $whitening_data = ($whitening->kubun_id == '02')?$data['whitening-time_view'] . $whitening_repeat:""; 
+                                            $pet_keeping = (json_decode($data['pet_keeping'])->kubun_value == "追加しない")?"":"追加する";
+                                        @endphp
+
+                                        @if(($lunch != "") || ($whitening_data != "") || ($pet_keeping != ""))
                                         <hr class="line-x">
                                         <div class="line"> 
                                             <div class="line1">
                                             オプション
                                             </div>
                                             <div class="line2">
-                                                @php 
-                                                    $lunch = json_decode($data['lunch']);
-                                                    $whitening = json_decode($data['whitening']);
-                                                    $pet_keeping = json_decode($data['pet_keeping']);
-                                                @endphp
-                                                <p>ランチ: {{ $lunch->kubun_value }}</p> 
-                                                <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
-                                                @if($whitening->kubun_id == '02')
-                                                <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
-                                                @endif
-                                                <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
+                                                <p>{{ ($lunch != "")?"ランチ：" . $lunch:"" }}</p> 
+                                                <p>{{ ($whitening_data != "")?"ホワイトニング：" . $whitening_data:"" }}</p> 
+                                                <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p> 
                                             </div>
                                         </div>
+                                        @endif
+
+                                        @php 
+                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
+                                            $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
+                                        @endphp
+
                                         @if($key == 0)
-                                        <hr class="line-x">
-                                        <div class="line"> 
-                                            <div class="line1">
-                                            宿泊
-                                            </div>
-                                            <div class="line2">
-                                                @php 
-                                                    $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                                    $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                                    $breakfast = isset($data['breakfast'])?json_decode($data['breakfast']):"";
-                                                @endphp
-                                                @if($stay_room_type->kubun_value != config('booking.room.options.no'))
-                                                    <p>宿泊：有り</p>
+                                            @if($stay_room_type->kubun_value != config('booking.room.options.no'))
+                                            <hr class="line-x">
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                宿泊
+                                                </div>
+                                                <div class="line2">
                                                     <p>部屋ﾀｲﾌﾟ：{{ $stay_room_type->kubun_value }}</p>
                                                     <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                     <p>宿泊日</p>
@@ -196,13 +198,12 @@
                                                         <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
                                                         <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                     </div>
-                                                    <p>モーニング: {{ $breakfast->kubun_value }}</p>
-                                                @else
-                                                    <p>なし</p>
-                                                @endif  
+                                                    <p>{{ ($breakfast != "")?"モーニング:". $breakfast:"" }}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                            @endif  
                                         @endif
+
                                     @elseif($course->kubun_id == '02')
                                         <div class="linex  mt-0">
                                             @if($i != 1)
@@ -298,37 +299,40 @@
                                                 <p>{{ $data['time2-view'] }}～</p>
                                             </div>
                                         </div>
+
+                                        @php 
+                                            $whitening = json_decode($data['whitening']);
+                                            $whitening_repeat = ($data['whitening_repeat'] == 1)?"（はじめて）":"（リピート）";;
+                                            $whitening_data = ($whitening->kubun_id == '02')?$data['whitening-time_view'] . $whitening_repeat:""; 
+                                            $pet_keeping = (json_decode($data['pet_keeping'])->kubun_value == "追加しない")?"":"追加する";
+                                        @endphp
+                                        @if(($whitening_data != "") || ($pet_keeping != ""))
                                         <hr class="line-x">
                                         <div class="line"> 
                                             <div class="line1">
                                             オプション
                                             </div>
                                             <div class="line2">
-                                                @php 
-                                                    $whitening = json_decode($data['whitening']);
-                                                    $pet_keeping = json_decode($data['pet_keeping']);
-                                                @endphp
-                                                <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
-                                                @if($whitening->kubun_id == '02')
-                                                <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
-                                                @endif
-                                                <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
+                                                <p>{{ ($whitening_data != "")?"ホワイトニング：" . $whitening_data:"" }}</p> 
+                                                <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p> 
                                             </div>
                                         </div>
+                                        @endif
+
+
+                                        @php 
+                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
+                                            $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
+                                        @endphp
                                         @if($key == 0)
-                                        <hr class="line-x">
-                                        <div class="line"> 
-                                            <div class="line1">
-                                            宿泊
-                                            </div>
-                                            <div class="line2">
-                                                @php 
-                                                    $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                                    $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                                    $breakfast = isset($data['breakfast'])?json_decode($data['breakfast']):"";
-                                                @endphp
-                                                @if($stay_room_type->kubun_value != config('booking.room.options.no'))
-                                                    <p>宿泊：有り</p>
+                                            @if($stay_room_type->kubun_value != config('booking.room.options.no'))
+                                            <hr class="line-x">
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                宿泊
+                                                </div>
+                                                <div class="line2">
                                                     <p>部屋ﾀｲﾌﾟ：{{ $stay_room_type->kubun_value }}</p>
                                                     <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                     <p>宿泊日</p>
@@ -336,13 +340,12 @@
                                                         <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
                                                         <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                     </div>
-                                                    <p>モーニング: {{ $breakfast->kubun_value }}</p>
-                                                @else
-                                                    <p>なし</p>
-                                                @endif  
+                                                    <p>{{ ($breakfast != "")?"モーニング:". $breakfast:"" }}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                            @endif 
                                         @endif
+
                                     @elseif($course->kubun_id == '03')
                                         <div class="linex  mt-0">
                                             @if($i != 1)
@@ -353,8 +356,6 @@
                                             @if($repeat_user->kubun_id != '02')
                                                 <p>※<span class="text-red">開始時間の15分前まで</span>にお越しください。</p>
                                             @endif
-
-                                            
                                         </div>
                                         @if($key == 0)
                                             @php 
@@ -432,39 +433,41 @@
                                             </div>
                                         </div>
 
+                                        @php 
+                                            $lunch_guest_num = (json_decode($data['lunch_guest_num'])->kubun_value == "無し")?"":json_decode($data['lunch_guest_num'])->kubun_value;
+                                            $whitening = json_decode($data['whitening']);
+                                            $whitening_repeat = ($data['whitening_repeat'] == 1)?"（はじめて）":"（リピート）";;
+                                            $whitening_data = ($whitening->kubun_id == '02')?$data['whitening-time_view'] . $whitening_repeat:""; 
+                                            $pet_keeping = (json_decode($data['pet_keeping'])->kubun_value == "追加しない")?"":"追加する";
+                                        @endphp
+                                        @if(($lunch_guest_num != "") || ($whitening_data != "") || ($pet_keeping != ""))
                                         <hr class="line-x">
                                         <div class="line"> 
                                             <div class="line1">
                                             オプション
                                             </div>
                                             <div class="line2">
-                                                @php 
-                                                    $whitening = json_decode($data['whitening']);
-                                                    $pet_keeping = json_decode($data['pet_keeping']);
-                                                    $lunch_guest_num = json_decode($data['lunch_guest_num']);
-                                                @endphp
-                                                <p>ランチ ：{{ $lunch_guest_num->kubun_value }}</p>
-                                                <p>ホワイトニング：{{ $whitening->kubun_value }}</p>
-                                                @if($whitening->kubun_id == '02')
-                                                <p>ホワイトニング時間: {{ $data['whitening-time_view'] }}</p>
-                                                @endif
-                                                <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
+                                                <p>{{ ($lunch_guest_num != "")?"ランチ：" . $lunch_guest_num:"" }}</p> 
+                                                <p>{{ ($whitening_data != "")?"ホワイトニング：" . $whitening_data:"" }}</p> 
+                                                <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p> 
                                             </div>
                                         </div>
+                                        @endif
+
+
+                                        @php 
+                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
+                                            $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
+                                        @endphp
                                         @if($key == 0)
-                                        <hr class="line-x">
-                                        <div class="line"> 
-                                            <div class="line1">
-                                            宿泊
-                                            </div>
-                                            <div class="line2">
-                                                @php 
-                                                    $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                                    $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                                    $breakfast = isset($data['breakfast'])?json_decode($data['breakfast']):"";
-                                                @endphp
-                                                @if($stay_room_type->kubun_value != config('booking.room.options.no'))
-                                                    <p>宿泊：有り</p>
+                                            @if($stay_room_type->kubun_value != config('booking.room.options.no'))
+                                            <hr class="line-x">
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                宿泊
+                                                </div>
+                                                <div class="line2">
                                                     <p>部屋ﾀｲﾌﾟ：{{ $stay_room_type->kubun_value }}</p>
                                                     <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                     <p>宿泊日</p>
@@ -472,12 +475,10 @@
                                                         <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
                                                         <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                     </div>
-                                                    <p>モーニング: {{ $breakfast->kubun_value }}</p>
-                                                @else
-                                                    <p>なし</p>
-                                                @endif  
+                                                    <p>{{ ($breakfast != "")?"モーニング:". $breakfast:"" }}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                            @endif  
                                         @endif
                                     @elseif($course->kubun_id == '04')
                                         <div class="linex  mt-0">
@@ -579,34 +580,35 @@
                                                 @endif 
                                             </div>
                                         </div>
+
+                                        @php 
+                                            $pet_keeping = (json_decode($data['pet_keeping'])->kubun_value == "追加しない")?"":"追加する";
+                                        @endphp
+                                        @if($pet_keeping != "")
                                         <hr class="line-x">
                                         <div class="line"> 
                                             <div class="line1">
                                             オプション
                                             </div>
                                             <div class="line2">
-                                                @php 
-                                                    $pet_keeping = json_decode($data['pet_keeping']);
-                                                @endphp
-                                                <p>ペット預かり：{{ $pet_keeping->kubun_value }}</p>
+                                                <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p> 
                                             </div>
                                         </div>
+                                        @endif
 
 
+                                        @php 
+                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):""; 
+                                        @endphp
                                         @if($key == 0)
-                                        <hr class="line-x">
-                                        <div class="line"> 
-                                            <div class="line1">
-                                            宿泊
-                                            </div>
-                                            <div class="line2">
-                                                @php 
-                                                    $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                                    $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                                    
-                                                @endphp
-                                                @if($stay_room_type->kubun_value != config('booking.room.options.no'))
-                                                    <p>宿泊：有り</p>
+                                            @if($stay_room_type->kubun_value != config('booking.room.options.no'))
+                                            <hr class="line-x">
+                                            <div class="line"> 
+                                                <div class="line1">
+                                                宿泊
+                                                </div>
+                                                <div class="line2">
                                                     <p>部屋ﾀｲﾌﾟ：{{ $stay_room_type->kubun_value }}</p>
                                                     <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
                                                     <p>宿泊日</p>
@@ -614,11 +616,9 @@
                                                         <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
                                                         <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
                                                     </div>
-                                                @else
-                                                    <p>なし</p>
-                                                @endif  
+                                                </div>
                                             </div>
-                                        </div>
+                                            @endif
                                         @endif
                                     @elseif($course->kubun_id == '05')
                                         <div class="linex  mt-0">

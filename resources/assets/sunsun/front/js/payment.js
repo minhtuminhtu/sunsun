@@ -47,14 +47,6 @@ $(function() {
                     cardType = "AMEX";
                     break;
                 }
-                // case "MAESTRO": {
-                //     if(cardType !== "MAESTRO"){
-                //         $(".card-img").html('<img src="sunsun/svg/cc-maestro.svg" class="img-fluid scale-image" alt="">');
-                //     }
-
-                //     cardType = "MAESTRO";
-                //     break;
-                // }
                 case "JCB": {
                     if(cardType !== "JCB"){
                         $(".card-img").html('<img src="sunsun/svg/cc-jcb.svg" class="img-fluid scale-image" alt="">');
@@ -284,27 +276,93 @@ let callBackMakePayment = function() {
 }
 
 function doPurchase() {
-    payment_init();
-    // Multipayment.init("tshop00042155");
-    let cardNumber = $('#card-number').val().replace(/\D/g, '');
-    let cardExpire =  $('#card-expire').val();
-    let cardSecure = $('#card-secret').val().replace(/\D/g,'');
-    // let cardHoldname = 'HOLDER NAME';
-    cardExpireMonth = cardExpire.split('/')[0];
-    cardExpireYear = "20" + cardExpire.split('/')[1];
-    cardExpire = cardExpireYear.toString()  +  cardExpireMonth.toString();
+    if(getCardType($('#card-number').val().replace(/\D/g, '')) != ""){
+        payment_init();
+        // Multipayment.init("tshop00042155");
+        let cardNumber = $('#card-number').val().replace(/\D/g, '');
+        let cardExpire =  $('#card-expire').val();
+        let cardSecure = $('#card-secret').val().replace(/\D/g,'');
+        // let cardHoldname = 'HOLDER NAME';
+        cardExpireMonth = cardExpire.split('/')[0];
+        cardExpireYear = "20" + cardExpire.split('/')[1];
+        cardExpire = cardExpireYear.toString()  +  cardExpireMonth.toString();
 
 
-    // console.log(cardNumber);
-    // console.log(cardExpire);
-    // console.log(cardSecure);
-    Multipayment.getToken({
-        cardno : cardNumber,
-        expire : cardExpire,
-        securitycode : cardSecure,
-        // holdername : cardHoldname,
-        tokennumber : 1
-    }, execPurchase);
+        // console.log(cardNumber);
+        // console.log(cardExpire);
+        // console.log(cardSecure);
+        Multipayment.getToken({
+            cardno : cardNumber,
+            expire : cardExpire,
+            securitycode : cardSecure,
+            // holdername : cardHoldname,
+            tokennumber : 1
+        }, execPurchase);
+    }else{
+        $('.credit-card-line').addClass('error');
+        $('.credit-card-line2').addClass('error');
+        $('.cc-block').after( "<p class=\"note-error node-text\">無効なカード</p>" );
+    }
+}
+function getCardType(cardNum) {
+    if(!luhnCheck(cardNum)){
+        return "";
+    }
+    var payCardType = "";
+    var regexMap = [
+        {regEx: /^4[0-9]{5}/ig,cardType: "VISA"},
+        {regEx: /^5[1-5][0-9]{4}/ig,cardType: "MASTERCARD"},
+        {regEx: /^3[47][0-9]{3}/ig,cardType: "AMEX"},
+        // {regEx: /^(5[06-8]\d{4}|6\d{5})/ig,cardType: "MAESTRO"},
+        {regEx: /^(?:2131|1800|35\d{3})\d{11}$/ig,cardType: "JCB"}
+
+    ];
+
+    for (var j = 0; j < regexMap.length; j++) {
+        if (cardNum.match(regexMap[j].regEx)) {
+            payCardType = regexMap[j].cardType;
+            break;
+        }
+    }
+
+    if (cardNum.indexOf("50") === 0 || cardNum.indexOf("60") === 0 || cardNum.indexOf("65") === 0) {
+        var g = "508500-508999|606985-607984|608001-608500|652150-653149";
+        var i = g.split("|");
+        for (var d = 0; d < i.length; d++) {
+            var c = parseInt(i[d].split("-")[0], 10);
+            var f = parseInt(i[d].split("-")[1], 10);
+            if ((cardNum.substr(0, 6) >= c && cardNum.substr(0, 6) <= f) && cardNum.length >= 6) {
+                payCardType = "RUPAY";
+                break;
+            }
+        }
+    }
+    return payCardType;
+}
+
+
+function luhnCheck(cardNum){
+    // Luhn Check Code from https://gist.github.com/4075533
+    // accept only digits, dashes or spaces
+    var numericDashRegex = /^[\d\-\s]+$/
+    if (!numericDashRegex.test(cardNum)) return false;
+
+    // The Luhn Algorithm. It's so pretty.
+    var nCheck = 0, nDigit = 0, bEven = false;
+    var strippedField = cardNum.replace(/\D/g, "");
+
+    for (var n = strippedField.length - 1; n >= 0; n--) {
+        var cDigit = strippedField.charAt(n);
+        nDigit = parseInt(cDigit, 10);
+        if (bEven) {
+            if ((nDigit *= 2) > 9) nDigit -= 9;
+        }
+
+        nCheck += nDigit;
+        bEven = !bEven;
+    }
+
+    return (nCheck % 10) === 0;
 }
 
 if ((typeof execPurchase) === 'undefined') {

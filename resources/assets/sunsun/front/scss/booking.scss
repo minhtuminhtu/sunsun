@@ -580,6 +580,7 @@ a.no-effect{
     }
     .line2{
         width: 75%;
+        margin-right: 1.5vw;
         .line3{
             padding-left: 30px;
         }
@@ -805,4 +806,7 @@ td.time-td {
 }
 .validate_failed{
     border: solid 1px #f50000 !important;
+}
+span {
+    display: inline-block;
 }
