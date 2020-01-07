@@ -35,7 +35,7 @@
                         <p class="text-md-left pt-2"></p>
                     </div> -->
                     <div class="form-input">
-                        {!! Form::text('email', null, ['class' => 'form-control','placeholder' => 'Eメール']) !!}
+                        {!! Form::text('email', null, ['class' => 'form-control','placeholder' => 'メールアドレス']) !!}
                     </div>
                 </div>
                 <div class="form-group pt-4">

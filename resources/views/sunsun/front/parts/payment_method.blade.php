@@ -18,6 +18,14 @@
 </div>
 <div class="credit-card" @if(isset($new) && (!$new))  style="display:none;"  @endif>
     <div class="cc-block">
+        <!-- <div class="booking-field btn-block">
+                <div class="booking-field-label  booking-laber-padding">
+                カード番号：
+                </div>
+                <div class="booking-field-content">
+                    <input type="text" id="card-number" class="form-control typing-none" value="" placeholder="Card Number" maxlength="19">
+                </div>
+            </div> -->
         <div class="credit-card-line">
             <div class="card-number floatinglabel">
                 <span>Card Number</span>

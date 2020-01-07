@@ -722,6 +722,17 @@ class BookingController extends Controller
         return isset($result)?$result:$success;
     }
 
+    private function check_valid_email($email){
+        $re = '/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/m';
+        preg_match_all($re, $email, $matches, PREG_SET_ORDER, 0);
+        Log::debug('$matches');
+        Log::debug($matches);
+        if(count($matches) > 0){
+            return true;
+        }
+        return false;
+    }
+
     public function validate_payment_info(&$data){
         $error = [];
         $data['name'] = trim($data['name']);
@@ -737,7 +748,7 @@ class BookingController extends Controller
             $error['clear'][] = 'phone';
         }
 
-        if($data['email'] == null){
+        if(($data['email'] == null)||(!$this->check_valid_email($data['email']))){
             $error['error'][] = 'email';
         }else{
             $error['clear'][] = 'email';
@@ -770,10 +781,15 @@ class BookingController extends Controller
                 'status' => 'success',
                 'message' => $result
             ];
-        }else{
+        }else if(isset($result) && ($result == 'booking_error')){
             $result = [
                 'status' => 'error',
                 'message' => '重複されているから、予約したデータはキャンセルされます。'
+            ];
+        }else if(isset($result) && ($result == 'payment_error')){
+            $result = [
+                'status' => 'error',
+                'message' => '支払が失敗しました。予約したデータはキャンセルされます。'
             ];
         }
 
@@ -843,10 +859,13 @@ class BookingController extends Controller
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
                 DB::unprepared("UNLOCK TABLE");
+                Log::debug('$e1->getMessage()');
                 Log::debug($e1->getMessage());
+                $result = $e1->getMessage();
                 return  $result;
             }
         }catch(\Exception $e2){
+            Log::debug('$e2->getMessage()');
             Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
@@ -913,7 +932,7 @@ class BookingController extends Controller
         if(!isset($params['AccessID']) || !isset($params['AccessPass'])){
             Log::debug('Create tran body');
             Log::debug($response->body);
-            throw new \ErrorException('Create tran error!');
+            throw new \ErrorException('payment_error');
         }
         return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
     }
@@ -950,7 +969,7 @@ class BookingController extends Controller
                 'bookingID' => $booking_id
             ];
         }else{
-            throw new \ErrorException('Exec tran error!');
+            throw new \ErrorException('payment_error');
         }
     }
 
@@ -1076,7 +1095,7 @@ class BookingController extends Controller
             (isset($course_1_2_4_validate) && (count($course_1_2_4_validate) != 0))
             || (isset($course_3_validate) && (count($course_3_validate) != 0))
         ){
-            throw new \ErrorException('Course error!');
+            throw new \ErrorException('booking_error');
         }
     }
 
@@ -1136,7 +1155,7 @@ class BookingController extends Controller
         ");
         Log::debug($room_validate);
         if(isset($room_validate) && (count($room_validate) != 0)){
-            throw new \ErrorException('Course error!');
+            throw new \ErrorException('booking_error');
         }
     }
 
@@ -1153,7 +1172,7 @@ class BookingController extends Controller
         ");
         Log::debug($wt_validate);
         if(isset($wt_validate) && (count($wt_validate) != 0)){
-            throw new \ErrorException('Course error!');
+            throw new \ErrorException('booking_error');
         }
     }
 

@@ -276,7 +276,7 @@ let callBackMakePayment = function() {
 }
 
 function doPurchase() {
-    if(getCardType($('#card-number').val().replace(/\D/g, '')) != ""){
+    // if(getCardType($('#card-number').val().replace(/\D/g, '')) != ""){
         payment_init();
         // Multipayment.init("tshop00042155");
         let cardNumber = $('#card-number').val().replace(/\D/g, '');
@@ -298,11 +298,11 @@ function doPurchase() {
             // holdername : cardHoldname,
             tokennumber : 1
         }, execPurchase);
-    }else{
-        $('.credit-card-line').addClass('error');
-        $('.credit-card-line2').addClass('error');
-        $('.cc-block').after( "<p class=\"note-error node-text\">無効なカード</p>" );
-    }
+    // }else{
+    //     $('.credit-card-line').addClass('error');
+    //     $('.credit-card-line2').addClass('error');
+    //     $('.cc-block').after( "<p class=\"note-error node-text\">無効なカード</p>" );
+    // }
 }
 function getCardType(cardNum) {
     if(!luhnCheck(cardNum)){

@@ -170,7 +170,7 @@ return [
         'label' => '電話番号',
     ],
     'email' => [
-        'label' => 'ﾒｰﾙｱﾄﾞﾚｽ',
+        'label' => 'メールアドレス',
     ],
     'services_used' => [
         'label' => 'ご購入金額',

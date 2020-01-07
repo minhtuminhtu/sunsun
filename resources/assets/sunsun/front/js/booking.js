@@ -853,7 +853,7 @@ let load_time_delete_event = function(){
         if (window.location.href.includes("admin")) {
             Swal.fire({
                 target: '#edit_booking',
-                text: "しかし、復旧できません。よろしいですか!",
+                text: "削除しますが、よろしいですか?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d7751e',
