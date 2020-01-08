@@ -74,7 +74,7 @@ Route::get('/getdata', function () {
 //     $Yoyaku1->save();
 // }
 
-Route::get('/null_clear', function () {
+Route::get('/clear', function () {
     $booking_id = date("Ymd")."0001";
     DB::select("
         UPDATE `tr_yoyaku` 
