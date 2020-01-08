@@ -177,13 +177,12 @@
                                         </div>
                                         @endif
 
-                                        @php 
-                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                            $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
-                                        @endphp
-
                                         @if($key == 0)
+                                            @php 
+                                                $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                                $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
+                                                $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
+                                            @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
                                             <hr class="line-x">
                                             <div class="line"> 
@@ -318,14 +317,12 @@
                                             </div>
                                         </div>
                                         @endif
-
-
-                                        @php 
-                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                            $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
-                                        @endphp
                                         @if($key == 0)
+                                            @php 
+                                                $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                                $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
+                                                $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
+                                            @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
                                             <hr class="line-x">
                                             <div class="line"> 
@@ -454,13 +451,12 @@
                                         </div>
                                         @endif
 
-
-                                        @php 
-                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
-                                            $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
-                                        @endphp
                                         @if($key == 0)
+                                            @php 
+                                                $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                                $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
+                                                $breakfast = isset($data['breakfast'])&&(json_decode($data['breakfast'])->kubun_value == "無し")?"":json_decode($data['breakfast'])->kubun_value;
+                                            @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
                                             <hr class="line-x">
                                             <div class="line"> 
@@ -595,13 +591,12 @@
                                             </div>
                                         </div>
                                         @endif
-
-
-                                        @php 
-                                            $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
-                                            $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):""; 
-                                        @endphp
+                                        
                                         @if($key == 0)
+                                            @php 
+                                                $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
+                                                $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):""; 
+                                            @endphp
                                             @if($stay_room_type->kubun_value != config('booking.room.options.no'))
                                             <hr class="line-x">
                                             <div class="line"> 

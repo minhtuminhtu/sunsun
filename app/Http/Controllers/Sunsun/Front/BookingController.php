@@ -732,11 +732,20 @@ class BookingController extends Controller
         }
         return false;
     }
+    function check_is_katakana($name) {
+        $re = '/^[\p{Katakana}]+$/';
+        preg_match_all($re, $name, $matches, PREG_SET_ORDER, 0);
+
+        if(count($matches) > 0){
+            return true;
+        }
+        return false;
+    }
 
     public function validate_payment_info(&$data){
         $error = [];
         $data['name'] = trim($data['name']);
-        if($data['name'] == null){
+        if(($data['name'] == null)||(!$this->check_valid_email($data['name']))){
             $error['error'][] = 'name';
         }else{
             $error['clear'][] = 'name';

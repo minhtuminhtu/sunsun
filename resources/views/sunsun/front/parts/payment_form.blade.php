@@ -29,7 +29,7 @@
     @endphp
     <div class="booking-field-content">
         <div>
-            <input name="phone" id="phone" type="text" class="form-control date-book-input" maxlength="255" value="{{ $field_tel }}"/>
+            <input name="phone" id="tel" type="text" class="form-control date-book-input" maxlength="14" value="{{ $field_tel }}"/>
         </div>
     </div>
 </div>
