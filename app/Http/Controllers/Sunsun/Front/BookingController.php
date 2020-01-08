@@ -776,7 +776,7 @@ class BookingController extends Controller
                 $booking_id = $this->get_booking_id();
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
-                $this->new_booking($data, $booking_id, true);
+                $this->new_booking($data, $request, $booking_id, true);
             } catch (\Exception $failed) {
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => null]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => null]);
@@ -880,7 +880,11 @@ class BookingController extends Controller
             Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
-        $this->send_email($request, $data, $return_booking_id, $email);
+        Log::debug('bdata');
+        Log::debug($data);
+        if(!$is_update){
+            $this->send_email($request, $data, $return_booking_id, $email);
+        }
         return  $result;
     }
 
