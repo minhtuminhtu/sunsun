@@ -442,35 +442,4 @@ if ((typeof execPurchase) === 'undefined') {
     $('#tel').phoneFilter(function (value) {
         return true;
     });
-
-    $.fn.nameFilter = function (nameFilter) {
-        return this.on("keydown keyup", function (event) {
-            if ((event.key !== 'Backspace') && (event.key !== 'undefined')) {
-                let curchr = this.value.length;
-                let curval = $(this).val();
-                let phone_format;
-                phone_format = curval;
-                var regex = /^[\p{Katakana}]+/mi;
-                let test = regex.test(phone_format);
-                if (test !== true) {
-                    $(this).val(phone_format);
-                    this.oldValue = this.value;
-                    this.oldSelectionStart = this.selectionStart;
-                    this.oldSelectionEnd = this.selectionEnd;
-                } else if (this.hasOwnProperty("oldValue")) {
-                    this.value = this.oldValue;
-                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                }
-            } else {
-                this.oldValue = $(this).val();
-                this.oldSelectionStart = this.selectionStart;
-                this.oldSelectionEnd = this.selectionEnd;
-            }
-
-        });
-    };
-
-    $('#name').nameFilter(function (value) {
-        return true;
-    });
 }(jQuery));
