@@ -321,9 +321,12 @@ function doPurchase() {
             tokennumber : 1
         }, execPurchase);
     }else{
-        $('.credit-card-line').addClass('error');
-        $('.credit-card-line2').addClass('error');
-        $('.cc-block').after( "<p class=\"note-error node-text\">無効なカード</p>" );
+        $('#card-number').addClass('error');
+        $('#card-secret').addClass('error');
+        $('#expire-month').addClass('error');
+        $('#expire-year').addClass('error');
+
+        $('#card-number').after( "<p class=\"note-error node-text\">無効なカード</p>" );
     }
 }
 function getCardType(cardNum) {
@@ -393,12 +396,16 @@ if ((typeof execPurchase) === 'undefined') {
         $('p.note-error').remove();
         if (response.resultCode != "000") {
             // window.alert("購入処理中にエラーが発生しました");
-            $('.credit-card-line').addClass('error');
-            $('.credit-card-line2').addClass('error');
+            $('#card-number').addClass('error');
+            $('#card-secret').addClass('error');
+            $('#expire-month').addClass('error');
+            $('#expire-year').addClass('error');
             $('.cc-block').after( "<p class=\"note-error node-text\">無効なカード</p>" );
         } else {
-            $('.credit-card-line').removeClass('error');
-            $('.credit-card-line2').removeClass('error');
+            $('#card-number').removeClass('error');
+            $('#card-secret').removeClass('error');
+            $('#expire-month').removeClass('error');
+            $('#expire-year').removeClass('error');
             $('#Token').val(response.tokenObject.token);
             callBackMakePayment();
         }
