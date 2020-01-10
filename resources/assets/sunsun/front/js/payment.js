@@ -46,9 +46,9 @@ $(function() {
                 + '<div  class="hint-title">American Express</div>'
                 + '<div class="hint-align"><img src="sunsun/imgs/hint-ame.png" /></div></div></div>'
             ,
-            width: '100%',
-            height: '100%',
             showCloseButton: true,
+            showConfirmButton: false,
+            customClass: 'swal-height',
             confirmButtonText: '閉じる',
             showClass: {
                 popup: 'animated fadeInDown faster'

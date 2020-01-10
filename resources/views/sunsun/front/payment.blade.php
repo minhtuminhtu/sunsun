@@ -43,7 +43,7 @@
                     </div> -->
                     <div class="booking-field">
                         <div class="">
-                            <p class="text-md-left pt-4 mb-1 font-weight-bold">{{config('booking.services_used.label')}}</p>
+                            <p class="text-md-left mb-1 font-weight-bold">{{config('booking.services_used.label')}}</p>
                         </div>
                     </div>
 
