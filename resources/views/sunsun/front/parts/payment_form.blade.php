@@ -2,7 +2,7 @@
 <input type="hidden" name="Amount" id="Amount"value="{{ isset($bill['total'])?$bill['total']:''  }}">
 <div class="booking-field">
     <div class="booking-field-label @if(isset($new) && (!$new)) {{ 'booking-laber-padding' }} @endif">
-        <p class="text-md-left pt-2">{{config('booking.name.label')}}</p>
+        <p class="text-md-left pt-2">{{config('booking.name.label')}}<span class="text-red">*</span></p>
     </div>
     @php
         $field_name = isset($data_booking->name)?$data_booking->name:'';
@@ -12,13 +12,13 @@
     @endphp
     <div class="booking-field-content">
         <div>
-            <input name="name" id="name" type="text" class="form-control date-book-input" maxlength="255" value="{{ $field_name }}"/>
+            <input name="name" id="name" type="text" inputmode="katakana" class="form-control date-book-input" maxlength="255" value="{{ $field_name }}"/>
         </div>
     </div>
 </div>
 <div class="booking-field">
     <div class="booking-field-label @if(isset($new) && (!$new)) {{ 'booking-laber-padding' }} @endif">
-        <p class="text-md-left" style="line-height: 115%;">{{config('booking.phone.label')}}</p>
+        <p class="text-md-left" style="line-height: 115%;">{{config('booking.phone.label')}}<span class="text-red">*</span></p>
         <p class="node-text pt-2" style="line-height: 100%;">当日の連絡先</p>
     </div>
     @php
@@ -29,13 +29,13 @@
     @endphp
     <div class="booking-field-content">
         <div>
-            <input name="phone" id="tel" type="text" class="form-control date-book-input" maxlength="14" value="{{ $field_tel }}"/>
+            <input name="phone" id="tel" type="text" inputmode="tel" class="form-control date-book-input" maxlength="14" value="{{ $field_tel }}"/>
         </div>
     </div>
 </div>
 <div class="booking-field">
     <div class="booking-field-label @if(isset($new) && (!$new)) {{ 'booking-laber-padding' }} @endif">
-        <p class="text-md-left pt-2">{{config('booking.email.label')}}</p>
+        <p class="text-md-left pt-2">{{config('booking.email.label')}}<span class="text-red">*</span></p>
     </div>
     @php
         $field_email = isset($data_booking->name)?$data_booking->email:'';
@@ -45,7 +45,7 @@
     @endphp
     <div class="booking-field-content">
         <div>
-            <input name="email" id="email" type="text" class="form-control date-book-input" maxlength="255" value="{{ $field_email }}"/>
+            <input name="email" id="email" type="text" inputmode="email" class="form-control date-book-input" maxlength="255" value="{{ $field_email }}"/>
         </div>
     </div>
 </div>

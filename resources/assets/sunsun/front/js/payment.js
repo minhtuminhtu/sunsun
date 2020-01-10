@@ -16,6 +16,52 @@ $(function() {
         }
     })
 
+
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    $('.card').on('show.bs.collapse', function () {
+        $(this).find('.payment-method').prop('checked',true);
+    })
+
+    $(`[data-toggle="collapse"]`).on('click',function(e){
+        if ( $(this).parents('.accordion').find('.collapse.show') ){
+            var idx = $(this).index('[data-toggle="collapse"]');
+            if (idx == $('.collapse.show').index('.collapse')) {
+                // prevent collapse
+                e.stopPropagation();
+            }
+        }
+    });
+
+    $('.custom-link').off('click');
+    $('.custom-link').on('click', function() {
+        Swal.fire({
+            confirmButtonColor: '#d7751e',
+            html:
+                '<div class="hint-content"><div><div class="hint-head">セキュリティコードとは、カード裏面の署名欄やカード表面のカード番号近くに記載されている3桁または4桁の数字です</div>'
+                + '<div  class="hint-title">VISA/Mastercard/JCB/Diners</div>'
+                + '<div class="hint-align"><img src="sunsun/imgs/hint-visa.png" /></div>'
+                + '<div  class="hint-title">American Express</div>'
+                + '<div class="hint-align"><img src="sunsun/imgs/hint-ame.png" /></div></div></div>'
+            ,
+            width: '100%',
+            height: '100%',
+            showCloseButton: true,
+            confirmButtonText: '閉じる',
+            showClass: {
+                popup: 'animated fadeInDown faster'
+            },
+            hideClass: {
+                popup: 'animated fadeOutUp faster'
+            },
+            cancelButtonText:
+                '<i class="fa fa-thumbs-down"></i>',
+            allowOutsideClick: false
+        })
+    });
+
     let cardType;
     $('#card-number').off('keyup');
     $('#card-number').on('keyup', function(e) {
@@ -136,27 +182,6 @@ $(function() {
         return (nCheck % 10) === 0;
     }
 
-    $('#card-expire').off('keyup');
-    $('#card-expire').on('keyup', function() {
-        if($('#card-expire').val().length !== 0){
-            if(($('#card-expire').val().length === 1) && ($('#card-expire').val() > 1) ){
-                $('#card-expire').val("0" + $('#card-expire').val());
-            }
-
-            $(this).parent().find('span:first-child').css('display', 'inline');
-            $(this).removeClass('typing-none');
-            $(this).addClass('typing');
-            let  expiredDate = $('#card-expire').val().replace(/\D/g,'').replace(/(\d{2})/g, '$1/').trim();
-            if((expiredDate.length == 6) || (expiredDate.length == 3)){
-                expiredDate = expiredDate.slice(0, -1);
-            }
-            $('#card-expire').val(expiredDate);
-        }else{
-            $(this).parent().find('span:first-child').css('display', 'none')
-            $(this).removeClass('typing');
-            $(this).addClass('typing-none');
-        }
-    });
 
     $('#card-secret').off('keyup');
     $('#card-secret').on('keyup', function() {
@@ -279,12 +304,10 @@ function doPurchase() {
         payment_init();
         // Multipayment.init("tshop00042155");
         let cardNumber = $('#card-number').val().replace(/\D/g, '');
-        let cardExpire =  $('#card-expire').val();
+        let cardExpire =  $('#expire-year').val().toString() +  $('#expire-month').val().toString();
         let cardSecure = $('#card-secret').val().replace(/\D/g,'');
         // let cardHoldname = 'HOLDER NAME';
-        cardExpireMonth = cardExpire.split('/')[0];
-        cardExpireYear = "20" + cardExpire.split('/')[1];
-        cardExpire = cardExpireYear.toString()  +  cardExpireMonth.toString();
+
 
 
         // console.log(cardNumber);

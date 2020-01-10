@@ -36,12 +36,11 @@
             <form action="{{route('.make_payment')}}" method="POST" class="booking">
                 @csrf
                 <div class="booking-warp payment">
-                    <div class="booking-field">
+                    <!-- <div class="booking-field">
                         <div class="">
                             <p class="text-md-left pt-2 mb-1 font-weight-bold">個人情報</p>
                         </div>
-                    </div>
-                    @include('sunsun.front.parts.payment_form', ['new' => '1'])
+                    </div> -->
                     <div class="booking-field">
                         <div class="">
                             <p class="text-md-left pt-4 mb-1 font-weight-bold">{{config('booking.services_used.label')}}</p>
@@ -82,7 +81,7 @@
                             </tfoot>
                         </table>
                     </div>
-
+                    @include('sunsun.front.parts.payment_form', ['new' => '1'])
                     @include('sunsun.front.parts.payment_method', ['new' => '1'])
 
                     <div class="pl-4 pr-1">

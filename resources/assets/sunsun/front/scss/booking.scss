@@ -308,47 +308,9 @@ label.form-check-label {
 .booking-warp {
     width: 100vw;
     max-width: 100vw;
-    .credit-card{
-        margin: 10px 10px 20px 55px;
-        .cc-block{
-            display: flex;
-            border: 1px solid #dee2e6;
-            .form-control {
-                border: 0;
-                box-shadow: none;
-            }
-            .form-control:focus {
-                border: 0;
-                box-shadow: none;
-            }
-
-
-            .credit-card-line{
-                border: 0px;
-                width: 100%;
-                display: flex;
-                .card-img{
-                    width: 0%;
-                    visibility: hidden;
-                }
-                .card-number{
-                    width: 100%;
-                }
-            }
-            .credit-card-line2{
-                margin-top: 0px;
-                border: 0px;
-                width: 80%;
-                display: flex;
-                .card-expire{
-                    width: 100%;
-                }
-                .card-secret{
-                    width: 73%;
-                }
-            }
-        }
-    }
+    // .credit-card{
+    //     margin: 10px 10px 20px 55px;
+    // }
 }
 .booking-warp.index{
     width: 32vw;
@@ -790,12 +752,6 @@ p.note-error {
     width: 100%;
     transition: all 0.1s ease-in-out 0s;
 }
-.typing-none{
-    margin: 7px 0;
-}
-.typing{
-    margin: 14px 0 0 0;
-}
 td.time-td {
     width: 50% !important;
 }
@@ -809,4 +765,45 @@ td.time-td {
 }
 span {
     display: inline-block;
+}
+.row100{
+    display: flex;
+}
+.row100{
+    width: 100%;
+}
+.card-payment{
+    padding: 1.25rem 0.75rem 1.25rem 0px !important;
+}
+.custom-control-label::before {
+    border-radius: 50px;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: rgba(0, 0, 0, 0.125);;
+    background-color: #d7751e;
+}
+.rowex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.custom-link{
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+img {
+    max-width: 100%;
+}
+.hint-title{
+    text-align: left;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.hint-align{
+    display: flex;
+}
+.hint-head{
+    margin-bottom: 1rem;
+    text-align: left;
 }

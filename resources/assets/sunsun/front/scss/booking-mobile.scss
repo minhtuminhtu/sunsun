@@ -289,50 +289,9 @@
     .booking-warp {
         width: 100vw !important;
         max-width: 100vw !important;
-        .credit-card{
-            margin: 10px 10px 20px 55px;
-            .cc-block {
-                display: block;
-                border: 1px solid transparent !important;
-                .form-control {
-                    border: 0;
-                    box-shadow: none;
-                }
-                .form-control:focus {
-                    border: 0;
-                    box-shadow: none;
-                }
-
-
-                .credit-card-line{
-                    border: 1px solid #dee2e6;
-                    width: 100%;
-                    display: flex;
-                    .card-img{
-                        width: 20%;
-                        visibility: visible;
-                        .scale-image{
-                            max-width: 2.25rem;
-                        }
-                    }
-                    .card-number{
-                        width: 80%;
-                    }
-                }
-                .credit-card-line2{
-                    margin-top: 1.25vw;
-                    border: 1px solid #dee2e6;
-                    width: 100%;
-                    display: flex;
-                    .card-expire{
-                        width: 100%;
-                    }
-                    .card-secret{
-                        width: 35%;
-                    }
-                }
-            }
-        }
+        // .credit-card{
+        //     margin: 10px 10px 20px 55px;
+        // }
     }
     .booking-warp.booking{
         width: 100vw !important;

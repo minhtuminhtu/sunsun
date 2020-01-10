@@ -1812,7 +1812,7 @@ class BookingController extends Controller
                         $or = " OR ";
                     }
                     if (isset($course['kubun_id']) && $course['kubun_id'] == '03') {
-                        $time_2 = $this->minus_time_string($time, 60);
+                        $time_2 = $this->minus_time_string($time, 60 - 1);
                         $sql_validate_ss .= "
                         $or ( mk1.notes <= '$time' AND mk1.notes >= '$time_2'  $sql_bed )
                     ";
@@ -2212,7 +2212,7 @@ class BookingController extends Controller
             }
             //dd($data);
         }  else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) { // All room
-            $validate_time['BOTH_ALL_ROOM']['max'] = $this->plus_time_string($data['time_room_value'], 120 + $time_wait); // 120p tắm bt + time wait
+            $validate_time['BOTH_ALL_ROOM']['max'] = $this->plus_time_string($data['time_room_value'], 60 + $time_wait); // 60p tắm bt + time wait
             $validate_time['BOTH_ALL_ROOM']['min'] = $this->minus_time_string($data['time_room_value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
 
         }
