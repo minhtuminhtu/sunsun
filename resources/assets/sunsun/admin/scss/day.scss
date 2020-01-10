@@ -570,8 +570,8 @@ span {
     font-size: 1.15vw;
 }
 .main-head__left{
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     width: 100%;
 }
 .main-head_right{
@@ -633,4 +633,7 @@ li.list-group-item.list-head {
 }
 .text-right{
     font-size: 0.75vw !important;
+}
+.button-control{
+    margin-right: 2vw;
 }

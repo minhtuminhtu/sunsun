@@ -20,6 +20,17 @@
                     <div class="left-content">
                         <div class="control-view"  id="week-picker-wrapper">
                             <div class="control-align_center">
+                                <button class="btn btn-block btn-main control-date">月間表示</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-content">
+                    </div>
+                </div>
+                <div class="main-content-head">
+                    <div class="left-content">
+                        <div class="control-view"  id="week-picker-wrapper">
+                            <div class="control-align_center">
                                 <button class="btn btn-block btn-main control-date control-date-left week-prev" href="javascript:void(0)">〈 前週</button>
                             </div>
                             <div class="control-align_center">
@@ -83,7 +94,7 @@
                                         女
                                         </div>
                                         <div class="data-col title wt-title">
-                                        WT 
+                                        WT
                                         </div>
                                         <div class="data-col title pet-title">
                                         Pet
@@ -101,21 +112,21 @@
                 @php $i = 0; @endphp
                 @foreach($time_range as $key => $time)
                     @php $i++; @endphp
-                    @if(($time['time'] != '') || ($time['time_range'] != '')) 
+                    @if(($time['time'] != '') || ($time['time_range'] != ''))
                         <div class="weekly">
-                            <div class="weekly-time body-content content 
-                            @php 
-                            if($key == (count($time_range) - 1)){ 
-                                echo ' last '; 
-                            }  
-                            if($i%2 == 1){ 
-                                echo ' bg-time-new '; 
-                            } 
-                            if(isset($time['week_bottom'])){ 
+                            <div class="weekly-time body-content content
+                            @php
+                            if($key == (count($time_range) - 1)){
+                                echo ' last ';
+                            }
+                            if($i%2 == 1){
+                                echo ' bg-time-new ';
+                            }
+                            if(isset($time['week_bottom'])){
                                 if($time['week_bottom'] == 2){
-                                    echo ' week_bottom_boder '; 
+                                    echo ' week_bottom_boder ';
                                 }else{
-                                    echo ' week_bottom '; 
+                                    echo ' week_bottom ';
                                 }
                             }
                             @endphp">
@@ -133,99 +144,99 @@
                                         <div class="table-col body-content content @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
                                             <div class="table-data">
                                                 @if($time['time'] == '')
-                                                    <div class="data-col bg-free 
+                                                    <div class="data-col bg-free
                                                     @php
-                                                    if(isset($time['week_bottom'])){ 
+                                                    if(isset($time['week_bottom'])){
                                                         if($time['week_bottom'] == 2){
-                                                            echo ' week_bottom_boder '; 
+                                                            echo ' week_bottom_boder ';
                                                         }else{
-                                                            echo ' week_bottom '; 
+                                                            echo ' week_bottom ';
                                                         }
                                                     }
                                                     @endphp"></div>
-                                                    <div class="data-col bg-free 
+                                                    <div class="data-col bg-free
                                                     @php
-                                                    if(isset($time['week_bottom'])){ 
+                                                    if(isset($time['week_bottom'])){
                                                         if($time['week_bottom'] == 2){
-                                                            echo ' week_bottom_boder '; 
+                                                            echo ' week_bottom_boder ';
                                                         }else{
-                                                            echo ' week_bottom '; 
+                                                            echo ' week_bottom ';
                                                         }
                                                     }
                                                     @endphp"></div>
                                                 @else
-                                                    <div class="data-col bg-male 
-                                                        @php 
-                                                        if($i%2 == 0){ 
-                                                            echo 'bg-male-new'; 
+                                                    <div class="data-col bg-male
+                                                        @php
+                                                        if($i%2 == 0){
+                                                            echo 'bg-male-new';
                                                         }
-                                                        if($key == (count($time_range) - 1)){ 
-                                                            echo ' last '; 
+                                                        if($key == (count($time_range) - 1)){
+                                                            echo ' last ';
                                                         }
-                                                        if(isset($time['week_bottom'])){ 
+                                                        if(isset($time['week_bottom'])){
                                                             if($time['week_bottom'] == 2){
-                                                                echo ' week_bottom_boder '; 
+                                                                echo ' week_bottom_boder ';
                                                             }else{
-                                                                echo ' week_bottom '; 
+                                                                echo ' week_bottom ';
                                                             }
                                                         }
-                                                        
+
                                                         @endphp">
                                                         @include('sunsun.admin.layouts.weekly_data', ['type' => 'male'])
                                                     </div>
-                                                    <div class="data-col bg-female 
-                                                        @php 
-                                                        if($i%2 == 0){ 
-                                                            echo 'bg-female-new'; 
-                                                        } 
-                                                        if($key == (count($time_range) - 1)){ 
-                                                            echo ' last '; 
+                                                    <div class="data-col bg-female
+                                                        @php
+                                                        if($i%2 == 0){
+                                                            echo 'bg-female-new';
                                                         }
-                                                        if(isset($time['week_bottom'])){ 
+                                                        if($key == (count($time_range) - 1)){
+                                                            echo ' last ';
+                                                        }
+                                                        if(isset($time['week_bottom'])){
                                                             if($time['week_bottom'] == 2){
-                                                                echo ' week_bottom_boder '; 
+                                                                echo ' week_bottom_boder ';
                                                             }else{
-                                                                echo ' week_bottom '; 
+                                                                echo ' week_bottom ';
                                                             }
                                                         }
                                                         @endphp">
                                                         @include('sunsun.admin.layouts.weekly_data', ['type' => 'female'])
                                                     </div>
                                                 @endif
-                                                
+
                                                 @if(isset($time['not_wt']))
-                                                <div class="data-col bg-wt_free 
-                                                    @php 
-                                                    if($key == (count($time_range) - 1)){ 
-                                                        echo ' last '; 
-                                                    }  
-                                                    if(isset($time['week_bottom'])){ 
+                                                <div class="data-col bg-wt_free
+                                                    @php
+                                                    if($key == (count($time_range) - 1)){
+                                                        echo ' last ';
+                                                    }
+                                                    if(isset($time['week_bottom'])){
                                                         if($time['week_bottom'] == 2){
-                                                            echo ' week_bottom_boder '; 
+                                                            echo ' week_bottom_boder ';
                                                         }else{
-                                                            echo ' week_bottom '; 
+                                                            echo ' week_bottom ';
                                                         }
                                                     }
                                                     @endphp">
                                                 </div>
                                                 @else
-                                                <div class="data-col bg-wt 
-                                                    @php 
-                                                    if($i%2 == 1){ 
-                                                        echo 'bg-wt-new'; 
-                                                    } 
-                                                    if(isset($time['week_bottom'])){ 
+                                                <div class="data-col bg-wt
+                                                    @php
+                                                    if($i%2 == 1){
+                                                        echo 'bg-wt-new';
+                                                    }
+                                                    if(isset($time['week_bottom'])){
                                                         if($time['week_bottom'] == 2){
-                                                            echo ' week_bottom_boder '; 
+                                                            echo ' week_bottom_boder ';
                                                         }else{
-                                                            echo ' week_bottom '; 
+                                                            echo ' week_bottom ';
                                                         }
                                                     }
                                                     @endphp">
                                                     @include('sunsun.admin.layouts.weekly_data', ['type' => 'wt'])
                                                 </div>
                                                 @endif
-                                                
+
 
                                                 @if(isset($time['pet_time_type']))
                                                     @if($time['pet_time_type'] == 1)
@@ -239,11 +250,11 @@
                                                     @else
                                                     <div class="data-col bg-pet pet-col_second
                                                     @php
-                                                    if(isset($time['week_bottom'])){ 
+                                                    if(isset($time['week_bottom'])){
                                                         if($time['week_bottom'] == 2){
-                                                            echo ' week_bottom_boder '; 
+                                                            echo ' week_bottom_boder ';
                                                         }else{
-                                                            echo ' week_bottom '; 
+                                                            echo ' week_bottom ';
                                                         }
                                                     }
                                                     @endphp
@@ -251,14 +262,14 @@
                                                     </div>
                                                     @endif
                                                 @else
-                                                <div class="data-col 
+                                                <div class="data-col
                                                     @if(isset($time['pet_begin'])) pet_begin @endif
                                                     @php
-                                                    if(isset($time['week_bottom'])){ 
+                                                    if(isset($time['week_bottom'])){
                                                         if($time['week_bottom'] == 2){
-                                                            echo ' week_bottom_boder '; 
+                                                            echo ' week_bottom_boder ';
                                                         }else{
-                                                            echo ' week_bottom '; 
+                                                            echo ' week_bottom ';
                                                         }
                                                     }
                                                     @endphp
@@ -278,7 +289,7 @@
                 @endforeach
             </div>
         </div>
-        
+
         <div class="main-footer">
 
         </div>

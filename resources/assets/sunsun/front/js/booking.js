@@ -631,8 +631,8 @@ $(function() {
         });
     });
 
-    
-    
+
+
     $('#transport').off('change');
     $('#transport').on('change', function(e) {
         var transport =  JSON.parse($('#transport').val());
@@ -727,7 +727,12 @@ $(function() {
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
                 input_error_transport.addClass('validate_failed');
-                input_error_transport.parent().after('<p class="note-error node-text"> 予約時間は洲本ICのバスの送迎時間以降にならないといけないのです。</p>');
+                let repeat_user = JSON.parse($('#repeat_user').val());
+                if(repeat_user.kubun_id == '01'){
+                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
+                }else if(repeat_user.kubun_id == '02'){
+                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
+                }
                 $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
             })
         }
@@ -1194,7 +1199,14 @@ let load_after_ajax = function(){
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
                 input_error_transport.addClass('validate_failed');
-                input_error_transport.parent().after('<p class="note-error node-text"> 予約時間は洲本ICのバスの送迎時間以降にならないといけないのです。</p>');
+
+                let repeat_user = JSON.parse($('#repeat_user').val());
+                if(repeat_user.kubun_id == '01'){
+                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
+                }else if(repeat_user.kubun_id == '02'){
+                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
+                }
+
                 $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
             })
         }

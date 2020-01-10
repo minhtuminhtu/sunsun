@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
-    
+
 @endsection
 @section('main')
     @include('sunsun.front.parts.booking_modal')
@@ -17,6 +17,23 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
+                <div class="main-head__top" style="display: flex;">
+                    <div class="main-head__left">
+                        <div class="control-view">
+                            <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" href="javascript:void(0)">週間表示</button>
+                            </div>
+                            <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" href="javascript:void(0)">月間表示</button>
+                            </div>
+                            <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" href="javascript:void(0)">ユーザー <br>管理</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-head_right">
+                    </div>
+                </div>
                 <div class="main-head__top" style="display: flex;">
                     <div class="main-head__left">
                         <div class="control-view">
@@ -51,7 +68,7 @@
                                 <ul class="list-group name-search list-result" id="result">
                                 </ul>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="main-head__middle">
                     <div class="middle_box">
@@ -203,7 +220,7 @@
                                 ">
                                 </div>
                             </div>
-                            <div class="main-col__space-1 bg-free 
+                            <div class="main-col__space-1 bg-free
                                 @if(isset($time['first_free'])) first_free @endif
                                 @php
                                     if(isset($time['body_free'])){
@@ -550,7 +567,7 @@
                                                 + '<div class="name-field">' + value.name + '</div>'
                                                 + '</li>');
                             load_search_event();
-                        
+
                         }
                     });
                     // $('.search-button').html('<div class="input-group-text"><i class="fas fa-times"></i></div>');
@@ -558,7 +575,7 @@
             });
         });
 
-        
+
     </script>
 
 
