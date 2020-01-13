@@ -130,3 +130,14 @@ html, body {
 .monthly-width__value{
     width: 25%;
 }
+
+.table-col:not(.not-select):hover {
+    border: 2px solid #FF0000;
+    margin-left: -2px;
+    margin-top: -2px;
+    margin-bottom: -2px;
+    cursor: pointer;
+}
+.table-col.last-col:not(.not-select):hover{
+    margin-right: -2px;
+}

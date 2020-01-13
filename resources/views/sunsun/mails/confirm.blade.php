@@ -61,13 +61,7 @@
 </head>
 <body class="mail-container">
     <div  class="mail-data">
-        <h1 class="text-center left_logo" style="margin: 0;">
-            <img src="http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/header/logo.png" width="100px" style="margin-right: 10px;">
-        </h1>
-        <h1 class="text-center main_title" align="center" style="margin: 0;">
-            <img src="http://booking.sun-sun33.com/sunsun/imgs/icons/success.png" width="30px" style="margin-right: 10px;" alt="process..." data-auto-embed="attachment">Order Success
-        </h1>
-        <div class="h3_title" style="margin-top: 0; padding-bottom: 10px;">{{ isset($booking_data->booking_data['name'])?$booking_data->booking_data['name']:'' }} 様</div>
+        <div class="h3_title" style="margin-top: 10px; padding-bottom: 10px;">{{ isset($booking_data->booking_data['name'])?$booking_data->booking_data['name']:'' }} 様</div>
         <div class="h3_title" style="margin-top: 0; padding-bottom: 10px;">
             <span>この度は、【ぬか天国Sun燦】にご予約いただき、誠にありがとうございます。</span>
             <span>ご予約を下記の内容で承りましたのでご確認下さい。</span>
@@ -95,7 +89,7 @@
             <span>どうぞよろしくお願い申し上げます。</span>
         </div>
 
-        <div class="h3_title" style="margin-top: 0; padding-bottom: 60px;">  
+        <div class="h3_title" style="margin-top: 0; padding-bottom: 10px;">
             <div align="center">
                 <span>-----------------------------------------------------------</span>
             </div>
@@ -115,9 +109,6 @@
                 <span>TEL：0799-20-7801　FAX：0799-20-7802</span>
             </div>
         </div>
-    </div>
-    <div class="footer">
-        <div class="footer-text" style="margin: 0;">COPYRIGHT © 2019 ぬか天国 Sun燦 all rights reserved.</div>
     </div>
 </body>
 </html>

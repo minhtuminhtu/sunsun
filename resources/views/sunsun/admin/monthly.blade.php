@@ -40,14 +40,14 @@
                             <li class="text-right">▲：空き有</li>
                             <li class="text-right">×：満床</li>
                         </ul>
-                    </div>   
+                    </div>
                 </div>
             </div>
             <div class="main-content">
                 <div class="main-content__table">
                     <div class="table-header header">
-                        <div class="table-col"></div>
-                        <div class="table-col">
+                        <div class="table-col not-select"></div>
+                        <div class="table-col not-select">
                             <div>
                                 <div class="font-bold">月</div>
                                 <div class="data-item">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-col">
+                        <div class="table-col not-select">
                             <div>
                                 <div class="font-bold">火</div>
                                 <div class="data-item">
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-col">
+                        <div class="table-col not-select">
                             <div>
                                 <div class="font-bold">水</div>
                                 <div class="data-item">
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-col">
+                        <div class="table-col not-select">
                             <div>
                                 <div class="font-bold">木</div>
                                 <div class="data-item">
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-col">
+                        <div class="table-col not-select">
                             <div>
                                 <div class="font-bold">金</div>
                                 <div class="data-item">
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-col">
+                        <div class="table-col not-select">
                             <div>
                                 <div class="font-bold">土</div>
                                 <div class="data-item">
@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-col last-col">
+                        <div class="table-col not-select last-col">
                             <div>
                                 <div class="font-bold">日</div>
                                 <div class="data-item">
@@ -185,7 +185,7 @@
 
                     @foreach($data['week_range'] as $week)
                     <div class="table-header">
-                        <div class="table-col">
+                        <div class="table-col not-select">
                             <div class="data-item-head noselect">&#160;</div>
                             <div class="data-item">
                                 <div class="item">09:30‐13:30</div>
@@ -198,7 +198,16 @@
                             </div>
                         </div>
                         @foreach($week as $key => $day)
-                        <div class="table-col @php if($key == (count($week) - 1)){ echo 'last-col'; }  @endphp">
+                        <div class="table-col
+                            @php
+                                if($key == (count($week) - 1)){
+                                    echo ' last-col ';
+                                }
+                                if($day['full_date'] == NULL){
+                                    echo ' not-select ';
+                                }
+                            @endphp
+                            ">
                             @if($day['full_date'] == NULL)
                             <div class="data-item-head noselect">&#160;</div>
                             <div class="data-item">
@@ -222,6 +231,7 @@
                             @else
                                 <div class="data-item-head {{ $day['full_date'] }}">
                                     <div class="font-bold">{{ $day['day'] }}</div>
+                                    <input type="hidden" class="full_date" value="{{ $day['full_date'] }}" />
                                 </div>
                                 @if(($key == 2) || ($key == 3))
                                 <div class="data-item">

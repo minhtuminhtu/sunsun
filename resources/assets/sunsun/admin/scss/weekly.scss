@@ -645,4 +645,29 @@ html, body {
 }
 
 
+.table-col.first.hover {
+    border-top: 1px solid #ff0000 !important;
+    border-left: 1px solid #ff0000 !important;
+    border-right: 1px solid #ff0000 !important;
+    margin-right: 1px;
+    cursor: pointer;
+}
+.title.table-col.hover {
+    border-left: 1px solid #ff0000 !important;
+    border-right: 1px solid #ff0000 !important;
+    margin-right: 1px;
+    cursor: pointer;
+}
+.table-col.body-content.content.hover {
+    border-left: 1px solid #ff0000 !important;
+    border-right: 1px solid #ff0000 !important;
+    margin-right: 1px;
+    cursor: pointer;
+}
+.table-col.body-content.content.last.hover {
+    border-bottom: 1px solid #ff0000 !important;
+    cursor: pointer;
+}
+
+
 

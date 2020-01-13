@@ -39,6 +39,11 @@ $(function () {
     });
 
 
-    
+    $('.table-col:not(.not-select)').off('click');
+    $('.table-col:not(.not-select)').on('click',function (e) {
+        let date = $(this).find('.full_date').val();
+        let day_url = $curent_url.substring(0, $curent_url.length - 7) + "day";;
+        window.location.href = day_url + "?date=" + date;
+    });
 
 });

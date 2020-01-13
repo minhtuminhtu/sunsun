@@ -48,8 +48,8 @@ class BookingController extends Controller
             $this->save_session($request, $data);
             $this->add_fake_booking($request, $data);
         }
-        
-        
+
+
         return ['status'=> 'OK'];
     }
 
@@ -70,7 +70,7 @@ class BookingController extends Controller
 
         $this->save_session($request, $data);
         $this->add_fake_booking($request, $data);
-        
+
         return ['status'=> 'OK'];
     }
     private function add_fake_booking($request, &$data){
@@ -126,7 +126,7 @@ class BookingController extends Controller
 
             $this->save_session($request, $data);
         }
-    } 
+    }
 
     public function validate_booking($data) {
         $error = [];
@@ -374,7 +374,7 @@ class BookingController extends Controller
         if ($request->session()->exists($this->session_info)) {
             $info_customer = $request->session()->get($this->session_info);
         } else {
-            
+
             $info_customer['transport'] =  $data['transport'];
             if ($data['transport'] !== config('booking.transport.options.car')) {
                 $info_customer['bus_arrive_time_slide'] = $data['bus_arrive_time_slide'];
@@ -851,8 +851,8 @@ class BookingController extends Controller
                             $return_booking_id = $booking_id;
                             $Yoyaku->booking_id = $booking_id;
                         }
-                        
-                        
+
+
                         $Yoyaku->ref_booking_id = $parent_id;
                         Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
@@ -893,7 +893,7 @@ class BookingController extends Controller
         $booking_data->booking_id = $booking_id;
         $booking_data->booking_data = $data;
         $booking_data->booking_html = $request->session()->get($this->session_html);
-     
+
         Mail::to($email)->send(new ConfirmMail($booking_data));
     }
 
@@ -909,7 +909,8 @@ class BookingController extends Controller
             if(!isset($data['Token']) || !isset($data['Amount'])){
                 throw new \ErrorException('Token error!');
             }
-            $amount = preg_replace('~\D~', '', $data['Amount']);
+//            $amount = preg_replace('~\D~', '', $data['Amount']);
+            $amount = 1;
             return $this->create_tran($booking_id, $amount, $data['Token']);
         }else{
             return [
@@ -1290,7 +1291,7 @@ class BookingController extends Controller
         $time_json = $time0_json . "-" . $time1_json;
         // Log::debug('course 2 debug');
         // Log::debug($customer);
-        
+
         $Yoyaku->time_json = $time_json;
 
         $Yoyaku->gender = $gender->kubun_id;
@@ -1358,7 +1359,7 @@ class BookingController extends Controller
 
         //Time Json
         $time_json = isset($customer['time'][0]['json'])?$customer['time'][0]['json']:"";
-        
+
         $Yoyaku->time_json = $time_json;
 
         $Yoyaku->fake_booking_flg = $fake_booking_flg;
@@ -1444,7 +1445,7 @@ class BookingController extends Controller
 
         //Time Json
         $time_json = isset($customer['time'][0]['json'])?$customer['time'][0]['json']:"";
-        
+
         $Yoyaku->time_json = $time_json;
 
         $Yoyaku->service_time_1 = $time1;
@@ -1731,7 +1732,7 @@ class BookingController extends Controller
              *  time book all room block 2 time continually so if time after time all room can book is not empty
              * => can not book this time
              */
-         
+
             $sql_join_on .= "
             OR  (
                     (  ytm.service_time_1 < (mk1.notes + '0100')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1 AND mk2.kubun_type = '017')
@@ -1855,7 +1856,7 @@ class BookingController extends Controller
                     $sql_range
                     $sql_validate_ss
                     WHEN ytm.course IS NULL $sql_bus $sql_time_path THEN 1
-                    -- WHEN ytm.course = '03' AND ytm.service_time_2 = mk1.notes THEN 1 -- course 03 lost 2 time 
+                    -- WHEN ytm.course = '03' AND ytm.service_time_2 = mk1.notes THEN 1 -- course 03 lost 2 time
                     ELSE 0
                     END as status_time_validate
         ";
@@ -1905,21 +1906,23 @@ class BookingController extends Controller
 
     private function fix_3_bed_to_1(&$time_request){
         $time_temp = [];
-        $check_i = 1;
+        $check_0945 = 1;
+        $check_1315 = 1;
+        $check_1515 = 1;
         foreach($time_request as $time){
             if(($time->notes == '0945') || ($time->notes == '1315') || ($time->notes == '1515')){
 
                 Log::debug('noran');
-                // Log::debug($time);
-                if($check_i == 1){
+                Log::debug( $time->notes);
+                if(($check_0945) && ($time->notes == '0945')){
                     $time_temp['0945'] = $time;
-                    $check_i++;
-                }else if($check_i == 2){
+                    $check_0945 = 0;
+                }else if(($check_1315) && ($time->notes == '1315')){
                     $time_temp['1315'] = $time;
-                    $check_i++;
-                }else if($check_i == 3){
+                    $check_1315 = 0;
+                }else if(($check_1515) && ($time->notes == '1515')){
                     $time_temp['1515'] = $time;
-                    $check_i++;
+                    $check_1515 = 0;
                 }else{
                     if($time->status_time_validate == 0){
                         $time_temp["$time->notes"]->status_time_validate = 0;
@@ -1927,6 +1930,7 @@ class BookingController extends Controller
                 }
             }
         }
+//        Log::debug($time_temp);
         return $time_temp;
     }
     public function sql_get_booking_yoyaku ($sql_where = "") {

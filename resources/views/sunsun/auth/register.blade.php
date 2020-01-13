@@ -24,7 +24,8 @@
 
                 <div class="form-group mb-3 {{ $errors->has('username') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('username', '名前（カタカナ）') !!}
+{{--                        {!! Form::label('username', '名前（カタカナ）') !!}--}}
+                        <span>名前</span><span class="node-text">（カタカナ）</span>
                     </div>
                     <div class="form-input">
                         {!! Form::text('username', old('username') , ['class' => 'form-control mb-0', 'required' => 'required']) !!}
@@ -33,7 +34,8 @@
                 </div>
                 <div class="form-group mb-3 {{ $errors->has('tel') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('tel', '電話番号') !!}
+{{--                        {!! Form::label('tel', '電話番号<p class="node-text">（半角、ハイフン不要）</p>') !!}--}}
+                        <span>電話番号</span><span class="node-text">（半角、ハイフン不要）</span>
                     </div>
                     <div class="form-input">
                         {!! Form::text('tel',  old('tel'), ['class' => 'form-control', 'required' => 'required']) !!}

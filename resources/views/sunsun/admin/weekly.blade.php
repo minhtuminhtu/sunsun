@@ -16,15 +16,15 @@
             <div class="main-head">
             </div>
             <div class="main-content">
-                <div class="main-content-head">
-                    <div class="left-content">
+                <div class="main-content-head" style="display: flex;justify-content: space-between;">
+                    <div class="">
+                    </div>
+                    <div class="">
                         <div class="control-view"  id="week-picker-wrapper">
                             <div class="control-align_center">
-                                <button class="btn btn-block btn-main control-date">月間表示</button>
+                                <button class="btn btn-block btn-main control-date" id="go-monthly">月間表示</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="right-content">
                     </div>
                 </div>
                 <div class="main-content-head">
@@ -63,8 +63,9 @@
                         <div class="table-header head">
                             @foreach($day_range as $day)
                                 @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
-                                <div class="table-col first">
+                                <div class="table-col first select-marked {{ "date" . $day['full_date']  }}">
                                     <div class="font-bold">{{ $day['month'] .'月' . $day['day'] . '日' . '(' . $day['week_day'] . ')' }}</div>
+                                    <input type="hidden" class="full_date" value="{{ $day['full_date'] }}">
                                 </div>
                                 @elseif($day['week_day'] == '水')
                                 <div class="table-col-none first">
@@ -85,7 +86,8 @@
                         <div class="table-header">
                             @foreach($day_range as $day)
                                 @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
-                                <div class="title table-col">
+                                <div class="title table-col select-marked {{ "date" . $day['full_date']  }}">
+                                    <input type="hidden" class="full_date" value="{{ $day['full_date'] }}">
                                     <div class="table-data">
                                         <div class="data-col title male-title">
                                         男
@@ -129,7 +131,8 @@
                                     echo ' week_bottom ';
                                 }
                             }
-                            @endphp">
+                            @endphp
+                                ">
                                 @if($time['time'] != '')
                                     <div class="time">{{ $time['time'] }}</div>
                                 @else
@@ -141,7 +144,8 @@
                                 <div class="table-header content">
                                     @foreach($day_range as $day)
                                         @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
-                                        <div class="table-col body-content content @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
+                                        <div class="table-col body-content content  select-marked {{ "date" . $day['full_date']  }} @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
+                                            <input type="hidden" class="full_date" value="{{ $day['full_date'] }}">
                                             <div class="table-data">
                                                 @if($time['time'] == '')
                                                     <div class="data-col bg-free

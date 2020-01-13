@@ -17,21 +17,21 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="main-head__top" style="display: flex;">
-                    <div class="main-head__left">
+                <div class="main-head__top" style="display: flex;justify-content: space-between;">
+                    <div class="">
+                    </div>
+                    <div class="">
                         <div class="control-view">
                             <div class="control-align_center button-control">
-                                <button class="btn btn-block btn-main control-date" href="javascript:void(0)">週間表示</button>
+                                <button class="btn btn-block btn-main control-date" id="go-weekly">週間表示</button>
                             </div>
                             <div class="control-align_center button-control">
-                                <button class="btn btn-block btn-main control-date" href="javascript:void(0)">月間表示</button>
+                                <button class="btn btn-block btn-main control-date" id="go-monthly">月間表示</button>
                             </div>
                             <div class="control-align_center button-control">
-                                <button class="btn btn-block btn-main control-date" href="javascript:void(0)">ユーザー <br>管理</button>
+                                <button class="btn btn-block btn-main control-date" id="go-user">ユーザー 管理</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="main-head_right">
                     </div>
                 </div>
                 <div class="main-head__top" style="display: flex;">

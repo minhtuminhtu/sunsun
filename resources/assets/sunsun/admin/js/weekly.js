@@ -1,8 +1,8 @@
 $(function () {
-    var weekpicker, 
-        start_date, 
-        end_date, 
-        url, 
+    var weekpicker,
+        start_date,
+        end_date,
+        url,
         input_start = $('#date_start_week') ;
     function set_week_picker(date) {
         start_date = moment(date, "YYYY/MM/DD").day(1).format("YYYY/MM/DD");
@@ -50,5 +50,31 @@ $(function () {
         load_url ();
     })
 
+    $('#go-monthly').off('click');
+    $('#go-monthly').on('click',function (e) {
+        let date = weekpicker.datepicker('getDate');
+        let currentDate = moment(date);
+        let monthly = currentDate.format("YMM");
 
+        let monthly_url = $curent_url.substring(0, $curent_url.length - 6) + "monthly";
+        window.location.href = monthly_url + "?date=" + monthly;
+    })
+
+
+
+    $(`.select-marked`).off('mouseenter');
+    $(`.select-marked`).on('mouseenter', function (e) {
+        $('.date' + $(this).find('.full_date').val()).addClass('hover');
+    });
+    $('.select-marked').on('mouseleave');
+    $('.select-marked').on('mouseleave', function (e) {
+        $('.date' + $(this).find('.full_date').val()).removeClass('hover');
+    });
+
+    $('.select-marked').on('click');
+    $('.select-marked').on('click', function (e) {
+        let date = $(this).find('.full_date').val();
+        let day_url = $curent_url.substring(0, $curent_url.length - 6) + "day";;
+        window.location.href = day_url + "?date=" + date;
+    });
 });

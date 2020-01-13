@@ -4,6 +4,7 @@ $(function () {
         current_day = $('#input-current__date'),
         date_day = current_day.datepicker({
         language: 'ja',
+        weekStart: 1,
         dateFormat: 'yyyy/mm/dd',
         autoclose: true,
         onSelect: function() {
@@ -111,6 +112,37 @@ $(function () {
         show_booking(booking_id);
 
     });
+
+
+
+    $('#go-weekly').off('click');
+    $('#go-weekly').on('click',function (e) {
+        let date = date_day.datepicker('getDate');
+        let currentDate = moment(date);
+        let weekStart = currentDate.clone().startOf('isoweek');
+        let start_weekly = moment(weekStart).add(0, 'days').format("YMMDD");
+        let end_weekly = moment(weekStart).add(6, 'days').format("YMMDD");
+
+        let weekly_url = $curent_url.substring(0, $curent_url.length - 3) + "weekly";
+        window.location.href = weekly_url + "?date_from=" + start_weekly + "&date_to=" + end_weekly;
+
+    })
+
+    $('#go-monthly').off('click');
+    $('#go-monthly').on('click',function (e) {
+        let date = date_day.datepicker('getDate');
+        let currentDate = moment(date);
+        let monthly = currentDate.format("YMM");
+
+        let monthly_url = $curent_url.substring(0, $curent_url.length - 3) + "monthly";
+        window.location.href = monthly_url + "?date=" + monthly;
+    })
+
+
+    $('#go-user').off('click');
+    $('#go-user').on('click',function (e) {
+        alert("go-user");
+    })
 
     $('#edit_booking').off('click','.btn-update');
     $('#edit_booking').on('click','.btn-update',function (e) {

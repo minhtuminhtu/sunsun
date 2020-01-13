@@ -16,7 +16,7 @@
 {{--        <label class="custom-control-label" for="credit-card">クレジットカード</label>--}}
 {{--    </div>--}}
 {{--</div>--}}
-<div id="accordion">
+<div id="accordion" class="mb-2">
     <div class="card">
         <div class="card-header" id="headingOne"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <h5 class="mb-0">
@@ -41,7 +41,7 @@
                         <span class="pt-2">カード番号<span class="text-red">*</span></span>
                     </div>
                     <div class="booking-field-content">
-                        <input type="text" inputmode="decimal" id="card-number" class="form-control" value="" placeholder="半角で入力してください" maxlength="19">
+                        <input type="text" inputmode="decimal" id="card-number" class="form-control" value="" placeholder="半角で入力してください" maxlength="23">
                     </div>
                 </div>
                 <div class="booking-field btn-block">
@@ -101,7 +101,7 @@
                     </div>
                     <div class="booking-field-content">
                         <div class="row100">
-                            <input  type="text" inputmode="decimal"  id="card-secret" class="form-control typing-none" value="" maxlength="3" placeholder="半角で入力してください">
+                            <input  type="text" inputmode="decimal"  id="card-secret" class="form-control typing-none" value="" maxlength="4" placeholder="半角で入力してください">
                         </div>
                         <div class="row100">
                             <div class="row50">

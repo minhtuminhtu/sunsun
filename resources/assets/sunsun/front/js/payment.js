@@ -400,7 +400,7 @@ if ((typeof execPurchase) === 'undefined') {
             $('#card-secret').addClass('error');
             $('#expire-month').addClass('error');
             $('#expire-year').addClass('error');
-            $('.cc-block').after( "<p class=\"note-error node-text\">無効なカード</p>" );
+            $('#card-number').after( "<p class=\"note-error node-text\">無効なカード</p>" );
         } else {
             $('#card-number').removeClass('error');
             $('#card-secret').removeClass('error');
