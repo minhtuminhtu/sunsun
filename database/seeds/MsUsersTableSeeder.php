@@ -13,7 +13,7 @@ class MsUsersTableSeeder extends Seeder
     {
 
         DB::table('ms_user')->insert([
-            'username' => "Admin",
+            'username' => "スマート",
             'tel' => '(555)-555-5555',
             'email' => "noreply.sun.sun33@gmail.com",
             'gender' => 'female',

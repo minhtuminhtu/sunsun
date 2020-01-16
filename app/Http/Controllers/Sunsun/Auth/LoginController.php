@@ -55,10 +55,10 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        /*$ms_user = Auth::user();
-        if ($ms_user->is_admin()) {
-            return route('admin.day');
-        }*/
+//        $ms_user = Auth::user();
+//        if ($ms_user->is_admin()) {
+//            return route('admin.day');
+//        }
         return route('home');
     }
 

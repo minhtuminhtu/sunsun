@@ -42,7 +42,7 @@
 
                 <input name="time_room_time1" id="time_room_time1" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
                 <input name="time_room_time2" id="time_room_time2" type="hidden" value="{{ isset($course_data['service_time_2'])?$course_data['service_time_2']:'0' }}">
-                <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  id="time_room_pet_0"   readonly="readonly" id="" value="{{ isset($time)?$time:'00:00～00:00' }}">
+                <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  id="time_room_pet_0"   readonly="readonly" id="" value="{{ isset($time)?$time:'－' }}">
                 <input name="time[0][json]" class="data-json_input" id="time_room_pet_json" type="hidden" value="{{ isset($course_data['time_json'])?$course_data['time_json']:'0' }}">
                 <input name="time[0][element]" id="" type="hidden" value="time_room_pet_0">
             </div>

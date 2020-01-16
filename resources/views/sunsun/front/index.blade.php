@@ -39,7 +39,7 @@
                                 <div class="content-right container-checkbox">
                                     <label for="confirm">
                                         <input type="checkbox" class="" id="confirm">
-                                        <span class="checkmark"></span>
+                                        <span class="checkmark index"></span>
                                         <span style="line-height: 27px;">上記注意事項を確認し、同意いたします。</span>
                                     </label>
                                 </div>
@@ -78,5 +78,10 @@
         });
     </script>
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
+    <script>
+        window.addEventListener("hashchange", function(e) {
+            e.preventDefault();
+        })
+    </script>
 @endsection
 
