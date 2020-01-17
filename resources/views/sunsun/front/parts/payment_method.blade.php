@@ -17,7 +17,7 @@
 {{--    </div>--}}
 {{--</div>--}}
 <div id="accordion" class="mb-2">
-    <div class="card">
+    <div class="card payment">
         <div class="card-header" id="headingOne"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <h5 class="mb-0">
                 <div class="btn">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="booking-field-content">
-                        <div class="row100">
+                        <div class="rowsecret">
                             <input  type="text" inputmode="decimal"  id="card-secret" class="form-control typing-none" value="" maxlength="4" placeholder="半角で入力してください">
                         </div>
                         <div class="row100">
@@ -115,7 +115,7 @@
             </div>
         </div>
     </div>
-    <div class="card">
+    <div class="card payment">
         <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <h5 class="mb-0">
                 <div class="btn">
@@ -130,7 +130,7 @@
 {{--            </div>--}}
         </div>
     </div>
-    <div class="card">
+    <div class="card payment" style="border-bottom: 0px;">
         <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             <h5 class="mb-0">
                 <div class="btn">

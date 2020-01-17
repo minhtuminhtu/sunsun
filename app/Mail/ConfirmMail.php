@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Mail;
- 
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -30,7 +30,7 @@ class ConfirmMail extends Mailable
      */
     public function build(){
         $booking_data = $this->booking_data;
-        return $this->view('sunsun.mails.confirm')
+        return $this->view('sunsun.mails.booking.confirm')
                     ->subject('【ぬか天国Sun燦】予約確認のお知らせ')
                     ->with(
                       [
