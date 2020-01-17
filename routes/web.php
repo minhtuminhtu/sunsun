@@ -90,7 +90,7 @@ Route::get('/clear', function () {
  });
 
 
- Route::middleware('begin.auth')->group(function(){
+// Route::middleware('begin.auth')->group(function(){
     Route::namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
@@ -170,7 +170,7 @@ Route::get('/clear', function () {
         Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
 
     });
-});
+//});
 
 
 
