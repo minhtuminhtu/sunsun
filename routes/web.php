@@ -215,6 +215,14 @@ Route::middleware('begin.auth')->group(function(){
         // Route::post('/booking_history',['as' => '.booking_history', 'uses' => 'AdminController@booking_history']);
         Route::post('/show_history',['as' => '.show_history', 'uses' => 'AdminController@show_history']);
         Route::post('/update_booking',['as' => '.update_booking', 'uses' => 'AdminController@update_booking']);
+
+        // user admin
+        Route::get('/msuser',['as' => '.user', 'uses' => 'AdminController@user']);
+        Route::post('/update_user',['as' => '.update_user', 'uses' => 'AdminController@update_user']);
+        // Route::get('/search_user',['as' => '.search_user', 'uses' => 'AdminController@get_search_user']);
+        Route::get('/search-paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_search_pagination']);
+        Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
+
     });
 });
 

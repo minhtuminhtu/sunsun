@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sunsun\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MsUser;
 use App\Models\Yoyaku;
 use App\Models\YoyakuDanjikiJikan;
 use Illuminate\Http\Request;
@@ -11,6 +12,9 @@ use Carbon\Carbon;
 use App\Models\MsKubun;
 use App\Http\Controllers\Sunsun\Front\BookingController;
 use Illuminate\Support\Facades\Log;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -1532,6 +1536,165 @@ class AdminController extends Controller
             $data[$week_num]['end']= Carbon::createFromDate($year,$month,$i)->endOfweek()->format('Y/m/d');
         }
         return array_values($data);
+    }
+
+    // user
+    public function user(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            if(!(empty($data['notshowdeleted'])))
+            {
+                $list_search = $this->get_list_search_user($data);
+                $request->session()->put('key',$data);
+                $view = view('sunsun.admin.layouts.user_data',['data' => $list_search, 'type' => 1])->render();
+                return [
+                    'status' => true,
+                    'data' => $view
+                ];
+            }else{
+                $list_search = $this->get_list_search_user($data);
+                $request->session()->put('key',$data);
+                $view = view('sunsun.admin.layouts.user_data',['data' => $list_search, 'type' => 1])->render();
+                return [
+                    'status' => true,
+                    'data' => $view
+                ];
+                
+            }
+        }
+        else
+        {
+            $list_data = $this->get_list_user(null, 1);
+            return view('sunsun.admin.user', ['data' => $list_data, 'type' => 0]);
+        }
+        
+    }
+
+    // public function get_search_user(Request $request){
+    //     $data = $request->all();
+    //     $request->session()->put('key',$data);
+    //     $_list_search = $this->get_list_search_user($data);
+    //     $view = view('sunsun.admin.user',compact('getdata','_list_search'))->render();
+    //     return [
+    //         'status' => true,
+    //         'data' => $view
+    //     ];
+    // }
+
+    private function get_list_user($user_id = null, $user_not_in = null)
+    {
+        if(isset($user_id) && !empty($user_id)){
+            $data = MsUser::find($user_id);
+        }else{
+            $data = MsUser::where('deleteflg', 0)->whereNotIn('ms_user_id', [$user_not_in])->paginate(20);
+        }
+        return $data;
+    }
+
+    public function get_list_search_user($data){
+        if (isset($data) && !empty($data)) {
+            $username = $data['username'];    
+            $phone = $data['phone'];
+            $email = $data['email'];
+            $where = array();
+            if (!empty($username)) {
+                $username = '%'.$username.'%';
+                $username = str_replace("*","%", $username);
+                $where[] = ['username', 'LIKE', $username];
+            }
+            if(!empty($phone)){
+                $phone = '%'.$phone.'%';
+                $phone = str_replace("*","%", $phone);
+                $where[] = ['tel', 'LIKE', $phone];
+            }
+            if (!empty($email)) {
+                $email = '%'.$email.'%';
+                $email = str_replace("*","%", $email);
+                $where[] = ['email', 'LIKE', $email];
+            }
+            if (isset($data['notshowdeleted'])) {
+                $where[] = ['deleteflg', '=', 0];
+            }
+            if (!empty($where)) {
+                $data = MsUser::where($where)->whereNotIn('ms_user_id', [1])->paginate(20);
+            }else{
+                $data = MsUser::whereNotIn('ms_user_id', [1])->paginate(20);
+            }
+            Log::debug($data);
+        }
+        return $data;
+    }
+
+    public function update_user(Request $request){
+        $responsive_array = array();
+        $data = $request->all();
+        $validation = Validator::make($data, [
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:ms_user,email,'.$data['user_id'].',ms_user_id|regex:/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/',
+            'tel' => 'required|string|max:255|regex:/[0-9]{10,11}/',
+            'password' => 'required|string|min:1', //'confirmed'
+        ]);
+        if ($validation->fails()) {
+            $error_messages = implode(',', $validation->errors()->all());
+            $responsive_array = array('status' => false, 'type' => 'update', 'message' => $error_messages);
+        }else{
+            $ms_user = $this->update_msuser($data, $request);
+            $responsive_array = array('status' => true, 'type' => 'update', 'message' => null, 'data' => $ms_user);
+        }
+        return $responsive_array;
+    }
+    
+    // update user
+    private function update_msuser($data, $request){
+        $result = [];
+        if(isset($data['user_id'])){
+            try{
+                $check_row_delete = $this->get_list_user($data['user_id']);
+                if ($data['checkdelete'] == 'true') {
+                    $deleteflg = !$check_row_delete->deleteflg;
+                }else{
+                    $deleteflg = $check_row_delete->deleteflg;
+                }
+                MsUser::where('ms_user_id', $data['user_id'])->update(['username' => $data['username'], 'password' => $data['password'], 'email' => $data['email'], 'tel' => $data['tel'], 'deleteflg' => $deleteflg]);
+                $result = [
+                    'status' => true
+                ];
+            } catch (\Exception $failed) {
+                $result = [
+                    'status' => false
+                ];
+            }
+            return  $result;
+        }
+    }
+
+    public function get_data_search_pagination(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $_data_paginate = $this->get_list_search_user($data);
+            $view = view('sunsun.admin.layouts.user_data',['data' => $_data_paginate,'type' => 1])->render();
+            return [
+                'status' => true,
+                'data' => $view
+            ];
+        }
+    }
+
+    public function export(Request $request){
+        $data = $request->session()->get('key');
+        $date_down = now();
+        if (!empty($data)) {
+            $request->session()->forget('key');
+            return Excel::download(new UsersExport($data['username'], $data['phone'], $data['email']), $date_down.'.csv');
+            
+        }else{
+            $request->session()->forget('key');
+            return Excel::download(new UsersExport(), $date_down.'.csv');
+        }
     }
 
 }
