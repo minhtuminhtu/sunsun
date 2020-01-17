@@ -174,7 +174,7 @@
     <div class="booking-line-laber">
         <div class="line-laber">オプション</div>
         <div class="line-button">
-            <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
         </div>
     </div>
     <!-- <hr class="booking-line-line"> -->
@@ -206,7 +206,7 @@
         <div class="booking-line-laber">
             <div class="line-laber">宿泊</div>
             <div class="line-button">
-                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
             </div>
         </div>
         <!-- <hr class="booking-line-line"> -->

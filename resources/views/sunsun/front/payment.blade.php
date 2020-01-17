@@ -95,7 +95,7 @@
                                 @if($key == '02_03')
                                     <tr>
                                         <td class="text-left">宿泊 {{$option['room']}}</td>
-                                        <td class="text-right">{{$option['quantity']}}回</td>
+                                        <td class="text-right">{{$option['quantity']}}日</td>
                                         <td class="text-right">{{number_format($option['price'])}}</td>
                                     </tr>
                                 @else
