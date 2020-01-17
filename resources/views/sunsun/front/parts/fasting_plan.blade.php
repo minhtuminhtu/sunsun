@@ -87,6 +87,7 @@
         </div>
 
 
+        <input type="hidden" name="bus_first" id="bus_first" value="0">
         <div>
             <div class="booking-field-100  booking-laber-padding">
                 <p class="text-left pt-2">{{config('booking.range_time_eat.label')}}</p>
@@ -137,7 +138,7 @@
                                 <div class="set-time">
                                     <input name="date[{{ $i }}][from][value]" type="hidden" class="time_from time_value" readonly="readonly" value="{{ isset($time['service_time_1'])?$time['service_time_1']:'0' }}" />
                                     <input name="date[{{ $i }}][from][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_start)?$bed_start:'0' }}" />
-                                    <input name="date[{{ $i }}][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly" value="{{ isset($time_start)?$time_start:'00:00' }}" />
+                                    <input name="date[{{ $i }}][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly" value="{{ isset($time_start)?$time_start:'－' }}" />
                                     <input name="time[{{ $i }}][from][json]" type="hidden" class="data-json_input" value="{{ isset($time1_json)?$time1_json:'' }}" />
                                     <input name="time[{{ $i }}][from][element]" type="hidden" value="time_bath_10" />
                                 </div>
@@ -148,7 +149,7 @@
                                 <div class="set-time">
                                     <input name="date[{{ $i }}][to][value]" type="hidden" class="time_to time_value" readonly="readonly" value="{{ isset($time['service_time_2'])?$time['service_time_2']:'0' }}" />
                                     <input name="date[{{ $i }}][to][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_end)?$bed_end:'0' }}" />
-                                    <input name="date[{{ $i }}][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to" readonly="readonly" value="{{ isset($time_end)?$time_end:'00:00' }}" />
+                                    <input name="date[{{ $i }}][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to" readonly="readonly" value="{{ isset($time_end)?$time_end:'－' }}" />
                                     <input name="time[{{ $i }}][to][json]" type="hidden" class="data-json_input" value="{{ isset($time2_json)?$time1_json:'' }}" />
                                     <input name="time[{{ $i }}][to][element]" type="hidden" value="time_bath_11" />
                                 </div>
@@ -178,7 +179,7 @@
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show">
+<div class="collapse collapse-between">
     <div class="booking-block-between">
         <div class="">
             <div class="booking-field">
@@ -210,7 +211,7 @@
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
-    <div class="collapse collapse-finish show">
+    <div class="collapse collapse-finish">
         <div class="booking-block-finish">
             <div class="">
                 <div class="booking-field">

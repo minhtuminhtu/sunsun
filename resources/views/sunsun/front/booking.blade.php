@@ -19,7 +19,7 @@
 @section('footer')
     @parent
     <!-- The Modal -->
-    
+
 @endsection
 @section('script')
     @parent

@@ -22,6 +22,7 @@ class CreateMsUserTable extends Migration
             $table->string('birth_year',255);
             $table->string('user_type',255)->default('user');
             $table->string('password',255);
+            $table->string('deleteflg',1)->default(0);
             $table->timestamps();
         });
     }

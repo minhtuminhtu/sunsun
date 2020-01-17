@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
             //$ms_user = Auth::user();
             $currentRoute = Route::getCurrentRoute()->getName();
             if (Str::startsWith($currentRoute, 'admin')) {
-                return redirect()->route('admin.index');
+                return redirect()->route('admin.day');
 
             } else {
                 return redirect()->route('home');

@@ -128,8 +128,8 @@ return [
         'time_validate' => [
             'transport' => [
                 'bus' => [
-                    'NEW' => 45,
-                    'OLD' => 30
+                    'NEW' => 30,
+                    'OLD' => 15
                 ],
             ],
             'whitening' => [
