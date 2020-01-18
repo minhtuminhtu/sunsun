@@ -181,6 +181,11 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+
+
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
+
     ],
 
     /*
@@ -238,6 +243,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];
