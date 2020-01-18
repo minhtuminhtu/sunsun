@@ -12,15 +12,17 @@ class UsersExport implements FromCollection,WithHeadings
     private $username;
     private $phone;
     private $email;
+    private $checkdelete;
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    public function __construct(string $username = null, string $phone = null, string $email = null)
+    public function __construct(string $username = null, string $phone = null, string $email = null, string $checkdelete = null)
     {
         $this->username = $username;
         $this->phone = $phone;
         $this->email = $email;
+        $this->checkdelete = $checkdelete;
     }
 
     public function collection()
@@ -28,21 +30,27 @@ class UsersExport implements FromCollection,WithHeadings
         $result_data = array();
         $search = new AdminController();
         if (!empty($this->username) || !empty($this->phone) || !empty($this->email)) {
+            $checkdelete = ($this->checkdelete == 1)? $this->checkdelete : "";
             $arr_data = array(
                 'username' => $this->username,
                 'phone' => $this->phone,
-                'email' => $this->email
+                'email' => $this->email,
+                'notshowdeleted' => $checkdelete
             );
-            $data = $search->get_list_search_user($arr_data);
-            if (!empty($data)) {
-                $data = $search->get_list_search_user($arr_data);
-            }else{
-                $data = MsUser::whereNotIn('ms_user_id', [1])->get();
+            
+            $_list_data = $search->get_list_search_user($arr_data,1); // type = 1 use export csv
+            if (!empty($_list_data)) {
+                $data = $_list_data;
             }
         }else{
-            $data = MsUser::whereNotIn('ms_user_id', [1])->get();
+            if ($this->checkdelete == 1) {
+                $data = MsUser::whereNotIn('ms_user_id', [1])->where('deleteflg',0)->get(); // when reload page click download csv
+            }else{
+                $data = MsUser::whereNotIn('ms_user_id', [1])->get(); // when click search not input after click download csv
+            }
+            
         }
-        return $data;
+        //dd();
         foreach ($data as $row) {
             $result_data[] = array(
                 '1' => $row->ms_user_id,

@@ -1572,17 +1572,6 @@ class AdminController extends Controller
         
     }
 
-    // public function get_search_user(Request $request){
-    //     $data = $request->all();
-    //     $request->session()->put('key',$data);
-    //     $_list_search = $this->get_list_search_user($data);
-    //     $view = view('sunsun.admin.user',compact('getdata','_list_search'))->render();
-    //     return [
-    //         'status' => true,
-    //         'data' => $view
-    //     ];
-    // }
-
     private function get_list_user($user_id = null, $user_not_in = null)
     {
         if(isset($user_id) && !empty($user_id)){
@@ -1593,7 +1582,7 @@ class AdminController extends Controller
         return $data;
     }
 
-    public function get_list_search_user($data){
+    public function get_list_search_user($data, $type=null){
         if (isset($data) && !empty($data)) {
             $username = $data['username'];    
             $phone = $data['phone'];
@@ -1614,11 +1603,15 @@ class AdminController extends Controller
                 $email = str_replace("*","%", $email);
                 $where[] = ['email', 'LIKE', $email];
             }
-            if (isset($data['notshowdeleted'])) {
+            if (isset($data['notshowdeleted']) && $data['notshowdeleted'] == 1) {
                 $where[] = ['deleteflg', '=', 0];
             }
             if (!empty($where)) {
-                $data = MsUser::where($where)->whereNotIn('ms_user_id', [1])->paginate(20);
+                if (!empty($type)) {
+                    $data = MsUser::where($where)->whereNotIn('ms_user_id', [1])->get();
+                }else{
+                    $data = MsUser::where($where)->whereNotIn('ms_user_id', [1])->paginate(20);
+                }
             }else{
                 $data = MsUser::whereNotIn('ms_user_id', [1])->paginate(20);
             }
@@ -1688,9 +1681,9 @@ class AdminController extends Controller
         $data = $request->session()->get('key');
         $date_down = now();
         if (!empty($data)) {
+            $checkdelete = (isset($data['notshowdeleted'])) ? $data['notshowdeleted'] : '';
             $request->session()->forget('key');
-            return Excel::download(new UsersExport($data['username'], $data['phone'], $data['email']), $date_down.'.csv');
-            
+            return Excel::download(new UsersExport($data['username'], $data['phone'], $data['email'], $checkdelete), $date_down.'.csv');
         }else{
             $request->session()->forget('key');
             return Excel::download(new UsersExport(), $date_down.'.csv');
