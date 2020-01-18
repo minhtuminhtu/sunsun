@@ -198,6 +198,7 @@ return array(
     'DeepCopy\\TypeFilter\\Date\\DateIntervalFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Date/DateIntervalFilter.php',
     'DeepCopy\\TypeFilter\\ReplaceFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ReplaceFilter.php',
     'DeepCopy\\TypeFilter\\ShallowCopyFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ShallowCopyFilter.php',
+    'DeepCopy\\TypeFilter\\Spl\\ArrayObjectFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/ArrayObjectFilter.php',
     'DeepCopy\\TypeFilter\\Spl\\SplDoublyLinkedList' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/SplDoublyLinkedList.php',
     'DeepCopy\\TypeFilter\\Spl\\SplDoublyLinkedListFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/SplDoublyLinkedListFilter.php',
     'DeepCopy\\TypeFilter\\TypeFilter' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/TypeFilter.php',

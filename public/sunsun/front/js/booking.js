@@ -1,1 +1,1399 @@
-!function(e){var t={};function a(i){if(t[i])return t[i].exports;var o=t[i]={i:i,l:!1,exports:{}};return e[i].call(o.exports,o,o.exports,a),o.l=!0,o.exports}a.m=e,a.c=t,a.d=function(e,t,i){a.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,t){if(1&t&&(e=a(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(a.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)a.d(i,o,function(t){return e[t]}.bind(null,o));return i},a.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(t,"a",t),t},a.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},a.p="/",a(a.s=8)}({8:function(e,t,a){e.exports=a(9)},9:function(e,t){function a(e,t,a){return t in e?Object.defineProperty(e,t,{value:a,enumerable:!0,configurable:!0,writable:!0}):e[t]=a,e}$((function(){var e=$("#choice_date_time"),t=["日","月","火","水","木","金","土"],a=moment();3==a.weekday()?a=moment(a).add(2,"days"):4==a.weekday()&&(a=moment(a).add(1,"days"));var m=moment(a).add(1,"days"),c=function(e,t,a){$("#bus_arrive_time_slide").closest("button").css({border:"solid 1px #ced4da"}),""==e&&(e=$("#course").val());var i={service:e,course_data:t,course_time:a};"on"==$("input[name=add_new_user]").val()&&(i.add_new_user="on"),$.ajax({url:$site_url+"/get_service",type:"POST",data:i,dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(e){$(".service-warp").empty().append(e).hide().fadeIn("slow"),u(!0),r(),v()},complete:function(){loader.css({display:"none"})}})};$("#course").on("change",(function(){c($("#course").val(),$("#course_data").val(),$("#course_time").val())})),c($("#pick_course").val(),$("#course_data").val(),$("#course_time").val());var u=function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0],i=a.format("Y")+"/"+a.format("MM")+"/"+a.format("DD"),r=m.format("Y")+"/"+m.format("MM")+"/"+m.format("DD");if(""==$("#date").val()&&void 0!==$("#date").val()&&$("#date").val(i),""==$("#plan_date_start").val()&&$("#plan_date_start").val(i),""==$("#plan_date_end").val()&&$("#plan_date_end").val(r),$("#room").off("change"),$("#room").on("change",(function(){var e=JSON.parse($("#room").val());"01"==e.kubun_id?$(".room").hide():$.ajax({url:$site_url+"/get_free_room",type:"POST",data:{room:e.kubun_id},dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(e){console.log(e),e=JSON.parse(e),console.log(e.now),$(".input-daterange").datepicker("destroy"),$("#range_date_start").val(e.now);var a=moment(new Date(e.now));console.log(a.weekday()),2==a.weekday()?$("#range_date_end").val(a.add(3,"days").format("Y/MM/DD")):$("#range_date_end").val(a.add(1,"days").format("Y/MM/DD")),$(".input-daterange").datepicker({language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date,daysOfWeekDisabled:"3,4",datesDisabled:e.date_selected,weekStart:1,orientation:"bottom"});var i=moment(new Date($("#range_date_start").val())),o=moment(new Date($("#range_date_end").val()));$("#range_date_start-view").val(i.format("YYYY")+"年"+i.format("MM")+"月"+i.format("DD")+"日("+t[i.weekday()]+")"),$("#range_date_end-view").val(o.format("YYYY")+"年"+o.format("MM")+"月"+o.format("DD")+"日("+t[o.weekday()]+")"),$("#range_date_start-value").val(i.format("YYYYMMDD")),$("#range_date_end-value").val(o.format("YYYYMMDD")),$(".room").show()},complete:function(){loader.css({display:"none"})}})})),$("#whitening").off("change"),$("#whitening").on("change",(function(){"01"==JSON.parse($("#whitening").val()).kubun_id?$(".whitening").hide():$(".whitening").show()})),DatePicker={hideOldDays:function(){var e=$("td.old.day");e.length>0&&(e.css("visibility","hidden"),7===e.length&&e.parent().hide())},hideNewDays:function(){var e=$("td.new.day");e.length>0&&e.hide()},hideOtherMonthDays:function(){DatePicker.hideOldDays(),DatePicker.hideNewDays()}},window.location.href.includes("admin")?(console.log("admin"),$("#date").datepicker({container:".mail-booking",language:"ja",dateFormat:"yyyy/mm/dd",startDate:new Date,autoclose:!0,daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"})):$("#date").datepicker({language:"ja",dateFormat:"yyyy/mm/dd",startDate:new Date,autoclose:!0,daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"}),$("#date").datepicker().off("hide"),$("#date").datepicker().on("hide",(function(e){_()})),$("#date").datepicker().on("show",(function(e){DatePicker.hideOtherMonthDays()})),e&&void 0!==$("#date").val()&&""!=$("#date").val()){var c=moment(new Date($("#date").val())),u=c.format("Y")+"/"+c.format("MM")+"/"+c.format("DD")+"("+t[c.weekday()]+")";$("#date").val(u)}window.location.href.includes("admin")?$(".input-daterange").datepicker({container:".mail-booking",language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date,daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"}):$(".input-daterange").datepicker({language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date,daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"});var f=function(){var e=moment(new Date($("#plan_date_start").val()));return 5==e.weekday()?e.add(4,"days").toDate():e.add(6,"days").toDate()};window.location.href.includes("admin")?$("#plan_date_start").datepicker({container:".mail-booking",language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date,daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"}):$("#plan_date_start").datepicker({language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date,daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"}),window.location.href.includes("admin")?$("#plan_date_end").datepicker({container:".mail-booking",language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date,endDate:f(),daysOfWeekDisabled:"3,4,5,6",weekStart:1,orientation:"bottom"}):$("#plan_date_end").datepicker({language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date,endDate:f(),daysOfWeekDisabled:"3,4,5,6",weekStart:1,orientation:"bottom"});var p=[];$("#range_date_start").datepicker().on("hide",(function(){})),$("#plan_date_start").datepicker().on("hide",(function(){$("#plan_date_end").datepicker("destroy"),-1==$.inArray(moment(new Date($("#plan_date_start").val())).format("YYYY-MM-DD"),p)&&$("#plan_date_end").val(moment(new Date($("#plan_date_start").val())).add(0,"days").format("YYYY/MM/DD")),window.location.href.includes("admin")?$("#plan_date_end").datepicker({container:".mail-booking",language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date($("#plan_date_start").val()),endDate:f(),daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"}):$("#plan_date_end").datepicker({language:"ja",dateFormat:"yyyy/mm/dd",autoclose:!0,startDate:new Date($("#plan_date_start").val()),endDate:f(),daysOfWeekDisabled:"3,4",weekStart:1,orientation:"bottom"}),$("#plan_date_end").focus()}));var v=function(e){var t=s($("#plan_date_start").val(),$("#plan_date_end").val());t.forEach((function(a,i){var o=moment(a+" 00:00 +0000","YYYY-MM-DD HH:mm Z").utc().format("X")+"000";0==i||i==t.length-1?(e&&0==i||!e&&i==t.length-1?$("td[data-date='"+o+"']").css("background-image","linear-gradient(to bottom, #08c, #0044cc)"):$("td[data-date='"+o+"']").css("background","#9e9e9e"),$("td[data-date='"+o+"']").css("color","#fff")):($("td[data-date='"+o+"']").css("background","#eee"),$("td[data-date='"+o+"']").css("border-radius","unset"),$("td[data-date='"+o+"']").css("color","#212529"))}))};function _(){$("#error_time_0").val("－"),$("#time\\[0\\]\\[value\\]").val(0),$("#time\\[0\\]\\[bed\\]").val(0),$("#time\\[0\\]\\[json\\]").val(""),$(".time-content").empty(),$("#time1-value").val(0),$("#time1-bed").val(0),$("#time1-view").val("－"),$("#time\\[0\\]\\[json\\]").val(""),$("#time2-value").val(0),$("#time2-bed").val(0),$("#time2-view").val("－"),$("#time\\[1\\]\\[json\\]").val(""),$("#time_room_value").val(0),$("#time_room_bed").val(0),$("#time_room_view").val("－"),$("#time\\[0\\]\\[json\\]").val(""),$("#time_room_time1").val("0"),$("#time_room_time2").val("0"),$("#time_room_pet_0").val("－"),$("#time_room_pet_json").val(""),$("#whitening-time_view").val("－"),$("#whitening-time_value").val("0"),$("#whitening_data\\[json\\]").val("");var e=moment(new Date($("#date").val())),t=new Array("日","月","火","水","木","金","土");$("#date").val(e.format("YYYY")+"/"+e.format("MM")+"/"+e.format("DD")+"("+t[e.weekday()]+")"),$("#date-value").val(e.format("YYYYMMDD")),$("#date-view").val(e.format("YYYY")+"年"+e.format("MM")+"月"+e.format("DD")+"日("+t[e.weekday()]+")")}$("#plan_date_start").datepicker().on("show",(function(e){DatePicker.hideOtherMonthDays(),v(!0)})),$("#plan_date_end").datepicker().on("show",(function(e){DatePicker.hideOtherMonthDays(),v(!1)})),$("#plan_date_end").datepicker().on("hide",(function(e){p=s($("#plan_date_start").val(),$("#plan_date_end").val())})),$(".input-daterange").datepicker().on("show",(function(e){DatePicker.hideOtherMonthDays()})),$(".agecheck").on("click",(function(){$(".agecheck").removeClass("color-active"),$(".agecheck").addClass("btn-outline-warning"),$(this).addClass("color-active"),$(this).removeClass("btn-outline-warning"),$("#agecheck").val($(this).val()),"1"==$(this).val()||"2"==$(this).val()?$(".age-left").css("visibility","hidden"):"3"==$(this).val()&&$(".age-left").css("visibility","visible")})),$(".room_range_date").on("change blur",(function(){var e=moment(new Date($("#range_date_start").val())),a=moment(new Date($("#range_date_end").val()));$("#range_date_start-view").val(e.format("YYYY")+"年"+e.format("MM")+"月"+e.format("DD")+"日("+t[e.weekday()]+")"),$("#range_date_end-view").val(a.format("YYYY")+"年"+a.format("MM")+"月"+a.format("DD")+"日("+t[a.weekday()]+")"),$("#range_date_start-value").val(e.format("YYYYMMDD")),$("#range_date_end-value").val(a.format("YYYYMMDD"))})),o(),n(),d(),l()};u(),e.on("show.bs.modal",(function(e){$(".modal .modal-dialog").attr("class","modal-dialog modal-dialog-centered zoomIn  animated faster")})),e.on("hide.bs.modal",(function(e){window.location.href.includes("admin")&&console.log("admin")}));var f=function(){window.location.href.includes("admin")?$(".modal .modal-dialog").first().attr("class","modal-dialog  modal-dialog-centered  zoomOut  animated faster"):($(".modal .modal-dialog").attr("class","modal-dialog  modal-dialog-centered  zoomOut  animated faster"),$(".modal-backdrop.show").css("opacity","0")),setTimeout((function(){e.modal("hide")}),500)};$("#btn-cancel").off("click"),$("#btn-cancel").on("click",(function(e){f()})),e.off("hidden.bs.modal"),e.on("hidden.bs.modal",(function(){e.find(".modal-body-time").empty(),$(".set-time").removeClass("edit"),window.location.href.includes("admin")&&($("#edit_booking").css("z-index",""),$("body").addClass("modal-open"))})),e.draggable({handle:".title-table-time"}),e.off("click","#js-save-time"),e.on("click","#js-save-time",(function(t){var a=e.find("input[name=time]:checked").val(),n=e.find("input[name=time]:checked").closest("div").find(".bed").val(),d=e.find("input[name=time]:checked").closest("div").find("input[name=data-json]").val(),l=$(".booking-time").length,r=r=a.replace(/[^0-9]/g,"");if(1==$("#new-time").val()){var s=$('<div class="block-content-1 margin-top-mini"> <div class="block-content-1-left"><div class="timedate-block set-time">    <input name="time['+l+'][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_'+l+'" readonly="readonly"  value="" /><input name="time['+l+'][value]" class="time_value" id="time['+l+'][value]" type="hidden" value=""><input name="time['+l+'][bed]" class="time_bed" id="time['+l+'][bed]" type="hidden" value=""><input name="time['+l+'][json]" class="data-json_input" id="time['+l+'][json]" type="hidden" ><input name="time['+l+'][element]" id="" type="hidden" value="error_time_'+l+'"></div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');s.find(".data-json_input").val(d),$(".time-content").append(s),i(),o(),$(".booking-time").last().val(a),$(".time_value").last().val(r),$(".time_bed").last().val(n)}else $(".set-time.edit input.time").val(a),$(".set-time.edit input.time").parent().find(".time_value").val(r),$(".set-time.edit input.time").parent().find(".time_bed").val(n);function m(e,t){return(e+="").length>=t?e:new Array(t-e.length+1).join("0")+e}if($(".set-time.edit input.time").parent().find("#time1-value").val(r),$(".set-time.edit input.time").parent().find("#time2-value").val(r),$(".set-time.edit input.time").parent().find("#time1-bed").val(n),$(".set-time.edit input.time").parent().find("#time2-bed").val(n),$(".set-time.edit input.time").parent().find("#time_room_value").val(m(r,4)),$(".set-time.edit input.time").parent().find("#time_room_bed").val(n),$(".set-time.edit input.time").parent().find(".time_from").val(r),$(".set-time.edit input.time").parent().find(".time_to").val(r),$(".set-time.edit input.time").parent().find(".time_bed").val(n),$(".set-time.edit input.time").parent().find(".data-json_input").val(d),a.includes("～")){var c=a.split("～");$(".set-time.edit input.time").parent().find("#time_room_time1").val(m(c[0].replace(/[^0-9]/g,""),4)),$(".set-time.edit input.time").parent().find("#time_room_time2").val(m(c[1].replace(/[^0-9]/g,""),4)),$(".set-time.edit input.time").parent().find("#whitening-time_value").val(m(c[0].replace(/[^0-9]/g,""),4)+"-"+m(c[1].replace(/[^0-9]/g,""),4))}f()})),$("li.dropdown-item").off("click"),$("li.dropdown-item").on("click",(function(){$("li.dropdown-item").removeClass("active"),$(this).addClass("active"),$("#bus_arrive_time_slide").val($(this).find(".bus_arrive_time_slide").val()),$("#bus_time_first").text($(this).find(".bus_time_first").text()),$("#bus_time_second").text($(this).find(".bus_time_second").text());$(this);$.ajax({url:$site_url+"/validate_before_booking",type:"POST",data:$("form.booking").serializeArray(),dataType:"JSON",beforeSend:function(){loader.css({display:"block"})},success:function(e){console.log(e),p(e,!1)},complete:function(){loader.css({display:"none"})}})})),$("#repeat_user").off("change"),$("#repeat_user").on("change",(function(e){"01"==JSON.parse($("#repeat_user").val()).kubun_id?$("#hint-repeat").text("※バスの場合、到着時間から30分以内の予約はできません。希望時間が選択できない場合は　バス到着時間をご確認ください。"):$("#hint-repeat").text("※バスの場合、到着時間から15分以内の予約はできません。希望時間が選択できない場合は　バス到着時間をご確認ください。");$(this);$.ajax({url:$site_url+"/validate_before_booking",type:"POST",data:$("form.booking").serializeArray(),dataType:"JSON",beforeSend:function(){loader.css({display:"block"})},success:function(e){console.log(e),p(e,!1)},complete:function(){loader.css({display:"none"})}})})),$("#transport").off("change"),$("#transport").on("change",(function(e){"01"==JSON.parse($("#transport").val()).kubun_id?$(".bus").hide():$(".bus").show();$(this);$.ajax({url:$site_url+"/validate_before_booking",type:"POST",data:$("form.booking").serializeArray(),dataType:"JSON",beforeSend:function(){loader.css({display:"block"})},success:function(e){console.log(e),p(e,!1)},complete:function(){loader.css({display:"none"})}})})),$(".btn-booking").off("click"),$(".btn-booking").on("click",(function(e){e.preventDefault();var t=$(this);$.ajax({url:$site_url+"/save_booking",type:"POST",data:$("form.booking").serializeArray(),dataType:"JSON",beforeSend:function(){loader.css({display:"block"})},success:function(e){console.log(e),"OK"==e.status?t.hasClass("add-new-people")?window.location.href=$site_url+"/booking?add_new_user=on":window.location.href=$site_url+"/confirm":p(e)},complete:function(){loader.css({display:"none"})}})}));var p=function(e){var t=!(arguments.length>1&&void 0!==arguments[1])||arguments[1];$("p.note-error").remove(),$(".validate_failed").removeClass("validate_failed"),void 0===e.error_time_transport&&void 0===e.error_time_gender&&void 0===e.error_time_empty&&void 0===e.room_select_error||!t||Swal.fire({icon:"warning",text:"入力した情報を再確認してください。",confirmButtonColor:"#d7751e",confirmButtonText:"閉じる",width:350,showClass:{popup:"animated zoomIn faster"},hideClass:{popup:"animated zoomOut faster"},allowOutsideClick:!1}),void 0!==e.error_time_transport&&$.each(e.error_time_transport,(function(e,t){var a=$("#"+t.element);a.addClass("validate_failed");var i=JSON.parse($("#repeat_user").val());"01"==i.kubun_id?a.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>'):"02"==i.kubun_id&&a.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>'),$("#bus_arrive_time_slide").closest("button").addClass("validate_failed")})),void 0!==e.error_time_gender&&$.each(e.error_time_gender,(function(e,t){var a=$("#"+t.element);a.addClass("validate_failed"),a.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>'),$("select[name=gender]").addClass("validate_failed")})),void 0!==e.error_time_empty&&t&&$.each(e.error_time_empty,(function(e,t){var a=$("#"+t.element);a.addClass("validate_failed"),a.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>')})),void 0!==e.room_select_error&&($.each(e.room_select_error,(function(e,t){$("#"+t.element).addClass("validate_failed")})),$("#range_date_start").parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>'))},v=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,i=$(".time-list").attr("value");e||1==i||($(".time-list").append('<div class="booking-field choice-time"><input value="0" class="time_index" type="hidden" ><div class="booking-field-label label-data pt-2"><label class="">'+a.format("MM")+"/"+a.format("DD")+"("+t[a.weekday()]+')</label><input name="date[0][day][view]" value="'+a.format("MM")+"/"+a.format("DD")+"("+t[a.weekday()]+')" type="hidden" ><input name="date[0][day][value]" value="'+a.format("YYYY")+a.format("MM")+a.format("DD")+'" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time time-start">    <div class="set-time"><input name="date[0][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" /><input name="date[0][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[0][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'+a.format("YYYY")+a.format("MM")+a.format("DD")+'" data-date_type="form" readonly="readonly"  value="－" />    <input name="time[0][from][json]" type="hidden" class="data-json_input" value="" /><input name="time[0][from][element]" type="hidden" value="time_bath_10" /><input class="bus_first" type="hidden" value="1"></div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[0][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" /><input name="date[0][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[0][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'+a.format("YYYY")+a.format("MM")+a.format("DD")+'" data-date_type="to"  readonly="readonly"  value="－" />    <input name="time[0][to][json]" type="hidden" class="data-json_input" value="" /><input name="time[0][to][element]" type="hidden" value="time_bath_11" /><input class="bus_first" type="hidden" value="1"></div>    <div class="icon-time mt-1"></div></div>    </div></div>'),$(".time-list").append('<div class="booking-field choice-time"><input value="1" class="time_index" type="hidden" ><div class="booking-field-label label-data pt-2"><label class="">'+m.format("MM")+"/"+m.format("DD")+"("+t[m.weekday()]+')</label><input name="date[1][day][view]" value="'+m.format("MM")+"/"+m.format("DD")+"("+t[m.weekday()]+')" type="hidden" ><input name="date[1][day][value]" value="'+a.format("YYYY")+m.format("MM")+m.format("DD")+'" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time time-start">    <div class="set-time"><input name="date[1][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" /><input name="date[1][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date[1][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="'+m.format("YYYY")+m.format("MM")+m.format("DD")+'"  data-date_type="form"  readonly="readonly"  value="－" />   <input name="time[1][from][json]" id="" type="hidden" class="data-json_input" value="" /><input name="time[1][from][element]" type="hidden" value="time_bath_21" /> </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date[1][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" /><input name="date[1][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="time[1][to][json]" type="hidden" class="data-json_input" value="" /><input name="time[1][to][element]" type="hidden" value="time_bath_22" /><input name="date[1][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="'+m.format("YYYY")+m.format("MM")+m.format("DD")+'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>')),$(".range_date").change((function(){var e=s($("#plan_date_start").val(),$("#plan_date_end").val());$(".time-list").empty(),moment.locale("ja"),e.forEach((function(e,a){var i=moment(e),o=i.format("YYYY"),n=i.format("MM"),d=i.format("DD"),l=i.weekday(),r="";0===a&&(r='<input class="bus_first" type="hidden" value="1">'),$(".time-list").append('<div class="booking-field choice-time"><input value="'+a+'" class="time_index" type="hidden" ><div class="booking-field-label label-data pt-2"><label class="">'+n+"/"+d+"("+t[l]+')</label><input name="date['+a+'][day][view]" value="'+n+"/"+d+"("+t[l]+')" type="hidden" ><input name="date['+a+'][day][value]" value="'+o+n+d+'" type="hidden" ></div>    <div class="booking-field-content date-time"><div class="choice-data-time set-time time-start">    <div class="set-time"><input name="date['+a+'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" /><input name="date['+a+'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="date['+a+'][from][view]" type="text" id="time_bath_'+a+'1"  class="time form-control js-set-time bg-white" data-date_value="'+o+n+d+'" data-date_type="form"  readonly="readonly"  value="－" />    <input name="time['+a+'][from][element]" type="hidden" value="time_bath_'+a+'1" />'+r+'<input name="time['+a+'][from][json]" type="hidden" class="data-json_input" value="" /></div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time"><input name="date['+a+'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" /><input name="date['+a+'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" /><input name="time['+a+'][to][json]" type="hidden" class="data-json_input" value="" /><input name="time['+a+'][to][element]" type="hidden" value="time_bath_'+a+'2" />'+r+'<input name="date['+a+'][to][view]" type="text" id="time_bath_'+a+'2" class="time form-control js-set-time bg-white" data-date_value="'+o+n+d+'" data-date_type="to"  readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>')}));var a=moment(new Date($("#plan_date_start").val())),i=moment(new Date($("#plan_date_end").val()));$("#plan_date_start-value").val(a.format("YYYY")+a.format("MM")+a.format("DD")),$("#plan_date_end-value").val(i.format("YYYY")+i.format("MM")+i.format("DD")),$("#plan_date_start-view").val(a.format("YYYY")+"年"+a.format("MM")+"月"+a.format("DD")+"日("+t[a.weekday()]+")"),$("#plan_date_end-view").val(i.format("YYYY")+"年"+i.format("MM")+"月"+i.format("DD")+"日("+t[i.weekday()]+")"),u()})),u()};v()}));var i=function(){$(".svg-button").off("click"),$(".svg-button").on("click",(function(){var e=this;window.location.href.includes("admin")?Swal.fire({target:"#edit_booking",text:"削除しますが、よろしいですか?",icon:"warning",showCancelButton:!0,confirmButtonColor:"#d7751e",cancelButtonColor:"#343a40",confirmButtonText:"はい",cancelButtonText:"いいえ",width:350,showClass:{popup:"animated zoomIn faster"},hideClass:{popup:"animated zoomOut faster"},allowOutsideClick:!1}).then((function(t){t.value&&$($(e).parent().parent().remove())})):Swal.fire({text:"削除しますが、よろしいですか?",icon:"warning",showCancelButton:!0,confirmButtonColor:"#d7751e",cancelButtonColor:"#343a40",confirmButtonText:"はい",cancelButtonText:"いいえ",width:350,showClass:{popup:"animated zoomIn faster"},hideClass:{popup:"animated zoomOut faster"},allowOutsideClick:!1}).then((function(t){t.value&&$($(e).parent().parent().remove())}))}))};var o=function(){var e=$("#choice_date_time"),t=$(".js-set-time");t.off("click"),t.on("click",(function(){var t=$(this).parent().find(".bus_first").val(),a=$(this);void 0!==t?$("#bus_first").val(1):$("#bus_first").val(0);var i=$("form.booking").serializeArray(),o={name:"data_get_attr"},n={};n.date=a.attr("data-date_value"),n.date_type=a.attr("data-date_type"),o.value=JSON.stringify(n),i.push(o),$.ajax({url:"/get_time_room",type:"POST",data:i,dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(t){a.closest(".set-time").addClass("edit"),window.location.href.includes("admin")?(e.find(".modal-body-time").html(t),e.modal({show:!0,backdrop:!1,keyboard:!1}),$("#edit_booking").css("z-index","0")):(e.find(".modal-body-time").html(t),e.modal({show:!0,backdrop:"static",keyboard:!1}))},complete:function(){loader.css({display:"none"})}})}))},n=function(){var e=$("#choice_date_time"),t=$(".js-set-room");t.off("click"),t.on("click",(function(){var t=$(this),a=$("form.booking").serializeArray(),i={name:"data_get_attr"},o={};o.date=t.attr("data-date_value"),o.date_type=t.attr("data-date_type"),i.value=JSON.stringify(o),a.push(i),$.ajax({url:$site_url+"/book_room",type:"POST",data:a,dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(a){t.closest(".set-time").addClass("edit"),window.location.href.includes("admin")?(e.find(".modal-body-time").html(a),e.modal({show:!0,backdrop:!1,keyboard:!1}),$("#edit_booking").css("z-index","0")):(e.find(".modal-body-time").html(a),e.modal({show:!0,backdrop:"static",keyboard:!1}))},complete:function(){loader.css({display:"none"})}})}))},d=function(){var e=$("#choice_date_time"),t=$(".js-set-room_wt");t.off("click"),t.on("click",(function(){var t=$(this),i=$("form.booking").serializeArray(),o={name:"data_get_attr"};i.push(o),$.ajax({url:$site_url+"/book_time_room_wt",type:"POST",data:i,dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(i){t.closest(".set-time").addClass("edit"),window.location.href.includes("admin")?(e.find(".modal-body-time").html(i),e.modal(a({show:!0,backdrop:"static"},"backdrop",!1)),$("#edit_booking").css("z-index","0")):(e.find(".modal-body-time").html(i),e.modal("show"))},complete:function(){loader.css({display:"none"})}})}))},l=function(){var e=$("#choice_date_time"),t=$(".js-set-room_pet");t.off("click"),t.on("click",(function(){var t=$(this),i=$("form.booking").serializeArray(),o={name:"data_get_attr"},n={};n.date=t.attr("data-date_value"),n.date_type=t.attr("data-date_type"),o.value=JSON.stringify(n),i.push(o),$.ajax({url:$site_url+"/book_time_room_pet",type:"POST",data:i,dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(i){t.closest(".set-time").addClass("edit"),window.location.href.includes("admin")?(e.find(".modal-body-time").html(i),e.modal(a({show:!0,backdrop:"static"},"backdrop",!1)),$("#edit_booking").css("z-index","0")):(e.find(".modal-body-time").html(i),e.modal("show"))},complete:function(){loader.css({display:"none"})}})}))},r=function(){var e=$("#choice_date_time");i();var t=["日","月","火","水","木","金","土"],a=moment();3==a.weekday()?a=moment(a).add(2,"days"):4==a.weekday()&&(a=moment(a).add(1,"days"));var o=moment(a).add(1,"days");$("#add-time").off("click"),$("#add-time").on("click",(function(){var t=$(this),a=$("form.booking").serializeArray(),i={name:"data_get_attr"},o={};o.date=t.attr("data-date_value"),o.date_type=t.attr("data-date_type"),o.new=1,i.value=JSON.stringify(o),a.push(i),$.ajax({url:"/get_time_room",type:"POST",data:a,dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(a){t.closest(".set-time").addClass("edit"),window.location.href.includes("admin")?(e.find(".modal-body-time").html(a),e.modal({show:!0,backdrop:!1}),$("#edit_booking").css("z-index","0")):(e.find(".modal-body-time").html(a),e.modal("show"))},complete:function(){loader.css({display:"none"})}})})),$("#gender").off("change"),$("#gender").on("change",(function(e){$(this);$.ajax({url:$site_url+"/validate_before_booking",type:"POST",data:$("form.booking").serializeArray(),dataType:"JSON",beforeSend:function(){loader.css({display:"block"})},success:function(e){console.log(e),n(e,!1)},complete:function(){loader.css({display:"none"})}})}));var n=function(e){var t=!(arguments.length>1&&void 0!==arguments[1])||arguments[1];$("p.note-error").remove(),$(".validate_failed").removeClass("validate_failed"),void 0===e.error_time_transport&&void 0===e.error_time_gender&&void 0===e.error_time_empty&&void 0===e.room_select_error||!t||Swal.fire({icon:"warning",text:"入力した情報を再確認してください。",confirmButtonColor:"#d7751e",confirmButtonText:"閉じる",width:350,showClass:{popup:"animated zoomIn faster"},hideClass:{popup:"animated zoomOut faster"},allowOutsideClick:!1}),void 0!==e.error_time_transport&&$.each(e.error_time_transport,(function(e,t){var a=$("#"+t.element);a.addClass("validate_failed");var i=JSON.parse($("#repeat_user").val());"01"==i.kubun_id?a.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>'):"02"==i.kubun_id&&a.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>'),$("#bus_arrive_time_slide").closest("button").addClass("validate_failed")})),void 0!==e.error_time_gender&&$.each(e.error_time_gender,(function(e,t){var a=$("#"+t.element);a.addClass("validate_failed"),a.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>'),$("select[name=gender]").addClass("validate_failed")})),void 0!==e.error_time_empty&&t&&$.each(e.error_time_empty,(function(e,t){var a=$("#"+t.element);a.addClass("validate_failed"),a.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>')})),void 0!==e.room_select_error&&($.each(e.room_select_error,(function(e,t){$("#"+t.element).addClass("validate_failed")})),$("#range_date_start").parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>'))};$(".collapse-between").off("hidden.bs.collapse"),$(".collapse-between").on("hidden.bs.collapse",(function(){$("#btn-collapse-between").attr("src","/sunsun/svg/plus.svg")})),$(".collapse-between").off("shown.bs.collapse"),$(".collapse-between").on("shown.bs.collapse",(function(){$("#btn-collapse-between").attr("src","/sunsun/svg/hide.svg")})),$(".collapse-finish").off("hidden.bs.collapse"),$(".collapse-finish").on("hidden.bs.collapse",(function(){$("#btn-collapse-finish").attr("src","/sunsun/svg/plus.svg")})),$(".collapse-finish").off("shown.bs.collapse"),$(".collapse-finish").on("shown.bs.collapse",(function(){$("#btn-collapse-finish").attr("src","/sunsun/svg/hide.svg")})),$("#edit_booking").off("click",".show_history"),$("#edit_booking").on("click",".show_history",(function(t){t.preventDefault();var a=$("#edit_booking").find("#booking_id").val();$.ajax({url:$site_url+"/admin/show_history",type:"POST",data:{booking_id:a,is_history:!0},dataType:"text",beforeSend:function(){loader.css({display:"block"})},success:function(t){e.find(".modal-body-time").html(t),e.modal({show:!0,backdrop:!1}),$("#edit_booking").css("z-index","0")},complete:function(){loader.css({display:"none"})}})})),$(document).on("touchmove",(function(){$("#date").blur(),$("#range_date_start").blur(),$("#range_date_end").blur(),$("#plan_date_start").blur(),$("#plan_date_end").blur()})),$("#date-value").val(a.format("YYYYMMDD")),$("#date-view").val(a.format("YYYY")+"年"+a.format("MM")+"月"+a.format("DD")+"日("+t[a.weekday()]+")"),$("#plan_date_start-value").val(a.format("YYYY")+a.format("MM")+a.format("DD")),$("#plan_date_end-value").val(o.format("YYYY")+o.format("MM")+o.format("DD")),$("#plan_date_start-view").val(a.format("YYYY")+"年"+a.format("MM")+"月"+a.format("DD")+"日("+t[a.weekday()]+")"),$("#plan_date_end-view").val(o.format("YYYY")+"年"+o.format("MM")+"月"+o.format("DD")+"日("+t[o.weekday()]+")")};function s(e,t){var a=[],i=moment(new Date(e));for(t=moment(new Date(t));i<=t;)3!=moment(i).weekday()&&4!=moment(i).weekday()&&a.push(moment(i).format("YYYY-MM-DD")),i=moment(i).add(1,"days");return a}}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/sunsun/front/js/booking.js":
+/*!*****************************************************!*\
+  !*** ./resources/assets/sunsun/front/js/booking.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+$(function () {
+  var modal_choice_time = $('#choice_date_time');
+  var days_short = ["日", "月", "火", "水", "木", "金", "土"];
+  var today = moment();
+
+  if (today.weekday() == 3) {
+    today = moment(today).add(2, 'days');
+  } else if (today.weekday() == 4) {
+    today = moment(today).add(1, 'days');
+  }
+
+  var tomorrow = moment(today).add(1, 'days');
+
+  var get_service = function get_service(course, course_data, course_time) {
+    // delete validate color
+    $('#bus_arrive_time_slide').closest('button').css({
+      'border': 'solid 1px #ced4da'
+    }); // end validate color
+
+    if (course == "") {
+      course = $('#course').val();
+    }
+
+    var data = {
+      'service': course,
+      'course_data': course_data,
+      'course_time': course_time
+    };
+
+    if ($('input[name=add_new_user]').val() == 'on') {
+      data.add_new_user = 'on';
+    }
+
+    $.ajax({
+      url: $site_url + '/get_service',
+      type: 'POST',
+      data: data,
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        $('.service-warp').empty().append(html).hide().fadeIn('slow');
+        load_event(true);
+        load_after_ajax();
+        load_time_list();
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  };
+
+  $('#course').on('change', function () {
+    get_service($('#course').val(), $('#course_data').val(), $('#course_time').val());
+  });
+  get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val());
+
+  var load_event = function load_event() {
+    var date_check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
+    var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
+
+    if ($('#date').val() == "" && $('#date').val() !== undefined) {
+      $('#date').val(strToday);
+    }
+
+    if ($('#plan_date_start').val() == "") {
+      $('#plan_date_start').val(strToday);
+    }
+
+    if ($('#plan_date_end').val() == "") {
+      $('#plan_date_end').val(strTomorrow);
+    }
+
+    $('#room').off('change');
+    $('#room').on('change', function () {
+      var room = JSON.parse($('#room').val());
+
+      if (room.kubun_id == '01') {
+        $('.room').hide();
+      } else {
+        $.ajax({
+          url: $site_url + '/get_free_room',
+          type: 'POST',
+          data: {
+            room: room.kubun_id
+          },
+          dataType: 'text',
+          beforeSend: function beforeSend() {
+            loader.css({
+              'display': 'block'
+            });
+          },
+          success: function success(html) {
+            console.log(html);
+            html = JSON.parse(html);
+            console.log(html.now);
+            $('.input-daterange').datepicker('destroy');
+            $('#range_date_start').val(html.now);
+            var valid_date = moment(new Date(html.now));
+            console.log(valid_date.weekday());
+
+            if (valid_date.weekday() == 2) {
+              $('#range_date_end').val(valid_date.add(3, 'days').format('Y/MM/DD'));
+            } else {
+              $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
+            }
+
+            $('.input-daterange').datepicker({
+              language: 'ja',
+              dateFormat: 'yyyy/mm/dd',
+              autoclose: true,
+              startDate: new Date(),
+              daysOfWeekDisabled: "3,4",
+              datesDisabled: html.date_selected,
+              weekStart: 1,
+              orientation: 'bottom'
+            });
+            var range_start = moment(new Date($('#range_date_start').val()));
+            var range_end = moment(new Date($('#range_date_end').val()));
+            $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
+            $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
+            $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
+            $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
+            $('.room').show();
+          },
+          complete: function complete() {
+            loader.css({
+              'display': 'none'
+            });
+          }
+        });
+      }
+    });
+    $('#whitening').off('change');
+    $('#whitening').on('change', function () {
+      var whitening = JSON.parse($('#whitening').val());
+
+      if (whitening.kubun_id == '01') {
+        $('.whitening').hide();
+      } else {
+        $('.whitening').show();
+      }
+    });
+    DatePicker = {
+      hideOldDays: function hideOldDays() {
+        var x = $('td.old.day');
+
+        if (x.length > 0) {
+          x.css('visibility', 'hidden');
+
+          if (x.length === 7) {
+            x.parent().hide();
+          }
+        }
+      },
+      hideNewDays: function hideNewDays() {
+        var x = $('td.new.day');
+
+        if (x.length > 0) {
+          x.hide();
+        }
+      },
+      hideOtherMonthDays: function hideOtherMonthDays() {
+        DatePicker.hideOldDays();
+        DatePicker.hideNewDays();
+      }
+    };
+
+    if (window.location.href.includes("admin")) {
+      console.log('admin');
+      $('#date').datepicker({
+        container: '.mail-booking',
+        language: 'ja',
+        dateFormat: "yyyy/mm/dd",
+        startDate: new Date(),
+        autoclose: true,
+        daysOfWeekDisabled: "3,4",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
+    } else {
+      $('#date').datepicker({
+        language: 'ja',
+        dateFormat: "yyyy/mm/dd",
+        startDate: new Date(),
+        autoclose: true,
+        daysOfWeekDisabled: "3,4",
+        weekStart: 1,
+        orientation: 'bottom' // datesDisabled: ['2019-12-17','2019-12-16'],
+
+      });
+    }
+
+    $('#date').datepicker().off('hide');
+    $('#date').datepicker().on('hide', function (e) {
+      change_day();
+    });
+    $('#date').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
+    });
+
+    if (date_check) {
+      if ($('#date').val() !== undefined && $('#date').val() != '') {
+        var date_value = moment(new Date($('#date').val())); // console.log('begin1');
+        // console.log(date_value);
+        // console.log($('#date').val());
+        // console.log('end1');
+        //
+        // let date_pick = date_value.format('Y') + "/" + date_value.format('MM') + "/" + date_value.format('DD');
+        // // $('#date').val(date_pick + "(" + days_short[moment(new Date(date_pick)).weekday()] + ")");
+        //
+        //
+        //
+
+        var current_date = date_value.format('Y') + '/' + date_value.format('MM') + '/' + date_value.format('DD') + "(" + days_short[date_value.weekday()] + ")";
+        $('#date').val(current_date); // console.log(date_value.weekday());
+        //
+        //
+        // // $('#date').val();
+      }
+    }
+
+    if (window.location.href.includes("admin")) {
+      $('.input-daterange').datepicker({
+        container: '.mail-booking',
+        language: 'ja',
+        dateFormat: 'yyyy/mm/dd',
+        autoclose: true,
+        startDate: new Date(),
+        daysOfWeekDisabled: "3,4",
+        // daysOfWeekHighlighted: "1,2",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
+    } else {
+      $('.input-daterange').datepicker({
+        language: 'ja',
+        dateFormat: 'yyyy/mm/dd',
+        autoclose: true,
+        startDate: new Date(),
+        daysOfWeekDisabled: "3,4",
+        // daysOfWeekHighlighted: "1,2",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
+    }
+
+    var get_end_date = function get_end_date() {
+      var start_date = moment(new Date($('#plan_date_start').val()));
+      var end_date;
+
+      if (start_date.weekday() == 5) {
+        end_date = start_date.add(4, 'days').toDate();
+      } else {
+        end_date = start_date.add(6, 'days').toDate();
+      }
+
+      return end_date;
+    };
+
+    if (window.location.href.includes("admin")) {
+      $('#plan_date_start').datepicker({
+        container: '.mail-booking',
+        language: 'ja',
+        dateFormat: 'yyyy/mm/dd',
+        autoclose: true,
+        startDate: new Date(),
+        daysOfWeekDisabled: "3,4",
+        // daysOfWeekHighlighted: "1,2",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
+    } else {
+      $('#plan_date_start').datepicker({
+        language: 'ja',
+        dateFormat: 'yyyy/mm/dd',
+        autoclose: true,
+        startDate: new Date(),
+        daysOfWeekDisabled: "3,4",
+        // daysOfWeekHighlighted: "1,2",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
+    }
+
+    if (window.location.href.includes("admin")) {
+      $('#plan_date_end').datepicker({
+        container: '.mail-booking',
+        language: 'ja',
+        dateFormat: 'yyyy/mm/dd',
+        autoclose: true,
+        startDate: new Date(),
+        endDate: get_end_date(),
+        daysOfWeekDisabled: "3,4,5,6",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
+    } else {
+      $('#plan_date_end').datepicker({
+        language: 'ja',
+        dateFormat: 'yyyy/mm/dd',
+        autoclose: true,
+        startDate: new Date(),
+        endDate: get_end_date(),
+        daysOfWeekDisabled: "3,4,5,6",
+        weekStart: 1,
+        orientation: 'bottom'
+      });
+    }
+
+    var range_date_temp = [];
+    $('#range_date_start').datepicker().on('hide', function () {// $('#range_date_end').focus();
+    });
+    $('#plan_date_start').datepicker().on('hide', function () {
+      $('#plan_date_end').datepicker('destroy');
+
+      if ($.inArray(moment(new Date($('#plan_date_start').val())).format('YYYY-MM-DD'), range_date_temp) == -1) {
+        $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
+      }
+
+      if (window.location.href.includes("admin")) {
+        $('#plan_date_end').datepicker({
+          container: '.mail-booking',
+          language: 'ja',
+          dateFormat: 'yyyy/mm/dd',
+          autoclose: true,
+          startDate: new Date($('#plan_date_start').val()),
+          endDate: get_end_date(),
+          daysOfWeekDisabled: "3,4",
+          weekStart: 1,
+          orientation: 'bottom'
+        });
+      } else {
+        $('#plan_date_end').datepicker({
+          language: 'ja',
+          dateFormat: 'yyyy/mm/dd',
+          autoclose: true,
+          startDate: new Date($('#plan_date_start').val()),
+          endDate: get_end_date(),
+          daysOfWeekDisabled: "3,4",
+          weekStart: 1,
+          orientation: 'bottom'
+        });
+      }
+
+      $('#plan_date_end').focus();
+    });
+
+    var highlight = function highlight(start) {
+      var highlight = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+      highlight.forEach(function (element, index) {
+        var date_hl = moment(element + " 00:00 +0000", 'YYYY-MM-DD HH:mm Z').utc().format("X") + "000";
+
+        if (index == 0 || index == highlight.length - 1) {
+          if (start && index == 0 || !start && index == highlight.length - 1) {
+            $("td[data-date='" + date_hl + "']").css('background-image', 'linear-gradient(to bottom, #08c, #0044cc)');
+          } else {
+            $("td[data-date='" + date_hl + "']").css('background', '#9e9e9e');
+          }
+
+          $("td[data-date='" + date_hl + "']").css('color', '#fff');
+        } else {
+          $("td[data-date='" + date_hl + "']").css('background', '#eee');
+          $("td[data-date='" + date_hl + "']").css('border-radius', 'unset');
+          $("td[data-date='" + date_hl + "']").css('color', '#212529');
+        }
+      });
+    };
+
+    $('#plan_date_start').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
+      highlight(true);
+    });
+    $('#plan_date_end').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
+      highlight(false);
+    });
+    $('#plan_date_end').datepicker().on('hide', function (e) {
+      range_date_temp = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+    });
+    $('.input-daterange').datepicker().on('show', function (e) {
+      DatePicker.hideOtherMonthDays();
+    });
+    $('.agecheck').on('click', function () {
+      $('.agecheck').removeClass('color-active');
+      $('.agecheck').addClass('btn-outline-warning');
+      $(this).addClass('color-active');
+      $(this).removeClass('btn-outline-warning');
+      $('#agecheck').val($(this).val());
+
+      if ($(this).val() == '1' || $(this).val() == '2') {
+        $('.age-left').css("visibility", "hidden");
+      } else if ($(this).val() == '3') {
+        $('.age-left').css("visibility", "visible");
+      }
+    });
+
+    function change_day() {
+      $('#error_time_0').val('－');
+      $('#time\\[0\\]\\[value\\]').val(0);
+      $('#time\\[0\\]\\[bed\\]').val(0);
+      $('#time\\[0\\]\\[json\\]').val('');
+      $('.time-content').empty();
+      $('#time1-value').val(0);
+      $('#time1-bed').val(0);
+      $('#time1-view').val('－');
+      $('#time\\[0\\]\\[json\\]').val('');
+      $('#time2-value').val(0);
+      $('#time2-bed').val(0);
+      $('#time2-view').val('－');
+      $('#time\\[1\\]\\[json\\]').val('');
+      $('#time_room_value').val(0);
+      $('#time_room_bed').val(0);
+      $('#time_room_view').val('－');
+      $('#time\\[0\\]\\[json\\]').val('');
+      $('#time_room_time1').val('0');
+      $('#time_room_time2').val('0');
+      $('#time_room_pet_0').val('－');
+      $('#time_room_pet_json').val('');
+      $('#whitening-time_view').val('－');
+      $('#whitening-time_value').val('0');
+      $('#whitening_data\\[json\\]').val('');
+      var new_day = moment(new Date($('#date').val()));
+      var days_short = new Array("日", "月", "火", "水", "木", "金", "土");
+      $('#date').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
+      $('#date-value').val(new_day.format('YYYYMMDD'));
+      $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
+    }
+
+    $(".room_range_date").on('change blur', function () {
+      var range_start = moment(new Date($('#range_date_start').val()));
+      var range_end = moment(new Date($('#range_date_end').val()));
+      $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
+      $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
+      $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
+      $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
+    });
+    load_pick_time_event();
+    load_pick_time_room_event();
+    load_pick_time_wt_event();
+    load_pick_time_pet_event();
+  };
+
+  load_event();
+  modal_choice_time.on('show.bs.modal', function (e) {
+    $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
+  });
+  modal_choice_time.on('hide.bs.modal', function (e) {
+    if (window.location.href.includes("admin")) {
+      console.log("admin");
+    } else {// setTimeout(function(){ alert("Hello"); }, 5000);
+    }
+  });
+
+  var modal_time_hidden = function modal_time_hidden() {
+    if (window.location.href.includes("admin")) {
+      $('.modal .modal-dialog').first().attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
+    } else {
+      $('.modal .modal-dialog').attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
+      $('.modal-backdrop.show').css('opacity', '0');
+    }
+
+    setTimeout(function () {
+      modal_choice_time.modal('hide');
+    }, 500);
+  };
+
+  $('#btn-cancel').off('click');
+  $('#btn-cancel').on('click', function (e) {
+    modal_time_hidden();
+  });
+  modal_choice_time.off('hidden.bs.modal');
+  modal_choice_time.on('hidden.bs.modal', function () {
+    modal_choice_time.find('.modal-body-time').empty();
+    $('.set-time').removeClass('edit');
+
+    if (window.location.href.includes("admin")) {
+      $('#edit_booking').css("z-index", "");
+      $('body').addClass('modal-open');
+    }
+  });
+  modal_choice_time.draggable({
+    handle: ".title-table-time"
+  });
+  modal_choice_time.off('click', '#js-save-time');
+  modal_choice_time.on('click', '#js-save-time', function (e) {
+    var time = modal_choice_time.find('input[name=time]:checked').val();
+    var bed = modal_choice_time.find('input[name=time]:checked').closest('div').find('.bed').val();
+    var data_json = modal_choice_time.find('input[name=time]:checked').closest('div').find('input[name=data-json]').val();
+    var num = $('.booking-time').length;
+    var time_value = time_value = time.replace(/[^0-9]/g, '');
+
+    if ($('#new-time').val() == 1) {
+      var $html = $('' + '<div class="block-content-1 margin-top-mini"> ' + '<div class="block-content-1-left"><div class="timedate-block set-time">    ' + '<input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_' + num + '" readonly="readonly"  value="" />' + '<input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value="">' + '<input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value="">' + '<input name="time[' + num + '][json]" class="data-json_input" id="time[' + num + '][json]" type="hidden" >' + '<input name="time[' + num + '][element]" id="" type="hidden" value="error_time_' + num + '">' + '</div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');
+      $html.find('.data-json_input').val(data_json);
+      $(".time-content").append($html);
+      load_time_delete_event();
+      load_pick_time_event();
+      $('.booking-time').last().val(time);
+      $('.time_value').last().val(time_value);
+      $('.time_bed').last().val(bed);
+    } else {
+      // console.log('set time');
+      // console.log($('.set-time.edit input.time').parent());
+      $('.set-time.edit input.time').val(time);
+      $('.set-time.edit input.time').parent().find('.time_value').val(time_value);
+      $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
+    }
+
+    $('.set-time.edit input.time').parent().find('#time1-value').val(time_value);
+    $('.set-time.edit input.time').parent().find('#time2-value').val(time_value);
+    $('.set-time.edit input.time').parent().find('#time1-bed').val(bed);
+    $('.set-time.edit input.time').parent().find('#time2-bed').val(bed);
+    $('.set-time.edit input.time').parent().find('#time_room_value').val(pad(time_value, 4));
+    $('.set-time.edit input.time').parent().find('#time_room_bed').val(bed);
+    $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
+    $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
+    $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
+    $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json); //console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
+
+    function pad(n, width) {
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    }
+
+    if (time.includes("～")) {
+      var res = time.split("～");
+      $('.set-time.edit input.time').parent().find('#time_room_time1').val(pad(res[0].replace(/[^0-9]/g, ''), 4));
+      $('.set-time.edit input.time').parent().find('#time_room_time2').val(pad(res[1].replace(/[^0-9]/g, ''), 4));
+      $('.set-time.edit input.time').parent().find('#whitening-time_value').val(pad(res[0].replace(/[^0-9]/g, ''), 4) + '-' + pad(res[1].replace(/[^0-9]/g, ''), 4));
+    }
+
+    modal_time_hidden();
+  });
+  $('li.dropdown-item').off('click');
+  $('li.dropdown-item').on('click', function () {
+    $('li.dropdown-item').removeClass('active');
+    $(this).addClass('active');
+    $('#bus_arrive_time_slide').val($(this).find('.bus_arrive_time_slide').val());
+    $("#bus_time_first").text($(this).find(".bus_time_first").text());
+    $("#bus_time_second").text($(this).find(".bus_time_second").text());
+    var btn_click = $(this);
+    $.ajax({
+      url: $site_url + '/validate_before_booking',
+      type: 'POST',
+      data: $('form.booking').serializeArray(),
+      dataType: 'JSON',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(json) {
+        console.log(json);
+        make_color_input_error(json, false);
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+  $('#repeat_user').off('change');
+  $('#repeat_user').on('change', function (e) {
+    var repeat_user = JSON.parse($('#repeat_user').val());
+
+    if (repeat_user.kubun_id == '01') {
+      $('#hint-repeat').text('※バスの場合、到着時間から30分以内の予約はできません。希望時間が選択できない場合は　バス到着時間をご確認ください。');
+    } else {
+      $('#hint-repeat').text('※バスの場合、到着時間から15分以内の予約はできません。希望時間が選択できない場合は　バス到着時間をご確認ください。');
+    }
+
+    var btn_click = $(this);
+    $.ajax({
+      url: $site_url + '/validate_before_booking',
+      type: 'POST',
+      data: $('form.booking').serializeArray(),
+      dataType: 'JSON',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(json) {
+        console.log(json);
+        make_color_input_error(json, false);
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+  $('#transport').off('change');
+  $('#transport').on('change', function (e) {
+    var transport = JSON.parse($('#transport').val());
+
+    if (transport.kubun_id == '01') {
+      $('.bus').hide();
+    } else {
+      $('.bus').show();
+    }
+
+    var btn_click = $(this);
+    $.ajax({
+      url: $site_url + '/validate_before_booking',
+      type: 'POST',
+      data: $('form.booking').serializeArray(),
+      dataType: 'JSON',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(json) {
+        console.log(json);
+        make_color_input_error(json, false);
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+  $('.btn-booking').off('click');
+  $('.btn-booking').on('click', function (e) {
+    e.preventDefault();
+    var btn_click = $(this);
+    $.ajax({
+      url: $site_url + '/save_booking',
+      type: 'POST',
+      data: $('form.booking').serializeArray(),
+      dataType: 'JSON',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(json) {
+        console.log(json);
+
+        if (json.status == "OK") {
+          if (btn_click.hasClass('add-new-people')) {
+            window.location.href = $site_url + '/booking?add_new_user=on';
+          } else {
+            window.location.href = $site_url + '/confirm';
+          }
+        } else {
+          make_color_input_error(json);
+        }
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+
+  var make_color_input_error = function make_color_input_error(json) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    $('p.note-error').remove(); // if (typeof json.clear_border_red !== "undefined" ) {
+    //     $.each(json.clear_border_red, function (index, item) {
+    //         $('#'+item.element).css({'border': 'solid 1px #ced4da'});
+    //         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
+    //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
+    //     })
+    // }
+
+    $('.validate_failed').removeClass('validate_failed');
+
+    if ((typeof json.error_time_transport !== "undefined" || typeof json.error_time_gender !== "undefined" || typeof json.error_time_empty !== "undefined" || typeof json.room_select_error !== "undefined") && type) {
+      Swal.fire({
+        icon: 'warning',
+        text: '入力した情報を再確認してください。',
+        confirmButtonColor: '#d7751e',
+        confirmButtonText: '閉じる',
+        width: 350,
+        showClass: {
+          popup: 'animated zoomIn faster'
+        },
+        hideClass: {
+          popup: 'animated zoomOut faster'
+        },
+        allowOutsideClick: false
+      });
+    }
+
+    if (typeof json.error_time_transport !== "undefined") {
+      $.each(json.error_time_transport, function (index, item) {
+        var input_error_transport = $('#' + item.element);
+        input_error_transport.addClass('validate_failed');
+        var repeat_user = JSON.parse($('#repeat_user').val());
+
+        if (repeat_user.kubun_id == '01') {
+          input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
+        } else if (repeat_user.kubun_id == '02') {
+          input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
+        }
+
+        $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
+      });
+    }
+
+    if (typeof json.error_time_gender !== "undefined") {
+      $.each(json.error_time_gender, function (index, item) {
+        var input_error_gender = $('#' + item.element);
+        input_error_gender.addClass('validate_failed');
+        input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
+        $('select[name=gender]').addClass('validate_failed');
+      });
+    }
+
+    if (typeof json.error_time_empty !== "undefined" && type) {
+      $.each(json.error_time_empty, function (index, item) {
+        var input_error_required = $('#' + item.element);
+        input_error_required.addClass('validate_failed');
+        input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
+      });
+    }
+
+    if (typeof json.room_select_error !== "undefined") {
+      $.each(json.room_select_error, function (index, item) {
+        $('#' + item.element).addClass('validate_failed');
+      });
+      $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
+    }
+  };
+
+  var load_time_list = function load_time_list() {
+    var check = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var check_admin_set = $(".time-list").attr("value");
+
+    if (!check && !(check_admin_set == 1)) {
+      $('.time-list').append('' + '<div class="booking-field choice-time">' + '<input value="0" class="time_index" type="hidden" >' + '<div class="booking-field-label label-data pt-2">' + '<label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label>' + '<input name="date[' + 0 + '][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" >' + '<input name="date[' + 0 + '][day][value]" value="' + today.format('YYYY') + today.format('MM') + today.format('DD') + '" type="hidden" >' + '</div>    <div class="booking-field-content date-time">' + '<div class="choice-data-time set-time time-start">    ' + '<div class="set-time">' + '<input name="date[' + 0 + '][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' + '<input name="date[' + 0 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' + '<input name="date[' + 0 + '][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="' + today.format('YYYY') + today.format('MM') + today.format('DD') + '" data-date_type="form" readonly="readonly"  value="－" />    ' + '<input name="time[' + 0 + '][from][json]" type="hidden" class="data-json_input" value="" />' + '<input name="time[' + 0 + '][from][element]" type="hidden" value="time_bath_10" />' + '<input class="bus_first" type="hidden" value="1">' + '</div>    <div class="icon-time mt-1">' + '</div>' + '</div>' + '<div class="choice-data-time set-time time-end">    ' + '<div class="set-time">' + '<input name="date[' + 0 + '][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' + '<input name="date[' + 0 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' + '<input name="date[' + 0 + '][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="' + today.format('YYYY') + today.format('MM') + today.format('DD') + '" data-date_type="to"  readonly="readonly"  value="－" />    ' + '<input name="time[' + 0 + '][to][json]" type="hidden" class="data-json_input" value="" />' + '<input name="time[' + 0 + '][to][element]" type="hidden" value="time_bath_11" />' + '<input class="bus_first" type="hidden" value="1">' + '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+      $('.time-list').append('' + '<div class="booking-field choice-time">' + '<input value="1" class="time_index" type="hidden" >' + '<div class="booking-field-label label-data pt-2">' + '<label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label>' + '<input name="date[' + 1 + '][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" >' + '<input name="date[' + 1 + '][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD') + '" type="hidden" ></div>    <div class="booking-field-content date-time">' + '<div class="choice-data-time set-time time-start">    <div class="set-time">' + '<input name="date[' + 1 + '][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' + '<input name="date[' + 1 + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' + '<input name="date[' + 1 + '][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD') + '"  data-date_type="form"  readonly="readonly"  value="－" />   ' + '<input name="time[' + 1 + '][from][json]" id="" type="hidden" class="data-json_input" value="" />' + '<input name="time[' + 1 + '][from][element]" type="hidden" value="time_bath_21" />' + ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' + '<input name="date[' + 1 + '][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' + '<input name="date[' + 1 + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' + '<input name="time[' + 1 + '][to][json]" type="hidden" class="data-json_input" value="" />' + '<input name="time[' + 1 + '][to][element]" type="hidden" value="time_bath_22" />' + '<input name="date[' + 1 + '][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD') + '"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+    }
+
+    $(".range_date").change(function () {
+      var date_arr = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+      $('.time-list').empty();
+      moment.locale('ja');
+      date_arr.forEach(function (element, index) {
+        var check = moment(element);
+        var year = check.format('YYYY');
+        var month = check.format('MM');
+        var day = check.format('DD');
+        var week_day = check.weekday();
+        var bus_first = '';
+
+        if (index === 0) {
+          bus_first = '<input class="bus_first" type="hidden" value="1">';
+        }
+
+        $('.time-list').append('<div class="booking-field choice-time">' + '<input value="' + index + '" class="time_index" type="hidden" >' + '<div class="booking-field-label label-data pt-2"><label class="">' + month + '/' + day + '(' + days_short[week_day] + ')</label>' + '<input name="date[' + index + '][day][view]" value="' + month + '/' + day + '(' + days_short[week_day] + ')" type="hidden" >' + '<input name="date[' + index + '][day][value]" value="' + year + month + day + '" type="hidden" ></div>   ' + ' <div class="booking-field-content date-time"><div class="choice-data-time set-time time-start">    <div class="set-time">' + '<input name="date[' + index + '][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' + '<input name="date[' + index + '][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' + '<input name="date[' + index + '][from][view]" type="text" id="time_bath_' + index + '1"  class="time form-control js-set-time bg-white" data-date_value="' + year + month + day + '" data-date_type="form"  readonly="readonly"  value="－" />    ' + '<input name="time[' + index + '][from][element]" type="hidden" value="time_bath_' + index + '1" />' + bus_first + '<input name="time[' + index + '][from][json]" type="hidden" class="data-json_input" value="" />' + '</div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' + '<input name="date[' + index + '][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' + '<input name="date[' + index + '][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' + '<input name="time[' + index + '][to][json]" type="hidden" class="data-json_input" value="" />' + '<input name="time[' + index + '][to][element]" type="hidden" value="time_bath_' + index + '2" />' + bus_first + '<input name="date[' + index + '][to][view]" type="text" id="time_bath_' + index + '2" class="time form-control js-set-time bg-white" data-date_value="' + year + month + day + '" data-date_type="to"  readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+      });
+      var check2 = moment(new Date($('#plan_date_start').val()));
+      var check1 = moment(new Date($('#plan_date_end').val()));
+      $('#plan_date_start-value').val(check2.format('YYYY') + check2.format('MM') + check2.format('DD'));
+      $('#plan_date_end-value').val(check1.format('YYYY') + check1.format('MM') + check1.format('DD'));
+      $('#plan_date_start-view').val(check2.format('YYYY') + "年" + check2.format('MM') + "月" + check2.format('DD') + "日(" + days_short[check2.weekday()] + ")");
+      $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
+      load_event();
+    });
+    load_event();
+  };
+
+  load_time_list();
+});
+
+var load_time_delete_event = function load_time_delete_event() {
+  $('.svg-button').off('click');
+  $('.svg-button').on('click', function () {
+    var _this = this;
+
+    if (window.location.href.includes("admin")) {
+      Swal.fire({
+        target: '#edit_booking',
+        text: "削除しますが、よろしいですか?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d7751e',
+        cancelButtonColor: '#343a40',
+        confirmButtonText: 'はい',
+        cancelButtonText: 'いいえ',
+        width: 350,
+        showClass: {
+          popup: 'animated zoomIn faster'
+        },
+        hideClass: {
+          popup: 'animated zoomOut faster'
+        },
+        // customClass: {
+        //     popup: 'modal-dialog'
+        // },
+        allowOutsideClick: false
+      }).then(function (result) {
+        if (result.value) {
+          $($(_this).parent().parent().remove());
+        }
+      });
+    } else {
+      Swal.fire({
+        text: "削除しますが、よろしいですか?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d7751e',
+        cancelButtonColor: '#343a40',
+        confirmButtonText: 'はい',
+        cancelButtonText: 'いいえ',
+        width: 350,
+        showClass: {
+          popup: 'animated zoomIn faster'
+        },
+        hideClass: {
+          popup: 'animated zoomOut faster'
+        },
+        allowOutsideClick: false
+      }).then(function (result) {
+        if (result.value) {
+          $($(_this).parent().parent().remove());
+        }
+      });
+    }
+  });
+};
+
+function pad(n, width) {
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}
+
+var load_pick_time_event = function load_pick_time_event() {
+  var modal_choice_time = $('#choice_date_time');
+  var set_time = $('.js-set-time');
+  set_time.off('click');
+  set_time.on('click', function () {
+    var bus_first = $(this).parent().find('.bus_first').val();
+    var set_time_click = $(this);
+
+    if (bus_first !== undefined) {
+      $('#bus_first').val(1);
+    } else {
+      $('#bus_first').val(0);
+    }
+
+    var $data = $('form.booking').serializeArray();
+    var $get_date = {};
+    $get_date.name = "data_get_attr";
+    var $value = {};
+    $value.date = set_time_click.attr('data-date_value');
+    $value.date_type = set_time_click.attr('data-date_type');
+    $get_date.value = JSON.stringify($value);
+    $data.push($get_date);
+    $.ajax({
+      url: '/get_time_room',
+      type: 'POST',
+      data: $data,
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+
+        if (window.location.href.includes("admin")) {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal({
+            show: true,
+            backdrop: false,
+            keyboard: false
+          });
+          $('#edit_booking').css("z-index", "0");
+        } else {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal({
+            show: true,
+            backdrop: 'static',
+            keyboard: false
+          });
+        }
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+};
+
+var load_pick_time_room_event = function load_pick_time_room_event() {
+  var modal_choice_time = $('#choice_date_time');
+  var get_room = $('.js-set-room');
+  get_room.off('click');
+  get_room.on('click', function () {
+    var set_time_click = $(this);
+    var $data = $('form.booking').serializeArray();
+    var $get_date = {};
+    $get_date.name = "data_get_attr";
+    var $value = {};
+    $value.date = set_time_click.attr('data-date_value');
+    $value.date_type = set_time_click.attr('data-date_type');
+    $get_date.value = JSON.stringify($value);
+    $data.push($get_date);
+    $.ajax({
+      url: $site_url + '/book_room',
+      type: 'POST',
+      data: $data,
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+
+        if (window.location.href.includes("admin")) {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal({
+            show: true,
+            backdrop: false,
+            keyboard: false
+          });
+          $('#edit_booking').css("z-index", "0");
+        } else {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal({
+            show: true,
+            backdrop: 'static',
+            keyboard: false
+          });
+        }
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+};
+
+var load_pick_time_wt_event = function load_pick_time_wt_event() {
+  var modal_choice_time = $('#choice_date_time');
+  var get_room_wt = $('.js-set-room_wt');
+  get_room_wt.off('click');
+  get_room_wt.on('click', function () {
+    var set_time_click = $(this);
+    var $data = $('form.booking').serializeArray();
+    var $get_date = {};
+    $get_date.name = "data_get_attr";
+    $data.push($get_date);
+    $.ajax({
+      url: $site_url + '/book_time_room_wt',
+      type: 'POST',
+      data: $data,
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+
+        if (window.location.href.includes("admin")) {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal(_defineProperty({
+            show: true,
+            backdrop: 'static'
+          }, "backdrop", false));
+          $('#edit_booking').css("z-index", "0");
+        } else {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal('show');
+        }
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+};
+
+var load_pick_time_pet_event = function load_pick_time_pet_event() {
+  var modal_choice_time = $('#choice_date_time');
+  var get_room_pet = $('.js-set-room_pet');
+  get_room_pet.off('click');
+  get_room_pet.on('click', function () {
+    var set_time_click = $(this);
+    var $data = $('form.booking').serializeArray();
+    var $get_date = {};
+    $get_date.name = "data_get_attr";
+    var $value = {};
+    $value.date = set_time_click.attr('data-date_value');
+    $value.date_type = set_time_click.attr('data-date_type');
+    $get_date.value = JSON.stringify($value);
+    $data.push($get_date);
+    $.ajax({
+      url: $site_url + '/book_time_room_pet',
+      type: 'POST',
+      data: $data,
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+
+        if (window.location.href.includes("admin")) {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal(_defineProperty({
+            show: true,
+            backdrop: 'static'
+          }, "backdrop", false));
+          $('#edit_booking').css("z-index", "0");
+        } else {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal('show');
+        }
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+};
+
+var load_after_ajax = function load_after_ajax() {
+  var modal_choice_time = $('#choice_date_time');
+  load_time_delete_event();
+  var days_short = ["日", "月", "火", "水", "木", "金", "土"];
+  var today = moment();
+
+  if (today.weekday() == 3) {
+    today = moment(today).add(2, 'days');
+  } else if (today.weekday() == 4) {
+    today = moment(today).add(1, 'days');
+  }
+
+  var tomorrow = moment(today).add(1, 'days');
+  $('#add-time').off('click');
+  $('#add-time').on('click', function () {
+    var set_time_click = $(this);
+    var $data = $('form.booking').serializeArray();
+    var $get_date = {};
+    $get_date.name = "data_get_attr";
+    var $value = {};
+    $value.date = set_time_click.attr('data-date_value');
+    $value.date_type = set_time_click.attr('data-date_type');
+    $value["new"] = 1;
+    $get_date.value = JSON.stringify($value);
+    $data.push($get_date);
+    $.ajax({
+      url: '/get_time_room',
+      type: 'POST',
+      data: $data,
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        set_time_click.closest('.set-time').addClass('edit');
+
+        if (window.location.href.includes("admin")) {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal({
+            show: true,
+            backdrop: false
+          });
+          $('#edit_booking').css("z-index", "0");
+        } else {
+          modal_choice_time.find('.modal-body-time').html(html);
+          modal_choice_time.modal('show');
+        }
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+  $('#gender').off('change');
+  $('#gender').on('change', function (e) {
+    var btn_click = $(this);
+    $.ajax({
+      url: $site_url + '/validate_before_booking',
+      type: 'POST',
+      data: $('form.booking').serializeArray(),
+      dataType: 'JSON',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(json) {
+        console.log(json);
+        make_color_input_error(json, false);
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+
+  var make_color_input_error = function make_color_input_error(json) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    $('p.note-error').remove(); // if (typeof json.clear_border_red !== "undefined" ) {
+    //     $.each(json.clear_border_red, function (index, item) {
+    //         $('#'+item.element).css({'border': 'solid 1px #ced4da'});
+    //         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
+    //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
+    //     })
+    // }
+
+    $('.validate_failed').removeClass('validate_failed');
+
+    if ((typeof json.error_time_transport !== "undefined" || typeof json.error_time_gender !== "undefined" || typeof json.error_time_empty !== "undefined" || typeof json.room_select_error !== "undefined") && type) {
+      Swal.fire({
+        icon: 'warning',
+        text: '入力した情報を再確認してください。',
+        confirmButtonColor: '#d7751e',
+        confirmButtonText: '閉じる',
+        width: 350,
+        showClass: {
+          popup: 'animated zoomIn faster'
+        },
+        hideClass: {
+          popup: 'animated zoomOut faster'
+        },
+        allowOutsideClick: false
+      });
+    }
+
+    if (typeof json.error_time_transport !== "undefined") {
+      $.each(json.error_time_transport, function (index, item) {
+        var input_error_transport = $('#' + item.element);
+        input_error_transport.addClass('validate_failed');
+        var repeat_user = JSON.parse($('#repeat_user').val());
+
+        if (repeat_user.kubun_id == '01') {
+          input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
+        } else if (repeat_user.kubun_id == '02') {
+          input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
+        }
+
+        $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
+      });
+    }
+
+    if (typeof json.error_time_gender !== "undefined") {
+      $.each(json.error_time_gender, function (index, item) {
+        var input_error_gender = $('#' + item.element);
+        input_error_gender.addClass('validate_failed');
+        input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
+        $('select[name=gender]').addClass('validate_failed');
+      });
+    }
+
+    if (typeof json.error_time_empty !== "undefined" && type) {
+      $.each(json.error_time_empty, function (index, item) {
+        var input_error_required = $('#' + item.element);
+        input_error_required.addClass('validate_failed');
+        input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
+      });
+    }
+
+    if (typeof json.room_select_error !== "undefined") {
+      $.each(json.room_select_error, function (index, item) {
+        $('#' + item.element).addClass('validate_failed');
+      });
+      $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
+    }
+  }; // $('.collapse-top').off('hidden.bs.collapse');
+  // $('.collapse-top').on('hidden.bs.collapse', function () {
+  //     $('#btn-collapse-top').attr("src","/sunsun/svg/plus.svg");
+  // })
+  // $('.collapse-top').off('shown.bs.collapse');
+  // $('.collapse-top').on('shown.bs.collapse', function () {
+  //     $('#btn-collapse-top').attr("src","/sunsun/svg/hide.svg");
+  // })
+
+
+  $('.collapse-between').off('hidden.bs.collapse');
+  $('.collapse-between').on('hidden.bs.collapse', function () {
+    $('#btn-collapse-between').attr("src", "/sunsun/svg/plus.svg");
+  });
+  $('.collapse-between').off('shown.bs.collapse');
+  $('.collapse-between').on('shown.bs.collapse', function () {
+    $('#btn-collapse-between').attr("src", "/sunsun/svg/hide.svg");
+  });
+  $('.collapse-finish').off('hidden.bs.collapse');
+  $('.collapse-finish').on('hidden.bs.collapse', function () {
+    $('#btn-collapse-finish').attr("src", "/sunsun/svg/plus.svg");
+  });
+  $('.collapse-finish').off('shown.bs.collapse');
+  $('.collapse-finish').on('shown.bs.collapse', function () {
+    $('#btn-collapse-finish').attr("src", "/sunsun/svg/hide.svg");
+  });
+  $('#edit_booking').off('click', '.show_history');
+  $('#edit_booking').on('click', '.show_history', function (e) {
+    e.preventDefault();
+    var current_booking_id = $('#edit_booking').find("#booking_id").val(); // let show_history = $('#history_modal');
+
+    $.ajax({
+      url: $site_url + '/admin/show_history',
+      type: 'POST',
+      data: {
+        'booking_id': current_booking_id,
+        'is_history': true
+      },
+      dataType: 'text',
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(html) {
+        modal_choice_time.find('.modal-body-time').html(html);
+        modal_choice_time.modal({
+          show: true,
+          backdrop: false
+        });
+        $('#edit_booking').css("z-index", "0");
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  });
+  $(document).on('touchmove', function () {
+    $('#date').blur();
+    $('#range_date_start').blur();
+    $('#range_date_end').blur();
+    $('#plan_date_start').blur();
+    $('#plan_date_end').blur();
+  });
+  $('#date-value').val(today.format('YYYYMMDD'));
+  $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
+  $('#plan_date_start-value').val(today.format('YYYY') + today.format('MM') + today.format('DD'));
+  $('#plan_date_end-value').val(tomorrow.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD'));
+  $('#plan_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
+  $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
+};
+
+function get_dates(startDate, stopDate) {
+  var dateArray = [];
+  var currentDate = moment(new Date(startDate));
+  var stopDate = moment(new Date(stopDate));
+
+  while (currentDate <= stopDate) {
+    if (moment(currentDate).weekday() != 3 && moment(currentDate).weekday() != 4) {
+      dateArray.push(moment(currentDate).format('YYYY-MM-DD'));
+    }
+
+    currentDate = moment(currentDate).add(1, 'days');
+  }
+
+  return dateArray;
+}
+
+/***/ }),
+
+/***/ 2:
+/*!***********************************************************!*\
+  !*** multi ./resources/assets/sunsun/front/js/booking.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\booking.js */"./resources/assets/sunsun/front/js/booking.js");
+
+
+/***/ })
+
+/******/ });

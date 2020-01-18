@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita1b5c09ac7d5c01657d3727c5b2ad95c
+class ComposerStaticInit3dee8dffb5c4cf73ab9b0029b69937d3
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -678,6 +678,7 @@ class ComposerStaticInita1b5c09ac7d5c01657d3727c5b2ad95c
         'DeepCopy\\TypeFilter\\Date\\DateIntervalFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Date/DateIntervalFilter.php',
         'DeepCopy\\TypeFilter\\ReplaceFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ReplaceFilter.php',
         'DeepCopy\\TypeFilter\\ShallowCopyFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/ShallowCopyFilter.php',
+        'DeepCopy\\TypeFilter\\Spl\\ArrayObjectFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/ArrayObjectFilter.php',
         'DeepCopy\\TypeFilter\\Spl\\SplDoublyLinkedList' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/SplDoublyLinkedList.php',
         'DeepCopy\\TypeFilter\\Spl\\SplDoublyLinkedListFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/SplDoublyLinkedListFilter.php',
         'DeepCopy\\TypeFilter\\TypeFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/TypeFilter.php',
@@ -4877,10 +4878,10 @@ class ComposerStaticInita1b5c09ac7d5c01657d3727c5b2ad95c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita1b5c09ac7d5c01657d3727c5b2ad95c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita1b5c09ac7d5c01657d3727c5b2ad95c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita1b5c09ac7d5c01657d3727c5b2ad95c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita1b5c09ac7d5c01657d3727c5b2ad95c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3dee8dffb5c4cf73ab9b0029b69937d3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3dee8dffb5c4cf73ab9b0029b69937d3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit3dee8dffb5c4cf73ab9b0029b69937d3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit3dee8dffb5c4cf73ab9b0029b69937d3::$classMap;
 
         }, null, ClassLoader::class);
     }
