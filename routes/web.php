@@ -174,7 +174,7 @@ Route::get('/clear', function () {
         Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
 
     });
-});
+// });
 
 
 
