@@ -1681,6 +1681,14 @@ class BookingController extends Controller
                 $time_bus = $check_bus;
             }
         }
+        date_default_timezone_set('Asia/Tokyo');
+        $current_min_time = $this->plus_time_string(date('Hi'), 20);
+        if(isset($time_bus)&&($time_bus > $current_min_time)){
+            $time_bus = $time_bus;
+        }else{
+            $time_bus = $current_min_time;
+        }
+        Log::debug($current_min_time);
         return $time_bus;
     }
 
@@ -1815,8 +1823,8 @@ class BookingController extends Controller
                 , mk2.sort_no
 
         ";
-        Log::debug('$time_date_booking');
-        Log::debug($time_date_booking);
+//        Log::debug('$time_date_booking');
+//        Log::debug($time_date_booking);
         $sql_bus = "";
         if ($time_bus !== null) {
             if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
@@ -2271,6 +2279,15 @@ class BookingController extends Controller
                 $time_bus = $check_bus;
             }
         }
+        date_default_timezone_set('Asia/Tokyo');
+        $current_min_time = $this->plus_time_string(date('Hi'), 20);
+        if(isset($time_bus)&&($time_bus > $current_min_time)){
+            $time_bus = $time_bus;
+        }else{
+            $time_bus = $current_min_time;
+        }
+        Log::debug($current_min_time);
+
         // dd($data);
         $time_kubun_type_whitening = config('const.db.kubun_type_value.TIME_WHITENING'); //021
         $kubun_type_bed = config('const.db.kubun_type_value.bed_pet'); // 19
@@ -2409,6 +2426,15 @@ class BookingController extends Controller
                 $time_bus = $check_bus;
             }
         }
+        date_default_timezone_set('Asia/Tokyo');
+        $current_min_time = $this->plus_time_string(date('Hi'), 20);
+        if(isset($time_bus)&&($time_bus > $current_min_time)){
+            $time_bus = $time_bus;
+        }else{
+            $time_bus = $current_min_time;
+        }
+        Log::debug($current_min_time);
+
         $MsKubun = MsKubun::all();
         $data_time['beds'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
         $time_kubun_type_pet = config('const.db.kubun_type_value.TIME_PET'); //020

@@ -141,7 +141,8 @@ $(function () {
 
     $('#go-user').off('click');
     $('#go-user').on('click',function (e) {
-        alert("go-user");
+        let user_url = $curent_url.substring(0, $curent_url.length - 9) + "admin/msuser";
+        window.location.href = user_url;
     })
 
     $('#edit_booking').off('click','.btn-update');

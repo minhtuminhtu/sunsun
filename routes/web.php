@@ -19,66 +19,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::middleware('begin.auth')->get('/aaa', function () {
-    return "aaa";
-});
-Route::get('/php', function () {
-    phpinfo();
-});
-Route::get('/demo_logout', function () {
-    // $_SERVER['PHP_AUTH_USER'] = '';
-    // $_SERVER['PHP_AUTH_PW'] = '';
-    Auth::logout();
-});
-Route::get('/getdata', function () {
-    dd($_SERVER);
+Route::get('/check', function () {
+    echo "OK";
 });
 
-
-// Route::get('/demo_lock', function () {
-
-
-//     DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
-//     try{
-//         DB::beginTransaction();
-//         try {
-//             $Yoyaku1 = new Yoyaku();
-//             $Yoyaku1->booking_id = 2;
-//             $Yoyaku1->course = 7;
-//             $Yoyaku1->save();
-
-//             new_test();
-
-
-//             get_exeption();
-
-//             DB::commit();
-//         } catch (Exception $e) {
-//             DB::rollBack();
-
-//             // throw new Exception($e->getMessage());
-//         }
-//     }catch(Exception $e){
-//         dd($e);
-//     }
-//     DB::unprepared("UNLOCK TABLE");
-// });
-// function get_exeption(){
-//     throw new \ErrorException('Error found');
-// }
-
-// function new_test(){
-//     $Yoyaku1 = new Yoyaku();
-//     $Yoyaku1->booking_id = 2;
-//     $Yoyaku1->course = 7;
-//     $Yoyaku1->save();
-// }
 
 Route::get('/clear', function () {
     $booking_id = date("Ymd")."0001";
     DB::select("
-        UPDATE `tr_yoyaku` 
-        SET 
+        UPDATE `tr_yoyaku`
+        SET
             `booking_id`= '$booking_id'
             ,`ref_booking_id`= null
             ,`history_id`=null
@@ -120,9 +70,9 @@ Route::get('/clear', function () {
         WHERE 1
     ");
     DB::select("
-        UPDATE 
-            `tr_yoyaku_danjiki_jikan` 
-        SET 
+        UPDATE
+            `tr_yoyaku_danjiki_jikan`
+        SET
             `booking_id`='$booking_id'
             ,`service_date`=0
             ,`service_time_1`=null
@@ -144,7 +94,7 @@ Route::get('/clear', function () {
  });
 
 
-Route::middleware('begin.auth')->group(function(){
+ Route::middleware('begin.auth')->group(function(){
     Route::namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
