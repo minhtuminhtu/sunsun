@@ -9,6 +9,8 @@ $(function() {
     });
 
 
+
+
     $('#card-number, #card-expire, #card-secret').off('keypress');
     $('#card-number, #card-expire, #card-secret').on('keypress', function(e){
         if (e.which < 48 || e.which > 57){
@@ -16,10 +18,64 @@ $(function() {
         }
     })
 
+    /*$('#phone').off('keypress');
+    $('#phone').on('keypress', function(e){
+        // let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
+        // if(phone.replace(/[^0-9]/,'').length == 11){
+        //     $(this).parent().parent().find('.note-error').remove();
+        //     $(this).addClass('validate_failed');
+        //     $(this).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
+        //     e.preventDefault();
+        // }
+    })*/
 
-    function sleep (time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
+    /*$('#phone').off('keyup keydown change');
+    $('#phone').on('keyup keydown change', function(e){
+        let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
+        let temp_phone = "";
+        if(phone.length != get_number_byte_str(phone)){
+            for(let i = 0; i < phone.length; i++){
+                if(get_number_byte_str(phone.charAt(i)) == 2){
+                    temp_phone += convert_2byte_2_1byte(phone.charAt(i));
+                }else{
+                    temp_phone += phone.charAt(i);
+                }
+            }
+        }else{
+            temp_phone = phone;
+        }
+        temp_phone = temp_phone.replace(/[^0-9()-]/,'');
+        $("#phone").val(temp_phone);
+    })*/
+
+    $('#email').off('keypress keyup keydown change');
+    $('#email').on('keypress keyup keydown change', function(e){
+        let email = $('#email').val().replace(/[^0-9a-zA-Z@.０-９Ａ-Ｚａ-ｚ＠]/,'');
+        let temp_str = "";
+        if(email.length != get_number_byte_str(email)){
+            for(let i = 0; i < email.length; i++){
+                if(get_number_byte_str(email.charAt(i)) == 2){
+                    temp_str += convert_2byte_2_1byte(email.charAt(i));
+                }else{
+                    temp_str += email.charAt(i);
+                }
+            }
+        }else{
+            temp_str = email;
+        }
+        temp_str = temp_str.replace(/[^0-9a-zA-Z@.]/,'');
+        $("#email").val(temp_str);
+    })
+
+    function convert_2byte_2_1byte(str) {
+        let char_code = str.charCodeAt(0) - 65248;
+        return String.fromCharCode(char_code)
     }
+    function get_number_byte_str(str){
+        let b = str.match(/[^\x00-\xff]/g);
+        return str.length + (!b ? 0: b.length);
+    }
+
 
     $('.card').on('show.bs.collapse', function () {
         $(this).find('.payment-method').prop('checked',true);
@@ -242,8 +298,10 @@ let callBackMakePayment = function() {
                     allowOutsideClick: false
                 })
                 $('p.note-error').remove();
+                $('.validate_failed').removeClass('validate_failed');
                 $.each(html.error, function (index, item) {
-                    $('#'+item).css({'border': 'solid 1px #f50000'});
+                    $('#'+item).addClass('validate_failed');
+                    console.log(item)
                     switch(item) {
                         case 'name': $('#'+item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
                             break;
@@ -255,7 +313,7 @@ let callBackMakePayment = function() {
 
                 })
                 $.each(html.clear, function (index, item) {
-                    $('#'+item).css({'border': 'solid 1px #ced4da'});
+                    $('#'+item).removeClass('validate_failed');
                 })
             }else{
                 if ((typeof html.status !== 'undefined') && (html.status == 'success')) {
@@ -413,63 +471,4 @@ if ((typeof execPurchase) === 'undefined') {
 }
 
 
-(function ($) {
-    $.fn.phoneFilter = function (phoneFilter) {
-        return this.on("keydown keyup", function (event) {
-            if ((event.key !== 'Backspace') && (event.key !== 'undefined')) {
-                let curchr = this.value.length;
-                let curval = $(this).val();
-                let phone_format;
-                if (curchr < 3 && curval.indexOf("(") <= -1) {
-                    phone_format = "(" + curval;
-                } else if (curchr == 4 && curval.indexOf("(") > -1) {
-                    phone_format = curval + ")-";
-                } else if (curchr == 5) {
-                    if (event.key != ")") {
-                        phone_format = this.oldValue + ")-" + event.key
-                    } else {
-                        phone_format = curval;
-                    }
-                } else if (curchr == 6 && curval.indexOf("-") <= -1) {
-                    if (event.key != "-") {
-                        phone_format = this.oldValue + '-' + event.key
-                    } else {
-                        phone_format = curval;
-                    }
-                } else if (curchr == 9) {
-                    phone_format = curval + "-";
-                    $(this).attr('maxlength', '14');
-                } else if (curchr == 10) {
-                    console.log(event.key);
-                    if (event.key != "-") {
-                        phone_format = this.oldValue + '-' + event.key
-                    } else {
-                        phone_format = curval;
-                    }
-                } else {
-                    phone_format = curval;
-                }
-                let regex = /^[\+]?[(]?[0-9]{0,3}[)]?[-\s\.]?[0-9]{0,3}[-\s\.]?[0-9]{0,6}$/im;
-                let test = regex.test(phone_format);
-                if (test === true) {
-                    $(this).val(phone_format);
-                    this.oldValue = this.value;
-                    this.oldSelectionStart = this.selectionStart;
-                    this.oldSelectionEnd = this.selectionEnd;
-                } else if (this.hasOwnProperty("oldValue")) {
-                    this.value = this.oldValue;
-                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                }
-            } else {
-                this.oldValue = $(this).val();
-                this.oldSelectionStart = this.selectionStart;
-                this.oldSelectionEnd = this.selectionEnd;
-            }
 
-        });
-    };
-
-    $('#tel').phoneFilter(function (value) {
-        return true;
-    });
-}(jQuery));

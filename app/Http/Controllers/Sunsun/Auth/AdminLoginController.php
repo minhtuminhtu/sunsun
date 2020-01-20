@@ -30,7 +30,7 @@ class AdminLoginController extends Controller
      * Where to redirect users after login.
      *
      * @var string
-     */
+     *
     protected $redirectTo = '/';
 
     /**
@@ -56,12 +56,12 @@ class AdminLoginController extends Controller
 
     protected function redirectTo()
     {
-        $ms_user = Auth::user();
-        $currentRoute = Route::getCurrentRoute()->getName();
-        if ($ms_user->is_admin() && $currentRoute == "auth-admin") {
-            return route('admin.index');
-        }
-        return route('home');
+        // $ms_user = Auth::user();
+        // $currentRoute = Route::getCurrentRoute()->getName();
+        // if ($ms_user->is_admin() && $currentRoute == "auth-admin") {
+        //     return route('admin.day');
+        // }
+        // return route('home');
     }
 
     /**

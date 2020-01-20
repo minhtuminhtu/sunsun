@@ -1,1 +1,408 @@
-!function(e){var t={};function n(o){if(t[o])return t[o].exports;var c=t[o]={i:o,l:!1,exports:{}};return e[o].call(c.exports,c,c.exports,n),c.l=!0,c.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var c in e)n.d(o,c,function(t){return e[t]}.bind(null,c));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=16)}({16:function(e,t,n){e.exports=n(17)},17:function(e,t){$(document).ready((function(){var e=function(){$("#new").off("click"),$("#new").on("click",(function(){var e=$("#setting-type").val();$.ajax({url:"/admin/get_setting_kubun_type",type:"post",data:{new:1,kubun_type:e},beforeSend:function(){loader.css({display:"block"})},success:function(e){$(".modal-body").html(e),$("#setting_update").modal("show"),t()},complete:function(){loader.css({display:"none"})}})})),$("#check_all").off("change"),$("#check_all").on("change",(function(){$(this).prop("checked")?($(".checkbox").prop("checked",!0),$(".update-edit").show()):($(".checkbox").prop("checked",!1),$(".update-edit").hide())})),$(".checkbox").off("change"),$(".checkbox").on("change",(function(){$(".checkbox").filter(":checked").length>0?$(".update-edit").show():$(".update-edit").hide(),$(".checkbox").filter(":checked").length==$(".checkbox").length?$("#check_all").prop("checked",!0):$("#check_all").prop("checked",!1)})),$(".kubun_value").off("click"),$(".kubun_value").on("click",(function(){var e=$(this).parent().parent().find(".kubun_id").text(),n=$("#setting-type").val();$.ajax({url:"/admin/get_setting_kubun_type",type:"post",data:{new:0,kubun_id:e,kubun_type:n},beforeSend:function(){loader.css({display:"block"})},success:function(e){$(".modal-body").html(e),$("#setting_update").modal("show"),t()},complete:function(){loader.css({display:"none"})}})})),$("#btn-update").off("click"),$("#btn-update").on("click",(function(){var e=$(".checkbox").filter(":checked").first().val(),n=$("#setting-type").val();$.ajax({url:"/admin/get_setting_kubun_type",type:"post",data:{new:0,kubun_id:e,kubun_type:n},beforeSend:function(){loader.css({display:"block"})},success:function(e){$(".modal-body").html(e),$("#setting_update").modal("show"),t()},complete:function(){loader.css({display:"none"})}})})),$("#btn-delete").off("click"),$("#btn-delete").on("click",(function(){var e="",t=[];if($(".checkbox").filter(":checked").each((function(n){e+="\n"+$(this).val()+" - "+$(this).parent().parent().find(".kubun_value").text(),t.push($(this).val())})),1==confirm("Are you sure to delete this item?"+e)){var o=$("#setting-type").val();$.ajax({url:"/admin/delete_setting_kubun_type",type:"delete",data:{arr_delete:t,kubun_type:o},beforeSend:function(){loader.css({display:"block"})},success:function(e){n($("#setting-type").val())},complete:function(){loader.css({display:"none"})}})}})),$(".btn-up").off("click"),$(".btn-up").on("click",(function(){var e=$(this).parent().parent().find(".sort_no").text(),t=$("#setting-type").val();$.ajax({url:"/admin/update_setting_sort_no",type:"post",data:{type:"up",sort_no:e,kubun_type:t},beforeSend:function(){loader.css({display:"block"})},success:function(e){n($("#setting-type").val())},complete:function(){loader.css({display:"none"})}})})),$(".btn-down").off("click"),$(".btn-down").on("click",(function(){var e=$(this).parent().parent().find(".sort_no").text(),t=$("#setting-type").val();$.ajax({url:"/admin/update_setting_sort_no",type:"post",data:{type:"down",sort_no:e,kubun_type:t},beforeSend:function(){loader.css({display:"block"})},success:function(e){n($("#setting-type").val())},complete:function(){loader.css({display:"none"})}})}))},t=function(){$(".btn-down").off("click"),$(".btn-down").on("click",(function(){$("#setting_update").modal("hide")})),$(".btn-cancel").off("click"),$(".btn-cancel").click((function(){$("#setting_update").modal("hide")})),$(".btn-save").off("click"),$(".btn-save").on("click",(function(){var e=$("#setting-type").val(),t=$("#kubun_id").val(),o=$("#kubun_value").val(),c=$("#notes").val(),i=$(".kubun_value").length+1,a=$("#new_check").val();$.ajax({url:"/admin/update_setting_kubun_type",type:"post",data:{new:a,kubun_id:t,kubun_value:o,kubun_type:e,notes:c,sort_no:i},beforeSend:function(){loader.css({display:"block"})},success:function(e){$("#setting_update").modal("hide"),n($("#setting-type").val())},error:function(e){var t=JSON.parse(e.responseText);$(".setting-validate").text(t.msg)},complete:function(){loader.css({display:"none"})}})}))},n=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null;$("#setting-head").text($("#setting-type").val()+" | "+$("#setting-type option:selected").text()),null==t&&(t=$("#setting-type").val()),$.ajax({url:"/admin/get_setting_type",type:"post",data:{kubun_type:t},beforeSend:function(){loader.css({display:"block"})},success:function(t){$(".setting-right").html(t),e()},complete:function(){loader.css({display:"none"})}})};$("#setting-type").off("change"),$("#setting-type").on("change",(function(){n()})),n()}))}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/sunsun/admin/js/setting.js":
+/*!*****************************************************!*\
+  !*** ./resources/assets/sunsun/admin/js/setting.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var get_setting_kubun_type = function get_setting_kubun_type() {
+    $('#new').off('click');
+    $('#new').on('click', function () {
+      var kubun_type = $('#setting-type').val(); // AJAX request
+
+      $.ajax({
+        url: '/admin/get_setting_kubun_type',
+        type: 'post',
+        data: {
+          "new": 1,
+          kubun_type: kubun_type
+        },
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(response) {
+          // Add response in Modal body
+          $('.modal-body').html(response); // Display Modal
+
+          $('#setting_update').modal('show');
+          load_modal_function();
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+    $('#check_all').off('change');
+    $('#check_all').on('change', function () {
+      if ($(this).prop('checked')) {
+        $('.checkbox').prop('checked', true);
+        $('.update-edit').show();
+      } else {
+        $('.checkbox').prop('checked', false);
+        $('.update-edit').hide();
+      }
+    });
+    $('.checkbox').off('change');
+    $('.checkbox').on('change', function () {
+      if ($('.checkbox').filter(':checked').length > 0) {
+        $('.update-edit').show();
+      } else {
+        $('.update-edit').hide();
+      }
+
+      if ($('.checkbox').filter(':checked').length == $('.checkbox').length) {
+        $('#check_all').prop('checked', true);
+      } else {
+        $('#check_all').prop('checked', false);
+      }
+    });
+    $('.kubun_value').off('click');
+    $('.kubun_value').on('click', function () {
+      var parent = $(this).parent().parent();
+      var kubun_id = parent.find('.kubun_id').text();
+      var kubun_type = $('#setting-type').val();
+      $.ajax({
+        url: '/admin/get_setting_kubun_type',
+        type: 'post',
+        data: {
+          "new": 0,
+          kubun_id: kubun_id,
+          kubun_type: kubun_type
+        },
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(response) {
+          // Add response in Modal body
+          $('.modal-body').html(response); // Display Modal
+
+          $('#setting_update').modal('show');
+          load_modal_function();
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+    $('#btn-update').off('click');
+    $('#btn-update').on('click', function () {
+      var kubun_id = $('.checkbox').filter(':checked').first().val();
+      var kubun_type = $('#setting-type').val();
+      $.ajax({
+        url: '/admin/get_setting_kubun_type',
+        type: 'post',
+        data: {
+          "new": 0,
+          kubun_id: kubun_id,
+          kubun_type: kubun_type
+        },
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(response) {
+          // Add response in Modal body
+          $('.modal-body').html(response); // Display Modal
+
+          $('#setting_update').modal('show');
+          load_modal_function();
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+    $('#btn-delete').off('click');
+    $('#btn-delete').on('click', function () {
+      var string_delete = "";
+      var arr_delete = [];
+      $('.checkbox').filter(':checked').each(function (index) {
+        string_delete += "\n" + $(this).val() + " - " + $(this).parent().parent().find('.kubun_value').text();
+        arr_delete.push($(this).val());
+      });
+      var r = confirm("Are you sure to delete this item?" + string_delete);
+
+      if (r == true) {
+        var kubun_type = $('#setting-type').val();
+        $.ajax({
+          url: '/admin/delete_setting_kubun_type',
+          type: 'delete',
+          data: {
+            arr_delete: arr_delete,
+            kubun_type: kubun_type
+          },
+          beforeSend: function beforeSend() {
+            loader.css({
+              'display': 'block'
+            });
+          },
+          success: function success(response) {
+            get_setting_type($('#setting-type').val());
+          },
+          complete: function complete() {
+            loader.css({
+              'display': 'none'
+            });
+          }
+        });
+      }
+    });
+    $('.btn-up').off('click');
+    $('.btn-up').on('click', function () {
+      var sort_no = $(this).parent().parent().find('.sort_no').text();
+      var kubun_type = $('#setting-type').val();
+      $.ajax({
+        url: '/admin/update_setting_sort_no',
+        type: 'post',
+        data: {
+          type: 'up',
+          sort_no: sort_no,
+          kubun_type: kubun_type
+        },
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(response) {
+          get_setting_type($('#setting-type').val());
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+    $('.btn-down').off('click');
+    $('.btn-down').on('click', function () {
+      var sort_no = $(this).parent().parent().find('.sort_no').text();
+      var kubun_type = $('#setting-type').val();
+      $.ajax({
+        url: '/admin/update_setting_sort_no',
+        type: 'post',
+        data: {
+          type: 'down',
+          sort_no: sort_no,
+          kubun_type: kubun_type
+        },
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(response) {
+          get_setting_type($('#setting-type').val());
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+  };
+
+  var load_modal_function = function load_modal_function() {
+    $('.btn-down').off('click');
+    $('.btn-down').on('click', function () {
+      $('#setting_update').modal('hide');
+    });
+    $('.btn-cancel').off('click');
+    $('.btn-cancel').click(function () {
+      $('#setting_update').modal('hide');
+    });
+    $('.btn-save').off('click');
+    $('.btn-save').on('click', function () {
+      var kubun_type = $('#setting-type').val();
+      var kubun_id = $('#kubun_id').val();
+      var kubun_value = $('#kubun_value').val();
+      var notes = $('#notes').val();
+      var sort_no = $('.kubun_value').length + 1;
+      var new_check = $('#new_check').val();
+      $.ajax({
+        url: '/admin/update_setting_kubun_type',
+        type: 'post',
+        data: {
+          "new": new_check,
+          kubun_id: kubun_id,
+          kubun_value: kubun_value,
+          kubun_type: kubun_type,
+          notes: notes,
+          sort_no: sort_no
+        },
+        beforeSend: function beforeSend() {
+          loader.css({
+            'display': 'block'
+          });
+        },
+        success: function success(response) {
+          $('#setting_update').modal('hide');
+          get_setting_type($('#setting-type').val());
+        },
+        error: function error(response) {
+          var err = JSON.parse(response.responseText);
+          $('.setting-validate').text(err.msg);
+        },
+        complete: function complete() {
+          loader.css({
+            'display': 'none'
+          });
+        }
+      });
+    });
+  };
+
+  var get_setting_type = function get_setting_type() {
+    var kubun_type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    $('#setting-head').text($('#setting-type').val() + " | " + $('#setting-type option:selected').text());
+
+    if (kubun_type == null) {
+      kubun_type = $('#setting-type').val();
+    }
+
+    $.ajax({
+      url: '/admin/get_setting_type',
+      type: 'post',
+      data: {
+        kubun_type: kubun_type
+      },
+      beforeSend: function beforeSend() {
+        loader.css({
+          'display': 'block'
+        });
+      },
+      success: function success(response) {
+        $('.setting-right').html(response);
+        get_setting_kubun_type();
+      },
+      complete: function complete() {
+        loader.css({
+          'display': 'none'
+        });
+      }
+    });
+  };
+
+  $('#setting-type').off('change');
+  $('#setting-type').on('change', function () {
+    get_setting_type();
+  });
+  get_setting_type();
+});
+
+/***/ }),
+
+/***/ 6:
+/*!***********************************************************!*\
+  !*** multi ./resources/assets/sunsun/admin/js/setting.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\setting.js */"./resources/assets/sunsun/admin/js/setting.js");
+
+
+/***/ })
+
+/******/ });

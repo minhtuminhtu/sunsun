@@ -7,6 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Requests' => array($vendorDir . '/rmccue/requests/library'),
-    'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
 );

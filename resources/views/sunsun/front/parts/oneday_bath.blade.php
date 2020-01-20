@@ -54,7 +54,7 @@
                 <input name="date-value" id="date-value" type="hidden" value="">
                 <div class="booking-field-content">
                     <div class="timedate-block date-warp">
-                        <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="" />
+                        <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" value="" />
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 $bed1 = substr($course_data['bed'], 0, 1);
                 $bed2 = substr($course_data['bed'], 2, 1);
             }
-            
+
             if(isset($course_data['time_json'])){
                 $temp_time_json = explode('-', $course_data['time_json']);
                 $time1_json = $temp_time_json[0];
@@ -92,7 +92,7 @@
 
                     <input name="time1-value" id="time1-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
                     <input name="time1-bed" id="time1-bed" class="time1-bed" type="hidden" value="{{ isset($bed1)?$bed1:'0' }}">
-                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="time1-view" value="{{ isset($time1)?$time1:'00:00' }}" data-date_type="shower_1">
+                    <input name="time1-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly" id="time1-view" value="{{ isset($time1)?$time1:'－' }}" data-date_type="shower_1">
                     <input name="time[0][json]" class="data-json_input" id="time[0][json]"  type="hidden" value="{{ isset($time1_json)?$time1_json:'' }}">
                     <input name="time[0][element]" type="hidden" value="time1-view">
                 </div>
@@ -107,7 +107,7 @@
                 <div class="timedate-block set-time">
                     <input name="time2-value" id="time2-value" class="time_value" type="hidden" value="{{ isset($course_data['service_time_2'])?$course_data['service_time_2']:'0' }}">
                     <input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="{{ isset($bed2)?$bed2:'0' }}">
-                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly"  id="time2-view" value="{{ isset($time2)?$time2:'00:00' }}" data-date_type="shower_2">
+                    <input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly"  id="time2-view" value="{{ isset($time2)?$time2:'－' }}" data-date_type="shower_2">
                     <input name="time[1][json]" class="data-json_input" id="time[1][json]"  type="hidden" value="{{ isset($time2_json)?$time2_json:'' }}">
                     <input name="time[1][element]" type="hidden" value="time2-view">
                 </div>
@@ -121,12 +121,12 @@
     <div class="booking-line-laber">
         <div class="line-laber">オプション</div>
         <div class="line-button">
-            <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            <img class=" btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
         </div>
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show">
+<div class="collapse collapse-between">
     <div class="booking-block-between">
         <div class="">
             <div class="booking-field">
@@ -177,7 +177,7 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'－' }}" />
                         <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
                         <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="{{ isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:''  }}">
                         <input name="whitening_data[element]" type="hidden" value="whitening-time_view">
@@ -208,12 +208,12 @@
         <div class="booking-line-laber">
             <div class="line-laber">宿泊</div>
             <div class="line-button">
-                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
             </div>
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
-    <div class="collapse collapse-finish show">
+    <div class="collapse collapse-finish">
         <div class="booking-block-finish">
             <div class="">
                 <div class="booking-field">

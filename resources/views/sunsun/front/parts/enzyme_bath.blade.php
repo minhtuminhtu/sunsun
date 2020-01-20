@@ -78,7 +78,7 @@
                 <input name="date-view" id="date-view" type="hidden" value="">
                 <input name="date-value" id="date-value" type="hidden" value="">
                 <div class="booking-field-content">
-                    <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly"  id="pwd" value="{{ $booking_date }}" />
+                    <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly" value="{{ $booking_date }}" />
                 </div>
             </div>
         @endif
@@ -145,7 +145,7 @@
             @else
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
-                    <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_0" readonly="readonly" value="00:00" />
+                    <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_0" readonly="readonly" value="－" />
                     <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="0">
                     <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="0">
                     <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
@@ -159,7 +159,7 @@
         </div>
         <div class="booking-field pb-0">
             <div class="node-text booking-laber-padding">
-                <div>※バスの場合、到着時間の30分以内は選択できません。希望時間が選択できない場合は　バス到着時間をご確認ください。</div>
+                <div id="hint-repeat">※バスの場合、到着時間から30分以内の予約はできません。希望時間が選択できない場合は　バス到着時間をご確認ください。</div>
                 <div>※酵素浴を1日2回以上利用される場合は[酵素浴　追加]をクリックし、2回目の時間を選択してください。</div>
             </div>
         </div>
@@ -183,12 +183,12 @@
     <div class="booking-line-laber">
         <div class="line-laber">オプション</div>
         <div class="line-button">
-            <img class="btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+            <img class="btn-collapse btn-collapse-between" id="btn-collapse-between"  data-toggle="collapse" data-target=".collapse-between" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
         </div>
     </div>
     <!-- <hr class="booking-line-line"> -->
 </div>
-<div class="collapse collapse-between show">
+<div class="collapse collapse-between">
     <div class="booking-block-between">
         <div class="">
             <div class="booking-field">
@@ -257,7 +257,7 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="whitening-time_view"  value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'00:00～00:00' }}" />
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="whitening-time_view"  value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'－' }}" />
                         <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
                         <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="{{ isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:''  }}">
                         <input name="whitening_data[element]" type="hidden" value="whitening-time_view">
@@ -289,12 +289,12 @@
         <div class="booking-line-laber">
             <div class="line-laber">宿泊</div>
             <div class="line-button">
-                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/hide.svg') }}" alt="Plus" />
+                <img class=" btn-collapse btn-collapse-finish" id="btn-collapse-finish"  data-toggle="collapse" data-target=".collapse-finish" src="{{ asset('sunsun/svg/plus.svg') }}" alt="Plus" />
             </div>
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
-    <div class="collapse collapse-finish show">
+    <div class="collapse collapse-finish">
         <div class="booking-block-finish">
             <div class="">
                 <div class="booking-field">

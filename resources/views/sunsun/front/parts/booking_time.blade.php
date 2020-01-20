@@ -24,7 +24,7 @@
                     </div>
                 </td>
                 @if($course == '03')
-                    @php 
+                    @php
                         $time = null;
                     @endphp
                     @foreach($times as $time)

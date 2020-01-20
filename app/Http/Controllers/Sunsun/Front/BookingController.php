@@ -198,32 +198,37 @@ class BookingController extends Controller
                 if ($data_json_time_1 == null) {
                     $error['error_time_empty'][]['element'] = $time['from']['element'];
                 } else {
-                    if ($check_bus) { // validate nếu đi xe bus
-                        if ($data_json_time_1['notes'] < $time_required) { // check required time. time choice always >= time required
-                            $error['error_time_transport'][]['element'] = $time['from']['element'];
-                        } else {
-                            $error['clear_border_red'][]['element'] = $time['from']['element'];
+                    if($data_json_time_1['date_booking'] === $data['plan_date_start-value']) {
+                        if ($check_bus) { // validate nếu đi xe bus
+                            if ($data_json_time_1['notes'] < $time_required) { // check required time. time choice always >= time required
+                                $error['error_time_transport'][]['element'] = $time['from']['element'];
+                            } else {
+                                $error['clear_border_red'][]['element'] = $time['from']['element'];
+                            }
                         }
-                    }
-                    if ($check_gender) {
-                        if ($kubun_type_bed != $data_json_time_1['gender_type']) {
-                            //$error['error_time_transport'][$key]['data'] = $data_json_time;
-                            $error['error_time_gender'][]['element'] = $time['from']['element'];
-                        } else {
-                            $error['clear_border_red'][]['element'] = $time['from']['element'];
-                        }
+                        if ($check_gender) {
+                            if ($kubun_type_bed != $data_json_time_1['gender_type']) {
+                                //$error['error_time_transport'][$key]['data'] = $data_json_time;
+                                $error['error_time_gender'][]['element'] = $time['from']['element'];
+                            } else {
+                                $error['clear_border_red'][]['element'] = $time['from']['element'];
+                            }
 
+                        }
                     }
                 }
                 if ($data_json_time_2 == null) {
                     $error['error_time_empty'][]['element'] = $time['to']['element'];
                 } else {
-                    if ($check_bus) { // validate nếu đi xe bus
 
-                        if ($data_json_time_2['notes'] < $time_required) { // check required time. time choice always >= time required
-                            $error['error_time_transport'][]['element'] = $time['to']['element'];
-                        } else {
-                            $error['clear_border_red'][]['element'] = $time['to']['element'];
+                    if($data_json_time_2['date_booking'] === $data['plan_date_start-value']){
+                        if ($check_bus) { // validate nếu đi xe bus
+
+                            if ($data_json_time_2['notes'] < $time_required) { // check required time. time choice always >= time required
+                                $error['error_time_transport'][]['element'] = $time['to']['element'];
+                            } else {
+                                $error['clear_border_red'][]['element'] = $time['to']['element'];
+                            }
                         }
                     }
                     if ($check_gender) {
@@ -441,23 +446,50 @@ class BookingController extends Controller
         //dd($data);
         $info_booking = $data['customer'];
         $bill = [];
-        $bill['course']['quantity'] = 0;
-        $bill['course']['price'] = 0;
+
+        $bill['course_1']['name'] = "酵素浴";
+        $bill['course_1']['quantity'] = 0;
+        $bill['course_1']['price'] = 0;
+
+        $bill['course_2']['name'] = "1日リフレッシュプラン";
+        $bill['course_2']['quantity'] = 0;
+        $bill['course_2']['price'] = 0;
+
+        $bill['course_3']['name'] = "酵素部屋1部屋貸切プラン";
+        $bill['course_3']['quantity'] = 0;
+        $bill['course_3']['price'] = 0;
+
+        $bill['course_4']['name'] = "断食プラン";
+        $bill['course_4']['quantity'] = 0;
+        $bill['course_4']['price'] = 0;
+
+        $bill['course_5']['name'] = "ペット酵素浴";
+        $bill['course_5']['quantity'] = 0;
+        $bill['course_5']['price'] = 0;
+
+
         $bill['options'] = [];
         $bill['price_option'] = 0;
         foreach ($info_booking['info'] as $booking) {
             if((!isset($booking['fake_booking'])) || ($booking['fake_booking'] != '1')){
                 $booking_course = json_decode($booking['course'], true);
-                Log::debug("ahaha");
                 Log::debug($booking);
                 if($booking_course['kubun_id'] == '01'){
                     foreach($booking['time'] as $booking_t){
-                        ++ $bill['course']['quantity'];
-                        $bill['course']['price'] += $this->get_price_course($booking, $bill);
+                        ++ $bill['course_1']['quantity'];
+                        $bill['course_1']['price'] += $this->get_price_course($booking, $bill);
                     }
-                }else{
-                    ++ $bill['course']['quantity'];
-                    $bill['course']['price'] += $this->get_price_course($booking, $bill);
+                }else if($booking_course['kubun_id'] == '02'){
+                    ++ $bill['course_2']['quantity'];
+                    $bill['course_2']['price'] += $this->get_price_course($booking, $bill);
+                }else if($booking_course['kubun_id'] == '03'){
+                    ++ $bill['course_3']['quantity'];
+                    $bill['course_3']['price'] += $this->get_price_course($booking, $bill);
+                }else if($booking_course['kubun_id'] == '04'){
+                    $bill['course_4']['price'] += $this->get_price_course($booking, $bill);
+                }else if($booking_course['kubun_id'] == '05'){
+                    ++ $bill['course_5']['quantity'];
+                    $bill['course_5']['price'] += $this->get_price_course($booking, $bill);
                 }
 
                 $this->get_price_option($booking, $bill);
@@ -467,7 +499,7 @@ class BookingController extends Controller
             }
         }
         //dd($bill);
-        $bill['total'] = $bill['course']['price'] + $bill['price_option'];
+        $bill['total'] = $bill['course_1']['price'] + $bill['course_2']['price'] + $bill['course_3']['price'] + $bill['course_4']['price'] + $bill['course_5']['price'] + $bill['price_option'];
         $data['bill'] = $bill;
     }
 
@@ -571,11 +603,11 @@ class BookingController extends Controller
                     //$days = $booking['range_date_end-value'] - $booking['range_date_start-value']; // chua tính những ngày nghỉ
                     $price_stay = $price_stay * count($all_dates);
                     if (isset($bill['options']['02_03']['price'])) {
-                        ++ $bill['options']['02_03']['quantity'];
+                        $bill['options']['02_03']['quantity'] = count($all_dates);
                         $bill['options']['02_03']['price'] += $price_stay;
                     } else {
                         $bill['options']['02_03']['room'] = $stay_room_type['kubun_value'];
-                        $bill['options']['02_03']['quantity'] = $stay_guest_num['notes'];
+                        $bill['options']['02_03']['quantity'] = count($all_dates);
                         $bill['options']['02_03']['price'] = $price_stay;
                         $bill['options']['02_03']['name'] = '宿泊(部屋ﾀｲﾌﾟ)';
                     }
@@ -678,6 +710,7 @@ class BookingController extends Controller
                 } else {
                     $course_price = $day * $one_day_price;
                 }
+                $bill['course_4']['quantity'] += $day;
                 break;
             case "05": // pet
                 $course_price_op = MsKubun::where([['kubun_type','028'],['kubun_id','01']])->get()->first();
@@ -733,12 +766,12 @@ class BookingController extends Controller
         return false;
     }
     function check_is_katakana($name) {
-        $re = '/^[\p{Katakana}]+$/m';
-        preg_match($re, $name, $matches, PREG_OFFSET_CAPTURE, 0);
-        Log::debug('$matches1');
+        $name = trim($name);
+        $check_name = preg_replace("/[^ァ-ヾｧ-ﾝﾞﾟヽ゛゜ー]/u", "", $name);
+        Log::debug('$check_name');
+        Log::debug($check_name);
         Log::debug($name);
-        Log::debug($matches);
-        if(count($matches) > 0){
+        if(strlen($check_name) == strlen($name)){
             return true;
         }
         return false;
@@ -746,17 +779,22 @@ class BookingController extends Controller
 
     public function validate_payment_info(&$data){
         $error = [];
-        $data['name'] = trim($data['name']);
-        if($data['name'] == null){
+        if(($data['name'] == null) || (!$this->check_is_katakana($data['name']))){
             $error['error'][] = 'name';
         }else{
             $error['clear'][] = 'name';
         }
 
+
         if($data['phone'] == null){
             $error['error'][] = 'phone';
         }else{
-            $error['clear'][] = 'phone';
+            $phone = preg_replace("/[^0-9]/", "", $data['phone'] );
+            if((strlen($phone) > 11) || (strlen($phone) < 10)){
+                $error['error'][] = 'phone';
+            }else{
+                $error['clear'][] = 'phone';
+            }
         }
 
         if(($data['email'] == null)||(!$this->check_valid_email($data['email']))){
@@ -1530,6 +1568,9 @@ class BookingController extends Controller
             if ($day_book_time == ''){
                 $day_book_time = $day_book_time_ss;
             }
+            $owner_pet = 0;
+            $range_time_validate_pet = [];
+            // check
             foreach ($sections_booking['info'] as $key => $booking_ss) {
                 $course_ss = json_decode($booking_ss['course'], true);
                 if ($course_ss['kubun_id'] !== config('const.db.kubun_id_value.course.PET')) {
@@ -1553,7 +1594,6 @@ class BookingController extends Controller
                                     $validate_ss_time[$key]['time_from']['bed'] = $from['kubun_id_room'];
                                     $validate_ss_time[$key]['time_to']['bed'] = $to['kubun_id_room'];
                                 }
-
                             } else {
                                 if ($day_book_time == $day_book_time_ss) {
                                     $ss_time = json_decode($v_time['json'], true);
@@ -1573,9 +1613,22 @@ class BookingController extends Controller
 
                     }
                     //dd($validate_ss_time);
+                    $owner_pet = 1;
+                } else {
+                    if ($day_book_time == $day_book_time_ss) { // get time pet ss
+                        foreach ($booking_ss['time'] as $key_time_pet => $value_time_pet) {
+                            $time_json = json_decode($value_time_pet['json'], true);
+                            $range_time_validate_pet[$key]['start_time'] = substr($time_json['notes'], 0, 4);
+                            $range_time_validate_pet[$key]['end_time'] = substr($time_json['notes'], 5, 4);
+
+                        }
+                    }
+
                 }
             }
-
+            if ($owner_pet == 0) {
+                $validate_ss_time['pet_ss'] = $range_time_validate_pet;
+            }
             //dd($validate_ss_time);
         } else { // th booking mới
             $transport = json_decode($data['transport'], true);
@@ -1586,11 +1639,18 @@ class BookingController extends Controller
         $this->fetch_kubun_data($data);
         $validate_time = [];
         $this->get_validate_time_choice ($course, $data, $data_get_attr, $validate_time, $day_book_time);
-        $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
+
+
+        if(($course['kubun_id'] == '04') && (isset($data['bus_first'])) && ($data['bus_first'] == "0")){
+            $time_bus = null;
+        }else{
+            $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
+        }
+
         $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate);
         $data_time['course'] = $course['kubun_id'];
 
-        // dd($data_time);
+//        dd($data);
         return view('sunsun.front.parts.booking_time',$data_time)->render();
     }
 
@@ -1636,6 +1696,14 @@ class BookingController extends Controller
                 $time_bus = $check_bus;
             }
         }
+        date_default_timezone_set('Asia/Tokyo');
+        $current_min_time = $this->plus_time_string(date('Hi'), 20);
+        if(isset($time_bus)&&($time_bus > $current_min_time)){
+            $time_bus = $time_bus;
+        }else{
+            $time_bus = $current_min_time;
+        }
+        Log::debug($current_min_time);
         return $time_bus;
     }
 
@@ -1770,15 +1838,19 @@ class BookingController extends Controller
                 , mk2.sort_no
 
         ";
+//        Log::debug('$time_date_booking');
+//        Log::debug($time_date_booking);
         $sql_bus = "";
-        if ($time_bus !== null) { // time book > time bus
+
+        if ($time_bus !== null) {
+            $data_sql["date_booking_where"] = $time_date_booking;
             if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
                 $sql_bus = "
-                 AND SUBSTRING(mk1.notes, 1 ,4) > :time_bus
+                 AND (SUBSTRING(mk1.notes, 1 ,4) > :time_bus or DATE_FORMAT(NOW(), '%Y%m%d') < DATE_FORMAT(:date_booking_where, '%Y%m%d'))
                 ";
             } else {
                 $sql_bus = "
-                 AND mk1.notes > :time_bus
+                 AND (mk1.notes > :time_bus or DATE_FORMAT(NOW(), '%Y%m%d') < DATE_FORMAT(:date_booking_where, '%Y%m%d'))
             ";
             }
 
@@ -1802,6 +1874,7 @@ class BookingController extends Controller
             $sql_validate_ss .= "WHEN '01' = '01'  AND (";
             $count = 0;
             foreach ($validate_ss_time as $key_ss_t => $value_ss_t) {
+
                 foreach ($value_ss_t as $key_ss => $value_ss) {
                     $or = '';
                     if ($count != 0) {
@@ -1812,6 +1885,11 @@ class BookingController extends Controller
                         $time_boss_end = $this->plus_time_string($time_boss_start, 120);
                         $time_boss_start_validate = $this->minus_time_string($time_boss_start, 60);
                         $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_boss_start_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_boss_end') ";
+                    } else if ($key_ss_t == 'pet_ss') { // time pet not concomitant width time human book at the first
+                        $time_start_pet_validate = $this->minus_time_string($value_ss['start_time'], 120); // - 120 p time tắm
+                        $time_end_pet_validate = $value_ss['end_time'];
+                        $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_start_pet_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_end_pet_validate') ";
+
                     } else {
                         $time = $value_ss['time'];
                         $sql_bed = "";
@@ -1921,9 +1999,6 @@ class BookingController extends Controller
         $check_1515 = 1;
         foreach($time_request as $time){
             if(($time->notes == '0945') || ($time->notes == '1315') || ($time->notes == '1515')){
-
-                Log::debug('noran');
-                Log::debug( $time->notes);
                 if(($check_0945) && ($time->notes == '0945')){
                     $time_temp['0945'] = $time;
                     $check_0945 = 0;
@@ -1940,7 +2015,6 @@ class BookingController extends Controller
                 }
             }
         }
-//        Log::debug($time_temp);
         return $time_temp;
     }
     public function sql_get_booking_yoyaku ($sql_where = "") {
@@ -2238,6 +2312,15 @@ class BookingController extends Controller
                 $time_bus = $check_bus;
             }
         }
+        date_default_timezone_set('Asia/Tokyo');
+        $current_min_time = $this->plus_time_string(date('Hi'), 20);
+        if(isset($time_bus)&&($time_bus > $current_min_time)){
+            $time_bus = $time_bus;
+        }else{
+            $time_bus = $current_min_time;
+        }
+        Log::debug($current_min_time);
+
         // dd($data);
         $time_kubun_type_whitening = config('const.db.kubun_type_value.TIME_WHITENING'); //021
         $kubun_type_bed = config('const.db.kubun_type_value.bed_pet'); // 19
@@ -2335,11 +2418,11 @@ class BookingController extends Controller
                 $day_book_time = $day_book_time_ss;
             }
 
+
             $count_loop = 0;
             foreach ($sections_booking['info'] as $key => $booking_ss) {
                 $course_ss = json_decode($booking_ss['course'], true);
                 if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.PET')) {
-
                     foreach ($booking_ss['time'] as $k_time => $v_time) {
                         if ($day_book_time == $day_book_time_ss) {
                             $ss_time = json_decode($v_time['json'], true);
@@ -2365,8 +2448,8 @@ class BookingController extends Controller
                             }
 
                         }
+                        $count_loop++;
                     }
-                    $count_loop++;
                 }
             }
 
@@ -2384,6 +2467,15 @@ class BookingController extends Controller
                 $time_bus = $check_bus;
             }
         }
+        date_default_timezone_set('Asia/Tokyo');
+        $current_min_time = $this->plus_time_string(date('Hi'), 20);
+        if(isset($time_bus)&&($time_bus > $current_min_time)){
+            $time_bus = $time_bus;
+        }else{
+            $time_bus = $current_min_time;
+        }
+        Log::debug($current_min_time);
+
         $MsKubun = MsKubun::all();
         $data_time['beds'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
         $time_kubun_type_pet = config('const.db.kubun_type_value.TIME_PET'); //020

@@ -77,8 +77,8 @@ Route::get('/getdata', function () {
 Route::get('/clear', function () {
     $booking_id = date("Ymd")."0001";
     DB::select("
-        UPDATE `tr_yoyaku` 
-        SET 
+        UPDATE `tr_yoyaku`
+        SET
             `booking_id`= '$booking_id'
             ,`ref_booking_id`= null
             ,`history_id`=null
@@ -120,9 +120,9 @@ Route::get('/clear', function () {
         WHERE 1
     ");
     DB::select("
-        UPDATE 
-            `tr_yoyaku_danjiki_jikan` 
-        SET 
+        UPDATE
+            `tr_yoyaku_danjiki_jikan`
+        SET
             `booking_id`='$booking_id'
             ,`service_date`=0
             ,`service_time_1`=null
@@ -136,15 +136,15 @@ Route::get('/clear', function () {
     echo "Clear done!";
 });
 
- Route::get('/reset', function () {
-     \Artisan::call('migrate:reset');
-     \Artisan::call('migrate');
-     \Artisan::call('db:seed');
-     echo "Reset done!";
- });
+Route::get('/reset', function () {
+    \Artisan::call('migrate:reset');
+    \Artisan::call('migrate');
+    \Artisan::call('db:seed');
+    echo "Reset done!";
+});
 
 
-Route::middleware('begin.auth')->group(function(){
+//Route::middleware('begin.auth')->group(function(){
     Route::namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
@@ -215,9 +215,13 @@ Route::middleware('begin.auth')->group(function(){
         // Route::post('/booking_history',['as' => '.booking_history', 'uses' => 'AdminController@booking_history']);
         Route::post('/show_history',['as' => '.show_history', 'uses' => 'AdminController@show_history']);
         Route::post('/update_booking',['as' => '.update_booking', 'uses' => 'AdminController@update_booking']);
+
+        // user admin
+        Route::get('/msuser',['as' => '.user', 'uses' => 'AdminController@user']);
+        Route::post('/update_user',['as' => '.update_user', 'uses' => 'AdminController@update_user']);
+        // Route::get('/search_user',['as' => '.search_user', 'uses' => 'AdminController@get_search_user']);
+        Route::get('/search-paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_search_pagination']);
+        Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
+
     });
-});
-
-
-
-
+//});
