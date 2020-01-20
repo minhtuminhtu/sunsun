@@ -26,7 +26,6 @@
             text-align: center;
             font-size: 13px;
         }
-
         .result_data_user tr td{
             font-size: 13px;
         }
@@ -97,7 +96,6 @@
         }
     </style>
 @endsection
-
 @section('main')
     <main>
         <div class="container">
@@ -111,21 +109,17 @@
                             <label for="staticName" style="width: 15%; float: left; font-size:13px" class="col-form-label">名前</label>
                             <input type="text" style="float: left; width: 20%" class="input_text_form" name="username" id="username">
                         </div>
-
                         <div class="form-group" style="display: flex">
                             <label for="staticPhone" style="width: 15%; float: left; font-size:13px" class="col-form-label">電話番号</label>
-                            <input type="text" style="float: left; width: 20%" class="input_text_form" name="phone" id="phone">
+                            <input type="text" style="float: left; width: 20%" class="input_text_form numberphone" name="phone" id="phone" maxlength="11">
                             <input style="margin: 10px 0 10px 20px;" checked="checked" type="checkbox" name="notshowdeleted" value="1"><span style="font-size: 13px; line-height: 33px">&nbsp;削除データは表示しない</span>
                         </div>
-
                         <div class="form-group" style="display: flex">
                             <label for="staticEmail" style="width: 15%; float: left; font-size:13px" class="col-form-label">メールアドレス</label>
                             <input type="text" style="float: left; width: 20%" class="input_text_form" name="email" id="email">
-        
                             <div class="btn_search_user" id="searchSubmit">
                                 <a href="javascript:void(0)">検索</a>
                             </div>
-                            
                         </div>
                     </form>
                 </div>
@@ -141,13 +135,10 @@
                 </form>
             </div>
             <div class="main-footer">
-                
             </div>
-
         </div>
     </main>
 @endsection
-
 @section('script')
     @parent
     <script>
@@ -160,7 +151,6 @@
                         searchSubmit();
                     }
                 });
-
                 $('#currentPage').keypress(function(e){
                     if(e.which == 13){
                         var url=url_paginate.value;
@@ -169,7 +159,6 @@
                         window.location.href = url_active;
                     }
                 });
-
                 $(document).on('click','.pagination_ajax a',function(e){
                     e.preventDefault()
                     var data = $('form#searchform').serializeArray();
@@ -178,7 +167,6 @@
                 })
             });
         })(jQuery);
-
         function get_data_ajax_paginate(page,data)
         {
             $.ajax({
@@ -194,7 +182,7 @@
                 success: function success(html) {
                     if (html.status == true) {
                         $('.resulttable').html(html.data);
-                    } 
+                    }
                 },
                 complete: function complete() {
                         loader.css({
@@ -203,7 +191,6 @@
                 }
             });
         }
-
         // search
         function searchSubmit() {
             var data = $('form#searchform').serializeArray();
@@ -220,7 +207,7 @@
                 success: function success(html) {
                     if (html.status == true) {
                         $('.resulttable').html(html.data);
-                    } 
+                    }
                 },
                 complete: function complete() {
                         loader.css({
@@ -230,7 +217,6 @@
             });
             submit = false;
         }
-
         // edit
         function editSubmit(id) {
             if(!submit){
@@ -253,7 +239,6 @@
                 }
             }
         }
-
         // cancel
         function cancelSubmit(id) {
             if (!submit) {
@@ -273,7 +258,6 @@
                 document.getElementById(id).style.display = 'inline';
             }
         }
-
         // update
         function updateSubmit(id) {
             if (!submit) {
@@ -304,21 +288,18 @@
                                 }else if((html.status == false && html.type == 'update')){
                                     alert(html.message);
                                     submit = false;
-                                } 
+                                }
                             },
                             complete: function complete() {
                                     loader.css({
                                     'display': 'none'
                                 });
                             }
-
                         });
                     }
                 } else {
-                    
                 }
             }
         }
     </script>
 @endsection
-

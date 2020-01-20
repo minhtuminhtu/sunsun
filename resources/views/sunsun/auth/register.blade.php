@@ -38,7 +38,7 @@
                         <span>電話番号</span><span class="node-text">（半角、ハイフン不要）</span>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('tel',  old('tel'), ['class' => 'form-control', 'required' => 'required']) !!}
+                        {!! Form::text('tel',  old('tel'), ['class' => 'form-control numberphone', 'required' => 'required', 'maxlength' => '11']) !!}
                         {!! $errors->first('tel', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>

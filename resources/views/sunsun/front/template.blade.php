@@ -47,5 +47,6 @@
             $('main').css('min-height', height_window - (height_footer + height_header) +"px" )
         }
     </script>
+    <script src="{{asset('sunsun/auth/js/validate-form.js').config('version_files.html.js')}}"></script>
 @endsection
 

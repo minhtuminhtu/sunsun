@@ -108,35 +108,36 @@ $(function () {
       e.preventDefault();
     }
   });
-  $('#phone').off('keypress');
-  $('#phone').on('keypress', function (e) {// let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
-    // if(phone.replace(/[^0-9]/,'').length == 11){
-    //     $(this).parent().parent().find('.note-error').remove();
-    //     $(this).addClass('validate_failed');
-    //     $(this).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
-    //     e.preventDefault();
-    // }
-  });
-  $('#phone').off('keyup keydown change');
-  $('#phone').on('keyup keydown change', function (e) {
-    var phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/, '');
-    var temp_phone = "";
+  /*$('#phone').off('keypress');
+  $('#phone').on('keypress', function(e){
+      // let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
+      // if(phone.replace(/[^0-9]/,'').length == 11){
+      //     $(this).parent().parent().find('.note-error').remove();
+      //     $(this).addClass('validate_failed');
+      //     $(this).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
+      //     e.preventDefault();
+      // }
+  })*/
 
-    if (phone.length != get_number_byte_str(phone)) {
-      for (var i = 0; i < phone.length; i++) {
-        if (get_number_byte_str(phone.charAt(i)) == 2) {
-          temp_phone += convert_2byte_2_1byte(phone.charAt(i));
-        } else {
-          temp_phone += phone.charAt(i);
-        }
+  /*$('#phone').off('keyup keydown change');
+  $('#phone').on('keyup keydown change', function(e){
+      let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
+      let temp_phone = "";
+      if(phone.length != get_number_byte_str(phone)){
+          for(let i = 0; i < phone.length; i++){
+              if(get_number_byte_str(phone.charAt(i)) == 2){
+                  temp_phone += convert_2byte_2_1byte(phone.charAt(i));
+              }else{
+                  temp_phone += phone.charAt(i);
+              }
+          }
+      }else{
+          temp_phone = phone;
       }
-    } else {
-      temp_phone = phone;
-    }
+      temp_phone = temp_phone.replace(/[^0-9()-]/,'');
+      $("#phone").val(temp_phone);
+  })*/
 
-    temp_phone = temp_phone.replace(/[^0-9()-]/, '');
-    $("#phone").val(temp_phone);
-  });
   $('#email').off('keypress keyup keydown change');
   $('#email').on('keypress keyup keydown change', function (e) {
     var email = $('#email').val().replace(/[^0-9a-zA-Z@.０-９Ａ-Ｚａ-ｚ＠]/, '');
@@ -597,7 +598,7 @@ if (typeof execPurchase === 'undefined') {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
+module.exports = __webpack_require__(/*! C:\Users\sonmq\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
 
 
 /***/ })
