@@ -2420,7 +2420,6 @@ class BookingController extends Controller
 
 
             $count_loop = 0;
->
             foreach ($sections_booking['info'] as $key => $booking_ss) {
                 $course_ss = json_decode($booking_ss['course'], true);
                 if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.PET')) {
