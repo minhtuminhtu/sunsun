@@ -46,6 +46,7 @@
         var $curent_url = '{{url()->current()}}';
 
     </script>
+    <script src="{{asset('sunsun/auth/js/validate-form.js').config('version_files.html.js')}}"></script>
 @endsection
 
 

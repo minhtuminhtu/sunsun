@@ -38,7 +38,7 @@
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('tel', $user->tel, ['class' => 'form-control', 'required' => 'required']) !!}
+                        {!! Form::text('tel', $user->tel, ['class' => 'form-control numberphone', 'required' => 'required', 'maxlength' => '11']) !!}
                         {!! $errors->first('tel', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>

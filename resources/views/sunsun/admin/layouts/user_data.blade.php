@@ -29,7 +29,7 @@
                     <td>
                         <span id="tel_<?php echo $items->ms_user_id ?>">{{ $items->tel }}</span>
                         <div class="required" style="display: none" id="tel_<?php echo $items->ms_user_id ?>_user"></div>
-                        <input type="text" style="display: none; width: 100%" name="tel_<?php echo $i ?>" id="tels_<?php echo $items->ms_user_id ?>" value="{{ $items->tel }}">
+                        <input type="text" style="display: none; width: 100%" name="tel_<?php echo $i ?>" id="tels_<?php echo $items->ms_user_id ?>" value="{{ $items->tel }}" class="numberphone" maxlength="11">
                     </td>
                     <td>
                         <span id="email_<?php echo $items->ms_user_id ?>">{{ $items->email }}</span>

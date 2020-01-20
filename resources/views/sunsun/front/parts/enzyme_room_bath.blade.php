@@ -20,7 +20,7 @@
                 </div>
                 <div class="booking-field-content">
                     <div class="timedate-block date-warp">
-                        <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="{{ $booking_date }}" />
+                        <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" value="{{ $booking_date }}" />
                     </div>
                 </div>
             </div>
