@@ -1827,13 +1827,14 @@ class BookingController extends Controller
 //        Log::debug($time_date_booking);
         $sql_bus = "";
         if ($time_bus !== null) {
+            $data_sql["date_booking_where"] = $time_date_booking;
             if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
                 $sql_bus = "
-                 AND SUBSTRING(mk1.notes, 1 ,4) > :time_bus
+                 AND (SUBSTRING(mk1.notes, 1 ,4) > :time_bus or DATE_FORMAT(NOW(), '%Y%m%d') < DATE_FORMAT(:date_booking_where, '%Y%m%d'))
                 ";
             } else {
                 $sql_bus = "
-                 AND mk1.notes > :time_bus
+                 AND (mk1.notes > :time_bus or DATE_FORMAT(NOW(), '%Y%m%d') < DATE_FORMAT(:date_booking_where, '%Y%m%d'))
             ";
             }
 

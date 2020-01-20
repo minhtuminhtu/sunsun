@@ -18,7 +18,7 @@ $(function() {
         }
     })
 
-    $('#phone').off('keypress');
+    /*$('#phone').off('keypress');
     $('#phone').on('keypress', function(e){
         // let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
         // if(phone.replace(/[^0-9]/,'').length == 11){
@@ -27,9 +27,9 @@ $(function() {
         //     $(this).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
         //     e.preventDefault();
         // }
-    })
+    })*/
 
-    $('#phone').off('keyup keydown change');
+    /*$('#phone').off('keyup keydown change');
     $('#phone').on('keyup keydown change', function(e){
         let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
         let temp_phone = "";
@@ -46,7 +46,7 @@ $(function() {
         }
         temp_phone = temp_phone.replace(/[^0-9()-]/,'');
         $("#phone").val(temp_phone);
-    })
+    })*/
 
     $('#email').off('keypress keyup keydown change');
     $('#email').on('keypress keyup keydown change', function(e){

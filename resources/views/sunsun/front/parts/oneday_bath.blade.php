@@ -54,7 +54,7 @@
                 <input name="date-value" id="date-value" type="hidden" value="">
                 <div class="booking-field-content">
                     <div class="timedate-block date-warp">
-                        <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" id="pwd" value="" />
+                        <input name='date' id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" value="" />
                     </div>
                 </div>
             </div>

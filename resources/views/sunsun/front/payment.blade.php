@@ -61,7 +61,7 @@
                             @if($bill['course_2']['quantity'] != 0)
                                 <tr>
                                     <td class="text-left">{{ $bill['course_2']['name'] }}</td>
-                                    <td class="text-right">{{ $bill['course_2']['quantity'] }}回</td>
+                                    <td class="text-right">{{ $bill['course_2']['quantity'] }}日</td>
                                     <td class="text-right">{{number_format($bill['course_2']['price'])}}</td>
                                 </tr>
                             @endif
@@ -101,7 +101,11 @@
                                 @else
                                     <tr>
                                         <td class="text-left">{{$option['name']}}</td>
+                                        @if($bill['course_5']['quantity'] != 0)
                                         <td class="text-right">{{$option['quantity']}}人</td>
+                                        @else
+                                        <td class="text-right">{{$option['quantity']}}匹</td>
+                                        @endif
                                         <td class="text-right">{{number_format($option['price'])}}</td>
                                     </tr>
                                 @endif

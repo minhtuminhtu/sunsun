@@ -78,7 +78,7 @@
                 <input name="date-view" id="date-view" type="hidden" value="">
                 <input name="date-value" id="date-value" type="hidden" value="">
                 <div class="booking-field-content">
-                    <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly"  id="pwd" value="{{ $booking_date }}" />
+                    <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly" value="{{ $booking_date }}" />
                 </div>
             </div>
         @endif
