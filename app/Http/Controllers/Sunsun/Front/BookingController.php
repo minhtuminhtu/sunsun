@@ -1530,6 +1530,9 @@ class BookingController extends Controller
             if ($day_book_time == ''){
                 $day_book_time = $day_book_time_ss;
             }
+            $owner_pet = 0;
+            $range_time_validate_pet = [];
+            // check
             foreach ($sections_booking['info'] as $key => $booking_ss) {
                 $course_ss = json_decode($booking_ss['course'], true);
                 if ($course_ss['kubun_id'] !== config('const.db.kubun_id_value.course.PET')) {
@@ -1553,7 +1556,6 @@ class BookingController extends Controller
                                     $validate_ss_time[$key]['time_from']['bed'] = $from['kubun_id_room'];
                                     $validate_ss_time[$key]['time_to']['bed'] = $to['kubun_id_room'];
                                 }
-
                             } else {
                                 if ($day_book_time == $day_book_time_ss) {
                                     $ss_time = json_decode($v_time['json'], true);
@@ -1573,9 +1575,22 @@ class BookingController extends Controller
 
                     }
                     //dd($validate_ss_time);
+                    $owner_pet = 1;
+                } else {
+                    if ($day_book_time == $day_book_time_ss) { // get time pet ss
+                        foreach ($booking_ss['time'] as $key_time_pet => $value_time_pet) {
+                            $time_json = json_decode($value_time_pet['json'], true);
+                            $range_time_validate_pet[$key]['start_time'] = substr($time_json['notes'], 0, 4);
+                            $range_time_validate_pet[$key]['end_time'] = substr($time_json['notes'], 5, 4);
+
+                        }
+                    }
+
                 }
             }
-
+            if ($owner_pet == 0) {
+                $validate_ss_time['pet_ss'] = $range_time_validate_pet;
+            }
             //dd($validate_ss_time);
         } else { // th booking mới
             $transport = json_decode($data['transport'], true);
@@ -1802,6 +1817,7 @@ class BookingController extends Controller
             $sql_validate_ss .= "WHEN '01' = '01'  AND (";
             $count = 0;
             foreach ($validate_ss_time as $key_ss_t => $value_ss_t) {
+
                 foreach ($value_ss_t as $key_ss => $value_ss) {
                     $or = '';
                     if ($count != 0) {
@@ -1812,6 +1828,11 @@ class BookingController extends Controller
                         $time_boss_end = $this->plus_time_string($time_boss_start, 120);
                         $time_boss_start_validate = $this->minus_time_string($time_boss_start, 60);
                         $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_boss_start_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_boss_end') ";
+                    } else if ($key_ss_t == 'pet_ss') { // time pet not concomitant width time human book at the first
+                        $time_start_pet_validate = $this->minus_time_string($value_ss['start_time'], 120); // - 120 p time tắm
+                        $time_end_pet_validate = $value_ss['end_time'];
+                        $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_start_pet_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_end_pet_validate') ";
+
                     } else {
                         $time = $value_ss['time'];
                         $sql_bed = "";
@@ -2365,8 +2386,8 @@ class BookingController extends Controller
                             }
 
                         }
+                        $count_loop++;
                     }
-                    $count_loop++;
                 }
             }
 
