@@ -165,6 +165,8 @@ return [
     ],
     'name' => [
         'label' => '名前',
+        'node_label' => '（カタカナ）',
+        'placeholder' => '全角カタカナ',
     ],
     'phone' => [
         'label' => '電話番号',

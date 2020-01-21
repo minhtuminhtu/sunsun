@@ -297,7 +297,7 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 endDate: get_end_date(),
-                daysOfWeekDisabled: "3,4,5,6",
+                daysOfWeekDisabled: "3,4",
                 weekStart: 1,
                 orientation: 'bottom',
             });
@@ -309,7 +309,7 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 endDate: get_end_date(),
-                daysOfWeekDisabled: "3,4,5,6",
+                daysOfWeekDisabled: "3,4",
                 weekStart: 1,
                 orientation: 'bottom',
             });
@@ -712,10 +712,11 @@ $(function() {
             || (typeof json.error_time_gender  !== "undefined")
             || (typeof json.error_time_empty  !== "undefined")
             || (typeof json.room_select_error  !== "undefined")
+            || (typeof json.error_fasting_plan_holyday  !== "undefined")
         ) && (type)){
             Swal.fire({
                 icon: 'warning',
-                text: '入力した情報を再確認してください。',
+                text: '入力した内容を確認してください。',
                 confirmButtonColor: '#d7751e',
                 confirmButtonText: '閉じる',
                 width: 350,
@@ -746,7 +747,7 @@ $(function() {
             $.each(json.error_time_gender, function (index, item) {
                 let input_error_gender = $('#'+item.element);
                 input_error_gender.addClass('validate_failed');
-                input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
+                input_error_gender.parent().after('<p class="note-error node-text"> 選択された時間は予約できません。</p>');
                 $('select[name=gender]').addClass('validate_failed');
             })
         }
@@ -761,9 +762,18 @@ $(function() {
             $.each(json.room_select_error, function (index, item) {
                 $('#'+item.element).addClass('validate_failed');
             })
-            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
+            var text_err = "選択された日は予約できません";
+            if (json.room_error_holiday == "1")
+                text_err = "定休日が含まれているため予約できません";
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         }
-
+        if (typeof json.error_fasting_plan_holyday  !== "undefined") {
+            $.each(json.error_fasting_plan_holyday, function (index, item) {
+                $('#'+item.element).addClass('validate_failed');
+            });
+            var text_err = "定休日が含まれているため予約できません";
+            $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        }
     };
 
     let load_time_list = function(check = null) {
@@ -872,7 +882,7 @@ let load_time_delete_event = function(){
         if (window.location.href.includes("admin")) {
             Swal.fire({
                 target: '#edit_booking',
-                text: "削除しますが、よろしいですか?",
+                text: "予約時間を削除します、よろしいですか?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d7751e',
@@ -897,7 +907,7 @@ let load_time_delete_event = function(){
             })
         } else {
             Swal.fire({
-                text: "削除しますが、よろしいですか?",
+                text: "予約時間を削除します、よろしいですか?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d7751e',
@@ -1201,10 +1211,11 @@ let load_after_ajax = function(){
             || (typeof json.error_time_gender  !== "undefined")
             || (typeof json.error_time_empty  !== "undefined")
             || (typeof json.room_select_error  !== "undefined")
+            || (typeof json.error_fasting_plan_holyday  !== "undefined")
         ) && (type)){
             Swal.fire({
                 icon: 'warning',
-                text: '入力した情報を再確認してください。',
+                text: '入力した内容を確認してください。',
                 confirmButtonColor: '#d7751e',
                 confirmButtonText: '閉じる',
                 width: 350,
@@ -1237,7 +1248,7 @@ let load_after_ajax = function(){
             $.each(json.error_time_gender, function (index, item) {
                 let input_error_gender = $('#'+item.element);
                 input_error_gender.addClass('validate_failed');
-                input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
+                input_error_gender.parent().after('<p class="note-error node-text"> 選択された時間は予約できません。</p>');
                 $('select[name=gender]').addClass('validate_failed');
             })
         }
@@ -1252,7 +1263,17 @@ let load_after_ajax = function(){
             $.each(json.room_select_error, function (index, item) {
                 $('#'+item.element).addClass('validate_failed');
             })
-            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
+            var text_err = "選択された日は予約できません";
+            if (json.room_error_holiday == "1")
+                text_err = "定休日が含まれているため予約できません";
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        }
+        if (typeof json.error_fasting_plan_holyday  !== "undefined") {
+            $.each(json.error_fasting_plan_holyday, function (index, item) {
+                $('#'+item.element).addClass('validate_failed');
+            });
+            var text_err = "定休日が含まれているため予約できません";
+            $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         }
 
     };

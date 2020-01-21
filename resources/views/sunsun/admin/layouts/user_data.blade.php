@@ -44,10 +44,10 @@
                             <div class="editbutton">編集</div>
                         </div>
                         <div id="update_<?php echo $items->ms_user_id ?>" onclick="updateSubmit(this.id)" class="btn-update" style="display: none; cursor: pointer">
-                            <div class="updatebutton" style="text-align: center; width:48%; margin-right: 4%; float: left; background-color: #513e29; color:#fff; border-radius:5px; font-size:12px">更新</div>
+                            <div class="updatebutton" style="text-align: center; width:48%; margin-right: 4%; float: left; background-color: #d7751e; color:#fff; border-radius:.25rem; font-size:12px">更新</div>
                         </div>
                         <div id="cancel_<?php echo $items->ms_user_id ?>" onclick="cancelSubmit(this.id)" class="btn-update" style="display: none; cursor: pointer">
-                            <div class="cancelbutton" style="text-align: center; width:48%; float: left; background-color: #79836f; color:#fff; border-radius:5px; font-size:10px">キャンセル</div>
+                            <div class="cancelbutton" style="text-align: center; width:48%; float: left; background-color: #79836f; color:#fff; border-radius:.25rem; font-size:10px">キャンセル</div>
                         </div>
                     </td>
                 </tr>

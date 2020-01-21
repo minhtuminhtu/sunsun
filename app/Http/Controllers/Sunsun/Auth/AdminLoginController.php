@@ -56,6 +56,7 @@ class AdminLoginController extends Controller
 
     protected function redirectTo()
     {
+        return route('admin.day');
         // $ms_user = Auth::user();
         // $currentRoute = Route::getCurrentRoute()->getName();
         // if ($ms_user->is_admin() && $currentRoute == "auth-admin") {
