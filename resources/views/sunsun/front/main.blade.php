@@ -60,6 +60,13 @@
             color: #FFFFFF;
             font-size: 1.5vw;
         }
+        .main-footer{
+            clear: both;
+            position: fixed;
+            width: 100%;
+            bottom: 0px;
+            background-color: #faf0f0;
+        }
         @media (max-width: 768px) {
             .warp-button {
                 width: 67vw;
