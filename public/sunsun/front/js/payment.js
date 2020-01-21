@@ -108,36 +108,6 @@ $(function () {
       e.preventDefault();
     }
   });
-  /*$('#phone').off('keypress');
-  $('#phone').on('keypress', function(e){
-      // let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
-      // if(phone.replace(/[^0-9]/,'').length == 11){
-      //     $(this).parent().parent().find('.note-error').remove();
-      //     $(this).addClass('validate_failed');
-      //     $(this).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
-      //     e.preventDefault();
-      // }
-  })*/
-
-  /*$('#phone').off('keyup keydown change');
-  $('#phone').on('keyup keydown change', function(e){
-      let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
-      let temp_phone = "";
-      if(phone.length != get_number_byte_str(phone)){
-          for(let i = 0; i < phone.length; i++){
-              if(get_number_byte_str(phone.charAt(i)) == 2){
-                  temp_phone += convert_2byte_2_1byte(phone.charAt(i));
-              }else{
-                  temp_phone += phone.charAt(i);
-              }
-          }
-      }else{
-          temp_phone = phone;
-      }
-      temp_phone = temp_phone.replace(/[^0-9()-]/,'');
-      $("#phone").val(temp_phone);
-  })*/
-
   $('#email').off('keypress keyup keydown change');
   $('#email').on('keypress keyup keydown change', function (e) {
     var email = $('#email').val().replace(/[^0-9a-zA-Z@.０-９Ａ-Ｚａ-ｚ＠]/, '');
@@ -390,7 +360,7 @@ var callBackMakePayment = function callBackMakePayment() {
       if (typeof html.error !== 'undefined') {
         Swal.fire({
           icon: 'warning',
-          text: ' 入力した情報を再確認してください。',
+          text: ' 入力した内容を確認してください。',
           confirmButtonColor: '#d7751e',
           confirmButtonText: '閉じる',
           width: 350,
@@ -410,15 +380,15 @@ var callBackMakePayment = function callBackMakePayment() {
 
           switch (item) {
             case 'name':
-              $('#' + item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
+              $('#' + item).parent().after('<p class="note-error node-text"> お名前をカタカナで入力してください。</p>');
               break;
 
             case 'phone':
-              $('#' + item).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
+              $('#' + item).parent().after('<p class="note-error node-text"> 電話番号は数字のみを入力してください。</p>');
               break;
 
             case 'email':
-              $('#' + item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
+              $('#' + item).parent().after('<p class="note-error node-text"> 入力したメールアドレスを確認してください。</p>');
               break;
           }
         });
@@ -490,7 +460,7 @@ function doPurchase() {
     $('#card-secret').addClass('error');
     $('#expire-month').addClass('error');
     $('#expire-year').addClass('error');
-    $('#card-number').after("<p class=\"note-error node-text\">無効なカード</p>");
+    $('#card-number').after("<p class=\"note-error node-text\">正しいカード番号を入力してください。</p>");
   }
 }
 
@@ -577,7 +547,7 @@ if (typeof execPurchase === 'undefined') {
       $('#card-secret').addClass('error');
       $('#expire-month').addClass('error');
       $('#expire-year').addClass('error');
-      $('#card-number').after("<p class=\"note-error node-text\">無効なカード</p>");
+      $('#card-number').after("<p class=\"note-error node-text\">正しいカード番号を入力してください。</p>");
     } else {
       $('#card-number').removeClass('error');
       $('#card-secret').removeClass('error');
@@ -598,7 +568,7 @@ if (typeof execPurchase === 'undefined') {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\sonmq\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
+module.exports = __webpack_require__(/*! C:\Users\maiqu\docker\src\sunsun\resources\assets\sunsun\front\js\payment.js */"./resources/assets/sunsun/front/js/payment.js");
 
 
 /***/ })

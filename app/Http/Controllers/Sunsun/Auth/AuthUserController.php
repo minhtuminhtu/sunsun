@@ -20,7 +20,7 @@ class AuthUserController extends Controller
     {
         return Validator::make($data, [
             'username' => 'required|string|max:255',
-            'tel' => 'required|string|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im',
+            'tel' => 'required|string|max:11|min:10|regex:/[0-9]{10,11}/',
         ]);
     }
 

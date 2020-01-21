@@ -50,7 +50,7 @@
                     </div>
                     <div class="booking-field-content">
                         <div class="row100">
-                            <div class="row50">
+                            <div class="row50" style="width:30%">
                                 <select class="form-control" id="expire-month">
                                     <option value="01">01</option>
                                     <option value="02">02</option>
@@ -66,10 +66,10 @@
                                     <option value="12">12</option>
                                 </select>
                             </div>
-                            <div class="rowex">
+                            <div class="rowex" style="width:20%; margin:unset">
                                 <div>月／</div>
                             </div>
-                            <div class="row50">
+                            <div class="row50" style="width:38%">
                                 <select class="form-control" id="expire-year">
                                     <option value="01">2020</option>
                                     <option value="01">2021</option>
@@ -82,7 +82,7 @@
 
                                 </select>
                             </div>
-                            <div class="rowex">
+                            <div class="rowex" style="width:12%; margin:unset">
                                 <div>年</div>
                             </div>
                         </div>
@@ -100,8 +100,8 @@
                         </div>
                     </div>
                     <div class="booking-field-content">
-                        <div class="rowsecret">
-                            <input  type="text" inputmode="decimal"  id="card-secret" class="form-control typing-none" value="" maxlength="4" placeholder="半角で入力してください">
+                        <div class="rowsecret" style="width:30% !important">
+                            <input  type="text" inputmode="decimal"  id="card-secret" class="form-control typing-none" value="" maxlength="4" placeholder="半角">
                         </div>
                         <div class="row100">
                             <div class="row50">

@@ -246,7 +246,7 @@ $(function () {
           Swal.fire({
             icon: 'warning',
             // title: 'エラー',
-            text: '入力した情報を再確認してください。',
+            text: '入力した内容を確認してください。',
             confirmButtonColor: '#d7751e',
             confirmButtonText: '閉じる',
             width: 350,
@@ -283,15 +283,15 @@ $(function () {
 
       switch (item) {
         case 'name':
-          $('#' + item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
+          $('#' + item).parent().after('<p class="note-error node-text"> お名前をカタカナで入力してください。</p>');
           break;
 
         case 'phone':
-          $('#' + item).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
+          $('#' + item).parent().after('<p class="note-error node-text"> 電話番号は数字のみを入力してください。</p>');
           break;
 
         case 'email':
-          $('#' + item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
+          $('#' + item).parent().after('<p class="note-error node-text"> 入力したメールアドレスを確認してください。</p>');
           break;
       }
     });
@@ -345,7 +345,7 @@ $(function () {
         input_error_gender.css({
           'border': 'solid 1px #f50000'
         });
-        input_error_gender.parent().after('<p class="note-error node-text"> 予約時間は選択された性別に適当していません。</p>');
+        input_error_gender.parent().after('<p class="note-error node-text"> 選択された時間は予約できません。</p>');
         $('select[name=gender]').css({
           'border': 'solid 1px #f50000'
         });
@@ -368,7 +368,17 @@ $(function () {
           'border': 'solid 1px #f50000'
         });
       });
-      $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> 宿泊日の時間が無効になっています。</p>');
+      var text_err = "選択された日は予約できません";
+      if (json.room_error_holiday == "1") text_err = "定休日が含まれているため予約できません";
+      $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> ' + text_err + '。</p>');
+    }
+
+    if (typeof json.error_fasting_plan_holyday !== "undefined") {
+      $.each(json.error_fasting_plan_holyday, function (index, item) {
+        $('#' + item.element).addClass('validate_failed');
+      });
+      var text_err = "定休日が含まれているため予約できません";
+      $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> ' + text_err + '。</p>');
     }
   }; // $('.search-button').off('click');
   // $('.search-button').on('click',function (e) {
@@ -426,7 +436,7 @@ $(function () {
         });
         Swal.fire({
           html: '<ul><li class="list-group-item link-class list-head">' + name + '</li>' + data_expert + '</ul>',
-          text: ' 入力した情報を再確認してください。',
+          text: ' 入力した内容を確認してください。',
           confirmButtonColor: '#d7751e',
           confirmButtonText: '閉じる',
           width: 500,
@@ -455,7 +465,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\minhtu.EQ8VH23ACB52NJV\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
+module.exports = __webpack_require__(/*! C:\Users\maiqu\docker\src\sunsun\resources\assets\sunsun\admin\js\day.js */"./resources/assets/sunsun/admin/js/day.js");
 
 
 /***/ })
