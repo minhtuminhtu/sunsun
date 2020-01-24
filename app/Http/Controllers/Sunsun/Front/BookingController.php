@@ -2116,22 +2116,7 @@ class BookingController extends Controller
             $validate_time['BOTH_ALL_ROOM']['min'] = $this->minus_time_string($data['time_room_value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
         }
         // check time bus
-        $time_bus = null;
-        if ($bus_arrive_time_slide != null) {
-            $check_bus = $this->get_time_validate_bus($repeat_user, $transport, $bus_arrive_time_slide );
-            if ($check_bus !== false) {
-                $time_bus = $check_bus;
-            }
-        }
-        date_default_timezone_set('Asia/Tokyo');
-        $current_min_time = $this->plus_time_string(date('Hi'), 20);
-        if(isset($time_bus)&&($time_bus > $current_min_time)){
-            $time_bus = $time_bus;
-        }else{
-            $time_bus = $current_min_time;
-        }
-        //Log::debug($current_min_time);
-        // dd($data);
+        $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
         $time_kubun_type_whitening = config('const.db.kubun_type_value.TIME_WHITENING'); //021
         $kubun_type_bed = config('const.db.kubun_type_value.bed_pet'); // 19
         $data_course['whitening_repeat'] = $whitening_repeat;
@@ -2253,19 +2238,7 @@ class BookingController extends Controller
             $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
         }
         // check time bus
-        if ($bus_arrive_time_slide != null) {
-            $check_bus = $this->get_time_validate_bus($repeat_user, $transport, $bus_arrive_time_slide );
-            if ($check_bus !== false ) {
-                $time_bus = $check_bus;
-            }
-        }
-        date_default_timezone_set('Asia/Tokyo');
-        $current_min_time = $this->plus_time_string(date('Hi'), 20);
-        if(isset($time_bus)&&($time_bus > $current_min_time)){
-            $time_bus = $time_bus;
-        }else{
-            $time_bus = $current_min_time;
-        }
+        $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
         //Log::debug($current_min_time);
         $MsKubun = MsKubun::all();
         $data_time['beds'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
