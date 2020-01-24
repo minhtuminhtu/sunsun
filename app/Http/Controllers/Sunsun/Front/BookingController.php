@@ -366,7 +366,7 @@ class BookingController extends Controller
         }
         $uuid = \Str::uuid();
         $info_customer['info']["$uuid"] = $data;
-        Log::debug($info_customer);
+        //Log::debug($info_customer);
         $request->session()->put($this->session_info,$info_customer);
     }
     public function confirm(Request $request){
@@ -418,7 +418,7 @@ class BookingController extends Controller
         foreach ($info_booking['info'] as $booking) {
             if((!isset($booking['fake_booking'])) || ($booking['fake_booking'] != '1')){
                 $booking_course = json_decode($booking['course'], true);
-                Log::debug($booking);
+                //Log::debug($booking);
                 if($booking_course['kubun_id'] == '01'){
                     foreach($booking['time'] as $booking_t){
                         ++ $bill['course_1']['quantity'];
@@ -437,7 +437,7 @@ class BookingController extends Controller
                     $bill['course_5']['price'] += $this->get_price_course($booking, $bill);
                 }
                 $this->get_price_option($booking, $bill);
-                Log::debug($booking);
+                //Log::debug($booking);
                 //dd($info_booking['info']);
             }
         }
@@ -652,8 +652,8 @@ class BookingController extends Controller
     }
     public function make_payment(Request $request){
         $data = $request->all();
-        Log::debug('payment_data');
-        Log::debug($data);
+        //Log::debug('payment_data');
+        //Log::debug($data);
 
         // end convert name
         $error = $this->validate_payment_info($data);
@@ -685,8 +685,8 @@ class BookingController extends Controller
     private function check_valid_email($email){
         $re = '/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/m';
         preg_match_all($re, $email, $matches, PREG_SET_ORDER, 0);
-        Log::debug('$matches');
-        Log::debug($matches);
+        //Log::debug('$matches');
+        //Log::debug($matches);
         if(count($matches) > 0){
             return true;
         }
@@ -695,21 +695,20 @@ class BookingController extends Controller
     public function check_is_katakana($name) {
         $name = trim($name);
         $check_name = preg_replace("/[^ァ-ヾｧ-ﾝﾞﾟヽ゛゜ー]/u", "", $name);
-        Log::debug('$check_name');
-        Log::debug($check_name);
-        Log::debug($name);
+        //Log::debug('$check_name');
+        //Log::debug($check_name);
+        //Log::debug($name);
         if(strlen($check_name) == strlen($name)){
             return true;
         }
         return false;
     }
-    public function check_is_empty($name) {
+    /*public function check_is_empty($name) {
         return (preg_match('/( )|(　)/', $name) > 0) ? true : false;
-    }
+    }*/
     public function validate_payment_info(&$data){
         $error = [];
-        if(($data['name'] == null) || (!$this->check_is_katakana($data['name']))
-            || $this->check_is_empty($data['name'])){
+        if(($data['name'] == null) || (!$this->check_is_katakana($data['name']))){
             $error['error'][] = 'name';
         }else{
             $error['clear'][] = 'name';
@@ -734,11 +733,16 @@ class BookingController extends Controller
     public function update_or_new_booking($data, $request){
         $result = [];
         //Update
+        //Log::debug("update_or_new_booking");
         if(isset($data['booking_id'])){
             try{
+                //Log::debug("update booking");
                 $booking_id = $this->get_booking_id();
+                //Log::debug("get booking");
+                //Log::debug($booking_id);
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
+                //Log::debug("start update booking");
                 $this->new_booking($data, $request, $booking_id, true);
             } catch (\Exception $failed) {
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => null]);
@@ -746,6 +750,7 @@ class BookingController extends Controller
             }
         //New
         }else{
+            //Log::debug("create new booking");
             $result = $this->new_booking($data, $request);
         }
         if(isset($result['bookingID'])){
@@ -754,6 +759,7 @@ class BookingController extends Controller
                 'message' => $result
             ];
         } else if(isset($result)){
+            //Log::debug("khong ton tai result booking id");
             $result_arr = [
                 'status' => 'error'
             ];
@@ -778,7 +784,7 @@ class BookingController extends Controller
         $email = null;
         DB::unprepared("LOCK TABLE tr_yoyaku READ, tr_yoyaku_danjiki_jikan READ");
         try{
-            // Log::debug($data);
+            // //Log::debug($data);
             $email = trim($data['email']);
             DB::beginTransaction();
             if(isset($data['customer']['info']) == false){
@@ -786,25 +792,28 @@ class BookingController extends Controller
             }
             try {
                 foreach($data['customer']['info'] as $customer){
+                    //Log::debug('data number : '.$i);
+                    //Log::debug($customer);
                     $Yoyaku = new Yoyaku;
                     if($booking_id == null){
                         $booking_id = $this->get_booking_id();
                     }
                     if($parent){
+                        //Log::debug('parent');
                         $parent_id = $booking_id;
                         $Yoyaku->booking_id = $booking_id;
                         $return_booking_id = $parent_id;
                         $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
                         $Yoyaku->ref_booking_id = NULL;
-                        Log::debug('set_booking_course ' . $return_booking_id);
+                        //Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
-                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
+                        //Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
                     }else{
-                        Log::debug('avc');
-                        Log::debug($customer);
+                        //Log::debug('di kem');
+                        //Log::debug($parent_date);
                         if(isset($customer['fake_booking'])){
                             $return_booking_id = $booking_id;
                             $Yoyaku->booking_id = $booking_id;
@@ -814,33 +823,36 @@ class BookingController extends Controller
                             $Yoyaku->booking_id = $booking_id;
                         }
                         $Yoyaku->ref_booking_id = $parent_id;
-                        Log::debug('set_booking_course ' . $return_booking_id);
+                        //Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
-                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
+                        //Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
+                        //Log::debug('finish set_yoyaku_danjiki_jikan');
                     }
                     $Yoyaku->save();
                 }
-                if(!$is_update){
+                if(!$is_update) {
+                    //Log::debug('is_update');
                     $result = $this->call_payment_api($data, $return_booking_id);
+                    //Log::debug('is update true');
                 }
                 DB::commit();
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
                 DB::unprepared("UNLOCK TABLE");
-                Log::debug('$e1->getMessage()');
-                Log::debug($e1->getMessage());
+                //Log::debug('$e1->getMessage()');
+                //Log::debug($e1->getMessage());
                 $result = $e1->getMessage();
                 return  $result;
             }
         }catch(\Exception $e2){
-            Log::debug('$e2->getMessage()');
-            Log::debug($e2->getMessage());
+            //Log::debug('$e2->getMessage()');
+            //Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
-        Log::debug('bdata');
-        Log::debug($data);
+        //Log::debug('bdata');
+        //Log::debug($data);
         if(!$is_update){
             $this->send_email($request, $data, $return_booking_id, $email);
         }
@@ -893,13 +905,13 @@ class BookingController extends Controller
             'Amount' => $amount,
             'JobCd' => 'CAPTURE'
         );
-        Log::debug('data');
-        Log::debug($data);
+        //Log::debug('data');
+        //Log::debug($data);
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/EntryTran.idPass', $headers, $data);
         parse_str($response->body, $params);
         if(!isset($params['AccessID']) || !isset($params['AccessPass'])){
-            Log::debug('Create tran body');
-            Log::debug($response->body);
+            //Log::debug('Create tran body');
+            //Log::debug($response->body);
             throw new \ErrorException('payment_error');
         }
         return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
@@ -926,9 +938,9 @@ class BookingController extends Controller
             'Token' => $token
         );
         $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $headers, $data);
-        Log::debug('Exec tran body');
-        Log::debug('Token: ' .  $token);
-        Log::debug($response->body);
+        //Log::debug('Exec tran body');
+        //Log::debug('Token: ' .  $token);
+        //Log::debug($response->body);
         parse_str($response->body, $params);
         if(isset($params['ACS']) && ($params['ACS'] == 0)){
             return [
@@ -958,7 +970,7 @@ class BookingController extends Controller
             $plan_date_end = isset($customer['plan_date_end-value'])?$customer['plan_date_end-value']:"";
             $gender = json_decode($customer['gender']);
             foreach($customer['date'] as $index => $date){
-                Log::debug('course 4', $customer);
+                //Log::debug('course 4', $customer);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['from']['value'], $date['from']['bed']);
                 $this->validate_course_human($gender->kubun_id, $date['day']['value'],  $date['to']['value'], $date['to']['bed']);
                 $YoyakuDanjikiJikan = new YoyakuDanjikiJikan;
@@ -1054,6 +1066,7 @@ class BookingController extends Controller
         }
     }
     private function set_booking_course(&$Yoyaku, $data, $customer,$parent, $parent_date){
+        //Log::debug("start set_booking_course");
         //General payment
         $Yoyaku->name = isset($data['name'])?$data['name']:null;
         $Yoyaku->phone = isset($data['phone'])?$data['phone']:null;
@@ -1109,9 +1122,9 @@ class BookingController extends Controller
         $check = $this->validate_holyday($checkin, $checkout);
         if (!$check) throw new \ErrorException('booking_error_holiday');
         else {
-            Log::debug($room_type);
-            Log::debug($checkin);
-            Log::debug($checkout);
+            //Log::debug($room_type);
+            //Log::debug($checkin);
+            //Log::debug($checkout);
             $room_validate = DB::select("
                 SELECT  main.booking_id,
                         main.stay_checkin_date,
@@ -1125,16 +1138,16 @@ class BookingController extends Controller
                     )
                 AND main.history_id IS NULL
             ");
-            Log::debug($room_validate);
+            //Log::debug($room_validate);
             if(isset($room_validate) && (count($room_validate) != 0)){
                 throw new \ErrorException('booking_error_stay');
             }
         }
     }
     private function whitening_validate($date, $time){
-        Log::debug('wt_validate');
-        Log::debug($date);
-        Log::debug($time);
+        //Log::debug('wt_validate');
+        //Log::debug($date);
+        //Log::debug($time);
         $wt_validate = DB::select("
             SELECT  main.booking_id
             FROM    tr_yoyaku main
@@ -1142,8 +1155,10 @@ class BookingController extends Controller
             AND     main.whitening_time = '$time'
             AND main.history_id IS NULL
         ");
-        Log::debug($wt_validate);
+        ////Log::debug($wt_validate);
         if(isset($wt_validate) && (count($wt_validate) != 0)){
+            //Log::debug("da co nguoi dat");
+            //Log::debug($wt_validate);
             throw new \ErrorException('booking_error');
         }
     }
@@ -1228,8 +1243,8 @@ class BookingController extends Controller
         $time0_json = isset($customer['time'][0]['json'])?$customer['time'][0]['json']:"";
         $time1_json = isset($customer['time'][1]['json'])?$customer['time'][1]['json']:"";
         $time_json = $time0_json . "-" . $time1_json;
-        // Log::debug('course 2 debug');
-        // Log::debug($customer);
+        // //Log::debug('course 2 debug');
+        // //Log::debug($customer);
         $Yoyaku->time_json = $time_json;
         $Yoyaku->gender = $gender->kubun_id;
         $Yoyaku->age_value = $age_value;
@@ -1269,6 +1284,7 @@ class BookingController extends Controller
         }
     }
     private function set_course_3($parent, $parent_date, $customer, &$Yoyaku){
+        //Log::debug("start set_course_3");
         //Fake booking
         $fake_booking_flg = isset($customer['fake_booking'])?$customer['fake_booking']:NULL;
         //Basic
@@ -1305,6 +1321,7 @@ class BookingController extends Controller
         }
         $Yoyaku->pet_keeping = $pet_keeping->kubun_id;
         if($parent){
+            //Log::debug("check parent");
             $Yoyaku->service_date_start = $date;
             $Yoyaku->stay_room_type = $stay_room_type->kubun_id;
             if($stay_room_type->kubun_id != '01'){
@@ -1316,12 +1333,15 @@ class BookingController extends Controller
             }
             $this->validate_course_human('01', $date,  $time, $bed);
             if($whitening->kubun_id == '02'){
+                //Log::debug("parent date $date , whitening_time $whitening_time" );
                 $this->whitening_validate($date, $whitening_time);
             }
         }else{
+            //Log::debug("check child");
             $Yoyaku->service_date_start = $parent_date;
             $this->validate_course_human('01', $parent_date,  $time, $bed);
-            if($whitening->kubun_id == '02'){
+            if($whitening->kubun_id == '02' && $fake_booking_flg == null){
+                //Log::debug("parent date $parent_date , whitening_time $whitening_time" );
                 $this->whitening_validate($parent_date, $whitening_time);
             }
         }
@@ -1539,14 +1559,7 @@ class BookingController extends Controller
                 $time_bus = $check_bus;
             }
         }
-        date_default_timezone_set('Asia/Tokyo');
-        $current_min_time = $this->plus_time_string(date('Hi'), 20);
-        if(isset($time_bus)&&($time_bus > $current_min_time)){
-            $time_bus = $time_bus;
-        }else{
-            $time_bus = $current_min_time;
-        }
-        Log::debug($current_min_time);
+        //Log::debug($current_min_time);
         return $time_bus;
     }
     public function get_validate_time_choice ($course, $data, $data_get_attr, &$validate_time, &$day_book_time) {
@@ -1669,18 +1682,32 @@ class BookingController extends Controller
                 , :date_booking as date_booking
                 , mk2.sort_no
         ";
-//        Log::debug('$time_date_booking');
-//        Log::debug($time_date_booking);
+//        //Log::debug('$time_date_booking');
+//        //Log::debug($time_date_booking);
         $sql_bus = "";
         if ($time_bus !== null) {
-            $data_sql["date_booking_where"] = $time_date_booking;
             if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
                 $sql_bus = "
-                 AND (SUBSTRING(mk1.notes, 1 ,4) > :time_bus or DATE_FORMAT(NOW(), '%Y%m%d') < DATE_FORMAT(:date_booking_where, '%Y%m%d'))
+                 AND SUBSTRING(mk1.notes, 1 ,4) > :time_bus
                 ";
             } else {
                 $sql_bus = "
-                 AND (mk1.notes > :time_bus or DATE_FORMAT(NOW(), '%Y%m%d') < DATE_FORMAT(:date_booking_where, '%Y%m%d'))
+                 AND mk1.notes > :time_bus
+            ";
+            }
+        }
+        date_default_timezone_set('Asia/Tokyo');
+        $timecurrent = $this->plus_time_string(date('Hi'), 20);
+        $date_current = date("Ymd");
+        if ($date_current == $day_book_time) {
+            $data_sql['timecurrent'] = $timecurrent;
+            if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
+                $sql_bus .= "
+                 AND SUBSTRING(mk1.notes, 1 ,4) > :timecurrent
+                ";
+            } else {
+                $sql_bus .= "
+                 AND mk1.notes > :timecurrent
             ";
             }
         }
@@ -2103,7 +2130,7 @@ class BookingController extends Controller
         }else{
             $time_bus = $current_min_time;
         }
-        Log::debug($current_min_time);
+        //Log::debug($current_min_time);
         // dd($data);
         $time_kubun_type_whitening = config('const.db.kubun_type_value.TIME_WHITENING'); //021
         $kubun_type_bed = config('const.db.kubun_type_value.bed_pet'); // 19
@@ -2239,7 +2266,7 @@ class BookingController extends Controller
         }else{
             $time_bus = $current_min_time;
         }
-        Log::debug($current_min_time);
+        //Log::debug($current_min_time);
         $MsKubun = MsKubun::all();
         $data_time['beds'] = $MsKubun->where('kubun_type','019')->sortBy('sort_no');
         $time_kubun_type_pet = config('const.db.kubun_type_value.TIME_PET'); //020

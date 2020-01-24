@@ -51,7 +51,12 @@ class LoginController extends Controller
     {
         return view('sunsun.auth.login');
     }
-
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->is_admin() )
+            $redirectTo = '/admin/day';
+        $redirectTo = '/';
+    }
 
     protected function redirectTo()
     {
