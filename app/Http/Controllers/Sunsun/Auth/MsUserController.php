@@ -56,6 +56,7 @@ class MsUserController extends Controller
                 ->withInput($request->except('password'));
         }
         //dd($data);
+        $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
         MsUser::create([
             'username' => $data['username'],
             'email' => $data['email'],

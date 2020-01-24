@@ -41,6 +41,7 @@ class AdminLoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->redirectTo = route('admin.day');
     }
 
     /**
@@ -53,10 +54,12 @@ class AdminLoginController extends Controller
         return view('sunsun.auth.login');
     }
 
-
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect()->route('admin.day');
+    }
     protected function redirectTo()
     {
-        return route('admin.day');
         // $ms_user = Auth::user();
         // $currentRoute = Route::getCurrentRoute()->getName();
         // if ($ms_user->is_admin() && $currentRoute == "auth-admin") {

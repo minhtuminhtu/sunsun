@@ -101,7 +101,7 @@
                                 @else
                                     <tr>
                                         <td class="text-left">{{$option['name']}}</td>
-                                        @if($bill['course_5']['quantity'] != 0)
+                                        @if($key != '04_05')
                                         <td class="text-right">{{$option['quantity']}}人</td>
                                         @else
                                         <td class="text-right">{{$option['quantity']}}匹</td>

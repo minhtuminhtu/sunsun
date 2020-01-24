@@ -1408,7 +1408,6 @@ class AdminController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
-            $data["name"] = trim(mb_convert_kana($data["name"], 'KVA'));
             if(!(empty($data['notshowdeleted'])))
             {
                 $list_search = $this->get_list_search_user($data);
@@ -1445,6 +1444,7 @@ class AdminController extends Controller
     }
     public function get_list_search_user($data, $type=null){
         if (isset($data) && !empty($data)) {
+            $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
             $username = $data['username'];
             $phone = $data['phone'];
             $email = $data['email'];
@@ -1509,6 +1509,7 @@ class AdminController extends Controller
                 }else{
                     $deleteflg = $check_row_delete->deleteflg;
                 }
+                $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
                 MsUser::where('ms_user_id', $data['user_id'])->update(['username' => $data['username'], 'password' => $data['password'], 'email' => $data['email'], 'tel' => $data['tel'], 'deleteflg' => $deleteflg]);
                 $result = [
                     'status' => true
