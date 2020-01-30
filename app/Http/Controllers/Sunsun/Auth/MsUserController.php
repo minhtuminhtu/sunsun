@@ -35,7 +35,7 @@ class MsUserController extends Controller
         return Validator::make($data, [
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:ms_user',
-            'tel' => 'required|string|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im',
+            'tel' => 'required|string|max:11|min:10|regex:/[0-9]{10,11}/',
             'password' => 'required|string|min:1', //'confirmed'
         ]);
     }
@@ -56,12 +56,13 @@ class MsUserController extends Controller
                 ->withInput($request->except('password'));
         }
         //dd($data);
+        $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
         MsUser::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'tel' => $data['tel'],
-            'gender' => $data['gender'],
-            'birth_year' => $data['birth_year'],
+            // 'gender' => $data['gender'],
+            // 'birth_year' => $data['birth_year'],
             'password' => Hash::make($data['password']),
         ]);
         return redirect('/login');

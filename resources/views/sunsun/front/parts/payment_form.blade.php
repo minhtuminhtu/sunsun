@@ -2,7 +2,7 @@
 <input type="hidden" name="Amount" id="Amount"value="{{ isset($bill['total'])?$bill['total']:''  }}">
 <div class="booking-field">
     <div class="booking-field-label @if(isset($new) && (!$new)) {{ 'booking-laber-padding' }} @endif">
-        <p class="text-md-left pt-2">{{config('booking.name.label')}}<span class="text-red">*</span></p>
+        <p class="text-md-left pt-2">{{config('booking.name.label')}}<span class="node-text">{{config('booking.name.node_label')}}</span><span class="text-red">*</span></p>
     </div>
     @php
         $field_name = isset($data_booking->name)?$data_booking->name:'';
@@ -10,9 +10,9 @@
             $field_name = ((isset($new) && ($new == 1)) && isset($auth_username) && $auth_username != '')?$auth_username:'';
         }
     @endphp
-    <div class="booking-field-content">
+    <div class="booking-field-content"> 
         <div>
-            <input name="name" id="name" type="text" inputmode="katakana" class="form-control date-book-input" maxlength="255" value="{{ $field_name }}"/>
+            <input name="name" id="name" type="text" inputmode="katakana" class="form-control date-book-input" placeholder="{{config('booking.name.placeholder')}}" maxlength="255" value="{{ $field_name }}"/>
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@
     @endphp
     <div class="booking-field-content">
         <div>
-            <input name="phone" id="phone" type="text" inputmode="tel" class="form-control date-book-input" placeholder="半角、ハイフン不要" maxlength="14" value="{{ $field_tel }}"/>
+            <input name="phone" id="phone" type="text" inputmode="tel" class="form-control date-book-input numberphone" placeholder="半角、ハイフン不要" maxlength="11" value="{{ $field_tel }}"/>
         </div>
     </div>
 </div>

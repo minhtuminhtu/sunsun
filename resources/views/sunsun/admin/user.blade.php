@@ -1,5 +1,5 @@
 @extends('sunsun.admin.template')
-@section('title', 'USER')
+@section('title', 'ユーザー 管理')
 @section('head')
     @parent
     <style>
@@ -12,9 +12,9 @@
         }
         .btn_search_user{
             width: 15%;
-            background-color: #513e29;
+            background-color: #d7751e;
             text-align: center;
-            border-radius: 10px;
+            border-radius: .25rem;
             margin-left: 10%;
             line-height: 33px;
         }
@@ -26,22 +26,21 @@
             text-align: center;
             font-size: 13px;
         }
-
         .result_data_user tr td{
             font-size: 13px;
         }
         .editbutton{
             width: 100%;
-            background-color: #513e29;
+            background-color: #d7751e;
             color: #fff;
             text-align: center;
             padding: 1%;
-            border-radius: 8px;
+            border-radius: .25rem;
             cursor: pointer;
         }
         #csv_download{
             width: 15%;
-            background-color: #8fbc8f;
+            background-color: #bbbf7a;
             border-radius: 3px;
             margin: 1% 0;
         }
@@ -73,10 +72,10 @@
             text-align: center;
             padding: 1%;
             display: block;
-            background-color: #DDEEFF;
+            background-color: #bbbf7a;
             text-decoration: none;
             font-size: 14px;
-            color: #8fbc8f;
+            color: #fff;
         }
         nav.pagination ul>li>a.is-current{
             border:none !important;
@@ -89,15 +88,21 @@
             text-decoration: none;
             width: 30px;
             text-align: center;
-            background-color: #8fbc8f;
+            background-color: #bbbf7a;
             color: #fff;
         }
         .table.result_data_user td{
             padding: .4rem
         }
+        .btn:hover,
+        .btn_search_user:hover{
+            opacity:0.7;
+        }
+        .control-align_center a{
+            text-decoration: none;
+        }
     </style>
 @endsection
-
 @section('main')
     <main>
         <div class="container">
@@ -105,27 +110,47 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="control_form" style="display: flex; padding:1%; border:1px solid">
+                <div class="main-head__top" style="display: flex;justify-content: space-between; margin-bottom:10px;">
+                    <div class="">
+                    </div>
+                    <div class="">
+                        <div class="control-view">
+                            <div class="control-align_center button-control">
+                                <a href="{{route('admin.day')}}">
+                                    <button class="btn btn-block btn-main control-date" id="go-weekly">１日表示</button>
+                                </a>
+                                
+                            </div>
+                            <div class="control-align_center button-control" style="margin: 0 2vw">
+                                <a href="{{route('admin.weekly')}}">
+                                    <button class="btn btn-block btn-main control-date" id="go-monthly">週間表示</button>
+                                </a>
+                            </div>
+                            <div class="control-align_center button-control">
+                                <a href="{{route('admin.monthly')}}">
+                                    <button class="btn btn-block btn-main control-date" id="go-user">月間表示</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="control_form" style="display: flex; padding:1%; border:1px solid #dee2e6">
                     <form id="searchform" style="width: 100%">
                         <div class="form-group" style="display: flex">
                             <label for="staticName" style="width: 15%; float: left; font-size:13px" class="col-form-label">名前</label>
                             <input type="text" style="float: left; width: 20%" class="input_text_form" name="username" id="username">
                         </div>
-
                         <div class="form-group" style="display: flex">
                             <label for="staticPhone" style="width: 15%; float: left; font-size:13px" class="col-form-label">電話番号</label>
-                            <input type="text" style="float: left; width: 20%" class="input_text_form" name="phone" id="phone">
-                            <input style="margin: 10px 0 10px 20px;" checked="checked" type="checkbox" name="notshowdeleted" value="1"><span style="font-size: 13px; line-height: 33px">&nbsp;削除データは表示しない</span>
+                            <input type="text" style="float: left; width: 20%" class="input_text_form numberphone" name="phone" id="phone" maxlength="11">
+                            <input style="margin: 10px 0 10px 110px;" checked="checked" type="checkbox" name="notshowdeleted" value="1"><span style="font-size: 13px; line-height: 33px">&nbsp;削除データは表示しない</span>
                         </div>
-
                         <div class="form-group" style="display: flex">
                             <label for="staticEmail" style="width: 15%; float: left; font-size:13px" class="col-form-label">メールアドレス</label>
                             <input type="text" style="float: left; width: 20%" class="input_text_form" name="email" id="email">
-        
                             <div class="btn_search_user" id="searchSubmit">
                                 <a href="javascript:void(0)">検索</a>
                             </div>
-                            
                         </div>
                     </form>
                 </div>
@@ -141,13 +166,10 @@
                 </form>
             </div>
             <div class="main-footer">
-                
             </div>
-
         </div>
     </main>
 @endsection
-
 @section('script')
     @parent
     <script>
@@ -160,7 +182,6 @@
                         searchSubmit();
                     }
                 });
-
                 $('#currentPage').keypress(function(e){
                     if(e.which == 13){
                         var url=url_paginate.value;
@@ -169,7 +190,6 @@
                         window.location.href = url_active;
                     }
                 });
-
                 $(document).on('click','.pagination_ajax a',function(e){
                     e.preventDefault()
                     var data = $('form#searchform').serializeArray();
@@ -178,7 +198,6 @@
                 })
             });
         })(jQuery);
-
         function get_data_ajax_paginate(page,data)
         {
             $.ajax({
@@ -194,7 +213,7 @@
                 success: function success(html) {
                     if (html.status == true) {
                         $('.resulttable').html(html.data);
-                    } 
+                    }
                 },
                 complete: function complete() {
                         loader.css({
@@ -203,7 +222,6 @@
                 }
             });
         }
-
         // search
         function searchSubmit() {
             var data = $('form#searchform').serializeArray();
@@ -220,7 +238,7 @@
                 success: function success(html) {
                     if (html.status == true) {
                         $('.resulttable').html(html.data);
-                    } 
+                    }
                 },
                 complete: function complete() {
                         loader.css({
@@ -230,7 +248,6 @@
             });
             submit = false;
         }
-
         // edit
         function editSubmit(id) {
             if(!submit){
@@ -253,7 +270,6 @@
                 }
             }
         }
-
         // cancel
         function cancelSubmit(id) {
             if (!submit) {
@@ -273,7 +289,6 @@
                 document.getElementById(id).style.display = 'inline';
             }
         }
-
         // update
         function updateSubmit(id) {
             if (!submit) {
@@ -304,21 +319,18 @@
                                 }else if((html.status == false && html.type == 'update')){
                                     alert(html.message);
                                     submit = false;
-                                } 
+                                }
                             },
                             complete: function complete() {
                                     loader.css({
                                     'display': 'none'
                                 });
                             }
-
                         });
                     }
                 } else {
-                    
                 }
             }
         }
     </script>
 @endsection
-

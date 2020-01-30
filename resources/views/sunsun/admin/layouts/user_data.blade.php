@@ -29,7 +29,7 @@
                     <td>
                         <span id="tel_<?php echo $items->ms_user_id ?>">{{ $items->tel }}</span>
                         <div class="required" style="display: none" id="tel_<?php echo $items->ms_user_id ?>_user"></div>
-                        <input type="text" style="display: none; width: 100%" name="tel_<?php echo $i ?>" id="tels_<?php echo $items->ms_user_id ?>" value="{{ $items->tel }}">
+                        <input type="text" style="display: none; width: 100%" name="tel_<?php echo $i ?>" id="tels_<?php echo $items->ms_user_id ?>" value="{{ $items->tel }}" class="numberphone" maxlength="11">
                     </td>
                     <td>
                         <span id="email_<?php echo $items->ms_user_id ?>">{{ $items->email }}</span>
@@ -44,10 +44,10 @@
                             <div class="editbutton">編集</div>
                         </div>
                         <div id="update_<?php echo $items->ms_user_id ?>" onclick="updateSubmit(this.id)" class="btn-update" style="display: none; cursor: pointer">
-                            <div class="updatebutton" style="text-align: center; width:48%; margin-right: 4%; float: left; background-color: #513e29; color:#fff; border-radius:5px; font-size:12px">更新</div>
+                            <div class="updatebutton" style="text-align: center; width:48%; margin-right: 4%; float: left; background-color: #d7751e; color:#fff; border-radius:.25rem; font-size:12px">更新</div>
                         </div>
                         <div id="cancel_<?php echo $items->ms_user_id ?>" onclick="cancelSubmit(this.id)" class="btn-update" style="display: none; cursor: pointer">
-                            <div class="cancelbutton" style="text-align: center; width:48%; float: left; background-color: #79836f; color:#fff; border-radius:5px; font-size:10px">キャンセル</div>
+                            <div class="cancelbutton" style="text-align: center; width:48%; float: left; background-color: #79836f; color:#fff; border-radius:.25rem; font-size:10px">キャンセル</div>
                         </div>
                     </td>
                 </tr>

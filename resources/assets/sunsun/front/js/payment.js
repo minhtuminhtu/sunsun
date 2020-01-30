@@ -7,47 +7,12 @@ $(function() {
             $('.credit-card').hide();
         }
     });
-
-
-
-
     $('#card-number, #card-expire, #card-secret').off('keypress');
     $('#card-number, #card-expire, #card-secret').on('keypress', function(e){
         if (e.which < 48 || e.which > 57){
             e.preventDefault();
         }
     })
-
-    $('#phone').off('keypress');
-    $('#phone').on('keypress', function(e){
-        // let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
-        // if(phone.replace(/[^0-9]/,'').length == 11){
-        //     $(this).parent().parent().find('.note-error').remove();
-        //     $(this).addClass('validate_failed');
-        //     $(this).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
-        //     e.preventDefault();
-        // }
-    })
-
-    $('#phone').off('keyup keydown change');
-    $('#phone').on('keyup keydown change', function(e){
-        let phone = $('#phone').val().replace(/[^0-9０-９()-（）－]/,'');
-        let temp_phone = "";
-        if(phone.length != get_number_byte_str(phone)){
-            for(let i = 0; i < phone.length; i++){
-                if(get_number_byte_str(phone.charAt(i)) == 2){
-                    temp_phone += convert_2byte_2_1byte(phone.charAt(i));
-                }else{
-                    temp_phone += phone.charAt(i);
-                }
-            }
-        }else{
-            temp_phone = phone;
-        }
-        temp_phone = temp_phone.replace(/[^0-9()-]/,'');
-        $("#phone").val(temp_phone);
-    })
-
     $('#email').off('keypress keyup keydown change');
     $('#email').on('keypress keyup keydown change', function(e){
         let email = $('#email').val().replace(/[^0-9a-zA-Z@.０-９Ａ-Ｚａ-ｚ＠]/,'');
@@ -66,7 +31,6 @@ $(function() {
         temp_str = temp_str.replace(/[^0-9a-zA-Z@.]/,'');
         $("#email").val(temp_str);
     })
-
     function convert_2byte_2_1byte(str) {
         let char_code = str.charCodeAt(0) - 65248;
         return String.fromCharCode(char_code)
@@ -75,12 +39,9 @@ $(function() {
         let b = str.match(/[^\x00-\xff]/g);
         return str.length + (!b ? 0: b.length);
     }
-
-
     $('.card').on('show.bs.collapse', function () {
         $(this).find('.payment-method').prop('checked',true);
     })
-
     $(`[data-toggle="collapse"]`).on('click',function(e){
         if ( $(this).parents('.accordion').find('.collapse.show') ){
             var idx = $(this).index('[data-toggle="collapse"]');
@@ -90,7 +51,6 @@ $(function() {
             }
         }
     });
-
     $('.custom-link').off('click');
     $('.custom-link').on('click', function() {
         Swal.fire({
@@ -117,11 +77,9 @@ $(function() {
             allowOutsideClick: false
         })
     });
-
     let cardType;
     $('#card-number').off('keyup');
     $('#card-number').on('keyup', function(e) {
-
         if($('#card-number').val().length !== 0){
             $('#card-number').val($('#card-number').val().replace(/\D/g, '').replace(/(\d{4})/g, '$1 ').trim());
             switch (getCardType($('#card-number').val().replace(/\D/g, ''))) {
@@ -129,7 +87,6 @@ $(function() {
                     if(cardType !== "VISA"){
                         $(".card-img").html('<img src="sunsun/svg/cc-visa.svg" class="img-fluid scale-image" alt="">');
                     }
-
                     cardType = "VISA";
                     break;
                 }
@@ -137,7 +94,6 @@ $(function() {
                     if(cardType !== "MASTERCARD"){
                         $(".card-img").html('<img src="sunsun/svg/cc-mastercard.svg" class="img-fluid scale-image" alt="">');
                     }
-
                     cardType = "MASTERCARD";
                     break;
                 }
@@ -145,7 +101,6 @@ $(function() {
                     if(cardType !== "AMEX"){
                         $(".card-img").html('<img src="sunsun/svg/cc-amex.svg" class="img-fluid scale-image" alt="">');
                     }
-
                     cardType = "AMEX";
                     break;
                 }
@@ -153,7 +108,6 @@ $(function() {
                     if(cardType !== "JCB"){
                         $(".card-img").html('<img src="sunsun/svg/cc-jcb.svg" class="img-fluid scale-image" alt="">');
                     }
-
                     cardType = "JCB";
                     break;
                 }
@@ -161,12 +115,10 @@ $(function() {
                     if(cardType !== "NONE"){
                         $(".card-img").html('<img src="sunsun/svg/cc-blank.svg" class="img-fluid scale-image" alt="">');
                     }
-
                     cardType = "NONE";
                     break;
                 }
             }
-
             $(this).parent().find('span:first-child').css('display', 'inline');
             $(this).removeClass('typing-none');
             $(this).addClass('typing');
@@ -188,16 +140,13 @@ $(function() {
             {regEx: /^3[47][0-9]{3}/ig,cardType: "AMEX"},
             // {regEx: /^(5[06-8]\d{4}|6\d{5})/ig,cardType: "MAESTRO"},
             {regEx: /^(?:2131|1800|35\d{3})\d{11}$/ig,cardType: "JCB"}
-
         ];
-
         for (var j = 0; j < regexMap.length; j++) {
             if (cardNum.match(regexMap[j].regEx)) {
                 payCardType = regexMap[j].cardType;
                 break;
             }
         }
-
         if (cardNum.indexOf("50") === 0 || cardNum.indexOf("60") === 0 || cardNum.indexOf("65") === 0) {
             var g = "508500-508999|606985-607984|608001-608500|652150-653149";
             var i = g.split("|");
@@ -212,33 +161,25 @@ $(function() {
         }
         return payCardType;
     }
-
-
     function luhnCheck(cardNum){
         // Luhn Check Code from https://gist.github.com/4075533
         // accept only digits, dashes or spaces
         var numericDashRegex = /^[\d\-\s]+$/
         if (!numericDashRegex.test(cardNum)) return false;
-
         // The Luhn Algorithm. It's so pretty.
         var nCheck = 0, nDigit = 0, bEven = false;
         var strippedField = cardNum.replace(/\D/g, "");
-
         for (var n = strippedField.length - 1; n >= 0; n--) {
             var cDigit = strippedField.charAt(n);
             nDigit = parseInt(cDigit, 10);
             if (bEven) {
                 if ((nDigit *= 2) > 9) nDigit -= 9;
             }
-
             nCheck += nDigit;
             bEven = !bEven;
         }
-
         return (nCheck % 10) === 0;
     }
-
-
     $('#card-secret').off('keyup');
     $('#card-secret').on('keyup', function() {
         if($('#card-secret').val().length !== 0){
@@ -253,8 +194,6 @@ $(function() {
             $(this).addClass('typing-none');
         }
     });
-
-
     $('#make_payment').off('click');
     $('#make_payment').on('click', function() {
         makePayment();
@@ -267,7 +206,6 @@ $(function() {
         }
     }
 });
-
 let callBackMakePayment = function() {
     let data = $('form.booking').serializeArray();
     $('#Token').val("");
@@ -285,7 +223,7 @@ let callBackMakePayment = function() {
             if (typeof html.error !== 'undefined') {
                 Swal.fire({
                     icon: 'warning',
-                    text: ' 入力した情報を再確認してください。',
+                    text: ' 入力した内容を確認してください。',
                     confirmButtonColor: '#d7751e',
                     confirmButtonText: '閉じる',
                     width: 350,
@@ -303,14 +241,13 @@ let callBackMakePayment = function() {
                     $('#'+item).addClass('validate_failed');
                     console.log(item)
                     switch(item) {
-                        case 'name': $('#'+item).parent().after('<p class="note-error node-text"> 入力されている名前は無効になっています。</p>');
+                        case 'name': $('#'+item).parent().after('<p class="note-error node-text"> お名前をカタカナで入力してください。</p>');
                             break;
-                        case 'phone': $('#'+item).parent().after('<p class="note-error node-text"> 電話番号は無効になっています。</p>');
+                        case 'phone': $('#'+item).parent().after('<p class="note-error node-text"> 電話番号は数字のみを入力してください。</p>');
                             break;
-                        case 'email': $('#'+item).parent().after('<p class="note-error node-text"> ﾒｰﾙｱﾄﾞﾚｽは無効になっています。</p>');
+                        case 'email': $('#'+item).parent().after('<p class="note-error node-text"> 入力したメールアドレスを確認してください。</p>');
                             break;
                     }
-
                 })
                 $.each(html.clear, function (index, item) {
                     $('#'+item).removeClass('validate_failed');
@@ -348,7 +285,6 @@ let callBackMakePayment = function() {
                         allowOutsideClick: false
                     })
                 }
-
             }
         },
         complete: function () {
@@ -356,7 +292,6 @@ let callBackMakePayment = function() {
         },
     });
 }
-
 function doPurchase() {
     if(getCardType($('#card-number').val().replace(/\D/g, '')) != ""){
         payment_init();
@@ -365,9 +300,6 @@ function doPurchase() {
         let cardExpire =  $('#expire-year').val().toString() +  $('#expire-month').val().toString();
         let cardSecure = $('#card-secret').val().replace(/\D/g,'');
         // let cardHoldname = 'HOLDER NAME';
-
-
-
         // console.log(cardNumber);
         // console.log(cardExpire);
         // console.log(cardSecure);
@@ -383,8 +315,7 @@ function doPurchase() {
         $('#card-secret').addClass('error');
         $('#expire-month').addClass('error');
         $('#expire-year').addClass('error');
-
-        $('#card-number').after( "<p class=\"note-error node-text\">無効なカード</p>" );
+        $('#card-number').after( "<p class=\"note-error node-text\">正しいカード番号を入力してください。</p>" );
     }
 }
 function getCardType(cardNum) {
@@ -398,16 +329,13 @@ function getCardType(cardNum) {
         {regEx: /^3[47][0-9]{3}/ig,cardType: "AMEX"},
         // {regEx: /^(5[06-8]\d{4}|6\d{5})/ig,cardType: "MAESTRO"},
         {regEx: /^(?:2131|1800|35\d{3})\d{11}$/ig,cardType: "JCB"}
-
     ];
-
     for (var j = 0; j < regexMap.length; j++) {
         if (cardNum.match(regexMap[j].regEx)) {
             payCardType = regexMap[j].cardType;
             break;
         }
     }
-
     if (cardNum.indexOf("50") === 0 || cardNum.indexOf("60") === 0 || cardNum.indexOf("65") === 0) {
         var g = "508500-508999|606985-607984|608001-608500|652150-653149";
         var i = g.split("|");
@@ -422,32 +350,25 @@ function getCardType(cardNum) {
     }
     return payCardType;
 }
-
-
 function luhnCheck(cardNum){
     // Luhn Check Code from https://gist.github.com/4075533
     // accept only digits, dashes or spaces
     var numericDashRegex = /^[\d\-\s]+$/
     if (!numericDashRegex.test(cardNum)) return false;
-
     // The Luhn Algorithm. It's so pretty.
     var nCheck = 0, nDigit = 0, bEven = false;
     var strippedField = cardNum.replace(/\D/g, "");
-
     for (var n = strippedField.length - 1; n >= 0; n--) {
         var cDigit = strippedField.charAt(n);
         nDigit = parseInt(cDigit, 10);
         if (bEven) {
             if ((nDigit *= 2) > 9) nDigit -= 9;
         }
-
         nCheck += nDigit;
         bEven = !bEven;
     }
-
     return (nCheck % 10) === 0;
 }
-
 if ((typeof execPurchase) === 'undefined') {
     execPurchase = function (response) {
         console.log(response);
@@ -458,7 +379,7 @@ if ((typeof execPurchase) === 'undefined') {
             $('#card-secret').addClass('error');
             $('#expire-month').addClass('error');
             $('#expire-year').addClass('error');
-            $('#card-number').after( "<p class=\"note-error node-text\">無効なカード</p>" );
+            $('#card-number').after( "<p class=\"note-error node-text\">正しいカード番号を入力してください。</p>" );
         } else {
             $('#card-number').removeClass('error');
             $('#card-secret').removeClass('error');
@@ -469,6 +390,3 @@ if ((typeof execPurchase) === 'undefined') {
         }
     };
 }
-
-
-

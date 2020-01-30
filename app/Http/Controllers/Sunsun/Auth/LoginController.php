@@ -51,14 +51,19 @@ class LoginController extends Controller
     {
         return view('sunsun.auth.login');
     }
-
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->is_admin() )
+            $redirectTo = '/admin/day';
+        $redirectTo = '/';
+    }
 
     protected function redirectTo()
     {
-//        $ms_user = Auth::user();
-//        if ($ms_user->is_admin()) {
-//            return route('admin.day');
-//        }
+        $ms_user = Auth::user();
+        if ($ms_user->is_admin()) {
+           return route('admin.day');
+        }
         return route('home');
     }
 
