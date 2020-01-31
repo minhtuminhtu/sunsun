@@ -18,7 +18,12 @@ return [
             'KUBUN_ID' => 'kubun_id',
             'KUBUN_VALUE' => 'kubun_value',
             'SORT_NO' => 'sort_no',
-            'NOTES' => 'notes'
+            'NOTES' => 'notes',
+            'TIME_HOLIDAY' => 'time_holiday'
+        ],
+        'ms_holiday' => [
+            'DATE_HOLIDAY' => 'date_holiday',
+            'TIME_HOLIDAY' => 'time_holiday'
         ],
         'tr_yoyaku' => [
             'BOOKING_ID' => 'booking_id',
