@@ -35,6 +35,8 @@ class BookingController extends Controller
 
     public function back_2_booking(Request $request){
         $data = $request->all();
+        $data['customer'] = $this->pop_booking($request);
+//        $b = array_pop($data['customer']['info']);
         dd($data);
     }
 
@@ -326,6 +328,14 @@ class BookingController extends Controller
         }
         $time_required = (string)sprintf('%02d', $hours). (string)sprintf('%02d', $minutes);
         return $time_required;
+    }
+
+    public function pop_booking($request){
+        $info = [];
+        if ($request->session()->has($this->session_info)) {
+            $info = $request->session()->get($this->session_info);
+        }
+        return $info;
     }
     /**
      * @param $request Request

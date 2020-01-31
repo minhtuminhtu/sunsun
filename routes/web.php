@@ -152,7 +152,7 @@ Route::get('/cache', function () {
 });
 
 
-//Route::middleware('begin.auth')->group(function(){
+Route::middleware('begin.auth')->group(function(){
     Route::namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
@@ -166,6 +166,7 @@ Route::get('/cache', function () {
         })->name('home');
 
         Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
+        Route::post('/booking',['as' => '.back_2_booking', 'uses' => 'BookingController@back_2_booking']);
         Route::any('/confirm',['as' => '.confirm', 'uses' => 'BookingController@confirm']);
         Route::any('/payment',['as' => '.payment', 'uses' => 'BookingController@payment']);
         Route::post('/complete',['as' => '.complete', 'uses' => 'BookingController@complete']);
@@ -232,4 +233,4 @@ Route::get('/cache', function () {
         Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
 
     });
-//});
+});
