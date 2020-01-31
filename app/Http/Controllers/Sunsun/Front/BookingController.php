@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Mail\ConfirmMail;
 use Illuminate\Support\Facades\Mail;
+use \Session;
 class BookingController extends Controller
 {
     private $session_info = 'SESSION_BOOKING_USER';
@@ -30,6 +31,8 @@ class BookingController extends Controller
             $request->session()->forget($this->session_info);
         }
         $data['customer'] = $this->get_booking($request);
+        if (!Session::has("date_holiday"))
+            Session::put("date_holiday",$this->get_free_holiday());
         return view('sunsun.front.booking',$data);
     }
     public function add_new_booking(Request $request) {
@@ -445,6 +448,18 @@ class BookingController extends Controller
         $bill['total'] = $bill['course_1']['price'] + $bill['course_2']['price'] + $bill['course_3']['price'] + $bill['course_4']['price'] + $bill['course_5']['price'] + $bill['price_option'];
         $data['bill'] = $bill;
     }
+    public function get_free_holiday() {
+        $date_selected = [];
+        $range_day = DB::select("
+            SELECT  date_holiday
+            FROM    ms_holiday
+            WHERE   time_holiday is null
+        ");
+        foreach($range_day as $da){
+            array_push($date_selected, Carbon::parse($da->date_holiday)->format('Y/m/d'));
+        }
+        return $date_selected;
+    }
     public function get_free_room(Request $request){
         $data = $request->all();
         $room_type = $data['room'];
@@ -455,7 +470,7 @@ class BookingController extends Controller
         WHERE   main.stay_room_type = '$room_type'
         AND main.history_id IS NULL
         ");
-        $date_selected = [];
+        $date_selected = $this->get_free_holiday();
         foreach($range_day as $da){
             foreach($this->get_list_days($da->stay_checkin_date, $da->stay_checkout_date) as $d){
                 array_push($date_selected, $d);
@@ -1108,6 +1123,8 @@ class BookingController extends Controller
         return (strlen($date) >= 8) ? substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2) : false;
     }
     private function validate_holyday($checkin, $checkout) {
+        $checkin_tmp = $checkin;
+        $checkout_tmp = $checkout;
         while ($checkin <= $checkout) {
             $begin = $this->convertStringToDate($checkin);
             if (!$begin || !$this->isDate($begin)) return false;
@@ -1116,6 +1133,20 @@ class BookingController extends Controller
                 return false;
             $checkin = date('Ymd', strtotime($begin. ' + 1 days'));
         };
+        return $this->validate_holyday_special($checkin_tmp, $checkout_tmp);
+    }
+    private function validate_holyday_special($checkin, $checkout) {
+        $sql_check = "
+            SELECT  1
+            FROM    ms_holiday mh
+            WHERE mh.date_holiday >= $checkin AND mh.date_holiday <= $checkout
+        ";
+        Log::debug($sql_check);
+        $room_validate = DB::select($sql_check);
+        Log::debug($room_validate);
+        if(isset($room_validate) && (count($room_validate) > 0)){
+            return false;
+        }
         return true;
     }
     private function validate_stay_room($room_type, $checkin, $checkout){
@@ -1619,15 +1650,19 @@ class BookingController extends Controller
         $sql_where_yoyaku = '';
         $sql_where = '';
         $time_date_booking = $day_book_time;
+        $config_time = config('const.db.kubun_type_value.TIME');
+        $config_room = config('const.db.kubun_type_value.TIME_BOOK_ROOM');
+        $config_white = config('const.db.kubun_type_value.TIME_WHITENING');
+        $config_pet = config('const.db.kubun_type_value.TIME_PET');
         if ($room_kubun_type == '017') {
             $gender = '01';
         } else if ($room_kubun_type == '018') {
             $gender = '02';
-        } else if ($time_kubun_type == config('const.db.kubun_type_value.TIME_PET')) {
+        } else if ($time_kubun_type == $config_pet) {
             $sql_join_on .= " OR (ytm.course = '05' AND mk1.notes = CONCAT(ytm.service_time_1,'-', ytm.service_time_2)) ";
             $sql_pet_where = " OR (ty.course = '05') ";
             $sql_where_yoyaku = $sql_pet_where;
-        } else if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING'))  { // 021
+        } else if ($time_kubun_type == $config_white)  { // 021
             $sql_join_on .= " OR SUBSTRING(mk1.notes, 1 ,9) = ytm.whitening_time ";
             $hand_code = $data_course['whitening_repeat'];
             $sql_where .= " AND SUBSTRING(mk1.notes, 11) = $hand_code ";
@@ -1666,7 +1701,7 @@ class BookingController extends Controller
         $sql_select = "
                 -- SELECT time & room
                SELECT
-                mk1.*
+                mk1.ms_kubun_id, mk1.kubun_type, mk1.kubun_id, mk1.kubun_value, mk1.sort_no, mk1.notes
                 , mk2.kubun_id as kubun_id_room
                 , mk2.kubun_value as kubun_value_room
                 , mk2.notes as notes_room
@@ -1686,7 +1721,7 @@ class BookingController extends Controller
 //        //Log::debug($time_date_booking);
         $sql_bus = "";
         if ($time_bus !== null) {
-            if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
+            if ($time_kubun_type == $config_white) { // 021
                 $sql_bus = "
                  AND SUBSTRING(mk1.notes, 1 ,4) > :time_bus
                 ";
@@ -1701,7 +1736,7 @@ class BookingController extends Controller
         $date_current = date("Ymd");
         if ($date_current == $day_book_time) {
             $data_sql['timecurrent'] = $timecurrent;
-            if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
+            if ($time_kubun_type == $config_white) { // 021
                 $sql_bus .= "
                  AND SUBSTRING(mk1.notes, 1 ,4) > :timecurrent
                 ";
@@ -1715,7 +1750,7 @@ class BookingController extends Controller
         if (count($time_bath) > 0) {
             foreach ($time_bath as $time) {
                 $time_max = $time['max']; $time_min = $time['min'];
-                if ($time_kubun_type == config('const.db.kubun_type_value.TIME_WHITENING')) { // 021
+                if ($time_kubun_type == $config_white) { // 021
                     $sql_time_path .= " AND ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_max' OR SUBSTRING(mk1.notes, 1 ,4) <= '$time_min') ";
                 } else {
                     $sql_time_path .= " AND ( mk1.notes >= '$time_max' OR mk1.notes <= '$time_min') ";
@@ -1770,8 +1805,16 @@ class BookingController extends Controller
             }
             $sql_range .= " ) THEN 0 ";
         }
+        $data_sql['date_holiday'] = $time_date_booking;
+        $sql_holiday = " WHEN exists (  select 1 from ms_holiday mh
+                                        where mh.date_holiday = :date_holiday and
+                                            (
+                                                mh.time_holiday = mk1.time_holiday or mh.time_holiday is null
+                                            )
+                                    ) THEN 0 ";
         $sql_get_check_room_free ="
             , CASE
+                    $sql_holiday
                     $sql_range
                     $sql_validate_ss
                     WHEN ytm.course IS NULL $sql_bus $sql_time_path THEN 1
@@ -1815,7 +1858,7 @@ class BookingController extends Controller
         $time_request = DB::select($sql, $data_sql);
         //$queries = DB::getQueryLog();
         //dd($queries);
-        if ($time_kubun_type == config('const.db.kubun_type_value.TIME_BOOK_ROOM'))  { // 014
+        if ($time_kubun_type == $config_room)  { // 014
             $time_request = $this->fix_3_bed_to_1($time_request);
         }
         return $time_request;

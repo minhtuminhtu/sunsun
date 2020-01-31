@@ -20,6 +20,7 @@ class CreateMsKubunTable extends Migration
             $table->string('kubun_value',255);
             $table->integer('sort_no')->comment('orderBy');
             $table->string('notes',255)->nullable()->comment('value to use select');
+            $table->string('time_holiday',4)->nullable();
         });
     }
 

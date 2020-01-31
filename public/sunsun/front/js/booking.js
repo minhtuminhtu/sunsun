@@ -278,6 +278,7 @@ $(function () {
         startDate: new Date(),
         autoclose: true,
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         weekStart: 1,
         orientation: 'bottom'
       });
@@ -288,6 +289,7 @@ $(function () {
         startDate: new Date(),
         autoclose: true,
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         weekStart: 1,
         orientation: 'bottom' // datesDisabled: ['2019-12-17','2019-12-16'],
 
@@ -331,6 +333,7 @@ $(function () {
         autoclose: true,
         startDate: new Date(),
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         // daysOfWeekHighlighted: "1,2",
         weekStart: 1,
         orientation: 'bottom'
@@ -342,6 +345,7 @@ $(function () {
         autoclose: true,
         startDate: new Date(),
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         // daysOfWeekHighlighted: "1,2",
         weekStart: 1,
         orientation: 'bottom'
@@ -369,6 +373,7 @@ $(function () {
         autoclose: true,
         startDate: new Date(),
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         // daysOfWeekHighlighted: "1,2",
         weekStart: 1,
         orientation: 'bottom'
@@ -380,6 +385,7 @@ $(function () {
         autoclose: true,
         startDate: new Date(),
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         // daysOfWeekHighlighted: "1,2",
         weekStart: 1,
         orientation: 'bottom'
@@ -395,6 +401,7 @@ $(function () {
         startDate: new Date(),
         endDate: get_end_date(),
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         weekStart: 1,
         orientation: 'bottom'
       });
@@ -406,6 +413,7 @@ $(function () {
         startDate: new Date(),
         endDate: get_end_date(),
         daysOfWeekDisabled: "3,4",
+        datesDisabled: _date_holiday,
         weekStart: 1,
         orientation: 'bottom'
       });
@@ -430,6 +438,7 @@ $(function () {
           startDate: new Date($('#plan_date_start').val()),
           endDate: get_end_date(),
           daysOfWeekDisabled: "3,4",
+          datesDisabled: _date_holiday,
           weekStart: 1,
           orientation: 'bottom'
         });
@@ -441,6 +450,7 @@ $(function () {
           startDate: new Date($('#plan_date_start').val()),
           endDate: get_end_date(),
           daysOfWeekDisabled: "3,4",
+          datesDisabled: _date_holiday,
           weekStart: 1,
           orientation: 'bottom'
         });
@@ -591,7 +601,7 @@ $(function () {
     var bed = modal_choice_time.find('input[name=time]:checked').closest('div').find('.bed').val();
     var data_json = modal_choice_time.find('input[name=time]:checked').closest('div').find('input[name=data-json]').val();
     var num = $('.booking-time').length;
-    var time_value = time_value = time.replace(/[^0-9]/g, '');
+    var time_value = time.replace(/[^0-9]/g, '');
 
     if ($('#new-time').val() == 1) {
       var $html = $('' + '<div class="block-content-1 margin-top-mini"> ' + '<div class="block-content-1-left"><div class="timedate-block set-time">    ' + '<input name="time[' + num + '][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_' + num + '" readonly="readonly"  value="" />' + '<input name="time[' + num + '][value]" class="time_value" id="time[' + num + '][value]" type="hidden" value="">' + '<input name="time[' + num + '][bed]" class="time_bed" id="time[' + num + '][bed]" type="hidden" value="">' + '<input name="time[' + num + '][json]" class="data-json_input" id="time[' + num + '][json]" type="hidden" >' + '<input name="time[' + num + '][element]" id="" type="hidden" value="error_time_' + num + '">' + '</div> </div> <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>           </div>');

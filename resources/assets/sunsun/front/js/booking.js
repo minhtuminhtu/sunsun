@@ -8,14 +8,10 @@ $(function() {
         today = moment(today).add(1, 'days');
     }
     var tomorrow = moment(today).add(1, 'days');
-
-
-
     let get_service = function(course, course_data, course_time) {
         // delete validate color
         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
         // end validate color
-
         if(course == ""){
             course = $('#course').val();
         }
@@ -50,27 +46,18 @@ $(function() {
         get_service($('#course').val(), $('#course_data').val(), $('#course_time').val());
     });
     get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val());
-
-
-
-
     let load_event = function(date_check = false) {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
-
         if(($('#date').val() == "") && ($('#date').val() !== undefined)){
-
             $('#date').val(strToday);
         }
-
-
         if($('#plan_date_start').val() == ""){
             $('#plan_date_start').val(strToday);
         }
         if($('#plan_date_end').val() == ""){
             $('#plan_date_end').val(strTomorrow);
         }
-
         $('#room').off('change');
         $('#room').on('change', function() {
             var room =  JSON.parse($('#room').val());
@@ -100,8 +87,6 @@ $(function() {
                         }else{
                             $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
                         }
-
-
                         $('.input-daterange').datepicker({
                             language: 'ja',
                             dateFormat: 'yyyy/mm/dd',
@@ -112,25 +97,20 @@ $(function() {
                             weekStart: 1,
                             orientation: 'bottom',
                         });
-
                         let range_start = moment(new Date($('#range_date_start').val()));
                         let range_end = moment(new Date($('#range_date_end').val()));
                         $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
                         $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
-
                         $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
                         $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
-
                         $('.room').show();
                     },
                     complete: function () {
                         loader.css({'display': 'none'});
                     },
                 });
-
             }
         });
-
         $('#whitening').off('change');
         $('#whitening').on('change', function() {
             var whitening =  JSON.parse($('#whitening').val());
@@ -140,7 +120,6 @@ $(function() {
                 $('.whitening').show();
             }
         });
-
         DatePicker = {
             hideOldDays: function(){
                 var x = $('td.old.day');
@@ -162,7 +141,6 @@ $(function() {
                 DatePicker.hideNewDays();
             }
         };
-
         if(window.location.href.includes("admin")){
             console.log('admin');
             $('#date').datepicker({
@@ -172,6 +150,7 @@ $(function() {
                 startDate: new Date(),
                 autoclose: true,
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
             });
@@ -182,12 +161,12 @@ $(function() {
                 startDate: new Date(),
                 autoclose: true,
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
                 // datesDisabled: ['2019-12-17','2019-12-16'],
             });
         }
-
         $('#date').datepicker().off('hide');
         $('#date').datepicker().on('hide', function(e) {
             change_day();
@@ -195,9 +174,6 @@ $(function() {
         $('#date').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
         });
-
-
-
         if(date_check){
             if(($('#date').val() !== undefined) && ($('#date').val() != '')){
                 let date_value = moment(new Date($('#date').val()));
@@ -218,11 +194,7 @@ $(function() {
                 //
                 // // $('#date').val();
             }
-
         }
-
-
-
         if(window.location.href.includes("admin")){
             $('.input-daterange').datepicker({
                 container: '.mail-booking',
@@ -231,11 +203,11 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
                 orientation: 'bottom',
             });
-
         }else{
             $('.input-daterange').datepicker({
                 language: 'ja',
@@ -243,13 +215,12 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
                 orientation: 'bottom',
             });
         }
-
-
         let get_end_date = function(){
             var start_date = moment(new Date($('#plan_date_start').val()));
             var end_date;
@@ -258,10 +229,8 @@ $(function() {
             }else{
                 end_date = start_date.add(6, 'days').toDate();
             }
-
             return end_date;
         }
-
         if(window.location.href.includes("admin")){
             $('#plan_date_start').datepicker({
                 container: '.mail-booking',
@@ -270,11 +239,11 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
                 orientation: 'bottom',
             });
-
         }else{
             $('#plan_date_start').datepicker({
                 language: 'ja',
@@ -282,13 +251,12 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
                 orientation: 'bottom',
             });
         }
-
-
         if(window.location.href.includes("admin")){
             $('#plan_date_end').datepicker({
                 container: '.mail-booking',
@@ -298,10 +266,10 @@ $(function() {
                 startDate: new Date(),
                 endDate: get_end_date(),
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
             });
-
         }else{
             $('#plan_date_end').datepicker({
                 language: 'ja',
@@ -310,15 +278,12 @@ $(function() {
                 startDate: new Date(),
                 endDate: get_end_date(),
                 daysOfWeekDisabled: "3,4",
+                datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
             });
         }
-
         var range_date_temp = [];
-
-
-
         $('#range_date_start').datepicker().on('hide', function () {
             // $('#range_date_end').focus();
         });
@@ -327,8 +292,6 @@ $(function() {
             if($.inArray(moment(new Date($('#plan_date_start').val())).format('YYYY-MM-DD'), range_date_temp) == -1){
                 $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
             }
-
-
             if(window.location.href.includes("admin")){
                 $('#plan_date_end').datepicker({
                     container: '.mail-booking',
@@ -338,6 +301,7 @@ $(function() {
                     startDate: new Date($('#plan_date_start').val()),
                     endDate: get_end_date(),
                     daysOfWeekDisabled: "3,4",
+                    datesDisabled: _date_holiday,
                     weekStart: 1,
                     orientation: 'bottom',
                 });
@@ -349,6 +313,7 @@ $(function() {
                     startDate: new Date($('#plan_date_start').val()),
                     endDate: get_end_date(),
                     daysOfWeekDisabled: "3,4",
+                    datesDisabled: _date_holiday,
                     weekStart: 1,
                     orientation: 'bottom',
                 });
@@ -357,7 +322,6 @@ $(function() {
         });
         let highlight = function(start){
             var highlight = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
-
             highlight.forEach(function(element,index) {
                 let date_hl = moment(element + " 00:00 +0000", 'YYYY-MM-DD HH:mm Z').utc().format("X") + "000";
                 if((index == 0) || (index == (highlight.length - 1))){
@@ -374,10 +338,6 @@ $(function() {
                 }
             });
         }
-
-
-
-
         $('#plan_date_start').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
             highlight(true);
@@ -389,77 +349,52 @@ $(function() {
         $('#plan_date_end').datepicker().on('hide', function(e) {
             range_date_temp = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
         });
-
-
-
-
-
-
-
         $('.input-daterange').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
-
         });
-
         $('.agecheck').on('click', function() {
             $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
             $(this).addClass('color-active');
             $(this).removeClass('btn-outline-warning');
-
             $('#agecheck').val($(this).val())
-
             if(($(this).val() == '1') || ($(this).val() == '2')){
                 $('.age-left').css("visibility", "hidden");
             }else if($(this).val() == '3'){
                 $('.age-left').css("visibility", "visible");
             }
         });
-
         function change_day(){
             $('#error_time_0').val('－');
             $('#time\\[0\\]\\[value\\]').val(0);
             $('#time\\[0\\]\\[bed\\]').val(0);
             $('#time\\[0\\]\\[json\\]').val('');
             $('.time-content').empty();
-
             $('#time1-value').val(0);
             $('#time1-bed').val(0);
             $('#time1-view').val('－');
             $('#time\\[0\\]\\[json\\]').val('');
-
             $('#time2-value').val(0);
             $('#time2-bed').val(0);
             $('#time2-view').val('－');
             $('#time\\[1\\]\\[json\\]').val('');
-
             $('#time_room_value').val(0);
             $('#time_room_bed').val(0);
             $('#time_room_view').val('－');
             $('#time\\[0\\]\\[json\\]').val('');
-
             $('#time_room_time1').val('0');
             $('#time_room_time2').val('0');
             $('#time_room_pet_0').val('－');
             $('#time_room_pet_json').val('');
-
             $('#whitening-time_view').val('－');
             $('#whitening-time_value').val('0');
             $('#whitening_data\\[json\\]').val('');
-
-
-
-
-
-
-
             let new_day = moment(new Date($('#date').val()));
             let days_short = new Array("日","月","火","水","木","金","土");
             $('#date').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
             $('#date-value').val(new_day.format('YYYYMMDD'));
             $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
         }
-
         $(".room_range_date").on('change blur', function() {
             let range_start = moment(new Date($('#range_date_start').val()));
             let range_end = moment(new Date($('#range_date_end').val()));
@@ -474,7 +409,6 @@ $(function() {
         load_pick_time_pet_event();
     };
     load_event();
-
     modal_choice_time.on('show.bs.modal', function (e) {
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
     })
@@ -482,12 +416,9 @@ $(function() {
         if(window.location.href.includes("admin")){
             console.log("admin");
         }else{
-
-
             // setTimeout(function(){ alert("Hello"); }, 5000);
         }
     })
-
     let modal_time_hidden = function(){
         if(window.location.href.includes("admin")){
             $('.modal .modal-dialog').first().attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
@@ -499,17 +430,14 @@ $(function() {
             modal_choice_time.modal('hide');
         }, 500);
     }
-
     $('#btn-cancel').off('click');
     $('#btn-cancel').on('click', function(e) {
         modal_time_hidden();
     });
-
     modal_choice_time.off('hidden.bs.modal');
     modal_choice_time.on('hidden.bs.modal', function () {
         modal_choice_time.find('.modal-body-time').empty();
         $('.set-time').removeClass('edit');
-
         if(window.location.href.includes("admin")){
             $('#edit_booking').css("z-index", "");
             $('body').addClass('modal-open');
@@ -518,16 +446,13 @@ $(function() {
     modal_choice_time.draggable({
         handle: ".title-table-time"
     });
-
     modal_choice_time.off('click','#js-save-time');
     modal_choice_time.on('click','#js-save-time',function (e) {
         let time = modal_choice_time.find('input[name=time]:checked').val();
         let bed = modal_choice_time.find('input[name=time]:checked').closest('div').find('.bed').val();
         let data_json = modal_choice_time.find('input[name=time]:checked').closest('div').find('input[name=data-json]').val();
         var num = $('.booking-time').length;
-        var time_value = time_value = time.replace(/[^0-9]/g,'');
-
-
+        var time_value = time.replace(/[^0-9]/g,'');
         if($('#new-time').val() == 1){
             let $html = $('' +
                 '<div class="block-content-1 margin-top-mini"> ' +
@@ -545,7 +470,6 @@ $(function() {
             $('.booking-time').last().val(time);
             $('.time_value').last().val(time_value);
             $('.time_bed').last().val(bed);
-
         }else{
             // console.log('set time');
             // console.log($('.set-time.edit input.time').parent());
@@ -559,31 +483,24 @@ $(function() {
         $('.set-time.edit input.time').parent().find('#time2-bed').val(bed);
         $('.set-time.edit input.time').parent().find('#time_room_value').val(pad(time_value, 4));
         $('.set-time.edit input.time').parent().find('#time_room_bed').val(bed);
-
-
         $('.set-time.edit input.time').parent().find('.time_from').val(time_value);
         $('.set-time.edit input.time').parent().find('.time_to').val(time_value);
         $('.set-time.edit input.time').parent().find('.time_bed').val(bed);
-
         $('.set-time.edit input.time').parent().find('.data-json_input').val(data_json);
-
         //console.log(modal_choice_time.find('input[name=time]:checked').parent().find('input[name=data-json]'));
         function pad(n, width) {
             n = n + '';
             return n.length >= width ? n :
                 new Array(width - n.length + 1).join('0') + n;
         }
-
         if(time.includes("～")){
             var res = time.split("～");
             $('.set-time.edit input.time').parent().find('#time_room_time1').val(pad(res[0].replace(/[^0-9]/g,''), 4));
             $('.set-time.edit input.time').parent().find('#time_room_time2').val(pad(res[1].replace(/[^0-9]/g,''), 4));
             $('.set-time.edit input.time').parent().find('#whitening-time_value').val(pad(res[0].replace(/[^0-9]/g,''), 4) + '-' + pad(res[1].replace(/[^0-9]/g,''), 4));
         }
-
         modal_time_hidden();
     })
-
     $('li.dropdown-item').off('click');
     $('li.dropdown-item').on('click', function() {
         $('li.dropdown-item').removeClass('active');
@@ -609,7 +526,6 @@ $(function() {
             },
         });
     });
-
     $('#repeat_user').off('change');
     $('#repeat_user').on('change', function(e) {
         let repeat_user = JSON.parse($('#repeat_user').val());
@@ -636,9 +552,6 @@ $(function() {
             },
         });
     });
-
-
-
     $('#transport').off('change');
     $('#transport').on('change', function(e) {
         var transport =  JSON.parse($('#transport').val());
@@ -665,7 +578,6 @@ $(function() {
             },
         });
     });
-
     $('.btn-booking').off('click');
     $('.btn-booking').on('click', function(e) {
         e.preventDefault();
@@ -689,14 +601,12 @@ $(function() {
                 } else {
                     make_color_input_error(json)
                 }
-
             },
             complete: function () {
                 loader.css({'display': 'none'});
             },
         });
     });
-
     let make_color_input_error = (json, type = true) => {
         $('p.note-error').remove();
         // if (typeof json.clear_border_red !== "undefined" ) {
@@ -706,7 +616,6 @@ $(function() {
         //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
         //     })
         // }
-
         $('.validate_failed').removeClass('validate_failed');
         if (((typeof json.error_time_transport !== "undefined" )
             || (typeof json.error_time_gender  !== "undefined")
@@ -729,7 +638,6 @@ $(function() {
                 allowOutsideClick: false
             })
         }
-
         if (typeof json.error_time_transport !== "undefined" ) {
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
@@ -775,7 +683,6 @@ $(function() {
             $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         }
     };
-
     let load_time_list = function(check = null) {
         let check_admin_set = $(".time-list").attr("value");
         if((!check) && !(check_admin_set == 1)){
@@ -826,7 +733,6 @@ $(function() {
                 '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
                 '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
                 '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-
         }
         $(".range_date").change(function(){
             var date_arr = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
@@ -874,8 +780,6 @@ $(function() {
     };
     load_time_list();
 });
-
-
 let load_time_delete_event = function(){
     $('.svg-button').off('click');
     $('.svg-button').on('click', function() {
@@ -930,17 +834,14 @@ let load_time_delete_event = function(){
         }
     });
 }
-
 function pad(n, width) {
     n = n + '';
     return n.length >= width ? n :
         new Array(width - n.length + 1).join('0') + n;
 }
-
 let load_pick_time_event = function(){
     let modal_choice_time = $('#choice_date_time');
     let set_time = $('.js-set-time');
-
     set_time.off('click');
     set_time.on('click', function() {
         let bus_first = $(this).parent().find('.bus_first').val();
@@ -996,7 +897,6 @@ let load_pick_time_room_event = function(){
     let get_room = $('.js-set-room');
     get_room.off('click');
     get_room.on('click', function() {
-
         let set_time_click = $(this);
         let $data = $('form.booking').serializeArray();
         let $get_date = {};
@@ -1049,7 +949,6 @@ let load_pick_time_wt_event = function(){
         let $get_date = {};
         $get_date.name = "data_get_attr";
         $data.push($get_date);
-
         $.ajax({
             url: $site_url +'/book_time_room_wt',
             type: 'POST',
@@ -1122,7 +1021,6 @@ let load_pick_time_pet_event = function(){
         });
     });
 }
-
 let load_after_ajax = function(){
     let modal_choice_time = $('#choice_date_time');
     load_time_delete_event();
@@ -1134,10 +1032,8 @@ let load_after_ajax = function(){
         today = moment(today).add(1, 'days');
     }
     var tomorrow = moment(today).add(1, 'days');
-
     $('#add-time').off('click');
     $('#add-time').on('click', function() {
-
         let set_time_click = $(this);
         let $data = $('form.booking').serializeArray();
         let $get_date = {};
@@ -1175,7 +1071,6 @@ let load_after_ajax = function(){
             },
         });
     });
-
     $('#gender').off('change');
     $('#gender').on('change', function(e) {
         let btn_click = $(this);
@@ -1205,7 +1100,6 @@ let load_after_ajax = function(){
         //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
         //     })
         // }
-
         $('.validate_failed').removeClass('validate_failed');
         if (((typeof json.error_time_transport !== "undefined" )
             || (typeof json.error_time_gender  !== "undefined")
@@ -1228,19 +1122,16 @@ let load_after_ajax = function(){
                 allowOutsideClick: false
             })
         }
-
         if (typeof json.error_time_transport !== "undefined" ) {
             $.each(json.error_time_transport, function (index, item) {
                 let input_error_transport = $('#'+item.element);
                 input_error_transport.addClass('validate_failed');
-
                 let repeat_user = JSON.parse($('#repeat_user').val());
                 if(repeat_user.kubun_id == '01'){
                     input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
                 }else if(repeat_user.kubun_id == '02'){
                     input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
                 }
-
                 $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
             })
         }
@@ -1275,10 +1166,7 @@ let load_after_ajax = function(){
             var text_err = "定休日が含まれているため予約できません";
             $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         }
-
     };
-
-
     // $('.collapse-top').off('hidden.bs.collapse');
     // $('.collapse-top').on('hidden.bs.collapse', function () {
     //     $('#btn-collapse-top').attr("src","/sunsun/svg/plus.svg");
@@ -1287,7 +1175,6 @@ let load_after_ajax = function(){
     // $('.collapse-top').on('shown.bs.collapse', function () {
     //     $('#btn-collapse-top').attr("src","/sunsun/svg/hide.svg");
     // })
-
     $('.collapse-between').off('hidden.bs.collapse');
     $('.collapse-between').on('hidden.bs.collapse', function () {
         $('#btn-collapse-between').attr("src","/sunsun/svg/plus.svg");
@@ -1296,8 +1183,6 @@ let load_after_ajax = function(){
     $('.collapse-between').on('shown.bs.collapse', function () {
         $('#btn-collapse-between').attr("src","/sunsun/svg/hide.svg");
     })
-
-
     $('.collapse-finish').off('hidden.bs.collapse');
     $('.collapse-finish').on('hidden.bs.collapse', function () {
         $('#btn-collapse-finish').attr("src","/sunsun/svg/plus.svg");
@@ -1306,11 +1191,6 @@ let load_after_ajax = function(){
     $('.collapse-finish').on('shown.bs.collapse', function () {
         $('#btn-collapse-finish').attr("src","/sunsun/svg/hide.svg");
     })
-
-
-
-
-
     $('#edit_booking').off('click','.show_history');
     $('#edit_booking').on('click','.show_history',function (e) {
         e.preventDefault();
@@ -1340,7 +1220,6 @@ let load_after_ajax = function(){
             },
         });
     })
-
     $(document).on('touchmove', function () {
         $('#date').blur();
         $('#range_date_start').blur();
@@ -1348,19 +1227,13 @@ let load_after_ajax = function(){
         $('#plan_date_start').blur();
         $('#plan_date_end').blur();
     });
-
     $('#date-value').val(today.format('YYYYMMDD'));
     $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
-
-
-
-
     $('#plan_date_start-value').val(today.format('YYYY') + today.format('MM') + today.format('DD'));
     $('#plan_date_end-value').val(tomorrow.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD'));
     $('#plan_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
     $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
 }
-
 function get_dates(startDate, stopDate) {
     var dateArray = [];
     var currentDate = moment(new Date(startDate));
@@ -1373,6 +1246,3 @@ function get_dates(startDate, stopDate) {
     }
     return dateArray;
 }
-
-
-

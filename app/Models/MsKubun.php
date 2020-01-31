@@ -23,6 +23,7 @@ class MsKubun extends Model
             config('const.db.ms_kubun.KUBUN_VALUE'),
             config('const.db.ms_kubun.SORT_NO'),
             config('const.db.ms_kubun.NOTES'),
+            config('const.db.ms_kubun.DATE_HOLIDAY'),
         ];
         parent::__construct($attributes);
     }
