@@ -726,6 +726,11 @@
                     </div>
                 </div>
             </form>
+            <form id="back_2_booking" action="{{route('.back_2_booking')}}" method="POST">
+                @csrf
+                <input type="hidden" name="back_2_booking_data"/>
+                <input type="submit" value="1"/>
+            </form>
         </div>
     </main>
 @endsection

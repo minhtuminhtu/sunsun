@@ -32,6 +32,13 @@ class BookingController extends Controller
         $data['customer'] = $this->get_booking($request);
         return view('sunsun.front.booking',$data);
     }
+
+    public function back_2_booking(Request $request){
+        $data = $request->all();
+        dd($data);
+    }
+
+
     public function add_new_booking(Request $request) {
         $data = $request->all();
         // dd($data);
