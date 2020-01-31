@@ -1534,6 +1534,7 @@ class BookingController extends Controller
                     //dd($validate_ss_time);
                     $owner_pet = 1;
                 } else {
+
                     if ($day_book_time == $day_book_time_ss) { // get time pet ss
                         foreach ($booking_ss['time'] as $key_time_pet => $value_time_pet) {
                             $time_json = json_decode($value_time_pet['json'], true);
@@ -1545,7 +1546,7 @@ class BookingController extends Controller
 
                 }
             }
-            if ($owner_pet == 0) {
+            if ($owner_pet == 0 && count($range_time_validate_pet) > 0) {
                 $validate_ss_time['pet_ss'] = $range_time_validate_pet;
             }
             //dd($validate_ss_time);
@@ -1784,12 +1785,12 @@ class BookingController extends Controller
                     if ($count != 0) {
                         $or = " OR ";
                     }
-                    if ($key_ss_t == 'boss_time_pet') { // time pet not concomitant width time human book at the first
+                    if ($key_ss_t == 'boss_time_pet' && count($validate_ss_time[$key_ss_t]) > 0) { // time pet not concomitant width time human book at the first
                         $time_boss_start = $value_ss['time'];
                         $time_boss_end = $this->plus_time_string($time_boss_start, 120);
                         $time_boss_start_validate = $this->minus_time_string($time_boss_start, 60);
                         $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_boss_start_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_boss_end') ";
-                    } else if ($key_ss_t == 'pet_ss') { // time pet not concomitant width time human book at the first
+                    } else if ($key_ss_t == 'pet_ss' && count($validate_ss_time[$key_ss_t]) > 0) { // time pet not concomitant width time human book at the first
                         $time_start_pet_validate = $this->minus_time_string($value_ss['start_time'], 120); // - 120 p time tắm
                         $time_end_pet_validate = $value_ss['end_time'];
                         $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_start_pet_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_end_pet_validate') ";
@@ -2285,7 +2286,9 @@ class BookingController extends Controller
             if ($day_book_time == ''){
                 $day_book_time = $day_book_time_ss;
             }
-            $count = 0;
+
+
+            $count_loop = 0;
             foreach ($sections_booking['info'] as $key => $booking_ss) {
                 $course_ss = json_decode($booking_ss['course'], true);
                 if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.PET')) {
@@ -2298,18 +2301,25 @@ class BookingController extends Controller
                     }
                     //dd($validate_ss_time);
                 }
-                if ($count == 0 ) {
+
+                /**
+                 * lấy time người book đầu tiên là chủ của pet
+                 * this time shower không trùng time pet
+                 */
+                if ($count_loop == 0) {
+                    if ($course_ss['kubun_id'] != config('const.db.kubun_id_value.course.PET')) {
                     foreach ($booking_ss['time'] as $k_time => $v_time) {
                         if ($day_book_time == $day_book_time_ss) {
                             $ss_time = json_decode($v_time['json'], true);
-                            $validate_ss_time[$key][$k_time]['time'] = $ss_time['notes'];
-                            $validate_ss_time[$key][$k_time]['bed'] = $ss_time['kubun_id_room'];
+                                $validate_ss_time['boss_time_pet'][$k_time]['time'] = $ss_time['notes'];
+                            }
+
                         }
+                        $count_loop++;
                     }
                 }
-                $count ++;
             }
-            //dd($sections_booking['info']);
+
             //dd($validate_ss_time);
         } else { // th booking mới
             $transport = json_decode($data['transport'], true);
