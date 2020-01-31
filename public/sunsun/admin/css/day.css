@@ -462,7 +462,7 @@ body {
   border-left: 0.5vw solid #693F0B !important;
   font-size: 1.75vw !important;
   font-weight: bold !important;
-  background-image: url(http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/bg.png) !important;
+  background-image: url("/sunsun/imgs/bg.png") !important;
   width: 90vw !important;
   max-width: 90vw !important;
   margin: auto !important;

@@ -11,7 +11,7 @@
     <script  type="text/javascript" src="https://stg.static.mul-pay.jp/ext/js/token.js" ></script>
     <style>
         th {
-            background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg.png");
+            background-image: url("/sunsun/imgs/bg_2.png");
             color: #000;
         }
         tr {

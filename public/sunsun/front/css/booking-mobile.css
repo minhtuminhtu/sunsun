@@ -496,7 +496,7 @@
     border-left: 1.25vw solid #693F0B;
     font-size: 6vw !important;
     font-weight: bold;
-    background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/common/bg.png");
+    background-image: url("/sunsun/imgs/bg.png");
   }
 
   .booking-line .booking-line-laber {
@@ -562,7 +562,7 @@
 
   .header-confirm {
     border: 1px solid #402106;
-    background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg.png");
+    background-image: url("/sunsun/imgs/bg_2.png");
     padding-bottom: 2.5vw;
     padding-top: 2.5vw;
     margin: 0px 2.5vw;
@@ -571,7 +571,7 @@
   .body-confirm {
     margin: 0 2.5vw 0 2.5vw;
     padding: 2.5vw 0px;
-    background-image: url("http://sun-sun33.com/wordpress/wp-content/themes/sun-sun/image/menu/bg2.png");
+    background-image: url("/sunsun/imgs/bg2.png");
   }
 
   .booking-warp.confirm {

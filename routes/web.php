@@ -143,6 +143,14 @@ Route::get('/reset', function () {
     echo "Reset done!";
 });
 
+Route::get('/cache', function () {
+    \Artisan::call('cache:clear');
+    \Artisan::call('route:clear');
+    \Artisan::call('config:clear');
+    \Artisan::call('view:clear ');
+    echo "Cache cleared!";
+});
+
 
 //Route::middleware('begin.auth')->group(function(){
     Route::namespace('Sunsun\Front')->group(function (){

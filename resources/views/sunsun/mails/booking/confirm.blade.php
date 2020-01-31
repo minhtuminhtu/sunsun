@@ -36,7 +36,7 @@
         .mail-container{
             width: 600px !important;
             margin: 0 auto !important;
-            background-image: url('http://booking.sun-sun33.com/sunsun/imgs/bg.png');
+            background-image: url('https://booking.sun-sun33.com/sunsun/imgs/bg.png');
             padding-top: 10px !important;
         }
         .mail-data{
