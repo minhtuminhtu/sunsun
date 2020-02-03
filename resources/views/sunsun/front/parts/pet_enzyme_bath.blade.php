@@ -5,6 +5,9 @@
     if(isset($pop_data)){
         $pop_data = json_decode($pop_data, true);
     }
+    if(!isset($pop_data) || (json_decode($pop_data['course'], true)['kubun_id'] != '05')){
+        $pop_data = NULL;
+    }
 @endphp
 <div class="booking-block">
 
