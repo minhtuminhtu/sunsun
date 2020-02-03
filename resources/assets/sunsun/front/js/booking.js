@@ -1245,12 +1245,28 @@ let load_after_ajax = function(){
         $('#plan_date_start').blur();
         $('#plan_date_end').blur();
     });
-    $('#date-value').val(today.format('YYYYMMDD'));
-    $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
-    $('#plan_date_start-value').val(today.format('YYYY') + today.format('MM') + today.format('DD'));
-    $('#plan_date_end-value').val(tomorrow.format('YYYY') + tomorrow.format('MM') + tomorrow.format('DD'));
-    $('#plan_date_start-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
-    $('#plan_date_end-view').val(tomorrow.format('YYYY') + "年" + tomorrow.format('MM') + "月" + tomorrow.format('DD') + "日(" + days_short[tomorrow.weekday()] + ")");
+
+    // $('#date-value').val(today.format('YYYYMMDD'));
+    // $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
+
+    var current_date = $('#date').val();
+    var current_date_check = moment(new Date(current_date));
+    $('#date-value').val(current_date_check.format('YYYY') + current_date_check.format('MM') + current_date_check.format('DD'));
+    $('#date-view').val(current_date);
+
+
+    var plan_date_start = $('#plan_date_start').val();
+    var plan_date_end = $('#plan_date_end').val();
+    var plan_date_start_check = moment(new Date(plan_date_start));
+    var plan_date_end_check = moment(new Date(plan_date_end));
+
+
+    $('#plan_date_start-value').val(plan_date_start_check.format('YYYY') + plan_date_start_check.format('MM') + plan_date_start_check.format('DD'));
+    $('#plan_date_end-value').val(plan_date_end_check.format('YYYY') + plan_date_end_check.format('MM') + plan_date_end_check.format('DD'));
+    $('#plan_date_start-view').val(plan_date_start_check.format('YYYY') + "年" + plan_date_start_check.format('MM') + "月" + plan_date_start_check.format('DD') + "日(" + days_short[plan_date_start_check.weekday()] + ")");
+    $('#plan_date_end-view').val(plan_date_end_check.format('YYYY') + "年" + plan_date_end_check.format('MM') + "月" + plan_date_end_check.format('DD') + "日(" + days_short[plan_date_end_check.weekday()] + ")");
+
+
 }
 function get_dates(startDate, stopDate) {
     var dateArray = [];
