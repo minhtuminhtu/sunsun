@@ -53,7 +53,7 @@
             </div>
             <div class="booking-field-content">
                 <div class="button-age">
-                    <input id="agecheck" name='age_type' type="hidden" value="3">
+                    <input id="agecheck" name='age_type' type="hidden" value="{{  isset($age_type)?$age_type:"3"  }}">
                     <div class="button-age-left">
                         <button type="button" class="btn btn-block form-control text-dark mx-0 agecheck @if($age_type == 1) color-active @else btn-outline-warning   @endif" value="1">{{config('booking.age.age1')}}</button>
                         <button type="button" class="btn btn-block form-control text-dark  margin-top-mini mx-0 agecheck @if(($age_type == 1) || ($age_type == 2)) btn-outline-warning @else  color-active  @endif" value="3">{{config('booking.age.age3')}}</button>
