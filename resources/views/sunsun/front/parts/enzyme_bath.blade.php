@@ -384,6 +384,10 @@
             $room_whitening = false;
             $range_date_start= substr($pop_data['range_date_start-value'], 0, 4).'/'.substr($pop_data['range_date_start-value'], 4, 2).'/'.substr($pop_data['range_date_start-value'], 6, 2);
             $range_date_end = substr($pop_data['range_date_end-value'], 0, 4).'/'.substr($pop_data['range_date_end-value'], 4, 2).'/'.substr($pop_data['range_date_end-value'], 6, 2);
+            $range_date_start_value = $pop_data['range_date_start-value'];
+            $range_date_end_value = $pop_data['range_date_end-value'];
+            $range_date_start_view = $pop_data['range_date_start-view'];
+            $range_date_end_view = $pop_data['range_date_end-view'];
         }
     @endphp
     <div class="collapse collapse-finish">
@@ -433,10 +437,10 @@
                 <div class="booking-field room"  @if($room_whitening) style="display:none;" @endif>
                     <div style="width: 100%;">
                         <div style="width: 100%;">
-                            <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="">
-                            <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="">
-                            <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="">
-                            <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="">
+                            <input name="range_date_start-view" id="range_date_start-view" type="hidden" value="{{ isset($range_date_start_view)?$range_date_start_view:""  }}">
+                            <input name="range_date_end-view" id="range_date_end-view" type="hidden" value="{{ isset($range_date_end_view)?$range_date_end_view:""  }}">
+                            <input name="range_date_start-value" id="range_date_start-value" type="hidden" value="{{ isset($range_date_start_value)?$range_date_start_value:""  }}">
+                            <input name="range_date_end-value" id="range_date_end-value" type="hidden" value="{{ isset($range_date_end_value)?$range_date_end_value:""  }}">
                             <div class="range_room booking-room input-daterange  date-range_block" id="choice-range-day">
                                 <div class="field-start-day date-range_block_left">
                                     <p class="node-text">{{config('booking.range_date.checkin')}}</p>

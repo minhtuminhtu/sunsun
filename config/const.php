@@ -87,6 +87,7 @@ return [
             '027' => 'Price 断食コース',
             '028' => 'Price Pet',
             '029' => 'Price options',
+            '030' => 'Price',
         ],
 
         'kubun_type_value' => [
