@@ -172,7 +172,7 @@
                             @if($key == 0)
                                 <div class="booking-field-content">
                                     <div class="timedate-block set-time">
-                                        <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ $s_time_data }}" />
+                                        <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white"  id="error_time_0" value="{{ $s_time_data }}" />
                                         <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ $s_time['value'] }}">
                                         <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ $s_time['bed'] }}">
                                         <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
@@ -185,7 +185,7 @@
                                             <div class="block-content-1 margin-top-mini">
                                                 <div class="block-content-1-left">
                                                     <div class="timedate-block set-time">
-                                                        <input name="time[{{ $key }}][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ $s_time_data }}" />
+                                                        <input name="time[{{ $key }}][view]" type="text" class="form-control time js-set-time booking-time bg-white" value="{{ $s_time_data }}" />
                                                         <input name="time[{{ $key }}][value]" class="time_value" id="time[{{ $key }}][value]" type="hidden" value="{{ $s_time['value'] }}">
                                                         <input name="time[{{ $key }}][bed]" class="time_bed" id="time[{{ $key }}][bed]" type="hidden" value="{{ $s_time['bed'] }}">
                                                         <input name="time[{{$key}}][json]" class="data-json_input" type="hidden" value="{{ $s_time['json'] }}">
