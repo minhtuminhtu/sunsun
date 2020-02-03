@@ -1,3 +1,8 @@
+@php
+    if(isset($pop_data) === false){
+        $pop_data = [];
+    }
+@endphp
 <div class="">
     <form  @if(isset($data_booking)) action="{{route('admin.update_booking')}}" @else action="{{route('.confirm')}}" @endif method="POST" class="booking">
         <div class="">
@@ -5,14 +10,14 @@
             <div class="booking-warp booking" style="background-image: url('{{ asset('sunsun/imgs/bg.png') }}');">
                 @if(isset($add_new_user) && $add_new_user == 'on')
                     <div class="data-field-day">
-                                  <span>
+                        <span>
                                 @if (isset($customer['date-view']))
-                                          {{$customer['date-view']}}
-                                      @else
-                                          {{$customer['date-view-from']}} <br>
-                                          {{$customer['date-view-to']}}
-                                      @endif
-                                </span>  &nbsp;  &nbsp;
+                                    {{$customer['date-view']}}
+                                @else
+                                    {{$customer['date-view-from']}} <br>
+                                    {{$customer['date-view-to']}}
+                                @endif
+                        </span>  &nbsp;  &nbsp;
                         <span>
                         予約追加
                         </span>
@@ -49,6 +54,8 @@
                                     @foreach($repeat_user as $value)
                                         @if(isset($data_booking->repeat_user) && ($value->kubun_id == $data_booking->repeat_user))
                                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                        @elseif(isset($pop_data['repeat_user']) && json_decode($pop_data['repeat_user'], true)['kubun_id'] ==  $value->kubun_id)
+                                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @else
                                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endif
@@ -65,6 +72,8 @@
                                     @foreach($transport as $value)
                                         @if(isset($data_booking->transport) && ($value->kubun_id == $data_booking->transport))
                                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                        @elseif(isset($pop_data['transport']) && json_decode($pop_data['transport'], true)['kubun_id'] ==  $value->kubun_id)
+                                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @else
                                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endif
@@ -72,12 +81,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="booking-field bus" @if(!isset($data_booking->transport) || ($data_booking->transport != '02')) style="display:none;"@endif>
+                        <div class="booking-field bus" @if((isset($data_booking->transport) && ($data_booking->transport == '02')) || (isset($pop_data['transport']) && (json_decode($pop_data['transport'], true)['kubun_id'] == '02'))) style="display:flex;" @else style="display:none;"   @endif>
                             <div class="booking-field-label booking-laber-padding">
                                 <p class="text-left pt-2">{{config('booking.bus_arrive_time_slide.label')}}</p>
                             </div>
                             <div class="booking-field-content">
-                                
+
                                 <div class="dropdown">
                                     <button class="btn btn-border dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div class="bus-time">
@@ -87,6 +96,13 @@
                                                 if(isset($data_booking->bus_arrive_time_slide)){
                                                     foreach ($bus_arrive_time_slide as  $bus_time) {
                                                         if($bus_time->kubun_id == $data_booking->bus_arrive_time_slide){
+                                                            $first_bus_time = $bus_time;
+                                                            break;
+                                                        }
+                                                    }
+                                                }elseif(isset($pop_data['bus_arrive_time_slide'])){
+                                                    foreach ($bus_arrive_time_slide as  $bus_time) {
+                                                        if($bus_time->kubun_id == json_decode($pop_data['bus_arrive_time_slide'], true)['kubun_id']){
                                                             $first_bus_time = $bus_time;
                                                             break;
                                                         }
@@ -125,13 +141,27 @@
                                                         <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
                                                     </li>
                                                 @endif
+                                            @elseif(isset($pop_data['bus_arrive_time_slide']))
+                                                @if($value->kubun_id == json_decode($pop_data['bus_arrive_time_slide'], true)['kubun_id'])
+                                                    <li class="dropdown-item @if($i) {{ 'body-content' }} @endif active">
+                                                        <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
+                                                        <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
+                                                        <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
+                                                    </li>
+                                                @else
+                                                    <li class="dropdown-item @if($i) body-content @endif ">
+                                                        <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
+                                                        <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
+                                                        <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
+                                                    </li>
+                                                @endif
                                             @else
                                                 <li class="dropdown-item @if($i) body-content @else active @endif ">
                                                     <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
                                                     <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
                                                     <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
                                                 </li>
-                                            @endif   
+                                            @endif
                                             @php
                                             $i = true;
                                             @endphp
@@ -140,7 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="booking-field bus" @if(!isset($data_booking->transport) || ($data_booking->transport != '02')) style="display:none;"@endif>
+                        <div class="booking-field bus" @if((isset($data_booking->transport) && ($data_booking->transport == '02')) || (isset($pop_data['transport']) && (json_decode($pop_data['transport'], true)['kubun_id'] == '02'))) style="display:flex;" @else style="display:none;"   @endif>
                             <div class="booking-field-label booking-laber-padding">
                                 <p class="text-left pt-2">{{config('booking.pick_up.label')}}</p>
                             </div>
@@ -148,6 +178,8 @@
                                 <select name="pick_up" class="form-control">
                                     @foreach($pick_up as $value)
                                         @if(isset($data_booking->pick_up) && ($value->kubun_id == $data_booking->pick_up))
+                                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                        @elseif(isset($pop_data['pick_up']) && json_decode($pop_data['pick_up'], true)['kubun_id'] ==  $value->kubun_id)
                                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @else
                                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -165,6 +197,8 @@
                                 <select name="course" id="course" class="form-control">
                                     @foreach($course as $value)
                                         @if(isset($data_booking->course) && ($value->kubun_id == $data_booking->course))
+                                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                        @elseif(isset($pop_data['course']) && json_decode($pop_data['course'], true)['kubun_id'] ==  $value->kubun_id)
                                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @else
                                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -184,6 +218,13 @@
                             break;
                         }
                     }
+                }else if(isset($pop_data['course'])){
+                    foreach($course as $value){
+                        if($value->kubun_id == json_decode($pop_data['course'], true)['kubun_id']){
+                            $picked_course = $value;
+                            break;
+                        }
+                    }
                 }else{
                     foreach ($bus_arrive_time_slide as  $picked_course) {
                         break;
@@ -193,6 +234,7 @@
                 <input type="hidden" id="pick_course" value='@json($picked_course)'>
                 <input type="hidden" id="course_data" value='{{ isset($data_booking)?json_encode($data_booking):"" }}'>
                 <input type="hidden" id="course_time" value='{{ isset($data_time)?json_encode($data_time):"[]" }}'>
+                <input type="hidden" id="pop_data" value='{{ isset($pop_data)&&!empty($pop_data)?json_encode($pop_data):"" }}'>
                 <div class="service-warp">
 
                 </div>
@@ -224,10 +266,14 @@
                         </div>
                         <div class="button-right">
                             <button type="submit" class="btn btn-block text-white btn-booking">予約確認へ</button>
-                        </div> 
+                        </div>
                     </div>
                 @endif
             </div>
         </div>
+    </form>
+    <form id="back_2_booking" action="{{route('.back_2_booking')}}" method="POST">
+        @csrf
+        <input type="submit" value=""/>
     </form>
 </div>

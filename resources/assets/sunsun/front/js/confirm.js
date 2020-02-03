@@ -10,7 +10,6 @@ $(function() {
             init_event++;
             history.forward();
         }
-        // history.forward();/**/
     }
     history.pushState({confirm: false}, "Not checked", "");
     history.pushState({confirm: true}, "Checked", "");

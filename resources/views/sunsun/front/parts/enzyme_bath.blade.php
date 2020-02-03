@@ -2,6 +2,9 @@
     if( (!isset($course_data['course'])) || ($course_data['course'] != '01') ){
         $course_data = NULL;
     }
+    if(isset($pop_data)){
+        $pop_data = json_decode($pop_data, true);
+    }
 @endphp
 <div class="booking-block">
     <div class="collapse collapse-top show">
@@ -22,6 +25,8 @@
                     @foreach($gender as $value)
                         @if(isset($course_data['gender']) && ($value->kubun_id == $course_data['gender']))
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @elseif(isset($pop_data['gender']) && ($value->kubun_id == json_decode($pop_data['gender'], true)['kubun_id']))
+                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                         @else
                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
                         @endif
@@ -29,6 +34,18 @@
                 </select>
             </div>
         </div>
+
+
+        @php
+            $age_type = 3;
+            $age_type = isset($course_data['age_type'])?$course_data['age_type']:$age_type;
+            $age_type = isset($pop_data['age_type'])?$pop_data['age_type']:$age_type;
+            $show_age_value = true;
+            if($age_type != 3){
+                $show_age_value = false;
+            }
+
+        @endphp
 
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
@@ -38,16 +55,18 @@
                 <div class="button-age">
                     <input id="agecheck" name='age_type' type="hidden" value="3">
                     <div class="button-age-left">
-                        <button type="button" class="btn btn-block form-control text-dark mx-0 agecheck @if(isset($course_data['age_type']) && ($course_data['age_type'] == 1)) color-active @else btn-outline-warning   @endif" value="1">{{config('booking.age.age1')}}</button>
-                        <button type="button" class="btn btn-block form-control text-dark  margin-top-mini mx-0 agecheck @if(isset($course_data['age_type']) && (($course_data['age_type'] == 1) || ($course_data['age_type'] == 2))) btn-outline-warning @else  color-active  @endif" value="3">{{config('booking.age.age3')}}</button>
+                        <button type="button" class="btn btn-block form-control text-dark mx-0 agecheck @if($age_type == 1) color-active @else btn-outline-warning   @endif" value="1">{{config('booking.age.age1')}}</button>
+                        <button type="button" class="btn btn-block form-control text-dark  margin-top-mini mx-0 agecheck @if(($age_type == 1) || ($age_type == 2)) btn-outline-warning @else  color-active  @endif" value="3">{{config('booking.age.age3')}}</button>
                     </div>
                     <div class="button-age-right">
-                        <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck @if(isset($course_data['age_type']) && ($course_data['age_type'] == 2)) color-active @else btn-outline-warning   @endif" value="2">学生<span class="node-text">(中学生以上)</span></button>
+                        <button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck @if($age_type == 2) color-active @else btn-outline-warning   @endif" value="2">学生<span class="node-text">(中学生以上)</span></button>
                         <div class="age-col margin-top-mini">
-                            <div class="age-left">
+                            <div class="age-left"  @if(!$show_age_value) style="visibility: hidden;" @endif>
                                 <select id="age_value" name="age_value" class="form-control">
                                     @for($j = 18; $j < 100; $j++ )
                                         @if(isset($course_data['age_value']) && ($course_data['age_value'] == $j))
+                                            <option selected value='{{ $j }}'>{{ $j }}</option>
+                                        @elseif(isset($pop_data['age_value']) && ($pop_data['age_value'] == $j))
                                             <option selected value='{{ $j }}'>{{ $j }}</option>
                                         @else
                                             <option value='{{ $j }}'>{{ $j }}</option>
@@ -69,6 +88,9 @@
                 $booking_date = '';
                 if(isset($course_data['service_date_start'])){
                     $booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
+                }
+                if(isset($pop_data['date-value'])){
+                    $booking_date = substr($pop_data['date-value'], 0, 4).'/'.substr($pop_data['date-value'], 4, 2).'/'.substr($pop_data['date-value'], 6, 2);
                 }
             @endphp
             <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}} ">
@@ -142,6 +164,41 @@
                 @endforeach
                     </div>
                 </div>
+            @elseif(is_array($pop_data['time']))
+                        @foreach($pop_data['time'] as $key => $s_time)
+                            @php
+                                $s_time_data = substr($s_time['value'], 0, 2) . ":" . substr($s_time['value'], 2, 2);
+                            @endphp
+                            @if($key == 0)
+                                <div class="booking-field-content">
+                                    <div class="timedate-block set-time">
+                                        <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ $s_time_data }}" />
+                                        <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ $s_time['value'] }}">
+                                        <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ $s_time['bed'] }}">
+                                        <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
+                                        <input name="time[0][json]" class="data-json_input" id="time[0][json]" type="hidden" value="{{ $s_time['json'] }}">
+                                        <input name="time[0][element]" id="time[0][element]" type="hidden" value="error_time_0">
+                                        <input name="time[0][edit]" id="edit_0_time" type="hidden" value="0">
+                                    </div>
+                                    <div class="time-content">
+                            @else
+                                            <div class="block-content-1 margin-top-mini">
+                                                <div class="block-content-1-left">
+                                                    <div class="timedate-block set-time">
+                                                        <input name="time[{{ $key }}][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ $s_time_data }}" />
+                                                        <input name="time[{{ $key }}][value]" class="time_value" id="time[{{ $key }}][value]" type="hidden" value="{{ $s_time['value'] }}">
+                                                        <input name="time[{{ $key }}][bed]" class="time_bed" id="time[{{ $key }}][bed]" type="hidden" value="{{ $s_time['bed'] }}">
+                                                        <input name="time[{{$key}}][json]" class="data-json_input" type="hidden" value="{{ $s_time['json'] }}">
+                                                        <input name="time[{{$key}}][element]" id="time[0][element]" type="hidden" value="error_time_">
+                                                        <input name="time[{{$key}}][edit]" id="edit_{{$key}}_time" type="hidden" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>
+                                            </div>
+                             @endif
+                        @endforeach
+                        </div>
+                      </div>
             @else
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
@@ -200,6 +257,8 @@
                         @foreach($lunch as $value)
                             @if(isset($course_data['lunch']) && ($value->kubun_id == $course_data['lunch']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @elseif(isset($pop_data['lunch']) && ($value->kubun_id == json_decode($pop_data['lunch'], true)['kubun_id']))
+                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @else
                                 <option value='@json($value)'>{{ $value->kubun_value }}</option>
                             @endif
@@ -217,6 +276,8 @@
                         @foreach($whitening as $value)
                             @if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @elseif(isset($pop_data['whitening']) && ($value->kubun_id == json_decode($pop_data['whitening'], true)['kubun_id']))
+                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @else
                                 <option value='@json($value)'>{{ $value->kubun_value }}</option>
                             @endif
@@ -229,6 +290,16 @@
                 if(isset($course_data["whitening"]) && ($course_data['whitening'] == '02')){
                     $display_whitening = false;
                 }
+                if(isset($pop_data["whitening"]) && (json_decode($pop_data['whitening'], true)['kubun_id'] == '02')){
+                    $display_whitening = false;
+                }
+                $whitening_time = isset($course_data['whitening_time'])?$course_data['whitening_time']:'0';
+                $whitening_json = isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:'';
+                $whitening_view = isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'－';
+
+                $whitening_time = ($whitening_time === 0)?(isset($pop_data['whitening-time_value'])?$pop_data['whitening-time_value']:''):"";
+                $whitening_json = ($whitening_time === '')?(isset($pop_data['whitening_data']['json'])?$pop_data['whitening_data']['json']:''):"";
+                $whitening_view = ($whitening_view === '－')?(isset($pop_data['whitening-time_view'])?$pop_data['whitening-time_view']:'－'):"－";
             @endphp
             <div class="booking-field whitening"  @if($display_whitening) style="display:none;" @endif>
                 <div class="booking-field-label booking-laber-padding">
@@ -240,6 +311,12 @@
                             <option selected value='1'>はじめて</option>
                             <option value='0'>リピート</option>
                         @elseif(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 0))
+                            <option value='1'>はじめて</option>
+                            <option selected value='0'>リピート</option>
+                        @elseif(isset($pop_data['whitening_repeat']) && ($pop_data['whitening_repeat'] == 1))
+                            <option selected value='1'>はじめて</option>
+                            <option value='0'>リピート</option>
+                        @elseif(isset($pop_data['whitening_repeat']) && ($pop_data['whitening_repeat'] == 0))
                             <option value='1'>はじめて</option>
                             <option selected value='0'>リピート</option>
                         @else
@@ -257,9 +334,9 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="whitening-time_view"  value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'－' }}" />
-                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
-                        <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="{{ isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:''  }}">
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="whitening-time_view"  value="{{ $whitening_view }}" />
+                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ $whitening_time }}"/>
+                        <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="{{ $whitening_json  }}">
                         <input name="whitening_data[element]" type="hidden" value="whitening-time_view">
                     </div>
                 </div>
@@ -272,6 +349,8 @@
                     <select name="pet_keeping" class="form-control">
                         @foreach($pet_keeping as $value)
                             @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
+                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @elseif(isset($pop_data['pet_keeping']) && ($value->kubun_id == json_decode($pop_data['pet_keeping'], true)['kubun_id']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @else
                                 <option value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -294,6 +373,19 @@
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
+    @php
+        $room_whitening = true;
+        if(isset($course_data["stay_room_type"]) && ($course_data['stay_room_type'] != '01')){
+            $room_whitening = false;
+            $range_date_start= substr($course_data['stay_checkin_date'], 0, 4).'/'.substr($course_data['stay_checkin_date'], 4, 2).'/'.substr($course_data['stay_checkin_date'], 6, 2);
+            $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
+        }
+        if(isset($pop_data["stay_room_type"]) && (json_decode($pop_data['stay_room_type'], true)['kubun_id'] != '01')){
+            $room_whitening = false;
+            $range_date_start= substr($pop_data['range_date_start-value'], 0, 4).'/'.substr($pop_data['range_date_start-value'], 4, 2).'/'.substr($pop_data['range_date_start-value'], 6, 2);
+            $range_date_end = substr($pop_data['range_date_end-value'], 0, 4).'/'.substr($pop_data['range_date_end-value'], 4, 2).'/'.substr($pop_data['range_date_end-value'], 6, 2);
+        }
+    @endphp
     <div class="collapse collapse-finish">
         <div class="booking-block-finish">
             <div class="">
@@ -306,6 +398,8 @@
                             @foreach($stay_room_type as $value)
                                 @if(isset($course_data['stay_room_type']) && ($value->kubun_id == $course_data['stay_room_type']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @elseif(isset($pop_data['stay_room_type']) && ($value->kubun_id == json_decode($pop_data['stay_room_type'], true)['kubun_id']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @else
                                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @endif
@@ -313,14 +407,6 @@
                         </select>
                     </div>
                 </div>
-                @php
-                    $room_whitening = true;
-                    if(isset($course_data["stay_room_type"]) && ($course_data['stay_room_type'] != '01')){
-                        $room_whitening = false;
-                        $range_date_start= substr($course_data['stay_checkin_date'], 0, 4).'/'.substr($course_data['stay_checkin_date'], 4, 2).'/'.substr($course_data['stay_checkin_date'], 6, 2);
-                        $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
-                    }
-                @endphp
                 <div class="booking-field room" @if($room_whitening) style="display:none;" @endif>
                     <div class="booking-field-label booking-laber-padding">
                         <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
@@ -329,6 +415,8 @@
                         <select name="stay_guest_num" class="form-control">
                             @foreach($stay_guest_num as $value)
                                 @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @elseif(isset($pop_data['stay_guest_num']) && ($value->kubun_id == json_decode($pop_data['stay_guest_num'], true)['kubun_id']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @else
                                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -374,6 +462,8 @@
                         <select name="breakfast" class="form-control">
                             @foreach($breakfast as $value)
                                 @if(isset($course_data['breakfast']) && ($value->kubun_id == $course_data['breakfast']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @elseif(isset($pop_data['breakfast']) && ($value->kubun_id == json_decode($pop_data['breakfast'], true)['kubun_id']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @else
                                     <option value='@json($value)'>{{ $value->kubun_value }}</option>

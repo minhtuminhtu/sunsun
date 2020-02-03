@@ -2,6 +2,9 @@
     if( (!isset($course_data['course'])) || ($course_data['course'] != '03') ){
         $course_data = NULL;
     }
+    if(isset($pop_data)){
+        $pop_data = json_decode($pop_data, true);
+    }
 @endphp
 <div class="booking-block">
     <div class="collapse collapse-top show">
@@ -10,6 +13,9 @@
                 $booking_date = '';
                 if(isset($course_data['service_date_start'])){
                     $booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
+                }
+                if(isset($pop_data['date-value'])){
+                    $booking_date = substr($pop_data['date-value'], 0, 4).'/'.substr($pop_data['date-value'], 4, 2).'/'.substr($pop_data['date-value'], 6, 2);
                 }
             @endphp
             <input name="date-view" id="date-view" type="hidden" value="">
@@ -29,7 +35,17 @@
             if(isset($course_data['service_time_1'])){
                 $time = ltrim(substr($course_data['service_time_1'], 0, 2), '0') . ":" . substr($course_data['service_time_1'], 2, 2);
                 $bed = substr($course_data['bed'], 0, 1);
+                $time_value = $course_data['service_time_1'];
+                $time_json = isset($course_data['time_json'])?$course_data['time_json']:'';
             }
+            if(isset($pop_data['time_room_value'])){
+                $time = ltrim(substr($pop_data['time_room_value'], 0, 2), '0') . ":" . substr($pop_data['time_room_value'], 2, 2);
+                $bed = substr($pop_data['time_room_bed'], 0, 1);
+                $time_value = $pop_data['time_room_value'];
+                $time_json = isset($pop_data['time'][0]['json'])?$pop_data['time'][0]['json']:"";
+            }
+
+
         @endphp
         <div class="booking-field">
             <div class="booking-field-label  booking-laber-padding">
@@ -40,10 +56,10 @@
             <div class="booking-field-content">
                 <div class="timedate-block set-time">
 
-                    <input name="time_room_value" id="time_room_value"  type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
+                    <input name="time_room_value" id="time_room_value"  type="hidden" value="{{ isset($time_value)?$time_value:'0' }}">
                     <input name="time_room_bed" id="time_room_bed" type="hidden" value="{{ isset($bed)?$bed:'0' }}">
                     <input name="time_room_view" type="text" id="time_room_view" class="form-control time js-set-room bg-white"  readonly="readonly" value="{{ isset($time)?$time.'～':'－' }}">
-                    <input name="time[0][json]" class="data-json_input" id="time[0][json]" type="hidden" value="{{ isset($course_data['time_json'])?$course_data['time_json']:'' }}">
+                    <input name="time[0][json]" class="data-json_input" id="time[0][json]" type="hidden" value="{{ isset($time_json)?$time_json:'' }}">
                     <input name="time[0][element]" type="hidden" value="time_room_view">
                 </div>
 
@@ -57,6 +73,8 @@
                 <select name="service_guest_num" class="form-control">
                     @foreach($service_guest_num as $value)
                         @if(isset($course_data['service_guest_num']) && ($value->kubun_id == $course_data['service_guest_num']))
+                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                        @elseif(isset($pop_data['service_guest_num']) && ($value->kubun_id == json_decode($pop_data['service_guest_num'], true)['kubun_id']))
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                         @else
                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -88,6 +106,8 @@
                         @foreach($lunch_guest_num as $value)
                             @if(isset($course_data['lunch_guest_num']) && ($value->kubun_id == $course_data['lunch_guest_num']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @elseif(isset($pop_data['lunch_guest_num']) && ($value->kubun_id == json_decode($pop_data['lunch_guest_num'], true)['kubun_id']))
+                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @else
                                 <option value='@json($value)'>{{ $value->kubun_value }}</option>
                             @endif
@@ -105,6 +125,8 @@
                         @foreach($whitening as $value)
                             @if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @elseif(isset($pop_data['whitening']) && ($value->kubun_id == json_decode($pop_data['whitening'], true)['kubun_id']))
+                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @else
                                 <option value='@json($value)'>{{ $value->kubun_value }}</option>
                             @endif
@@ -117,6 +139,16 @@
                 if(isset($course_data["whitening"]) && ($course_data['whitening'] == '02')){
                     $display_whitening = false;
                 }
+                if(isset($pop_data["whitening"]) && (json_decode($pop_data['whitening'], true)['kubun_id'] == '02')){
+                    $display_whitening = false;
+                }
+                $whitening_time = isset($course_data['whitening_time'])?$course_data['whitening_time']:'0';
+                $whitening_json = isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:'';
+                $whitening_view = isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'－';
+
+                $whitening_time = ($whitening_time === 0)?(isset($pop_data['whitening-time_value'])?$pop_data['whitening-time_value']:''):"";
+                $whitening_json = ($whitening_time === '')?(isset($pop_data['whitening_data']['json'])?$pop_data['whitening_data']['json']:''):"";
+                $whitening_view = ($whitening_view === '－')?(isset($pop_data['whitening-time_view'])?$pop_data['whitening-time_view']:'－'):"－";
             @endphp
             <div class="booking-field whitening"  @if($display_whitening) style="display:none;" @endif>
                 <div class="booking-field-label booking-laber-padding">
@@ -128,6 +160,12 @@
                             <option selected value='1'>はじめて</option>
                             <option value='0'>リピート</option>
                         @elseif(isset($course_data['whitening_repeat']) && ($course_data['whitening_repeat'] == 0))
+                            <option value='1'>はじめて</option>
+                            <option selected value='0'>リピート</option>
+                        @elseif(isset($pop_data['whitening_repeat']) && ($pop_data['whitening_repeat'] == 1))
+                            <option selected value='1'>はじめて</option>
+                            <option value='0'>リピート</option>
+                        @elseif(isset($pop_data['whitening_repeat']) && ($pop_data['whitening_repeat'] == 0))
                             <option value='1'>はじめて</option>
                             <option selected value='0'>リピート</option>
                         @else
@@ -144,9 +182,9 @@
                 <div class="booking-field-content">
                     <div class="node-text">ホワイトニング時間</div>
                     <div class="timedate-block set-time">
-                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" value="{{ isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'－' }}" />
-                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ isset($course_data['whitening_time'])?$course_data['whitening_time']:'0' }}"/>
-                        <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="{{ isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:''  }}">
+                        <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white" id="whitening-time_view"  readonly="readonly" value="{{ $whitening_view }}" />
+                        <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ $whitening_time }}"/>
+                        <input name="whitening_data[json]" class="data-json_input" id="whitening_data[json]" type="hidden" value="{{ $whitening_json  }}">
                         <input name="whitening_data[element]" type="hidden" value="whitening-time_view">
                     </div>
                 </div>
@@ -180,6 +218,19 @@
         </div>
         <!-- <hr class="booking-line-line"> -->
     </div>
+    @php
+        $room_whitening = true;
+        if(isset($course_data["stay_room_type"]) && ($course_data['stay_room_type'] != '01')){
+            $room_whitening = false;
+            $range_date_start= substr($course_data['stay_checkin_date'], 0, 4).'/'.substr($course_data['stay_checkin_date'], 4, 2).'/'.substr($course_data['stay_checkin_date'], 6, 2);
+            $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
+        }
+        if(isset($pop_data["stay_room_type"]) && (json_decode($pop_data['stay_room_type'], true)['kubun_id'] != '01')){
+            $room_whitening = false;
+            $range_date_start= substr($pop_data['range_date_start-value'], 0, 4).'/'.substr($pop_data['range_date_start-value'], 4, 2).'/'.substr($pop_data['range_date_start-value'], 6, 2);
+            $range_date_end = substr($pop_data['range_date_end-value'], 0, 4).'/'.substr($pop_data['range_date_end-value'], 4, 2).'/'.substr($pop_data['range_date_end-value'], 6, 2);
+        }
+    @endphp
     <div class="collapse collapse-finish">
         <div class="booking-block-finish">
             <div class="">
@@ -192,6 +243,8 @@
                             @foreach($stay_room_type as $value)
                                 @if(isset($course_data['stay_room_type']) && ($value->kubun_id == $course_data['stay_room_type']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @elseif(isset($pop_data['stay_room_type']) && ($value->kubun_id == json_decode($pop_data['stay_room_type'], true)['kubun_id']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @else
                                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @endif
@@ -199,14 +252,7 @@
                         </select>
                     </div>
                 </div>
-                @php
-                    $room_whitening = true;
-                    if(isset($course_data["stay_room_type"]) && ($course_data['stay_room_type'] != '01')){
-                        $room_whitening = false;
-                        $range_date_start= substr($course_data['stay_checkin_date'], 0, 4).'/'.substr($course_data['stay_checkin_date'], 4, 2).'/'.substr($course_data['stay_checkin_date'], 6, 2);
-                        $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
-                    }
-                @endphp
+
                 <div class="booking-field room" @if($room_whitening) style="display:none;" @endif>
                     <div class="booking-field-label  booking-laber-padding">
                         <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
@@ -215,6 +261,8 @@
                         <select name="stay_guest_num" class="form-control">
                             @foreach($stay_guest_num as $value)
                                 @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @elseif(isset($pop_data['stay_guest_num']) && ($value->kubun_id == json_decode($pop_data['stay_guest_num'], true)['kubun_id']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @else
                                     <option value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -255,6 +303,8 @@
                         <select name="breakfast"  class="form-control">
                             @foreach($breakfast as $value)
                                 @if(isset($course_data['breakfast']) && ($value->kubun_id == $course_data['breakfast']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @elseif(isset($pop_data['breakfast']) && ($value->kubun_id == json_decode($pop_data['breakfast'], true)['kubun_id']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                 @else
                                     <option value='@json($value)'>{{ $value->kubun_value }}</option>

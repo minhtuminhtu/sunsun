@@ -1,4 +1,21 @@
 $(function() {
+    let init_event = 0;
+    window.onpopstate = function(event) {
+        //alert(`location: ${document.location}, state: ${JSON.stringify(event.state.confirm)}`)
+        console.log(event.state.booking)
+        if ( (event.state.booking === false) && (init_event !== 0)) {
+            // alert("nothing!");
+            $( "#back_2_booking" ).submit();
+        } else {
+            init_event++;
+            history.forward();
+        }
+    }
+    history.pushState({booking: false}, "Not checked", "");
+    history.pushState({booking: true}, "Checked", "");
+    history.back();
+
+
     let modal_choice_time = $('#choice_date_time');
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
@@ -8,7 +25,7 @@ $(function() {
         today = moment(today).add(1, 'days');
     }
     var tomorrow = moment(today).add(1, 'days');
-    let get_service = function(course, course_data, course_time) {
+    let get_service = function(course, course_data, course_time, pop_data) {
         // delete validate color
         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
         // end validate color
@@ -18,7 +35,8 @@ $(function() {
         let data = {
             'service': course,
             'course_data' : course_data,
-            'course_time' : course_time
+            'course_time' : course_time,
+            'pop_data' : pop_data
         };
         if ($('input[name=add_new_user]').val() == 'on' ) {
             data.add_new_user = 'on';
@@ -43,9 +61,9 @@ $(function() {
         });
     }
     $('#course').on('change', function() {
-        get_service($('#course').val(), $('#course_data').val(), $('#course_time').val());
+        get_service($('#course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
     });
-    get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val());
+    get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
     let load_event = function(date_check = false) {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');

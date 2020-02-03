@@ -37,10 +37,21 @@ class BookingController extends Controller
     }
 
     public function back_2_booking(Request $request){
-        $data = $request->all();
-        $data['customer'] = $this->pop_booking($request);
-//        $b = array_pop($data['customer']['info']);
-        dd($data);
+        if($this->check_pop_booking($request) == true){
+            $data_temp1 = $request->all();
+            $this->fetch_kubun_data($data_temp1);
+            $data_temp2 = $this->pop_booking($request);
+
+            $data = array_merge($data_temp2, $data_temp1);
+            $data = array_merge($data, $data_temp2['pop_data']['customer']);
+            if(isset($data_temp2['pop_data']['add_new_user'])){
+                $data['add_new_user'] = $data_temp2['pop_data']['add_new_user'];
+            }
+//            dd($data);
+            return view('sunsun.front.booking',$data);
+        }else{
+            return redirect("/booking");
+        }
     }
 
 
@@ -333,13 +344,40 @@ class BookingController extends Controller
         return $time_required;
     }
 
-    public function pop_booking($request){
+    public function check_pop_booking($request){
         $info = [];
         if ($request->session()->has($this->session_info)) {
             $info = $request->session()->get($this->session_info);
         }
-        return $info;
+        if(isset($info['info']) && count($info['info']) > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
+
+    public function pop_booking($request) {
+        $info = [];
+        if ($request->session()->has($this->session_info)) {
+            $info = $request->session()->get($this->session_info);
+        }
+        $return_data['pop_data'] = array_pop($info['info']);
+
+        if(json_decode($return_data['pop_data']['course'], true)['kubun_id'] === '03'){
+            for($i = 0; $i < 5; $i++){
+                $return_data['pop_data'] = array_pop($info['info']);
+            }
+        }
+
+        $return_data['pop_data']['customer']['customer'] = $info;
+        if(count($info['info']) == 0){
+            $request->session()->forget($this->session_info);
+        }else{
+            $request->session()->put($this->session_info,$info);
+        }
+        return $return_data;
+    }
+
     /**
      * @param $request Request
      * @return array
@@ -2465,6 +2503,8 @@ class BookingController extends Controller
                                                         substr($data['course_data']['whitening_time'], 5, 2) . ":".
                                                         substr($data['course_data']['whitening_time'], 7, 2);
         }
+
+//        dd($data);
         if ($json->kubun_id == "01") {
             return view('sunsun.front.parts.enzyme_bath',$data)->render();
         } elseif ($json->kubun_id == "02") {

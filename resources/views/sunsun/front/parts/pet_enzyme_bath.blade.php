@@ -2,6 +2,9 @@
     if( (!isset($course_data['course'])) || ($course_data['course'] != '05') ){
         $course_data = NULL;
     }
+    if(isset($pop_data)){
+        $pop_data = json_decode($pop_data, true);
+    }
 @endphp
 <div class="booking-block">
 
@@ -11,13 +14,16 @@
             if(isset($course_data['service_date_start'])){
                 $booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
             }
+            if(isset($pop_data['date-value'])){
+                $booking_date = substr($pop_data['date-value'], 0, 4).'/'.substr($pop_data['date-value'], 4, 2).'/'.substr($pop_data['date-value'], 6, 2);
+            }
         @endphp
         <div class="booking-field {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}">
             <div class="booking-field-label  booking-laber-padding">
                 <p class="text-left pt-2">{{config('booking.date.label')}}</p>
             </div>
-            <input name="date-view" id="date-view" type="hidden" value="">
-            <input name="date-value" id="date-value" type="hidden" value="">
+            <input name="date-view" id="date-view" type="hidden" value="222">
+            <input name="date-value" id="date-value" type="hidden" value="{{ isset($pop_data['date-value'])?$pop_data['date-value']:''  }}">
             <div class="booking-field-content">
                 <div class="timedate-block date-warp">
                     <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" value="{{ $booking_date }}" />
@@ -30,6 +36,19 @@
             $time = substr($course_data['service_time_1'], 0, 2) . ":" . substr($course_data['service_time_1'], 2, 2) . "～"
             . substr($course_data['service_time_2'], 0, 2) . ":" . substr($course_data['service_time_2'], 2, 2);
         }
+        if(isset($pop_data['time_room_time1'])){
+            $time = substr($pop_data['time_room_time1'], 0, 2) . ":" . substr($pop_data['time_room_time1'], 2, 2) . "～"
+            . substr($pop_data['time_room_time2'], 0, 2) . ":" . substr($pop_data['time_room_time2'], 2, 2);
+        }
+        $time_json = isset($course_data['time_json'])?$course_data['time_json']:'';
+        $time_json = ($time_json === '')?(isset($pop_data['time'][0]['json'])?$pop_data['time'][0]['json']:'0'):'';
+
+        $service_time_1 = isset($course_data['service_time_1'])?$course_data['service_time_1']:'';
+        $service_time_1 = ($service_time_1 === '')?(isset($pop_data['time_room_time1'])?$pop_data['time_room_time1']:'0'):'0';
+
+        $service_time_2 = isset($course_data['service_time_2'])?$course_data['service_time_2']:'';
+        $service_time_2 = ($service_time_2 === '')?(isset($pop_data['time_room_time2'])?$pop_data['time_room_time2']:'0'):'0';
+
     @endphp
     <div class="booking-field">
         <div class="booking-field-label  booking-laber-padding">
@@ -40,10 +59,10 @@
         <div class="booking-field-content">
             <div class="timedate-block set-time">
 
-                <input name="time_room_time1" id="time_room_time1" type="hidden" value="{{ isset($course_data['service_time_1'])?$course_data['service_time_1']:'0' }}">
-                <input name="time_room_time2" id="time_room_time2" type="hidden" value="{{ isset($course_data['service_time_2'])?$course_data['service_time_2']:'0' }}">
+                <input name="time_room_time1" id="time_room_time1" type="hidden" value="{{ $service_time_1 }}">
+                <input name="time_room_time2" id="time_room_time2" type="hidden" value="{{ $service_time_2 }}">
                 <input name="time_room" type="text" class="form-control time js-set-room_pet bg-white"  id="time_room_pet_0"   readonly="readonly" id="" value="{{ isset($time)?$time:'－' }}">
-                <input name="time[0][json]" class="data-json_input" id="time_room_pet_json" type="hidden" value="{{ isset($course_data['time_json'])?$course_data['time_json']:'0' }}">
+                <input name="time[0][json]" class="data-json_input" id="time_room_pet_json" type="hidden" value="{{ $time_json }}">
                 <input name="time[0][element]" id="" type="hidden" value="time_room_pet_0">
             </div>
 
@@ -58,6 +77,8 @@
                 @foreach($service_pet_num as $value)
                     @if(isset($course_data['service_pet_num']) && ($value->kubun_id == $course_data['service_pet_num']))
                         <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                    @elseif(isset($pop_data['service_pet_num']) && ($value->kubun_id == json_decode($pop_data['service_pet_num'], true)['kubun_id']))
+                        <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                     @else
                         <option value='@json($value)'>{{ $value->kubun_value }}</option>
                     @endif
@@ -70,7 +91,11 @@
             <p class="text-left pt-2">{{config('booking.pet_type.label')}}</p>
         </div>
         <div class="booking-field-content">
-            <textarea class="form-control" maxlength="255" name='notes' rows="3">{{ isset($course_data['notes'])?$course_data['notes']:'' }}</textarea>
+            @php
+                $pet_type = isset($course_data['notes'])?$course_data['notes']:'';
+                $pet_type = ($pet_type === '')?(isset($pop_data['notes'])?$pop_data['notes']:''):'';
+            @endphp
+            <textarea class="form-control" maxlength="255" name='notes' rows="3">{{ $pet_type }}</textarea>
         </div>
     </div>
 </div>
