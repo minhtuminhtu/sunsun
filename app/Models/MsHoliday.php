@@ -20,6 +20,7 @@ class MsHoliday extends Model
         $this->fillable = [
             config('const.db.ms_holiday.DATE_HOLIDAY'),
             config('const.db.ms_holiday.TIME_HOLIDAY'),
+            config('const.db.ms_holiday.TYPE_HOLIDAY'),
         ];
         parent::__construct($attributes);
     }
