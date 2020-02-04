@@ -188,8 +188,8 @@
                             $time_end = NULL;
                             $time_start = substr($unique_time['from']['value'], 0, 2) . ":" . substr($unique_time['from']['value'], 2, 2);
                             $time_end = substr($unique_time['to']['value'], 0, 2) . ":" . substr($unique_time['to']['value'], 2, 2);
-                            $bed_start = substr($unique_time['from']['bed'], 0, 1);
-                            $bed_end = substr($unique_time['to']['bed'], 2, 3);
+                            $bed_start = $unique_time['from']['bed'];
+                            $bed_end = $unique_time['to']['bed'];
 
                             $time1_json = $pop_data['time'][$key]['from']['json'];
                             $time2_json = $pop_data['time'][$key]['to']['json'];
@@ -215,9 +215,9 @@
                                     <div class="set-time">
                                         <input name="date[{{ $key }}][from][value]" type="hidden" class="time_from time_value" readonly="readonly" value="{{ isset($time_start_value)?$time_start_value:'0' }}" />
                                         <input name="date[{{ $key }}][from][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_start)?$bed_start:'0' }}" />
-                                        <input name="date[{{ $key }}][from][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="" data-date_type="form" readonly="readonly" value="{{ isset($time_start)?$time_start:'－' }}" />
+                                        <input name="date[{{ $key }}][from][view]" type="text" id="time_bath_{{ $key }}1" class="time form-control js-set-time bg-white" data-date_value="" data-date_type="form" readonly="readonly" value="{{ isset($time_start)?$time_start:'－' }}" />
                                         <input name="time[{{ $key }}][from][json]" type="hidden" class="data-json_input" value="{{ isset($time1_json)?$time1_json:'' }}" />
-                                        <input name="time[{{ $key }}][from][element]" type="hidden" value="time_bath_10" />
+                                        <input name="time[{{ $key }}][from][element]" type="hidden" value="time_bath_{{ $key }}1" />
                                     </div>
                                     <div class="icon-time mt-1">
                                     </div>
@@ -226,9 +226,9 @@
                                     <div class="set-time">
                                         <input name="date[{{ $key }}][to][value]" type="hidden" class="time_to time_value" readonly="readonly" value="{{ isset($time_end_value)?$time_end_value:'0' }}" />
                                         <input name="date[{{ $key }}][to][bed]" type="hidden" class="time_bed" readonly="readonly" value="{{ isset($bed_end)?$bed_end:'0' }}" />
-                                        <input name="date[{{ $key }}][to][view]" type="text" class="time form-control js-set-time bg-white" data-date_value="" data-date_type="to" readonly="readonly" value="{{ isset($time_end)?$time_end:'－' }}" />
-                                        <input name="time[{{ $key }}][to][json]" type="hidden" class="data-json_input" value="{{ isset($time2_json)?$time1_json:'' }}" />
-                                        <input name="time[{{ $key }}][to][element]" type="hidden" value="time_bath_11" />
+                                        <input name="date[{{ $key }}][to][view]" type="text" id="time_bath_{{ $key }}2" class="time form-control js-set-time bg-white" data-date_value="" data-date_type="to" readonly="readonly" value="{{ isset($time_end)?$time_end:'－' }}" />
+                                        <input name="time[{{ $key }}][to][json]" type="hidden" class="data-json_input" value="{{ isset($time2_json)?$time2_json:'' }}" />
+                                        <input name="time[{{ $key }}][to][element]" type="hidden" value="time_bath_{{ $key }}2" />
                                     </div>
                                     <div class="icon-time mt-1"></div>
                                 </div>

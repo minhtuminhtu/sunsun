@@ -453,6 +453,7 @@ class BookingController extends Controller
         return view('sunsun.front.payment',$data);
     }
     public function make_bill (&$data) {
+
         //dd($data);
         $info_booking = $data['customer'];
         $bill = [];
@@ -557,6 +558,7 @@ class BookingController extends Controller
     public function get_price_option ($booking, &$bill) {
         $course = json_decode($booking['course'], true);
         $data_option_price = MsKubun::where('kubun_type','029')->get(); // get all options price
+        $price = MsKubun::where('kubun_type','030')->get();
         //dd($booking);
         if (isset($booking['lunch']) || isset($booking['lunch_guest_num'])) { // an trua 01
             $price_luch = 0;
