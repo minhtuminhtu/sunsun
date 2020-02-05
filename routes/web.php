@@ -232,5 +232,14 @@ Route::middleware('begin.auth')->group(function(){
         Route::get('/search-paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_search_pagination']);
         Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
 
+        // holiday
+        Route::get('/ms_holiday',['as' => '.msholiday', 'uses' => 'AdminController@ms_holiday']);
+        Route::post('/create',['as' => '.addmsholiday', 'uses' => 'AdminController@add_holiday']);
+        Route::post('/update_holiday',['as' => '.update_holiday', 'uses' => 'AdminController@update_holiday']);
+        Route::get('/holiday_search_paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_holiday_search_pagination']);
+
+        // time off holiday
+        //Route::get('/time_off',['as' => '.timeoff', 'uses' => 'TimeOffController@Create']);
+    
     });
 });

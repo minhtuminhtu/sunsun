@@ -101,6 +101,14 @@
         .control-align_center a{
             text-decoration: none;
         }
+        td.col-password{
+            max-width: 100px;
+            overflow: hidden;
+            /* text-overflow: ellipsis;
+            white-space: nowrap; */
+            word-wrap:break-word; /*old browsers */
+            overflow-wrap:break-word;
+        }
     </style>
 @endsection
 @section('main')

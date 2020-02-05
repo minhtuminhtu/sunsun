@@ -577,7 +577,7 @@ class BookingController extends Controller
         $range_day = DB::select("
             SELECT  date_holiday
             FROM    ms_holiday
-            WHERE   time_holiday is null
+            WHERE   time_holiday is null and type_holiday is null
         ");
         foreach($range_day as $da){
             array_push($date_selected, Carbon::parse($da->date_holiday)->format('Y/m/d'));
@@ -1785,6 +1785,7 @@ class BookingController extends Controller
     }
     public function get_validate_time_choice ($course, $data, $data_get_attr, &$validate_time, &$day_book_time) {
         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
+            Log::debug(' check normal');
             if ((count($data['time']) > 0 && isset($data_get_attr['new'])) || (count($data['time']) > 1)) {
                 foreach ($data['time'] as $key => $time_book) {
                     if ($time_book['value'] != '0') {
@@ -1794,6 +1795,7 @@ class BookingController extends Controller
                 }
             }
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
+            Log::debug('check day refresh');
             if ($data_get_attr['date_type'] == 'shower_1' && $data['time2-value'] != '0') {
                 $validate_time['1_DAY_REFRESH']['max'] = $this->plus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
                 $validate_time['1_DAY_REFRESH']['min'] = $this->minus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
@@ -1803,21 +1805,22 @@ class BookingController extends Controller
             }
             //dd($data);
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')) { // fasting plan
+            Log::debug($data_get_attr);
             $type = $data_get_attr['date_type'];
             $day_book_time = $data_get_attr['date'];
-            if ($type == 'to') {
+            //if ($type == 'to') {
                 $date_select = $data['date'];
                 $tmp_time = [];
                 foreach ($date_select as $key => $value) {
                     $date = $data_get_attr['date'];
                     if ($date == $value['day']['value']) {
-                        $tmp_time[] = $value['from']['value'];
+                        $tmp_time[] = ($type == 'to') ? $value['from']['value'] : $value['to']['value'] ;
                     }
                 }
                 $time_validate = collect($tmp_time)->max();
                 $validate_time['FASTING_PLAN']['max'] = $this->plus_time_string($time_validate, 120); // plus 2h between 2 times shower
                 $validate_time['FASTING_PLAN']['min'] = $this->minus_time_string($time_validate, 120); // plus 2h between 2 times shower
-            }
+            //}
         }
         //return $validate_time;
     }
@@ -2014,6 +2017,14 @@ class BookingController extends Controller
                                         where mh.date_holiday = :date_holiday and
                                             (
                                                 mh.time_holiday = mk1.time_holiday or mh.time_holiday is null
+                                            )
+                                            and mh.type_holiday =
+                                            (
+                                                case
+                                                    when mk1.kubun_type = '020' then '2'
+                                                    when mk1.kubun_type = '021' then '3'
+                                                    else '1'
+                                                end
                                             )
                                     ) THEN 0 ";
 

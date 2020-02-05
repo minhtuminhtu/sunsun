@@ -877,6 +877,13 @@ let load_pick_time_event = function(){
         $value.date_type = set_time_click.attr('data-date_type');
         $get_date.value = JSON.stringify($value);
         $data.push($get_date);
+        var name_date = this.name;
+        var value_date = name_date.replace("view", "value");
+        $.each($data, function() {
+            if (this.name == name_date || this.name == value_date) {
+                this.value = "";
+            }
+        });
         $.ajax({
             url: '/get_time_room',
             type: 'POST',
