@@ -50,73 +50,21 @@
                     <div class="">
                         <table class="table table-bordered">
                             <tbody>
-                            @if($bill['course_1']['quantity'] != 0)
-                            <tr>
-                                <td class="text-left">{{ $bill['course_1']['name'] }}</td>
-                                <td class="text-right">{{ $bill['course_1']['quantity'] }}回</td>
-                                <td class="text-right">{{number_format($bill['course_1']['price'])}}</td>
-                            </tr>
-                            @endif
-
-                            @if($bill['course_2']['quantity'] != 0)
+                            @foreach($new_bill as $key => $n_bill)
+                                @if($n_bill['quantity'] > 0)
                                 <tr>
-                                    <td class="text-left">{{ $bill['course_2']['name'] }}</td>
-                                    <td class="text-right">{{ $bill['course_2']['quantity'] }}日</td>
-                                    <td class="text-right">{{number_format($bill['course_2']['price'])}}</td>
+                                    <td class="text-left">{{ $n_bill['name'] }}</td>
+                                    <td class="text-right">{{ $n_bill['quantity'].$n_bill['unit'] }}</td>
+                                    <td class="text-right">{{ $n_bill['price'] }}</td>
                                 </tr>
-                            @endif
-
-                            @if($bill['course_3']['quantity'] != 0)
-                                <tr>
-                                    <td class="text-left">{{ $bill['course_3']['name'] }}</td>
-                                    <td class="text-right">{{ $bill['course_3']['quantity'] }}回</td>
-                                    <td class="text-right">{{number_format($bill['course_3']['price'])}}</td>
-                                </tr>
-                            @endif
-
-                            @if($bill['course_4']['quantity'] != 0)
-                                <tr>
-                                    <td class="text-left">{{ $bill['course_4']['name'] }}</td>
-                                    <td class="text-right">{{ $bill['course_4']['quantity'] }}日</td>
-                                    <td class="text-right">{{number_format($bill['course_4']['price'])}}</td>
-                                </tr>
-                            @endif
-
-                            @if($bill['course_5']['quantity'] != 0)
-                                <tr>
-                                    <td class="text-left">{{ $bill['course_5']['name'] }}</td>
-                                    <td class="text-right">{{ $bill['course_5']['quantity'] }}回</td>
-                                    <td class="text-right">{{number_format($bill['course_5']['price'])}}</td>
-                                </tr>
-                            @endif
-
-
-                            @foreach($bill['options'] as $key => $option)
-                                @if($key == '02_03')
-                                    <tr>
-                                        <td class="text-left">宿泊 {{$option['room']}}</td>
-                                        <td class="text-right">{{$option['quantity']}}日</td>
-                                        <td class="text-right">{{number_format($option['price'])}}</td>
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <td class="text-left">{{$option['name']}}</td>
-                                        @if($key != '04_05')
-                                        <td class="text-right">{{$option['quantity']}}人</td>
-                                        @else
-                                        <td class="text-right">{{$option['quantity']}}匹</td>
-                                        @endif
-                                        <td class="text-right">{{number_format($option['price'])}}</td>
-                                    </tr>
                                 @endif
                             @endforeach
-
                             </tbody>
                             <tfoot>
                             <tr>
                                 <th scope="col" style="width: 50%" class="text-left price-laber">{{config('booking.total.label')}}</th>
                                 <th scope="col" style="width: 15%" class="text-right price-laber"></th>
-                                <th scope="col" style="width: 35%" class="text-right price-laber">{{number_format($bill['total'])}}</th>
+                                <th scope="col" style="width: 35%" class="text-right price-laber">{{ isset($total)?number_format($total):0 }}</th>
                             </tr>
                             </tfoot>
                         </table>
