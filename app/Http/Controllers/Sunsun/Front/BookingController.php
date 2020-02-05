@@ -777,12 +777,25 @@ class BookingController extends Controller
             $price_white = 0;
             $whitening = json_decode($booking['whitening'], true);
             if ($whitening['kubun_id'] !== '01') {
-                $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
-                $price_white = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                if($course['kubun_id'] == '03'){
+                    $quantity = json_decode( $booking['service_guest_num'], true);
+                    $number_customer = (int)$quantity['notes'];
 
-                $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
-                $new_bill[$sort_no_temp->sort_no]['price'] += $price_white;
-                $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $price_white = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $price_white * $number_customer;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += $number_customer;
+                }else{
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $price_white = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $price_white;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
+                }
+
             }
         }
     }
