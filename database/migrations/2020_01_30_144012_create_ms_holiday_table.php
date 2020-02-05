@@ -17,11 +17,8 @@ class CreateMsHolidayTable extends Migration
             $table->bigIncrements('ms_holiday_id');
             $table->string('date_holiday',8);
             $table->string('time_holiday',4)->nullable();
-<<<<<<< Updated upstream
             $table->string('type_holiday',1)->nullable();
-=======
             $table->string('note_holiday',255)->nullable();
->>>>>>> Stashed changes
         });
     }
 
