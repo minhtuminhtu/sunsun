@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\MsKubun;
+use App\Models\MsHoliday;
 use App\Http\Controllers\Sunsun\Front\BookingController;
 use Illuminate\Support\Facades\Log;
 use App\Exports\UsersExport;
@@ -76,9 +77,15 @@ class AdminController extends Controller
                       , SUBSTRING(time.notes, 1, 1) as bed
                 FROM        tr_yoyaku as main
                 LEFT JOIN tr_yoyaku_danjiki_jikan as time
+<<<<<<< Updated upstream
                 ON          main.booking_id = time.booking_id
                 WHERE   main.course = '01'
                 AND main.history_id IS NULL
+=======
+                ON			main.booking_id = time.booking_id
+                WHERE 	main.course = '01'      
+                AND main.history_id IS NULL 
+>>>>>>> Stashed changes
                 AND time.service_date = $date
                 AND main.fake_booking_flg IS NULL
                 AND (
@@ -1411,7 +1418,12 @@ class AdminController extends Controller
             if(!(empty($data['notshowdeleted'])))
             {
                 $list_search = $this->get_list_search_user($data);
-                $request->session()->put('key',$data);
+                if ($request->session()->has('key')) {
+                    $request->session()->forget('key');
+                    $request->session()->put('key',$data);
+                }else{
+                    $request->session()->put('key',$data);
+                }
                 $view = view('sunsun.admin.layouts.user_data',['data' => $list_search, 'type' => 1])->render();
                 return [
                     'status' => true,
@@ -1419,7 +1431,12 @@ class AdminController extends Controller
                 ];
             }else{
                 $list_search = $this->get_list_search_user($data);
-                $request->session()->put('key',$data);
+                if ($request->session()->has('key')) {
+                    $request->session()->forget('key');
+                    $request->session()->put('key',$data);
+                }else{
+                    $request->session()->put('key',$data);
+                }
                 $view = view('sunsun.admin.layouts.user_data',['data' => $list_search, 'type' => 1])->render();
                 return [
                     'status' => true,
@@ -1476,7 +1493,6 @@ class AdminController extends Controller
             }else{
                 $data = MsUser::whereNotIn('ms_user_id', [1])->paginate(20);
             }
-            Log::debug($data);
         }
         return $data;
     }
@@ -1547,4 +1563,139 @@ class AdminController extends Controller
             return Excel::download(new UsersExport(), $date_down.'.csv');
         }
     }
+
+    // ms_holiday
+    public function ms_holiday(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $list_search = $this->get_list_search_holiday($data);
+            $view = view('sunsun.admin.layouts.holiday_data',['data' => $list_search, 'type' => 1])->render();
+            return [
+                'status' => true,
+                'data' => $view
+            ];
+        }
+        else
+        {
+            $list_data = $this->get_data_holiday();
+            return view('sunsun.admin.msholiday', ['data' => $list_data, 'type' => 0]);
+        }
+    }
+
+    // add holiday
+    public function add_holiday(Request $request)
+    {
+        $data = array();
+        $data['holiday_add_date_year'] = $request->holiday_add_date_year;
+        $data['holiday_add_date_month'] = $request->holiday_add_date_month;
+        $data['holiday_add_date_day'] = $request->holiday_add_date_day;
+        if (strlen($data['holiday_add_date_month']) == 1) {
+            $data['holiday_add_date_month'] = '0'.$data['holiday_add_date_month'];
+        }
+        if (strlen($data['holiday_add_date_day']) == 1) {
+            $data['holiday_add_date_day'] = '0'.$data['holiday_add_date_day'];
+        }
+        $data['holiday_date'] = $data['holiday_add_date_year'].$data['holiday_add_date_month'].$data['holiday_add_date_day'];
+        $data['note_holiday'] = $request->holiday_note;
+        $ms_holiday = $this->insert_holiday($data, $request);
+        if ($ms_holiday == false) {
+            return redirect()->back()->withInput()->with('error_holiday', 'Time exits?');;
+        }else{
+            return redirect()->route('admin.msholiday');
+        }
+    }
+    
+    private function insert_holiday($data, $request){
+        if(isset($data['holiday_date'])){
+            $check_row_exits = MsHoliday::where('date_holiday','=', $data['holiday_date'])->first();
+            if ($check_row_exits === null) {
+                $data['note_holiday'] = trim(mb_convert_kana($data['note_holiday'], 'KVA'));
+                MsHoliday::insert(['date_holiday' => $data['holiday_date'], 'note_holiday' => $data['note_holiday']]);
+                $result = true;
+            }else{
+                $result = false;
+            }
+        }
+        return $result;
+    }
+    
+    public function update_holiday(Request $request)
+    {
+        $data = $request->all();
+        if ($data['checkdelete'] == 'true') {
+            MsHoliday::where('ms_holiday_id', $data['holiday_id'])->delete();
+            $responsive_array = array('status' => true);
+        }else{
+            $holiday_date_old = str_replace('/','',$data['holiday_date_old']);
+            $holiday_date = explode('/',$data['date_holiday']);
+            if (strlen($holiday_date[1]) == 1) {
+                $holiday_date[1] = '0'.$holiday_date[1];
+            }
+            if (strlen($holiday_date[2]) == 1) {
+                $holiday_date[2] = '0'.$holiday_date[2];
+            }
+            $holiday_date_update = $holiday_date[0].$holiday_date[1].$holiday_date[2];
+            $data['holiday_note'] = trim(mb_convert_kana($data['holiday_note'], 'KVA'));
+            $check_exits = MsHoliday::where('date_holiday' ,'=', $holiday_date_update)->first();
+            if ($check_exits != null && $check_exits['ms_holiday_id'] == $data['holiday_id']) {
+                MsHoliday::where('date_holiday', $holiday_date_old)->update(['date_holiday' => $holiday_date_update, 'note_holiday' => $data['holiday_note']]);
+                $responsive_array = array('status' => true);
+            }else if($check_exits != null && $check_exits['ms_holiday_id'] != $data['holiday_id']){
+                $responsive_array = array('status' => false);
+            }else{
+                MsHoliday::where('date_holiday', $holiday_date_old)->update(['date_holiday' => $holiday_date_update, 'note_holiday' => $data['holiday_note']]);
+                $responsive_array = array('status' => true);
+            }
+        }
+        return $responsive_array;
+    }
+
+    private function get_data_holiday(){
+        $result = MsHoliday::where('time_holiday', null)->orderBy('ms_holiday_id', 'DESC')->paginate(1);
+        return $result;
+    }
+
+    private function get_list_search_holiday($data){
+        if(isset($data) && !empty($data)){
+            $date_start_year = $data['holiday_start_date_year'];
+            $date_start_month = $data['holiday_start_date_month'];
+            $date_start_day = $data['holiday_start_date_day'];
+            $date_end_year = $data['holiday_end_date_year'];
+            $date_end_month = $data['holiday_end_date_month'];
+            $date_end_day = $data['holiday_end_date_day'];
+            if (strlen($date_start_month) == 1) {
+                $date_start_month = '0'.$date_start_month;
+            }
+            if (strlen($date_start_day) == 1) {
+                $date_start_day = '0'.$date_start_day;
+            }
+            if (strlen($date_end_month) == 1) {
+                $date_end_month = '0'.$date_end_month;
+            }
+            if (strlen($date_end_day) == 1) {
+                $date_end_day = '0'.$date_end_day;
+            }
+            $date_start = $date_start_year.$date_start_month.$date_start_day;
+            $date_end = $date_end_year.$date_end_month.$date_end_day;
+            $data = MsHoliday::whereBetween('date_holiday', [$date_start, $date_end])->orderby('ms_holiday_id', 'DESC')->paginate(1);
+            return $data;
+        }
+    }
+
+    public function get_data_holiday_search_pagination(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $_data_paginate = $this->get_list_search_holiday($data);
+            $view = view('sunsun.admin.layouts.holiday_data',['data' => $_data_paginate,'type' => 1])->render();
+            return [
+                'status' => true,
+                'data' => $view
+            ];
+        }
+    }
+
 }

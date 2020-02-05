@@ -21,7 +21,7 @@
                         <div class="required" style="display: none" id="username_<?php echo $items->ms_user_id ?>_user"></div>
                         <input type="text" style="display: none; width: 100%" name="username_<?php echo $items->ms_user_id ?>" id="users_<?php echo $items->ms_user_id ?>" value="{{ $items->username }}">
                     </td>
-                    <td>
+                    <td class="col-password">
                         <span id="password_<?php echo $items->ms_user_id ?>">{{ $items->password }}</span>
                         <div class="required" style="display: none" id="password_<?php echo $items->ms_user_id ?>_user"></div>
                         <input type="text" style="display: none; width: 100%" name="password_<?php echo $items->ms_user_id ?>" id="passwords_<?php echo $items->ms_user_id ?>" value="{{ $items->password }}">

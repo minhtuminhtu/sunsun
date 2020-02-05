@@ -53,16 +53,12 @@ class UsersExport implements FromCollection,WithHeadings
         //dd();
         foreach ($data as $row) {
             $result_data[] = array(
-                '1' => $row->ms_user_id,
-                '2' => $row->username,
+                '1' => $row->username,
+                '2' => $row->password,
                 '3' => $row->tel,
                 '4' => $row->email,
-                '5' => $row->gender,
-                '6' => $row->birth_year,
-                '7' => $row->user_type,
-                '8' => $row->password,
-                '9' => $row->created_at,
-                '10' => $row->updated_at,
+                '5' => $row->birth_year,
+                '6' => $row->deleteflg
             );
         }
         return (collect($result_data));
@@ -71,16 +67,12 @@ class UsersExport implements FromCollection,WithHeadings
     public function headings(): array
     {
         return [
-            'ms_user_id',
-            'username',
-            'tel',
-            'email',
-            'gender',
-            'birth_year',
-            'user_type',
-            'password',
-            'created_at',
-            'updated_at'
+            '名前',
+            'パスワード',
+            '電話番号',
+            'メールアドレス',
+            '予約履歴',
+            '削除'
         ];
     }
 }
