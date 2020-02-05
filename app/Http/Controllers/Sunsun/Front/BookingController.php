@@ -1031,6 +1031,7 @@ class BookingController extends Controller
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
                         //Log::debug('finish set_yoyaku_danjiki_jikan');
                     }
+                    $Yoyaku->ms_user_id = \Auth::user()->ms_user_id;
                     $Yoyaku->save();
                 }
                 if(!$is_update) {

@@ -54,7 +54,8 @@ return [
             'STAY_GUEST_NUM' => 'stay_guest_num',
             'STAY_CHECKIN_DATE' => 'stay_checkin_date',
             'STAY_CHECKOUT_DATE' => 'stay_checkout_date',
-            'PAYMENT_METHOD' => 'payment_method'
+            'PAYMENT_METHOD' => 'payment_method',
+            'MS_USER_ID' => 'ms_user_id'
         ],
         'kubun_type' => [
             '001' => 'ご利用',
