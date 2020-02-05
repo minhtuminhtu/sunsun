@@ -53,6 +53,7 @@ class CreateTrYoyakuTable extends Migration
             $table->string('payment_method',1)->nullable();
             $table->string('fake_booking_flg',1)->nullable();
             $table->string('notes',255)->nullable();
+            $table->integer('ms_user_id');
             $table->timestamps();
         });
     }

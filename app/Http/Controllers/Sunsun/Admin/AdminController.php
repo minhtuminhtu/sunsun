@@ -77,15 +77,9 @@ class AdminController extends Controller
                       , SUBSTRING(time.notes, 1, 1) as bed
                 FROM        tr_yoyaku as main
                 LEFT JOIN tr_yoyaku_danjiki_jikan as time
-<<<<<<< Updated upstream
                 ON          main.booking_id = time.booking_id
                 WHERE   main.course = '01'
                 AND main.history_id IS NULL
-=======
-                ON			main.booking_id = time.booking_id
-                WHERE 	main.course = '01'      
-                AND main.history_id IS NULL 
->>>>>>> Stashed changes
                 AND time.service_date = $date
                 AND main.fake_booking_flg IS NULL
                 AND (
@@ -1412,60 +1406,30 @@ class AdminController extends Controller
     // user
     public function user(Request $request)
     {
+        $data = null;
         if($request->ajax())
         {
             $data = $request->all();
-            if(!(empty($data['notshowdeleted'])))
-            {
-                $list_search = $this->get_list_search_user($data);
-                if ($request->session()->has('key')) {
+                }
+        $list_data = $this->get_list_search_user($data);
+        // return create
+        if ($data == null) return view('sunsun.admin.user', ['data' => $list_data, 'type' => 0]);
+        // return ajax
                     $request->session()->forget('key');
                     $request->session()->put('key',$data);
-                }else{
-                    $request->session()->put('key',$data);
-                }
-                $view = view('sunsun.admin.layouts.user_data',['data' => $list_search, 'type' => 1])->render();
-                return [
-                    'status' => true,
-                    'data' => $view
-                ];
-            }else{
-                $list_search = $this->get_list_search_user($data);
-                if ($request->session()->has('key')) {
-                    $request->session()->forget('key');
-                    $request->session()->put('key',$data);
-                }else{
-                    $request->session()->put('key',$data);
-                }
-                $view = view('sunsun.admin.layouts.user_data',['data' => $list_search, 'type' => 1])->render();
+        $view = view('sunsun.admin.layouts.user_data',['data' => $list_data, 'type' => 1])->render();
                 return [
                     'status' => true,
                     'data' => $view
                 ];
             }
-        }
-        else
-        {
-            $list_data = $this->get_list_user(null, 1);
-            return view('sunsun.admin.user', ['data' => $list_data, 'type' => 0]);
-        }
-    }
-    private function get_list_user($user_id = null, $user_not_in = null)
-    {
-        if(isset($user_id) && !empty($user_id)){
-            $data = MsUser::find($user_id);
-        }else{
-            $data = MsUser::where('deleteflg', 0)->whereNotIn('ms_user_id', [$user_not_in])->paginate(20);
-        }
-        return $data;
-    }
-    public function get_list_search_user($data, $type=null){
-        if (isset($data) && !empty($data)) {
+    public function get_list_search_user($data=null, $type=null){
+        $where = array();
+        if ($data != null) {
             $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
             $username = $data['username'];
             $phone = $data['phone'];
             $email = $data['email'];
-            $where = array();
             if (!empty($username)) {
                 $username = '%'.$username.'%';
                 $username = str_replace("*","%", $username);
@@ -1484,15 +1448,47 @@ class AdminController extends Controller
             if (isset($data['notshowdeleted']) && $data['notshowdeleted'] == 1) {
                 $where[] = ['deleteflg', '=', 0];
             }
+        }
+        $id_not_get = [1];
             if (!empty($where)) {
-                if (!empty($type)) {
-                    $data = MsUser::where($where)->whereNotIn('ms_user_id', [1])->get();
+            $data = MsUser::where($where)->whereNotIn('ms_user_id', $id_not_get);
                 }else{
-                    $data = MsUser::where($where)->whereNotIn('ms_user_id', [1])->paginate(20);
+            $data = MsUser::whereNotIn('ms_user_id', $id_not_get);
                 }
+        $sub_where = " where ty.ref_booking_id is null ";
+        $data = $data->selectRaw(" *,
+            (
+                SELECT GROUP_CONCAT(DISTINCT date_used
+                           ORDER BY date_used ASC SEPARATOR ', ') AS date_used
+                FROM
+                    (SELECT service_date_start AS date_used,
+                         ty.ms_user_id
+                    FROM tr_yoyaku ty
+                    $sub_where
+                    UNION SELECT service_date_end AS date_used,
+                               ty.ms_user_id
+                    FROM tr_yoyaku ty
+                    $sub_where
+                    UNION SELECT stay_checkin_date AS date_used,
+                               ty.ms_user_id
+                    FROM tr_yoyaku ty
+                    $sub_where
+                    UNION SELECT stay_checkout_date AS date_used,
+                               ty.ms_user_id
+                    FROM tr_yoyaku ty
+                    WHERE ty.ref_booking_id IS NULL
+                    UNION SELECT service_date AS date_used,
+                               ty.ms_user_id
+                    FROM tr_yoyaku ty
+                    JOIN tr_yoyaku_danjiki_jikan tydj ON tydj.booking_id = ty.booking_id
+                    $sub_where ) AS db_temp
+                WHERE db_temp.ms_user_id = ms_user.ms_user_id
+            ) AS date_used
+        ");
+        if (!empty($type)) {
+            $data = $data->get();
             }else{
-                $data = MsUser::whereNotIn('ms_user_id', [1])->paginate(20);
-            }
+            $data = $data->paginate(20);
         }
         return $data;
     }
@@ -1519,11 +1515,10 @@ class AdminController extends Controller
         $result = [];
         if(isset($data['user_id'])){
             try{
-                $check_row_delete = $this->get_list_user($data['user_id']);
                 if ($data['checkdelete'] == 'true') {
-                    $deleteflg = !$check_row_delete->deleteflg;
+                    $deleteflg = "1";
                 }else{
-                    $deleteflg = $check_row_delete->deleteflg;
+                    $deleteflg = "0";
                 }
                 $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
                 MsUser::where('ms_user_id', $data['user_id'])->update(['username' => $data['username'], 'password' => $data['password'], 'email' => $data['email'], 'tel' => $data['tel'], 'deleteflg' => $deleteflg]);

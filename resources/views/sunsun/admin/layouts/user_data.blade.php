@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         @if(sizeof($data) > 0)
-            <?php $i = 1 ?>
+            <?php $i = 1;?>
             @foreach($data as $items)
                 <?php $i++; ?>
                 <tr>
@@ -35,9 +35,10 @@
                         <span id="email_<?php echo $items->ms_user_id ?>">{{ $items->email }}</span>
                         <div class="required" style="display: none" id="email_<?php echo $items->ms_user_id ?>_user"></div>
                         <input type="text" style="display: none; width: 100%" name="email_<?php echo $items->ms_user_id ?>" id="emails_<?php echo $items->ms_user_id ?>" value="{{ $items->email }}">
-                    <td>2020/01/20 - 2020/05/20</td>
+                    <td><span>{{ $items->date_used }}</span></td>
                     <td style="text-align: center">
-                        <input type="checkbox" disabled="disabled" name="users_<?php echo $items->ms_user_id ?>_delete" id="users_<?php echo $items->ms_user_id ?>_delete">
+                        <input type="checkbox" disabled="disabled" name="users_<?php echo $items->ms_user_id ?>_delete" id="users_<?php echo $items->ms_user_id ?>_delete"
+                        <?php echo ($items->deleteflg == '1') ? 'checked' : ''; ?> >
                     </td>
                     <td>
                         <div id="<?php echo $items->ms_user_id ?>" class="btn-update" onclick="editSubmit(this.id)" style="display: inline; cursor: pointer">
