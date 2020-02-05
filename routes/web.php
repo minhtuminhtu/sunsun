@@ -239,7 +239,8 @@ Route::middleware('begin.auth')->group(function(){
         Route::get('/holiday_search_paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_holiday_search_pagination']);
 
         // time off holiday
-        //Route::get('/time_off',['as' => '.timeoff', 'uses' => 'TimeOffController@Create']);
+        Route::get('/time_off',['as' => '.timeoff', 'uses' => 'TimeOffController@Create']);
+        Route::post('/create',['as' => '.create_timeoff', 'uses' => 'TimeOffController@Submit']);
     
     });
 });
