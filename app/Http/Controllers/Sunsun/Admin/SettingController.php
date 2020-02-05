@@ -34,7 +34,7 @@ class SettingController extends Controller
     public function update_setting_sort_no(Request $request) {
 
         $data = $request->all();
-        // dd($data);
+//        dd($data);
         if($data['type'] == 'up'){
             MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'])->update(['sort_no' =>'-1']);
             MsKubun::where('kubun_type',$data['kubun_type'])->where('sort_no', $data['sort_no'] - 1)->update(['sort_no' =>$data['sort_no']]);

@@ -20,7 +20,7 @@
             <td class="text-left">
                 <a class="kubun_value">{{ $value->kubun_value }}</a>
             </td>
-            <td class="text-center sort_no">{{ $value->notes }}</td>
+            <td class="text-center">{{ $value->notes }}</td>
             <td class="text-center sort_no">{{ $value->sort_no }}</td>
 
             <td class="text-right">
@@ -29,13 +29,13 @@
                 @else
                     <i class="fas fa-arrow-left fa-rotate-90 btn-up"></i>
                 @endif
-                
+
                 @if($value->sort_no == (count($kubun_type)))
                     <i class="fas fa-arrow-right fa-rotate-90 btn-down" style="display: none;"></i>
                 @else
                     <i class="fas fa-arrow-right fa-rotate-90 btn-down"></i>
                 @endif
-                
+
             </td>
         </tr>
         @endforeach

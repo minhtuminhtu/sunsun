@@ -16,6 +16,7 @@ class BookingController extends Controller
 {
     private $session_info = 'SESSION_BOOKING_USER';
     private $session_html = 'SESSION_BOOKING_DATA';
+    private $payment_html = 'SESSION_PAYMENT_DATA';
     public function index(Request $request){
         $request->session()->forget($this->session_info);
         return view('sunsun.front.booking.index');
@@ -450,6 +451,7 @@ class BookingController extends Controller
         }
         $this->make_bill($data);
 //        dd($data);
+        $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
         return view('sunsun.front.payment',$data);
     }
     public function make_bill (&$data) {
@@ -1063,6 +1065,7 @@ class BookingController extends Controller
         $booking_data->booking_id = $booking_id;
         $booking_data->booking_data = $data;
         $booking_data->booking_html = $request->session()->get($this->session_html);
+        $booking_data->payment_html = $request->session()->get($this->payment_html);
         Mail::to($email)->send(new ConfirmMail($booking_data));
     }
     private function add_column_null($booking_id){
