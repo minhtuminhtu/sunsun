@@ -17,6 +17,10 @@
 
 		@yield('footer')
 
+        <script>
+            var _date_holiday = @php print json_encode(Session::get("date_holiday")); @endphp;
+        </script>
+
         @yield('script')
     </body>
 </html>

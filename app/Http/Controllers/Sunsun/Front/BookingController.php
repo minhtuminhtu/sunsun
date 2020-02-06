@@ -32,8 +32,6 @@ class BookingController extends Controller
             $request->session()->forget($this->session_info);
         }
         $data['customer'] = $this->get_booking($request);
-        if (!Session::has("date_holiday"))
-            Session::put("date_holiday",$this->get_free_holiday());
         return view('sunsun.front.booking',$data);
     }
 
