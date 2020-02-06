@@ -63,20 +63,32 @@
         var count_holiday = list_holiday.length;
         var listCombo = [];
         (function($) {
+            Date.prototype.addDays = function(days) {
+                var date = new Date(this.valueOf());
+                date.setDate(date.getDate() + days);
+                return date;
+            }
             // start page
             createListKubun();
+            var today = new Date();
+            var day = today.getDay();
+            if (day == 3 || day == 4) {
+                today = (day == 3) ? today.addDays(2) : today.addDays(1);
+            }
             $('#show_current_date').datepicker({
                 language: 'ja',
                 weekStart: 1,
                 daysOfWeekDisabled: "3,4",
                 datesDisabled: _date_holiday,
                 dateFormat: 'yyyy/mm/dd'
-            }).datepicker("setDate", "0").on("changeDate", function(e) {
-                var date_select = e.date;
+            }).on("changeDate", function(e) {
+                searchDate(e.date);
+            }).datepicker("setDate", today);
+            function searchDate(date_select) {
                 var _date_search = date_select.getFullYear()+"-"+(date_select.getMonth()+1)+"-"+date_select.getDate();
                 $("#date_search").val(_date_search);
                 refeshPage();
-            });
+            }
             $(document).on("click", "#submitButton", function(){
                 var _data = [];
                 for (var i =0 ; i < count_list ; i++) {
