@@ -33,7 +33,6 @@
     <script src="{{mix('js/app.js')}}"></script>
     <script src="{{asset('sunsun/lib/jquery-3.4.1/jquery-ui.min.js')}}"></script>
     <script>
-        var _date_holiday = @php print json_encode(Session::get("date_holiday")); @endphp;
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

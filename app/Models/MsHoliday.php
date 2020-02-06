@@ -21,6 +21,7 @@ class MsHoliday extends Model
             config('const.db.ms_holiday.DATE_HOLIDAY'),
             config('const.db.ms_holiday.TIME_HOLIDAY'),
             config('const.db.ms_holiday.TYPE_HOLIDAY'),
+            config('const.db.ms_holiday.NOTE_HOLIDAY')
         ];
         parent::__construct($attributes);
     }

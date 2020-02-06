@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use \Session;
+use App\Http\Controllers\Sunsun\Front\BookingController;
 
 class beginAuth
 {
@@ -16,6 +18,10 @@ class beginAuth
      */
     public function handle($request, Closure $next)
     {
+        if (!Session::has("date_holiday")) {
+            $bookCon = new BookingController();
+            Session::put("date_holiday",$bookCon->get_free_holiday());
+        }
         $AUTH_USER = 'sunsunad';
         $AUTH_PASS = '123456';
         header('Cache-Control: no-cache, must-revalidate, max-age=0');

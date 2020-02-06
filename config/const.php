@@ -23,7 +23,9 @@ return [
         ],
         'ms_holiday' => [
             'DATE_HOLIDAY' => 'date_holiday',
-            'TIME_HOLIDAY' => 'time_holiday'
+            'TIME_HOLIDAY' => 'time_holiday',
+            'TYPE_HOLIDAY' => 'type_holiday',
+            'NOTE_HOLIDAY' => 'note_holiday'
         ],
         'tr_yoyaku' => [
             'BOOKING_ID' => 'booking_id',
@@ -184,20 +186,20 @@ return [
         '0' =>  [
             'time' => '',
             'time_value' => '0930',
-            'time_range' => '9:30～',
+            'time_range' => '09:30～',
             'pet_time_type' => 1,
-            'pet_time' => '9:30～10:30',
+            'pet_time' => '09:30～10:30',
             'pet_time_value' => '0930-1030',
             'wt_time_value' => '0930-1030',
             'wt_new_user' => 1,
             'begin_time' => '朝',
         ],
         '1' =>  [
-            'time' => '9:45',
+            'time' => '09:45',
             'time_value' => '0945',
             'time_range' => '10:00～',
             'pet_time_type' => 2,
-            'pet_time' => '9:30～10:30',
+            'pet_time' => '09:30～10:30',
             'pet_time_value' => '0930-1030',
             'wt_time_value' => NULL,
             'not_wt' => 1,

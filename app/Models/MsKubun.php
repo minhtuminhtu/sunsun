@@ -12,7 +12,7 @@ class MsKubun extends Model
     // Table Name
     protected $table = 'ms_kubun';
 
-    protected $primaryKey = 'tr_yoyaku_id';
+    protected $primaryKey = 'ms_kubun_id';
     // Timestamps
     public $timestamps = false;
     public function __construct(array $attributes = [])
@@ -26,6 +26,20 @@ class MsKubun extends Model
             config('const.db.ms_kubun.TIME_HOLIDAY'),
         ];
         parent::__construct($attributes);
+    }
+    public static function GetTimeKubunHoliday() {
+        return MsKubun::selectRaw("(case
+                when kubun_type = '013' then CONCAT(kubun_value,'～')
+                else kubun_value
+            end) as kubun_value, time_holiday,
+            (case
+                when kubun_type = '020' then 2
+                when kubun_type = '021' then 3
+                else 1
+            end) as type_holiday")
+        ->whereRaw("kubun_type in ('013','014','020','021')")
+        ->distinct()
+        ->orderBy("kubun_type")->orderBy("time_holiday")->get();
     }
 
 }
