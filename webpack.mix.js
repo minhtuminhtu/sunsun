@@ -35,6 +35,8 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/assets/sunsun/admin/scss/admin.scss', 'public/sunsun/admin/css')
     .sass('resources/assets/sunsun/admin/scss/weekly.scss', 'public/sunsun/admin/css')
     .sass('resources/assets/sunsun/admin/scss/setting.scss', 'public/sunsun/admin/css')
+    .sass('resources/assets/sunsun/admin/scss/holiday.scss', 'public/sunsun/admin/css')
+    .sass('resources/assets/sunsun/css/on-off-switch.scss', 'public/css')
 
     .js('resources/assets/sunsun/admin/js/setting.js', 'public/sunsun/admin/js')
     .js('resources/assets/sunsun/admin/js/admin.js', 'public/sunsun/admin/js')

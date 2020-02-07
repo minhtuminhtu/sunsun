@@ -137,6 +137,7 @@ Route::get('/clear', function () {
 });
 
 Route::get('/reset', function () {
+    exec("alias php=\'/usr/local/php7.3/bin/php\'");
     \Artisan::call('migrate:reset');
     \Artisan::call('migrate');
     \Artisan::call('db:seed');

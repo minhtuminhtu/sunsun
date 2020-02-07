@@ -11,7 +11,6 @@
         .col-items-date{
             margin: 10px 10px 10px 0;
             padding: .5%;
-            background-color: #f9f6eb;
             flex: 1;
             overflow-y: auto;
             width: 24%;
@@ -47,6 +46,19 @@
         .active-date{
             background-color: #d7751e !important;
         }
+        .control-input__date{
+            width: 6%;
+        }
+        #input-current__date{
+            width: 100%;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        #input-current__date:focus{
+            border: none;
+            outline: none;
+        }
     </style>
 @endsection
 @section('main')
@@ -56,8 +68,15 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
-                <div class="control-input__date">
-                    <input type="text" id="input-current__date">
+                <div class="control-view">
+                    <div class="control-input__date">
+                        <input type="text" id="input-current__date">
+                    </div>
+                    <div class="control-align_center">
+                        <span class="" id="button-current__date">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt icon-calendar"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="main-content" style="display: flex">
@@ -102,6 +121,11 @@
                     console.log("Year changed: ", e.date.getFullYear());
                 });
 
+                $('#button-current__date').off('click');
+                $('#button-current__date').on('click', function(e) {
+                    $('#input-current__date').focus();
+                });
+
                 $('#date_1').datepicker({
                     language: 'ja',
                     format: 'dd',
@@ -114,8 +138,8 @@
                     e.preventDefault();
                     e.stopPropagation(); // Ngăn chặn sự lan rộng của sự kiện hiện tại tới thằng khác.
                     e.stopImmediatePropagation(); // ngăn chặn những listeners cũng đang đang lắng nghe cùng event được gọi.
-                    $('#date_1 td.day.active-date').not(this).removeClass('active-date');    
                     $(this).toggleClass('active-date');
+                    //$('#date_1 td.day.active-date').not(this).removeClass('active-date');    
                     console.log(123);
                 });
 
