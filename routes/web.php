@@ -154,7 +154,6 @@ Route::get('/cache', function () {
 
 Route::get('/cron', 'Controller@cron_work');
 
-Route::middleware('begin.auth')->group(function(){
 use App\Models\Reminder;
 Route::get('/cron_test', function () {
     $reminder = new Reminder();
