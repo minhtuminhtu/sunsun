@@ -27,7 +27,7 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
-    'App\\Http\\Middleware\\beginAuth' => $baseDir . '/app/Http/Middleware/beginAuth.php',
+    'App\\Http\\Middleware\\BeginAuth' => $baseDir . '/app/Http/Middleware/BeginAuth.php',
     'App\\Mail\\ConfirmMail' => $baseDir . '/app/Mail/ConfirmMail.php',
     'App\\Models\\MsHoliday' => $baseDir . '/app/Models/MsHoliday.php',
     'App\\Models\\MsKubun' => $baseDir . '/app/Models/MsKubun.php',

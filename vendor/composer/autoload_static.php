@@ -513,7 +513,7 @@ class ComposerStaticInit3dee8dffb5c4cf73ab9b0029b69937d3
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
-        'App\\Http\\Middleware\\beginAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/beginAuth.php',
+        'App\\Http\\Middleware\\BeginAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/BeginAuth.php',
         'App\\Mail\\ConfirmMail' => __DIR__ . '/../..' . '/app/Mail/ConfirmMail.php',
         'App\\Models\\MsHoliday' => __DIR__ . '/../..' . '/app/Models/MsHoliday.php',
         'App\\Models\\MsKubun' => __DIR__ . '/../..' . '/app/Models/MsKubun.php',
