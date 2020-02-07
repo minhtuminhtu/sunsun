@@ -1,3 +1,4 @@
+var _off_def = "3,4";
 $(function() {
     let init_event = 0;
     window.onpopstate = function(event) {
