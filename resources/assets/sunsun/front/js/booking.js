@@ -105,12 +105,16 @@ $(function() {
                         }else{
                             $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
                         }
+                        var _off_set = _off_def;
+                        if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
+                            _off_set += "1";
+                        }
                         $('.input-daterange').datepicker({
                             language: 'ja',
                             dateFormat: 'yyyy/mm/dd',
                             autoclose: true,
                             startDate: new Date(),
-                            daysOfWeekDisabled: "3,4",
+                            daysOfWeekDisabled: get_off_def(),
                             datesDisabled: html.date_selected,
                             weekStart: 1,
                             orientation: 'bottom',
@@ -159,6 +163,13 @@ $(function() {
                 DatePicker.hideNewDays();
             }
         };
+        function get_off_def() {
+            var _off_set = _off_def;
+            if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
+                _off_set += "6,0";
+            }
+            return _off_set;
+        }
         if(window.location.href.includes("admin")){
             console.log('admin');
             $('#date').datepicker({
@@ -167,7 +178,7 @@ $(function() {
                 dateFormat: "yyyy/mm/dd",
                 startDate: new Date(),
                 autoclose: true,
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: get_off_def(),
                 datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
@@ -178,7 +189,7 @@ $(function() {
                 dateFormat: "yyyy/mm/dd",
                 startDate: new Date(),
                 autoclose: true,
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: get_off_def(),
                 datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
@@ -220,7 +231,7 @@ $(function() {
                 dateFormat: 'yyyy/mm/dd',
                 autoclose: true,
                 startDate: new Date(),
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: _off_def,
                 datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
@@ -232,7 +243,7 @@ $(function() {
                 dateFormat: 'yyyy/mm/dd',
                 autoclose: true,
                 startDate: new Date(),
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: _off_def,
                 datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
@@ -256,7 +267,7 @@ $(function() {
                 dateFormat: 'yyyy/mm/dd',
                 autoclose: true,
                 startDate: new Date(),
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: _off_def,
                 datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
@@ -268,7 +279,7 @@ $(function() {
                 dateFormat: 'yyyy/mm/dd',
                 autoclose: true,
                 startDate: new Date(),
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: _off_def,
                 datesDisabled: _date_holiday,
                 // daysOfWeekHighlighted: "1,2",
                 weekStart: 1,
@@ -283,7 +294,7 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 endDate: get_end_date(),
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: _off_def,
                 datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
@@ -295,7 +306,7 @@ $(function() {
                 autoclose: true,
                 startDate: new Date(),
                 endDate: get_end_date(),
-                daysOfWeekDisabled: "3,4",
+                daysOfWeekDisabled: _off_def,
                 datesDisabled: _date_holiday,
                 weekStart: 1,
                 orientation: 'bottom',
@@ -318,7 +329,7 @@ $(function() {
                     autoclose: true,
                     startDate: new Date($('#plan_date_start').val()),
                     endDate: get_end_date(),
-                    daysOfWeekDisabled: "3,4",
+                    daysOfWeekDisabled: _off_def,
                     datesDisabled: _date_holiday,
                     weekStart: 1,
                     orientation: 'bottom',
@@ -330,7 +341,7 @@ $(function() {
                     autoclose: true,
                     startDate: new Date($('#plan_date_start').val()),
                     endDate: get_end_date(),
-                    daysOfWeekDisabled: "3,4",
+                    daysOfWeekDisabled: _off_def,
                     datesDisabled: _date_holiday,
                     weekStart: 1,
                     orientation: 'bottom',

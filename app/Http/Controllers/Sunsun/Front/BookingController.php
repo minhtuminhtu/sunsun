@@ -319,27 +319,18 @@ class BookingController extends Controller
     public function minus_time_string ($time, $minus) {
         $time_hour = (int)substr($time, 0,2);
         $time_minutes = substr($time, 2,4);
-        if ($time_minutes < $minus){
+        $hours = 0;
             if ($minus >= 60) {
                 $hours = (int)floor($minus / 60);
-                $minutes = ($minus % 60);
-                $time_hour = $time_hour - $hours;
-                if ($minutes > $time_minutes) {
-                    $minutes = $minutes - $time_minutes;
-                    $hours = $time_hour - 1;
-                } else {
-                    $minutes = $time_minutes - $minutes;
-                    $hours = $time_hour;
+            $minus = ($minus % 60);
+            if ($minus > $time_minutes) {
+                $time_minutes += 60;
+                $hours += 1;
                 }
-            } else {
-                $minutes = $minus - $time_minutes;
-                $hours = $time_hour - 1;
             }
-        } else {
-            $minutes = $time_minutes - $minus;
-            $hours = $time_hour;
-        }
-        $time_required = (string)sprintf('%02d', $hours). (string)sprintf('%02d', $minutes);
+        $hours = $time_hour - $hours;
+        $minus = $time_minutes - $minus;
+        $time_required = (string)sprintf('%02d', $hours). (string)sprintf('%02d', $minus);
         return $time_required;
     }
 
@@ -514,8 +505,8 @@ class BookingController extends Controller
                 }else if($booking_course['kubun_id'] == '03'){
                     $quantity = json_decode( $booking['service_guest_num'], true);
                     $number_customer = (int)$quantity['notes'];
-                    Log::debug('$number_customer');
-                    Log::debug($number_customer);
+                    // Log::debug('$number_customer');
+                    // Log::debug($number_customer);
 
                     // Lon hon 3 nguoi thi tinh them phu phi
 
@@ -561,8 +552,8 @@ class BookingController extends Controller
                 //dd($info_booking['info']);
             }
         }
-        Log::debug('$new_bill');
-        Log::debug($new_bill);
+        // Log::debug('$new_bill');
+        // Log::debug($new_bill);
         //dd($bill);
         $total = 0;
         foreach ($new_bill as $bi){
@@ -1328,9 +1319,9 @@ class BookingController extends Controller
             FROM    ms_holiday mh
             WHERE mh.date_holiday >= $checkin AND mh.date_holiday <= $checkout
         ";
-        Log::debug($sql_check);
+        // Log::debug($sql_check);
         $room_validate = DB::select($sql_check);
-        Log::debug($room_validate);
+        // Log::debug($room_validate);
         if(isset($room_validate) && (count($room_validate) > 0)){
             return false;
         }
@@ -1749,28 +1740,54 @@ class BookingController extends Controller
         }else{
             $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
         }
-        $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate);
+        // get time whitten
+        $data["time_whitening"] = null;
+        if (isset($data["whitening_data"]["json"]) && !empty($data["whitening_data"]["json"])) {
+            $whitening_data = json_decode($data["whitening_data"]["json"], true);
+            $time_whitening_book = explode("-",$whitening_data["notes"])[0];
+            $time_wait_bath_max = 75;
+            $time_wait_bath_min = 75; // tam trang binh thuong va repeat giong nhau
+            $whitening_repeat = $data["whitening_repeat"];
+            if ($whitening_repeat == '0') { // tam trang repeat
+                if ($repeat_user['kubun_id'] == '01') { // first time bath
+                    $time_wait_bath_max = 45;
+                } else {
+                    $time_wait_bath_max = 30;
+                }
+            } else { // tam trang lan dau
+                if ($repeat_user['kubun_id'] == '01') { // first time bath
+                    $time_wait_bath_max = 75;
+                } else {
+                    $time_wait_bath_max = 60;
+                }
+            }
+            $data["time_whitening"]["max"] = $this->plus_time_string($time_whitening_book, $time_wait_bath_max);
+            // Log::debug($time_whitening_book);
+            // Log::debug($time_wait_bath_min);
+            $data["time_whitening"]["min"] = $this->minus_time_string($time_whitening_book, $time_wait_bath_min);
+            // Log::debug($data["time_whitening"]["min"]);
+        }
+        $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate,$data["time_whitening"]);
         $data_time['course'] = $course['kubun_id'];
-//        dd($data);
         return view('sunsun.front.parts.booking_time',$data_time)->render();
     }
-    public function get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate ) {
+    public function get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate, $time_whitening = null ) {
         $kubun_type_time = config('const.db.kubun_type_value.TIME'); // 013 kubun_type
         $data_time = [];
         if ($course['kubun_id'] == '03') {
             $time_kubun_type_book_room = config('const.db.kubun_type_value.TIME_BOOK_ROOM'); //014
             $kubun_type_bed_male = config('const.db.kubun_type_value.bed_male'); // 017
             $data_time['beds'] = $data['bed_male'];
-            $data_time_room = $this->get_time_room_booking($time_kubun_type_book_room, $kubun_type_bed_male, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate, $course);
+            $data_time_room = $this->get_time_room_booking($time_kubun_type_book_room, $kubun_type_bed_male, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate, $course, $time_whitening);
         } else {
             if($gender['kubun_id'] == '01'){ // for man
                 $kubun_type_bed_male = config('const.db.kubun_type_value.bed_male'); // 017 kubun_type
                 $data_time['beds'] = $data['bed_male'];
-                $data_time_room = $this->get_time_room_booking($kubun_type_time, $kubun_type_bed_male, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate);
+                $data_time_room = $this->get_time_room_booking($kubun_type_time, $kubun_type_bed_male, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate, [], $time_whitening);
             }else{ //for woman
                 $kubun_type_bed_female = config('const.db.kubun_type_value.bed_female'); // 018 kubun_type
                 $data_time['beds'] = $data['bed_female'];
-                $data_time_room = $this->get_time_room_booking($kubun_type_time, $kubun_type_bed_female, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate);
+                $data_time_room = $this->get_time_room_booking($kubun_type_time, $kubun_type_bed_female, $validate_time, $day_book_time, $time_bus, $validate_ss_time, [], $range_time_validate, [], $time_whitening);
             }
         }
         //dd($data_time_room);
@@ -1800,7 +1817,7 @@ class BookingController extends Controller
     }
     public function get_validate_time_choice ($course, $data, $data_get_attr, &$validate_time, &$day_book_time) {
         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
-            Log::debug(' check normal');
+            // Log::debug(' check normal');
             if ((count($data['time']) > 0 && isset($data_get_attr['new'])) || (count($data['time']) > 1)) {
                 foreach ($data['time'] as $key => $time_book) {
                     if ($time_book['value'] != '0') {
@@ -1810,7 +1827,7 @@ class BookingController extends Controller
                 }
             }
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
-            Log::debug('check day refresh');
+            // Log::debug('check day refresh');
             if ($data_get_attr['date_type'] == 'shower_1' && $data['time2-value'] != '0') {
                 $validate_time['1_DAY_REFRESH']['max'] = $this->plus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
                 $validate_time['1_DAY_REFRESH']['min'] = $this->minus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
@@ -1820,7 +1837,7 @@ class BookingController extends Controller
             }
             //dd($data);
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')) { // fasting plan
-            Log::debug($data_get_attr);
+            // Log::debug($data_get_attr);
             $type = $data_get_attr['date_type'];
             $day_book_time = $data_get_attr['date'];
             //if ($type == 'to') {
@@ -1852,7 +1869,7 @@ class BookingController extends Controller
      * @return array
      */
     public function get_time_room_booking ($time_kubun_type, $room_kubun_type, $time_bath
-        , $day_book_time, $time_bus, $validate_ss_time, $data_course = array(), $range_time_validate = [], $course = array()) {
+        , $day_book_time, $time_bus, $validate_ss_time, $data_course = array(), $range_time_validate = [], $course = array(), $time_whitening = null) {
         $gender = '';
         $sql_join_on = '';
         $sql_where_yoyaku = '';
@@ -1925,8 +1942,8 @@ class BookingController extends Controller
                 , :date_booking as date_booking
                 , mk2.sort_no
         ";
-//        //Log::debug('$time_date_booking');
-//        //Log::debug($time_date_booking);
+        //Log::debug('$time_date_booking');
+        //Log::debug($time_date_booking);
         $sql_bus = "";
         if ($time_bus !== null) {
             if ($time_kubun_type == $config_white) { // 021
@@ -1957,7 +1974,8 @@ class BookingController extends Controller
         $sql_time_path = "";
         if (count($time_bath) > 0) { // mỗi lần tắm cách nhau 2h
             foreach ($time_bath as $time) {
-                $time_max = $time['max']; $time_min = $time['min'];
+                $time_max = $time['max'];
+                $time_min = $time['min'];
                 if ($time_kubun_type == $config_white) { // 021
                     $sql_time_path .= " AND ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_max' OR SUBSTRING(mk1.notes, 1 ,4) <= '$time_min') ";
                 } else {
@@ -1965,6 +1983,19 @@ class BookingController extends Controller
                 }
             }
         }
+        $sql_whitening ="";
+        // Log::debug($time_whitening);
+        if ($time_whitening != null) {
+            $time_max = $time_whitening['max'];
+            $time_min = $time_whitening['min'];
+            if ($time_kubun_type == $config_white) {
+                $sql_whitening = " AND ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_max' OR SUBSTRING(mk1.notes, 1 ,4) <= '$time_min') ";
+            } else {
+                $sql_whitening = " AND ( mk1.notes >= '$time_max' OR mk1.notes <= '$time_min') ";
+            }
+        }
+        $sql_time_path .= $sql_whitening;
+        // Log::debug($sql_time_path);
         $sql_validate_ss = "";
         if (count($validate_ss_time) > 0) { // time book lần sau không trùng time book trước
             $sql_validate_ss .= "WHEN '01' = '01'  AND (";
@@ -2359,38 +2390,42 @@ class BookingController extends Controller
             $transport = json_decode($data['transport'], true);
             $bus_arrive_time_slide = json_decode($data['bus_arrive_time_slide'], true);
         }
-        if ($repeat_user['kubun_id'] = '01') { // first time bath
-            $time_wait_bath = 45;
+        $time_wait_bath_max = 75; // tam trang binh thuong va repeat giong nhau
+        $time_wait_bath_min = 75;
+        if ($whitening_repeat == '0') { // tam trang repeat
+            if ($repeat_user['kubun_id'] == '01') { // first time bath
+                $time_wait_bath_min = 45;
         } else {
-            $time_wait_bath = 30;
+                $time_wait_bath_min = 30;
         }
-        //dd($whitening_repeat);
-        if ($whitening_repeat == '0') {
-            $time_wait = 15;
+        } else { // tam trang lan dau
+            if ($repeat_user['kubun_id'] == '01') { // first time bath
+                $time_wait_bath_min = 75;
         } else {
-            $time_wait = 30;
+                $time_wait_bath_min = 60;
+            }
         }
         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
             foreach ($data['time'] as $key => $time_book) {
                 if ($time_book['value'] != '0') {
-                    $validate_time[$key]['max'] = $this->plus_time_string($time_book['value'], 120 + $time_wait); // 120p tắm bt + time wait
-                    $validate_time[$key]['min'] = $this->minus_time_string($time_book['value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
+                    $validate_time[$key]['max'] = $this->plus_time_string($time_book['value'], $time_wait_bath_max);
+                    $validate_time[$key]['min'] = $this->minus_time_string($time_book['value'], $time_wait_bath_min);
                 }
             }
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
             //dd($data['time1-value']);
             if ($data['time2-value'] != '0') {
-                $validate_time['1_DAY_REFRESH_1']['max'] = $this->plus_time_string($data['time2-value'], 120 + $time_wait); // 120p tắm bt + time wait
-                $validate_time['1_DAY_REFRESH_1']['min'] = $this->minus_time_string($data['time2-value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
+                $validate_time['1_DAY_REFRESH_1']['max'] = $this->plus_time_string($data['time2-value'], $time_wait_bath_max);
+                $validate_time['1_DAY_REFRESH_1']['min'] = $this->minus_time_string($data['time2-value'], $time_wait_bath_min);
             }
             if ($data['time1-value'] != '0') {
-                $validate_time['1_DAY_REFRESH_2']['max'] = $this->plus_time_string($data['time1-value'], 120 + $time_wait); // 120p tắm bt + time wait
-                $validate_time['1_DAY_REFRESH_2']['min'] = $this->minus_time_string($data['time1-value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
+                $validate_time['1_DAY_REFRESH_2']['max'] = $this->plus_time_string($data['time1-value'], $time_wait_bath_max);
+                $validate_time['1_DAY_REFRESH_2']['min'] = $this->minus_time_string($data['time1-value'], $time_wait_bath_min);
             }
             //dd($data);
         }  else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) { // All room
-            $validate_time['BOTH_ALL_ROOM']['max'] = $this->plus_time_string($data['time_room_value'], 60 + $time_wait); // 60p tắm bt + time wait
-            $validate_time['BOTH_ALL_ROOM']['min'] = $this->minus_time_string($data['time_room_value'], 30 + $time_wait + $time_wait_bath); // 30p tắm trang + time wait
+            $validate_time['BOTH_ALL_ROOM']['max'] = $this->plus_time_string($data['time_room_value'], $time_wait_bath_max);
+            $validate_time['BOTH_ALL_ROOM']['min'] = $this->minus_time_string($data['time_room_value'], $time_wait_bath_min);
         }
         // check time bus
         $time_bus = $this->get_time_bus_customer($repeat_user, $transport, $bus_arrive_time_slide);
