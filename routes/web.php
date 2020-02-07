@@ -162,6 +162,7 @@ Route::get('/cron_test', function () {
 });
 
 
+Route::middleware('begin.auth')->group(function(){
     Route::middleware('user.auth')->namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
