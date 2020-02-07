@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use App\Models\Reminder;
 
 class ReminderCron extends Command
 {
@@ -38,7 +39,10 @@ class ReminderCron extends Command
      */
     public function handle()
     {
-        $this->info('Demo:Cron Cummand Run successfully!');
-        Log::debug('abc');
+        $this->info("Job " . date("Y/m/d") . " successfully!");
+        Log::debug("Job " . date("Y/m/d") . " successfully!");
+        $reminder = new Reminder();
+        $reminder->email_target = "minhtu.bk14@gmail.com";
+        $reminder->save();
     }
 }
