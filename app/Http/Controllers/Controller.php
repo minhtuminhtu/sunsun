@@ -12,7 +12,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index(Request $request){
-        return view('sunsun.front.booking.index');
+    public function cron_work(Request $request){
+        dd(1);
     }
 }

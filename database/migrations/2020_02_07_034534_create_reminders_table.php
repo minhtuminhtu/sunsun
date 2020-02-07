@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrRemindersTable extends Migration
+class CreateRemindersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,6 @@ class CreateTrRemindersTable extends Migration
             $table->longText('content')->nullable();
             $table->string('time',25)->nullable();
             $table->string('turn',1)->nullable();
-            $table->timestamps();
         });
     }
 

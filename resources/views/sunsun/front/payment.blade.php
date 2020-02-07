@@ -46,16 +46,19 @@
                             <p class="text-md-left mb-1 font-weight-bold">{{config('booking.services_used.label')}}</p>
                         </div>
                     </div>
-
                     <div class="">
                         <table class="table table-bordered">
+                            <span style="display: none">mark_remove_space</span>
                             <tbody>
                             @foreach($new_bill as $key => $n_bill)
                                 @if($n_bill['quantity'] > 0)
                                 <tr>
                                     <td class="text-left">{{ $n_bill['name'] }}</td>
+                                    <span style="display: none">mark_colon</span>
                                     <td class="text-right">{{ $n_bill['quantity'].$n_bill['unit'] }}</td>
+                                    <span style="display: none">mark_space</span>
                                     <td class="text-right">{{ $n_bill['price'] }}</td>
+                                    <span style="display: none">mark_yen_newline</span>
                                 </tr>
                                 @endif
                             @endforeach
@@ -64,7 +67,9 @@
                             <tr>
                                 <th scope="col" style="width: 50%" class="text-left price-laber">{{config('booking.total.label')}}</th>
                                 <th scope="col" style="width: 15%" class="text-right price-laber"></th>
+                                <span style="display: none">mark_space</span>
                                 <th scope="col" style="width: 35%" class="text-right price-laber">{{ isset($total)?number_format($total):0 }}</th>
+                                <span style="display: none">mark_yen</span>
                             </tr>
                             </tfoot>
                         </table>

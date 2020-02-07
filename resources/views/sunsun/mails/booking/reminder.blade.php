@@ -5,6 +5,7 @@
 
 ＜＜ご予約内容・注意事項＞＞
 @php
+    //Regex lấy đoạn body của html
     preg_match('|confirm"[^>]*>(.*?)(?=\<div class="foot-confirm")|si', $booking_data->booking_html, $match);
     echo preg_replace('/\s+/', '
 ', str_replace(' ', '', strip_tags($match[1])));

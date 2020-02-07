@@ -5,6 +5,7 @@
 
 ＜＜ご予約内容・注意事項＞＞
 @php
+    //Regex lấy đoạn body của html
     preg_match('|confirm"[^>]*>(.*?)(?=\<div class="foot-confirm")|si', $booking_data->booking_html, $match);
     echo preg_replace('/\s+/', '
 ', str_replace(' ', '', strip_tags($match[1])));
@@ -14,34 +15,18 @@
 http://sun-sun33.com/shop
 
 ＜＜ご購入金額＞＞
+
 @php
+    //Regex lấy đoạn body của html
     preg_match('|table-bordered"[^>]*>(.*?)(?=\<\/tfoot>)|si', $booking_data->payment_html, $match);
-    $re = '/\s+/';
-    $str = strip_tags($match[1]);
 
-    preg_match_all($re, $str, $matches, PREG_SET_ORDER);
-    $i = 1;
-    while(preg_match($re, $str)){
-        if($i < count($matches) - 1){
-           if($i%3 == 0){
-               $str = preg_replace($re, 'space', $str, 1);
-           }else if($i%3 == 1){
-               $str = preg_replace($re, 'newline', $str, 1);
-           }else{
-               $str = preg_replace($re, '：', $str, 1);
-           }
-        }else{
-            $str = preg_replace($re, 'space', $str, 1);
-        }
-
-        $i++;
-    }
-
-
-    $str = str_replace('space',' ', $str);
-    $str = str_replace('newline','
-', $str);
-    echo $str;
+    //Change mark thành kí tự cần
+    $string_remove_space = preg_replace('/\s+mark_remove_space\s+/', '', strip_tags($match[1]));
+    $string_change_colon = preg_replace('/\s+mark_colon\s+/', '：', $string_remove_space);
+    $string_change_space = preg_replace('/\s+mark_space\s+/', '  ', $string_change_colon);
+    $string_change_yen = preg_replace('/\s+mark_yen\s+/', '円', $string_change_space);
+    echo $string_change_yen_newline = preg_replace('/\s+mark_yen_newline\s+/', '円
+', $string_change_yen);
 @endphp
 
 
