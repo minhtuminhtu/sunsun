@@ -1,3 +1,2 @@
 <?php
-    exec("alias php=\'/usr/local/php7.3/bin/php\'");
-    exec ('php artisan reminder:cron');
+    exec("alias php=\'/usr/local/php7.3/bin/php\' && php artisan reminder:cron");
