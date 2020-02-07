@@ -152,9 +152,18 @@ Route::get('/cache', function () {
     echo "Cache cleared!";
 });
 
+Route::get('/cron', 'Controller@cron_work');
 
 Route::middleware('begin.auth')->group(function(){
-    Route::namespace('Sunsun\Front')->group(function (){
+use App\Models\Reminder;
+Route::get('/cron_test', function () {
+    $reminder = new Reminder();
+    $reminder->email_target = "minhtu.bk14@gmail.com";
+    $reminder->save();
+});
+
+
+    Route::middleware('user.auth')->namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
         })->name('main');
