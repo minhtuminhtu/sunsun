@@ -1,4 +1,3 @@
-
 $(function () {
     let main_head__top = $('.main-head__top'),
         current_day = $('#input-current__date'),
@@ -14,7 +13,6 @@ $(function () {
             sun.setDate(sun.getDate() + 6);
         }
     });
-
     $('#button-current__date').off('click');
     $('#button-current__date').on('click', function(e) {
         $('#input-current__date').focus();
@@ -27,7 +25,6 @@ $(function () {
         date_day.datepicker("setDate", new Date());
         current_day.trigger("input");
     }
-
     main_head__top.on('click','.prev-date',function (e) {
         var date = date_day.datepicker('getDate');
         date.setTime(date.getTime() - (1000*60*60*24));
@@ -40,16 +37,12 @@ $(function () {
         date_day.datepicker("setDate", date);
         current_day.trigger("input");
     });
-
     let booking_edit = $('#edit_booking');
-
     booking_edit.on('show.bs.modal', function (e) {
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
     })
     // booking_edit.on('hide.bs.modal', function (e) {
-
     // })
-
     let booking_edit_hidden = function(){
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomOut  animated faster');
         setTimeout(function(){
@@ -60,11 +53,6 @@ $(function () {
     $('#edit_booking').on('click','.btn-cancel',function (e) {
         booking_edit_hidden();
     });
-
-
-
-
-
     let show_booking = function (booking_id) {
         $.ajax({
             url: '/admin/edit_booking',
@@ -90,31 +78,23 @@ $(function () {
             },
         });
     };
-
-
-    $('.main-col__data').not(".bg-free").off('click');
-    $('.main-col__data').not(".bg-free").on('click', function (e) {
+    $('.main-col__data').not(".bg-free").not(".bg-dis").off('click');
+    $('.main-col__data').not(".bg-free").not(".bg-dis").on('click', function (e) {
         if(!$(this).find('.control-align_center').text()){
             var booking_id = $(this).find('.booking-id').val();
             show_booking(booking_id);
         }
     });
-
-    $('.main-col__pet').not(".space-white").not(".head").off('click');
-    $('.main-col__pet').not(".space-white").not(".head").on('click', function (e) {
+    $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").off('click');
+    $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").on('click', function (e) {
         var booking_id = $(this).find('.booking-id').val();
         show_booking(booking_id);
-
     });
-    $('.main-col__wt').not(".not-wt").not(".head").off('click');
-    $('.main-col__wt').not(".not-wt").not(".head").on('click', function (e) {
+    $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").off('click');
+    $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").on('click', function (e) {
         var booking_id = $(this).find('.booking-id').val();
         show_booking(booking_id);
-
     });
-
-
-
     $('#go-weekly').off('click');
     $('#go-weekly').on('click',function (e) {
         let date = date_day.datepicker('getDate');
@@ -122,29 +102,22 @@ $(function () {
         let weekStart = currentDate.clone().startOf('isoweek');
         let start_weekly = moment(weekStart).add(0, 'days').format("YMMDD");
         let end_weekly = moment(weekStart).add(6, 'days').format("YMMDD");
-
         let weekly_url = $curent_url.substring(0, $curent_url.length - 3) + "weekly";
         window.location.href = weekly_url + "?date_from=" + start_weekly + "&date_to=" + end_weekly;
-
     })
-
     $('#go-monthly').off('click');
     $('#go-monthly').on('click',function (e) {
         let date = date_day.datepicker('getDate');
         let currentDate = moment(date);
         let monthly = currentDate.format("YMM");
-
         let monthly_url = $curent_url.substring(0, $curent_url.length - 3) + "monthly";
         window.location.href = monthly_url + "?date=" + monthly;
     })
-
-
     $('#go-user').off('click');
     $('#go-user').on('click',function (e) {
         let user_url = $curent_url.substring(0, $curent_url.length - 9) + "admin/msuser";
         window.location.href = user_url;
     })
-
     $('#edit_booking').off('click','.btn-update');
     $('#edit_booking').on('click','.btn-update',function (e) {
         e.preventDefault();
@@ -188,13 +161,9 @@ $(function () {
             },
         });
     })
-
-
     $('#edit_booking').on('click','#credit-card',function (e) {
         return false;
     })
-
-
     let make_payment_validate = (array) => {
             $('p.note-error').remove();
             $.each(array.error, function (index, item) {
@@ -207,14 +176,11 @@ $(function () {
                     case 'email': $('#'+item).parent().after('<p class="note-error node-text"> 入力したメールアドレスを確認してください。</p>');
                         break;
                 }
-
             })
             $.each(array.clear, function (index, item) {
                 $('#'+item).css({'border': 'solid 1px #ced4da'});
             })
     }
-
-
     let make_color_input_error = (json) => {
         $('p.note-error').remove();
         if (typeof json.clear_border_red !== "undefined" ) {
@@ -268,16 +234,13 @@ $(function () {
             var text_err = "定休日が含まれているため予約できません";
             $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         }
-
     };
-
     // $('.search-button').off('click');
     // $('.search-button').on('click',function (e) {
     //     $('#search').val('');
     //     $('#result').html('');
     //     $('.search-button').html('');
     // });
-
     if ((typeof load_search_event) === 'undefined') {
         load_search_event = function(){
             $('.list-group-item').off('click');
@@ -328,7 +291,6 @@ $(function () {
                     + minute
                     + '</li>';
                 })
-
                 Swal.fire({
                     html:
                     '<ul><li class="list-group-item link-class list-head">' + name + '</li>'
@@ -353,6 +315,3 @@ $(function () {
         };
     }
 });
-
-
-

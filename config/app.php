@@ -245,6 +245,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Helper' =>   App\Http\Helpers\Helper::class,
     ],
 
 ];

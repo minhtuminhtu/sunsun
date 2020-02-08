@@ -1,7 +1,5 @@
 @extends("sunsun.template")
-
 @section('title', 'SUN-SUN Admin')
-
 @section("head")
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,13 +17,15 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('sunsun/lib/animate.css/animate.min.css')}}"/>
     @yield('admincss')
+    <style>
+        .bg-dis{
+            background-color: #d9d9d9!important;
+        }
+    </style>
 @endsection
-
 @section("header")
     @include('sunsun.admin.layouts.header')
 @endsection
-
-
 @section("footer")
     @include('sunsun.admin.layouts.footer')
     <div id="js-loading">
@@ -44,9 +44,6 @@
         var loader = $('#js-loading');
         var $site_url = '{{url('/')}}';
         var $curent_url = '{{url()->current()}}';
-
     </script>
     <script src="{{asset('sunsun/auth/js/validate-form.js').config('version_files.html.js')}}"></script>
 @endsection
-
-

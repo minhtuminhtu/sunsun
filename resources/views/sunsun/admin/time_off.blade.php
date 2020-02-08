@@ -1,5 +1,5 @@
 @extends('sunsun.admin.template')
-@section('title', 'Time Off')
+@section('title', '予約不可設定')
 @section('head')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
@@ -23,17 +23,17 @@
                         <input type="hidden" name="date_search" id="date_search" value="<?php echo date('Y-m-d'); ?>">
                         @csrf
                         <div class="col-items">
-                            <div class="row-title">Loại 1</div>
+                            <div class="row-title">酵素浴</div>
                             <div class="row-content" id="div1">
                             </div>
                         </div>
                         <div class="col-items even">
-                            <div class="row-title">Loại 2</div>
+                            <div class="row-title">ペット酵素浴</div>
                             <div class="row-content" id="div2">
                             </div>
                         </div>
                         <div class="col-items">
-                            <div class="row-title">Loại 3</div>
+                            <div class="row-title">ホワイトニング</div>
                             <div class="row-content" id="div3">
                             </div>
                         </div>

@@ -1,14 +1,15 @@
 @extends('sunsun.admin.template')
 @section('title', '予約管理サイト（１日表示）')
-@section('head')
-    @parent
+@section('admincss')
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
-
 @endsection
 @section('main')
     @include('sunsun.front.parts.booking_modal')
+    <?php
+        $disable_all = \Helper::getDisableAll($date);
+        $time_holiday = \Helper::getTimeHoliday($date) ?>
     <main>
         <div class="container">
         </div>
@@ -98,7 +99,6 @@
                             <span>{{ $lu->name }} 様　{{ isset($lu->lunch_guest_num)?"同行者".$lu->lunch."名":""}}</span> <br>
                             @endif
                             @endforeach
-
                         </div>
                     </div>
                     <div class="middle_box">
@@ -122,7 +122,6 @@
                             <span>C：{{ isset($stay_room['C']->breakfast)?$stay_room['C']->name." 様     ".$stay_room['C']->breakfast."名":"" }}</span> <br>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="main-content">
@@ -161,7 +160,17 @@
                 </div>
                 @php $i = 1; @endphp
                 @foreach($time_range as $time)
-                    @php $i++; @endphp
+                    @php $i++;
+                        $disable_2 = "";
+                        if (!empty($time["pet_time_value"])) {
+                            $time_check = explode("-",$time["pet_time_value"])[0];
+                            $disable_2 = \Helper::setHoliday($time_holiday,$time_check,"2",$disable_all);
+                        }
+                        $disable_1 = \Helper::setHoliday($time_holiday,$time['time_value'],"1",$disable_all);
+
+                        $disable_3 = \Helper::setHoliday($time_holiday,$time['time_value'],"3",$disable_all);
+                    @endphp
+
                     <div class="main-content__table">
                         <div class="main-col__time d-flex justify-content-center align-items-center
                             @php
@@ -176,11 +185,7 @@
                             if(isset($time['begin_time'])){
                                 echo ' bg-time ';
                             }
-
-
-
                             @endphp">
-
                             <div class="">
                                 <div class="time">{{ $time['time'] }}</div>
                                 @if($time['time_range'] != '')
@@ -204,15 +209,15 @@
                                 <div class="main-col__item main-col__data bg-free
                                     @if(isset($time['first_free'])) first_free @endif
                                     @php
-                                        if(isset($time['body_free'])){
-                                            echo ' body_free';
-                                        }
+                                    if(isset($time['body_free'])){
+                                        echo ' body_free';
+                                    }
                                     @endphp
                                 ">
                                 </div>
                                 <div class="main-col__item main-col__data bg-free
                                     @if(isset($time['first_free'])) first_free @endif
-                                     @php
+                                    @php
                                     if(isset($time['body_free'])){
                                             echo ' body_free';
                                         }
@@ -279,6 +284,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
+                                    @php echo $disable_1; @endphp
                                     ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
                                 </div>
@@ -290,6 +296,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
+                                    @php echo $disable_1; @endphp
                                     ">
                                     @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
                                 </div>
@@ -300,6 +307,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
+                                    @php echo $disable_1; @endphp
                                     ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
                                 </div>
@@ -322,7 +330,8 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
-                                    first">
+                                    first
+                                    @php echo $disable_1; @endphp">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
                                 </div>
                                 <div class="main-col__item main-col__data
@@ -335,6 +344,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
+                                    @php echo $disable_1; @endphp
                                     ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
                                 </div>
@@ -348,6 +358,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
+                                    @php echo $disable_1; @endphp
                                     ">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
                                 </div>
@@ -361,7 +372,8 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
-                                    last">
+                                    last
+                                    @php echo $disable_1; @endphp">
                                 @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
                                 </div>
                             </div>
@@ -389,7 +401,6 @@
                             if(isset($time['wt_new_user'])){
                                 echo ' wt-new_user ';
                             }
-
                             if(isset($time['begin_new_user'])){
                                 echo ' begin_new_user ';
                             }
@@ -400,7 +411,7 @@
                             @if(isset($time['end_new_user']))
                             end_new_user
                             @endif
-
+                            @php echo $disable_3; @endphp
                             ">
                             <div class="
                             @php
@@ -427,7 +438,6 @@
                             if(isset($time['wt_new_user'])){
                                 echo ' wt-new_user ';
                             }
-
                             if(isset($time['begin_new_user'])){
                                 echo ' begin_new_user ';
                             }
@@ -437,13 +447,17 @@
                             @endif
                             @if(isset($time['end_new_user']))
                             end_new_user
-                            @endif">
+                            @endif
+                            @php echo $disable_3; @endphp">
                         </div>
                         @endif
                         <div class="main-col__space-3"></div>
                         @if(isset($time['pet_time_type']))
                             @if($time['pet_time_type'] == 1)
-                            <div class="main-col__pet pet-col_first @if($i == 2) head-col_pet @endif">
+                            <div class="main-col__pet pet-col_first @if($i == 2) head-col_pet @endif
+                            @php echo $disable_2;
+                                $dis_tmp = $disable_2;
+                            @endphp ">
                                 <div class="pet-top_ele">
                                     <div class="pet-top_head">{{ $time['pet_time'] }}</div>
                                     <div class="pet-top_content">
@@ -458,11 +472,9 @@
                                                     <span>{{ $time['data']['pet']->name }}様</span>
                                                 @endif
                                                 <span class="text-red">{{ $time['data']['pet']->repeat_user }}</span>
-
                                                 @if(isset($time['data']['pet']->booking_id))
                                                     <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
                                                 @endif
-
                                                 @if(!isset($time['data']['pet']->ref_booking_id))
                                                     <br>
                                                     <span>{{ $time['data']['pet']->transport }}</span>
@@ -475,7 +487,7 @@
                                 </div>
                             </div>
                             @else
-                            <div class="main-col__pet pet-col_second">
+                            <div class="main-col__pet pet-col_second @php echo $dis_tmp; $dis_tmp = ''; @endphp">
                                 <div class="pet-bottom_content">
                                     <div class="pet-bottom_content">
                                     @if(is_object($time['data']['pet']))
@@ -498,7 +510,6 @@
                             <div class="main-col__pet pet-col_white space-white">
                             </div>
                         @endif
-
                     </div>
                 @endforeach
             </div>
@@ -508,10 +519,7 @@
             </div>
         </div>
     </main>
-
 @endsection
-
-
 @section('footer')
     @parent
     <div class="modal" id="edit_booking">
@@ -519,9 +527,7 @@
             <div class="modal-view">
                 <!-- Modal body -->
                 <div class="mail-booking">
-
                 </div>
-
                 <!-- Modal footer -->
                {{-- <div class="modal-footer" style="padding: 10px;">
                     <button type="button" class="btn btn-modal-left text-white color-primary" id="edit_booking" style="padding: 0.375rem 2rem;">
@@ -533,12 +539,10 @@
                         閉じる
                     </button>
                 </div>--}}
-
             </div>
         </div>
     </div>
 @endsection
-
 @section('script')
     @parent
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
@@ -567,18 +571,11 @@
                                                 + '<div class="name-field">' + value.name + '</div>'
                                                 + '</li>');
                             load_search_event();
-
                         }
                     });
                     // $('.search-button').html('<div class="input-group-text"><i class="fas fa-times"></i></div>');
                 }
             });
         });
-
-
     </script>
-
-
 @endsection
-
-

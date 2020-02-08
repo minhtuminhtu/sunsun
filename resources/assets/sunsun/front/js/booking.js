@@ -126,6 +126,19 @@ $(function() {
                         $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
                         $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
                         $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
+                        // change stay_guest_num
+                        var obj = document.getElementById("stay_guest_num");
+                        var count_obj = obj.length;
+                        for (var i = 0 ; i < count_obj; i++) {
+                            obj[i].hidden = false;
+                            var val = JSON.parse(obj[i].value);
+                            if (val.kubun_id == "02" && room.kubun_id == "04") {
+                                obj[i].hidden = true;
+                            }
+                            else if (val.kubun_id == "03" && (room.kubun_id == "03" ||  room.kubun_id == "04")) {
+                                obj[i].hidden = true;
+                            }
+                        }
                         $('.room').show();
                     },
                     complete: function () {
