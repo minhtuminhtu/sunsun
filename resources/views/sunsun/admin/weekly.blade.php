@@ -1,11 +1,10 @@
 @extends('sunsun.admin.template')
 @section('title', '予約管理サイト（週間表示）')
-@section('head')
+@section('admincss')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/weekly.css').config('version_files.html.css')}}">
 @endsection
-
 @section('main')
     <main>
         <div class="container"></div>
@@ -63,7 +62,7 @@
                         <div class="table-header head">
                             @foreach($day_range as $day)
                                 @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
-                                <div class="table-col first select-marked {{ "date" . $day['full_date']  }}">
+                                <div class="table-col first select-marked {{ 'date' . $day['full_date']  }}">
                                     <div class="font-bold">{{ $day['month'] .'月' . $day['day'] . '日' . '(' . $day['week_day'] . ')' }}</div>
                                     <input type="hidden" class="full_date" value="{{ $day['full_date'] }}">
                                 </div>
@@ -86,7 +85,7 @@
                         <div class="table-header">
                             @foreach($day_range as $day)
                                 @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
-                                <div class="title table-col select-marked {{ "date" . $day['full_date']  }}">
+                                <div class="title table-col select-marked {{ 'date' . $day['full_date']  }}">
                                     <input type="hidden" class="full_date" value="{{ $day['full_date'] }}">
                                     <div class="table-data">
                                         <div class="data-col title male-title">
@@ -113,7 +112,20 @@
                 </div>
                 @php $i = 0; @endphp
                 @foreach($time_range as $key => $time)
-                    @php $i++; @endphp
+                    <?php
+                        if ($i == 0) {
+                            $disable_all = [];
+                            $time_holiday = [];
+                            foreach($day_range as $day) {
+                                if(($day['week_day'] != '水') && ($day['week_day'] != '木')) {
+                                    $day_arr = $day['full_date'];
+                                    $disable_all[$day_arr] = \Helper::getDisableAll($day_arr);
+                                    $time_holiday[$day_arr] = \Helper::getTimeHoliday($day_arr);
+                                }
+                            }
+                        }
+                        $i++;
+                    ?>
                     @if(($time['time'] != '') || ($time['time_range'] != ''))
                         <div class="weekly">
                             <div class="weekly-time body-content content
@@ -144,7 +156,13 @@
                                 <div class="table-header content">
                                     @foreach($day_range as $day)
                                         @if(($day['week_day'] != '水') && ($day['week_day'] != '木'))
-                                        <div class="table-col body-content content  select-marked {{ "date" . $day['full_date']  }} @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
+                                        <?php
+                                            $day_arr = $day['full_date'];
+                                            $disable_1 = \Helper::setHoliday($time_holiday[$day_arr],$time['time_value'],"1",$disable_all[$day_arr]);
+                                            $disable_2 = \Helper::setHoliday($time_holiday[$day_arr],$time['time_value'],"2",$disable_all[$day_arr]);
+                                            $disable_3 = \Helper::setHoliday($time_holiday[$day_arr],$time['time_value'],"3",$disable_all[$day_arr]);
+                                        ?>
+                                        <div class="table-col body-content content  select-marked {{ 'date' . $day['full_date']  }} @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
                                             <input type="hidden" class="full_date" value="{{ $day['full_date'] }}">
                                             <div class="table-data">
                                                 @if($time['time'] == '')
@@ -184,9 +202,11 @@
                                                                 echo ' week_bottom ';
                                                             }
                                                         }
-
+                                                        echo $disable_1;
                                                         @endphp">
+                                                        @if (empty($disable_1))
                                                         @include('sunsun.admin.layouts.weekly_data', ['type' => 'male'])
+                                                        @endif
                                                     </div>
                                                     <div class="data-col bg-female
                                                         @php
@@ -203,11 +223,13 @@
                                                                 echo ' week_bottom ';
                                                             }
                                                         }
+                                                        echo $disable_1;
                                                         @endphp">
+                                                        @if (empty($disable_1))
                                                         @include('sunsun.admin.layouts.weekly_data', ['type' => 'female'])
+                                                        @endif
                                                     </div>
                                                 @endif
-
                                                 @if(isset($time['not_wt']))
                                                 <div class="data-col bg-wt_free
                                                     @php
@@ -221,6 +243,7 @@
                                                             echo ' week_bottom ';
                                                         }
                                                     }
+                                                    echo $disable_3;
                                                     @endphp">
                                                 </div>
                                                 @else
@@ -236,18 +259,22 @@
                                                             echo ' week_bottom ';
                                                         }
                                                     }
+                                                    echo $disable_3;
                                                     @endphp">
-                                                    @include('sunsun.admin.layouts.weekly_data', ['type' => 'wt'])
+                                                    @if (empty($disable_3))
+                                                        @include('sunsun.admin.layouts.weekly_data', ['type' => 'wt'])
+                                                    @endif
                                                 </div>
                                                 @endif
-
-
                                                 @if(isset($time['pet_time_type']))
                                                     @if($time['pet_time_type'] == 1)
-                                                    <div class="data-col bg-pet pet-col_first">
+                                                    <div class="data-col bg-pet pet-col_first
+                                                    @php echo $disable_2; @endphp">
                                                         <div class="pet-data_ab">
                                                             <div>
-                                                            @include('sunsun.admin.layouts.weekly_data', ['type' => 'pet'])
+                                                                @if (empty($disable_2))
+                                                                    @include('sunsun.admin.layouts.weekly_data', ['type' => 'pet'])
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
@@ -261,6 +288,7 @@
                                                             echo ' week_bottom ';
                                                         }
                                                     }
+                                                    echo $disable_2;
                                                     @endphp
                                                     ">
                                                     </div>
@@ -293,18 +321,13 @@
                 @endforeach
             </div>
         </div>
-
         <div class="main-footer">
-
         </div>
     </main>
 @endsection
-
 @section('footer')
     @parent
-
 @endsection
-
 @section('script')
     @parent
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/js/moment.min.js')}}" charset="UTF-8"></script>
@@ -313,6 +336,4 @@
             charset="UTF-8"></script>
     <script src="{{asset('sunsun/admin/js/admin.js').config('version_files.html.js')}}"></script>
     <script src="{{asset('sunsun/admin/js/weekly.js').config('version_files.html.js')}}"></script>
-
 @endsection
-

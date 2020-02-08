@@ -229,11 +229,14 @@
                                 <div class="item noselect">&#160;</div>
                             </div>
                             @else
+                                <?php
+                                    $disable_all = \Helper::getDisableAll($day['full_date']);
+                                ?>
                                 <div class="data-item-head {{ $day['full_date'] }}">
                                     <div class="font-bold">{{ $day['day'] }}</div>
                                     <input type="hidden" class="full_date" value="{{ $day['full_date'] }}" />
                                 </div>
-                                @if(($key == 2) || ($key == 3))
+                                @if(($key == 2) || ($key == 3) || !empty($disable_all))
                                 <div class="data-item">
                                     <div class="item">
                                         <span class="text-blue">―</span>

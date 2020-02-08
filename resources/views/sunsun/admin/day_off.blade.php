@@ -1,5 +1,5 @@
 @extends('sunsun.admin.template')
-@section('title', 'Day Off')
+@section('title', '予約不可設定')
 @section('head')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">

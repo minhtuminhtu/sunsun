@@ -13,7 +13,6 @@ $(function () {
         let date_to = moment(end_date).format('YYYYMMDD');
         url = $curent_url+"?date_from="+date_from+"&date_to=" + date_to;
     }
-
     function load_url () {
         window.location.href = url;
     }
@@ -21,7 +20,6 @@ $(function () {
     $('#button-current__weekly').on('click', function(e) {
         $('#input-current__weekly').focus();
     });
-
     weekpicker = $('#input-current__weekly');
     weekpicker.datepicker({
         dateFormat: 'yyyy/mm/dd',
@@ -44,34 +42,27 @@ $(function () {
         load_url ();
     });
     let date_start = input_start.val();
-
     set_week_picker(new Date(date_start));
     weekpicker.on('change',function () {
         load_url ();
     })
-
     $('#go-monthly').off('click');
     $('#go-monthly').on('click',function (e) {
         let date = weekpicker.datepicker('getDate');
         let currentDate = moment(date);
         let monthly = currentDate.format("YMM");
-
         let monthly_url = $curent_url.substring(0, $curent_url.length - 6) + "monthly";
         window.location.href = monthly_url + "?date=" + monthly;
     })
-
-
-
     $(`.select-marked`).off('mouseenter');
     $(`.select-marked`).on('mouseenter', function (e) {
         $('.date' + $(this).find('.full_date').val()).addClass('hover');
     });
-    $('.select-marked').on('mouseleave');
+    $('.select-marked').off('mouseleave');
     $('.select-marked').on('mouseleave', function (e) {
         $('.date' + $(this).find('.full_date').val()).removeClass('hover');
     });
-
-    $('.select-marked').on('click');
+    $('.select-marked').off('click');
     $('.select-marked').on('click', function (e) {
         let date = $(this).find('.full_date').val();
         let day_url = $curent_url.substring(0, $curent_url.length - 6) + "day";;

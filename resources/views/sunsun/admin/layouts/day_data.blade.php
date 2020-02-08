@@ -7,7 +7,6 @@
         <span>{{ $time['data'][$row]->gender }}</span>
         <span>{{ isset($time['data'][$row]->age_value)?'('.$time['data'][$row]->age_value.'歳)':'' }}</span>
         <br>
-        
         @if(isset($time['data'][$row]->ref_booking_id))
         <span>{{ $time['data'][$row]->name }}同行者様</span>
         @else
@@ -29,14 +28,12 @@
             <span>{{ $time['data'][$row]->gender }}</span>
             <span>{{ isset($time['data'][$row]->age_value)?'('.$time['data'][$row]->age_value.'歳)':'' }}</span>
             <br>
-            
             @if(isset($time['data'][$row]->ref_booking_id))
             <span>{{ $time['data'][$row]->name }}同行者様</span>
             @else
             <span>{{ $time['data'][$row]->name }}様</span>
             @endif
             <span class="text-red">{{ $time['data'][$row]->repeat_user }}</span>
-
             @if(!isset($time['data'][$row]->ref_booking_id))
                 @if(isset($time['data'][$row]->transport))
                 <br>
@@ -45,25 +42,26 @@
                 <span class="text-red">{{ $time['data'][$row]->pick_up }}</span>
                 @endif
             @endif
-
-
             @if(($time['data'][$row]->lunch != NULL)||($time['data'][$row]->whitening != NULL)||($time['data'][$row]->pet_keeping != NULL)||($time['data'][$row]->stay_room_type != NULL))
                 <br>
                 @if(isset($time['data'][$row]->lunch))
                 <span>{{ $time['data'][$row]->lunch }}</span>
                 @endif
-                
                 @if(isset($time['data'][$row]->whitening))
                 <span>{{ $time['data'][$row]->whitening }}</span>
                 @endif
-
                 @if(isset($time['data'][$row]->pet_keeping))
                 <span>{{ $time['data'][$row]->pet_keeping }}</span>
                 @endif
-
                 @if(!isset($time['data'][$row]->ref_booking_id))
                     @if(isset($time['data'][$row]->stay_room_type))
-                        <span>宿泊{{ $time['data'][$row]->stay_room_type }}({{ $time['data'][$row]->stay_guest_num }})</span>
+                        <?php
+                            $title_stay = "畳";
+                            $type_room = $time['data'][$row]->stay_room_type;
+                            if ($type_room == "B") $title_stay = "ツイン";
+                            elseif ($type_room == "C") $title_stay = "セミダブル";
+                        ?>
+                        <span>{{ $title_stay }}({{ $time['data'][$row]->stay_guest_num }})</span>
                         @if(isset($time['data'][$row]->breakfast))
                             <span>{{ $time['data'][$row]->breakfast }}</span>
                         @endif

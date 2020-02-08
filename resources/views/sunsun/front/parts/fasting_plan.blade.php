@@ -331,7 +331,7 @@
                         <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>
                     </div>
                     <div class="booking-field-content">
-                        <select name="stay_guest_num" class="form-control">
+                        <select name="stay_guest_num" id="stay_guest_num" class="form-control">
                             @foreach($stay_guest_num as $value)
                                 @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>

@@ -57,18 +57,20 @@ html, body {
 }
 .table-header.header{
     margin-top: 1vw;
+    border-top: 1px solid #000;
     .table-col{
         padding: 0.2vw 0;
     }
 }
 .table-header{
     display: flex;
-    border: 2px solid #000;
+    border: 1px solid #000;
+    border-top: none;
     margin-top: -2px;
     .table-col{
         flex-basis: 100%;
         text-align: center;
-        border-right: 2px solid #000;
+        border-right: 1px solid #000;
     }
 }
 .table-col.last-col{
