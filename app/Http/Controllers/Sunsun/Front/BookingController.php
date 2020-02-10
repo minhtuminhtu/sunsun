@@ -565,15 +565,20 @@ class BookingController extends Controller
         $data['total'] = $total;
         $data['new_bill'] = $new_bill;
     }
-    public function get_free_holiday() {
+    public function get_free_holiday($year = null) {
         $date_selected = [];
+        $where_year = "";
+        if (!empty($year))
+            $where_year = " and SUBSTR(date_holiday,1,4) = '$year'";
         $range_day = DB::select("
             SELECT  date_holiday
             FROM    ms_holiday
-            WHERE   time_holiday is null and type_holiday is null
+            WHERE   time_holiday is null and type_holiday is null $where_year
         ");
-        foreach($range_day as $da){
-            array_push($date_selected, Carbon::parse($da->date_holiday)->format('Y/m/d'));
+        if (!empty($range_day)) {
+            foreach($range_day as $da){
+                array_push($date_selected, Carbon::parse($da->date_holiday)->format('Y/m/d'));
+            }
         }
         return $date_selected;
     }
