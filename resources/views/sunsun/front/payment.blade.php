@@ -57,7 +57,7 @@
                                     <span style="display: none">mark_colon</span>
                                     <td class="text-right">{{ $n_bill['quantity'].$n_bill['unit'] }}</td>
                                     <span style="display: none">mark_space</span>
-                                    <td class="text-right">{{ $n_bill['price'] }}</td>
+                                    <td class="text-right">{{ number_format($n_bill['price']) }}</td>
                                     <span style="display: none">mark_yen_newline</span>
                                 </tr>
                                 @endif

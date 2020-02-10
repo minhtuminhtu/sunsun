@@ -670,7 +670,15 @@
                                             <div class="line2">
                                             </div>
                                         </div>
-
+                                        @if($key == 0)
+                                            <div class="linex">
+                                                予約日: {{ $data['date-view'] }}
+                                                <div class="line1">
+                                                </div>
+                                                <div class="line2">
+                                                </div>
+                                            </div>
+                                        @endif
                                         @php
                                             $service_pet_num = json_decode($data['service_pet_num']);
                                             $notes = $data['notes'];
@@ -698,16 +706,6 @@
 
                                             </div>
                                         </div>
-                                        @if($key == 0)
-                                            <div class="linex">
-                                                予約日: {{ $data['date-view'] }}
-                                                <div class="line1">
-
-                                                </div>
-                                                <div class="line2">
-                                                </div>
-                                            </div>
-                                        @endif
                                     @endif
                                 @endif
                             @endforeach
