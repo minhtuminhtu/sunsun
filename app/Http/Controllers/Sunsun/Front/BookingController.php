@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Sunsun\Front;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sunsun\Front\BookingRequest;
+use App\Jobs\ConfirmJob;
+use App\Jobs\ReminderJob;
 use App\Models\MsKubun;
 use App\Models\Yoyaku;
 use App\Models\YoyakuDanjikiJikan;
@@ -1056,7 +1058,8 @@ class BookingController extends Controller
         $booking_data->booking_data = $data;
         $booking_data->booking_html = $request->session()->get($this->session_html);
         $booking_data->payment_html = $request->session()->get($this->payment_html);
-        Mail::to($email)->send(new ConfirmMail($booking_data));
+        ConfirmJob::dispatch($email, $booking_data);
+        ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes(10));
     }
     private function add_column_null($booking_id){
         $Yoyaku = new Yoyaku;

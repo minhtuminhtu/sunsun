@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        Commands\ReminderCron::class,
     ];
 
     /**
@@ -27,8 +26,6 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('reminder:cron')
-            ->everyMinute();
     }
 
     /**
