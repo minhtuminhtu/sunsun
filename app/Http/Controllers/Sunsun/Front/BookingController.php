@@ -322,17 +322,18 @@ class BookingController extends Controller
         $time_hour = (int)substr($time, 0,2);
         $time_minutes = substr($time, 2,4);
         $hours = 0;
-            if ($minus >= 60) {
-                $hours = (int)floor($minus / 60);
+        if ($minus >= 60) {
+            $hours = (int)floor($minus / 60);
             $minus = ($minus % 60);
-            if ($minus > $time_minutes) {
-                $time_minutes += 60;
-                $hours += 1;
-                }
-            }
+        }
+        if ($minus > $time_minutes) {
+            $time_minutes += 60;
+            $hours += 1;
+        }
         $hours = $time_hour - $hours;
         $minus = $time_minutes - $minus;
         $time_required = (string)sprintf('%02d', $hours). (string)sprintf('%02d', $minus);
+
         return $time_required;
     }
 
