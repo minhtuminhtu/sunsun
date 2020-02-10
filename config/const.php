@@ -190,15 +190,14 @@ return [
     ],
     'time_admin' => [
         '0' =>  [
-            'time' => '',
+            'time' => '09:30',
             'time_value' => '0930',
             'time_range' => '09:30～',
             'pet_time_type' => 1,
             'pet_time' => '09:30～10:30',
             'pet_time_value' => '0930-1030',
-            'wt_time_value' => '0930-1030',
+            'wt_time_value' => '0930-1000',
             'wt_new_user' => 1,
-            'begin_time' => '朝',
         ],
         '1' =>  [
             'time' => '09:45',
