@@ -145,6 +145,7 @@ Route::get('/reset', function () {
 });
 
 Route::get('/cache', function () {
+    exec("alias php=\'/usr/local/php7.3/bin/php\'");
     \Artisan::call('cache:clear');
     \Artisan::call('route:clear');
     \Artisan::call('config:clear');
@@ -152,17 +153,8 @@ Route::get('/cache', function () {
     echo "Cache cleared!";
 });
 
-Route::get('/cron', 'Controller@cron_work');
 
-use App\Models\Reminder;
-Route::get('/cron_test', function () {
-    $reminder = new Reminder();
-    $reminder->email_target = "minhtu.bk14@gmail.com";
-    $reminder->save();
-});
-
-
-Route::middleware('begin.auth')->group(function(){
+//Route::middleware('begin.auth')->group(function(){
     Route::middleware('user.auth')->namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
@@ -256,4 +248,4 @@ Route::middleware('begin.auth')->group(function(){
         Route::get('/day_off',['as' => '.dayoff', 'uses' => 'DayOffController@Create']);
         Route::post('/create',['as' => '.create_dayoff', 'uses' => 'DayOffController@Submit']);
     });
-});
+//});
