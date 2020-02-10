@@ -154,7 +154,7 @@ Route::get('/cache', function () {
 });
 
 
-//Route::middleware('begin.auth')->group(function(){
+Route::middleware('begin.auth')->group(function(){
     Route::middleware('user.auth')->namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
@@ -248,4 +248,4 @@ Route::get('/cache', function () {
         Route::get('/day_off',['as' => '.dayoff', 'uses' => 'DayOffController@Create']);
         Route::post('/create',['as' => '.create_dayoff', 'uses' => 'DayOffController@Submit']);
     });
-//});
+});
