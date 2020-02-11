@@ -1,16 +1,16 @@
-中里雅孝 様
+{{ isset($user_data->username)?$user_data->username:'' }} 様
 
 この度は、【ぬか天国Sun燦】にユーザー登録いただき、誠にありがとうございます。
 中里雅孝様のユーザー登録が完了しました。
 
 【ご登録情報】
 
-ユーザー名： ナカザトマサタカ
-メールアドレス： rev2march@gmail.com
+{{ isset($user_data->username)?"ユーザー名：" . $user_data->username:'' }}
+{{ isset($user_data->email)?"メールアドレス：" . $user_data->email:'' }}
 
 ※パスワードはセキュリティ保持のため、表示しておりません。
 ※ご登録情報は　【　アカウント情報　】　のページで確認・変更できます。
-https://booking.sun-sun33.com/ｘｘｘｘｘｘｘ
+https://booking.sun-sun33.com/profile
 
 何かご不明な点等ございましたら、下記お問合せ先までご連絡いただければ
 幸いです。

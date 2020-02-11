@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sunsun\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\CompleteJob;
 use App\Models\MsUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,7 +58,7 @@ class MsUserController extends Controller
         }
         //dd($data);
         $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
-        MsUser::create([
+        $user = MsUser::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'tel' => $data['tel'],
@@ -65,6 +66,7 @@ class MsUserController extends Controller
             // 'birth_year' => $data['birth_year'],
             'password' => Hash::make($data['password']),
         ]);
+        CompleteJob::dispatch($user->email, $user);
         return redirect('/login');
     }
 
