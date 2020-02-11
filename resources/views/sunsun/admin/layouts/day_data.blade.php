@@ -58,8 +58,8 @@
                         <?php
                             $title_stay = "畳";
                             $type_room = $time['data'][$row]->stay_room_type;
-                            if ($type_room == "B") $title_stay = "ツイン";
-                            elseif ($type_room == "C") $title_stay = "セミダブル";
+                            if ($type_room == "03") $title_stay = "ツイン";
+                            elseif ($type_room == "04") $title_stay = "セミダブル";
                         ?>
                         <span>{{ $title_stay }}({{ $time['data'][$row]->stay_guest_num }})</span>
                         @if(isset($time['data'][$row]->breakfast))

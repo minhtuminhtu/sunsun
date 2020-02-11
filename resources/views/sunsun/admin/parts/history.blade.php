@@ -56,7 +56,13 @@
 
                             @if(!isset($hi->ref_booking_id))
                                 @if(isset($hi->stay_room_type))
-                                    <span>宿泊{{ $hi->stay_room_type }}({{ $hi->stay_guest_num }})</span>
+                                    <?php
+                                        $title_stay = "畳";
+                                        $type_room = $hi->stay_room_type;
+                                        if ($type_room == "03") $title_stay = "ツイン";
+                                        elseif ($type_room == "04") $title_stay = "セミダブル";
+                                    ?>
+                                    <span>{{ $title_stay }}({{ $hi->stay_guest_num }})</span>
                                     @if(isset($hi->breakfast))
                                         <span>{{ $hi->breakfast }}</span>
                                     @endif
