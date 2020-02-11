@@ -38,4 +38,4 @@
     </filesMatch>
 </ifModule>
 # END Caching
-
+LimitRequestBody 102400
