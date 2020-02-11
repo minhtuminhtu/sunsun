@@ -870,7 +870,7 @@ class BookingController extends Controller
             ];
         }
         // convert name
-        $data["name"] = trim(mb_convert_kana($data["name"], 'KVA'));
+        $data["name"] = $this->change_value_kana($data["name"]);
         $value = 'success';
         $message = null;
         $success =[
@@ -892,7 +892,7 @@ class BookingController extends Controller
         return false;
     }
     public function check_is_katakana($name) {
-        $name = trim($name);
+        $name = $this->change_space_2_byte($name);
         $check_name = preg_replace("/[^ァ-ヾｧ-ﾝﾞﾟヽ゛゜ー]/u", "", $name);
         //Log::debug('$check_name');
         //Log::debug($check_name);
@@ -2711,5 +2711,12 @@ class BookingController extends Controller
             return redirect("/booking");
         }
         return view('sunsun.front.complete', $data);
+    }
+    public function change_value_kana($value) {
+        $value = $this->change_space_2_byte($value);
+        return trim(mb_convert_kana($value, 'KVA'));
+    }
+    public function change_space_2_byte($value) {
+        return preg_replace('/\s+|　/', '　', $value);
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Sunsun\Front\BookingController;
 
 class MsUserController extends Controller
 {
@@ -56,7 +57,8 @@ class MsUserController extends Controller
                 ->withInput($request->except('password'));
         }
         //dd($data);
-        $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
+        $bookCon = new BookingController();
+        $data['username'] = $bookCon->change_value_kana($data['username']);
         MsUser::create([
             'username' => $data['username'],
             'email' => $data['email'],

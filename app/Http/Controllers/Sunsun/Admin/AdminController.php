@@ -1426,7 +1426,8 @@ class AdminController extends Controller
     public function get_list_search_user($data=null, $type=null){
         $where = array();
         if ($data != null) {
-            $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
+            $bookCon = new BookingController();
+            $data['username'] = $bookCon->change_value_kana($data['username']);
             $username = $data['username'];
             $phone = $data['phone'];
             $email = $data['email'];
@@ -1520,7 +1521,8 @@ class AdminController extends Controller
                 }else{
                     $deleteflg = "0";
                 }
-                $data['username'] = trim(mb_convert_kana($data['username'], 'KVA'));
+                $bookCon = new BookingController();
+                $data['username'] = $bookCon->change_value_kana($data['username']);
                 MsUser::where('ms_user_id', $data['user_id'])->update(['username' => $data['username'], 'password' => $data['password'], 'email' => $data['email'], 'tel' => $data['tel'], 'deleteflg' => $deleteflg]);
                 $result = [
                     'status' => true
@@ -1558,7 +1560,6 @@ class AdminController extends Controller
             return Excel::download(new UsersExport(), $date_down.'.csv');
         }
     }
-
     // ms_holiday
     public function ms_holiday(Request $request)
     {
@@ -1578,7 +1579,6 @@ class AdminController extends Controller
             return view('sunsun.admin.msholiday', ['data' => $list_data, 'type' => 0]);
         }
     }
-
     // add holiday
     public function add_holiday(Request $request)
     {
@@ -1601,12 +1601,12 @@ class AdminController extends Controller
             return redirect()->route('admin.msholiday');
         }
     }
-    
     private function insert_holiday($data, $request){
         if(isset($data['holiday_date'])){
             $check_row_exits = MsHoliday::where('date_holiday','=', $data['holiday_date'])->first();
             if ($check_row_exits === null) {
-                $data['note_holiday'] = trim(mb_convert_kana($data['note_holiday'], 'KVA'));
+                $bookCon = new BookingController();
+                $data['note_holiday'] = $bookCon->change_value_kana($data['note_holiday']);
                 MsHoliday::insert(['date_holiday' => $data['holiday_date'], 'note_holiday' => $data['note_holiday']]);
                 $result = true;
             }else{
@@ -1615,7 +1615,6 @@ class AdminController extends Controller
         }
         return $result;
     }
-    
     public function update_holiday(Request $request)
     {
         $data = $request->all();
@@ -1632,7 +1631,8 @@ class AdminController extends Controller
                 $holiday_date[2] = '0'.$holiday_date[2];
             }
             $holiday_date_update = $holiday_date[0].$holiday_date[1].$holiday_date[2];
-            $data['holiday_note'] = trim(mb_convert_kana($data['holiday_note'], 'KVA'));
+            $bookCon = new BookingController();
+            $data['holiday_note'] = $bookCon->change_value_kana($data['holiday_note']);
             $check_exits = MsHoliday::where('date_holiday' ,'=', $holiday_date_update)->first();
             if ($check_exits != null && $check_exits['ms_holiday_id'] == $data['holiday_id']) {
                 MsHoliday::where('date_holiday', $holiday_date_old)->update(['date_holiday' => $holiday_date_update, 'note_holiday' => $data['holiday_note']]);
@@ -1646,12 +1646,10 @@ class AdminController extends Controller
         }
         return $responsive_array;
     }
-
     private function get_data_holiday(){
         $result = MsHoliday::where('time_holiday', null)->orderBy('ms_holiday_id', 'DESC')->paginate(1);
         return $result;
     }
-
     private function get_list_search_holiday($data){
         if(isset($data) && !empty($data)){
             $date_start_year = $data['holiday_start_date_year'];
@@ -1678,7 +1676,6 @@ class AdminController extends Controller
             return $data;
         }
     }
-
     public function get_data_holiday_search_pagination(Request $request)
     {
         if($request->ajax())
@@ -1692,5 +1689,4 @@ class AdminController extends Controller
             ];
         }
     }
-
 }
