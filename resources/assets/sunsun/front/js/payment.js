@@ -12,25 +12,7 @@ $(function() {
         if (e.which < 48 || e.which > 57){
             e.preventDefault();
         }
-    })
-    $('#email').off('keypress keyup keydown change');
-    $('#email').on('keypress keyup keydown change', function(e){
-        let email = $('#email').val().replace(/[^0-9a-zA-Z@.０-９Ａ-Ｚａ-ｚ＠]/,'');
-        let temp_str = "";
-        if(email.length != get_number_byte_str(email)){
-            for(let i = 0; i < email.length; i++){
-                if(get_number_byte_str(email.charAt(i)) == 2){
-                    temp_str += convert_2byte_2_1byte(email.charAt(i));
-                }else{
-                    temp_str += email.charAt(i);
-                }
-            }
-        }else{
-            temp_str = email;
-        }
-        temp_str = temp_str.replace(/[^0-9a-zA-Z@.]/,'');
-        $("#email").val(temp_str);
-    })
+    });
     function convert_2byte_2_1byte(str) {
         let char_code = str.charCodeAt(0) - 65248;
         return String.fromCharCode(char_code)
