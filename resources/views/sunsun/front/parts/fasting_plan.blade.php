@@ -1,6 +1,7 @@
 @php
     if( (!isset($course_data['course'])) || ($course_data['course'] != '04') ){
         $course_data = NULL;
+        $date_unique_time = NULL;
     }
     if(isset($pop_data)){
         $pop_data = json_decode($pop_data, true);
@@ -140,8 +141,9 @@
 
                         if(isset($time['time_json'])){
                             $temp_time_json = explode('-', $time['time_json']);
-                            $time1_json = $temp_time_json[0];
-                            $time2_json = $temp_time_json[1];
+                            $time1_json = isset($temp_time_json[0])?$temp_time_json[0]:'';
+
+                            $time2_json = isset($temp_time_json[1])?$temp_time_json[1]:'';
                         }
                     @endphp
                     <div class="booking-field choice-time">

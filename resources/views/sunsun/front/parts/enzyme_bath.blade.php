@@ -1,6 +1,7 @@
 @php
     if( (!isset($course_data['course'])) || ($course_data['course'] != '01') ){
         $course_data = NULL;
+        $course_time = NULL;
     }
     if(isset($pop_data)){
         $pop_data = json_decode($pop_data, true);
@@ -296,13 +297,20 @@
                 if(isset($pop_data["whitening"]) && (json_decode($pop_data['whitening'], true)['kubun_id'] == '02')){
                     $display_whitening = false;
                 }
-                $whitening_time = isset($course_data['whitening_time'])?$course_data['whitening_time']:'0';
-                $whitening_json = isset($course_data['whitening_time_json'])?$course_data['whitening_time_json']:'';
-                $whitening_view = isset($course_data['whitening_time-view'])?$course_data['whitening_time-view']:'－';
+                $whitening_time = '0';
+                $whitening_json = '';
+                $whitening_view = '－';
 
-                $whitening_time = ($whitening_time === 0)?(isset($pop_data['whitening-time_value'])?$pop_data['whitening-time_value']:''):"";
-                $whitening_json = ($whitening_time === '')?(isset($pop_data['whitening_data']['json'])?$pop_data['whitening_data']['json']:''):"";
-                $whitening_view = ($whitening_view === '－')?(isset($pop_data['whitening-time_view'])?$pop_data['whitening-time_view']:'－'):"－";
+                if(isset($course_data['whitening_time'])  === true && isset($course_data['whitening_time_json'])  === true &&  isset($course_data['whitening_time-view']) === true ){
+                    $whitening_time = $course_data['whitening_time'];
+                    $whitening_json = $course_data['whitening_time_json'];
+                    $whitening_view = $course_data['whitening_time-view'];
+                }else if(isset($pop_data['whitening-time_value']) === true && isset($pop_data['whitening_data']['json']) === true && isset($pop_data['whitening-time_view']) === true){
+                    $whitening_time = $pop_data['whitening-time_value'];
+                    $whitening_json = $pop_data['whitening_data']['json'];
+                    $whitening_view = $pop_data['whitening-time_view'];
+                }
+
             @endphp
             <div class="booking-field whitening"  @if($display_whitening) style="display:none;" @endif>
                 <div class="booking-field-label booking-laber-padding">

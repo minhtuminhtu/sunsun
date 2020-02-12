@@ -43,14 +43,20 @@
             $time = substr($pop_data['time_room_time1'], 0, 2) . ":" . substr($pop_data['time_room_time1'], 2, 2) . "～"
             . substr($pop_data['time_room_time2'], 0, 2) . ":" . substr($pop_data['time_room_time2'], 2, 2);
         }
-        $time_json = isset($course_data['time_json'])?$course_data['time_json']:'';
-        $time_json = ($time_json === '')?(isset($pop_data['time'][0]['json'])?$pop_data['time'][0]['json']:'0'):'';
 
-        $service_time_1 = isset($course_data['service_time_1'])?$course_data['service_time_1']:'';
-        $service_time_1 = ($service_time_1 === '')?(isset($pop_data['time_room_time1'])?$pop_data['time_room_time1']:'0'):'0';
+        $time_json = '';
+        $service_time_1 = '0';
+        $service_time_2 = '0';
 
-        $service_time_2 = isset($course_data['service_time_2'])?$course_data['service_time_2']:'';
-        $service_time_2 = ($service_time_2 === '')?(isset($pop_data['time_room_time2'])?$pop_data['time_room_time2']:'0'):'0';
+        if(isset($course_data['time_json']) === true && isset($course_data['service_time_1']) === true && isset($course_data['service_time_2']) === true){
+            $time_json = $course_data['time_json'];
+            $service_time_1 = $course_data['service_time_1'];
+            $service_time_2 = $course_data['service_time_2'];
+        }else if(isset($pop_data['time'][0]['json']) === true && isset($pop_data['time_room_time1']) === true && isset($pop_data['time_room_time2']) === true){
+            $time_json = $pop_data['time'][0]['json'];
+            $service_time_1 = $pop_data['time_room_time1'];
+            $service_time_2 = $pop_data['time_room_time2'];
+        }
 
     @endphp
     <div class="booking-field">

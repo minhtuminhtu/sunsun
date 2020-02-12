@@ -72,6 +72,7 @@ $(function () {
                     backdrop: 'static',
                     keyboard: false
                 });
+                load_payment_event();
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -313,5 +314,27 @@ $(function () {
                 $('.search-button').html('');
             });
         };
+    }
+
+
+    let load_payment_event = function () {
+        $('#collapseOne').collapse('hide');
+        $('#headingOne').on('click', function (e) {
+            e.preventDefault();
+        });
+        $('.card').on('show.bs.collapse', function () {
+            $(this).find('.payment-method').prop('checked',true);
+        });
+        $(`[data-toggle="collapse"]`).on('click',function(e){
+            var idx = $(this).index('[data-toggle="collapse"]');
+            if(idx === 0){
+                e.stopPropagation();
+            }else if ( $(this).parents('.accordion').find('.collapse.show') ){
+                if (idx === $('.collapse.show').index('.collapse')) {
+                    console.log(idx);
+                    e.stopPropagation();
+                }
+            }
+        });
     }
 });

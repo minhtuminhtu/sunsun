@@ -28,7 +28,7 @@ $(function() {
         if ( $(this).parents('.accordion').find('.collapse.show') ){
             var idx = $(this).index('[data-toggle="collapse"]');
             if (idx == $('.collapse.show').index('.collapse')) {
-                // prevent collapse
+                console.log(idx);
                 e.stopPropagation();
             }
         }
