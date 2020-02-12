@@ -207,9 +207,10 @@ Route::middleware('begin.auth')->group(function(){
         Route::post('/login-admin', ['as' => 'auth-admin', 'uses' => 'AdminLoginController@login']);
         Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
         Route::post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
-        Route::get('/reset-password', 'ResetPasswordController@index');
-        Route::post('/reset-password', 'ResetPasswordController@exec');
-        Route::put('/reset-password/{token}', 'ResetPasswordController@reset');
+        Route::get('/forgot_password', ['as' => '.forgot_password',  'uses' => 'ResetPasswordController@index']);
+        Route::post('/forgot_password', ['as' => '.reset_password',  'uses' => 'ResetPasswordController@exec']);
+        Route::get('/reset_password/{token}', ['as' => '.change_password',  'uses' => 'ResetPasswordController@change']);
+        Route::put('/reset_password', ['as' => '.reset_password',  'uses' => 'ResetPasswordController@update']);
     });
     // user
     Route::middleware('user.auth')->namespace('Sunsun\Auth')->group(function (){

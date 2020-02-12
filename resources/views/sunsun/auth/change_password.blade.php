@@ -16,32 +16,48 @@
     <main class="main-body">
         <div class="">
             <div class="user-warp">
-                {!! Form::open(['action' => ['Sunsun\Auth\AuthUserController@changepassword'], 'method' => 'POST', 'class' => 'form']) !!}
-                @if(Session::has('success'))
+                {!! Form::open(['action' => ['Sunsun\Auth\ResetPasswordController@update'], 'method' => 'PUT', 'class' => 'form']) !!}
+                @if(isset($status) && $status === true)
                     <div class="alert alert-success">
-                        {{ Session::get('success') }}
-                        @php
-                            Session::forget('success');
-                        @endphp
+                        {{ isset($notify)?$notify:"" }}
+                    </div>
+                @elseif(isset($status) && $status === false)
+                    <div class="alert alert-danger">
+                        {{ isset($notify)?$notify:"" }}
                     </div>
                 @endif
-                <div class="form-group">
-                    <div class="">
-                        <p class="text-md-left pt-2">Old Password</p>
+
+                <input name="token" type="hidden" value="{{ isset($token)?$token:'' }}">
+
+                @if(isset($forgot) === false || $forgot === false)
+                    <div class="form-group">
+                        <div class="">
+                            <p class="text-md-left pt-2">Old Password</p>
+                        </div>
+                        <div class="form-input">
+                            <input name="password" type="password" id="password" class="form-control" required autofocus >
+                            {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
+                        </div>
                     </div>
-                    <div class="form-input">
-                        <input name="password" type="password" id="password" class="form-control" required autofocus >
-                        {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
-                    </div>
-                </div>
+                @endif
                 <div class="form-group">
                     <div class="">
                         <p class="text-md-left pt-2">New Password</p>
                     </div>
                     <div class="form-input">
-                        <input name="password_new" type="password" id="password_new" class="form-control" required>
+                        <input name="password" type="password" id="password" class="form-control" required>
                     </div>
                 </div>
+                @if(isset($forgot) && $forgot === true)
+                    <div class="form-group">
+                        <div class="">
+                            <p class="text-md-left pt-2">Repeat Password</p>
+                        </div>
+                        <div class="form-input">
+                            <input name="password_repeat" type="password" id="password_repeat" class="form-control" required>
+                        </div>
+                    </div>
+                @endif
                 <div class="form-group">
                     <div class="">
                     </div>

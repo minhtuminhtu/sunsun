@@ -1,4 +1,4 @@
-ナカザトマサタカ 様
+{{ isset($user->username)?$user->username:''  }}様
 
 平素は【ぬか天国Sun燦】をご愛顧賜り、厚く御礼申し上げます。
 この度はパスワードの変更をお申し込みいただき誠にありがとうございます。
@@ -8,7 +8,7 @@
 下記URLよりご希望の新しいパスワードへの変更手続きを行ってください。
 
 ▼パスワード変更用URL
-　https://mypage.eonet.jp/EoIdPasswordDetails/initSecretAnswerInput?key=6a6e72372k2z11i1x2p4h55v2i2m5j&header=2
+　{{ isset($token) && isset($app_url)?$app_url . "/reset_password/" . $token:''  }}
 
 
 -----------------------------------------------------------------

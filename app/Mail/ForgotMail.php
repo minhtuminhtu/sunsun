@@ -9,15 +9,18 @@ use Illuminate\Queue\SerializesModels;
 
 class ForgotMail extends Mailable {
     use Queueable, SerializesModels;
-    protected $forgot_data;
+    protected $token;
+    protected $user;
 
     /**
      * Create a new message instance.
      *
-     * @param $forgot_data
+     * @param $token
+     * @param $user
      */
-    public function __construct($forgot_data) {
-        $this->forgot_data = $forgot_data;
+    public function __construct($token, $user) {
+        $this->token = $token;
+        $this->user = $user;
     }
 
     /**
@@ -26,12 +29,14 @@ class ForgotMail extends Mailable {
      * @return $this
      */
     public function build() {
-        $forgot_data = $this->forgot_data;
-        return $this->text('sunsun.mails.user.complete')
-            ->subject('【ぬか天国Sun燦】ユーザー登録完了のお知らせ')
+        $app_url = config('app.url');
+        return $this->text('sunsun.mails.user.forgot')
+            ->subject('【ぬか天国Sun燦】パスワード変更受付')
             ->with(
                 [
-                    'user_data' => $forgot_data
+                    'token' => $this->token,
+                    'user' => $this->user,
+                    'app_url' => $app_url
                 ]);
     }
 }

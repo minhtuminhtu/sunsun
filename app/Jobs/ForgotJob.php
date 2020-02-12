@@ -8,22 +8,28 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ForgotJob implements ShouldQueue {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $email;
-    protected $forgot_data;
+    protected $token;
+    protected $user;
 
     /**
      * Create a new job instance.
      *
      * @param $email
-     * @param $forgot_data
+     * @param $token
+     * @param $user
      */
-    public function __construct($email, $forgot_data) {
+    public function __construct($email, $token, $user) {
         $this->email = $email;
-        $this->forgot_data = $forgot_data;
+        $this->token = $token;
+        $this->user = $user;
+
+        Log::debug($token);
     }
 
     /**
@@ -32,6 +38,6 @@ class ForgotJob implements ShouldQueue {
      * @return void
      */
     public function handle() {
-        Mail::to($this->email)->send(new ForgotMail($this->forgot_data));
+        Mail::to($this->email)->send(new ForgotMail($this->token, $this->user));
     }
 }
