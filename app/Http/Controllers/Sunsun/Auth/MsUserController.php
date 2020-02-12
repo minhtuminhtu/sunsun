@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Sunsun\Auth;
 use App\Http\Controllers\Controller;
 use App\Jobs\CompleteJob;
 use App\Models\MsUser;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -44,7 +46,7 @@ class MsUserController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     protected function create(Request $request)
     {
@@ -60,7 +62,7 @@ class MsUserController extends Controller
         //dd($data);
         $bookCon = new BookingController();
         $data['username'] = $bookCon->change_value_kana($data['username']);
-        MsUser::create([
+        $user = MsUser::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'tel' => $data['tel'],
