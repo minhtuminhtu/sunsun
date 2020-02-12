@@ -136,6 +136,13 @@ Route::get('/clear', function () {
     echo "Clear done!";
 });
 
+Route::get('/migrate', function () {
+    exec("alias php=\'/usr/local/php7.3/bin/php\'");
+    \Artisan::call('migrate');
+    \Artisan::call('db:seed');
+    echo "Migrate done!";
+});
+
 Route::get('/reset', function () {
     exec("alias php=\'/usr/local/php7.3/bin/php\'");
     \Artisan::call('migrate:reset');
@@ -199,7 +206,10 @@ Route::middleware('begin.auth')->group(function(){
         Route::post('/login', ['as' => 'auth', 'uses' => 'LoginController@login']);
         Route::post('/login-admin', ['as' => 'auth-admin', 'uses' => 'AdminLoginController@login']);
         Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
-        Route::Post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
+        Route::post('/create', ['as' => '.create',  'uses' => 'MsUserController@create']);
+        Route::get('/reset-password', 'ResetPasswordController@index');
+        Route::post('/reset-password', 'ResetPasswordController@exec');
+        Route::put('/reset-password/{token}', 'ResetPasswordController@reset');
     });
     // user
     Route::middleware('user.auth')->namespace('Sunsun\Auth')->group(function (){

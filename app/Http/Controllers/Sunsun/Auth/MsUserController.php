@@ -71,6 +71,7 @@ class MsUserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         CompleteJob::dispatch($user->email, $user);
+        Auth::login($user);
         return redirect('/login');
     }
 

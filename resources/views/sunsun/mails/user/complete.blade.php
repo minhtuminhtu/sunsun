@@ -1,12 +1,12 @@
 {{ isset($user_data->username)?$user_data->username:'' }} 様
 
 この度は、【ぬか天国Sun燦】にユーザー登録いただき、誠にありがとうございます。
-中里雅孝様のユーザー登録が完了しました。
+{{ isset($user_data->username)?$user_data->username:'' }}様のユーザー登録が完了しました。
 
 【ご登録情報】
 
-{{ isset($user_data->username)?"ユーザー名：" . $user_data->username:'' }}
-{{ isset($user_data->email)?"メールアドレス：" . $user_data->email:'' }}
+ユーザー名：{{ isset($user_data->username)?$user_data->username:'' }}
+メールアドレス：{{ isset($user_data->email)?$user_data->email:'' }}
 
 ※パスワードはセキュリティ保持のため、表示しておりません。
 ※ご登録情報は　【　アカウント情報　】　のページで確認・変更できます。
