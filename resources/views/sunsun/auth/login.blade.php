@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="form-group text-right" style="margin-top: 15px">
-                    <a href="/reset-password" class="right-link">パスワードをお忘れの方</a>
+                    <a href="/forgot_password" class="right-link">パスワードをお忘れの方</a>
                 </div>
                 <div class="form-group" style="margin-top: 40px">
                     <div class="form-input">
