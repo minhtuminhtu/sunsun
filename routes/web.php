@@ -256,6 +256,8 @@ Route::middleware('begin.auth')->group(function(){
         Route::post('/submit_time_off',['as' => '.submit_time_off', 'uses' => 'TimeOffController@Submit']);
         // day off holiday
         Route::get('/day_off',['as' => '.dayoff', 'uses' => 'DayOffController@Create']);
-        Route::post('/create',['as' => '.create_dayoff', 'uses' => 'DayOffController@Submit']);
+        //Route::post('/create',['as' => '.create_dayoff', 'uses' => 'DayOffController@Submit']);
+        Route::post('/submit_day_off',['as' => '.submit_day_off', 'uses' => 'DayOffController@Submit']);
+        Route::post('/ajax_day_off',['as' => '.ajax_day_off', 'uses' => 'DayOffController@GetAjax']);
     });
 });
