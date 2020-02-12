@@ -125,7 +125,7 @@ class BookingController extends Controller
             $this->save_session($request, $data);
         }
     }
-    public function validate_booking($data) {
+    public function validate_booking($data, $booking_id = 0) {
         $error = [];
         $transport = $data['transport'];
         $transport = json_decode($transport, true);
@@ -287,6 +287,7 @@ class BookingController extends Controller
                     OR  ( main.stay_checkin_date >= $range_date_start AND main.stay_checkout_date <= $range_date_end )
                     )
                 AND main.history_id IS NULL
+                AND main.booking_id <> $booking_id
                 ");
                 if((count($number_dup) != 0) || ($range_date_start == $range_date_end)){
                     $error['room_error_holiday'] = "0";
@@ -298,7 +299,7 @@ class BookingController extends Controller
                 }
             }
         }
-        // dd($error);
+//         dd($error);
         if (isset($error['error_time_transport']) == false
             && isset($error['error_time_gender']) == false
             && isset($error['room_select_error']) == false
@@ -905,7 +906,7 @@ class BookingController extends Controller
     /*public function check_is_empty($name) {
         return (preg_match('/( )|(　)/', $name) > 0) ? true : false;
     }*/
-    public function validate_payment_info(&$data){
+    public function validate_payment_info(&$data, $booking_id = NULL){
         $error = [];
         if(($data['name'] == null) || (!$this->check_is_katakana($data['name']))){
             $error['error'][] = 'name';
@@ -1314,12 +1315,14 @@ class BookingController extends Controller
         $checkout_tmp = $checkout;
         while ($checkin <= $checkout) {
             $begin = $this->convertStringToDate($checkin);
+            Log::debug($begin);
             if (!$begin || !$this->isDate($begin)) return false;
             $what_day = date('w', strtotime($begin));
             if (in_array($what_day, [3,4]) )
                 return false;
             $checkin = date('Ymd', strtotime($begin. ' + 1 days'));
         };
+
         return $this->validate_holyday_special($checkin_tmp, $checkout_tmp);
     }
     private function validate_holyday_special($checkin, $checkout) {
@@ -1330,7 +1333,10 @@ class BookingController extends Controller
         ";
         // Log::debug($sql_check);
         $room_validate = DB::select($sql_check);
-        // Log::debug($room_validate);
+         Log::debug('$room_validate');
+         Log::debug($room_validate);
+
+
         if(isset($room_validate) && (count($room_validate) > 0)){
             return false;
         }

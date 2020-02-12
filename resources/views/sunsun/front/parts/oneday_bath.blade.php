@@ -280,6 +280,10 @@
             $room_whitening = false;
             $range_date_start= substr($course_data['stay_checkin_date'], 0, 4).'/'.substr($course_data['stay_checkin_date'], 4, 2).'/'.substr($course_data['stay_checkin_date'], 6, 2);
             $range_date_end = substr($course_data['stay_checkout_date'], 0, 4).'/'.substr($course_data['stay_checkout_date'], 4, 2).'/'.substr($course_data['stay_checkout_date'], 6, 2);
+            $range_date_start_value = $course_data['stay_checkin_date'];
+            $range_date_end_value = $course_data['stay_checkout_date'];
+            $range_date_start_view = $range_date_start;
+            $range_date_end_view = $range_date_end;
         }
         if(isset($pop_data["stay_room_type"]) && (json_decode($pop_data['stay_room_type'], true)['kubun_id'] != '01')){
             $room_whitening = false;
