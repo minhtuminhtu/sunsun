@@ -5,6 +5,32 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/holiday.css')}}">
     <link rel="stylesheet" href="{{asset('css/on-off-switch.css')}}">
+    <style>
+        .on-off-switch-thumb-off,
+        .on-off-switch-thumb-on{
+            left: 0px !important;
+            top: 0px !important;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px !important;
+        }
+        .on-off-switch-text-on,
+        .on-off-switch-text-off{
+            line-height: 20px !important;
+        }
+        .track-off-gradient, .track-on-gradient{
+            background: none;
+        }
+        .on-off-switch-track-white{
+            background-color: inherit !important;
+        }
+        #submitButton.disabled {
+            pointer-events: none;
+        }
+        .disable-checkbox{
+            left: 32px !important;
+        }
+        
+    </style>
 @endsection
 @section('main')
     <main>
@@ -39,7 +65,7 @@
                         </div>
                         <div class="btn-submit">
                             <div id="submitButton">
-                                <a href="javascript:void(0)">Save</a>
+                                <a href="javascript:void(0)" >保存</a>
                             </div>
                         </div>
                     </form>
@@ -70,6 +96,7 @@
             }
             // start page
             createListKubun();
+            
             var today = new Date();
             var day = today.getDay();
             if (day == 3 || day == 4) {
@@ -83,13 +110,15 @@
                 dateFormat: 'yyyy/mm/dd'
             }).on("changeDate", function(e) {
                 searchDate(e.date);
+                checkDateDisableButton();
             }).datepicker("setDate", today);
             function searchDate(date_select) {
                 var _date_search = date_select.getFullYear()+"-"+(date_select.getMonth()+1)+"-"+date_select.getDate();
                 $("#date_search").val(_date_search);
                 refeshPage();
             }
-            $(document).on("click", "#submitButton", function(){
+            $(document).on("click", "#submitButton", function(e){
+                e.preventDefault();
                 var _data = [];
                 for (var i =0 ; i < count_list ; i++) {
                     var id_cmb = "#"+listCombo[i];
@@ -110,7 +139,7 @@
                     },
                     success: function (html) {
                         if (html.status == true) {
-                            alert("save finish");
+                            alert("保存に成功しました。");
                         }
                     },
                     complete: function () {
@@ -157,6 +186,14 @@
                     textOn:'ON',
                     textOff:'OFF',
                     listener:function(name, checked){
+                        var arr_date = handleDate();
+                        if (arr_date.date_search <= arr_date.date_now) { 
+                            $('.on-off-switch-track>div').attr('style','left:0px');
+                            $('.on-off-switch-thumb').addClass('disable-checkbox'); 
+                            alert("休日が未来の日付のみに設定できます。");
+                            return false; 
+                        }
+                        
                         var id_tr = "#"+name.replace("cmb_", "tr_");
                         if (!checked) {
                             $("#"+name).val("off");
@@ -207,6 +244,26 @@
                         loader.css({'display': 'none'});
                     },
                 });
+            }
+        
+            // rule time off
+            function checkDateDisableButton() {
+                var arr_data = handleDate();
+                if (arr_data.date_search <= arr_data.date_now) {
+                    $("#submitButton").addClass('disabled');
+                }else{
+                    $("#submitButton").removeClass('disabled');
+                }
+            }
+            function handleDate() {
+                var date_now = today.toISOString().slice(0,10);
+                date_now = date_now.replace(/-/g,"");
+                var date_search = $('#date_search').val();
+                date_search = date_search.split("-");
+                var day = (date_search[2].length < 2) ? "0"+date_search[2] : date_search[2];
+                var month = (date_search[1].length < 2) ? "0"+date_search[1] : date_search[1];
+                date_search = date_search[0]+month+day;
+                return {date_now: date_now, date_search: date_search}; 
             }
         })(jQuery);
     </script>
