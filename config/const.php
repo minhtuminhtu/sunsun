@@ -3,6 +3,9 @@ return [
     'error' => [
         'katakana' => 'お名前をカタカナで入力してください。'
     ],
+    'message' => [
+        'please_15_minus' => '※<span class="text-red">開始時間の15分前まで</span>にお越しください。'
+    ],
     'db' => [
         'ms_user' => [
             'MS_USER_ID' => 'ms_user_id',
@@ -193,7 +196,7 @@ return [
     ],
     'time_admin' => [
         '0' =>  [
-            'time' => '09:30',
+            'time' => '',
             'time_value' => '0930',
             'time_range' => '09:30～',
             'pet_time_type' => 1,
@@ -201,6 +204,7 @@ return [
             'pet_time_value' => '0930-1030',
             'wt_time_value' => '0930-1000',
             'wt_new_user' => 1,
+            'begin_time' => '朝',
         ],
         '1' =>  [
             'time' => '09:45',

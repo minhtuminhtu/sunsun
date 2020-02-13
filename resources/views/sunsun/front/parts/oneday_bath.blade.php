@@ -248,7 +248,7 @@
                     <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
                 </div>
                 <div class="booking-field-content">
-                    <select name="pet_keeping" class="form-control">
+                    <select name="pet_keeping" id="pet_keeping" class="form-control">
                         @foreach($pet_keeping as $value)
                             @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>

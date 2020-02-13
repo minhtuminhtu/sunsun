@@ -53,13 +53,28 @@ $(function () {
     $('#edit_booking').on('click','.btn-cancel',function (e) {
         booking_edit_hidden();
     });
-    let show_booking = function (booking_id) {
+    let show_booking = function (obj,type) {
+        var booking_id = $(obj).find('.booking-id').val();
+        // var id_row = obj.parentElement.parentElement.id; //get time
+        var id_sex = "01";
+        if (type == "01") {
+            var list_class = obj.parentElement.classList;
+            for (var i = 0; i< list_class.length; i++) {
+                if (list_class[i].indexOf("famale") > 0) {
+                    id_sex = "02";
+                    break;
+                }
+            }
+        }
         $.ajax({
             url: '/admin/edit_booking',
             type: 'POST',
             data: {
                 'new' : 0,
-                'booking_id' : booking_id
+                'booking_id' : booking_id,
+                'type_admin' : type,
+                'sex_admin' : id_sex,
+                'date_admin' : $("#input-current__date").val(),
             },
             dataType: 'text',
             beforeSend: function () {
@@ -82,19 +97,16 @@ $(function () {
     $('.main-col__data').not(".bg-free").not(".bg-dis").off('click');
     $('.main-col__data').not(".bg-free").not(".bg-dis").on('click', function (e) {
         if(!$(this).find('.control-align_center').text()){
-            var booking_id = $(this).find('.booking-id').val();
-            show_booking(booking_id);
+            show_booking(this,"01");
         }
     });
     $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").off('click');
     $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").on('click', function (e) {
-        var booking_id = $(this).find('.booking-id').val();
-        show_booking(booking_id);
+        show_booking(this,"05");
     });
     $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").off('click');
     $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").on('click', function (e) {
-        var booking_id = $(this).find('.booking-id').val();
-        show_booking(booking_id);
+        show_booking(this,"02");
     });
     $('#go-weekly').off('click');
     $('#go-weekly').on('click',function (e) {

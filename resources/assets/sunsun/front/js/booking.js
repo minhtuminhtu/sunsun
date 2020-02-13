@@ -1,4 +1,6 @@
 var _off_def = "3,4";
+var date_check = false;
+var admin_check = false;
 $(function() {
     let init_event = 0;
     window.onpopstate = function(event) {
@@ -55,17 +57,35 @@ $(function() {
                 load_event(true);
                 load_after_ajax();
                 load_time_list();
+                checkShowWhite();
             },
             complete: function () {
                 loader.css({'display': 'none'});
             },
         });
     }
+    function setDefAdmin() {
+        if (_type_admin == "05") {
+            var obj_course = document.getElementById("course");
+            if (obj_course == null || obj_course == undefined) return;
+            var count_obj = obj_course.length;
+            for (var i = 0 ; i < count_obj; i++) {
+                var val = JSON.parse(obj_course[i].value);
+                if (val.kubun_id == "05") {
+                    obj_course.value = obj_course[i].value;
+                    break;
+                }
+            }
+        } else _type_admin = "01";
+        $("#course").change();
+    }
     $('#course').on('change', function() {
         get_service($('#course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
     });
+    if (typeof _date_admin === "undefined" || _date_admin == '') {
     get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
-    let load_event = function(date_check = false) {
+    }
+    let load_event = function() {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
         if(($('#date').val() == "") && ($('#date').val() !== undefined)){
@@ -136,21 +156,6 @@ $(function() {
                 });
             }
         });
-        function change_stay_guest_num {
-            var room =  JSON.parse($('#room').val());
-                        var obj = document.getElementById("stay_guest_num");
-                        var count_obj = obj.length;
-                        for (var i = 0 ; i < count_obj; i++) {
-                            obj[i].hidden = false;
-                            var val = JSON.parse(obj[i].value);
-                            if (val.kubun_id == "02" && room.kubun_id == "04") {
-                                obj[i].hidden = true;
-                            }
-                            else if (val.kubun_id == "03" && (room.kubun_id == "03" ||  room.kubun_id == "04")) {
-                                obj[i].hidden = true;
-                            }
-                        }
-            }
         $('#whitening').off('change');
         $('#whitening').on('change', function() {
             var whitening =  JSON.parse($('#whitening').val());
@@ -183,8 +188,10 @@ $(function() {
         };
         function get_off_def() {
             var _off_set = _off_def;
-            if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
-                _off_set += "6,0";
+            if (typeof $('#course') != "undefined" && $('#course') != null) {
+                if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
+                    _off_set += "6,0";
+                }
             }
             return _off_set;
         }
@@ -201,6 +208,13 @@ $(function() {
                 weekStart: 1,
                 orientation: 'bottom',
             });
+            if (typeof _date_admin !== "undefined" && _date_admin != "") {
+                if (!admin_check)
+                    setDefAdmin();
+                if (typeof $("#date") !== "undefined" && $("#date") != null)
+                    $("#date").val(_date_admin);
+                admin_check = true;
+            }
         }else{
             $('#date').datepicker({
                 language: 'ja',
@@ -454,8 +468,9 @@ $(function() {
         load_pick_time_room_event();
         load_pick_time_wt_event();
         load_pick_time_pet_event();
+        change_stay_guest_num();
+        date_check = false;
     };
-    load_event();
     modal_choice_time.on('show.bs.modal', function (e) {
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
     })
@@ -1315,4 +1330,63 @@ function get_dates(startDate, stopDate) {
         currentDate = moment(currentDate).add(1, 'days');
     }
     return dateArray;
+}
+function change_stay_guest_num() {
+    var obj_room = document.getElementById("room");
+    if (obj_room == null || obj_room == undefined) return;
+    var room = JSON.parse(obj_room.value);
+    var obj = document.getElementById("stay_guest_num");
+    var count_obj = obj.length;
+    for (var i = 0 ; i < count_obj; i++) {
+        obj[i].hidden = false;
+        var val = JSON.parse(obj[i].value);
+        if (val.kubun_id == "02" && room.kubun_id == "04") {
+            obj[i].hidden = true;
+        }
+        if (val.kubun_id == "03" && (room.kubun_id == "03" ||  room.kubun_id == "04")) {
+            obj[i].hidden = true;
+        }
+    }
+    if (room.kubun_id != '01' && !setClickCollapse("btn-collapse-finish"))
+        obj.value = obj[0].value;
+}
+function checkShowWhite() {
+    var obj_course = document.getElementById("course");
+    if (obj_course == null || obj_course == undefined) return;
+    var course = JSON.parse(obj_course.value);
+    if (course.kubun_id == "05") return; //pet
+    var obj_lunch = document.getElementById("lunch");
+    var obj_whitening = document.getElementById("whitening");
+    var obj_pet_keeping = document.getElementById("pet_keeping");
+    var lunch_guest_num = document.getElementById("lunch_guest_num");
+    var _lunch = "01", _whitening = "01", _pet_keeping = "01", _lunch_guest_num = "01";
+    if (course.kubun_id == "01") {
+        if (obj_lunch == null || obj_lunch == undefined) return;
+        _lunch = getValueSelect(obj_lunch);
+    }
+    if (course.kubun_id == "01" || course.kubun_id == "02" || course.kubun_id == "03") {
+        if (obj_whitening == null || obj_whitening == undefined) return;
+        _whitening = getValueSelect(obj_whitening);
+    }
+    if (course.kubun_id == "03") {
+        if (lunch_guest_num == null || lunch_guest_num == undefined) return;
+        _lunch_guest_num = getValueSelect(lunch_guest_num);
+    }
+    if (obj_pet_keeping == null || obj_pet_keeping == undefined) return;
+    _pet_keeping = getValueSelect(obj_pet_keeping);
+    if (_lunch != '01' || _whitening != '01' || _lunch_guest_num != '01' || _pet_keeping != '01') {
+        setClickCollapse("btn-collapse-between");
+    }
+}
+function getValueSelect(_obj) {
+    var json = JSON.parse(_obj.value);
+    return json.kubun_id;
+}
+function setClickCollapse(id) {
+    id = "#"+id;
+    if ($(id)[0].src.indexOf("plus") > 0) {
+        $(id).click();
+        return true;
+    }
+    return false;
 }

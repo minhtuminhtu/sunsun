@@ -105,7 +105,7 @@
                     <p class="text-left pt-2">{{config('booking.number_lunch_book.label')}}</p>
                 </div>
                 <div class="booking-field-content">
-                    <select name="lunch_guest_num" class="form-control">
+                    <select name="lunch_guest_num" id="lunch_guest_num" class="form-control">
                         @foreach($lunch_guest_num as $value)
                             @if(isset($course_data['lunch_guest_num']) && ($value->kubun_id == $course_data['lunch_guest_num']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -203,7 +203,7 @@
                     <p class="text-left pt-2">{{config('booking.pet.label')}}</p>
                 </div>
                 <div class="booking-field-content">
-                    <select name="pet_keeping" class="form-control">
+                    <select name="pet_keeping" id="pet_keeping" class="form-control">
                         @foreach($pet_keeping as $value)
                             @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>

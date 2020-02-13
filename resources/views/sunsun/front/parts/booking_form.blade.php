@@ -277,3 +277,8 @@
         <input type="submit" value=""/>
     </form>
 </div>
+<script type="text/javascript">
+    var _type_admin = "<?php echo isset($type_admin) ? $type_admin : '' ?>";
+    var _sex_admin = "<?php echo isset($sex_admin) ? $sex_admin : '' ?>";
+    var _date_admin = "<?php echo isset($date_admin) ? $date_admin : '' ?>";
+</script>

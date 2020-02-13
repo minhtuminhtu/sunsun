@@ -2501,7 +2501,7 @@ class BookingController extends Controller
                 if ($count_loop == 0) {
                     if ($course_ss['kubun_id'] != config('const.db.kubun_id_value.course.PET')) {
                     foreach ($booking_ss['time'] as $k_time => $v_time) {
-                        if ($day_book_time == $day_book_time_ss) {
+                        if ($day_book_time == $day_book_time_ss && isset($v_time['json'])) {
                             $ss_time = json_decode($v_time['json'], true);
                                 $validate_ss_time['boss_time_pet'][$k_time]['time'] = $ss_time['notes'];
                             }
