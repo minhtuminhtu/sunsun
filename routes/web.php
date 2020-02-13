@@ -162,7 +162,7 @@ Route::get('/cache', function () {
 
 
 Route::middleware('begin.auth')->group(function(){
-    Route::middleware('user.auth')->namespace('Sunsun\Front')->group(function (){
+    Route::namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
             return view('sunsun.front.main');
         })->name('main');
