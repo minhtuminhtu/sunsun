@@ -1503,8 +1503,15 @@ class AdminController extends Controller
             'tel' => 'required|string|max:11|min:10|regex:/[0-9]{10,11}/',
             'password' => 'required|string|min:1', //'confirmed'
         ]);
-        if ($validation->fails()) {
-            $error_messages = implode(',', $validation->errors()->all());
+        $bookCon = new BookingController();
+        $check_kata = $bookCon->check_is_katakana($data['username']);
+        $check_vali = $validation->fails();
+        if ($check_vali || !$check_kata) {
+            $error_messages = "";
+            if ($check_vali) $error_messages = implode('', $validation->errors()->all());
+            if (!$check_kata) {
+                $error_messages .= config('const.error.katakana');
+            }
             $responsive_array = array('status' => false, 'type' => 'update', 'message' => $error_messages);
         }else{
             $ms_user = $this->update_msuser($data, $request);

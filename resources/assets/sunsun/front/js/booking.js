@@ -127,6 +127,17 @@ $(function() {
                         $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
                         $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
                         // change stay_guest_num
+                        change_stay_guest_num();
+                        $('.room').show();
+                    },
+                    complete: function () {
+                        loader.css({'display': 'none'});
+                    },
+                });
+            }
+        });
+        function change_stay_guest_num {
+            var room =  JSON.parse($('#room').val());
                         var obj = document.getElementById("stay_guest_num");
                         var count_obj = obj.length;
                         for (var i = 0 ; i < count_obj; i++) {
@@ -139,14 +150,7 @@ $(function() {
                                 obj[i].hidden = true;
                             }
                         }
-                        $('.room').show();
-                    },
-                    complete: function () {
-                        loader.css({'display': 'none'});
-                    },
-                });
             }
-        });
         $('#whitening').off('change');
         $('#whitening').on('change', function() {
             var whitening =  JSON.parse($('#whitening').val());

@@ -28,7 +28,7 @@
                         <span>名前</span><span class="node-text">（カタカナ）</span>
                     </div>
                     <div class="form-input">
-                        {!! Form::text('username', old('username') , ['class' => 'form-control mb-0', 'required' => 'required']) !!}
+                        {!! Form::text('username', old('username') , ['class' => 'form-control mb-0', 'required' => 'required','inputmode' => 'katakana']) !!}
                         {!! $errors->first('username', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
