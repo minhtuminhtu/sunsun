@@ -1027,8 +1027,9 @@ class AdminController extends Controller
         $data['customer']['info'] = ['0' => $data];
         $this->add_fake_course($data['customer']['info'], $data);
         $booking = new BookingController();
-        $validate_booking = $booking->validate_booking($data, $data['booking_id']);
-        $validate_payment = $booking->validate_payment_info($data, $data['booking_id']);
+        $booking_id = isset($data['booking_id'])?$data['booking_id']:0;
+        $validate_booking = $booking->validate_booking($data, $booking_id);
+        $validate_payment = $booking->validate_payment_info($data, $booking_id);
         if((isset($validate_payment['error'])) || (isset($validate_booking) && (count($validate_booking) != 0))){
             return [
                 'status' => false,
