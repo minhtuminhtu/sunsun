@@ -83,7 +83,7 @@
                 </div>
                 <div class="foot-confirm">
                     <div class="confirm-button-payment">
-                        <button id="make_payment" type="button" class="btn btn-block btn-booking text-white">確認</button>
+                        <button id="make_payment" type="button" class="btn btn-block btn-booking text-white">予約する</button>
                     </div>
                 </div>
             </form>
