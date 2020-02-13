@@ -900,8 +900,10 @@ class BookingController extends Controller
             }
         //New
         }else{
-            //Log::debug("create new booking");
+
             $result = $this->new_booking($data, $request, 0, $from_admin);
+            Log::debug("result");
+            Log::debug($result);
         }
         if(isset($result['bookingID'])){
             $result = [
@@ -979,32 +981,36 @@ class BookingController extends Controller
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
                         //Log::debug('finish set_yoyaku_danjiki_jikan');
                     }
-                    $Yoyaku->ms_user_id = \Auth::user()->ms_user_id;
+                    if(\Auth::check()){
+                        $Yoyaku->ms_user_id = \Auth::user()->ms_user_id;
+                    }
                     $Yoyaku->save();
                 }
                 if($from_admin === false) {
                     //Log::debug('is_update');
                     $result = $this->call_payment_api($data, $return_booking_id);
-                    //Log::debug('is update true');
+                    Log::debug('is update true');
+                    Log::debug($result);
                 }
                 DB::commit();
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
                 DB::unprepared("UNLOCK TABLE");
-                //Log::debug('$e1->getMessage()');
-                //Log::debug($e1->getMessage());
+                Log::debug('$e1->getMessage()');
+                Log::debug($e1->getMessage());
                 $result = $e1->getMessage();
                 return  $result;
             }
         }catch(\Exception $e2){
-            //Log::debug('$e2->getMessage()');
-            //Log::debug($e2->getMessage());
+            Log::debug('$e2->getMessage()');
+            Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
 
-        $this->send_email($request, $data, $return_booking_id, $email);
 
+        $this->send_email($request, $data, $return_booking_id, $email);
+        Log::debug($result);
         return  $result;
     }
     private function send_email($request, $data, $booking_id, $email){
