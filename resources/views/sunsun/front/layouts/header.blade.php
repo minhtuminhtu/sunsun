@@ -71,6 +71,11 @@
             </ul>
         </nav>
     </div>
+    @if(Auth::check())
+        <p class="breadc"><a href="{{ route('logout') }}">Logout</a></p>
+    @else
+        <p class="breadc"><a href="{{ route('login') }}">Login</a></p>
+    @endif
     <p class="breadc"><a href="/" class="breadc-link">ぬか天国 Sun燦 トップページ</a> &#160;&#160;&gt;&#160; @yield('page_title')</p>
     <div class="main-body-head text-center mb-3">
         <h1 class="title-menu text-left">@yield('page_title')</h1>
