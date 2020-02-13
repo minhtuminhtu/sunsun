@@ -11,7 +11,7 @@
         }
     </style>
 @endsection
-@section('page_title', 'Change Password')
+@section('page_title', __('auth.change_password'))
 @section('main')
     <main class="main-body">
         <div class="">
@@ -42,7 +42,7 @@
                 @endif
                 <div class="form-group">
                     <div class="">
-                        <p class="text-md-left pt-2">New Password</p>
+                        <p class="text-md-left pt-2">@lang('auth.new_password')</p>
                     </div>
                     <div class="form-input">
                         <input name="password" type="password" id="password" class="form-control" required>
@@ -51,7 +51,7 @@
                 @if(isset($forgot) && $forgot === true)
                     <div class="form-group">
                         <div class="">
-                            <p class="text-md-left pt-2">Repeat Password</p>
+                            <p class="text-md-left pt-2">@lang('auth.repeat_password')</p>
                         </div>
                         <div class="form-input">
                             <input name="password_repeat" type="password" id="password_repeat" class="form-control" required>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-input">
                         <a class="no-effect">
-                            <button type="submit" class="btn btn-block btn-booking text-white confirm-rules">Update</button>
+                            <button type="submit" class="btn btn-block btn-booking text-white confirm-rules">@lang('auth.update')</button>
                         </a>
                     </div>
                 </div>
@@ -82,4 +82,3 @@
     @parent
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
 @endsection
-

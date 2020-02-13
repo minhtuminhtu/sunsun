@@ -20,7 +20,7 @@ class ResetPasswordController extends Controller {
     public function exec (Request $request) {
         $data = [];
         $data['status'] =  false;
-        $data['notify'] = 'Unable to find user.';
+        $data['notify'] = __('auth.user_not_found');
         $email = $request->email;
         $user = MsUser::where('email', $email)->first();
 
@@ -33,7 +33,7 @@ class ResetPasswordController extends Controller {
             if($password_reset){
                 ForgotJob::dispatch($email, $password_reset->token, $user);
                 $data['status'] =  true;
-                $data['notify'] = 'Check your inbox for the next steps. If you don\'t receive an email, and it\'s not in your spam folder this could mean you signed up with a different address.';
+                $data['notify'] = __('auth.check_inbox');
             }
         }
 
@@ -43,8 +43,15 @@ class ResetPasswordController extends Controller {
     public function change(Request $request, $token){
         $data = $request->all();
         $data['token'] = $token;
-        $data['forgot'] = true;
-        return view('sunsun.auth.change_password', $data);
+        $passwordReset = PasswordReset::where('token', $data['token'])->first();
+        if($passwordReset){
+            $data['forgot'] = true;
+            \Auth::logout();
+            return view('sunsun.auth.change_password', $data);
+        }else{
+            return redirect("/login");
+        }
+
     }
 
     public function update(Request $request){
@@ -52,25 +59,27 @@ class ResetPasswordController extends Controller {
         $data['forgot'] = true;
         if(($data['password_repeat'] !== $data['password']) || (isset($data['password_repeat']) === false) || (isset($data['password']) === false) ){
             $data['status'] = false;
-            $data['notify'] = 'Repeat password not match!';
+            $data['notify'] = __('auth.repeat_not_match');
             return view('sunsun.auth.change_password', $data);
         }
         $passwordReset = PasswordReset::where('token', $data['token'])->first();
-        if (Carbon::parse($passwordReset->updated_at)->addMinutes(720)->isPast()) {
+        if($passwordReset){
+            if (Carbon::parse($passwordReset->updated_at)->addMinutes(720)->isPast()) {
+                $passwordReset->delete();
+                $data['notify'] = __('auth.token_invalid');
+                return view('sunsun.auth.change_password', $data);
+            }
+            $user = MsUser::where('email', $passwordReset->email)->first();
+            $updatePasswordUser = $user->update(['password' => bcrypt($data['password'])]);
             $passwordReset->delete();
-            $data['notify'] = 'This password reset token is invalid.';
-            return view('sunsun.auth.change_password', $data);
-        }
-        $user = MsUser::where('email', $passwordReset->email)->first();
-        $updatePasswordUser = $user->update(['password' => bcrypt($data['password'])]);
-        $passwordReset->delete();
-        if($updatePasswordUser){
-            $data['status'] = true;
-            $data['notify'] = 'Update successfully!';
-            return view('sunsun.auth.change_password', $data);
+            if($updatePasswordUser){
+                $data['status'] = true;
+                $data['notify'] = __('auth.update_successfully');
+                return view('sunsun.auth.change_password', $data);
+            }
         }else{
             $data['status'] = false;
-            $data['notify'] = 'Update failed!';
+            $data['notify'] = __('auth.update_failed');
             return view('sunsun.auth.change_password', $data);
         }
     }

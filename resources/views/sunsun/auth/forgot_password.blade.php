@@ -11,7 +11,7 @@
         }
     </style>
 @endsection
-@section('page_title', 'Forgot password')
+@section('page_title', __('auth.forgot_password'))
 @section('main')
     <main class="main-body">
         <div class="">
@@ -28,7 +28,7 @@
                 @endif
                 <div class="form-group">
                     <div class="">
-                        <p class="text-md-left pt-2">Email address</p>
+                        <p class="text-md-left pt-2">@lang('auth.email')</p>
                     </div>
                     <div class="form-input">
                         <input name="email" type="text" id="email" class="form-control" required>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-input">
                         <a class="no-effect">
-                            <button type="submit" class="btn btn-block btn-booking text-white confirm-rules">Retrieve Password</button>
+                            <button type="submit" class="btn btn-block btn-booking text-white confirm-rules">@lang('auth.retrieve_password')</button>
                         </a>
                     </div>
                 </div>
@@ -58,4 +58,3 @@
     @parent
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
 @endsection
-

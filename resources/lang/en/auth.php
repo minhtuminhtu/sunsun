@@ -13,6 +13,21 @@ return [
     |
     */
 
+    'forgot_password' => 'Forgot password',
+    'user_not_found' => 'Unable to find user.',
+    'token_invalid' => 'This password reset token is invalid.',
+    'email' => 'Email address',
+    'retrieve_password' => 'Retrieve password',
+    'check_inbox' => 'Check your email in your inbox for the next step. If you do not receive email in your inbox and spam folder then try again.',
+    'change_password' => 'Change password',
+    'repeat_not_match' => 'Repeat password not match!',
+    'new_password' => 'New password',
+    'repeat_password' => 'Repeat password',
+    'update' => 'Update',
+    'update_successfully' => 'Update successfully!',
+    'update_failed' => 'Update failed!',
+
+
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'ログインすぎましたので、:seconds秒の後に、もう一度お願いします。',
 

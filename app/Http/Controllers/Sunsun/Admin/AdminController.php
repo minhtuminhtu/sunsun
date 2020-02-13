@@ -1052,7 +1052,7 @@ class AdminController extends Controller
                 ]
             ];
         }
-        $booking->update_or_new_booking($data, $request);
+        $booking->update_or_new_booking($data, $request, true);
         return [
             'status' => true,
             'type' => 'update',
