@@ -101,8 +101,12 @@
         </div>
         <div class="booking-field-content">
             @php
-                $pet_type = isset($course_data['notes'])?$course_data['notes']:'';
-                $pet_type = ($pet_type === '')?(isset($pop_data['notes'])?$pop_data['notes']:''):'';
+                $pet_type = '';
+                if(isset($course_data['notes'])){
+                    $pet_type = $course_data['notes'];
+                }else if(isset($pop_data['notes'])){
+                    $pet_type = $pop_data['notes'];
+                }
             @endphp
             <textarea class="form-control" maxlength="255" name='notes' rows="3">{{ $pet_type }}</textarea>
         </div>

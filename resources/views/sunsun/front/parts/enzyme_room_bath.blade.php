@@ -207,6 +207,8 @@
                         @foreach($pet_keeping as $value)
                             @if(isset($course_data['pet_keeping']) && ($value->kubun_id == $course_data['pet_keeping']))
                                 <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @elseif(isset($pop_data['pet_keeping']) && ($value->kubun_id == json_decode($pop_data['pet_keeping'], true)['kubun_id']))
+                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @else
                                 <option value='@json($value)'>{{ $value->kubun_value }}</option>
                             @endif

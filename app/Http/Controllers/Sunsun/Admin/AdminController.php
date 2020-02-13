@@ -16,6 +16,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
+    private $session_info = 'SESSION_BOOKING_USER';
+    private $session_html = 'SESSION_BOOKING_DATA';
+    private $payment_html = 'SESSION_PAYMENT_DATA';
     public function index() {
         return view('sunsun.admin.index');
     }
@@ -1023,10 +1026,19 @@ class AdminController extends Controller
     }
     public function update_booking (Request $request){
         $data = $request->all();
+
         $data['customer'] = $data;
         $data['customer']['info'] = ['0' => $data];
         $this->add_fake_course($data['customer']['info'], $data);
+
+
+
+
         $booking = new BookingController();
+        $booking->make_bill($data);
+        $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
+        $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
+
         $booking_id = isset($data['booking_id'])?$data['booking_id']:0;
         $validate_booking = $booking->validate_booking($data, $booking_id);
         $validate_payment = $booking->validate_payment_info($data, $booking_id);

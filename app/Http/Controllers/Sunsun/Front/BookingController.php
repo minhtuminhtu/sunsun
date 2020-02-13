@@ -880,7 +880,7 @@ class BookingController extends Controller
         }
         return $error;
     }
-    public function update_or_new_booking($data, $request){
+    public function update_or_new_booking($data, $request, $from_admin = false){
         $result = [];
         //Update
         //Log::debug("update_or_new_booking");
@@ -893,7 +893,7 @@ class BookingController extends Controller
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 //Log::debug("start update booking");
-                $this->new_booking($data, $request, $booking_id, true);
+                $this->new_booking($data, $request, $booking_id, $from_admin);
             } catch (\Exception $failed) {
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => null]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => null]);
@@ -901,7 +901,7 @@ class BookingController extends Controller
         //New
         }else{
             //Log::debug("create new booking");
-            $result = $this->new_booking($data, $request);
+            $result = $this->new_booking($data, $request, 0, $from_admin);
         }
         if(isset($result['bookingID'])){
             $result = [
@@ -909,7 +909,7 @@ class BookingController extends Controller
                 'message' => $result
             ];
         } else if(isset($result)){
-            //Log::debug("khong ton tai result booking id");
+            Log::debug("khong ton tai result booking id");
             $result_arr = [
                 'status' => 'error'
             ];
@@ -925,7 +925,7 @@ class BookingController extends Controller
         }
         return  $result;
     }
-    private function new_booking($data, $request, $booking_id = null, $is_update = false){
+    private function new_booking($data, $request, $booking_id = 0, $from_admin = false){
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
@@ -945,7 +945,7 @@ class BookingController extends Controller
                     //Log::debug('data number : '.$i);
                     //Log::debug($customer);
                     $Yoyaku = new Yoyaku;
-                    if($booking_id == null){
+                    if($booking_id == 0){
                         $booking_id = $this->get_booking_id();
                     }
                     if($parent){
@@ -982,7 +982,7 @@ class BookingController extends Controller
                     $Yoyaku->ms_user_id = \Auth::user()->ms_user_id;
                     $Yoyaku->save();
                 }
-                if(!$is_update) {
+                if($from_admin === false) {
                     //Log::debug('is_update');
                     $result = $this->call_payment_api($data, $return_booking_id);
                     //Log::debug('is update true');
@@ -1002,11 +1002,9 @@ class BookingController extends Controller
             //Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
-        //Log::debug('bdata');
-        //Log::debug($data);
-        if(!$is_update){
-            $this->send_email($request, $data, $return_booking_id, $email);
-        }
+
+        $this->send_email($request, $data, $return_booking_id, $email);
+
         return  $result;
     }
     private function send_email($request, $data, $booking_id, $email){
@@ -1017,6 +1015,8 @@ class BookingController extends Controller
         $booking_data->payment_html = $request->session()->get($this->payment_html);
         ConfirmJob::dispatch($email, $booking_data);
         ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes(10));
+        $request->session()->forget($this->session_html);
+        $request->session()->forget($this->payment_html);
     }
     private function add_column_null($booking_id){
         $Yoyaku = new Yoyaku;
