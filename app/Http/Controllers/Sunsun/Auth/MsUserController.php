@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Sunsun\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Jobs\CompleteJob;
 use App\Models\MsUser;
@@ -13,12 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Controllers\Sunsun\Front\BookingController;
-
 class MsUserController extends Controller
 {
-
     use RegistersUsers;
-
     protected $redirectTo = 'home';
     /**
      * Create a new controller instance.
@@ -29,11 +24,9 @@ class MsUserController extends Controller
     {
         $this->middleware('guest');
     }
-
     public function register() {
         return view('sunsun.auth.register');
     }
-
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -43,7 +36,6 @@ class MsUserController extends Controller
             'password' => 'required|string|min:1', //'confirmed'
         ]);
     }
-
     /**
      * @param Request $request
      * @return RedirectResponse|Redirector
@@ -52,11 +44,14 @@ class MsUserController extends Controller
     {
         $data = $request->all();
         $validation = $this->validator($data);
-
-        if ($validation->fails()) {
+        $error = $validation->errors();
+        $bookCon = new BookingController();
+        $check_kata = $bookCon->check_is_katakana($data['username']);
+        if ($validation->fails() || !$check_kata) {
+            if (!$check_kata) $error->add('username', config('const.error.katakana'));
             return redirect()
                 ->back()
-                ->withErrors($validation->errors())
+                ->withErrors($error)
                 ->withInput($request->except('password'));
         }
         //dd($data);
@@ -74,5 +69,4 @@ class MsUserController extends Controller
         Auth::login($user);
         return redirect('/login');
     }
-
 }

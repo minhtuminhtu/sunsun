@@ -36,26 +36,21 @@ class BookingController extends Controller
         $data['customer'] = $this->get_booking($request);
         return view('sunsun.front.booking',$data);
     }
-
     public function back_2_booking(Request $request){
         if($this->check_pop_booking($request) == true){
             $data_temp1 = $request->all();
             $this->fetch_kubun_data($data_temp1);
             $data_temp2 = $this->pop_booking($request);
-
             $data = array_merge($data_temp2, $data_temp1);
             $data = array_merge($data, $data_temp2['pop_data']['customer']);
             if(isset($data_temp2['pop_data']['add_new_user'])){
                 $data['add_new_user'] = $data_temp2['pop_data']['add_new_user'];
             }
-//            dd($data);
             return view('sunsun.front.booking',$data);
         }else{
             return redirect("/booking");
         }
     }
-
-
     public function add_new_booking(Request $request) {
         $data = $request->all();
         // dd($data);
@@ -334,10 +329,8 @@ class BookingController extends Controller
         $hours = $time_hour - $hours;
         $minus = $time_minutes - $minus;
         $time_required = (string)sprintf('%02d', $hours). (string)sprintf('%02d', $minus);
-
         return $time_required;
     }
-
     public function check_pop_booking($request){
         $info = [];
         if ($request->session()->has($this->session_info)) {
@@ -349,20 +342,17 @@ class BookingController extends Controller
             return false;
         }
     }
-
     public function pop_booking($request) {
         $info = [];
         if ($request->session()->has($this->session_info)) {
             $info = $request->session()->get($this->session_info);
         }
         $return_data['pop_data'] = array_pop($info['info']);
-
         if(json_decode($return_data['pop_data']['course'], true)['kubun_id'] === '03'){
             for($i = 0; $i < 5; $i++){
                 $return_data['pop_data'] = array_pop($info['info']);
             }
         }
-
         $return_data['pop_data']['customer']['customer'] = $info;
         if(count($info['info']) == 0){
             $request->session()->forget($this->session_info);
@@ -371,7 +361,6 @@ class BookingController extends Controller
         }
         return $return_data;
     }
-
     /**
      * @param $request Request
      * @return array
@@ -448,7 +437,6 @@ class BookingController extends Controller
         return view('sunsun.front.payment',$data);
     }
     public function make_bill (&$data) {
-
         //dd($data);
         $info_booking = $data['customer'];
         $bill = [];
@@ -469,9 +457,7 @@ class BookingController extends Controller
         $bill['course_5']['price'] = 0;
         $bill['options'] = [];
         $bill['price_option'] = 0;
-
         $new_bill = [];
-
         for($i = 1; $i <  21; $i++){
             $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id',(string)sprintf('%02d', $i)]])->get()->first();
             $new_bill[$sort_no_temp->sort_no]['name'] = $sort_no_temp->notes;
@@ -479,9 +465,6 @@ class BookingController extends Controller
             $new_bill[$sort_no_temp->sort_no]['price'] = 0;
             $new_bill[$sort_no_temp->sort_no]['quantity'] = 0;
         }
-
-
-
         foreach ($info_booking['info'] as $booking) {
             if((!isset($booking['fake_booking'])) || ($booking['fake_booking'] != '1')){
                 $booking_course = json_decode($booking['course'], true);
@@ -511,19 +494,15 @@ class BookingController extends Controller
                     $number_customer = (int)$quantity['notes'];
                     // Log::debug('$number_customer');
                     // Log::debug($number_customer);
-
                     // Lon hon 3 nguoi thi tinh them phu phi
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','06']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course($booking, $bill);
                     $new_bill[$sort_no_temp->sort_no]['quantity']++;
-
                     if($number_customer > 3){
                         $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','07']])->get()->first();
                         $new_bill[$sort_no_temp->sort_no]['price'] += ($number_customer - 3) * $this->get_price_course($booking, $bill, true);
                         $new_bill[$sort_no_temp->sort_no]['quantity'] += $number_customer - 3;
                     }
-
                 }else if($booking_course['kubun_id'] == '04'){
                     //Bang 5 ngay thi tinh rieng
                     $day = count($booking['date']);
@@ -536,15 +515,12 @@ class BookingController extends Controller
                         $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course($booking, $bill, true);
                         $new_bill[$sort_no_temp->sort_no]['quantity'] ++;
                     }
-
                 }else if($booking_course['kubun_id'] == '05'){
                     $quantity = json_decode( $booking['service_pet_num'], true);
                     $pet_number = (int)$quantity['notes'];
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','16']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course($booking, $bill);
                     $new_bill[$sort_no_temp->sort_no]['quantity'] ++;
-
                     if($pet_number > 1){
                         $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','17']])->get()->first();
                         $new_bill[$sort_no_temp->sort_no]['price'] += ($pet_number - 1) * $this->get_price_course($booking, $bill, true);
@@ -563,7 +539,6 @@ class BookingController extends Controller
         foreach ($new_bill as $bi){
             $total += $bi['price'];
         }
-
         $data['total'] = $total;
         $data['new_bill'] = $new_bill;
     }
@@ -636,17 +611,14 @@ class BookingController extends Controller
             if ($lunch['kubun_id'] !== "01") {
                 $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','04']])->get()->first();
                 $price_lunch_each_people = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                 $num_person = 1;
                 if (isset($booking['lunch_guest_num'])) {
                     $num_person = (int) $lunch['notes'];
                 }
                 $price_luch = $num_person * (int) $price_lunch_each_people;
-
                 $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','04']])->get()->first();
                 $new_bill[$sort_no_temp->sort_no]['price'] += $price_luch;
                 $new_bill[$sort_no_temp->sort_no]['quantity'] += $num_person;
-
             }
         }
         if (isset($booking['stay_room_type'])) {
@@ -667,19 +639,16 @@ class BookingController extends Controller
                         }
                         $date_start->addDay();
                     }
-
                     if ($stay_room_type['kubun_id'] === '02') {
                         if ($stay_guest_num['notes'] == 1) {
                             $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','10']])->get()->first();
                             $room_a_alone = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                             $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','10']])->get()->first();
                             $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_alone;
                             $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
                         }else{
                             $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','11']])->get()->first();
                             $room_a_people = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                             $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','11']])->get()->first();
                             $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_people;
                             $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
@@ -688,14 +657,12 @@ class BookingController extends Controller
                         if ($stay_guest_num['notes'] == 1) {
                             $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','12']])->get()->first();
                             $room_a_alone = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                             $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','12']])->get()->first();
                             $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_alone;
                             $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
                         }else{
                             $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','13']])->get()->first();
                             $room_a_people = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                             $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','13']])->get()->first();
                             $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_people;
                             $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
@@ -704,21 +671,16 @@ class BookingController extends Controller
                         if ($stay_guest_num['notes'] == 1) {
                             $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','14']])->get()->first();
                             $room_a_alone = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                             $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','14']])->get()->first();
                             $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_alone;
                             $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
                         }
                     }
-
-
-
                     if (isset($booking['breakfast'])) {
                         $breakfast = json_decode($booking['breakfast'], true);
                         if ($breakfast['kubun_id'] !== '01') {
                             $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','15']])->get()->first();
                             $morning_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                             $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','15']])->get()->first();
                             $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $stay_guest_num['notes'] * $morning_price;
                             $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates) * $stay_guest_num['notes'];
@@ -727,7 +689,6 @@ class BookingController extends Controller
                 }
             }
         }
-
         if (isset($booking['pet_keeping'])) {
             $price_keep_pet = 0;
             $pet_keeping = json_decode($booking['pet_keeping'], true);
@@ -735,7 +696,6 @@ class BookingController extends Controller
                 if ($pet_keeping['kubun_id'] !== '01') {
                     $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','19']])->get()->first();
                     $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','19']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $price_keep_pet;
                     $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
@@ -745,7 +705,6 @@ class BookingController extends Controller
                 if ($pet_keeping['kubun_id'] !== '01') {
                     $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
                     $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $turn_number * $price_keep_pet;
                     $new_bill[$sort_no_temp->sort_no]['quantity'] += $turn_number;
@@ -755,7 +714,6 @@ class BookingController extends Controller
                 if ($pet_keeping['kubun_id'] !== '01') {
                     $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
                     $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $turn_number * $price_keep_pet;
                     $new_bill[$sort_no_temp->sort_no]['quantity'] += $turn_number;
@@ -764,15 +722,12 @@ class BookingController extends Controller
                 if ($pet_keeping['kubun_id'] !== '01') {
                     $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
                     $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $price_keep_pet;
                     $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
                 }
             }
         }
-
-
         if (isset($booking['whitening'])) { // tắm trắng 06
             $price_white = 0;
             $whitening = json_decode($booking['whitening'], true);
@@ -780,22 +735,18 @@ class BookingController extends Controller
                 if($course['kubun_id'] == '03'){
                     $quantity = json_decode( $booking['service_guest_num'], true);
                     $number_customer = (int)$quantity['notes'];
-
                     $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
                     $price_white = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $price_white * $number_customer;
                     $new_bill[$sort_no_temp->sort_no]['quantity'] += $number_customer;
                 }else{
                     $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
                     $price_white = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
-
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $price_white;
                     $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
                 }
-
             }
         }
     }
@@ -854,7 +805,6 @@ class BookingController extends Controller
         $data = $request->all();
         //Log::debug('payment_data');
         //Log::debug($data);
-
         // end convert name
         $error = $this->validate_payment_info($data);
         if (isset($error['error']) && (count($error['error']) != 0)){
@@ -1322,7 +1272,6 @@ class BookingController extends Controller
                 return false;
             $checkin = date('Ymd', strtotime($begin. ' + 1 days'));
         };
-
         return $this->validate_holyday_special($checkin_tmp, $checkout_tmp);
     }
     private function validate_holyday_special($checkin, $checkout) {
@@ -1335,8 +1284,6 @@ class BookingController extends Controller
         $room_validate = DB::select($sql_check);
          Log::debug('$room_validate');
          Log::debug($room_validate);
-
-
         if(isset($room_validate) && (count($room_validate) > 0)){
             return false;
         }
@@ -1727,16 +1674,13 @@ class BookingController extends Controller
                     //dd($validate_ss_time);
                     $owner_pet = 1;
                 } else {
-
                     if ($day_book_time == $day_book_time_ss) { // get time pet ss
                         foreach ($booking_ss['time'] as $key_time_pet => $value_time_pet) {
                             $time_json = json_decode($value_time_pet['json'], true);
                             $range_time_validate_pet[$key]['start_time'] = substr($time_json['notes'], 0, 4);
                             $range_time_validate_pet[$key]['end_time'] = substr($time_json['notes'], 5, 4);
-
                         }
                     }
-
                 }
             }
             if ($owner_pet == 0 && count($range_time_validate_pet) > 0) {
@@ -2030,7 +1974,6 @@ class BookingController extends Controller
                         $time_start_pet_validate = $this->minus_time_string($value_ss['start_time'], 120); // - 120 p time tắm
                         $time_end_pet_validate = $value_ss['end_time'];
                         $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_start_pet_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_end_pet_validate') ";
-
                     } else {
                         $time = $value_ss['time'];
                     $sql_bed = "";
@@ -2088,7 +2031,6 @@ class BookingController extends Controller
                                                 end
                                             )
                                     ) THEN 0 ";
-
         // sql display time
         $sql_get_check_room_free ="
             , CASE
@@ -2100,7 +2042,6 @@ class BookingController extends Controller
                     ELSE 0
                     END as status_time_validate
         ";
-
         // sql condition join
         $sql_join = "
             FROM ms_kubun mk1
@@ -2534,8 +2475,6 @@ class BookingController extends Controller
             if ($day_book_time == ''){
                 $day_book_time = $day_book_time_ss;
             }
-
-
             $count_loop = 0;
             foreach ($sections_booking['info'] as $key => $booking_ss) {
                 $course_ss = json_decode($booking_ss['course'], true);
@@ -2549,7 +2488,6 @@ class BookingController extends Controller
                     }
                     //dd($validate_ss_time);
                 }
-
                 /**
                  * lấy time người book đầu tiên là chủ của pet
                  * this time shower không trùng time pet
@@ -2561,13 +2499,11 @@ class BookingController extends Controller
                             $ss_time = json_decode($v_time['json'], true);
                                 $validate_ss_time['boss_time_pet'][$k_time]['time'] = $ss_time['notes'];
                             }
-
                         }
                         $count_loop++;
                     }
                 }
             }
-
             //dd($validate_ss_time);
         } else { // th booking mới
             $transport = json_decode($data['transport'], true);
@@ -2696,7 +2632,6 @@ class BookingController extends Controller
                                                         substr($data['course_data']['whitening_time'], 5, 2) . ":".
                                                         substr($data['course_data']['whitening_time'], 7, 2);
         }
-
 //        dd($data);
         if ($json->kubun_id == "01") {
             return view('sunsun.front.parts.enzyme_bath',$data)->render();

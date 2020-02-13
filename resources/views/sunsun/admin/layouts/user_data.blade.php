@@ -19,7 +19,7 @@
                     <td>
                         <span id="username_<?php echo $items->ms_user_id ?>">{{ $items->username }}</span>
                         <div class="required" style="display: none" id="username_<?php echo $items->ms_user_id ?>_user"></div>
-                        <input type="text" style="display: none; width: 100%" name="username_<?php echo $items->ms_user_id ?>" id="users_<?php echo $items->ms_user_id ?>" value="{{ $items->username }}">
+                        <input type="text" style="display: none; width: 100%" name="username_<?php echo $items->ms_user_id ?>" id="users_<?php echo $items->ms_user_id ?>" value="{{ $items->username }}" inputmode="katakana">
                     </td>
                     <td class="col-password">
                         <span id="password_<?php echo $items->ms_user_id ?>">{{ $items->password }}</span>

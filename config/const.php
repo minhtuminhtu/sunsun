@@ -1,5 +1,8 @@
 <?php
 return [
+    'error' => [
+        'katakana' => 'お名前をカタカナで入力してください。'
+    ],
     'db' => [
         'ms_user' => [
             'MS_USER_ID' => 'ms_user_id',
