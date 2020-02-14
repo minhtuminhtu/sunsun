@@ -66,7 +66,9 @@ $(function () {
                 }
             }
         }
+        var date_admin = "";
         if (booking_id == "" || booking_id == null) {
+            date_admin = $("#input-current__date").val();
             if (type == "02") return;
         }
         $.ajax({
@@ -77,7 +79,7 @@ $(function () {
                 'booking_id' : booking_id,
                 'type_admin' : type,
                 'sex_admin' : id_sex,
-                'date_admin' : $("#input-current__date").val(),
+                'date_admin' : date_admin,
             },
             dataType: 'text',
             beforeSend: function () {

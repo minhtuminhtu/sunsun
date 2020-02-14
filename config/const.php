@@ -1,10 +1,11 @@
 <?php
 return [
     'error' => [
-        'katakana' => 'お名前をカタカナで入力してください。'
+        'katakana' => 'お名前をカタカナで入力してください。',
     ],
     'message' => [
-        'please_15_minus' => '※<span class="text-red">予約時間の15分前まで</span>にお越しください。'
+        'please_15_minus' => '※<span class="text-red">予約時間の15分前まで</span>にお越しください。',
+        'confirm_change_course' => '<span style="padding:2vw 0;">コースを変更すると、<br/>予約済み内容が全て削除されます。</span>',
     ],
     'db' => [
         'ms_user' => [

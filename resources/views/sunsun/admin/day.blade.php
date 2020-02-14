@@ -542,6 +542,7 @@
             </div>
         </div>
     </div>
+    @include('sunsun.front.parts.confirm_modal')
 @endsection
 @section('script')
     @parent
