@@ -48,6 +48,7 @@
     </div>
     <div class="line2">
     @foreach($data['time'] as $time)
+    <span style="display: none">mark_space</span>
     <p>{{ $time['view'] }}</p>
     @endforeach
     </div>
