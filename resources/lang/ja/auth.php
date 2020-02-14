@@ -26,6 +26,9 @@ return [
     'update_successfully' => '更新に成功しました。',
     'update_failed' => '更新に失敗しました。',
 
+    'login' => 'ログイン',
+    'logout' => 'ログアウト',
+
 
     'failed' => 'メールアドレス、またはパスワードが合いません。',
     'throttle' => 'ログインすぎましたので、:seconds秒の後に、もう一度お願いします。',

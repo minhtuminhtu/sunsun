@@ -27,6 +27,9 @@ return [
     'update_successfully' => 'Update successfully!',
     'update_failed' => 'Update failed!',
 
+    'login' => 'Login',
+    'logout' => 'Logout',
+
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'ログインすぎましたので、:seconds秒の後に、もう一度お願いします。',

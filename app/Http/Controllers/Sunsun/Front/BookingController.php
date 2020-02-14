@@ -993,6 +993,7 @@ class BookingController extends Controller
                     Log::debug($result);
                 }
                 DB::commit();
+                $this->send_email($request, $data, $return_booking_id, $email);
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
@@ -1008,8 +1009,6 @@ class BookingController extends Controller
         }
         DB::unprepared("UNLOCK TABLE");
 
-
-        $this->send_email($request, $data, $return_booking_id, $email);
         Log::debug($result);
         return  $result;
     }

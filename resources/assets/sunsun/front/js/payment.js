@@ -25,11 +25,13 @@ $(function() {
         $(this).find('.payment-method').prop('checked',true);
     })
     $(`[data-toggle="collapse"]`).on('click',function(e){
-        if ( $(this).parents('.accordion').find('.collapse.show') ){
-            var idx = $(this).index('[data-toggle="collapse"]');
-            if (idx == $('.collapse.show').index('.collapse')) {
-                console.log(idx);
-                e.stopPropagation();
+        if($(this).attr('id') !== 'nav'){
+            if ( $(this).parents('.accordion').find('.collapse.show') ){
+                var idx = $(this).index('[data-toggle="collapse"]');
+                if (idx == $('.collapse.show').index('.collapse')) {
+                    console.log(idx);
+                    e.stopPropagation();
+                }
             }
         }
     });
