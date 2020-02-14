@@ -148,7 +148,7 @@ $(function () {
                 loader.css({'display': 'block'});
             },
             success: function (html) {
-                console.log(html);
+                // console.log(html);
                 if((html.status == false) && (html.type == 'validate')){
                     make_color_input_error(html.message.booking);
                     make_payment_validate(html.message.payment);
@@ -263,8 +263,8 @@ $(function () {
             $('.list-group-item').on('click',function (e) {
                 var name = $(this).find('.search-element').val();
                 var expert = JSON.parse($(this).find('.search-expert').val());
-                console.log(name);
-                console.log(expert);
+                // console.log(name);
+                // console.log(expert);
                 var data_expert = '';
                 $.each(expert, function(key, value) {
                     var check_re = value.ref_booking_id == null ? '' : '同行者';
@@ -290,7 +290,7 @@ $(function () {
                             break;
                     }
                     var day = moment(value.service_date);
-                    console.log(day.format('Y/M/D'));
+                    // console.log(day.format('Y/M/D'));
                     var date = day.format('Y/M/D')
                     var hour = parseInt(value.time.substr(0, 2), 10);
                     var minute = value.time.substr(2, 2);
@@ -347,7 +347,7 @@ $(function () {
                     e.stopPropagation();
                 }else if ( $(this).parents('.accordion').find('.collapse.show') ){
                     if (idx === $('.collapse.show').index('.collapse')) {
-                        console.log(idx);
+                        // console.log(idx);
                         e.stopPropagation();
                     }
                 }

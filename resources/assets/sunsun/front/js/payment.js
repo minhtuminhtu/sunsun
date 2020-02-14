@@ -29,7 +29,7 @@ $(function() {
             if ( $(this).parents('.accordion').find('.collapse.show') ){
                 var idx = $(this).index('[data-toggle="collapse"]');
                 if (idx == $('.collapse.show').index('.collapse')) {
-                    console.log(idx);
+                    // console.log(idx);
                     e.stopPropagation();
                 }
             }
@@ -107,7 +107,7 @@ $(function() {
             $(this).removeClass('typing-none');
             $(this).addClass('typing');
         }else{
-            console.log("bbb");
+            // console.log("bbb");
             $(this).parent().find('span:first-child').css('display', 'none')
             $(this).removeClass('typing');
             $(this).addClass('typing-none');
@@ -193,7 +193,7 @@ $(function() {
 let callBackMakePayment = function() {
     let data = $('form.booking').serializeArray();
     $('#Token').val("");
-    console.log(data);
+    // console.log(data);
     $.ajax({
         url: '/make_payment',
         type: 'POST',
@@ -223,7 +223,7 @@ let callBackMakePayment = function() {
                 $('.validate_failed').removeClass('validate_failed');
                 $.each(html.error, function (index, item) {
                     $('#'+item).addClass('validate_failed');
-                    console.log(item)
+                    // console.log(item)
                     switch(item) {
                         case 'name': $('#'+item).parent().after('<p class="note-error node-text"> お名前をカタカナで入力してください。</p>');
                             break;
@@ -355,7 +355,7 @@ function luhnCheck(cardNum){
 }
 if ((typeof execPurchase) === 'undefined') {
     execPurchase = function (response) {
-        console.log(response);
+        // console.log(response);
         $('p.note-error').remove();
         if (response.resultCode != "000") {
             // window.alert("購入処理中にエラーが発生しました");
