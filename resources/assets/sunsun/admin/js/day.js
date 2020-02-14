@@ -66,6 +66,9 @@ $(function () {
                 }
             }
         }
+        if (booking_id == "" || booking_id == null) {
+            if (type == "02") return;
+        }
         $.ajax({
             url: '/admin/edit_booking',
             type: 'POST',
