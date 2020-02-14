@@ -377,6 +377,8 @@ body {
     margin: auto !important;
     width: 90vw !important;
     max-width: 90vw !important;
+    display: flex;
+    justify-content: space-between;
 }
 .breadc-link {
     color: #402106;

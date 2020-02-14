@@ -353,6 +353,7 @@ label.form-check-label {
     }
 }
 
+
 .breadc {
     margin: 0 34vw;
     width: 32vw;
@@ -360,6 +361,8 @@ label.form-check-label {
     color: #333;
     background-color: #fff;
     font-size: 1vw;
+    display: flex;
+    justify-content: space-between;
 }
 .breadc-link{
     color: #402106;
@@ -367,6 +370,8 @@ label.form-check-label {
 .breadc-link:hover{
     color: #402106;
 }
+
+
 .mean-container .mean-bar {
     float: left;
     width: 100%;
