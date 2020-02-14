@@ -4,7 +4,7 @@ return [
         'katakana' => 'お名前をカタカナで入力してください。'
     ],
     'message' => [
-        'please_15_minus' => '※<span class="text-red">開始時間の15分前まで</span>にお越しください。'
+        'please_15_minus' => '※<span class="text-red">予約時間の15分前まで</span>にお越しください。'
     ],
     'db' => [
         'ms_user' => [
