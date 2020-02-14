@@ -28,8 +28,8 @@
     予約時間:
     </div>
     <div class="line2">
-        <p>{{ $data['time1-view'] }}～</p>
-        <p>{{ $data['time2-view'] }}～</p>
+        <p>{{ $data['time1-view'] }}</p>
+        <p>{{ $data['time2-view'] }}</p>
     </div>
 </div>
 @php
@@ -67,7 +67,7 @@
             <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
             <p>宿泊日</p>
             <div class="line3">
-                <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}～</p>
+                <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}</p>
                 <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
             </div>
             <p>{{ ($breakfast != "")?"モーニング:". $breakfast:"" }}</p>
