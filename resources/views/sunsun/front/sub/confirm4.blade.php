@@ -49,6 +49,7 @@
 @endphp
 @if($pet_keeping != "")
 <hr class="line-x">
+<span style="display: none">mark_newline</span>
 <div class="line">
     <div class="line1">
     オプション
@@ -65,6 +66,7 @@
     @endphp
     @if($stay_room_type->kubun_value != config('booking.room.options.no'))
     <hr class="line-x">
+    <span style="display: none">mark_newline</span>
     <div class="line">
         <div class="line1">
         宿泊

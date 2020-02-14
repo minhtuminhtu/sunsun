@@ -26,6 +26,7 @@
                                 @if((!isset($data['fake_booking'])) || ($data['fake_booking'] != '1'))
                                     @if($key > 0)
                                         <hr class="line-line">
+                                        <span style="display: none">mark_realline</span>
                                     @endif
                                     @php
                                         $course = json_decode($data['course']);
@@ -65,4 +66,3 @@
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
     <script src="{{asset('sunsun/front/js/confirm.js').config('version_files.html.css')}}"></script>
 @endsection
-

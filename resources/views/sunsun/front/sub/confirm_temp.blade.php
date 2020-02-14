@@ -20,6 +20,7 @@
             <div class="line1">
             交通手段 :
             </div>
+            <span style="display: none">mark_space</span>
             <div class="line2">
                 <p>{{ $transport->kubun_value }}</p>
             </div>
@@ -33,6 +34,7 @@
             <div class="line1">
             交通手段 :
             </div>
+            <span style="display: none">mark_space</span>
             <div class="line2">
                 <p>{{ $transport->kubun_value }}</p>
                 <p>{{ $bus_arrive_time_slide->kubun_value }}</p>
@@ -44,6 +46,7 @@
             </div>
         </div>
     @endif
+    <span style="display: none">mark_newline</span>
     @if($course->kubun_id == '01' || $course->kubun_id == '02' || $course->kubun_id == '03')
     <div class="linex">
         <p>予約日: {{ $data['date-view'] }}</p>
