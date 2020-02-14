@@ -5,7 +5,7 @@ $(function() {
     let init_event = 0;
     window.onpopstate = function(event) {
         //alert(`location: ${document.location}, state: ${JSON.stringify(event.state.confirm)}`)
-        console.log(event.state.booking)
+        // console.log(event.state.booking)
         if ( (event.state.booking === false) && (init_event !== 0)) {
             // alert("nothing!");
             $( "#back_2_booking" ).submit();
@@ -114,13 +114,13 @@ $(function() {
                         loader.css({'display': 'block'});
                     },
                     success: function (html) {
-                        console.log(html);
+                        // console.log(html);
                         html = JSON.parse(html);
-                        console.log(html.now);
+                        // console.log(html.now);
                         $('.input-daterange').datepicker('destroy');
                         $('#range_date_start').val(html.now);
                         let valid_date = moment(new Date(html.now));
-                        console.log(valid_date.weekday());
+                        // console.log(valid_date.weekday());
                         if(valid_date.weekday() == 2){
                             $('#range_date_end').val(valid_date.add(3, 'days').format('Y/MM/DD'));
                         }else{
@@ -196,7 +196,7 @@ $(function() {
             return _off_set;
         }
         if(window.location.href.includes("admin")){
-            console.log('admin');
+            // console.log('admin');
             $('#date').datepicker({
                 container: '.mail-booking',
                 language: 'ja',
@@ -476,7 +476,7 @@ $(function() {
     })
     modal_choice_time.on('hide.bs.modal', function (e) {
         if(window.location.href.includes("admin")){
-            console.log("admin");
+            // console.log("admin");
         }else{
             // setTimeout(function(){ alert("Hello"); }, 5000);
         }
@@ -580,7 +580,7 @@ $(function() {
                 loader.css({'display': 'block'});
             },
             success: function (json) {
-                console.log(json);
+                // console.log(json);
                 make_color_input_error(json , false);
             },
             complete: function () {
@@ -606,7 +606,7 @@ $(function() {
                 loader.css({'display': 'block'});
             },
             success: function (json) {
-                console.log(json);
+                // console.log(json);
                 make_color_input_error(json , false);
             },
             complete: function () {
@@ -632,7 +632,7 @@ $(function() {
                 loader.css({'display': 'block'});
             },
             success: function (json) {
-                console.log(json);
+                // console.log(json);
                 make_color_input_error(json , false);
             },
             complete: function () {
@@ -653,7 +653,7 @@ $(function() {
                 loader.css({'display': 'block'});
             },
             success: function (json) {
-                console.log(json);
+                // console.log(json);
                 if (json.status == "OK") {
                     if (btn_click.hasClass('add-new-people')) {
                         window.location.href = $site_url +'/booking?add_new_user=on';
@@ -1152,7 +1152,7 @@ let load_after_ajax = function(){
                 loader.css({'display': 'block'});
             },
             success: function (json) {
-                console.log(json);
+                // console.log(json);
                 make_color_input_error(json , false);
             },
             complete: function () {

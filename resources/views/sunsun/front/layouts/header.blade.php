@@ -76,7 +76,7 @@
     @else
         <p class="breadc"><a class="breadc-link" href="{{ route('login') }}">@lang('auth.login')</a></p>
     @endif
-    <p class="breadc"><a href="/" class="breadc-link">ぬか天国 Sun燦 トップページ</a> &#160;&#160;&gt;&#160; @yield('page_title')</p>
+    <p class="breadc"><a href="/" class="breadc-link">ホーム</a> &#160;&#160;&gt;&#160; @yield('page_title')</p>
     <div class="main-body-head text-center mb-3">
         <h1 class="title-menu text-left">@yield('page_title')</h1>
     </div>
