@@ -71,6 +71,7 @@
             </ul>
         </nav>
     </div>
+    
     @if(Auth::check())
         <p class="breadc">{{ isset(Auth::user()->username) ? Auth::user()->username:'' }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="breadc-link" href="{{ route('logout') }}">@lang('auth.logout')</a></p>
     @else
