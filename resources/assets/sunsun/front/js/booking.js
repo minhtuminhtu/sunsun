@@ -1,8 +1,11 @@
 var _off_def = "3,4";
 var date_check = false;
 var admin_check = false;
+var result_confirm = false;
+var course_tmp = "";
 $(function() {
     let init_event = 0;
+    var modal_confirm = $('#modal_confirm');
     window.onpopstate = function(event) {
         //alert(`location: ${document.location}, state: ${JSON.stringify(event.state.confirm)}`)
         // console.log(event.state.booking)
@@ -79,11 +82,44 @@ $(function() {
         } else _type_admin = "01";
         $("#course").change();
     }
+    modal_confirm.on('shown.bs.modal', function (e) {
+        $('#confirm_cancel').off('click');
+        $('#confirm_cancel').on('click', function (e) {
+            e.preventDefault();
+            modal_confirm.modal('hide');
+        });
+        $('#confirm_ok').off('click');
+        $('#confirm_ok').on('click', function (e) {
+            e.preventDefault();
+            result_confirm = true;
+            modal_confirm.modal('hide');
+        });
+        $("#edit_booking .modal-dialog").css('opacity',0.7);
+    })
+    modal_confirm.on('hidden.bs.modal', function (e) {
+        if (result_confirm) {
+            get_service($('#course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
+        }
+        else $('#course').val(course_tmp);
+        $("#edit_booking .modal-dialog").css('opacity',1);
+        $("body").addClass("modal-open");
+    })
+    $('#course').on('focusin', function() {
+        course_tmp = $('#course').val();
+    });
     $('#course').on('change', function() {
-        get_service($('#course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
+        if ((typeof _date_admin === "undefined" || _date_admin == "") && admin_check) { // admin edit, confirm
+            result_confirm = false;
+            modal_confirm.modal({
+                show: true,
+                backdrop: false,
+                keyboard: false
+            });
+        }
+        else get_service($('#course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
     });
     if (typeof _date_admin === "undefined" || _date_admin == '') {
-    get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
+        get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
     }
     let load_event = function() {
         var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
@@ -213,8 +249,8 @@ $(function() {
                     setDefAdmin();
                 if (typeof $("#date") !== "undefined" && $("#date") != null)
                     $("#date").val(_date_admin);
-                admin_check = true;
             }
+            admin_check = true;
         }else{
             $('#date').datepicker({
                 language: 'ja',
@@ -492,6 +528,18 @@ $(function() {
             modal_choice_time.modal('hide');
         }, 500);
     }
+    $('#confirm_cancel').off('click');
+    $('#confirm_cancel').on('click', function(e) {
+        e.preventDefault();
+        result_confirm = false;
+        modal_confirm.modal('hide');
+    });
+    $('#confirm_ok').off('click');
+    $('#confirm_ok').on('click', function(e) {
+        e.preventDefault();
+        result_confirm = true;
+        modal_confirm.modal('hide');
+    });
     $('#btn-cancel').off('click');
     $('#btn-cancel').on('click', function(e) {
         modal_time_hidden();
