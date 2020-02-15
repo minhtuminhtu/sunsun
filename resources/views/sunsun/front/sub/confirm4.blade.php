@@ -39,7 +39,7 @@
     <div class="line2">
         @if(isset($data['date']))
             @foreach ($data['date'] as $d)
-                <p>{{ $d['day']['view'] }}   {{ $d['from']['view'] }}  {{ $d['to']['view'] }}</p>
+                <p>{{ $d['day']['view'] . "         " . $d['from']['view'] . "         " . $d['to']['view'] }}</p>
             @endforeach
         @endif
     </div>
