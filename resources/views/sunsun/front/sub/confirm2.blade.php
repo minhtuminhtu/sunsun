@@ -28,7 +28,9 @@
     予約時間:
     </div>
     <div class="line2">
+        <span style="display: none">mark_space</span>
         <p>{{ $data['time1-view'] }}</p>
+        <span style="display: none">mark_space</span>
         <p>{{ $data['time2-view'] }}</p>
     </div>
 </div>
