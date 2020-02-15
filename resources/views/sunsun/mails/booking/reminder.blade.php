@@ -9,11 +9,11 @@
     preg_match('|confirm"[^>]*>(.*?)(?=\<div class="foot-confirm")|si', $booking_data->booking_html, $match);
     $string_change_multi = preg_replace('/\s+/', '
 ', str_replace(' ', '', strip_tags($match[1])));
-    $string_change_space = preg_replace('/\s+mark_space\s+/', '  ', $string_change_multi);
-    $string_change_newline = preg_replace('/\s+mark_newline\s+/', '
+    $string_change_space = preg_replace('/\s*mark_space\s*/', '  ', $string_change_multi);
+    $string_change_newline = preg_replace('/\s*mark_newline\s*/', '
 
 ', $string_change_space);
-    echo preg_replace('/\s+mark_realline\s+/', '
+    echo preg_replace('/\s*mark_realline\s*/', '
 
 - - - - - - - - - - - - - - - - - - - - - - -
 
