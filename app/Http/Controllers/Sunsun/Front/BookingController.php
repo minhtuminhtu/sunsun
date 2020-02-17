@@ -843,7 +843,7 @@ class BookingController extends Controller
         return false;
     }
     public function check_is_katakana($name) {
-        $name = $this->change_space_2_byte($name);
+        $name = $this->remove_space($name);
         $check_name = preg_replace("/[^ァ-ヾｧ-ﾝﾞﾟヽ゛゜ー]/u", "", $name);
         //Log::debug('$check_name');
         //Log::debug($check_name);
@@ -2664,5 +2664,8 @@ class BookingController extends Controller
     }
     public function change_space_2_byte($value) {
         return preg_replace('/\s+|　/', '　', $value);
+    }
+    public function remove_space($value) {
+        return preg_replace('/\s+|　/', '', $value);
     }
 }
