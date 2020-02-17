@@ -6,6 +6,7 @@ return [
     'message' => [
         'please_15_minus' => '※<span class="text-red">予約時間の15分前まで</span>にお越しください。',
         'confirm_change_course' => '<span style="padding:2vw 0;">コースを変更すると、<br/>予約済み内容が全て削除されます。</span>',
+        'err_not_user' => 'アカウントをお持ちでない方はこちら',
     ],
     'db' => [
         'ms_user' => [
