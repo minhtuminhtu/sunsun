@@ -41,7 +41,12 @@ class AdminLoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->redirectTo = route('admin.day');
+        if ($this->check_admin())
+            $this->redirectTo = route('admin.day');
+        else  {
+            Auth::logout();
+            return \Redirect::to("/admin/login");
+        }
     }
 
     /**
@@ -53,10 +58,21 @@ class AdminLoginController extends Controller
     {
         return view('sunsun.auth.login');
     }
+    public function check_admin() {
+        $ms_user = Auth::user();
+        if (!empty($ms_user) && $ms_user->user_type == config('const.auth.permission.ADMIN'))
+            return true;
+        return false;
+    }
 
     protected function authenticated(Request $request, $user)
     {
-        return redirect()->route('admin.day');
+        if ($this->check_admin())
+            return redirect()->route('admin.day');
+        else {
+            Auth::logout();
+            return \Redirect::to("/admin/login");
+        }
     }
     protected function redirectTo()
     {
