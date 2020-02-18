@@ -278,7 +278,7 @@ class BookingController extends Controller
                 WHERE   main.stay_room_type = $stay_room_type
                 AND (   ( main.stay_checkin_date <= $range_date_end AND main.stay_checkout_date >= $range_date_end )
                     OR  ( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date >= $range_date_end )
-                    OR  ( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date >= $range_date_start )
+                    OR  ( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date > $range_date_start )
                     OR  ( main.stay_checkin_date >= $range_date_start AND main.stay_checkout_date <= $range_date_end )
                     )
                 AND main.history_id IS NULL
@@ -591,7 +591,7 @@ class BookingController extends Controller
     }
     private function get_list_days($from , $to){
         $from = Carbon::parse($from);
-        $to = Carbon::parse($to);
+        $to = Carbon::parse($to)->add(-1, 'day');
         $dates = [];
         for($d = $from; $d->lte($to); $d->addDay()) {
             $dates[] = $d->format('Y/m/d');
@@ -1002,13 +1002,13 @@ class BookingController extends Controller
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
                 DB::unprepared("UNLOCK TABLE");
-                Log::debug('$e1->getMessage()');
-                Log::debug($e1->getMessage());
+                // Log::debug('$e1->getMessage()');
+                // Log::debug($e1->getMessage());
                 $result = $e1->getMessage();
                 return  $result;
             }
         }catch(\Exception $e2){
-            Log::debug('$e2->getMessage()');
+            // Log::debug('$e2->getMessage()');
             Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
@@ -1372,7 +1372,7 @@ class BookingController extends Controller
                 WHERE   main.stay_room_type = $room_type
                 AND (   ( main.stay_checkin_date <= $checkout AND main.stay_checkout_date >= $checkout )
                     OR  ( main.stay_checkin_date <= $checkin AND main.stay_checkout_date >= $checkout )
-                    OR  ( main.stay_checkin_date <= $checkin AND main.stay_checkout_date >= $checkin )
+                    OR  ( main.stay_checkin_date <= $checkin AND main.stay_checkout_date > $checkin )
                     OR  ( main.stay_checkin_date >= $checkin AND main.stay_checkout_date <= $checkout )
                     )
                 AND main.history_id IS NULL

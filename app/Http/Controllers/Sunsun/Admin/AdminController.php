@@ -52,47 +52,35 @@ class AdminController extends Controller
         // dd($data);
         return view('sunsun.admin.day',$data);
     }
-    private function get_search_expert($booking_id, $date){
-            $expert_data = DB::select("
-            (
-                SELECT  main.booking_id
-                      , main.ref_booking_id
-                      , main.repeat_user
-                      , main.course
-                      , main.gender
-                      , main.age_value
-                      , main.name
-                      , main.transport
-                      , main.bus_arrive_time_slide
-                      , main.pick_up
-                      , main.lunch
-                      , main.lunch_guest_num
-                      , main.whitening
-                      , main.pet_keeping
-                      , main.stay_room_type
-                      , main.stay_guest_num
-                      , main.breakfast
-                      , main.phone
-                      , main.payment_method
-                      , time.service_date
-                      , time.service_time_1 as time
-                      , 0 as turn
-                      , SUBSTRING(time.notes, 1, 1) as bed
-                FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
-                ON          main.booking_id = time.booking_id
-                WHERE   main.course = '01'
+    private function getWhere_search($course,$booking_id,$date) {
+        // $where_plus = " AND main.service_date_start = $date ";
+        // if ($course == "01" || $course == "04" || $course == "04_1")
+        //     $where_plus = " AND time.service_date = $date ";
+        if ($course == "02_1") $course == "02";
+        else if ($course == "04_1") $course == "04";
+        return "
+            WHERE   main.course = '$course'
                 AND main.history_id IS NULL
-                AND time.service_date = $date
                 AND main.fake_booking_flg IS NULL
                 AND (
                     main.booking_id = $booking_id
                     OR main.ref_booking_id = $booking_id
                 )
-            )
-            UNION
-            (
-                SELECT  main.booking_id
+        ";
+    }
+    private function getForm_search($type = "") {
+        $From = " FROM tr_yoyaku as main ";
+        if ($type == "2") {
+            $From .= " LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                ON          main.booking_id = time.booking_id ";
+        }
+        return $From;
+    }
+    private function getSelect_search($course, $type = "") {
+        $select = "";
+        switch ($course) {
+            case '02':
+                $select = " SELECT  main.booking_id
                         , main.ref_booking_id
                         , main.repeat_user
                         , main.course
@@ -114,20 +102,10 @@ class AdminController extends Controller
                         , main.service_date_start
                         , main.service_time_1 as time
                         , 1 as turn
-                        , SUBSTRING(main.bed, 1, 1) as bed
-                FROM        tr_yoyaku as main
-                WHERE   main.course = '02'
-                AND main.history_id IS NULL
-                AND main.service_date_start = $date
-                AND main.fake_booking_flg IS NULL
-                AND (
-                    main.booking_id = $booking_id
-                    OR main.ref_booking_id = $booking_id
-                )
-            )
-            UNION
-            (
-                SELECT  main.booking_id
+                        , SUBSTRING(main.bed, 1, 1) as bed ";
+                break;
+            case '02_1':
+                $select = " SELECT  main.booking_id
                         , main.ref_booking_id
                         , main.repeat_user
                         , main.course
@@ -149,20 +127,10 @@ class AdminController extends Controller
                         , main.service_date_start
                         , main.service_time_2 as time
                         , 2 as turn
-                        , SUBSTRING(main.bed, 3, 1) as bed
-                FROM        tr_yoyaku as main
-                WHERE   main.course = '02'
-                AND main.history_id IS NULL
-                AND main.service_date_start = $date
-                AND main.fake_booking_flg IS NULL
-                AND (
-                    main.booking_id = $booking_id
-                    OR main.ref_booking_id = $booking_id
-                )
-            )
-            UNION
-            (
-                SELECT  main.booking_id
+                        , SUBSTRING(main.bed, 3, 1) as bed ";
+                break;
+            case '03':
+                $select = " SELECT  main.booking_id
                         , main.ref_booking_id
                         , main.repeat_user
                         , main.course
@@ -184,20 +152,10 @@ class AdminController extends Controller
                         , main.service_date_start
                         , main.service_time_1 as time
                         , 0 as turn
-                        , main.bed
-                FROM        tr_yoyaku as main
-                WHERE   main.course = '03'
-                AND main.history_id IS NULL
-                AND main.service_date_start = $date
-                AND main.fake_booking_flg IS NULL
-                AND (
-                    main.booking_id = $booking_id
-                    OR main.ref_booking_id = $booking_id
-                )
-            )
-            UNION
-            (
-                SELECT  main.booking_id
+                        , main.bed ";
+                break;
+            case '04':
+                $select = " SELECT  main.booking_id
                       , main.ref_booking_id
                       , main.repeat_user
                       , main.course
@@ -219,22 +177,10 @@ class AdminController extends Controller
                       , time.service_date
                       , time.service_time_1 as time
                       , 1 as turn
-                      , SUBSTRING(time.notes, 1, 1) as bed
-                FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
-                ON          main.booking_id = time.booking_id
-                WHERE   main.course = '04'
-                AND main.history_id IS NULL
-                AND time.service_date = $date
-                AND main.fake_booking_flg IS NULL
-                AND (
-                    main.booking_id = $booking_id
-                    OR main.ref_booking_id = $booking_id
-                )
-            )
-            UNION
-            (
-                SELECT  main.booking_id
+                      , SUBSTRING(time.notes, 1, 1) as bed ";
+                break;
+            case '04_1':
+                $select = " SELECT  main.booking_id
                       , main.ref_booking_id
                       , main.repeat_user
                       , main.course
@@ -256,22 +202,10 @@ class AdminController extends Controller
                       , time.service_date
                       , time.service_time_2 as time
                       , 2 as turn
-                      , SUBSTRING(time.notes, 3, 1) as bed
-                FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
-                ON          main.booking_id = time.booking_id
-                WHERE   main.course = '04'
-                AND main.history_id IS NULL
-                AND time.service_date = $date
-                AND main.fake_booking_flg IS NULL
-                AND (
-                    main.booking_id = $booking_id
-                    OR main.ref_booking_id = $booking_id
-                )
-            )
-            UNION
-            (
-                SELECT  main.booking_id
+                      , SUBSTRING(time.notes, 3, 1) as bed ";
+                break;
+            case '05':
+                $select = " SELECT  main.booking_id
                         , main.ref_booking_id
                         , main.repeat_user
                         , main.course
@@ -293,16 +227,96 @@ class AdminController extends Controller
                         , main.service_date_start
                         , main.service_time_1 as time
                         , 0 as turn
-                        , 0 as bed
-                FROM        tr_yoyaku as main
-                WHERE   main.course = '05'
-                AND main.history_id IS NULL
-                AND main.service_date_start = $date
-                AND main.fake_booking_flg IS NULL
-                AND (
-                    main.booking_id = $booking_id
-                    OR main.ref_booking_id = $booking_id
-                )
+                        , 0 as bed ";
+                break;
+            default:
+                $select = " SELECT  main.booking_id
+                      , main.ref_booking_id
+                      , main.repeat_user
+                      , main.course
+                      , main.gender
+                      , main.age_value
+                      , main.name
+                      , main.transport
+                      , main.bus_arrive_time_slide
+                      , main.pick_up
+                      , main.lunch
+                      , main.lunch_guest_num
+                      , main.whitening
+                      , main.pet_keeping
+                      , main.stay_room_type
+                      , main.stay_guest_num
+                      , main.breakfast
+                      , main.phone
+                      , main.payment_method
+                      , time.service_date
+                      , time.service_time_1 as time
+                      , 0 as turn
+                      , SUBSTRING(time.notes, 1, 1) as bed ";
+                break;
+        }
+        if ($type == "1")
+            $select .= " , main.fake_booking_flg ";
+        return $select;
+    }
+    private function get_search_expert($booking_id, $date){
+            $sel_plus1 = $this->getSelect_search("01");
+            $sel_plus2 = $this->getSelect_search("02");
+            $sel_plus2_1 = $this->getSelect_search("02_1");
+            $sel_plus3 = $this->getSelect_search("03");
+            $sel_plus4 = $this->getSelect_search("04");
+            $sel_plus4_1 = $this->getSelect_search("04_1");
+            $sel_plus5 = $this->getSelect_search("05");
+            $where_plus1 = $this->getWhere_search("01",$booking_id,$date);
+            $where_plus2 = $this->getWhere_search("02",$booking_id,$date);
+            $where_plus2_1 = $this->getWhere_search("02_1",$booking_id,$date);
+            $where_plus3 = $this->getWhere_search("03",$booking_id,$date);
+            $where_plus4 = $this->getWhere_search("04",$booking_id,$date);
+            $where_plus4_1 = $this->getWhere_search("04_1",$booking_id,$date);
+            $where_plus5 = $this->getWhere_search("05",$booking_id,$date);
+            $form1 = $this->getForm_search();
+            $form2 = $this->getForm_search("2");
+            $expert_data = DB::select("
+            (
+                $sel_plus1
+                $form2
+                $where_plus1
+            )
+            UNION
+            (
+                $sel_plus2
+                $form1
+                $where_plus2
+            )
+            UNION
+            (
+                $sel_plus2_1
+                $form1
+                $where_plus2_1
+            )
+            UNION
+            (
+                $sel_plus3
+                $form1
+                $where_plus3
+            )
+            UNION
+            (
+                $sel_plus4
+                $form2
+                $where_plus4
+            )
+            UNION
+            (
+                $sel_plus4_1
+                $form2
+                $where_plus4_1
+            )
+            UNION
+            (
+                $sel_plus5
+                $form1
+                $where_plus5
             )
             ");
         return $expert_data;
@@ -316,8 +330,8 @@ class AdminController extends Controller
         AND         main.name IS NOT NULL
         AND         main.ref_booking_id IS NULL
         AND         main.fake_booking_flg IS NULL
-        AND         main.service_date_start = $date
         ");
+        // AND         main.service_date_start = $date
         for($i = 0; $i < count($all_data); $i++){
             // Log::debug($all_data[$i]->booking_id);
             $all_data[$i]->expert_data = $this->get_search_expert($all_data[$i]->booking_id, $date);
@@ -335,7 +349,7 @@ class AdminController extends Controller
         WHERE   main.stay_room_type <> '01'
         AND main.stay_room_type IS NOT NULL
         AND main.stay_checkin_date <= $date
-        AND main.stay_checkout_date >= $date
+        AND main.stay_checkout_date > $date
         AND main.history_id IS NULL
         AND main.fake_booking_flg IS NULL
         ");
@@ -406,198 +420,66 @@ class AdminController extends Controller
             }
         }
     }
+    private function getWherePlus_course($date,$type="1") {
+        $where = " AND main.history_id IS NULL ";
+        if ($type == "1")
+            $where .= " AND main.service_date_start = $date ";
+        else if ($type == "2")
+            $where .= " AND time.service_date = $date ";
+        return $where;
+    }
     private function set_course(&$data, $date, $time_value){
+        $sel_plus1 = $this->getSelect_search("01","1");
+        $sel_plus2 = $this->getSelect_search("02","1");
+        $sel_plus2_1 = $this->getSelect_search("02_1","1");
+        $sel_plus3 = $this->getSelect_search("03","1");
+        $sel_plus4 = $this->getSelect_search("04","1");
+        $sel_plus4_1 = $this->getSelect_search("04_1","1");
+        $from1 = $this->getForm_search();
+        $from2 = $this->getForm_search("2");
+        $where1 = $this->getWherePlus_course($date);
+        $where2 = $this->getWherePlus_course($date,"2");
         $course_1_to_4_query = DB::select("
         (
-            SELECT  main.booking_id
-                  , main.ref_booking_id
-                  , main.repeat_user
-                  , main.course
-                  , main.gender
-                  , main.age_value
-                  , main.name
-                  , main.transport
-                  , main.bus_arrive_time_slide
-                  , main.pick_up
-                  , main.lunch
-                  , main.lunch_guest_num
-                  , main.whitening
-                  , main.pet_keeping
-                  , main.stay_room_type
-                  , main.stay_guest_num
-                  , main.breakfast
-                  , main.phone
-                  , main.payment_method
-                  , time.service_date
-                  , time.service_time_1 as time
-                  , 0 as turn
-                  , SUBSTRING(time.notes, 1, 1) as bed
-                  , main.fake_booking_flg
-            FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
-            ON          main.booking_id = time.booking_id
+            $sel_plus1
+            $from2
             WHERE   main.course = '01'
-            AND     main.history_id IS NULL
-            AND     time.service_date = $date
+            $where2
         )
         UNION
         (
-            SELECT  main.booking_id
-                    , main.ref_booking_id
-                    , main.repeat_user
-                    , main.course
-                    , main.gender
-                    , main.age_value
-                    , main.name
-                    , main.transport
-                    , main.bus_arrive_time_slide
-                    , main.pick_up
-                    , main.lunch
-                    , main.lunch_guest_num
-                    , main.whitening
-                    , main.pet_keeping
-                    , main.stay_room_type
-                    , main.stay_guest_num
-                    , main.breakfast
-                    , main.phone
-                    , main.payment_method
-                    , main.service_date_start
-                    , main.service_time_1 as time
-                    , 1 as turn
-                    , SUBSTRING(main.bed, 1, 1) as bed
-                    , main.fake_booking_flg
-            FROM        tr_yoyaku as main
+            $sel_plus2
+            $from1
             WHERE   main.course = '02'
-            AND     main.history_id IS NULL
-            AND     main.service_date_start = $date
+            $where1
         )
         UNION
         (
-            SELECT  main.booking_id
-                    , main.ref_booking_id
-                    , main.repeat_user
-                    , main.course
-                    , main.gender
-                    , main.age_value
-                    , main.name
-                    , NULL as transport
-                    , NULL as bus_arrive_time_slide
-                    , NULL as pick_up
-                    , NULL as lunch
-                    , main.lunch_guest_num
-                    , NULL as whitening
-                    , NULL as pet_keeping
-                    , NULL as stay_room_type
-                    , main.stay_guest_num
-                    , NULL as breakfast
-                    , NULL as phone
-                    , NULL as payment_method
-                    , main.service_date_start
-                    , main.service_time_2 as time
-                    , 2 as turn
-                    , SUBSTRING(main.bed, 3, 1) as bed
-                    , main.fake_booking_flg
-            FROM        tr_yoyaku as main
+            $sel_plus2_1
+            $from1
             WHERE   main.course = '02'
-            AND     main.history_id IS NULL
-            AND     main.service_date_start = $date
+            $where1
         )
         UNION
         (
-            SELECT  main.booking_id
-                    , main.ref_booking_id
-                    , main.repeat_user
-                    , main.course
-                    , '01' AS gender
-                    , main.age_value
-                    , main.name
-                    , main.transport
-                    , main.bus_arrive_time_slide
-                    , main.pick_up
-                    , main.lunch
-                    , main.lunch_guest_num
-                    , main.whitening
-                    , main.pet_keeping
-                    , main.stay_room_type
-                    , main.stay_guest_num
-                    , main.breakfast
-                    , main.phone
-                    , main.payment_method
-                    , main.service_date_start
-                    , main.service_time_1 as time
-                    , 0 as turn
-                    , main.bed
-                    , main.fake_booking_flg
-            FROM        tr_yoyaku as main
+            $sel_plus3
+            $from1
             WHERE   main.course = '03'
-            AND     main.history_id IS NULL
-            AND     main.service_date_start = $date
+            $where1
         )
         UNION
         (
-            SELECT  main.booking_id
-                  , main.ref_booking_id
-                  , main.repeat_user
-                  , main.course
-                  , main.gender
-                  , main.age_value
-                  , main.name
-                  , main.transport
-                  , main.bus_arrive_time_slide
-                  , main.pick_up
-                  , main.lunch
-                  , main.lunch_guest_num
-                  , main.whitening
-                  , main.pet_keeping
-                  , main.stay_room_type
-                  , main.stay_guest_num
-                  , main.breakfast
-                  , main.phone
-                  , main.payment_method
-                  , time.service_date
-                  , time.service_time_1 as time
-                  , 1 as turn
-                  , SUBSTRING(time.notes, 1, 1) as bed
-                  , main.fake_booking_flg
-            FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
-            ON          main.booking_id = time.booking_id
+            $sel_plus4
+            $from2
             WHERE   main.course = '04'
-            AND     main.history_id IS NULL
-            AND     time.service_date = $date
+            $where2
         )
         UNION
         (
-            SELECT  main.booking_id
-                  , main.ref_booking_id
-                  , main.repeat_user
-                  , main.course
-                  , main.gender
-                  , main.age_value
-                  , main.name
-                  , NULL as transport
-                  , NULL as bus_arrive_time_slide
-                  , NULL as pick_up
-                  , NULL as lunch
-                  , main.lunch_guest_num
-                  , NULL as whitening
-                  , NULL as pet_keeping
-                  , NULL as stay_room_type
-                  , main.stay_guest_num
-                  , NULL as breakfast
-                  , NULL as phone
-                  , NULL as payment_method
-                  , time.service_date
-                  , time.service_time_2 as time
-                  , 2 as turn
-                  , SUBSTRING(time.notes, 3, 1) as bed
-                  , main.fake_booking_flg
-            FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
-            ON          main.booking_id = time.booking_id
+            $sel_plus4_1
+            $from2
             WHERE   main.course = '04'
-            AND     main.history_id IS NULL
-            AND     time.service_date = $date
+            $where2
         )
         ");
         $course_1_to_4 = collect($course_1_to_4_query);
@@ -732,8 +614,9 @@ class AdminController extends Controller
                     , main.payment_method
                     , main.service_date_start
                     ,CONCAT(main.service_time_1, '-', main.service_time_2) as time
-            FROM        tr_yoyaku as main
-            WHERE   main.course = '05' AND main.history_id IS NULL AND main.service_date_start = $date
+            $from1
+            WHERE   main.course = '05'
+            $where1
         ");
         $course_5 = collect($course_5_query);
         for($i = 0; $i < count($course_5); $i++){
@@ -785,8 +668,9 @@ class AdminController extends Controller
                     , main.payment_method
                     , main.service_date_start
                     , main.whitening_time as time
-            FROM    tr_yoyaku as main
-            WHERE   main.service_date_start = $date AND main.history_id IS NULL
+            $from1
+            WHERE   1=1
+            $where1
         ");
         $course_wt = collect($course_wt_query);
         for($i = 0; $i < count($course_wt); $i++){
@@ -1026,22 +910,13 @@ class AdminController extends Controller
     }
     public function update_booking (Request $request){
         $data = $request->all();
-
         $data['customer'] = $data;
-        if(isset($data['ref_booking_id'])){
-
-        }
         $data['customer']['info'] = ['0' => $data];
         $this->add_fake_course($data['customer']['info'], $data);
-
-
-
-
         $booking = new BookingController();
         // $booking->make_bill($data);
         // $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
         // $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
-
         $booking_id = isset($data['booking_id'])?$data['booking_id']:0;
         $validate_booking = $booking->validate_booking($data, $booking_id);
         $validate_payment = $booking->validate_payment_info($data, $booking_id);
