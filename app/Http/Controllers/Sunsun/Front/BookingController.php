@@ -1084,6 +1084,44 @@ class BookingController extends Controller
             $return['admin_value_customer'][$key]['transport'] = isset($transport)?$transport->kubun_value:null;
             $bus_arrive_time_slide = $MsKubun->where('kubun_type','003')->where('kubun_id', $value->bus_arrive_time_slide)->first();
             $return['admin_value_customer'][$key]['bus_arrive_time_slide'] = isset($bus_arrive_time_slide)?$bus_arrive_time_slide->kubun_value:null;
+            $return['admin_value_customer'][$key]['date-view'] = Carbon::createFromFormat('Ymd', $value->service_date_start)->format('Y/m/d');
+            $gender = $MsKubun->where('kubun_type','006')->where('kubun_id', $value->gender)->first();
+            $return['admin_value_customer'][$key]['gender'] = isset($gender)?$gender->kubun_value:null;
+            $course = $MsKubun->where('kubun_type','005')->where('kubun_id', $value->course)->first();
+            $return['admin_value_customer'][$key]['course'] = isset($course)?$course->kubun_value:null;
+
+            $return['admin_value_customer'][$key]['time'] = YoyakuDanjikiJikan::where('booking_id', $value->booking_id)->get();
+
+            $lunch = $MsKubun->where('kubun_type','008')->where('kubun_id', $value->lunch)->first();
+            $return['admin_value_customer'][$key]['lunch'] = isset($lunch)?$lunch->kubun_value:null;
+
+            $pet_keeping = $MsKubun->where('kubun_type','010')->where('kubun_id', $value->pet_keeping)->first();
+            $return['admin_value_customer'][$key]['pet_keeping'] = isset($pet_keeping)?$pet_keeping->kubun_value:null;
+
+            $stay_room_type = $MsKubun->where('kubun_type','011')->where('kubun_id', $value->stay_room_type)->first();
+            $return['admin_value_customer'][$key]['stay_room_type'] = isset($stay_room_type)?$stay_room_type->kubun_value:null;
+
+            $stay_guest_num = $MsKubun->where('kubun_type','012')->where('kubun_id', $value->stay_guest_num)->first();
+            $return['admin_value_customer'][$key]['stay_guest_num'] = isset($stay_guest_num)?$stay_guest_num->kubun_value:null;
+
+            if($value->breakfast == '01'){
+                $return['admin_value_customer'][$key]['breakfast'] = null;
+            }else{
+                $breakfast = $MsKubun->where('kubun_type','022')->where('kubun_id', $value->breakfast)->first();
+                $return['admin_value_customer'][$key]['breakfast'] = isset($breakfast)?$breakfast->kubun_value:null;
+            }
+
+            $service_guest_num = $MsKubun->where('kubun_type','015')->where('kubun_id', $value->service_guest_num)->first();
+            $return['admin_value_customer'][$key]['service_guest_num'] = isset($service_guest_num)?$service_guest_num->kubun_value:null;
+
+            $lunch_guest_num = $MsKubun->where('kubun_type','023')->where('kubun_id', $value->lunch_guest_num)->first();
+            $return['admin_value_customer'][$key]['lunch_guest_num'] = isset($lunch_guest_num)?$lunch_guest_num->kubun_value:null;
+
+            $return['admin_value_customer'][$key]['date'] = YoyakuDanjikiJikan::where('booking_id', $value->booking_id)->get();
+
+            $service_pet_num = $MsKubun->where('kubun_type','016')->where('kubun_id', $value->service_pet_num)->first();
+            $return['admin_value_customer'][$key]['service_pet_num'] = isset($service_pet_num)?$service_pet_num->kubun_value:null;
+
         }
     }
     private function add_column_null($booking_id){

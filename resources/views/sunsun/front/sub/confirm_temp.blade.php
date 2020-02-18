@@ -97,23 +97,48 @@
             </div>
         </div>
     @endif
+    @php
+        $weekMap = [
+            0 => '日',
+            1 => '月',
+            2 => '火',
+            3 => '水',
+            4 => '木',
+            5 => '金',
+            6 => '土',
+        ];
+    @endphp
     <span style="display: none">mark_newline</span>
     @if($course == '01' || $course == '02' || $course == '03')
     <div class="linex">
-        <p>予約日: {{ $data->service_date_start }}</p>
+        <p>予約日: <span style="display: none">mark_space</span>{{ substr($data->service_date_start, 0, 4) . "年" . substr($data->service_date_start, 4, 2) . "月" . substr($data->service_date_start, 6, 2) . "日" ."(" . $weekMap[date('w', strtotime($data->service_date_start))] . ")" }}</p>
         <div class="line1"></div>
         <div class="line2"></div>
     </div>
     @endif
 @endif
-@if($course->kubun_id == '01')
-    @include('sunsun.front.sub.confirm1')
-@elseif($course->kubun_id == '02')
-    @include('sunsun.front.sub.confirm2')
-@elseif($course->kubun_id == '03')
-    @include('sunsun.front.sub.confirm3')
-@elseif($course->kubun_id == '04')
-    @include('sunsun.front.sub.confirm4')
-@elseif($course->kubun_id == '05')
-    @include('sunsun.front.sub.confirm5')
+@if(isset($change_check) === true)
+    @if($course == '01')
+        @include('sunsun.front.sub.confirm1_admin')
+    @elseif($course == '02')
+        @include('sunsun.front.sub.confirm2_admin')
+    @elseif($course == '03')
+        @include('sunsun.front.sub.confirm3_admin')
+    @elseif($course == '04')
+        @include('sunsun.front.sub.confirm4_admin')
+    @elseif($course == '05')
+        @include('sunsun.front.sub.confirm5_admin')
+    @endif
+@else
+    @if($course->kubun_id == '01')
+        @include('sunsun.front.sub.confirm1')
+    @elseif($course->kubun_id == '02')
+        @include('sunsun.front.sub.confirm2')
+    @elseif($course->kubun_id == '03')
+        @include('sunsun.front.sub.confirm3')
+    @elseif($course->kubun_id == '04')
+        @include('sunsun.front.sub.confirm4')
+    @elseif($course->kubun_id == '05')
+        @include('sunsun.front.sub.confirm5')
+    @endif
 @endif
