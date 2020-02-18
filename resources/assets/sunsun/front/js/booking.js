@@ -3,6 +3,22 @@ var date_check = false;
 var admin_check = false;
 var result_confirm = false;
 var course_tmp = "";
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+function formatDate(date) {
+     var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+     if (month.length < 2) month = '0' + month;
+     if (day.length < 2) day = '0' + day;
+
+     return [year, month, day].join('/');
+ }
 $(function() {
     let init_event = 0;
     var modal_confirm = $('#modal_confirm');
@@ -277,6 +293,20 @@ $(function() {
                 orientation: 'bottom',
                 // datesDisabled: ['2019-12-17','2019-12-16'],
             });
+        }
+        // convert date if type == 3
+        var val_course = JSON.parse($('#course').val());
+        if (val_course["kubun_id"] == "03") {
+            var date_change = $("#date").val();
+            var date = new Date(date_change);
+            var current_day = date.getDay();
+            if (current_day == 6) {
+                date_change = formatDate(date.addDays(2));
+            }
+            else if (current_day == 0) {
+                date_change = formatDate(date.addDays(1));
+            }
+            $("#date").val(date_change);
         }
         $('#date').datepicker().off('hide');
         $('#date').datepicker().on('hide', function(e) {
