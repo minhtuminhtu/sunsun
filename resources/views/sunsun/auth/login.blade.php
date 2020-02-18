@@ -57,7 +57,7 @@
                 @if(\Route::current()->getName()=='login')
                 <div class="pt-3">
                     <div class="form-group text-center pb-0 mb-0 mt-5" style="margin-top: 15px">
-                        アカウントを持っていない？
+                        {!! config('const.message.err_not_user') !!}
                     </div>
                     <div class="form-group text-center pt-0 mt-0" style="margin-top: 15px">
                         <a href="/register" class="center-link">ユーザー登録</a>

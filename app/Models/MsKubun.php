@@ -28,10 +28,7 @@ class MsKubun extends Model
         parent::__construct($attributes);
     }
     public static function GetTimeKubunHoliday() {
-        return MsKubun::selectRaw("(case
-                when kubun_type = '013' then CONCAT(kubun_value,'～')
-                else kubun_value
-            end) as kubun_value, time_holiday,
+        return MsKubun::selectRaw("kubun_value, time_holiday,
             (case
                 when kubun_type = '020' then 2
                 when kubun_type = '021' then 3

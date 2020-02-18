@@ -2,7 +2,7 @@
 return [
     'time_room' => [
         [
-            'time' => '9:45',
+            'time' => '09:45',
             'quantity' => '3',
             'room1' => [
                 'status' => '0',
@@ -296,7 +296,7 @@ return [
     ],
     'room' => [
         [
-            'time_from' => '9:45',
+            'time_from' => '09:45',
             'time_to' => '12:00',
             'quantity' => '3',
             'room1' => [
@@ -375,7 +375,7 @@ return [
     ],
     'room_pet' => [
         [
-            'time_from' => '9:30',
+            'time_from' => '09:30',
             'time_to' => '10:30',
             'quantity' => '3',
             'room1' => [

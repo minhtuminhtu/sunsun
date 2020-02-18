@@ -220,44 +220,46 @@ Route::middleware('begin.auth')->group(function(){
     });
 
     // Admin
-    Route::middleware('admin.auth')->prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
-        Route::get('/',['as' => '.index', 'uses' => 'AdminController@index']);
-        Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);
-        Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
-        Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
-        Route::get('/setting',['as' => '.setting', 'uses' => 'SettingController@setting']);
-        Route::post('/get_setting_type',['as' => '.get_setting_type', 'uses' => 'SettingController@get_setting_type']);
-        Route::post('/get_setting_kubun_type',['as' => '.get_setting_kubun_type', 'uses' => 'SettingController@get_setting_kubun_type']);
-        Route::post('/update_setting_kubun_type',['as' => '.update_setting_kubun_type', 'uses' => 'SettingController@update_setting_kubun_type']);
-        Route::post('/update_setting_sort_no',['as' => '.update_setting_sort_no', 'uses' => 'SettingController@update_setting_sort_no']);
-        Route::delete('/delete_setting_kubun_type',['as' => '.delete_setting_kubun_type', 'uses' => 'SettingController@delete_setting_kubun_type']);
+    Route::group(['middleware' => 'CheckRole'], function () {
+        Route::middleware('admin.auth')->prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
+            Route::get('/',['as' => '.index', 'uses' => 'AdminController@index']);
+            Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);
+            Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
+            Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
+            Route::get('/setting',['as' => '.setting', 'uses' => 'SettingController@setting']);
+            Route::post('/get_setting_type',['as' => '.get_setting_type', 'uses' => 'SettingController@get_setting_type']);
+            Route::post('/get_setting_kubun_type',['as' => '.get_setting_kubun_type', 'uses' => 'SettingController@get_setting_kubun_type']);
+            Route::post('/update_setting_kubun_type',['as' => '.update_setting_kubun_type', 'uses' => 'SettingController@update_setting_kubun_type']);
+            Route::post('/update_setting_sort_no',['as' => '.update_setting_sort_no', 'uses' => 'SettingController@update_setting_sort_no']);
+            Route::delete('/delete_setting_kubun_type',['as' => '.delete_setting_kubun_type', 'uses' => 'SettingController@delete_setting_kubun_type']);
 
-        Route::post('/edit_booking',['as' => '.edit_booking', 'uses' => 'AdminController@edit_booking']);
-        // Route::post('/booking_history',['as' => '.booking_history', 'uses' => 'AdminController@booking_history']);
-        Route::post('/show_history',['as' => '.show_history', 'uses' => 'AdminController@show_history']);
-        Route::post('/update_booking',['as' => '.update_booking', 'uses' => 'AdminController@update_booking']);
+            Route::post('/edit_booking',['as' => '.edit_booking', 'uses' => 'AdminController@edit_booking']);
+            // Route::post('/booking_history',['as' => '.booking_history', 'uses' => 'AdminController@booking_history']);
+            Route::post('/show_history',['as' => '.show_history', 'uses' => 'AdminController@show_history']);
+            Route::post('/update_booking',['as' => '.update_booking', 'uses' => 'AdminController@update_booking']);
 
-        // user admin
-        Route::get('/msuser',['as' => '.user', 'uses' => 'AdminController@user']);
-        Route::post('/update_user',['as' => '.update_user', 'uses' => 'AdminController@update_user']);
-        // Route::get('/search_user',['as' => '.search_user', 'uses' => 'AdminController@get_search_user']);
-        Route::get('/search-paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_search_pagination']);
-        Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
+            // user admin
+            Route::get('/msuser',['as' => '.user', 'uses' => 'AdminController@user']);
+            Route::post('/update_user',['as' => '.update_user', 'uses' => 'AdminController@update_user']);
+            // Route::get('/search_user',['as' => '.search_user', 'uses' => 'AdminController@get_search_user']);
+            Route::get('/search-paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_search_pagination']);
+            Route::get('/export',['as' => '.export', 'uses' => 'AdminController@export']);
 
-        // holiday
-        Route::get('/ms_holiday',['as' => '.msholiday', 'uses' => 'AdminController@ms_holiday']);
-        Route::post('/create',['as' => '.addmsholiday', 'uses' => 'AdminController@add_holiday']);
-        Route::post('/update_holiday',['as' => '.update_holiday', 'uses' => 'AdminController@update_holiday']);
-        Route::get('/holiday_search_paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_holiday_search_pagination']);
+            // holiday
+            Route::get('/ms_holiday',['as' => '.msholiday', 'uses' => 'AdminController@ms_holiday']);
+            Route::post('/create',['as' => '.addmsholiday', 'uses' => 'AdminController@add_holiday']);
+            Route::post('/update_holiday',['as' => '.update_holiday', 'uses' => 'AdminController@update_holiday']);
+            Route::get('/holiday_search_paginate',['as' => '.search-paginate', 'uses' => 'AdminController@get_data_holiday_search_pagination']);
 
-        // time off holiday
-        Route::get('/time_off',['as' => '.timeoff', 'uses' => 'TimeOffController@Create']);
-        Route::post('/ajax_time_off',['as' => '.ajax_time_off', 'uses' => 'TimeOffController@GetAjax']);
-        Route::post('/submit_time_off',['as' => '.submit_time_off', 'uses' => 'TimeOffController@Submit']);
-        // day off holiday
-        Route::get('/day_off',['as' => '.dayoff', 'uses' => 'DayOffController@Create']);
-        //Route::post('/create',['as' => '.create_dayoff', 'uses' => 'DayOffController@Submit']);
-        Route::post('/submit_day_off',['as' => '.submit_day_off', 'uses' => 'DayOffController@Submit']);
-        Route::post('/ajax_day_off',['as' => '.ajax_day_off', 'uses' => 'DayOffController@GetAjax']);
+            // time off holiday
+            Route::get('/time_off',['as' => '.timeoff', 'uses' => 'TimeOffController@Create']);
+            Route::post('/ajax_time_off',['as' => '.ajax_time_off', 'uses' => 'TimeOffController@GetAjax']);
+            Route::post('/submit_time_off',['as' => '.submit_time_off', 'uses' => 'TimeOffController@Submit']);
+            // day off holiday
+            Route::get('/day_off',['as' => '.dayoff', 'uses' => 'DayOffController@Create']);
+            //Route::post('/create',['as' => '.create_dayoff', 'uses' => 'DayOffController@Submit']);
+            Route::post('/submit_day_off',['as' => '.submit_day_off', 'uses' => 'DayOffController@Submit']);
+            Route::post('/ajax_day_off',['as' => '.ajax_day_off', 'uses' => 'DayOffController@GetAjax']);
+        });
     });
 });
