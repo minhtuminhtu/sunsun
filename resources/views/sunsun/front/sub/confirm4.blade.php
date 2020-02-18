@@ -64,22 +64,24 @@
         $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";
         $stay_guest_num = isset($data['stay_guest_num'])?json_decode($data['stay_guest_num']):"";
     @endphp
-    @if($stay_room_type->kubun_value != config('booking.room.options.no'))
-    <hr class="line-x">
-    <span style="display: none">mark_newline</span>
-    <div class="line">
-        <div class="line1">
-        宿泊
-        </div>
-        <div class="line2">
-            <p>部屋ﾀｲﾌﾟ：{{ $stay_room_type->kubun_value }}</p>
-            <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
-            <p>宿泊日</p>
-            <div class="line3">
-                <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}</p>
-                <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
+    @if(isset($stay_room_type->kubun_value))
+        @if($stay_room_type->kubun_value != config('booking.room.options.no'))
+        <hr class="line-x">
+        <span style="display: none">mark_newline</span>
+        <div class="line">
+            <div class="line1">
+            宿泊
+            </div>
+            <div class="line2">
+                <p>部屋ﾀｲﾌﾟ：{{ $stay_room_type->kubun_value }}</p>
+                <p>宿泊人数：{{ $stay_guest_num->kubun_value }}</p>
+                <p>宿泊日</p>
+                <div class="line3">
+                    <p class="node-text">チェックイン：{{ $data['range_date_start-view'] }}</p>
+                    <p class="node-text">チェックアウト：{{ $data['range_date_end-view'] }}</p>
+                </div>
             </div>
         </div>
-    </div>
-    @endif
+        @endif
+    @endif    
 @endif

@@ -16,6 +16,7 @@
 
                     </div> -->
                     <div class="body-confirm">
+                        @if(isset($customer))
                         <div>
                             @php
                             $i = 0;
@@ -37,6 +38,29 @@
                                 @endif
                             @endforeach
                         </div>
+                        @elseif(isset($admin_customer))
+                        <div>
+                            @php
+                            $i = 0;
+                            @endphp
+
+                            @foreach($admin_customer as $key => $data)
+
+                                @if((!isset($data->fake_booking)) || ($data->fake_booking != '1'))
+                                    @if($key > 0)
+                                        <hr class="line-line">
+                                        <span style="display: none">mark_realline</span>
+                                    @endif
+                                    @php
+                                        $course = $data->course;
+                                        $repeat_user = $data->repeat_user;
+                                        $i++;
+                                    @endphp
+                                    @include('sunsun.front.sub.confirm_temp')
+                                @endif
+                            @endforeach
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="foot-confirm">

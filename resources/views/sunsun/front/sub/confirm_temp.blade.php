@@ -3,14 +3,21 @@
         <p class="font-weight-bold">予約{{ $i }}</p>
         <br>
     @endif
-    <p>ご利用： {{ $repeat_user->kubun_value }}</p>
-    @if($repeat_user->kubun_id != '02')
-        <p>{!! config('const.message.please_15_minus') !!}</p>
+    @if(isset($change_check) === true)
+        <p>ご利用： {{ $admin_value_customer[$i - 1]['repeat_user'] }}</p>
+        @if($repeat_user != '02')
+            <p>{!! config('const.message.please_15_minus') !!}</p>
+        @endif
+    @else
+        <p>ご利用： {{ $repeat_user->kubun_value }}</p>
+        @if($repeat_user->kubun_id != '02')
+            <p>{!! config('const.message.please_15_minus') !!}</p>
+        @endif
     @endif
 
 
 </div>
-@if($key == 0)
+@if(($key == 0) && isset($change_check) === false)
     @php
         $transport = json_decode($customer['transport']);
     @endphp
@@ -50,6 +57,50 @@
     @if($course->kubun_id == '01' || $course->kubun_id == '02' || $course->kubun_id == '03')
     <div class="linex">
         <p>予約日: {{ $data['date-view'] }}</p>
+        <div class="line1"></div>
+        <div class="line2"></div>
+    </div>
+    @endif
+@elseif(isset($change_check) === true && $change_check == true)
+    @php
+        $transport = $data->transport;
+    @endphp
+
+    @if($transport == '01' )
+        <div class="line">
+            <div class="line1">
+            交通手段 :
+            </div>
+            <span style="display: none">mark_space</span>
+            <div class="line2">
+                <p>{{ $admin_value_customer[$i - 1]['transport'] }}</p>
+            </div>
+        </div>
+    @else
+        @php
+            $bus_arrive_time_slide = $data->bus_arrive_time_slide;
+            $pick_up = $data->pick_up;
+        @endphp
+        <div class="line">
+            <div class="line1">
+            交通手段 :
+            </div>
+            <span style="display: none">mark_space</span>
+            <div class="line2">
+                <p>{{ $admin_value_customer[$i - 1]['transport'] }}</p>
+                <p>{{ $admin_value_customer[$i - 1]['bus_arrive_time_slide'] }}</p>
+                @if($pick_up == '01')
+                    <p>送迎あり</p>
+                @else
+                    <p>送迎なし</p>
+                @endif
+            </div>
+        </div>
+    @endif
+    <span style="display: none">mark_newline</span>
+    @if($course == '01' || $course == '02' || $course == '03')
+    <div class="linex">
+        <p>予約日: {{ $data->service_date_start }}</p>
         <div class="line1"></div>
         <div class="line2"></div>
     </div>

@@ -209,6 +209,9 @@
                         </div>
                     </div>
                 </div>
+
+                <input type="hidden" name="ref_booking_id" value="{{ isset($data_booking->ref_booking_id)?$data_booking->ref_booking_id:'' }}">
+
                 @php
                 $picked_course = '';
                 if(isset($data_booking->course)){

@@ -166,16 +166,30 @@ $(function() {
                         if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
                             _off_set += "1";
                         }
-                        $('.input-daterange').datepicker({
-                            language: 'ja',
-                            dateFormat: 'yyyy/mm/dd',
-                            autoclose: true,
-                            startDate: new Date(),
-                            daysOfWeekDisabled: get_off_def(),
-                            datesDisabled: html.date_selected,
-                            weekStart: 1,
-                            orientation: 'bottom',
-                        });
+                        if(window.location.href.includes("admin")){
+                            $('.input-daterange').datepicker({
+                                container: '.mail-booking',
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: html.date_selected,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
+                        }else{
+                            $('.input-daterange').datepicker({
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: html.date_selected,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
+                        }
                         let range_start = moment(new Date($('#range_date_start').val()));
                         let range_end = moment(new Date($('#range_date_end').val()));
                         $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");

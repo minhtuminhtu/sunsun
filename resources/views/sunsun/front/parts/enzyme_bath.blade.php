@@ -374,7 +374,7 @@
 
     </div>
 </div>
-@if(!isset($add_new_user))
+@if(isset($add_new_user) === false && isset($course_data['ref_booking_id']) === false)
     <div class="booking-line font-weight-bold mt-3">
         <div class="booking-line-laber">
             <div class="line-laber">宿泊</div>
@@ -496,4 +496,3 @@
         </div>
     </div>
 @endif
-

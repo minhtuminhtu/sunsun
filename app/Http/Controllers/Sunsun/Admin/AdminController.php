@@ -319,10 +319,10 @@ class AdminController extends Controller
         AND         main.service_date_start = $date
         ");
         for($i = 0; $i < count($all_data); $i++){
-            Log::debug($all_data[$i]->booking_id);
+            // Log::debug($all_data[$i]->booking_id);
             $all_data[$i]->expert_data = $this->get_search_expert($all_data[$i]->booking_id, $date);
         }
-        Log::debug($all_data);
+        // Log::debug($all_data);
         return  collect($all_data);
     }
     private function set_stay_room(&$data, $date){
@@ -1028,6 +1028,9 @@ class AdminController extends Controller
         $data = $request->all();
 
         $data['customer'] = $data;
+        if(isset($data['ref_booking_id'])){
+
+        }
         $data['customer']['info'] = ['0' => $data];
         $this->add_fake_course($data['customer']['info'], $data);
 
@@ -1035,9 +1038,9 @@ class AdminController extends Controller
 
 
         $booking = new BookingController();
-        $booking->make_bill($data);
-        $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
-        $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
+        // $booking->make_bill($data);
+        // $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
+        // $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
 
         $booking_id = isset($data['booking_id'])?$data['booking_id']:0;
         $validate_booking = $booking->validate_booking($data, $booking_id);
@@ -1052,7 +1055,8 @@ class AdminController extends Controller
                 ]
             ];
         }
-        $booking->update_or_new_booking($data, $request, true);
+        $ref_booking_id = isset($data['ref_booking_id'])?$data['ref_booking_id']:null;
+        $booking->update_or_new_booking($data, $request, true, $ref_booking_id);
         return [
             'status' => true,
             'type' => 'update',
