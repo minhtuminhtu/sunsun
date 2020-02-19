@@ -723,8 +723,6 @@ class AdminController extends Controller
             $data['time_range'][$i]['data']['pet'] = $course_5->firstWhere('time',   $data['time_range'][$i]['pet_time_value']);
             $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['wt_time_value']);
         }
-        Log::debug("abc");
-        Log::debug($data['time_range']);
         // dd($data['time_range']);
     }
     private function get_time_value_array(){
@@ -1270,6 +1268,8 @@ class AdminController extends Controller
             $monthly_data[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
         }
         // dd($week_list_day);
+        Log::debug("abc");
+        Log::debug($monthly_data);
         $data['monthly_data'] = $monthly_data;
     }
     private function get_list_dates($from , $to, $month){
