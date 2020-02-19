@@ -270,20 +270,22 @@ class BookingController extends Controller
                 $error['room_select_error']['start']['element'] = 'range_date_start';
                 $error['room_select_error']['end']['element'] = 'range_date_end';
             } else {
+                Log::debug($range_date_start);
+                Log::debug($range_date_end);
                 $number_dup = DB::select("
                 SELECT  main.booking_id,
                         main.stay_checkin_date,
                         main.stay_checkout_date
                 FROM    tr_yoyaku main
                 WHERE   main.stay_room_type = $stay_room_type
-                AND (   ( main.stay_checkin_date <= $range_date_end AND main.stay_checkout_date >= $range_date_end )
-                    OR  ( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date >= $range_date_end )
-                    OR  ( main.stay_checkin_date <= $range_date_start AND main.stay_checkout_date > $range_date_start )
-                    OR  ( main.stay_checkin_date >= $range_date_start AND main.stay_checkout_date <= $range_date_end )
+                AND ( NOT  ( main.stay_checkin_date >= $range_date_end OR main.stay_checkout_date <= $range_date_start )
                     )
                 AND main.history_id IS NULL
                 AND main.booking_id <> $booking_id
                 ");
+                Log::debug('$number_dup');
+                Log::debug($number_dup);
+
                 if((count($number_dup) != 0) || ($range_date_start == $range_date_end)){
                     $error['room_error_holiday'] = "0";
                     $error['room_select_error']['start']['element'] = 'range_date_start';
@@ -570,14 +572,17 @@ class BookingController extends Controller
         AND main.history_id IS NULL
         ");
         $date_selected = $this->get_free_holiday();
+        $date_start = [];
         foreach($range_day as $da){
             foreach($this->get_list_days($da->stay_checkin_date, $da->stay_checkout_date) as $d){
                 array_push($date_selected, $d);
             }
+            $date_start[] = Carbon::parse($da->stay_checkin_date)->format('Y/m/d');
         }
         return [
             'now' => $this->get_nearly_active(count($date_selected)!=0?max($date_selected):null, $date_selected),
-            'date_selected' => $date_selected
+            'date_selected' => $date_selected,
+            'date_start' => $date_start
         ];
     }
     private function get_nearly_active($max_date_selected, $date_selected){
@@ -1709,14 +1714,12 @@ class BookingController extends Controller
                         main.stay_checkout_date
                 FROM    tr_yoyaku main
                 WHERE   main.stay_room_type = $room_type
-                AND (   ( main.stay_checkin_date <= $checkout AND main.stay_checkout_date >= $checkout )
-                    OR  ( main.stay_checkin_date <= $checkin AND main.stay_checkout_date >= $checkout )
-                    OR  ( main.stay_checkin_date <= $checkin AND main.stay_checkout_date > $checkin )
-                    OR  ( main.stay_checkin_date >= $checkin AND main.stay_checkout_date <= $checkout )
+                AND ( NOT  ( main.stay_checkin_date >= $checkout OR main.stay_checkout_date <= $checkin )
                     )
                 AND main.history_id IS NULL
             ");
-            //Log::debug($room_validate);
+            Log::debug('$room_validate');
+            Log::debug($room_validate);
             if(isset($room_validate) && (count($room_validate) != 0)){
                 throw new \ErrorException('booking_error_stay');
             }

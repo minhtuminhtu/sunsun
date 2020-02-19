@@ -169,7 +169,9 @@ $(function() {
                         // console.log(html);
                         html = JSON.parse(html);
                         // console.log(html.now);
-                        $('.input-daterange').datepicker('destroy');
+                        // $('.input-daterange').datepicker('destroy');
+                        $('#range_date_start').datepicker('destroy');
+                        $('#range_date_end').datepicker('destroy');
                         $('#range_date_start').val(html.now);
                         let valid_date = moment(new Date(html.now));
                         // console.log(valid_date.weekday());
@@ -182,8 +184,14 @@ $(function() {
                         if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
                             _off_set += "1";
                         }
+                        console.log(html.date_selected);
+                        console.log(html.date_start);
+                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
+                        console.log(disabled_day_arr)
+
+
                         if(window.location.href.includes("admin")){
-                            $('.input-daterange').datepicker({
+                            $('#range_date_start').datepicker({
                                 container: '.mail-booking',
                                 language: 'ja',
                                 dateFormat: 'yyyy/mm/dd',
@@ -194,8 +202,19 @@ $(function() {
                                 weekStart: 1,
                                 orientation: 'bottom',
                             });
+                            $('#range_date_end').datepicker({
+                                container: '.mail-booking',
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: disabled_day_arr,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
                         }else{
-                            $('.input-daterange').datepicker({
+                            $('#range_date_start').datepicker({
                                 language: 'ja',
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
@@ -205,7 +224,20 @@ $(function() {
                                 weekStart: 1,
                                 orientation: 'bottom',
                             });
+                            $('#range_date_end').datepicker({
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: disabled_day_arr,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
                         }
+                        $('#range_date_start').datepicker().on('hide', function () {
+                            $('#range_date_end').val("－");
+                        });
                         let range_start = moment(new Date($('#range_date_start').val()));
                         let range_end = moment(new Date($('#range_date_end').val()));
                         $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
@@ -336,32 +368,32 @@ $(function() {
                 // // $('#date').val();
             }
         }
-        if(window.location.href.includes("admin")){
-            $('.input-daterange').datepicker({
-                container: '.mail-booking',
-                language: 'ja',
-                dateFormat: 'yyyy/mm/dd',
-                autoclose: true,
-                startDate: new Date(),
-                daysOfWeekDisabled: _off_def,
-                datesDisabled: _date_holiday,
-                // daysOfWeekHighlighted: "1,2",
-                weekStart: 1,
-                orientation: 'bottom',
-            });
-        }else{
-            $('.input-daterange').datepicker({
-                language: 'ja',
-                dateFormat: 'yyyy/mm/dd',
-                autoclose: true,
-                startDate: new Date(),
-                daysOfWeekDisabled: _off_def,
-                datesDisabled: _date_holiday,
-                // daysOfWeekHighlighted: "1,2",
-                weekStart: 1,
-                orientation: 'bottom',
-            });
-        }
+        // if(window.location.href.includes("admin")){
+        //     $('.input-daterange').datepicker({
+        //         container: '.mail-booking',
+        //         language: 'ja',
+        //         dateFormat: 'yyyy/mm/dd',
+        //         autoclose: true,
+        //         startDate: new Date(),
+        //         daysOfWeekDisabled: _off_def,
+        //         datesDisabled: _date_holiday,
+        //         // daysOfWeekHighlighted: "1,2",
+        //         weekStart: 1,
+        //         orientation: 'bottom',
+        //     });
+        // }else{
+        //     $('.input-daterange').datepicker({
+        //         language: 'ja',
+        //         dateFormat: 'yyyy/mm/dd',
+        //         autoclose: true,
+        //         startDate: new Date(),
+        //         daysOfWeekDisabled: _off_def,
+        //         datesDisabled: _date_holiday,
+        //         // daysOfWeekHighlighted: "1,2",
+        //         weekStart: 1,
+        //         orientation: 'bottom',
+        //     });
+        // }
         let get_end_date = function(){
             var start_date = moment(new Date($('#plan_date_start').val()));
             var end_date;
