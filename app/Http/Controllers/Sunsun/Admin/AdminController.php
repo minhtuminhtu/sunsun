@@ -722,9 +722,9 @@ class AdminController extends Controller
             $data['time_range'][$i]['data']['female_4'] = $course_1_to_4->where('time',  $data['time_range'][$i]['time_value'])->where('gender', '女性')->firstWhere('bed', '4');
             $data['time_range'][$i]['data']['pet'] = $course_5->firstWhere('time',   $data['time_range'][$i]['pet_time_value']);
             $data['time_range'][$i]['data']['wt'] = $course_wt->firstWhere('time',   $data['time_range'][$i]['wt_time_value']);
-            Log::debug("abc");
-            Log::debug($data['time_range'][$i]['data']['wt']);
         }
+        Log::debug("abc");
+        Log::debug($data['time_range']);
         // dd($data['time_range']);
     }
     private function get_time_value_array(){
