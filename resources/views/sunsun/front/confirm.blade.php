@@ -46,7 +46,7 @@
 
                             @foreach($admin_customer as $key => $data)
 
-                                @if((!isset($data->fake_booking)) || ($data->fake_booking != '1'))
+                                @if((!isset($data->fake_booking_flg)) || ($data->fake_booking_flg != '1'))
                                     @if($key > 0)
                                         <hr class="line-line">
                                         <span style="display: none">mark_realline</span>

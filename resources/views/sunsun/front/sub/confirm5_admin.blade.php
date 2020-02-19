@@ -9,9 +9,20 @@
     <div class="line2">
     </div>
 </div>
+@php
+    $weekMap = [
+        0 => '日',
+        1 => '月',
+        2 => '火',
+        3 => '水',
+        4 => '木',
+        5 => '金',
+        6 => '土',
+    ];
+@endphp
 @if($key == 0)
     <div class="linex">
-        予約日: <span style="display: none">mark_space</span>{{ substr($data->service_date_start, 0, 4) . "/" . substr($data->service_date_start, 4, 2) . "/" . substr($data->service_date_start, 6, 2) }}
+        <p>予約日: <span style="display: none">mark_space</span>{{ substr($data->service_date_start, 0, 4) . "年" . substr($data->service_date_start, 4, 2) . "月" . substr($data->service_date_start, 6, 2) . "日" ."(" . $weekMap[date('w', strtotime($data->service_date_start))] . ")" }}</p>
         <div class="line1">
         </div>
         <div class="line2">

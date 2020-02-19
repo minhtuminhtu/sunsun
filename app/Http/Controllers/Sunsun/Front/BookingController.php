@@ -1034,46 +1034,347 @@ class BookingController extends Controller
             // Flag check co thay doi may thu ben tren hay khong?
             $change_check = false;
             $booking_id_diff = [];
+            $transport_diff = [];
             $list_booking = null;
             $admin_customer = [];
             if(isset($yo->ref_booking_id)){
                 $yo_temp = Yoyaku::where('booking_id', $yo->ref_booking_id)->first();
                 $booking_id_diff[] = $yo_temp->service_date_start;
+                $transport_diff[] = $yo_temp->transport;
                 $admin_customer[] = $yo_temp;
                 $list_booking = Yoyaku::where('ref_booking_id', $yo_temp->booking_id)->whereNull('history_id')->get();
             }else{
                 $booking_id_diff[] = $yo->service_date_start;
+                $transport_diff[] = $yo->transport;
                 $admin_customer[] = $yo;
                 $list_booking = Yoyaku::where('ref_booking_id', $booking_id)->whereNull('history_id')->get();
             }
 
-            foreach ($list_booking as $li_bo) {
+            foreach ($list_booking as $key => $li_bo) {
                 $booking_id_diff[] = $li_bo->service_date_start;
+                $transport_diff[] = $li_bo->transport;
                 $admin_customer[] = $li_bo;
-                if(is_null($li_bo->transport) === false || is_null($li_bo->bus_arrive_time_slide) === false || is_null($li_bo->pick_up) === false){
+                if(isset($li_bo->bus_arrive_time_slide) === true || isset($li_bo->pick_up) === true){
                     $change_check = true;
                 }
             }
-            if(max($booking_id_diff) !== min($booking_id_diff)){
+
+
+            if((max($booking_id_diff) !== min($booking_id_diff)) || (max($transport_diff) !== min($transport_diff))){
                 $change_check = true;
             }
+
+
 
             $admin_data['admin_customer'] = $admin_customer;
             $admin_data['change_check'] = $change_check;
 
             $this->convert_booking_2_value($admin_data['admin_customer'], $admin_data);
-
+            $bill_text = null;
+            $this->yoyaku_2_bill($admin_customer, $bill_text);
 
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
             $booking_data->booking_data = $data;
             $booking_data->booking_html = view('sunsun.front.confirm',$admin_data)->render();
-            //$request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
-            ReminderJob::dispatch($email, $booking_data);
-            Log::debug(view('sunsun.front.confirm',$data)->render());
-
+            $booking_data->payment_text = $bill_text;
+            ConfirmJob::dispatch($email, $booking_data);
+            ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes(10));
         }
 
+    }
+
+    private function yoyaku_2_bill($yoyaku, &$bill_text){
+        $new_bill = [];
+        $MsKubun = MsKubun::all();
+        for($i = 1; $i <  21; $i++){
+            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id',(string)sprintf('%02d', $i)]])->get()->first();
+            $new_bill[$sort_no_temp->sort_no]['name'] = $sort_no_temp->notes;
+            $new_bill[$sort_no_temp->sort_no]['unit'] = preg_replace('/[0-9]/', '', $sort_no_temp->kubun_value);
+            $new_bill[$sort_no_temp->sort_no]['price'] = 0;
+            $new_bill[$sort_no_temp->sort_no]['quantity'] = 0;
+        }
+        foreach ($yoyaku as $key => $yo) {
+            if((!isset($yo->fake_booking_flg)) || ($yo->fake_booking_flg != '1')){
+                if($yo->course == '01'){
+                    $time = YoyakuDanjikiJikan::where('booking_id', $yo->booking_id)->get();
+                    foreach ($time as $t) {
+                        if(isset($yo->age_type) && ($yo->age_type == 3)){
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','01']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
+                            $new_bill[$sort_no_temp->sort_no]['quantity']++;
+                        }else if(isset($yo->age_type) && $yo->age_type == 2){
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','02']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
+                            $new_bill[$sort_no_temp->sort_no]['quantity']++;
+                        }else if(isset($yo->age_type) && $yo->age_type == 1){
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','03']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
+                            $new_bill[$sort_no_temp->sort_no]['quantity']++;
+                        }
+                    }
+                }else if($yo->course == '02'){
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','05']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
+                    $new_bill[$sort_no_temp->sort_no]['quantity']++;
+                }else if($yo->course == '03'){
+                    $quantity = $MsKubun->where('kubun_type','015')->where('kubun_id', $yo->service_guest_num)->first();
+                    $number_customer = (int)$quantity->notes;
+                    // Log::debug('$number_customer');
+                    // Log::debug($number_customer);
+                    // Lon hon 3 nguoi thi tinh them phu phi
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','06']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
+                    $new_bill[$sort_no_temp->sort_no]['quantity']++;
+                    if($number_customer > 3){
+                        $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','07']])->get()->first();
+                        $new_bill[$sort_no_temp->sort_no]['price'] += ($number_customer - 3) * $this->get_price_course_admin($yo, true);
+                        $new_bill[$sort_no_temp->sort_no]['quantity'] += $number_customer - 3;
+                    }
+                }else if($yo->course == '04'){
+                    $time = YoyakuDanjikiJikan::where('booking_id', $yo->booking_id)->get();
+                    $day = count($time);
+                    if($day < 5){
+                        $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','08']])->get()->first();
+                        $new_bill[$sort_no_temp->sort_no]['price'] += $day *  $this->get_price_course_admin($yo);
+                        $new_bill[$sort_no_temp->sort_no]['quantity'] += $day;
+                    }else if($day === 5){
+                        $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','09']])->get()->first();
+                        $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo, true);
+                        $new_bill[$sort_no_temp->sort_no]['quantity'] ++;
+                    }
+                }else if($yo->course == '05'){
+                    $quantity = $MsKubun->where('kubun_type','016')->where('kubun_id', $yo->service_pet_num)->first();
+                    $pet_number = (int)$quantity->notes;
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','16']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] ++;
+                    if($pet_number > 1){
+                        $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','17']])->get()->first();
+                        $new_bill[$sort_no_temp->sort_no]['price'] += ($pet_number - 1) * $this->get_price_course_admin($yo, true);
+                        $new_bill[$sort_no_temp->sort_no]['quantity'] += $pet_number - 1;
+                    }
+                }
+                $this->get_price_option_admin($yo, $new_bill);
+            }
+        }
+        $total = 0;
+        foreach ($new_bill as $bi){
+            $total += $bi['price'];
+        }
+        foreach($new_bill as $key => $n_bill){
+            if($n_bill['quantity'] > 0){
+                $bill_text .= $n_bill['name'] . "：" . $n_bill['quantity'].$n_bill['unit'] . " " . number_format($n_bill['price']) ."円
+";
+            }
+        }
+        $bill_text .= config('booking.total.label') . " " . $total ."円";
+    }
+    public function get_price_course_admin ($booking, $overflow = false) {
+        $course = $booking->course;
+        $course_price = 0;
+        switch ($course){
+            case '01': // bình thường
+                $course_price_op = null;
+                if ($booking->age_type == '3') {
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','01']])->get()->first();
+                }
+                else if ($booking->age_type == '2') {
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','02']])->get()->first();
+                }
+                else if ($booking->age_type == '1') {
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','03']])->get()->first();
+                }
+                $course_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                break;
+            case '02': // 1 day refresh
+                $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','05']])->get()->first();
+                $course_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                break;
+            case '03': // nguyên sàn
+                $course_price_op = null;
+                if($overflow === false){
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','06']])->get()->first();
+                }else{
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','07']])->get()->first();
+                }
+                $course_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                break;
+            case '04': // ăn kiêng
+                $course_price_op = null;
+                if($overflow === false){
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','08']])->get()->first();
+                }else{
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','09']])->get()->first();
+                }
+                $course_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                break;
+            case "05": // pet
+                $course_price_op = null;
+                if($overflow === false){
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','16']])->get()->first();
+                }else{
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','17']])->get()->first();
+                }
+                $course_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                break;
+        }
+        return $course_price;
+    }
+    public function get_price_option_admin ($booking, &$new_bill) {
+        $course = $booking->course;
+        //dd($booking);
+        if (isset($booking->lunch) || isset($booking->lunch_guest_num)) { // an trua 01
+            $price_luch = 0;
+            if (isset($booking->lunch)) {
+                $lunch = $booking->lunch;
+            } else { // th book all room 03
+                $lunch = $booking->lunch_guest_num;
+            }
+            if ($lunch !== "01") {
+                $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','04']])->get()->first();
+                $price_lunch_each_people = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                $num_person = 1;
+                if (isset($booking->lunch_guest_num)) {
+                    $lunch_guest_num = MsKubun::where('kubun_type','023')->where('kubun_id', $booking->lunch_guest_num)->first();
+                    $num_person = (int) $lunch_guest_num->notes;
+                }
+                $price_luch = $num_person * (int) $price_lunch_each_people;
+                $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','04']])->get()->first();
+                $new_bill[$sort_no_temp->sort_no]['price'] += $price_luch;
+                $new_bill[$sort_no_temp->sort_no]['quantity'] += $num_person;
+            }
+        }
+        if (isset($booking->stay_room_type)) {
+            $price_stay = 0;
+            $stay_room_type = $booking->stay_room_type;
+            if ($stay_room_type !== '01') {
+                if (isset($booking->stay_guest_num)) {
+                    $stay_guest_num = MsKubun::where('kubun_type','012')->where('kubun_id', $booking->stay_guest_num)->first();
+                    $date_end = new Carbon();
+                    $date_start = new Carbon();
+                    $date_end->setDate(substr($booking->stay_checkout_date, 0 , 4),substr($booking->stay_checkout_date, 4 , 2),substr($booking->stay_checkout_date, 6 , 2));
+                    $date_start->setDate(substr($booking->stay_checkin_date, 0 , 4),substr($booking->stay_checkin_date, 4 , 2),substr($booking->stay_checkin_date, 6 , 2));
+                    $all_dates = array();
+                    while ($date_start->lte($date_end)){
+                        $all_dates[] = $date_start->toDateString();
+                        if($date_start->dayOfWeek == Carbon::THURSDAY || $date_start->dayOfWeek == Carbon::TUESDAY) {
+                            $date_off[] = $date_start;
+                        }
+                        $date_start->addDay();
+                    }
+                    if ($stay_room_type === '02') {
+                        if ($stay_guest_num->notes == 1) {
+                            $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','10']])->get()->first();
+                            $room_a_alone = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','10']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_alone;
+                            $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
+                        }else{
+                            $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','11']])->get()->first();
+                            $room_a_people = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','11']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_people;
+                            $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
+                        }
+                    } else if ($stay_room_type === '03') {
+                        if ($stay_guest_num->notes == 1) {
+                            $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','12']])->get()->first();
+                            $room_a_alone = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','12']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_alone;
+                            $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
+                        }else{
+                            $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','13']])->get()->first();
+                            $room_a_people = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','13']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_people;
+                            $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
+                        }
+                    } else if ($stay_room_type === '04') {
+                        if ($stay_guest_num->notes == 1) {
+                            $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','14']])->get()->first();
+                            $room_a_alone = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','14']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $room_a_alone;
+                            $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates);
+                        }
+                    }
+                    if (isset($booking->breakfast)) {
+                        $breakfast = $booking->breakfast;
+                        if ($breakfast !== '01') {
+                            $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','15']])->get()->first();
+                            $morning_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                            $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','15']])->get()->first();
+                            $new_bill[$sort_no_temp->sort_no]['price'] += count($all_dates) * $stay_guest_num['notes'] * $morning_price;
+                            $new_bill[$sort_no_temp->sort_no]['quantity'] += count($all_dates) * $stay_guest_num['notes'];
+                        }
+                    }
+                }
+            }
+        }
+        if (isset($booking->pet_keeping)) {
+            $price_keep_pet = 0;
+            $pet_keeping = $booking->pet_keeping;
+            if($course == '02'){
+                if ($pet_keeping !== '01') {
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','19']])->get()->first();
+                    $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','19']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $price_keep_pet;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
+                }
+            }else if($course == '01'){
+                $time = YoyakuDanjikiJikan::where('booking_id', $booking->booking_id)->get();
+                $turn_number = count($time);
+                if ($pet_keeping !== '01') {
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
+                    $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $turn_number * $price_keep_pet;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += $turn_number;
+                }
+            }else if($course == '04'){
+                $time = YoyakuDanjikiJikan::where('booking_id', $booking->booking_id)->get();
+                $turn_number = count($time)*2;
+                if ($pet_keeping !== '01') {
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
+                    $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $turn_number * $price_keep_pet;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += $turn_number;
+                }
+            }else{
+                if ($pet_keeping !== '01') {
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
+                    $price_keep_pet = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','18']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $price_keep_pet;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
+                }
+            }
+        }
+        if (isset($booking->whitening)) { // tắm trắng 06
+            $price_white = 0;
+            $whitening = $booking->whitening;
+            if ($whitening !== '01') {
+                if($course == '03'){
+                    $quantity = MsKubun::where('kubun_type','015')->where('kubun_id', $booking->service_guest_num)->first();
+                    $number_customer = (int)$quantity->notes;
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $price_white = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $price_white * $number_customer;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += $number_customer;
+                }else{
+                    $course_price_op = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $price_white = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
+                    $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','20']])->get()->first();
+                    $new_bill[$sort_no_temp->sort_no]['price'] += $price_white;
+                    $new_bill[$sort_no_temp->sort_no]['quantity'] += 1;
+                }
+            }
+        }
     }
     private function convert_booking_2_value($data, &$return){
         $MsKubun = MsKubun::all();

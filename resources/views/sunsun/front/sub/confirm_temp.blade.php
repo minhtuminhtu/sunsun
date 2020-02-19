@@ -61,60 +61,62 @@
         <div class="line2"></div>
     </div>
     @endif
-@elseif(isset($change_check) === true && $change_check == true)
+@elseif(isset($change_check) === true)
     @php
         $transport = $data->transport;
     @endphp
 
-    @if($transport == '01' )
-        <div class="line">
-            <div class="line1">
-            交通手段 :
+    @if(($change_check === true) || ($key == 0))
+        @if($transport == '01' )
+            <div class="line">
+                <div class="line1">
+                交通手段 :
+                </div>
+                <span style="display: none">mark_space</span>
+                <div class="line2">
+                    <p>{{ $admin_value_customer[$i - 1]['transport'] }}</p>
+                </div>
             </div>
-            <span style="display: none">mark_space</span>
-            <div class="line2">
-                <p>{{ $admin_value_customer[$i - 1]['transport'] }}</p>
+        @else
+            @php
+                $bus_arrive_time_slide = $data->bus_arrive_time_slide;
+                $pick_up = $data->pick_up;
+            @endphp
+            <div class="line">
+                <div class="line1">
+                交通手段 :
+                </div>
+                <span style="display: none">mark_space</span>
+                <div class="line2">
+                    <p>{{ $admin_value_customer[$i - 1]['transport'] }}</p>
+                    <p>{{ $admin_value_customer[$i - 1]['bus_arrive_time_slide'] }}</p>
+                    @if($pick_up == '01')
+                        <p>送迎あり</p>
+                    @else
+                        <p>送迎なし</p>
+                    @endif
+                </div>
             </div>
-        </div>
-    @else
+        @endif
         @php
-            $bus_arrive_time_slide = $data->bus_arrive_time_slide;
-            $pick_up = $data->pick_up;
+            $weekMap = [
+                0 => '日',
+                1 => '月',
+                2 => '火',
+                3 => '水',
+                4 => '木',
+                5 => '金',
+                6 => '土',
+            ];
         @endphp
-        <div class="line">
-            <div class="line1">
-            交通手段 :
-            </div>
-            <span style="display: none">mark_space</span>
-            <div class="line2">
-                <p>{{ $admin_value_customer[$i - 1]['transport'] }}</p>
-                <p>{{ $admin_value_customer[$i - 1]['bus_arrive_time_slide'] }}</p>
-                @if($pick_up == '01')
-                    <p>送迎あり</p>
-                @else
-                    <p>送迎なし</p>
-                @endif
-            </div>
+        <span style="display: none">mark_newline</span>
+        @if($course == '01' || $course == '02' || $course == '03')
+        <div class="linex">
+            <p>予約日: <span style="display: none">mark_space</span>{{ substr($data->service_date_start, 0, 4) . "年" . substr($data->service_date_start, 4, 2) . "月" . substr($data->service_date_start, 6, 2) . "日" ."(" . $weekMap[date('w', strtotime($data->service_date_start))] . ")" }}</p>
+            <div class="line1"></div>
+            <div class="line2"></div>
         </div>
-    @endif
-    @php
-        $weekMap = [
-            0 => '日',
-            1 => '月',
-            2 => '火',
-            3 => '水',
-            4 => '木',
-            5 => '金',
-            6 => '土',
-        ];
-    @endphp
-    <span style="display: none">mark_newline</span>
-    @if($course == '01' || $course == '02' || $course == '03')
-    <div class="linex">
-        <p>予約日: <span style="display: none">mark_space</span>{{ substr($data->service_date_start, 0, 4) . "年" . substr($data->service_date_start, 4, 2) . "月" . substr($data->service_date_start, 6, 2) . "日" ."(" . $weekMap[date('w', strtotime($data->service_date_start))] . ")" }}</p>
-        <div class="line1"></div>
-        <div class="line2"></div>
-    </div>
+        @endif
     @endif
 @endif
 @if(isset($change_check) === true)

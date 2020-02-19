@@ -72,7 +72,7 @@
         $stay_room_type = $data->stay_room_type;
         $stay_guest_num = $data->stay_guest_num;
     @endphp
-    @if($stay_room_type != config('booking.room.options.no'))
+    @if($stay_room_type !== "01")
         <hr class="line-x">
         <span style="display: none">mark_newline</span>
         <div class="line">

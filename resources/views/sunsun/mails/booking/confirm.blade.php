@@ -26,16 +26,22 @@ http://sun-sun33.com/shop
 ＜＜ご購入金額＞＞
 
 @php
-    //Regex lấy đoạn body của html
-    preg_match('|table-bordered"[^>]*>(.*?)(?=\<\/tfoot>)|si', $booking_data->payment_html, $match);
+    if(isset($booking_data->payment_text)){
+        echo $booking_data->payment_text;
+    }else{
+        //Regex lấy đoạn body của html
+        preg_match('|table-bordered"[^>]*>(.*?)(?=\<\/tfoot>)|si', $booking_data->payment_html, $match);
 
-    //Change mark thành kí tự cần
-    $string_remove_space = preg_replace('/\s*mark_remove_space\s*/', '', strip_tags($match[1]));
-    $string_change_colon = preg_replace('/\s*mark_colon\s*/', '：', $string_remove_space);
-    $string_change_space = preg_replace('/\s*mark_space\s*/', '  ', $string_change_colon);
-    $string_change_yen = preg_replace('/\s*mark_yen\s*/', '円', $string_change_space);
-    echo $string_change_yen_newline = preg_replace('/\s*mark_yen_newline\s*/', '円
-', $string_change_yen);
+        //Change mark thành kí tự cần
+        $string_remove_space = preg_replace('/\s*mark_remove_space\s*/', '', strip_tags($match[1]));
+        $string_change_colon = preg_replace('/\s*mark_colon\s*/', '：', $string_remove_space);
+        $string_change_space = preg_replace('/\s*mark_space\s*/', '  ', $string_change_colon);
+        $string_change_yen_newline = preg_replace('/\s*mark_yen_newline\s*/', '円
+', $string_change_space);
+        echo $string_change_yen = preg_replace('/\s*mark_yen\s*/', '円', $string_change_yen_newline);
+
+    }
+
 @endphp
 
 

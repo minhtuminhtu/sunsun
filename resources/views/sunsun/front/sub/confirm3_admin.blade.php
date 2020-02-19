@@ -61,7 +61,7 @@
         $breakfast = $data->breakfast;
 
     @endphp
-    @if($stay_room_type != config('booking.room.options.no'))
+    @if($stay_room_type !== "01")
         <hr class="line-x">
         <span style="display: none">mark_newline</span>
         <div class="line">
