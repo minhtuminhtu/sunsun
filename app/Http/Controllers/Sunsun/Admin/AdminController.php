@@ -1222,7 +1222,9 @@ class AdminController extends Controller
             FROM        tr_yoyaku as main
             LEFT JOIN tr_yoyaku_danjiki_jikan as time
             ON          main.booking_id = time.booking_id
-            WHERE   main.course = '04' AND main.history_id IS NULL
+            WHERE   main.course = '04'
+            AND main.history_id IS NULL
+            AND main.fake_booking_flg IS NULL
         )
         ");
         $week_course = collect($week_course_query);
@@ -1232,7 +1234,9 @@ class AdminController extends Controller
                     , main.service_date_start as service_date
                     , main.service_time_1 as time
             FROM    tr_yoyaku as main
-            WHERE   main.course = '05' AND main.history_id IS NULL
+            WHERE   main.course = '05'
+            AND main.history_id IS NULL
+            AND main.fake_booking_flg IS NULL
         ");
         $course_5 = collect($course_5_query);
         $course_wt_query = DB::select("
@@ -1241,7 +1245,9 @@ class AdminController extends Controller
                     , main.service_date_start as service_date
                     , SUBSTRING(main.whitening_time, 1, 4) as time
             FROM    tr_yoyaku as main
-            WHERE main.whitening <> '01' AND main.history_id IS NULL
+            WHERE main.whitening <> '01'
+            AND main.history_id IS NULL
+            AND main.fake_booking_flg IS NULL
         ");
         $course_wt = collect($course_wt_query);
         $monthly_data = [];
