@@ -368,32 +368,104 @@ $(function() {
                 // // $('#date').val();
             }
         }
-        // if(window.location.href.includes("admin")){
-        //     $('.input-daterange').datepicker({
-        //         container: '.mail-booking',
-        //         language: 'ja',
-        //         dateFormat: 'yyyy/mm/dd',
-        //         autoclose: true,
-        //         startDate: new Date(),
-        //         daysOfWeekDisabled: _off_def,
-        //         datesDisabled: _date_holiday,
-        //         // daysOfWeekHighlighted: "1,2",
-        //         weekStart: 1,
-        //         orientation: 'bottom',
-        //     });
-        // }else{
-        //     $('.input-daterange').datepicker({
-        //         language: 'ja',
-        //         dateFormat: 'yyyy/mm/dd',
-        //         autoclose: true,
-        //         startDate: new Date(),
-        //         daysOfWeekDisabled: _off_def,
-        //         datesDisabled: _date_holiday,
-        //         // daysOfWeekHighlighted: "1,2",
-        //         weekStart: 1,
-        //         orientation: 'bottom',
-        //     });
-        // }
+        var room = ($('#room').val()  !== undefined)?JSON.parse($('#room').val()):undefined;
+        if(room != undefined){
+            if(room.kubun_id == '01'){
+                $('.room').hide();
+            }else{
+                $.ajax({
+                    url: $site_url +'/get_free_room',
+                    type: 'POST',
+                    data:  {
+                        room: room.kubun_id
+                    },
+                    dataType: 'text',
+                    beforeSend: function () {
+                        loader.css({'display': 'block'});
+                    },
+                    success: function (html) {
+                        // console.log(html);
+                        html = JSON.parse(html);
+                        // console.log(html.now);
+                        // $('.input-daterange').datepicker('destroy');
+                        $('#range_date_start').datepicker('destroy');
+                        $('#range_date_end').datepicker('destroy');
+                        var _off_set = _off_def;
+                        if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
+                            _off_set += "1";
+                        }
+                        console.log(html.date_selected);
+                        console.log(html.date_start);
+                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
+                        console.log(disabled_day_arr)
+
+
+                        if(window.location.href.includes("admin")){
+                            $('#range_date_start').datepicker({
+                                container: '.mail-booking',
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: html.date_selected,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
+                            $('#range_date_end').datepicker({
+                                container: '.mail-booking',
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: disabled_day_arr,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
+                        }else{
+                            $('#range_date_start').datepicker({
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: html.date_selected,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
+                            $('#range_date_end').datepicker({
+                                language: 'ja',
+                                dateFormat: 'yyyy/mm/dd',
+                                autoclose: true,
+                                startDate: new Date(),
+                                daysOfWeekDisabled: get_off_def(),
+                                datesDisabled: disabled_day_arr,
+                                weekStart: 1,
+                                orientation: 'bottom',
+                            });
+                        }
+                        $('#range_date_start').datepicker().on('hide', function () {
+                            $('#range_date_end').val("－");
+                        });
+                        let range_start = moment(new Date($('#range_date_start').val()));
+                        let range_end = moment(new Date($('#range_date_end').val()));
+                        $('#range_date_start-view').val(range_start.format('YYYY') + "年" + range_start.format('MM') + "月" + range_start.format('DD') + "日(" + days_short[range_start.weekday()] + ")");
+                        $('#range_date_end-view').val(range_end.format('YYYY') + "年" + range_end.format('MM') + "月" + range_end.format('DD') + "日(" + days_short[range_end.weekday()] + ")");
+                        $('#range_date_start-value').val(range_start.format('YYYYMMDD'));
+                        $('#range_date_end-value').val(range_end.format('YYYYMMDD'));
+                        // change stay_guest_num
+                        change_stay_guest_num();
+                    },
+                    complete: function () {
+                        loader.css({'display': 'none'});
+                    },
+                });
+            }
+        }
+
+
+
         let get_end_date = function(){
             var start_date = moment(new Date($('#plan_date_start').val()));
             var end_date;
@@ -525,7 +597,7 @@ $(function() {
         $('#range_date_start, #range_date_end').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
         });
-        
+
         $('.agecheck').on('click', function() {
             $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
