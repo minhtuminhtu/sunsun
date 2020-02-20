@@ -1,4 +1,13 @@
 $(function() {
+    let init_event = 0;
+    window.onpopstate = function(event) {
+        history.forward();
+    }
+    history.pushState({confirm: false}, "Not checked", "");
+    history.pushState({confirm: true}, "Checked", "");
+    history.back();
+
+    
     $('.payment-method').off('change');
     $('.payment-method').on('change', function() {
         if($(this).prop("id") == 'credit-card'){
