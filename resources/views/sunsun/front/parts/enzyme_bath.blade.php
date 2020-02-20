@@ -193,19 +193,19 @@
                                     </div>
                                     <div class="time-content">
                             @else
-                                            <div class="block-content-1 margin-top-mini">
-                                                <div class="block-content-1-left">
-                                                    <div class="timedate-block set-time">
-                                                        <input name="time[{{ $key }}][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_{{ $key }}"  readonly="readonly" value="{{ $s_time_data }}" />
-                                                        <input name="time[{{ $key }}][value]" class="time_value" id="time[{{ $key }}][value]" type="hidden" value="{{ $s_time['value'] }}">
-                                                        <input name="time[{{ $key }}][bed]" class="time_bed" id="time[{{ $key }}][bed]" type="hidden" value="{{ $s_time['bed'] }}">
-                                                        <input name="time[{{$key}}][json]" class="data-json_input" type="hidden" value="{{ $s_time['json'] }}">
-                                                        <input name="time[{{$key}}][element]" id="time[{{$key}}][element]" type="hidden" value="error_time_{{ $key }}">
-                                                        <input name="time[{{$key}}][edit]" id="edit_{{$key}}_time" type="hidden" value="0">
-                                                    </div>
-                                                </div>
-                                                <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>
-                                            </div>
+                                <div class="block-content-1 margin-top-mini">
+                                    <div class="block-content-1-left">
+                                        <div class="timedate-block set-time">
+                                            <input name="time[{{ $key }}][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_{{ $key }}"  readonly="readonly" value="{{ $s_time_data }}" />
+                                            <input name="time[{{ $key }}][value]" class="time_value" id="time[{{ $key }}][value]" type="hidden" value="{{ $s_time['value'] }}">
+                                            <input name="time[{{ $key }}][bed]" class="time_bed" id="time[{{ $key }}][bed]" type="hidden" value="{{ $s_time['bed'] }}">
+                                            <input name="time[{{$key}}][json]" class="data-json_input" type="hidden" value="{{ $s_time['json'] }}">
+                                            <input name="time[{{$key}}][element]" id="time[{{$key}}][element]" type="hidden" value="error_time_{{ $key }}">
+                                            <input name="time[{{$key}}][edit]" id="edit_{{$key}}_time" type="hidden" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="block-content-1-right"><img class="svg-button" src="/sunsun/svg/close.svg" alt="Close" /></div>
+                                    </div>
                              @endif
                         @endforeach
                         </div>

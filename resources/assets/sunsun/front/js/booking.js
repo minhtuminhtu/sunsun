@@ -843,7 +843,7 @@ $(function() {
         $('p.note-error').remove();
         if($('select[name=gender]').val() == null){
             $('select[name=gender]').addClass('validate_failed');
-            $('select[name=gender]').after('<p class="note-error node-text">Gender blank!</p>');
+            $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         }else{
             $('select[name=gender]').removeClass('validate_failed');
             let btn_click = $(this);
@@ -1120,7 +1120,7 @@ let load_pick_time_event = function(){
         $('p.note-error').remove();
         if($('select[name=gender]').val() == null){
             $('select[name=gender]').addClass('validate_failed');
-            $('select[name=gender]').after('<p class="note-error node-text">Gender blank!</p>');
+            $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         }else{
             $('select[name=gender]').removeClass('validate_failed');
             let $data = $('form.booking').serializeArray();
@@ -1371,7 +1371,7 @@ let load_after_ajax = function(){
         $('p.note-error').remove();
         if($('select[name=gender]').val() == null){
             $('select[name=gender]').addClass('validate_failed');
-            $('select[name=gender]').after('<p class="note-error node-text">Gender blank!</p>');
+            $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         }else{
             $('select[name=gender]').removeClass('validate_failed');
             let set_time_click = $(this);
