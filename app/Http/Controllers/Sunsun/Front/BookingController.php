@@ -834,6 +834,8 @@ class BookingController extends Controller
             'message' => $message
         ];
         $result = $this->update_or_new_booking($data, $request);
+        Log::debug('$result');
+        Log::debug($result);
         $request->session()->forget($this->session_info);
         return isset($result)?$result:$success;
     }
@@ -907,9 +909,9 @@ class BookingController extends Controller
         //New
         }else{
 
-            $result = $this->new_booking($data, $request, 0, $from_admin);
-            // Log::debug("result");
-            // Log::debug($result);
+            $result = $this->new_booking($data, $request);
+            Log::debug("bookingID");
+            Log::debug($result);
         }
         if(isset($result['bookingID'])){
             $result = [
@@ -995,11 +997,13 @@ class BookingController extends Controller
                     }
                     $Yoyaku->save();
                 }
+                Log::debug('toi');
                 if($from_admin === false) {
                     //Log::debug('is_update');
                     $result = $this->call_payment_api($data, $return_booking_id);
-                    // Log::debug('is update true');
-                    // Log::debug($result);
+
+                    Log::debug('payment');
+                    Log::debug($result);
                 }
                 DB::commit();
                 $this->send_email($request, $data, $return_booking_id, $email, $from_admin);
@@ -1438,9 +1442,9 @@ class BookingController extends Controller
     }
     private function call_payment_api(&$data, $booking_id){
         if($data['payment-method'] == 1){
-            if(!isset($data['Token']) || !isset($data['Amount'])){
-                throw new \ErrorException('Token error!');
-            }
+            // if(!isset($data['Token']) || !isset($data['Amount'])){
+            //     throw new \ErrorException('Token error!');
+            // }
 //            $amount = preg_replace('~\D~', '', $data['Amount']);
             $amount = 1;
             return $this->create_tran($booking_id, $amount, $data['Token']);

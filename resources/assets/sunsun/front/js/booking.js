@@ -522,9 +522,10 @@ $(function() {
         $('#plan_date_end').datepicker().on('hide', function(e) {
             range_date_temp = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
         });
-        $('.input-daterange').datepicker().on('show', function(e) {
+        $('#range_date_start, #range_date_end').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
         });
+        
         $('.agecheck').on('click', function() {
             $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
