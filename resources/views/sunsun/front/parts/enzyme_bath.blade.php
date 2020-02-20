@@ -221,7 +221,7 @@
         <div class="booking-field pb-0">
             <div class="node-text booking-laber-padding">
                 <div id="hint-repeat">※バスの場合、到着時間から30分以内の予約はできません。希望時間が選択できない場合は　バス到着時間をご確認ください。</div>
-                <div>※酵素浴を1日2回以上利用される場合は[酵素浴　追加]をクリックし、2回目の時間を選択してください。</div>
+                <div>※酵素浴を1日2回以上利用される場合は[酵素浴追加]をクリックし、2回目の時間を選択してください。</div>
             </div>
         </div>
         <div class="booking-field">
