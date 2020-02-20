@@ -136,6 +136,11 @@ $(function () {
         let user_url = $curent_url.substring(0, $curent_url.length - 9) + "admin/msuser";
         window.location.href = user_url;
     })
+    $('#go-timeoff').off('click');
+    $('#go-timeoff').on('click',function (e) {
+        let timeoff_url = $curent_url.substring(0, $curent_url.length - 9) + "admin/time_off";
+        window.location.href = timeoff_url;
+    })
     $('#edit_booking').off('click','.btn-update');
     $('#edit_booking').on('click','.btn-update',function (e) {
         e.preventDefault();

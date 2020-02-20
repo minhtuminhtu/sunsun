@@ -2,8 +2,8 @@
 @section('title', '予約管理サイト（１日表示）')
 @section('admincss')
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css')}}">
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/admin.css').config('version_files.html.js') }}">
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/day.css').config('version_files.html.js') }}">
 @endsection
 @section('main')
     @include('sunsun.front.parts.booking_modal')
@@ -31,6 +31,9 @@
                             </div>
                             <div class="control-align_center button-control">
                                 <button class="btn btn-block btn-main control-date" id="go-user">ユーザー 管理</button>
+                            </div>
+                            <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" id="go-timeoff">予約不可設定</button>
                             </div>
                         </div>
                     </div>

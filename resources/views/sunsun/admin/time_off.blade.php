@@ -5,32 +5,7 @@
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/admin/css/holiday.css')}}">
     <link rel="stylesheet" href="{{asset('css/on-off-switch.css')}}">
-    <style>
-        .on-off-switch-thumb-off,
-        .on-off-switch-thumb-on{
-            left: 0px !important;
-            top: 0px !important;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px !important;
-        }
-        .on-off-switch-text-on,
-        .on-off-switch-text-off{
-            line-height: 20px !important;
-        }
-        .track-off-gradient, .track-on-gradient{
-            background: none;
-        }
-        .on-off-switch-track-white{
-            background-color: inherit !important;
-        }
-        #submitButton.disabled {
-            pointer-events: none;
-        }
-        .disable-checkbox{
-            left: 32px !important;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/time_off.css').config('version_files.html.js') }}">
 @endsection
 @section('main')
     <main>
@@ -39,6 +14,23 @@
                 @include('sunsun.admin.layouts.breadcrumb')
             </div>
             <div class="main-head">
+                <div class="main-head__top" style="display: flex;justify-content: space-between;">
+                    <div class="">
+                    </div>
+                    <div class="">
+                        <div class="control-view">
+                            <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" id="go-day">一日表示</button>
+                            </div>
+                            <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" id="go-weekly">週間表示</button>
+                            </div>
+                            <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" id="go-monthly">月間表示</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="main-content" style="display: flex">
                 <div class="main-content-left-date">
@@ -82,6 +74,7 @@
     <script src="{{asset('sunsun/lib/bootstrap-datepicker-master/locales/bootstrap-datepicker.ja.min.js')}}" charset="UTF-8"></script>
     <script type="text/javascript" src="{{asset('sunsun/lib/togglebutton/on-off-switch.js')}}"></script>
     <script type="text/javascript" src="{{asset('sunsun/lib/togglebutton/on-off-switch-onload.js')}}"></script>
+    <script src="{{asset('sunsun/admin/js/time_off.js').config('version_files.html.js')}}"></script>
     <script type="text/javascript">
         var list_kubun = <?php echo json_encode($list_kubun); ?>;
         var list_holiday = <?php echo json_encode($list_holiday); ?>;
@@ -96,7 +89,7 @@
             }
             // start page
             createListKubun();
-            
+
             var today = new Date();
             var day = today.getDay();
             if (day == 3 || day == 4) {
@@ -187,13 +180,13 @@
                     textOff:'OFF',
                     listener:function(name, checked){
                         var arr_date = handleDate();
-                        if (arr_date.date_search <= arr_date.date_now) { 
+                        if (arr_date.date_search <= arr_date.date_now) {
                             $('.on-off-switch-track>div').attr('style','left:0px');
-                            $('.on-off-switch-thumb').addClass('disable-checkbox'); 
+                            $('.on-off-switch-thumb').addClass('disable-checkbox');
                             alert("休日が未来の日付のみに設定できます。");
-                            return false; 
+                            return false;
                         }
-                        
+
                         var id_tr = "#"+name.replace("cmb_", "tr_");
                         if (!checked) {
                             $("#"+name).val("off");
@@ -245,7 +238,7 @@
                     },
                 });
             }
-        
+
             // rule time off
             function checkDateDisableButton() {
                 var arr_data = handleDate();
@@ -263,7 +256,7 @@
                 var day = (date_search[2].length < 2) ? "0"+date_search[2] : date_search[2];
                 var month = (date_search[1].length < 2) ? "0"+date_search[1] : date_search[1];
                 date_search = date_search[0]+month+day;
-                return {date_now: date_now, date_search: date_search}; 
+                return {date_now: date_now, date_search: date_search};
             }
         })(jQuery);
     </script>
