@@ -840,31 +840,38 @@ $(function() {
     $('.btn-booking').off('click');
     $('.btn-booking').on('click', function(e) {
         e.preventDefault();
-        let btn_click = $(this);
-        $.ajax({
-            url: $site_url +'/save_booking',
-            type: 'POST',
-            data: $('form.booking').serializeArray(),
-            dataType: 'JSON',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (json) {
-                // console.log(json);
-                if (json.status == "OK") {
-                    if (btn_click.hasClass('add-new-people')) {
-                        window.location.href = $site_url +'/booking?add_new_user=on';
+        $('p.note-error').remove();
+        if($('select[name=gender]').val() == null){
+            $('select[name=gender]').addClass('validate_failed');
+            $('select[name=gender]').after('<p class="note-error node-text">Gender blank!</p>');
+        }else{
+            $('select[name=gender]').removeClass('validate_failed');
+            let btn_click = $(this);
+            $.ajax({
+                url: $site_url +'/save_booking',
+                type: 'POST',
+                data: $('form.booking').serializeArray(),
+                dataType: 'JSON',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (json) {
+                    // console.log(json);
+                    if (json.status == "OK") {
+                        if (btn_click.hasClass('add-new-people')) {
+                            window.location.href = $site_url +'/booking?add_new_user=on';
+                        } else {
+                            window.location.href = $site_url +'/confirm';
+                        }
                     } else {
-                        window.location.href = $site_url +'/confirm';
+                        make_color_input_error(json)
                     }
-                } else {
-                    make_color_input_error(json)
-                }
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-        });
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+            });
+        }
     });
     let make_color_input_error = (json, type = true) => {
         $('p.note-error').remove();
@@ -1110,105 +1117,113 @@ let load_pick_time_event = function(){
         }else{
             $('#bus_first').val(0);
         }
-        let $data = $('form.booking').serializeArray();
-        let $get_date = {};
-        $get_date.name = "data_get_attr";
-        let $value = {};
-        $value.date = set_time_click.attr('data-date_value');
-        $value.date_type = set_time_click.attr('data-date_type');
-        $get_date.value = JSON.stringify($value);
-        $data.push($get_date);
-        var name_date = this.name;
-        var value_date = name_date.replace("view", "value");
-        $.each($data, function() {
-            if (this.name == name_date || this.name == value_date) {
-                this.value = "";
-            }
-        });
-        $.ajax({
-            url: '/get_time_room',
-            type: 'POST',
-            data:  $data,
-            dataType: 'text',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (html) {
-                set_time_click.closest('.set-time').addClass('edit')
-                if(window.location.href.includes("admin")){
-                    modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal({
-                        show: true,
-                        backdrop: false,
-                        keyboard: false
-                    });
-                    $('#edit_booking').css("z-index", "0");
-                }else{
-                    modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal({
-                        show: true,
-                        backdrop: 'static',
-                        keyboard: false
-                    });
+        $('p.note-error').remove();
+        if($('select[name=gender]').val() == null){
+            $('select[name=gender]').addClass('validate_failed');
+            $('select[name=gender]').after('<p class="note-error node-text">Gender blank!</p>');
+        }else{
+            $('select[name=gender]').removeClass('validate_failed');
+            let $data = $('form.booking').serializeArray();
+            let $get_date = {};
+            $get_date.name = "data_get_attr";
+            let $value = {};
+            $value.date = set_time_click.attr('data-date_value');
+            $value.date_type = set_time_click.attr('data-date_type');
+            $get_date.value = JSON.stringify($value);
+            $data.push($get_date);
+            var name_date = this.name;
+            var value_date = name_date.replace("view", "value");
+            $.each($data, function() {
+                if (this.name == name_date || this.name == value_date) {
+                    this.value = "";
                 }
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-            error: function(jqXHR){
-                if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
-                        Swal.fire({
-                            target: '#edit_booking',
-                            text: "F5?",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            // customClass: {
-                            //     popup: 'modal-dialog'
-                            // },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    } else {
-                        Swal.fire({
-                            text: "F5?",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
+            });
+            $.ajax({
+                url: '/get_time_room',
+                type: 'POST',
+                data:  $data,
+                dataType: 'text',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (html) {
+                    set_time_click.closest('.set-time').addClass('edit')
+                    if(window.location.href.includes("admin")){
+                        modal_choice_time.find('.modal-body-time').html(html);
+                        modal_choice_time.modal({
+                            show: true,
+                            backdrop: false,
+                            keyboard: false
+                        });
+                        $('#edit_booking').css("z-index", "0");
+                    }else{
+                        modal_choice_time.find('.modal-body-time').html(html);
+                        modal_choice_time.modal({
+                            show: true,
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                    }
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+                error: function(jqXHR){
+                    if(jqXHR.status === 419){
+                        if (window.location.href.includes("admin")) {
+                            Swal.fire({
+                                target: '#edit_booking',
+                                text: "F5?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d7751e',
+                                cancelButtonColor: '#343a40',
+                                confirmButtonText: 'はい',
+                                cancelButtonText: 'いいえ',
+                                width: 350,
+                                showClass: {
+                                    popup: 'animated zoomIn faster'
+                                },
+                                hideClass: {
+                                    popup: 'animated zoomOut faster'
+                                },
+                                // customClass: {
+                                //     popup: 'modal-dialog'
+                                // },
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.reload(true);
+                                }
+                            })
+                        } else {
+                            Swal.fire({
+                                text: "F5?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d7751e',
+                                cancelButtonColor: '#343a40',
+                                confirmButtonText: 'はい',
+                                cancelButtonText: 'いいえ',
+                                width: 350,
+                                showClass: {
+                                    popup: 'animated zoomIn faster'
+                                },
+                                hideClass: {
+                                    popup: 'animated zoomOut faster'
+                                },
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.reload(true);
+                                }
+                            })
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+
     });
 }
 let load_pick_time_room_event = function(){
@@ -1353,42 +1368,49 @@ let load_after_ajax = function(){
     var tomorrow = moment(today).add(1, 'days');
     $('#add-time').off('click');
     $('#add-time').on('click', function() {
-        let set_time_click = $(this);
-        let $data = $('form.booking').serializeArray();
-        let $get_date = {};
-        $get_date.name = "data_get_attr";
-        let $value = {};
-        $value.date = set_time_click.attr('data-date_value');
-        $value.date_type = set_time_click.attr('data-date_type');
-        $value.new = 1;
-        $get_date.value = JSON.stringify($value);
-        $data.push($get_date);
-        $.ajax({
-            url: '/get_time_room',
-            type: 'POST',
-            data: $data,
-            dataType: 'text',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (html) {
-                set_time_click.closest('.set-time').addClass('edit')
-                if(window.location.href.includes("admin")){
-                    modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal({
-                        show: true,
-                        backdrop: false
-                    });
-                    $('#edit_booking').css("z-index", "0");
-                }else{
-                    modal_choice_time.find('.modal-body-time').html(html);
-                    modal_choice_time.modal('show');
-                }
-            },
-                complete: function () {
-                loader.css({'display': 'none'});
-            },
-        });
+        $('p.note-error').remove();
+        if($('select[name=gender]').val() == null){
+            $('select[name=gender]').addClass('validate_failed');
+            $('select[name=gender]').after('<p class="note-error node-text">Gender blank!</p>');
+        }else{
+            $('select[name=gender]').removeClass('validate_failed');
+            let set_time_click = $(this);
+            let $data = $('form.booking').serializeArray();
+            let $get_date = {};
+            $get_date.name = "data_get_attr";
+            let $value = {};
+            $value.date = set_time_click.attr('data-date_value');
+            $value.date_type = set_time_click.attr('data-date_type');
+            $value.new = 1;
+            $get_date.value = JSON.stringify($value);
+            $data.push($get_date);
+            $.ajax({
+                url: '/get_time_room',
+                type: 'POST',
+                data: $data,
+                dataType: 'text',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (html) {
+                    set_time_click.closest('.set-time').addClass('edit')
+                    if(window.location.href.includes("admin")){
+                        modal_choice_time.find('.modal-body-time').html(html);
+                        modal_choice_time.modal({
+                            show: true,
+                            backdrop: false
+                        });
+                        $('#edit_booking').css("z-index", "0");
+                    }else{
+                        modal_choice_time.find('.modal-body-time').html(html);
+                        modal_choice_time.modal('show');
+                    }
+                },
+                    complete: function () {
+                    loader.css({'display': 'none'});
+                },
+            });
+        }
     });
     $('#gender').off('change');
     $('#gender').on('change', function(e) {

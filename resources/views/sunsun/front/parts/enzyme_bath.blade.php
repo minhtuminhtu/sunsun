@@ -26,11 +26,18 @@
             </div>
             <div class="booking-field-content">
                 <select name="gender" id="gender" class="form-control">
+                    @php $blank = true; @endphp
                     @foreach($gender as $value)
                         @if(isset($course_data['gender']) && ($value->kubun_id == $course_data['gender']))
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @php $blank = false; @endphp
                         @elseif(isset($pop_data['gender']) && ($value->kubun_id == json_decode($pop_data['gender'], true)['kubun_id']))
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @php $blank = false; @endphp
+                        @elseif( $blank === true && isset($course_data['gender']) === false && isset($pop_data['gender']) === false)
+                            <option disabled selected value>－</option>
+                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                            @php $blank = false; @endphp
                         @else
                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
                         @endif
@@ -138,7 +145,7 @@
                     @if($i == 0)
                     <div class="booking-field-content">
                         <div class="timedate-block set-time">
-                            <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" readonly="readonly" value="{{ $s_time_data }}" />
+                            <input name="time[0][view]" type="text" class="form-control time js-set-time booking-time bg-white" id="error_time_0" readonly="readonly" value="{{ $s_time_data }}" />
                             <input name="time[0][value]" class="time_value" id="time[0][value]" type="hidden" value="{{ $s_time['service_time_1'] }}">
                             <input name="time[0][bed]" class="time_bed" id="time[0][bed]" type="hidden" value="{{ $s_time['notes'] }}">
                             <input name="time[0][gender]" class="time_gender" id="time[0][gender]" type="hidden" value="0">
