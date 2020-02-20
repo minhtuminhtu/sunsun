@@ -286,7 +286,7 @@ class BookingController extends Controller
                 Log::debug('$number_dup');
                 Log::debug($number_dup);
 
-                if((count($number_dup) != 0) || ($range_date_start == $range_date_end)){
+                if((count($number_dup) != 0) || ($range_date_start >= $range_date_end)){
                     $error['room_error_holiday'] = "0";
                     $error['room_select_error']['start']['element'] = 'range_date_start';
                     $error['room_select_error']['end']['element'] = 'range_date_end';
