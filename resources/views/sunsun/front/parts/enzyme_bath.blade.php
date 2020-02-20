@@ -35,7 +35,7 @@
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @php $blank = false; @endphp
                         @elseif( $blank === true && isset($course_data['gender']) === false && isset($pop_data['gender']) === false)
-                            <option disabled selected value>－</option>
+                            <option selected value="0">－</option>
                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
                             @php $blank = false; @endphp
                         @else

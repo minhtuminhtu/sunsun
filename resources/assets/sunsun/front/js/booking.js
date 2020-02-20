@@ -841,7 +841,7 @@ $(function() {
     $('.btn-booking').on('click', function(e) {
         e.preventDefault();
         $('p.note-error').remove();
-        if($('select[name=gender]').val() == null){
+        if($('select[name=gender]').val() === "0"){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         }else{
@@ -1118,7 +1118,7 @@ let load_pick_time_event = function(){
             $('#bus_first').val(0);
         }
         $('p.note-error').remove();
-        if($('select[name=gender]').val() == null){
+        if($('select[name=gender]').val() === "0"){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         }else{
@@ -1369,7 +1369,7 @@ let load_after_ajax = function(){
     $('#add-time').off('click');
     $('#add-time').on('click', function() {
         $('p.note-error').remove();
-        if($('select[name=gender]').val() == null){
+        if($('select[name=gender]').val() === "0"){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         }else{
