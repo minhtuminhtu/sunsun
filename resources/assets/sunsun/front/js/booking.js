@@ -9,6 +9,7 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
+
 function formatDate(date) {
      var d = new Date(date),
          month = '' + (d.getMonth() + 1),
@@ -76,7 +77,7 @@ $(function() {
                 checkShowWhite();
                 // set sex
                 var obj_sex = document.getElementById("gender");
-                if (typeof obj_sex != "undefined") {
+                if (obj_sex != null && _sex_admin != "") {
                     document.getElementById("gender").selectedIndex = _sex_admin;
                 }
                 if (typeof _date_admin !== "undefined" && _date_admin != "" && !time_check) {
@@ -192,10 +193,10 @@ $(function() {
                         if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
                             _off_set += "1";
                         }
-                        console.log(html.date_selected);
-                        console.log(html.date_start);
+                        // console.log(html.date_selected);
+                        // console.log(html.date_start);
                         var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
-                        console.log(disabled_day_arr)
+                        // console.log(disabled_day_arr)
                         if(window.location.href.includes("admin")){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -400,10 +401,10 @@ $(function() {
                         if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
                             _off_set += "1";
                         }
-                        console.log(html.date_selected);
-                        console.log(html.date_start);
+                        // console.log(html.date_selected);
+                        // console.log(html.date_start);
                         var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
-                        console.log(disabled_day_arr)
+                        // console.log(disabled_day_arr)
                         if(window.location.href.includes("admin")){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -1659,19 +1660,15 @@ function setSelectDefAdmin(modal_choice_time) {
     if (typeof _date_admin !== "undefined" && _date_admin != "" && !time_check) {
         time_check = true;
         var obj = modal_choice_time.find('input[name=time]');
-        console.log("get all time");
-        console.log(obj);
         var count_obj = obj.length;
         for (var i = 0 ; i<count_obj ; i++) {
             var val_check = obj[i].value.split("～")[0].replace(":", "");
             //get bed
-            console.log(_bed_admin);
             if (_bed_admin != "") {
                 bed = obj[i].parentElement.parentElement.querySelector(".bed").value;
                 if (bed != _bed_admin) continue;
             }
             if (val_check == _time_admin) {
-                console.log("chekc time" + val_check );
                 obj[i].checked = true;
                 $("#js-save-time").click();
                 break;
