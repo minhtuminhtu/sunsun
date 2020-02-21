@@ -53,15 +53,21 @@ $(function () {
     $('#edit_booking').on('click','.btn-cancel',function (e) {
         booking_edit_hidden();
     });
-    let show_booking = function (obj,type) {
+    let show_booking = function (obj,type,bed) {
         var booking_id = $(obj).find('.booking-id').val();
-        // var id_row = obj.parentElement.parentElement.id; //get time
-        var id_sex = "01";
+        // get time
+        var time_admin = obj.parentElement.parentElement.id.replace("row_", "");
+        if (type == "05") {
+            time_admin = obj.id.replace("r_pet_", "").split("-")[0];
+        }
+        // end get time
+        var id_sex = "";
         if (type == "01") {
+            id_sex = "1";
             var list_class = obj.parentElement.classList;
             for (var i = 0; i< list_class.length; i++) {
                 if (list_class[i].indexOf("famale") > 0) {
-                    id_sex = "02";
+                    id_sex = "2";
                     break;
                 }
             }
@@ -80,6 +86,8 @@ $(function () {
                 'type_admin' : type,
                 'sex_admin' : id_sex,
                 'date_admin' : date_admin,
+                'time_admin' : time_admin,
+                'bed_admin' : bed,
             },
             dataType: 'text',
             beforeSend: function () {
@@ -99,19 +107,25 @@ $(function () {
             },
         });
     };
+    function getBed(id) {
+        if (id != null && id != "") {
+            var arr_id = id.split("_");
+            return arr_id[1];
+        }
+    }
     $('.main-col__data').not(".bg-free").not(".bg-dis").off('click');
     $('.main-col__data').not(".bg-free").not(".bg-dis").on('click', function (e) {
         if(!$(this).find('.control-align_center').text()){
-            show_booking(this,"01");
+            show_booking(this,"01",getBed(this.id));
         }
     });
     $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").off('click');
     $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").on('click', function (e) {
-        show_booking(this,"05");
+        show_booking(this,"05","");
     });
     $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").off('click');
     $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").on('click', function (e) {
-        show_booking(this,"02");
+        show_booking(this,"02",getBed(this.id));
     });
     $('#go-weekly').off('click');
     $('#go-weekly').on('click',function (e) {

@@ -284,4 +284,6 @@
     var _type_admin = "<?php echo isset($type_admin) ? $type_admin : '' ?>";
     var _sex_admin = "<?php echo isset($sex_admin) ? $sex_admin : '' ?>";
     var _date_admin = "<?php echo isset($date_admin) ? $date_admin : '' ?>";
+    var _time_admin = "<?php echo isset($time_admin) ? $time_admin : '' ?>";
+    var _bed_admin = "<?php echo isset($bed_admin) ? $bed_admin : '' ?>";
 </script>
