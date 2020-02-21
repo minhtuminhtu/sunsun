@@ -166,7 +166,32 @@
                     <div class="main-col__space-3"></div>
                     <div class="main-col__pet head bg-title__pet">ペット酵素浴</div>
                 </div>
-                @php $i = 1; @endphp
+                @php $i = 1;
+                    $format_date = 'Y/m/d H:i';
+                    $date_now = date($format_date);
+                    function setDisTimeNow(&$disable_1,&$disable_2,&$disable_3, $col, $_time, $date_cur, $date_now) {
+                        $format_date = 'Y/m/d H:i';
+                        if (!empty($_time)) {
+                            $time_col = $_time;
+                            if ($col != "time") {
+                                $time_col = explode("-",$time_col);
+                                $time_col = substr($time_col[0],0,2).":".substr($time_col[0],2,2);
+                            }
+                            $date_time_check = $date_cur." $time_col";
+                            if ($date_now >= date($format_date, strtotime($date_time_check))) {
+                                if ($col == "time") {
+                                    $disable_1 = " bg-dis";
+                                    $disable_2 = " bg-dis";
+                                    $disable_3 = " bg-dis";
+                                } else if ($col == "pet_time") {
+                                    $disable_2 = " bg-dis";
+                                } else if ($col == "wt_time_value") {
+                                    $disable_3 = " bg-dis";
+                                }
+                            }
+                        }
+                    }
+                @endphp
                 @foreach($time_range as $time)
                     @php $i++;
                         $disable_2 = "";
@@ -177,6 +202,9 @@
                         $disable_1 = \Helper::setHoliday($time_holiday,$time['time_value'],"1",$disable_all);
 
                         $disable_3 = \Helper::setHoliday($time_holiday,$time['time_value'],"3",$disable_all);
+                        setDisTimeNow($disable_1,$disable_2,$disable_3,"time", $time["time"],$date, $date_now);
+                        setDisTimeNow($disable_1,$disable_2,$disable_3,"pet_time_value", $time["pet_time_value"],$date, $date_now);
+                        setDisTimeNow($disable_1,$disable_2,$disable_3,"wt_time_value", $time["wt_time_value"],$date, $date_now);
                     @endphp
 
                     <div class="main-content__table" id="row_{{ $time['time_value'] }}">
@@ -441,7 +469,7 @@
                                 echo ' wt-new_user ';
                             }
                             @endphp
-                            " style="height: 100%;">
+                            " style="height: 100%;padding: .3vw;">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
                             </div>
                         </div>
@@ -479,7 +507,7 @@
                             <div class="main-col__pet pet-col_first @if($i == 2) head-col_pet @endif
                             @php echo $disable_2;
                                 $dis_tmp = $disable_2;
-                            @endphp ">
+                            @endphp " id="r_pet_{{ $time['pet_time_value'] }}">
                                 <div class="pet-top_ele">
                                     <div class="pet-top_head">{{ $time['pet_time'] }}</div>
                                     <div class="pet-top_content">
@@ -510,7 +538,7 @@
                                 </div>
                             </div>
                             @else
-                            <div class="main-col__pet pet-col_second @php echo $dis_tmp; $dis_tmp = ''; @endphp">
+                            <div class="main-col__pet pet-col_second @php echo $dis_tmp; $dis_tmp = ''; @endphp"  id="r_pet_{{ $time['pet_time_value'] }}">
                                 <div class="pet-bottom_content">
                                     <div class="pet-bottom_content">
                                     @if(is_object($time['data']['pet']))
