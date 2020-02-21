@@ -605,7 +605,7 @@ li.list-group-item.list-head {
     cursor: unset;
 }
 .list-group-item.list-body{
-    cursor: unset;
+    cursor: pointer;
     text-align: left;
 }
 .search-button{
@@ -638,4 +638,17 @@ li.list-group-item.list-head {
 }
 .button-control{
     margin-left: 2vw;
+}
+.bookingHasSelect {
+    border: 2px solid #ff0000 !important;
+}
+.bookingPetHasSelect {
+    border-bottom: 2px solid #ff0000 !important;
+    border-left: 2px solid #ff0000 !important;
+    border-right: 2px solid #ff0000 !important;
+}
+.bookingPetTopHasSelect{
+    border-top: 2px solid #ff0000 !important;
+    border-left: 2px solid #ff0000 !important;
+    border-right: 2px solid #ff0000 !important;
 }

@@ -49,6 +49,8 @@ class AdminController extends Controller
         $this->set_stay_room($data, $date);
         $this->set_lunch($data, $date);
         $this->set_pick_up($data, $date);
+        $data['bookingSeclect'] = $request->has('bookingSeclect')?$request->post('bookingSeclect'):null;
+        $data['timeSeclect'] = $request->has('timeSeclect')?$request->post('timeSeclect'):null;
         // dd($data);
         return view('sunsun.admin.day',$data);
     }
@@ -225,7 +227,7 @@ class AdminController extends Controller
                         , NULL as phone
                         , NULL as payment_method
                         , main.service_date_start
-                        , main.service_time_1 as time
+                        , CONCAT(main.service_time_1, main.service_time_2) as time
                         , 0 as turn
                         , 0 as bed ";
                 break;

@@ -214,7 +214,7 @@ Route::middleware('begin.auth')->group(function(){
     // user
     Route::middleware('user.auth')->namespace('Sunsun\Auth')->group(function (){
         Route::get('/edit', ['as' => '.edit',  'uses' => 'AuthUserController@edit']);
-        Route::Post('/edit', ['as' => '.upload',  'uses' => 'AuthUserController@edit']);
+        Route::post('/edit', ['as' => '.upload',  'uses' => 'AuthUserController@edit']);
         Route::get('/changepassword', ['as' => '.password',  'uses' => 'AuthUserController@changepassword']);
         Route::post('/changepassword', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
     });
@@ -223,7 +223,7 @@ Route::middleware('begin.auth')->group(function(){
     Route::group(['middleware' => 'CheckRole'], function () {
         Route::middleware('admin.auth')->prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
             Route::get('/',['as' => '.index', 'uses' => 'AdminController@index']);
-            Route::get('/day',['as' => '.day', 'uses' => 'AdminController@day']);
+            Route::any('/day',['as' => '.day', 'uses' => 'AdminController@day']);
             Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
             Route::get('/monthly',['as' => '.monthly', 'uses' => 'AdminController@monthly']);
             Route::get('/setting',['as' => '.setting', 'uses' => 'SettingController@setting']);

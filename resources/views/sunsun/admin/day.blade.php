@@ -11,6 +11,11 @@
         $disable_all = \Helper::getDisableAll($date);
         $time_holiday = \Helper::getTimeHoliday($date) ?>
     <main>
+        <form style="display: none" action="{{route('admin.day')}}" method="POST" id="selectCourse">
+            @csrf
+            <input type="hidden" id="bookingSeclect" name="bookingSeclect" value=""/>
+            <input type="hidden" id="timeSeclect" name="timeSeclect" value=""/>
+        </form>
         <div class="container">
         </div>
         <div class="container-90">
@@ -289,7 +294,9 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     ">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
+                                    <div>
+                                        @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
+                                    </div>
                                 </div>
                                 <div class="main-col__item main-col__data
                                     @php
@@ -301,7 +308,9 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     ">
-                                    @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
+                                    <div>
+                                        @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
+                                    </div>
                                 </div>
                                 <div class="main-col__item main-col__data
                                     @php if($i%2 == 0){ echo 'bg-male'; }
@@ -312,7 +321,9 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     ">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
+                                    <div>
+                                        @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
+                                    </div>
                                 </div>
                             </div>
                             <div class="main-col__space-1
@@ -335,7 +346,9 @@
                                     @endphp
                                     first
                                     @php echo $disable_1; @endphp">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
+                                    <div>
+                                        @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
+                                    </div>
                                 </div>
                                 <div class="main-col__item main-col__data
                                     @php
@@ -349,7 +362,9 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     ">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
+                                    <div>
+                                        @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
+                                    </div>
                                 </div>
                                 <div class="main-col__item main-col__data
                                     @php
@@ -363,7 +378,9 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     ">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
+                                    <div>
+                                        @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
+                                    </div>
                                 </div>
                                 <div class="main-col__item main-col__data
                                     @php
@@ -377,7 +394,9 @@
                                     @endphp
                                     last
                                     @php echo $disable_1; @endphp">
-                                @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
+                                    <div>
+                                        @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
+                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -468,6 +487,7 @@
                                             @if(is_object($time['data']['pet']))
                                                 @if(isset($time['data']['pet']->booking_id))
                                                     <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                                    <input type="hidden" class="time" value="{{  $time['data']['pet']->time }}">
                                                 @endif
                                                 @if(isset($time['data']['pet']->ref_booking_id))
                                                     <span>{{ $time['data']['pet']->name }}同行者様</span>
@@ -496,6 +516,7 @@
                                     @if(is_object($time['data']['pet']))
                                         @if(isset($time['data']['pet']->booking_id))
                                             <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
+                                            <input type="hidden" class="time" value="{{  $time['data']['pet']->time }}">
                                         @endif
                                         <span>{{ $time['data']['pet']->service_pet_num }}匹 {{ $time['data']['pet']->notes }}</span>
                                         @if(!isset($time['data']['pet']->ref_booking_id))
@@ -580,6 +601,39 @@
                     // $('.search-button').html('<div class="input-group-text"><i class="fas fa-times"></i></div>');
                 }
             });
+
+
+            var top_x = null;
+            $(".main-col__item, .pet-bottom_content").find(".booking-id").each(function(){
+                if($(this).val() == "{{ $bookingSeclect }}") {
+                    if($(this).parent().find(".time").val() == "{{ $timeSeclect }}") {
+                        $(this).parent().addClass("bookingHasSelect");
+
+                        top_x = $(this).parent().position().top;
+
+                        let scrollToTop = setInterval(function(){
+                            $(window).scrollTop(top_x - 200);
+                            clearInterval(scrollToTop);
+                        }, 500);
+                    }else if($(this).parent().find(".time").val().replace("-", '') == "{{ $timeSeclect }}") {
+                        $(this).parent().addClass("bookingPetHasSelect");
+
+                        top_x = $(this).parent().position().top;
+                        let scrollToTopPet = setInterval(function(){
+                            $(window).scrollTop(top_x - 200);
+                            clearInterval(scrollToTopPet);
+                        }, 500);
+                    }
+                }
+            });
+            $(".pet-top_ele").find(".booking-id").each(function(){
+                if($(this).val() == "{{ $bookingSeclect }}") {
+                    if($(this).parent().find(".time").val().replace("-", '') == "{{ $timeSeclect }}") {
+                        $(this).parent().parent().parent().addClass("bookingPetTopHasSelect");
+                    }
+                }
+            });
+
         });
     </script>
 @endsection

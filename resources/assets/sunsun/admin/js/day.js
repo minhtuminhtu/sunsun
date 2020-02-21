@@ -141,6 +141,10 @@ $(function () {
         let timeoff_url = $curent_url.substring(0, $curent_url.length - 9) + "admin/time_off";
         window.location.href = timeoff_url;
     })
+
+
+
+
     $('#edit_booking').off('click','.btn-update');
     $('#edit_booking').on('click','.btn-update',function (e) {
         e.preventDefault();
@@ -297,11 +301,13 @@ $(function () {
                             break;
                     }
                     var day = moment(value.service_date);
-                    // console.log(day.format('Y/M/D'));
                     var date = day.format('Y/M/D')
                     var hour = parseInt(value.time.substr(0, 2), 10);
                     var minute = value.time.substr(2, 2);
                     data_expert += '<li class="list-group-item link-class list-body">'
+                    + "<input type='hidden' class='bookingSeclect' value='" + value.booking_id + "' />"
+                    + "<input type='hidden' class='dateSeclect' value='" + value.service_date + "' />"
+                    + "<input type='hidden' class='timeSeclect' value='" + value.time + "' />"
                     + value.name
                     + check_re
                     + " ["
@@ -334,6 +340,13 @@ $(function () {
                 $('#search').val('');
                 $('#result').html('');
                 $('.search-button').html('');
+                $('.list-group-item.list-body').off('click');
+                $('.list-group-item.list-body').on('click',function (e) {
+                    $("#bookingSeclect").val($(this).find(".bookingSeclect").val());
+                    $("#timeSeclect").val($(this).find(".timeSeclect").val());
+                    $("#selectCourse").attr('action', $("#selectCourse").attr('action') + "?date=" + $(this).find(".dateSeclect").val()).submit()
+
+                })
             });
         };
     }
@@ -361,4 +374,6 @@ $(function () {
             }
         });
     }
+
+    
 });
