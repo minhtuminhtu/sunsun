@@ -28,13 +28,16 @@
                 <select name="gender" id="gender" class="form-control">
                     @php $blank = true; @endphp
                     @foreach($gender as $value)
-                        @if( $blank === true && (isset($course_data['gender']) === true || isset($pop_data['gender']) === true))
-                            <option selected value="0">－</option>
-                            @php $blank = false; @endphp
-                        @elseif(isset($course_data['gender']) && ($value->kubun_id == $course_data['gender']))
+                        @if(isset($course_data['gender']) && ($value->kubun_id == $course_data['gender']))
+                            @if( $blank === true)
+                                <option value="0">－</option>
+                            @endif
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @php $blank = false; @endphp
                         @elseif(isset($pop_data['gender']) && ($value->kubun_id == json_decode($pop_data['gender'], true)['kubun_id']))
+                            @if( $blank === true)
+                                <option value="0">－</option>
+                            @endif
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                             @php $blank = false; @endphp
                         @elseif( $blank === true && isset($course_data['gender']) === false && isset($pop_data['gender']) === false)
