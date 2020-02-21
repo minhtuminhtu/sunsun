@@ -9,7 +9,6 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
-
 function formatDate(date) {
      var d = new Date(date),
          month = '' + (d.getMonth() + 1),
