@@ -321,7 +321,7 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
-                                    ">
+                                    " id="bed{{$i}}_1">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
                                     </div>
@@ -335,7 +335,7 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
-                                    ">
+                                    " id="bed{{$i}}_2">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
                                     </div>
@@ -348,7 +348,7 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
-                                    ">
+                                    " id="bed{{$i}}_3">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
                                     </div>
@@ -373,7 +373,9 @@
                                     }
                                     @endphp
                                     first
-                                    @php echo $disable_1; @endphp">
+                                    @php echo $disable_1; @endphp"
+                                    id="bedfemale{{$i}}_1"
+                                >
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_1'])
                                     </div>
@@ -389,7 +391,7 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
-                                    ">
+                                    " id="bedfemale{{$i}}_2">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
                                     </div>
@@ -405,7 +407,7 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
-                                    ">
+                                    " id="bedfemale{{$i}}_3">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
                                     </div>
@@ -421,7 +423,7 @@
                                     }
                                     @endphp
                                     last
-                                    @php echo $disable_1; @endphp">
+                                    @php echo $disable_1; @endphp" id="bedfemale{{$i}}_4">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
                                     </div>

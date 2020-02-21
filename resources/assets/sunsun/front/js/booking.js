@@ -3,6 +3,7 @@ var date_check = false;
 var admin_check = false;
 var result_confirm = false;
 var course_tmp = "";
+var time_check = false;
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
@@ -13,10 +14,8 @@ function formatDate(date) {
          month = '' + (d.getMonth() + 1),
          day = '' + d.getDate(),
          year = d.getFullYear();
-
      if (month.length < 2) month = '0' + month;
      if (day.length < 2) day = '0' + day;
-
      return [year, month, day].join('/');
  }
 $(function() {
@@ -36,8 +35,6 @@ $(function() {
     history.pushState({booking: false}, "Not checked", "");
     history.pushState({booking: true}, "Checked", "");
     history.back();
-
-
     let modal_choice_time = $('#choice_date_time');
     var days_short = ["日","月","火","水","木","金","土"];
     var today = moment();
@@ -77,6 +74,17 @@ $(function() {
                 load_after_ajax();
                 load_time_list();
                 checkShowWhite();
+                // set sex
+                var obj_sex = document.getElementById("gender");
+                if (typeof obj_sex != "undefined") {
+                    document.getElementById("gender").selectedIndex = _sex_admin;
+                }
+                if (typeof _date_admin !== "undefined" && _date_admin != "" && !time_check) {
+                    if (_type_admin == '05')
+                        $(".js-set-room_pet").click();
+                    else
+                        $('.js-set-time').click();
+                }
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -188,8 +196,6 @@ $(function() {
                         console.log(html.date_start);
                         var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
                         console.log(disabled_day_arr)
-
-
                         if(window.location.href.includes("admin")){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -398,8 +404,6 @@ $(function() {
                         console.log(html.date_start);
                         var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
                         console.log(disabled_day_arr)
-
-
                         if(window.location.href.includes("admin")){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -463,9 +467,6 @@ $(function() {
                 });
             }
         }
-
-
-
         let get_end_date = function(){
             var start_date = moment(new Date($('#plan_date_start').val()));
             var end_date;
@@ -597,7 +598,6 @@ $(function() {
         $('#range_date_start, #range_date_end').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
         });
-
         $('.agecheck').on('click', function() {
             $('.agecheck').removeClass('color-active');
             $('.agecheck').addClass('btn-outline-warning');
@@ -1156,6 +1156,7 @@ let load_pick_time_event = function(){
                             keyboard: false
                         });
                         $('#edit_booking').css("z-index", "0");
+                        setSelectDefAdmin(modal_choice_time);
                     }else{
                         modal_choice_time.find('.modal-body-time').html(html);
                         modal_choice_time.modal({
@@ -1223,7 +1224,6 @@ let load_pick_time_event = function(){
                 }
             });
         }
-
     });
 }
 let load_pick_time_room_event = function(){
@@ -1344,6 +1344,7 @@ let load_pick_time_pet_event = function(){
                         backdrop: false
                     });
                     $('#edit_booking').css("z-index", "0");
+                    setSelectDefAdmin(modal_choice_time);
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal('show');
@@ -1568,28 +1569,20 @@ let load_after_ajax = function(){
         $('#plan_date_start').blur();
         $('#plan_date_end').blur();
     });
-
     // $('#date-value').val(today.format('YYYYMMDD'));
     // $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
-
     var current_date = $('#date').val();
     var current_date_check = moment(new Date(current_date));
     $('#date-value').val(current_date_check.format('YYYY') + current_date_check.format('MM') + current_date_check.format('DD'));
     $('#date-view').val(current_date);
-
-
     var plan_date_start = $('#plan_date_start').val();
     var plan_date_end = $('#plan_date_end').val();
     var plan_date_start_check = moment(new Date(plan_date_start));
     var plan_date_end_check = moment(new Date(plan_date_end));
-
-
     $('#plan_date_start-value').val(plan_date_start_check.format('YYYY') + plan_date_start_check.format('MM') + plan_date_start_check.format('DD'));
     $('#plan_date_end-value').val(plan_date_end_check.format('YYYY') + plan_date_end_check.format('MM') + plan_date_end_check.format('DD'));
     $('#plan_date_start-view').val(plan_date_start_check.format('YYYY') + "年" + plan_date_start_check.format('MM') + "月" + plan_date_start_check.format('DD') + "日(" + days_short[plan_date_start_check.weekday()] + ")");
     $('#plan_date_end-view').val(plan_date_end_check.format('YYYY') + "年" + plan_date_end_check.format('MM') + "月" + plan_date_end_check.format('DD') + "日(" + days_short[plan_date_end_check.weekday()] + ")");
-
-
 }
 function get_dates(startDate, stopDate) {
     var dateArray = [];
@@ -1661,4 +1654,28 @@ function setClickCollapse(id) {
         return true;
     }
     return false;
+}
+function setSelectDefAdmin(modal_choice_time) {
+    if (typeof _date_admin !== "undefined" && _date_admin != "" && !time_check) {
+        time_check = true;
+        var obj = modal_choice_time.find('input[name=time]');
+        console.log("get all time");
+        console.log(obj);
+        var count_obj = obj.length;
+        for (var i = 0 ; i<count_obj ; i++) {
+            var val_check = obj[i].value.split("～")[0].replace(":", "");
+            //get bed
+            console.log(_bed_admin);
+            if (_bed_admin != "") {
+                bed = obj[i].parentElement.parentElement.querySelector(".bed").value;
+                if (bed != _bed_admin) continue;
+            }
+            if (val_check == _time_admin) {
+                console.log("chekc time" + val_check );
+                obj[i].checked = true;
+                $("#js-save-time").click();
+                break;
+            }
+        }
+    }
 }
