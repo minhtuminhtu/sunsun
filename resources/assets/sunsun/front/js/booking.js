@@ -1155,8 +1155,12 @@ let load_pick_time_event = function(){
                             backdrop: false,
                             keyboard: false
                         });
-                        $('#edit_booking').css("z-index", "0");
                         setSelectDefAdmin(modal_choice_time);
+                        if((_date_admin !== undefined) && (_date_admin != '')){
+                            _date_admin = undefined;
+                        }else{
+                            $('#edit_booking').css("z-index", "0");
+                        }
                     }else{
                         modal_choice_time.find('.modal-body-time').html(html);
                         modal_choice_time.modal({
@@ -1343,8 +1347,12 @@ let load_pick_time_pet_event = function(){
                         backdrop: 'static',
                         backdrop: false
                     });
-                    $('#edit_booking').css("z-index", "0");
                     setSelectDefAdmin(modal_choice_time);
+                    if((_date_admin !== undefined) && (_date_admin != '')){
+                        _date_admin = undefined;
+                    }else{
+                        $('#edit_booking').css("z-index", "0");
+                    }
                 }else{
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal('show');
