@@ -90,6 +90,59 @@ $(function() {
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     }
     function setDefAdmin() {
@@ -258,6 +311,59 @@ $(function() {
                     complete: function () {
                         loader.css({'display': 'none'});
                     },
+                    error: function(jqXHR){
+                        if(jqXHR.status === 419){
+                            if (window.location.href.includes("admin")) {
+                                Swal.fire({
+                                    target: '#edit_booking',
+                                    text: "F5?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d7751e',
+                                    cancelButtonColor: '#343a40',
+                                    confirmButtonText: 'はい',
+                                    cancelButtonText: 'いいえ',
+                                    width: 350,
+                                    showClass: {
+                                        popup: 'animated zoomIn faster'
+                                    },
+                                    hideClass: {
+                                        popup: 'animated zoomOut faster'
+                                    },
+                                    // customClass: {
+                                    //     popup: 'modal-dialog'
+                                    // },
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location.reload(true);
+                                    }
+                                })
+                            } else {
+                                Swal.fire({
+                                    text: "F5?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d7751e',
+                                    cancelButtonColor: '#343a40',
+                                    confirmButtonText: 'はい',
+                                    cancelButtonText: 'いいえ',
+                                    width: 350,
+                                    showClass: {
+                                        popup: 'animated zoomIn faster'
+                                    },
+                                    hideClass: {
+                                        popup: 'animated zoomOut faster'
+                                    },
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location.reload(true);
+                                    }
+                                })
+                            }
+                        }
+                    }
                 });
             }
         });
@@ -465,6 +571,59 @@ $(function() {
                     complete: function () {
                         loader.css({'display': 'none'});
                     },
+                    error: function(jqXHR){
+                        if(jqXHR.status === 419){
+                            if (window.location.href.includes("admin")) {
+                                Swal.fire({
+                                    target: '#edit_booking',
+                                    text: "F5?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d7751e',
+                                    cancelButtonColor: '#343a40',
+                                    confirmButtonText: 'はい',
+                                    cancelButtonText: 'いいえ',
+                                    width: 350,
+                                    showClass: {
+                                        popup: 'animated zoomIn faster'
+                                    },
+                                    hideClass: {
+                                        popup: 'animated zoomOut faster'
+                                    },
+                                    // customClass: {
+                                    //     popup: 'modal-dialog'
+                                    // },
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location.reload(true);
+                                    }
+                                })
+                            } else {
+                                Swal.fire({
+                                    text: "F5?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d7751e',
+                                    cancelButtonColor: '#343a40',
+                                    confirmButtonText: 'はい',
+                                    cancelButtonText: 'いいえ',
+                                    width: 350,
+                                    showClass: {
+                                        popup: 'animated zoomIn faster'
+                                    },
+                                    hideClass: {
+                                        popup: 'animated zoomOut faster'
+                                    },
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location.reload(true);
+                                    }
+                                })
+                            }
+                        }
+                    }
                 });
             }
         }
@@ -784,6 +943,59 @@ $(function() {
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     });
     $('#repeat_user').off('change');
@@ -810,6 +1022,59 @@ $(function() {
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     });
     $('#transport').off('change');
@@ -836,6 +1101,59 @@ $(function() {
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     });
     $('.btn-booking').off('click');
@@ -871,6 +1189,59 @@ $(function() {
                 complete: function () {
                     loader.css({'display': 'none'});
                 },
+                error: function(jqXHR){
+                    if(jqXHR.status === 419){
+                        if (window.location.href.includes("admin")) {
+                            Swal.fire({
+                                target: '#edit_booking',
+                                text: "F5?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d7751e',
+                                cancelButtonColor: '#343a40',
+                                confirmButtonText: 'はい',
+                                cancelButtonText: 'いいえ',
+                                width: 350,
+                                showClass: {
+                                    popup: 'animated zoomIn faster'
+                                },
+                                hideClass: {
+                                    popup: 'animated zoomOut faster'
+                                },
+                                // customClass: {
+                                //     popup: 'modal-dialog'
+                                // },
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.reload(true);
+                                }
+                            })
+                        } else {
+                            Swal.fire({
+                                text: "F5?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d7751e',
+                                cancelButtonColor: '#343a40',
+                                confirmButtonText: 'はい',
+                                cancelButtonText: 'いいえ',
+                                width: 350,
+                                showClass: {
+                                    popup: 'animated zoomIn faster'
+                                },
+                                hideClass: {
+                                    popup: 'animated zoomOut faster'
+                                },
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.reload(true);
+                                }
+                            })
+                        }
+                    }
+                }
             });
         }
     });
@@ -1275,6 +1646,59 @@ let load_pick_time_room_event = function(){
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     });
 }
@@ -1314,6 +1738,59 @@ let load_pick_time_wt_event = function(){
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     });
 }
@@ -1362,6 +1839,59 @@ let load_pick_time_pet_event = function(){
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     });
 }
@@ -1416,9 +1946,62 @@ let load_after_ajax = function(){
                         modal_choice_time.modal('show');
                     }
                 },
-                    complete: function () {
+                complete: function () {
                     loader.css({'display': 'none'});
                 },
+                error: function(jqXHR){
+                    if(jqXHR.status === 419){
+                        if (window.location.href.includes("admin")) {
+                            Swal.fire({
+                                target: '#edit_booking',
+                                text: "F5?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d7751e',
+                                cancelButtonColor: '#343a40',
+                                confirmButtonText: 'はい',
+                                cancelButtonText: 'いいえ',
+                                width: 350,
+                                showClass: {
+                                    popup: 'animated zoomIn faster'
+                                },
+                                hideClass: {
+                                    popup: 'animated zoomOut faster'
+                                },
+                                // customClass: {
+                                //     popup: 'modal-dialog'
+                                // },
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.reload(true);
+                                }
+                            })
+                        } else {
+                            Swal.fire({
+                                text: "F5?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d7751e',
+                                cancelButtonColor: '#343a40',
+                                confirmButtonText: 'はい',
+                                cancelButtonText: 'いいえ',
+                                width: 350,
+                                showClass: {
+                                    popup: 'animated zoomIn faster'
+                                },
+                                hideClass: {
+                                    popup: 'animated zoomOut faster'
+                                },
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location.reload(true);
+                                }
+                            })
+                        }
+                    }
+                }
             });
         }
     });
@@ -1440,6 +2023,59 @@ let load_after_ajax = function(){
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     });
     let make_color_input_error = (json, type = true) => {
@@ -1569,6 +2205,59 @@ let load_after_ajax = function(){
             complete: function () {
                 loader.css({'display': 'none'});
             },
+            error: function(jqXHR){
+                if(jqXHR.status === 419){
+                    if (window.location.href.includes("admin")) {
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            text: "F5?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
+                }
+            }
         });
     })
     $(document).on('touchmove', function () {

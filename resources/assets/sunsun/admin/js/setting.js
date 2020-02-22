@@ -165,6 +165,59 @@ $(document).ready(function() {
                             'display': 'none'
                         });
                     },
+                    error: function(jqXHR){
+                        if(jqXHR.status === 419){
+                            if (window.location.href.includes("admin")) {
+                                Swal.fire({
+                                    target: '#edit_booking',
+                                    text: "F5?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d7751e',
+                                    cancelButtonColor: '#343a40',
+                                    confirmButtonText: 'はい',
+                                    cancelButtonText: 'いいえ',
+                                    width: 350,
+                                    showClass: {
+                                        popup: 'animated zoomIn faster'
+                                    },
+                                    hideClass: {
+                                        popup: 'animated zoomOut faster'
+                                    },
+                                    // customClass: {
+                                    //     popup: 'modal-dialog'
+                                    // },
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location.reload(true);
+                                    }
+                                })
+                            } else {
+                                Swal.fire({
+                                    text: "F5?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d7751e',
+                                    cancelButtonColor: '#343a40',
+                                    confirmButtonText: 'はい',
+                                    cancelButtonText: 'いいえ',
+                                    width: 350,
+                                    showClass: {
+                                        popup: 'animated zoomIn faster'
+                                    },
+                                    hideClass: {
+                                        popup: 'animated zoomOut faster'
+                                    },
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location.reload(true);
+                                    }
+                                })
+                            }
+                        }
+                    }
                 });
             }
 
