@@ -98,7 +98,11 @@
         <div class="booking-field booking-room date-range_block {{(isset($request_post['add_new_user']) && $request_post['add_new_user'] == 'on')?'hidden':''}}"  id="choice-range-day">
             <div class="field-start-day date-range_block_left">
                 <p class="node-text">開始日</p>
-                <input name="plan_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date bg-white"  readonly="readonly" id="plan_date_start" value="{{ isset($plan_date_start)?$plan_date_start:'' }}">
+                @if(isset($course_data['ref_booking_id']) === false)
+                    <input name="plan_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control date-book-input range_date bg-white"  readonly="readonly" id="plan_date_start" value="{{ isset($plan_date_start)?$plan_date_start:'' }}">
+                @else
+                    <input name="plan_date_start" data-format="yyyy/MM/dd" type="text" class=" form-control"  readonly="readonly" disabled id="plan_date_start" value="{{ isset($plan_date_start)?$plan_date_start:'' }}">
+                @endif
             </div>
             <div class="date-range_block_center">
                 <p class="">&nbsp;</p>
@@ -106,7 +110,11 @@
             </div>
             <div class="field-end-day date-range_block_right">
                 <p class="node-text">終了日</p>
-                <input name="plan_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input range_date bg-white"  readonly="readonly" id="plan_date_end" value="{{ isset($plan_date_end)?$plan_date_end:'' }}">
+                @if(isset($course_data['ref_booking_id']) === false)
+                    <input name="plan_date_end" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input range_date bg-white"  readonly="readonly" id="plan_date_end" value="{{ isset($plan_date_end)?$plan_date_end:'' }}">
+                @else
+                    <input name="plan_date_end" data-format="yyyy/MM/dd" type="text" class="form-control"  readonly="readonly" disabled id="plan_date_end" value="{{ isset($plan_date_end)?$plan_date_end:'' }}">
+                @endif
             </div>
         </div>
 
