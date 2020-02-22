@@ -51,6 +51,9 @@ class Handler extends ExceptionHandler
         if($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             return response()->view('sunsun.errors.405', [], 405);
         }
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            return redirect()->back();
+        }
 
         return parent::render($request, $exception);
     }
