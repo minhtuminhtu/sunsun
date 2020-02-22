@@ -11,7 +11,7 @@
 @endphp
 <div class="booking-block">
     <div class="collapse collapse-top show">
-        @if(!isset($add_new_user))
+        @if(isset($add_new_user) === false)
             @php
                 $booking_date = '';
                 if(isset($course_data['service_date_start'])){
@@ -29,7 +29,11 @@
                 </div>
                 <div class="booking-field-content">
                     <div class="timedate-block date-warp">
-                        <input name="date" id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white"  readonly="readonly" value="{{ $booking_date }}" />
+                        @if(isset($course_data['ref_booking_id']) === false)
+                            <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly" value="{{ $booking_date }}" />
+                        @else
+                            <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control" readonly="readonly" disabled value="{{ $booking_date }}" />
+                        @endif
                     </div>
                 </div>
             </div>

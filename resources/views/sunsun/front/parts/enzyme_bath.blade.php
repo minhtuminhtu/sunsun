@@ -28,22 +28,14 @@
                 <select name="gender" id="gender" class="form-control">
                     @php $blank = true; @endphp
                     @foreach($gender as $value)
+                        @if( $blank === true)
+                            <option value="0">－</option>
+                            @php $blank = false; @endphp
+                        @endif
                         @if(isset($course_data['gender']) && ($value->kubun_id == $course_data['gender']))
-                            @if( $blank === true)
-                                <option value="0">－</option>
-                            @endif
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @php $blank = false; @endphp
                         @elseif(isset($pop_data['gender']) && ($value->kubun_id == json_decode($pop_data['gender'], true)['kubun_id']))
-                            @if( $blank === true)
-                                <option value="0">－</option>
-                            @endif
                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @php $blank = false; @endphp
-                        @elseif( $blank === true && isset($course_data['gender']) === false && isset($pop_data['gender']) === false)
-                            <option selected value="0">－</option>
-                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                            @php $blank = false; @endphp
                         @else
                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
                         @endif
@@ -99,12 +91,15 @@
                 </div>
             </div>
         </div>
-        @if(!isset($add_new_user))
-
+        @if(isset($add_new_user) === false)
             @php
                 $booking_date = '';
+                $date_value = null;
+                $date_view = null;
                 if(isset($course_data['service_date_start'])){
                     $booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
+                    $date_value = $course_data['service_date_start'];
+                    $date_view = $booking_date;
                 }
                 if(isset($pop_data['date-value'])){
                     $booking_date = substr($pop_data['date-value'], 0, 4).'/'.substr($pop_data['date-value'], 4, 2).'/'.substr($pop_data['date-value'], 6, 2);
@@ -114,10 +109,14 @@
                 <div class="booking-field-label  booking-laber-padding">
                     <p class="text-left pt-2">{{config('booking.date.label')}}</p>
                 </div>
-                <input name="date-view" id="date-view" type="hidden" value="">
-                <input name="date-value" id="date-value" type="hidden" value="">
+                <input name="date-view" id="date-view" type="hidden" value="{{ isset($date_view)?$date_view:'' }}">
+                <input name="date-value" id="date-value" type="hidden" value="{{ isset($date_value)?$date_value:'' }}">
                 <div class="booking-field-content">
-                    <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly" value="{{ $booking_date }}" />
+                    @if(isset($course_data['ref_booking_id']) === false)
+                        <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly" value="{{ $booking_date }}" />
+                    @else
+                        <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control" readonly="readonly" disabled value="{{ $booking_date }}" />
+                    @endif
                 </div>
             </div>
         @endif

@@ -63,24 +63,32 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
-                            <div class="booking-field-label booking-laber-padding">
-                                <p class="text-left pt-2">{{config('booking.transport.label')}}</p>
+                        @if(isset($data_booking->ref_booking_id) === false)
+                            <div class="booking-field {{(isset($add_new_user) && $add_new_user == 'on')?'hidden':''}}">
+                                <div class="booking-field-label booking-laber-padding">
+                                    <p class="text-left pt-2">{{config('booking.transport.label')}}</p>
+                                </div>
+                                <div class="booking-field-content">
+                                    <select name="transport" id='transport' class="form-control">
+                                        @foreach($transport as $value)
+                                            @if(isset($data_booking->transport) && ($value->kubun_id == $data_booking->transport))
+                                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                            @elseif(isset($pop_data['transport']) && json_decode($pop_data['transport'], true)['kubun_id'] ==  $value->kubun_id)
+                                                <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                            @else
+                                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="booking-field-content">
-                                <select name="transport" id='transport' class="form-control">
-                                    @foreach($transport as $value)
-                                        @if(isset($data_booking->transport) && ($value->kubun_id == $data_booking->transport))
-                                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                                        @elseif(isset($pop_data['transport']) && json_decode($pop_data['transport'], true)['kubun_id'] ==  $value->kubun_id)
-                                            <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
-                                        @else
-                                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                        @else
+                            @foreach($transport as $value)
+                                @if(isset($data_booking->transport) && ($value->kubun_id == $data_booking->transport))
+                                    <input type="hidden" name="transport" value='@json($value)' />
+                                @endif
+                            @endforeach
+                        @endif
                         <div class="booking-field bus" @if((isset($data_booking->transport) && ($data_booking->transport == '02')) || (isset($pop_data['transport']) && (json_decode($pop_data['transport'], true)['kubun_id'] == '02'))) style="display:flex;" @else style="display:none;"   @endif>
                             <div class="booking-field-label booking-laber-padding">
                                 <p class="text-left pt-2">{{config('booking.bus_arrive_time_slide.label')}}</p>
