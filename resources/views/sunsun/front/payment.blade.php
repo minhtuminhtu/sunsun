@@ -82,8 +82,13 @@
                     </div>
                 </div>
                 <div class="foot-confirm">
-                    <div class="confirm-button-payment">
-                        <button id="make_payment" type="button" class="btn btn-block btn-booking text-white">予約する</button>
+                    <div class="confirm-button">
+                        <div class="button-left">
+                            <button id="btn-home" type="button" class="btn btn-block text-white btn-back">キャンセルする</button>
+                        </div>
+                        <div class="button-right">
+                            <button id="make_payment" type="button" class="btn btn-block btn-booking text-white">予約する</button>
+                        </div>
                     </div>
                 </div>
             </form>

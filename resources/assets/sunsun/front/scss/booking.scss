@@ -174,7 +174,12 @@ main {
 
 }
 
-
+.btn-back {
+    background: #a6a6a6;
+    &:hover {
+        opacity: 0.7;
+    }
+}
 .btn-booking {
     background: #d7751e;
     &:hover {
@@ -342,13 +347,22 @@ label.form-check-label {
         padding: 0;
         display: flex;
         margin: 2.25vw 0;
-        .button-left{
+        .button-left-mix {
             width: 50%;
-            margin-right: 1vw;
+            margin-right: 0.5vw;
         }
-        .button-right{
-            width: 50%;
-            margin-left: 1vw;
+        .button-left {
+            width: 100%;
+            margin-right: 0.5vw;
+        }
+        .button-center {
+            width: 100%;
+            margin-left: 0.5vw;
+            margin-right: 0.5vw;
+        }
+        .button-right {
+            width: 100%;
+            margin-left: 0.5vw;
         }
     }
 }

@@ -330,13 +330,22 @@
             padding: 0px 2.5vw;
             display: flex;
             margin: 7.5vw 0!important;
-            .button-left{
+            .button-left-mix {
                 width: 50%;
-                margin-right: 3vw;
+                margin-right: 1.5vw;
+            }
+            .button-left{
+                width: 100%;
+                margin-right: 1.5vw;
+            }
+            .button-center{
+                width: 100%;
+                margin-left: 1.5vw;
+                margin-right: 1.5vw;
             }
             .button-right{
-                width: 50%;
-                margin-left: 3vw;
+                width: 100%;
+                margin-left: 1.5vw;
             }
         }
     }

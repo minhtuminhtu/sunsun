@@ -23,6 +23,10 @@ class BookingController extends Controller
         $request->session()->forget($this->session_info);
         return view('sunsun.front.booking.index');
     }
+    public function clear_session(Request $request){
+        $request->session()->forget($this->session_info);
+        return redirect()->route('home');
+    }
     public function booking(Request $request){
         $data = $request->all();
         $data['new'] = 1;
@@ -48,7 +52,7 @@ class BookingController extends Controller
             }
             return view('sunsun.front.booking',$data);
         }else{
-            return redirect("/booking");
+            return redirect()->route('.booking');
         }
     }
     public function add_new_booking(Request $request) {
@@ -415,7 +419,7 @@ class BookingController extends Controller
     public function confirm(Request $request){
         $data['customer'] = $this->get_booking($request);
         if (count($data['customer']) == 0) {
-            return redirect("/booking");
+            return redirect()->route('home');
         }
         // dd($data);
         $data['customer']['info'] = array_values($data['customer']['info']);
@@ -431,7 +435,7 @@ class BookingController extends Controller
             $data['auth_tel'] = \Auth::user()->tel;
         }
         if($data['customer'] == null) {
-            return redirect("/booking");
+            return redirect()->route('home');
         }
         $this->make_bill($data);
 //        dd($data);
@@ -3072,7 +3076,7 @@ class BookingController extends Controller
         $data = $request->all();
 //        dd($data);
         if(isset($data['bookingID']) == false){
-            return redirect("/booking");
+            return redirect()->route('home');
         }
         return view('sunsun.front.complete', $data);
     }

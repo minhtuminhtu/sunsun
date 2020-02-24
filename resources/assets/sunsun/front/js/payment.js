@@ -7,6 +7,11 @@ $(function() {
     history.pushState({confirm: true}, "Checked", "");
     history.back();
 
+    $('#btn-home').off('click');
+    $('#btn-home').on('click', function() {
+        var home_url = window.location.origin + "/clear_session";
+        window.location.href = home_url;
+    });
 
     $('.payment-method').off('change');
     $('.payment-method').on('change', function() {

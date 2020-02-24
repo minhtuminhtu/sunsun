@@ -145,6 +145,18 @@ $(function() {
             }
         });
     }
+
+    $('#btn-home').off('click');
+    $('#btn-home').on('click', function() {
+        var home_url = window.location.origin + "/clear_session";
+        window.location.href = home_url;
+    });
+    $('#btn-back').off('click');
+    $('#btn-back').on('click', function() {
+        history.back();
+    });
+
+
     function setDefAdmin() {
         if (_type_admin == "05") {
             var obj_course = document.getElementById("course");

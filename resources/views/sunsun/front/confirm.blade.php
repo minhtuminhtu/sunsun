@@ -65,7 +65,10 @@
                 </div>
                 <div class="foot-confirm">
                     <div class="confirm-button">
-                        <div class="button-left">
+                        <div class="button-left-mix">
+                            <button id="btn-back" type="button" class="btn btn-block text-white btn-back">戻る</button>
+                        </div>
+                        <div class="button-center">
                             <button type="button" class="btn btn-block btn-booking text-white add-new-people btn-confirm-left">予約追加
                             </button>
                         </div>

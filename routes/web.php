@@ -172,6 +172,7 @@ Route::middleware('begin.auth')->group(function(){
         Route::get('/', function () {
             return view('sunsun.front.index');
         })->name('home');
+        Route::get('/clear_session',['as' => '.clear_session', 'uses' => 'BookingController@clear_session']);
 
         Route::get('/booking',['as' => '.booking', 'uses' => 'BookingController@booking']);
         Route::post('/booking',['as' => '.back_2_booking', 'uses' => 'BookingController@back_2_booking']);

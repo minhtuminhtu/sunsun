@@ -269,7 +269,16 @@
                     </div>
                 @else
                     <div class="confirm-button">
-                        <div class="button-left">
+                        @if(isset($add_new_user) && $add_new_user == 'on')
+                            <div class="button-left-mix">
+                                <button id="btn-back" type="button" class="btn btn-block text-white btn-back">戻る</button>
+                            </div>
+                        @else
+                            <div class="button-left">
+                                <button id="btn-home" type="button" class="btn btn-block text-white btn-back">キャンセル</button>
+                            </div>
+                        @endif
+                        <div class="button-center">
                             @if(isset($add_new_user) && $add_new_user == 'on')
                                 <input type="hidden" name="add_new_user" value="on">
                             @endif

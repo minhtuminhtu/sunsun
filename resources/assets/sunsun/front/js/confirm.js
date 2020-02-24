@@ -14,4 +14,9 @@ $(function() {
     history.pushState({confirm: false}, "Not checked", "");
     history.pushState({confirm: true}, "Checked", "");
     history.back();
+
+    $('#btn-back').off('click');
+    $('#btn-back').on('click', function() {
+        history.back();
+    });
 });
