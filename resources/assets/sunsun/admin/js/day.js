@@ -108,7 +108,7 @@ $(function () {
             error: function(jqXHR){
                 if(jqXHR.status === 419){
                     Swal.fire({
-                        text: "F5?",
+                        text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d7751e',
@@ -229,7 +229,7 @@ $(function () {
                 if(jqXHR.status === 419){
                     Swal.fire({
                         target: '#edit_booking',
-                        text: "F5?",
+                        text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d7751e',

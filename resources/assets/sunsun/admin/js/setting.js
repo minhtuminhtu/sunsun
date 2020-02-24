@@ -170,7 +170,7 @@ $(document).ready(function() {
                             if (window.location.href.includes("admin")) {
                                 Swal.fire({
                                     target: '#edit_booking',
-                                    text: "F5?",
+                                    text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonColor: '#d7751e',
@@ -195,7 +195,7 @@ $(document).ready(function() {
                                 })
                             } else {
                                 Swal.fire({
-                                    text: "F5?",
+                                    text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonColor: '#d7751e',

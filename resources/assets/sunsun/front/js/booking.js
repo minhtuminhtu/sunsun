@@ -95,7 +95,7 @@ $(function() {
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -120,7 +120,7 @@ $(function() {
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -328,7 +328,7 @@ $(function() {
                             if (window.location.href.includes("admin")) {
                                 Swal.fire({
                                     target: '#edit_booking',
-                                    text: "F5?",
+                                    text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonColor: '#d7751e',
@@ -353,7 +353,7 @@ $(function() {
                                 })
                             } else {
                                 Swal.fire({
-                                    text: "F5?",
+                                    text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonColor: '#d7751e',
@@ -588,7 +588,7 @@ $(function() {
                             if (window.location.href.includes("admin")) {
                                 Swal.fire({
                                     target: '#edit_booking',
-                                    text: "F5?",
+                                    text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonColor: '#d7751e',
@@ -613,7 +613,7 @@ $(function() {
                                 })
                             } else {
                                 Swal.fire({
-                                    text: "F5?",
+                                    text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonColor: '#d7751e',
@@ -960,7 +960,7 @@ $(function() {
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -985,7 +985,7 @@ $(function() {
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1039,7 +1039,7 @@ $(function() {
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1064,7 +1064,7 @@ $(function() {
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1118,7 +1118,7 @@ $(function() {
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1143,7 +1143,7 @@ $(function() {
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1206,7 +1206,7 @@ $(function() {
                         if (window.location.href.includes("admin")) {
                             Swal.fire({
                                 target: '#edit_booking',
-                                text: "F5?",
+                                text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#d7751e',
@@ -1231,7 +1231,7 @@ $(function() {
                             })
                         } else {
                             Swal.fire({
-                                text: "F5?",
+                                text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#d7751e',
@@ -1562,7 +1562,7 @@ let load_pick_time_event = function(){
                         if (window.location.href.includes("admin")) {
                             Swal.fire({
                                 target: '#edit_booking',
-                                text: "F5?",
+                                text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#d7751e',
@@ -1587,7 +1587,7 @@ let load_pick_time_event = function(){
                             })
                         } else {
                             Swal.fire({
-                                text: "F5?",
+                                text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#d7751e',
@@ -1663,7 +1663,7 @@ let load_pick_time_room_event = function(){
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1688,7 +1688,7 @@ let load_pick_time_room_event = function(){
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1755,7 +1755,7 @@ let load_pick_time_wt_event = function(){
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1780,7 +1780,7 @@ let load_pick_time_wt_event = function(){
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1856,7 +1856,7 @@ let load_pick_time_pet_event = function(){
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1881,7 +1881,7 @@ let load_pick_time_pet_event = function(){
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -1966,7 +1966,7 @@ let load_after_ajax = function(){
                         if (window.location.href.includes("admin")) {
                             Swal.fire({
                                 target: '#edit_booking',
-                                text: "F5?",
+                                text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#d7751e',
@@ -1991,7 +1991,7 @@ let load_after_ajax = function(){
                             })
                         } else {
                             Swal.fire({
-                                text: "F5?",
+                                text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#d7751e',
@@ -2040,7 +2040,7 @@ let load_after_ajax = function(){
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -2065,7 +2065,7 @@ let load_after_ajax = function(){
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -2222,7 +2222,7 @@ let load_after_ajax = function(){
                     if (window.location.href.includes("admin")) {
                         Swal.fire({
                             target: '#edit_booking',
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
@@ -2247,7 +2247,7 @@ let load_after_ajax = function(){
                         })
                     } else {
                         Swal.fire({
-                            text: "F5?",
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#d7751e',
