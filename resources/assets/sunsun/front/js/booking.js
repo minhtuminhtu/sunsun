@@ -2383,5 +2383,7 @@ function setSelectDefAdmin(modal_choice_time) {
                 break;
             }
         }
+        modal_choice_time.find('.modal-body-time').html('');
+        $("#btn-cancel").click();
     }
 }

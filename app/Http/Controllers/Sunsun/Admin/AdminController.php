@@ -54,20 +54,17 @@ class AdminController extends Controller
         // dd($data);
         return view('sunsun.admin.day',$data);
     }
-    private function getWhere_search($course,$booking_id,$date) {
+    private function getWhere_search($course,$name,$date) {
         // $where_plus = " AND main.service_date_start = $date ";
         // if ($course == "01" || $course == "04" || $course == "04_1")
         //     $where_plus = " AND time.service_date = $date ";
         if ($course == "02_1") $course == "02";
         else if ($course == "04_1") $course == "04";
         return "
-            WHERE   main.course = '$course'
+                WHERE   main.course = '$course'
                 AND main.history_id IS NULL
                 AND main.fake_booking_flg IS NULL
-                AND (
-                    main.booking_id = $booking_id
-                    OR main.ref_booking_id = $booking_id
-                )
+                AND main.name = '$name'
         ";
     }
     private function getForm_search($type = "") {
@@ -261,7 +258,7 @@ class AdminController extends Controller
             $select .= " , main.fake_booking_flg ";
         return $select;
     }
-    private function get_search_expert($booking_id, $date){
+    private function get_search_expert($name, $date){
             $sel_plus1 = $this->getSelect_search("01");
             $sel_plus2 = $this->getSelect_search("02");
             $sel_plus2_1 = $this->getSelect_search("02_1");
@@ -269,13 +266,13 @@ class AdminController extends Controller
             $sel_plus4 = $this->getSelect_search("04");
             $sel_plus4_1 = $this->getSelect_search("04_1");
             $sel_plus5 = $this->getSelect_search("05");
-            $where_plus1 = $this->getWhere_search("01",$booking_id,$date);
-            $where_plus2 = $this->getWhere_search("02",$booking_id,$date);
-            $where_plus2_1 = $this->getWhere_search("02_1",$booking_id,$date);
-            $where_plus3 = $this->getWhere_search("03",$booking_id,$date);
-            $where_plus4 = $this->getWhere_search("04",$booking_id,$date);
-            $where_plus4_1 = $this->getWhere_search("04_1",$booking_id,$date);
-            $where_plus5 = $this->getWhere_search("05",$booking_id,$date);
+            $where_plus1 = $this->getWhere_search("01",$name,$date);
+            $where_plus2 = $this->getWhere_search("02",$name,$date);
+            $where_plus2_1 = $this->getWhere_search("02_1",$name,$date);
+            $where_plus3 = $this->getWhere_search("03",$name,$date);
+            $where_plus4 = $this->getWhere_search("04",$name,$date);
+            $where_plus4_1 = $this->getWhere_search("04_1",$name,$date);
+            $where_plus5 = $this->getWhere_search("05",$name,$date);
             $form1 = $this->getForm_search();
             $form2 = $this->getForm_search("2");
             $expert_data = DB::select("
@@ -325,7 +322,7 @@ class AdminController extends Controller
     }
     private function get_search($date){
         $all_data = DB::select("
-        SELECT      main.booking_id,
+        SELECT  DISTINCT
                     main.name
         FROM        tr_yoyaku main
         WHERE       main.history_id IS NULL
@@ -336,7 +333,7 @@ class AdminController extends Controller
         // AND         main.service_date_start = $date
         for($i = 0; $i < count($all_data); $i++){
             // Log::debug($all_data[$i]->booking_id);
-            $all_data[$i]->expert_data = $this->get_search_expert($all_data[$i]->booking_id, $date);
+            $all_data[$i]->expert_data = $this->get_search_expert($all_data[$i]->name, $date);
         }
         // Log::debug($all_data);
         return  collect($all_data);
@@ -939,6 +936,12 @@ class AdminController extends Controller
             'type' => 'update',
             'message' => null
         ];
+    }
+    public function delete_booking(Request $request) {
+        $data = $request->all();
+        $booking_id = $data['booking_id'];
+        $current_booking = Yoyaku::where('booking_id',$booking_id)->update(['del_flg' => '1']);
+        return true;
     }
     public function weekly(Request $request) {
         $data = [];

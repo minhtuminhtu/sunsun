@@ -894,19 +894,17 @@ class BookingController extends Controller
     public function update_or_new_booking($data, $request, $from_admin = false, $ref_booking_id = null){
         $result = [];
         //Update
-        //Log::debug("update_or_new_booking");
         if(isset($data['booking_id'])){
             try{
-                //Log::debug("update booking");
+                // Tạo booking_id mới để gán cho quan hệ người đi cùng và lịch sử
                 $booking_id = $this->get_booking_id();
-                //Log::debug("get booking");
-                //Log::debug($booking_id);
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 Yoyaku::where('ref_booking_id', $data['booking_id'])->update(['ref_booking_id' => $booking_id]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
-                //Log::debug("start update booking");
+                // Check thời gian xe bus và thời gian của các hành khách đi cùng có hợp lệ không.
                 $this->new_booking($data, $request, $booking_id, $from_admin, $ref_booking_id);
             } catch (\Exception $failed) {
+                // Nếu lưu yoyaku lỗi thì clear booking_id và history_id
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => null]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => null]);
             }
