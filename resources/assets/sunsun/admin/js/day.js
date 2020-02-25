@@ -86,7 +86,7 @@ $(function () {
             if (result.value) {
                 $.ajax({
                     url: '/admin/delete_booking',
-                    type: 'DELETE',
+                    type: 'POST',
                     data: {
                         'booking_id' : booking_id,
                         'ref_booking_id' : ref_booking_id
