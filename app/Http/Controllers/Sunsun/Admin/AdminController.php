@@ -1406,7 +1406,7 @@ class AdminController extends Controller
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:ms_user,email,'.$data['user_id'].',ms_user_id|regex:/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/',
             'tel' => 'required|string|max:11|min:10|regex:/[0-9]{10,11}/',
-            'password' => 'required|string|min:1', //'confirmed'
+            // 'password' => 'required|string|min:1', //'confirmed'
         ]);
         $bookCon = new BookingController();
         $check_kata = $bookCon->check_is_katakana($data['username']);
@@ -1436,7 +1436,7 @@ class AdminController extends Controller
                 }
                 $bookCon = new BookingController();
                 $data['username'] = $bookCon->change_value_kana($data['username']);
-                MsUser::where('ms_user_id', $data['user_id'])->update(['username' => $data['username'], 'password' => $data['password'], 'email' => $data['email'], 'tel' => $data['tel'], 'deleteflg' => $deleteflg]);
+                MsUser::where('ms_user_id', $data['user_id'])->update(['username' => $data['username'], /*'password' => $data['password'], */'email' => $data['email'], 'tel' => $data['tel'], 'deleteflg' => $deleteflg]);
                 $result = [
                     'status' => true
                 ];

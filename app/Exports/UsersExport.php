@@ -54,10 +54,11 @@ class UsersExport implements FromCollection,WithHeadings
         foreach ($data as $row) {
             $result_data[] = array(
                 '1' => $row->username,
-                '2' => $row->password,
-                '3' => $row->tel,
-                '4' => $row->email,
-                '5' => $row->birth_year,
+                // '2' => $row->password,
+                '2' => $row->tel,
+                '3' => $row->email,
+                '4' => $row->date_used,
+                '5' => $row->user_type,
                 '6' => $row->deleteflg
             );
         }
@@ -68,10 +69,11 @@ class UsersExport implements FromCollection,WithHeadings
     {
         return [
             '名前',
-            'パスワード',
+            // 'パスワード',
             '電話番号',
             'メールアドレス',
             '予約履歴',
+            'User Type',
             '削除'
         ];
     }
