@@ -53,6 +53,62 @@ $(function () {
     $('#edit_booking').on('click','.btn-cancel',function (e) {
         booking_edit_hidden();
     });
+    $('#edit_booking').off('click','.btn-delete');
+    $('#edit_booking').on('click','.btn-delete',function (e) {
+        var delete_icon_url = window.location.origin + "/sunsun/imgs/icons/delete.png";
+        var booking_id = $('#edit_booking').find("#booking_id").val();
+        var ref_booking_id = $('#edit_booking').find("#ref_booking_id").val();
+        var message = "予約者の予約を削除すると、同行者の予約も削除されます。全ての予約を削除しますか？";
+        if(ref_booking_id != ''){
+            message = "同行者の予約を削除しても、予約者の予約は削除されません。同行者の予約を削除しますか？";
+        }
+        Swal.fire({
+            target: '#edit_booking',
+            text: message,
+            // icon: 'warning',
+            imageUrl: delete_icon_url,
+            imageWidth: "5em",
+            imageHeight: "5em",
+            showCancelButton: true,
+            confirmButtonColor: '#ff0000',
+            cancelButtonColor: '#ffc000',
+            confirmButtonText: '削除する',
+            cancelButtonText: 'キャンセル',
+            width: 350,
+            showClass: {
+                popup: 'animated zoomIn faster'
+            },
+            hideClass: {
+                popup: 'animated zoomOut faster'
+            },
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: '/admin/delete_booking',
+                    type: 'DELETE',
+                    data: {
+                        'booking_id' : booking_id,
+                        'ref_booking_id' : ref_booking_id
+                    },
+                    dataType: 'text',
+                    beforeSend: function () {
+                        loader.css({'display': 'block'});
+                    },
+                    success: function (html) {
+                        html = JSON.parse(html);
+                        if(html.status === true){
+                            $('#edit_booking').modal('hide');
+                            window.location.reload();
+                        }
+                    },
+                    complete: function () {
+                        loader.css({'display': 'none'});
+                    }
+                });
+            }
+        })
+    });
     let show_booking = function (obj,type,bed) {
         var booking_id = $(obj).find('.booking-id').val();
         // get time

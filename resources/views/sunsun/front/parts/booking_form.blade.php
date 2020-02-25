@@ -218,7 +218,7 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="ref_booking_id" value="{{ isset($data_booking->ref_booking_id)?$data_booking->ref_booking_id:'' }}">
+                <input type="hidden" name="ref_booking_id" id="ref_booking_id" value="{{ isset($data_booking->ref_booking_id)?$data_booking->ref_booking_id:'' }}">
 
                 @php
                 $picked_course = '';
@@ -254,13 +254,31 @@
             </div>
             <div class="foot-confirm">
                 @if(isset($data_booking))
-                    @if(isset($history_booking) && (count($history_booking) != 0))
                         <div class="history-button">
-                            <div class="show_history" style="text-decoration: underline;">履歴</div>
+                            <div class="left-button">
+                                <div class="index-field-foot">
+                                    <div class="content-right container-checkbox">
+                                        <label for="confirm">
+                                            <input type="checkbox" name="send_email" class="" id="confirm">
+                                            <span class="checkmark index"></span>
+                                            <span style="line-height: 27px;">確認メールを送信する</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-button">
+                                @if(isset($history_booking) && (count($history_booking) != 0))
+                                    <div class="show_history" style="text-decoration: underline;">変更履歴</div>
+                                @endif
+                            </div>
                         </div>
-                    @endif
                     <div class="confirm-button">
-                        <div class="button-left">
+                        @if(isset($booking_id))
+                            <div class="button-left">
+                                <button type="button" class="btn btn-block text-white btn-delete">削除</button>
+                            </div>
+                        @endif
+                        <div class="button-center">
                             <button type="button" class="btn btn-block text-white btn-cancel btn-cancel-left">キャンセル</button>
                         </div>
                         <div class="button-right">

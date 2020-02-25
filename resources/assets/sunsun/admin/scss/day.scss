@@ -513,10 +513,7 @@ body {
     align-items: flex-start;
     justify-content: center;
 }
-.history-button {
-    margin-top: 0.5vw;
-    margin-bottom: -1vw;
-}
+
 .booking-history{
     display: flex;
     margin-top: 0.75vw;
@@ -651,4 +648,13 @@ li.list-group-item.list-head {
     border-top: 2px solid #ff0000 !important;
     border-left: 2px solid #ff0000 !important;
     border-right: 2px solid #ff0000 !important;
+}
+.container-checkbox {
+    margin-bottom: 0px !important;
+}
+.history-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5vw;
+    margin-bottom: -1vw;
 }

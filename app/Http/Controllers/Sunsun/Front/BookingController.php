@@ -285,6 +285,7 @@ class BookingController extends Controller
                 AND ( NOT  ( main.stay_checkin_date >= $range_date_end OR main.stay_checkout_date <= $range_date_start )
                     )
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
                 AND main.booking_id <> $booking_id
                 ");
                 Log::debug('$number_dup');
@@ -574,6 +575,7 @@ class BookingController extends Controller
         FROM    tr_yoyaku main
         WHERE   main.stay_room_type = '$room_type'
         AND main.history_id IS NULL
+        AND main.del_flg IS NULL
         ");
         $date_selected = $this->get_free_holiday();
         $date_start = [];
@@ -891,7 +893,7 @@ class BookingController extends Controller
         }
         return $error;
     }
-    public function update_or_new_booking($data, $request, $from_admin = false, $ref_booking_id = null){
+    public function update_or_new_booking($data, $request, $from_admin = false, $ref_booking_id = null, $send_mail = false){
         $result = [];
         //Update
         if(isset($data['booking_id'])){
@@ -902,7 +904,7 @@ class BookingController extends Controller
                 Yoyaku::where('ref_booking_id', $data['booking_id'])->update(['ref_booking_id' => $booking_id]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 // Check thời gian xe bus và thời gian của các hành khách đi cùng có hợp lệ không.
-                $this->new_booking($data, $request, $booking_id, $from_admin, $ref_booking_id);
+                $this->new_booking($data, $request, $send_mail, $from_admin, $booking_id, $ref_booking_id);
             } catch (\Exception $failed) {
                 // Nếu lưu yoyaku lỗi thì clear booking_id và history_id
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => null]);
@@ -910,8 +912,7 @@ class BookingController extends Controller
             }
         //New
         }else{
-
-            $result = $this->new_booking($data, $request);
+            $result = $this->new_booking($data, $request, $send_mail, $from_admin);
             Log::debug("bookingID");
             Log::debug($result);
         }
@@ -937,7 +938,7 @@ class BookingController extends Controller
         }
         return  $result;
     }
-    private function new_booking($data, $request, $booking_id = 0, $from_admin = false, $ref_booking_id = null){
+    private function new_booking($data, $request, $send_mail = false, $from_admin = false, $booking_id = 0, $ref_booking_id = null){
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
@@ -1008,7 +1009,9 @@ class BookingController extends Controller
                     Log::debug($result);
                 }
                 DB::commit();
-                $this->send_email($request, $data, $return_booking_id, $email, $from_admin);
+                if(($send_mail === true) || ($from_admin === false)){
+                    $this->send_email($request, $data, $return_booking_id, $email, $from_admin);
+                }
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
@@ -1028,6 +1031,8 @@ class BookingController extends Controller
         return  $result;
     }
     private function send_email($request, $data, $booking_id, $email, $from_admin){
+        Log::debug('$from_admin');
+        Log::debug($from_admin);
         if($from_admin === false){
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
@@ -1053,12 +1058,12 @@ class BookingController extends Controller
                 $booking_id_diff[] = $yo_temp->service_date_start;
                 $transport_diff[] = $yo_temp->transport;
                 $admin_customer[] = $yo_temp;
-                $list_booking = Yoyaku::where('ref_booking_id', $yo_temp->booking_id)->whereNull('history_id')->get();
+                $list_booking = Yoyaku::where('ref_booking_id', $yo_temp->booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
             }else{
                 $booking_id_diff[] = $yo->service_date_start;
                 $transport_diff[] = $yo->transport;
                 $admin_customer[] = $yo;
-                $list_booking = Yoyaku::where('ref_booking_id', $booking_id)->whereNull('history_id')->get();
+                $list_booking = Yoyaku::where('ref_booking_id', $booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
             }
 
             foreach ($list_booking as $key => $li_bo) {
@@ -1568,6 +1573,7 @@ class BookingController extends Controller
                 AND             time.service_time_1 = $time
                 AND             time.notes = $bed
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
             )
             UNION
             (
@@ -1579,6 +1585,7 @@ class BookingController extends Controller
                 AND             main.service_time_1 = $time
                 AND             SUBSTRING(main.bed, 1, 1) = $bed
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
             )
             UNION
             (
@@ -1590,6 +1597,7 @@ class BookingController extends Controller
                 AND             main.service_time_2 = $time
                 AND             SUBSTRING(main.bed, 3, 1) = $bed
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
             )
             UNION
             (
@@ -1603,6 +1611,7 @@ class BookingController extends Controller
                 AND             time.service_time_1 = $time
                 AND             SUBSTRING(time.notes, 1, 1) = $bed
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
             )
             UNION
             (
@@ -1616,6 +1625,7 @@ class BookingController extends Controller
                 AND             time.service_time_2 = $time
                 AND             SUBSTRING(time.notes, 3, 1) = $bed
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
             )
         ");
         if($gender == '01'){
@@ -1627,6 +1637,7 @@ class BookingController extends Controller
                 AND             main.service_time_1 = $time
                 AND             main.bed = $bed
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
             ");
         }
         if(
@@ -1723,6 +1734,7 @@ class BookingController extends Controller
                 AND ( NOT  ( main.stay_checkin_date >= $checkout OR main.stay_checkout_date <= $checkin )
                     )
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
             ");
             Log::debug('$room_validate');
             Log::debug($room_validate);
@@ -1741,6 +1753,7 @@ class BookingController extends Controller
             WHERE   main.service_date_start = '$date'
             AND     main.whitening_time = '$time'
             AND main.history_id IS NULL
+            AND main.del_flg IS NULL
         ");
         ////Log::debug($wt_validate);
         if(isset($wt_validate) && (count($wt_validate) != 0)){
@@ -2003,6 +2016,7 @@ class BookingController extends Controller
                 AND             main.service_time_1 = $time1
                 AND             main.service_time_2 = $time2
                 AND main.history_id IS NULL
+                AND main.del_flg IS NULL
         ");
         if(isset($course_5_validate) && (count($course_5_validate) != 0)){
             throw new \ErrorException('Course 4 error');
@@ -2586,6 +2600,7 @@ class BookingController extends Controller
                     OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' )
                 )
             AND ty.history_id IS NULL
+            AND ty.del_flg IS NULL
         ";
     }
     /**
