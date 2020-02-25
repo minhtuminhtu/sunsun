@@ -941,6 +941,7 @@ class AdminController extends Controller
         $data = $request->all();
         $booking_id = $data['booking_id'];
         $current_booking = Yoyaku::where('booking_id',$booking_id)->update(['del_flg' => '1']);
+
         return true;
     }
     public function weekly(Request $request) {
