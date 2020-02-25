@@ -2,10 +2,11 @@
     <thead>
         <tr>
             <th scope="col" style="width: 15%">名前</th>
-            <th scope="col" style="width: 15%">パスワード</th>
+            <!-- <th scope="col" style="width: 15%">パスワード</th> -->
             <th scope="col" style="width: 15%">電話番号</th>
             <th scope="col" style="width: 20%">メールアドレス</th>
             <th scope="col" style="width: 18%">予約履歴</th>
+            <th scope="col" style="width: 10%">User Type</th>
             <th scope="col" style="width: 5%">削除</th>
             <th scope="col">編集</th>
         </tr>
@@ -21,11 +22,11 @@
                         <div class="required" style="display: none" id="username_<?php echo $items->ms_user_id ?>_user"></div>
                         <input type="text" style="display: none; width: 100%" name="username_<?php echo $items->ms_user_id ?>" id="users_<?php echo $items->ms_user_id ?>" value="{{ $items->username }}" inputmode="katakana">
                     </td>
-                    <td class="col-password">
+                    <!-- <td class="col-password">
                         <span id="password_<?php echo $items->ms_user_id ?>">{{ $items->password }}</span>
                         <div class="required" style="display: none" id="password_<?php echo $items->ms_user_id ?>_user"></div>
                         <input type="text" style="display: none; width: 100%" name="password_<?php echo $items->ms_user_id ?>" id="passwords_<?php echo $items->ms_user_id ?>" value="{{ $items->password }}">
-                    </td>
+                    </td> -->
                     <td>
                         <span id="tel_<?php echo $items->ms_user_id ?>">{{ $items->tel }}</span>
                         <div class="required" style="display: none" id="tel_<?php echo $items->ms_user_id ?>_user"></div>
@@ -36,6 +37,9 @@
                         <div class="required" style="display: none" id="email_<?php echo $items->ms_user_id ?>_user"></div>
                         <input type="text" style="display: none; width: 100%" name="email_<?php echo $items->ms_user_id ?>" id="emails_<?php echo $items->ms_user_id ?>" value="{{ $items->email }}">
                     <td><span>{{ $items->date_used }}</span></td>
+                    <td style="text-align: center">
+                        <span>{{ $items->user_type }}</span>
+                    </td>
                     <td style="text-align: center">
                         <input type="checkbox" disabled="disabled" name="users_<?php echo $items->ms_user_id ?>_delete" id="users_<?php echo $items->ms_user_id ?>_delete"
                         <?php echo ($items->deleteflg == '1') ? 'checked' : ''; ?> >

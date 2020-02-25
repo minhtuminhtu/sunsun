@@ -265,8 +265,8 @@
                     open = true;
                     document.getElementById("username_"+id).style.display = 'none';
                     document.getElementById("users_"+id).style.display = 'inline';
-                    document.getElementById("password_"+id).style.display = 'none';
-                    document.getElementById("passwords_"+id).style.display = 'inline';
+                    // document.getElementById("password_"+id).style.display = 'none';
+                    // document.getElementById("passwords_"+id).style.display = 'inline';
                     document.getElementById("tel_"+id).style.display = 'none';
                     document.getElementById("tels_"+id).style.display = 'inline';
                     document.getElementById("email_"+id).style.display = 'none';
@@ -285,8 +285,8 @@
                 id = id.replace("cancel_","");
                 document.getElementById("username_"+id).style.display = 'inline';
                 document.getElementById("users_"+id).style.display = 'none';
-                document.getElementById("password_"+id).style.display = 'inline';
-                document.getElementById("passwords_"+id).style.display = 'none';
+                // document.getElementById("password_"+id).style.display = 'inline';
+                // document.getElementById("passwords_"+id).style.display = 'none';
                 document.getElementById("tel_"+id).style.display = 'inline';
                 document.getElementById("tels_"+id).style.display = 'none';
                 document.getElementById("email_"+id).style.display = 'inline';
@@ -302,14 +302,14 @@
             if (!submit) {
                 id = id.replace("update_","");
                 var username = document.getElementById("users_"+id).value;
-                var password = document.getElementById("passwords_"+id).value;
+                // var password = document.getElementById("passwords_"+id).value;
                 var tel = document.getElementById("tels_"+id).value;
                 var email = document.getElementById("emails_"+id).value;
                 var checkdelete = document.getElementById("users_"+id+"_delete").checked;
                 if(username){
                     var cf = confirm('Are you sure you want to update?');
                     if(cf == true){
-                        var data = { user_id: id, username: username, password: password, tel: tel, email: email, checkdelete: checkdelete};
+                        var data = { user_id: id, username: username, /*password: password,*/ tel: tel, email: email, checkdelete: checkdelete};
                         $.ajax({
                             url: $site_url + '/admin/update_user',
                             type: 'POST',
