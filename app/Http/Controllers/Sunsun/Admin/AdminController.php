@@ -58,8 +58,8 @@ class AdminController extends Controller
         // $where_plus = " AND main.service_date_start = $date ";
         // if ($course == "01" || $course == "04" || $course == "04_1")
         //     $where_plus = " AND time.service_date = $date ";
-        if ($course == "02_1") $course == "02";
-        else if ($course == "04_1") $course == "04";
+        if ($course == "02_1") $course = "02";
+        else if ($course == "04_1") $course = "04";
         return "
                 WHERE   main.course = '$course'
                 AND main.history_id IS NULL
@@ -319,6 +319,8 @@ class AdminController extends Controller
                 $where_plus5
             )
             ");
+            Log::debug('$expert_data');
+            Log::debug($expert_data);
         return $expert_data;
     }
     private function get_search($date){

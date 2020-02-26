@@ -2254,6 +2254,7 @@ class BookingController extends Controller
         }
         //return $validate_time;
     }
+
     /**
      * @param $time_kubun_type
      * @param $room_kubun_type
@@ -2262,9 +2263,11 @@ class BookingController extends Controller
      * @param $time_bus
      * @param $validate_ss_time
      * @param $data_course array
-     * @param $range_time_validate
-     * @parram $course array
+     * @param array $range_time_validate
+     * @param array $course
+     * @param null $time_whitening
      * @return array
+     * @parram $course array
      */
     public function get_time_room_booking ($time_kubun_type, $room_kubun_type, $time_bath
         , $day_book_time, $time_bus, $validate_ss_time, $data_course = array(), $range_time_validate = [], $course = array(), $time_whitening = null) {

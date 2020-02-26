@@ -208,6 +208,8 @@
                                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @elseif(isset($pop_data['course']) && json_decode($pop_data['course'], true)['kubun_id'] ==  $value->kubun_id)
                                             <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                        @elseif(isset($data_booking->course) && ($data_booking->course != "04") && ($value->kubun_id == "04"))
+                                            <option disabled>{{ $value->kubun_value }}</option>
                                         @else
                                             <option value='@json($value)'>{{ $value->kubun_value }}</option>
                                         @endif
