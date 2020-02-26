@@ -66,7 +66,7 @@
         $transport = $data->transport;
     @endphp
 
-    @if(($change_check === true) || ($key == 0))
+    @if($key == 0)
         @if($transport == '01' )
             <div class="line">
                 <div class="line1">
