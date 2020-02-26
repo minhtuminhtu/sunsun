@@ -944,6 +944,7 @@ class BookingController extends Controller
         $parent_date = NULL;
         $result = [];
         $return_booking_id = null;
+        $return_date = null;
         $email = null;
         DB::unprepared("LOCK TABLE tr_yoyaku READ, tr_yoyaku_danjiki_jikan READ");
         try{
@@ -971,7 +972,7 @@ class BookingController extends Controller
                         $return_booking_id = $parent_id;
                         $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
-
+                        $return_date = $parent_date;
                         //Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
                         //Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
@@ -1000,7 +1001,7 @@ class BookingController extends Controller
                     }
                     $Yoyaku->save();
                 }
-                Log::debug('toi');
+                //Log::debug('toi');
                 if($from_admin === false) {
                     //Log::debug('is_update');
                     $result = $this->call_payment_api($data, $return_booking_id);
@@ -1010,7 +1011,7 @@ class BookingController extends Controller
                 }
                 DB::commit();
                 if(($send_mail === true) || ($from_admin === false)){
-                    $this->send_email($request, $data, $return_booking_id, $email, $from_admin);
+                    $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
                 }
             } catch (\Exception $e1) {
                 DB::rollBack();
@@ -1030,9 +1031,23 @@ class BookingController extends Controller
         // Log::debug($result);
         return  $result;
     }
-    private function send_email($request, $data, $booking_id, $email, $from_admin){
-        Log::debug('$from_admin');
-        Log::debug($from_admin);
+    private function send_email($request, $data, $booking_id, $return_date, $email, $from_admin){
+        $end = Carbon::createFromFormat('Ymd h:i:s', $return_date."09:00:00")->subDays(2);
+        // Log::debug('time end');
+        // Log::debug($end->toDateTimeString());
+
+        $start = Carbon::now();
+        // Log::debug('time start');
+        // Log::debug($start->toDateTimeString());
+        // Log::debug('time sub');
+
+        $delay_time = 0;
+        if($end->gt($start)){
+            $delay_time = $start->diffInMinutes($end);
+        }
+
+
+
         if($from_admin === false){
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
@@ -1040,7 +1055,7 @@ class BookingController extends Controller
             $booking_data->booking_html = $request->session()->get($this->session_html);
             $booking_data->payment_html = $request->session()->get($this->payment_html);
             ConfirmJob::dispatch($email, $booking_data);
-            ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes(10));
+            ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
             $request->session()->forget($this->session_html);
             $request->session()->forget($this->payment_html);
         }else{
@@ -1095,7 +1110,7 @@ class BookingController extends Controller
             $booking_data->booking_html = view('sunsun.front.confirm',$admin_data)->render();
             $booking_data->payment_text = $bill_text;
             ConfirmJob::dispatch($email, $booking_data);
-            ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes(10));
+            ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
         }
 
     }
