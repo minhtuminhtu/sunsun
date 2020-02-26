@@ -927,7 +927,7 @@ class BookingController extends Controller
                 'status' => 'error'
             ];
             if($result == 'booking_error')
-                $result_arr['message'] = '重複されているから、予約したデータはキャンセルされます。';
+                $result_arr['message'] = '申し訳ありません。別の日時で予約してください。';
             else if($result == 'payment_error')
                 $result_arr['message'] = '支払処理が失敗しました。予約したデータはキャンセルされます。';
             else if($result == 'booking_error_holiday')
