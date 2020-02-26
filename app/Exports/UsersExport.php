@@ -37,7 +37,7 @@ class UsersExport implements FromCollection,WithHeadings
                 'email' => $this->email,
                 'notshowdeleted' => $checkdelete
             );
-            
+
             $_list_data = $search->get_list_search_user($arr_data,1); // type = 1 use export csv
             if (!empty($_list_data)) {
                 $data = $_list_data;
@@ -48,17 +48,18 @@ class UsersExport implements FromCollection,WithHeadings
             }else{
                 $data = MsUser::whereNotIn('ms_user_id', [1])->get(); // when click search not input after click download csv
             }
-            
+
         }
         //dd();
         foreach ($data as $row) {
+            $user_type = ($row->user_type === "user")?"一般":"アドミン";
             $result_data[] = array(
                 '1' => $row->username,
                 // '2' => $row->password,
                 '2' => $row->tel,
                 '3' => $row->email,
                 '4' => $row->date_used,
-                '5' => $row->user_type,
+                '5' => $user_type,
                 '6' => $row->deleteflg
             );
         }
@@ -73,7 +74,7 @@ class UsersExport implements FromCollection,WithHeadings
             '電話番号',
             'メールアドレス',
             '予約履歴',
-            'User Type',
+            '種類',
             '削除'
         ];
     }
