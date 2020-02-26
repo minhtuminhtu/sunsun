@@ -127,7 +127,7 @@
                                 <a href="{{route('admin.day')}}">
                                     <button class="btn btn-block btn-main control-date" id="go-weekly">１日表示</button>
                                 </a>
-                                
+
                             </div>
                             <div class="control-align_center button-control" style="margin: 0 2vw">
                                 <a href="{{route('admin.weekly')}}">
@@ -271,7 +271,8 @@
                     document.getElementById("tels_"+id).style.display = 'inline';
                     document.getElementById("email_"+id).style.display = 'none';
                     document.getElementById("emails_"+id).style.display = 'inline';
-                    document.getElementById("users_"+id+"_delete").disabled = '';
+                    document.getElementById("users_"+id+"_delete").style.display = 'none';
+                    document.getElementById("users_"+id+"_delete_edit").style.display = 'inline';
                     document.getElementById("update_"+id).style.display = 'inline';
                     document.getElementById("cancel_"+id).style.display = 'inline';
                     document.getElementById(id).style.display = 'none';
@@ -291,7 +292,8 @@
                 document.getElementById("tels_"+id).style.display = 'none';
                 document.getElementById("email_"+id).style.display = 'inline';
                 document.getElementById("emails_"+id).style.display = 'none';
-                document.getElementById("users_"+id+"_delete").disabled = 'disabled';
+                document.getElementById("users_"+id+"_delete").style.display = 'inline';
+                document.getElementById("users_"+id+"_delete_edit").style.display = 'none';
                 document.getElementById("update_"+id).style.display = 'none';
                 document.getElementById("cancel_"+id).style.display = 'none';
                 document.getElementById(id).style.display = 'inline';
@@ -305,7 +307,7 @@
                 // var password = document.getElementById("passwords_"+id).value;
                 var tel = document.getElementById("tels_"+id).value;
                 var email = document.getElementById("emails_"+id).value;
-                var checkdelete = document.getElementById("users_"+id+"_delete").checked;
+                var checkdelete = document.getElementById("users_"+id+"_delete_edit").checked;
                 if(username){
                     var cf = confirm('Are you sure you want to update?');
                     if(cf == true){

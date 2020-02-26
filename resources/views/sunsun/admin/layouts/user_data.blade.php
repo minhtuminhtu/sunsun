@@ -6,7 +6,7 @@
             <th scope="col" style="width: 15%">電話番号</th>
             <th scope="col" style="width: 20%">メールアドレス</th>
             <th scope="col" style="width: 18%">予約履歴</th>
-            <th scope="col" style="width: 10%">User Type</th>
+            <th scope="col" style="width: 10%">種類</th>
             <th scope="col" style="width: 5%">削除</th>
             <th scope="col">編集</th>
         </tr>
@@ -38,10 +38,16 @@
                         <input type="text" style="display: none; width: 100%" name="email_<?php echo $items->ms_user_id ?>" id="emails_<?php echo $items->ms_user_id ?>" value="{{ $items->email }}">
                     <td><span>{{ $items->date_used }}</span></td>
                     <td style="text-align: center">
-                        <span>{{ $items->user_type }}</span>
+                        @if($items->user_type === "user")
+                            <span>一般</span>
+                        @else
+                            <span>アドミン</span>
+                        @endif
                     </td>
                     <td style="text-align: center">
-                        <input type="checkbox" disabled="disabled" name="users_<?php echo $items->ms_user_id ?>_delete" id="users_<?php echo $items->ms_user_id ?>_delete"
+                        <input type="checkbox" disabled="disabled" id="users_<?php echo $items->ms_user_id ?>_delete"
+                        <?php echo ($items->deleteflg == '1') ? 'checked' : ''; ?> >
+                        <input type="checkbox" style="display: none;" name="users_<?php echo $items->ms_user_id ?>_delete" id="users_<?php echo $items->ms_user_id ?>_delete_edit"
                         <?php echo ($items->deleteflg == '1') ? 'checked' : ''; ?> >
                     </td>
                     <td>
