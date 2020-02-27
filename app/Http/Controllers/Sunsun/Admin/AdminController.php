@@ -277,50 +277,54 @@ class AdminController extends Controller
             $form1 = $this->getForm_search();
             $form2 = $this->getForm_search("2");
             $expert_data = DB::select("
-            (
-                $sel_plus1
-                $form2
-                $where_plus1
-            )
-            UNION
-            (
-                $sel_plus2
-                $form1
-                $where_plus2
-            )
-            UNION
-            (
-                $sel_plus2_1
-                $form1
-                $where_plus2_1
-            )
-            UNION
-            (
-                $sel_plus3
-                $form1
-                $where_plus3
-            )
-            UNION
-            (
-                $sel_plus4
-                $form2
-                $where_plus4
-            )
-            UNION
-            (
-                $sel_plus4_1
-                $form2
-                $where_plus4_1
-            )
-            UNION
-            (
-                $sel_plus5
-                $form1
-                $where_plus5
-            )
+            SELECT *
+            FROM (
+                (
+                    $sel_plus1
+                    $form2
+                    $where_plus1
+                )
+                UNION
+                (
+                    $sel_plus2
+                    $form1
+                    $where_plus2
+                )
+                UNION
+                (
+                    $sel_plus2_1
+                    $form1
+                    $where_plus2_1
+                )
+                UNION
+                (
+                    $sel_plus3
+                    $form1
+                    $where_plus3
+                )
+                UNION
+                (
+                    $sel_plus4
+                    $form2
+                    $where_plus4
+                )
+                UNION
+                (
+                    $sel_plus4_1
+                    $form2
+                    $where_plus4_1
+                )
+                UNION
+                (
+                    $sel_plus5
+                    $form1
+                    $where_plus5
+                )
+            ) temp_table
+            ORDER BY service_date DESC , time ASC
             ");
-            Log::debug('$expert_data');
-            Log::debug($expert_data);
+//             Log::debug('$expert_data');
+//             Log::debug($expert_data);
         return $expert_data;
     }
     private function get_search($date){

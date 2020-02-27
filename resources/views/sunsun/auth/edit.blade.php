@@ -12,7 +12,7 @@
         }
     </style>
 @endsection
-@section('page_title', 'Edit')
+@section('page_title', 'プロフィール')
 @section('main')
     <main class="main-body">
         <div class="">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('tel') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('tel', 'Tel') !!}
+                        {!! Form::label('tel', '電話番号') !!}
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('email', 'Eメール') !!}
+                        {!! Form::label('email', 'メール') !!}
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
@@ -59,7 +59,7 @@
                         {!! Form::label('gender', '性別') !!}
                     </div>
                     <div class="form-input">
-                        {!! Form::select('gender', ['female' => 'Female', 'male' => 'Male'], $user->gender, ['class' => "form-control", 'required' => 'required']) !!}
+                        {!! Form::select('gender', ['female' => '女性', 'male' => '男性'], $user->gender, ['class' => "form-control", 'required' => 'required']) !!}
 
                     </div>
                 </div>
@@ -71,15 +71,15 @@
                         {!! Form::selectRange('birth_year', 1930, 2019, $user->birth_year,['class' => "form-control", 'required' => 'required'] ) !!}
                     </div>
                 </div>
-                <div class="form-group" style="margin-top: 15px">
+                <div class="form-group py-4">
                     <div class="form-label">
                     </div>
                     <div class="form-input">
                         {{Form::button('登録', ['type'=> 'submit','class'=>'btn btn-block btn-booking text-white confirm-rules'])}}
                     </div>
-                    <div class="col-3 d-flex align-items-center justify-content-center">
-                        <a href="/login" class="no-effect">ログイン</a>
-                    </div>
+{{--                    <div class="col-3 d-flex align-items-center justify-content-center">--}}
+{{--                        <a href="/login" class="no-effect">ログイン</a>--}}
+{{--                    </div>--}}
 
                 </div>
 

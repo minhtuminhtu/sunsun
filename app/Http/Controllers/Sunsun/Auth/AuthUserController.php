@@ -13,14 +13,14 @@ class AuthUserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'username' => 'required|string|max:255',
-            'tel' => 'required|string|max:11|min:10|regex:/[0-9]{10,11}/',
+            'tel' => 'required|numeric|regex:/[0-9]{10,11}/',
         ]);
     }
 
@@ -52,7 +52,7 @@ class AuthUserController extends Controller
         $user->tel = $data_request['tel'];
         $user->birth_year = $data_request['birth_year'];
         $user->save();
-        $data['success'] = 'Change successfully';
+        $data['success'] = '変更に成功しました。';
     }
 
 

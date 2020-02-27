@@ -2,6 +2,7 @@
 namespace App\Http\Helpers;
 use \Session;
 use App\Models\MsHoliday;
+use Illuminate\Support\Facades\Log;
 class Helper
 {
     public static function getDisableAll($date) {
@@ -23,10 +24,11 @@ class Helper
         if (empty($disable_all)) {
             if (!empty($list_time)) {
                 foreach ($list_time as $row) {
+                    Log::debug($time. " - - - ". $row["time_holiday"]);
                     if  (   ($type==$row["type_holiday"]) &&
                             ($time==$row["time_holiday"] || empty($row["time_holiday"]))
                         )
-                        return " bg-dis";
+                        return " bg-dis ";
                 }
             }
             return "";

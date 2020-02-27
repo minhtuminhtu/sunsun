@@ -29,44 +29,46 @@
 
                 <input name="token" type="hidden" value="{{ isset($token)?$token:'' }}">
 
-                @if(isset($forgot) === false || $forgot === false)
+                @if(isset($notify) === false)
+                    @if(isset($forgot) === false || $forgot === false)
+                        <div class="form-group">
+                            <div class="">
+                                <p class="text-md-left pt-2">Old Password</p>
+                            </div>
+                            <div class="form-input">
+                                <input name="password" type="password" id="password" class="form-control" required autofocus >
+                                {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+                    @endif
                     <div class="form-group">
                         <div class="">
-                            <p class="text-md-left pt-2">Old Password</p>
+                            <p class="text-md-left pt-2">@lang('auth.new_password')</p>
                         </div>
                         <div class="form-input">
-                            <input name="password" type="password" id="password" class="form-control" required autofocus >
-                            {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
+                            <input name="password" type="password" id="password" class="form-control" required>
+                        </div>
+                    </div>
+                    @if(isset($forgot) && $forgot === true)
+                        <div class="form-group">
+                            <div class="">
+                                <p class="text-md-left pt-2">@lang('auth.repeat_password')</p>
+                            </div>
+                            <div class="form-input">
+                                <input name="password_repeat" type="password" id="password_repeat" class="form-control" required>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="form-group">
+                        <div class="">
+                        </div>
+                        <div class="form-input">
+                            <a class="no-effect">
+                                <button type="submit" class="btn btn-block btn-booking text-white confirm-rules">@lang('auth.update')</button>
+                            </a>
                         </div>
                     </div>
                 @endif
-                <div class="form-group">
-                    <div class="">
-                        <p class="text-md-left pt-2">@lang('auth.new_password')</p>
-                    </div>
-                    <div class="form-input">
-                        <input name="password" type="password" id="password" class="form-control" required>
-                    </div>
-                </div>
-                @if(isset($forgot) && $forgot === true)
-                    <div class="form-group">
-                        <div class="">
-                            <p class="text-md-left pt-2">@lang('auth.repeat_password')</p>
-                        </div>
-                        <div class="form-input">
-                            <input name="password_repeat" type="password" id="password_repeat" class="form-control" required>
-                        </div>
-                    </div>
-                @endif
-                <div class="form-group">
-                    <div class="">
-                    </div>
-                    <div class="form-input">
-                        <a class="no-effect">
-                            <button type="submit" class="btn btn-block btn-booking text-white confirm-rules">@lang('auth.update')</button>
-                        </a>
-                    </div>
-                </div>
                 {!! Form::close() !!}
             </div>
         </div>

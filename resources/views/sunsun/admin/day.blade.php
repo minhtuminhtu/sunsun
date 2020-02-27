@@ -180,13 +180,13 @@
                             $date_time_check = $date_cur." $time_col";
                             if ($date_now >= date($format_date, strtotime($date_time_check))) {
                                 if ($col == "time") {
-                                    $disable_1 = " bg-dis";
-                                    $disable_2 = " bg-dis";
-                                    $disable_3 = " bg-dis";
-                                } else if ($col == "pet_time") {
-                                    $disable_2 = " bg-dis";
+                                    $disable_1 = " bg-dis ";
+                                    $disable_2 = " bg-dis ";
+                                    $disable_3 = " bg-dis ";
+                                } else if ($col == "pet_time_value") {
+                                    $disable_2 = " bg-dis ";
                                 } else if ($col == "wt_time_value") {
-                                    $disable_3 = " bg-dis";
+                                    $disable_3 = " bg-dis ";
                                 }
                             }
                         }
@@ -197,15 +197,20 @@
                         $disable_2 = "";
                         if (!empty($time["pet_time_value"])) {
                             $time_check = explode("-",$time["pet_time_value"])[0];
-                            $disable_2 = \Helper::setHoliday($time_holiday,$time_check,"2",$disable_all);
+                            $disable_2 = \Helper::setHoliday($time_holiday, $time_check, "2", $disable_all);
                         }
-                        $disable_1 = \Helper::setHoliday($time_holiday,$time['time_value'],"1",$disable_all);
+                        $disable_1 = \Helper::setHoliday($time_holiday, $time['time_value'],"1", $disable_all);
+                        $disable_3 = "";
+                        if(!empty($time['wt_time_value'])){
+                            $time_check_wt = explode("-", $time["wt_time_value"])[0];
+                            $disable_3 = \Helper::setHoliday($time_holiday, $time_check_wt, "3", $disable_all);
+                        }
 
-                        $disable_3 = \Helper::setHoliday($time_holiday,$time['time_value'],"3",$disable_all);
                         setDisTimeNow($disable_1,$disable_2,$disable_3,"time", $time["time"],$date, $date_now);
                         setDisTimeNow($disable_1,$disable_2,$disable_3,"pet_time_value", $time["pet_time_value"],$date, $date_now);
                         setDisTimeNow($disable_1,$disable_2,$disable_3,"wt_time_value", $time["wt_time_value"],$date, $date_now);
                     @endphp
+
 
                     <div class="main-content__table" id="row_{{ $time['time_value'] }}">
                         <div class="main-col__time d-flex justify-content-center align-items-center
@@ -540,7 +545,9 @@
                                 </div>
                             </div>
                             @else
-                            <div class="main-col__pet pet-col_second @php echo $dis_tmp; $dis_tmp = ''; @endphp"  id="r_pet_{{ $time['pet_time_value'] }}">
+                            <div class="main-col__pet pet-col_second
+                                @php echo $dis_tmp; $dis_tmp = ''; @endphp"
+                                id="r_pet_{{ $time['pet_time_value'] }}">
                                 <div class="pet-bottom_content">
                                     <div class="pet-bottom_content">
                                     @if(is_object($time['data']['pet']))
