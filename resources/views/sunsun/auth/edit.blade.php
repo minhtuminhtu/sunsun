@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('email', 'メール') !!}
+                        {!! Form::label('email', 'メールアドレス') !!}
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
