@@ -217,8 +217,8 @@ Route::middleware('begin.auth')->group(function(){
     });
 
     // Admin
-    // Route::group(['middleware' => 'CheckRole'], function () {
-        Route::prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
+    Route::group(['middleware' => 'CheckRole'], function () {
+        Route::middleware('admin.auth')->prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
             Route::get('/',['as' => '.index', 'uses' => 'AdminController@index']);
             Route::any('/day',['as' => '.day', 'uses' => 'AdminController@day']);
             Route::get('/weekly',['as' => '.weekly', 'uses' => 'AdminController@weekly']);
@@ -258,5 +258,5 @@ Route::middleware('begin.auth')->group(function(){
             Route::post('/submit_day_off',['as' => '.submit_day_off', 'uses' => 'DayOffController@Submit']);
             Route::post('/ajax_day_off',['as' => '.ajax_day_off', 'uses' => 'DayOffController@GetAjax']);
         });
-    // });
+    });
 });
