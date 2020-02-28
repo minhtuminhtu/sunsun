@@ -51,7 +51,7 @@
                     </div>
                     <div class="form-input">
                         {!! Form::text('email', $user->email, ['class' => 'form-control', 'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$', 'disabled' => 'disabled']) !!}
-                        {!! $errors->first('username', '<p class="help-block">:message</p>') !!}
+                        <!-- {!! $errors->first('username', '<p class="help-block">:message</p>') !!} -->
                     </div>
                 </div>
 
