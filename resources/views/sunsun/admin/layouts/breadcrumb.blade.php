@@ -4,7 +4,7 @@
     </span>
     <span class="">
         @if(Auth::check())
-            {{ isset(Auth::user()->username) ? Auth::user()->username:'' }}さま&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="breadc-link" href="{{ route('logout') }}">@lang('auth.logout')</a>
+            <a class="breadc-link" href="{{ route('.edit') }}">{{ isset(Auth::user()->username) ? Auth::user()->username:'' }}</a>さま&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="breadc-link" href="{{ route('logout') }}">@lang('auth.logout')</a>
         @else
             <a class="breadc-link" href="{{ route('login') }}">@lang('auth.login')</a>
         @endif

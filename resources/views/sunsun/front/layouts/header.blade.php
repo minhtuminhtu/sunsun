@@ -78,7 +78,7 @@
         </span>
         <span class="">
             @if(Auth::check())
-                {{ isset(Auth::user()->username) ? Auth::user()->username:'' }}さま<a class="breadc-link" style="margin-left: 1vw" href="{{ route('logout') }}">@lang('auth.logout')</a>
+                <a class="breadc-link" href="{{ route('.edit') }}">{{ isset(Auth::user()->username) ? Auth::user()->username:'' }}</a>さま<a class="breadc-link" style="margin-left: 1vw" href="{{ route('logout') }}">@lang('auth.logout')</a>
             @else
                 <a class="breadc-link" href="{{ route('login') }}">@lang('auth.login')</a>
             @endif
