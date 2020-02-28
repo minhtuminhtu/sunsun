@@ -12,7 +12,7 @@
         }
     </style>
 @endsection
-@section('page_title', 'プロフィール')
+@section('page_title', 'アカウント')
 @section('main')
     <main class="main-body">
         <div class="">
@@ -25,7 +25,8 @@
                 @endif
                 <div class="form-group {{ $errors->has('username') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('username', '名称') !!}
+                        <!-- {!! Form::label('username', '名前（カタカナ）') !!} -->
+                        <span>名前</span><span class="node-text">（カタカナ）</span>
                     </div>
                     <div class="form-input">
                         {!! Form::text('username', $user->username, ['class' => 'form-control', 'required' => 'required']) !!}
@@ -34,7 +35,8 @@
                 </div>
                 <div class="form-group {{ $errors->has('tel') ? 'has-error' : ''}}">
                     <div class="form-label">
-                        {!! Form::label('tel', '電話番号') !!}
+                        <!-- {!! Form::label('tel', '電話番号') !!} -->
+                        <span>電話番号</span><span class="node-text">（半角、ハイフン不要）</span>
                         <p class="text-md-left pt-2"></p>
                     </div>
                     <div class="form-input">
@@ -54,7 +56,7 @@
                 </div>
 
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <div class="form-label">
                         {!! Form::label('gender', '性別') !!}
                     </div>
@@ -70,7 +72,7 @@
                     <div class="form-input">
                         {!! Form::selectRange('birth_year', 1930, 2019, $user->birth_year,['class' => "form-control", 'required' => 'required'] ) !!}
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group py-4">
                     <div class="form-label">
                     </div>
@@ -99,4 +101,3 @@
     <script src="{{asset('sunsun/front/js/base.js').config('version_files.html.js')}}"></script>
     <script src="{{asset('sunsun/auth/js/validate-form.js').config('version_files.html.js')}}"></script>
 @endsection
-

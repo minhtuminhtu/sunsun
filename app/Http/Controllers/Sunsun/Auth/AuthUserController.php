@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Sunsun\Front\BookingController;
 
 class AuthUserController extends Controller
 {
@@ -29,10 +30,14 @@ class AuthUserController extends Controller
         if($request->isMethod('post')) {
             $data_request = $request->all();
             $validation = $this->validator($data_request);
-            if ($validation->fails()) {
+            $error = $validation->errors();
+            $bookCon = new BookingController();
+            $check_kata = $bookCon->check_is_katakana($data_request['username']);
+            if ($validation->fails() || !$check_kata) {
+                if (!$check_kata) $error->add('username', config('const.error.katakana'));
                 return redirect()
                     ->back()
-                    ->withErrors($validation->errors())
+                    ->withErrors($error)
                     ->withInput($request->all());
             }
             $this->update($data, $data_request);
@@ -48,9 +53,9 @@ class AuthUserController extends Controller
         $user_id = Auth::id();
         $user = MsUser::find($user_id);
         $user->username = $data_request['username'];
-        $user->gender = $data_request['gender'];
+        // $user->gender = $data_request['gender'];
         $user->tel = $data_request['tel'];
-        $user->birth_year = $data_request['birth_year'];
+        // $user->birth_year = $data_request['birth_year'];
         $user->save();
         $data['success'] = '変更に成功しました。';
     }

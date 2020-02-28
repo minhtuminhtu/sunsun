@@ -92,7 +92,7 @@ return [
     ],
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
+    'numeric' => ':attributeが数字でなければなりません。',
     'present' => 'The :attribute field must be present.',
     'regex' => ':attribute のフォマートが無効です。',
     'required' => ':attribute が必須です。',
