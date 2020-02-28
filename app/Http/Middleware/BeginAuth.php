@@ -37,6 +37,5 @@ class BeginAuth
         }
         return $next($request);
         // return Auth::onceBasic() ?: $next($request);
-
     }
 }
