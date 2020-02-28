@@ -19,19 +19,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::middleware('begin.auth')->get('/aaa', function () {
-    return "aaa";
-});
-Route::get('/php', function () {
-    phpinfo();
-});
-Route::get('/demo_logout', function () {
-    // $_SERVER['PHP_AUTH_USER'] = '';
-    // $_SERVER['PHP_AUTH_PW'] = '';
-    Auth::logout();
-});
-Route::get('/getdata', function () {
-    dd($_SERVER);
+// Route::get('/aaa', function () {
+//     $payment  = new Payment();
+//     $payment->booking_id = "1";
+//     $payment->access_id = "1";
+//     $payment->access_pass = "1";
+//     $payment->save();
+// });
+Route::get('/phantom', function () {
+
 });
 
 

@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reminder extends Model
+class Payment extends Model
 {
     protected $fillable;
 
     // Table Name
-    protected $table = 'tr_reminders';
+    protected $table = 'tr_payments';
 
     protected $primaryKey = 'id';
     // Timestamps
@@ -21,10 +21,9 @@ class Reminder extends Model
     public function __construct(array $attributes = [])
     {
         $this->fillable = [
-            config('const.db.tr_reminder.EMAIL_TARGET'),
-            config('const.db.tr_reminder.CONTENT'),
-            config('const.db.tr_reminder.TIME'),
-            config('const.db.tr_reminder.TURN')
+            config('const.db.tr_payments.BOOKING_ID'),
+            config('const.db.tr_payments.ACCESS_ID'),
+            config('const.db.tr_payments.ACCESS_PASS')
         ];
         parent::__construct($attributes);
     }

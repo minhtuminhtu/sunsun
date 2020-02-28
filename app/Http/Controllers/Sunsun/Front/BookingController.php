@@ -7,6 +7,7 @@ use App\Jobs\ReminderJob;
 use App\Models\MsKubun;
 use App\Models\Yoyaku;
 use App\Models\YoyakuDanjikiJikan;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,8 @@ class BookingController extends Controller
     private $session_info = 'SESSION_BOOKING_USER';
     private $session_html = 'SESSION_BOOKING_DATA';
     private $payment_html = 'SESSION_PAYMENT_DATA';
+    private $session_price = "SESSION_PRICE";
+    private $session_price_admin = "SESSION_PRICE_ADMIN";
     public function index(Request $request){
         $request->session()->forget($this->session_info);
         return view('sunsun.front.booking.index');
@@ -439,6 +442,10 @@ class BookingController extends Controller
             return redirect()->route('home');
         }
         $this->make_bill($data);
+        Log::debug('$data');
+        Log::debug($data);
+        $request->session()->put($this->session_price, $data['total']);
+        Log::debug($this->session_price);
 //        dd($data);
         $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
         return view('sunsun.front.payment',$data);
@@ -904,7 +911,7 @@ class BookingController extends Controller
                 Yoyaku::where('ref_booking_id', $data['booking_id'])->update(['ref_booking_id' => $booking_id]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 // Check thời gian xe bus và thời gian của các hành khách đi cùng có hợp lệ không.
-                $this->new_booking($data, $request, $send_mail, $from_admin, $booking_id, $ref_booking_id);
+                $this->new_booking($data, $request, $send_mail, $from_admin, $booking_id, $data['booking_id'], $ref_booking_id);
             } catch (\Exception $failed) {
                 // Nếu lưu yoyaku lỗi thì clear booking_id và history_id
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => null]);
@@ -913,7 +920,7 @@ class BookingController extends Controller
         //New
         }else{
             $result = $this->new_booking($data, $request, $send_mail, $from_admin);
-            Log::debug("bookingID");
+            Log::debug("new booking");
             Log::debug($result);
         }
         if(isset($result['bookingID'])){
@@ -938,7 +945,7 @@ class BookingController extends Controller
         }
         return  $result;
     }
-    private function new_booking($data, $request, $send_mail = false, $from_admin = false, $booking_id = 0, $ref_booking_id = null){
+    private function new_booking($data, $request, $send_mail = false, $from_admin = false, $booking_id = 0, $old_booking_id = null, $ref_booking_id = null){
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
@@ -1002,13 +1009,9 @@ class BookingController extends Controller
                     $Yoyaku->save();
                 }
                 //Log::debug('toi');
-                if($from_admin === false) {
-                    //Log::debug('is_update');
-                    $result = $this->call_payment_api($data, $return_booking_id);
+                $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
+                $request->session()->forget($this->session_price);
 
-                    Log::debug('payment');
-                    Log::debug($result);
-                }
                 DB::commit();
                 if(($send_mail === true) || ($from_admin === false)){
                     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
@@ -1102,7 +1105,7 @@ class BookingController extends Controller
 
             $this->convert_booking_2_value($admin_data['admin_customer'], $admin_data);
             $bill_text = null;
-            $this->yoyaku_2_bill($admin_customer, $bill_text);
+            $this->yoyaku_2_bill($request, $admin_customer, $bill_text);
 
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
@@ -1115,7 +1118,7 @@ class BookingController extends Controller
 
     }
 
-    private function yoyaku_2_bill($yoyaku, &$bill_text){
+    private function yoyaku_2_bill($request, $yoyaku, &$bill_text){
         $new_bill = [];
         $MsKubun = MsKubun::all();
         for($i = 1; $i <  21; $i++){
@@ -1193,6 +1196,7 @@ class BookingController extends Controller
         foreach ($new_bill as $bi){
             $total += $bi['price'];
         }
+        $request->session()->put($this->session_price_admin, $total);
         foreach($new_bill as $key => $n_bill){
             if($n_bill['quantity'] > 0){
                 $bill_text .= $n_bill['name'] . "：" . $n_bill['quantity'].$n_bill['unit'] . " " . number_format($n_bill['price']) ."円
@@ -1462,33 +1466,55 @@ class BookingController extends Controller
         $Yoyaku->course = 0;
         $Yoyaku->save();
     }
-    private function call_payment_api(&$data, $booking_id){
-        if($data['payment-method'] == 1){
-            // if(!isset($data['Token']) || !isset($data['Amount'])){
-            //     throw new \ErrorException('Token error!');
-            // }
-//            $amount = preg_replace('~\D~', '', $data['Amount']);
-            $amount = 1;
-            return $this->create_tran($booking_id, $amount, $data['Token']);
+    private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
+        $amount = 1;
+        // if ($request->session()->has($this->session_price)) {
+        //     $amount = $request->session()->get($this->session_price);
+        // }else{
+        //     throw new \ErrorException('Token error!');
+        // }
+
+        // Log::debug('$data');
+        // Log::debug($data);
+        if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
+            Log::debug('$old_booking_id');
+            Log::debug($old_booking_id);
+            if(isset($old_booking_id)){
+                $accessID = null;
+                $accessPass = null;
+                $old_payment = Payment::where('booking_id', $old_booking_id)->first();
+                if($old_payment){
+                    $accessID = $old_payment->access_id;
+                    $accessPass = $old_payment->access_pass;
+                    $this->change_tran($accessID, $accessPass, $amount, $booking_id);
+                }
+            }else{
+                if(!isset($data['Token'])){
+                    throw new \ErrorException('Token error!');
+                }
+                return $this->create_tran($booking_id, $amount, $data['Token']);
+            }
         }else{
             return [
                 'bookingID' => $booking_id
             ];
         }
     }
+
+    // Header payment
+    protected $headers = array(
+        'Connection' => 'keep-alive',
+        'Pragma' => 'no-cache',
+        'Cache-Control' => 'no-cache',
+        'Accept' => 'text/plain, */*; q=0.01',
+        'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
+        'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Sec-Fetch-Site' => 'cross-site',
+        'Sec-Fetch-Mode' => 'cors',
+        'Accept-Encoding' => 'gzip, deflate, br',
+        'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
+    );
     private function create_tran($booking_id, $amount, $token){
-        $headers = array(
-            'Connection' => 'keep-alive',
-            'Pragma' => 'no-cache',
-            'Cache-Control' => 'no-cache',
-            'Accept' => 'text/plain, */*; q=0.01',
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Sec-Fetch-Site' => 'cross-site',
-            'Sec-Fetch-Mode' => 'cors',
-            'Accept-Encoding' => 'gzip, deflate, br',
-            'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
-        );
         $data = array(
             'ShopID' =>  env("SHOP_ID"),
             'ShopPass' => env("SHOP_PASS"),
@@ -1498,7 +1524,7 @@ class BookingController extends Controller
         );
         //Log::debug('data');
         //Log::debug($data);
-        $response = \Requests::post('https://pt01.mul-pay.jp/payment/EntryTran.idPass', $headers, $data);
+        $response = \Requests::post('https://pt01.mul-pay.jp/payment/EntryTran.idPass', $this->headers, $data);
         parse_str($response->body, $params);
         if(!isset($params['AccessID']) || !isset($params['AccessPass'])){
             //Log::debug('Create tran body');
@@ -1508,18 +1534,6 @@ class BookingController extends Controller
         return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
     }
     private function exec_tran($accessID, $accessPass, $booking_id, $token){
-        $headers = array(
-            'Connection' => 'keep-alive',
-            'Pragma' => 'no-cache',
-            'Cache-Control' => 'no-cache',
-            'Accept' => 'text/plain, */*; q=0.01',
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Sec-Fetch-Site' => 'cross-site',
-            'Sec-Fetch-Mode' => 'cors',
-            'Accept-Encoding' => 'gzip, deflate, br',
-            'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
-        );
         $data = array(
             'AccessID' => $accessID,
             'AccessPass' => $accessPass,
@@ -1528,12 +1542,50 @@ class BookingController extends Controller
             'PayTimes' => '1',
             'Token' => $token
         );
-        $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $headers, $data);
+        $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $this->headers, $data);
         //Log::debug('Exec tran body');
         //Log::debug('Token: ' .  $token);
         //Log::debug($response->body);
         parse_str($response->body, $params);
         if(isset($params['ACS']) && ($params['ACS'] == 0)){
+            // Lưu lại access_id và access_pass dùng cho change price
+            $payment = new Payment();
+            $payment->booking_id =  $booking_id;
+            $payment->access_id = $accessID;
+            $payment->access_pass = $accessPass;
+            $payment->save();
+            return [
+                'tranID' => $params['TranID'],
+                'bookingID' => $booking_id
+            ];
+        }else{
+            throw new \ErrorException('payment_error');
+        }
+    }
+
+    private function change_tran($accessID, $accessPass, $amount, $booking_id){
+        $data = array(
+            'AccessID' => $accessID,
+            'AccessPass' => $accessPass,
+            'ShopID' => env("SHOP_ID"),
+            'ShopPass' => env("SHOP_PASS"),
+            'Amount' => $amount,
+            'JobCd' => 'CAPTURE'
+        );
+        $response = \Requests::post('https://pt01.mul-pay.jp/payment/ChangeTran.idPass', $this->headers, $data);
+        //Log::debug('Exec tran body');
+        //Log::debug('Token: ' .  $token);
+        //Log::debug($response->body);
+        parse_str($response->body, $params);
+        Log::debug('$params');
+        Log::debug($params);
+        if(isset($params['AccessID'])){
+            $payment = new Payment();
+            $payment->booking_id =  $booking_id;
+            $payment->access_id = $accessID;
+            $payment->access_pass = $accessPass;
+            $payment->save();
+
             return [
                 'tranID' => $params['TranID'],
                 'bookingID' => $booking_id

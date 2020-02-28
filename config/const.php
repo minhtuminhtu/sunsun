@@ -35,11 +35,10 @@ return [
             'TYPE_HOLIDAY' => 'type_holiday',
             'NOTE_HOLIDAY' => 'note_holiday'
         ],
-        'tr_reminder' => [
-            'EMAIL_TARGET' => 'email_target',
-            'CONTENT' => 'content',
-            'TIME' => 'time',
-            'TURN' => 'turn'
+        'tr_payments' => [
+            'BOOKING_ID' => 'email_target',
+            'ACCESS_ID' => 'access_id',
+            'ACCESS_PASS' => 'access_pass'
         ],
         'tr_yoyaku' => [
             'BOOKING_ID' => 'booking_id',
