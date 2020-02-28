@@ -215,7 +215,6 @@ Route::middleware('begin.auth')->group(function(){
         Route::get('/changepassword', ['as' => '.password',  'uses' => 'AuthUserController@changepassword']);
         Route::post('/changepassword', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
     });
-
     // Admin
     Route::group(['middleware' => 'CheckRole'], function () {
         Route::middleware('admin.auth')->prefix('admin')->name('admin')->namespace('Sunsun\Admin')->group(function (){
