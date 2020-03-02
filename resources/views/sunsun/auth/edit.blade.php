@@ -54,18 +54,14 @@
                         <!-- {!! $errors->first('username', '<p class="help-block">:message</p>') !!} -->
                     </div>
                 </div>
-
-
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <div class="form-label">
-                        {!! Form::label('gender', '性別') !!}
+                        <a href="{{ route('.change_password') }}" class="no-effect color-link">パスワードの変更</a>
                     </div>
                     <div class="form-input">
-                        {!! Form::select('gender', ['female' => '女性', 'male' => '男性'], $user->gender, ['class' => "form-control", 'required' => 'required']) !!}
-
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <div class="form-label">
                         {!! Form::label('birth_year', '年齢') !!}
                     </div>
@@ -79,10 +75,6 @@
                     <div class="form-input">
                         {{Form::button('登録', ['type'=> 'submit','class'=>'btn btn-block btn-booking text-white confirm-rules'])}}
                     </div>
-{{--                    <div class="col-3 d-flex align-items-center justify-content-center">--}}
-{{--                        <a href="/login" class="no-effect">ログイン</a>--}}
-{{--                    </div>--}}
-
                 </div>
 
                 {!! Form::close() !!}

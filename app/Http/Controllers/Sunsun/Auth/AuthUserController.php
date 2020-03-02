@@ -10,21 +10,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Sunsun\Front\BookingController;
 
-class AuthUserController extends Controller
-{
-    public function __construct()
-    {
+class AuthUserController extends Controller {
+    public function __construct() {
 //        $this->middleware('auth');
     }
 
-    protected function validator(array $data)
-    {
+    protected function validator(array $data) {
         return Validator::make($data, [
             'username' => 'required|string|max:255',
             'tel' => 'required|numeric|regex:/[0-9]{10,11}/',
         ]);
     }
-
     public function edit(Request $request) {
         $data = [];
         if($request->isMethod('post')) {
@@ -63,23 +59,19 @@ class AuthUserController extends Controller
 
     public function changepassword (Request $request) {
         if ($request->isMethod('get')) {
-            return view('sunsun.auth.changepassword');
+            return view('sunsun.auth.change_password');
         }
         $data = $request->all();
         $current_password = \Auth::User()->password;
         $ms_user_id = \Auth::User()->ms_user_id;
-
-
-        if(\Hash::check($request->input('password'), $current_password))
-        {
+        if(\Hash::check($request->input('old_password'), $current_password)) {
             $obj_user = MsUser::find($ms_user_id);
-            $obj_user->password = \Hash::make($data['password_new']);
+            $obj_user->password = \Hash::make($data['password']);
             $obj_user->save();
-            return redirect()->back()->with("success","Password changed successfully !");
-        }
-        else
-        {
-            $error['password'] = 'Wrong Password';
+            $data['success'] = 'パスワードを変更しました';
+            return view('sunsun.auth.change_password')->with($data);
+        } else {
+            $error['old_password'] = '間違ったパスワード';
             return redirect()->back()->withErrors($error);
         }
 

@@ -212,8 +212,8 @@ Route::middleware('begin.auth')->group(function(){
     Route::middleware('user.auth')->namespace('Sunsun\Auth')->group(function (){
         Route::get('/profile', ['as' => '.edit',  'uses' => 'AuthUserController@edit']);
         Route::post('/profile', ['as' => '.upload',  'uses' => 'AuthUserController@edit']);
-        Route::get('/changepassword', ['as' => '.password',  'uses' => 'AuthUserController@changepassword']);
-        Route::post('/changepassword', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
+        Route::get('/change_password', ['as' => '.change_password',  'uses' => 'AuthUserController@changepassword']);
+        Route::put('/change_password', ['as' => '.changepassword',  'uses' => 'AuthUserController@changepassword']);
     });
     // Admin
     Route::group(['middleware' => 'CheckRole'], function () {

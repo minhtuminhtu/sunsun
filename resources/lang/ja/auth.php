@@ -21,6 +21,7 @@ return [
     'change_password' => 'パスワードの変更',
     'repeat_not_match' => 'パスワードの再度入力が一致していません。',
     'new_password' => '新しいパスワード',
+    'old_password' => '以前のパスワード',
     'repeat_password' => 'パスワードを再度入力',
     'update' => '更新',
     'update_successfully' => 'パスワードを変更しました',

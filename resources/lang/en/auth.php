@@ -22,6 +22,7 @@ return [
     'change_password' => 'Change password',
     'repeat_not_match' => 'Repeat password not match!',
     'new_password' => 'New password',
+    'old_password' => 'Old password',
     'repeat_password' => 'Repeat password',
     'update' => 'Update',
     'update_successfully' => 'Update successfully!',
