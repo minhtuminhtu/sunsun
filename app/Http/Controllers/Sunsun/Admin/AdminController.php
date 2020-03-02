@@ -924,13 +924,7 @@ class AdminController extends Controller
         if(isset($data['send_email']) && $data['send_email'] == "on"){
             $send_mail = true;
         }
-        $data['customer'] = $data;
-        $data['customer']['info'] = ['0' => $data];
-        $this->add_fake_course($data['customer']['info'], $data);
         $booking = new BookingController();
-        // $booking->make_bill($data);
-        // $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
-        // $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
         $booking_id = isset($data['booking_id'])?$data['booking_id']:0;
         $validate_booking = $booking->validate_booking($data, $booking_id);
         $validate_payment = $booking->validate_payment_info($data, $booking_id);
@@ -943,6 +937,14 @@ class AdminController extends Controller
                     'payment' => $validate_payment
                 ]
             ];
+        }else{
+            $data['customer'] = $data;
+            $data['customer']['info'] = ['0' => $data];
+            $this->add_fake_course($data['customer']['info'], $data);
+
+            // $booking->make_bill($data);
+            // $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
+            // $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
         }
         $ref_booking_id = isset($data['ref_booking_id'])?$data['ref_booking_id']:null;
         $booking->update_or_new_booking($data, $request, true, $ref_booking_id, $send_mail);
