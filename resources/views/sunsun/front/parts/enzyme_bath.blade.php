@@ -1,4 +1,8 @@
 @php
+    $disable_booking_date = null;
+    if(isset($course_data['service_date_start'])){
+        $disable_booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
+    }
     if( (!isset($course_data['course'])) || ($course_data['course'] != '01') ){
         $course_data = NULL;
         $course_time = NULL;
@@ -112,10 +116,10 @@
                 <input name="date-view" id="date-view" type="hidden" value="{{ isset($date_view)?$date_view:'' }}">
                 <input name="date-value" id="date-value" type="hidden" value="{{ isset($date_value)?$date_value:'' }}">
                 <div class="booking-field-content">
-                    @if(isset($course_data['ref_booking_id']) === false)
+                    @if(isset($disable_booking_date) === false)
                         <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control date-book-input bg-white" readonly="readonly" value="{{ $booking_date }}" />
                     @else
-                        <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control" readonly="readonly" disabled value="{{ $booking_date }}" />
+                        <input id="date" data-format="yyyy/MM/dd" type="text" class="form-control" readonly="readonly" disabled value="{{ $disable_booking_date }}" />
                     @endif
                 </div>
             </div>
