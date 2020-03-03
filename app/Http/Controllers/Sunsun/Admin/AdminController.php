@@ -976,9 +976,9 @@ class AdminController extends Controller
         foreach ($list_booking as $key => $li_bo) {
             $admin_customer[] = $li_bo;
         }
-        $booking->yoyaku_2_bill($request, $admin_customer, $bill_text, $admin_price);
-        Log::debug('$admin_price');
-        Log::debug($admin_price);
+        // $booking->yoyaku_2_bill($request, $admin_customer, $bill_text, $admin_price);
+        // Log::debug('$admin_price');
+        // Log::debug($admin_price);
         return $admin_price;
     }
     public function delete_booking(Request $request) {
