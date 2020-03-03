@@ -1,4 +1,7 @@
-<div class="">
+@php
+    $check_ref = (isset($data_booking->ref_booking_id) === true)?"display: none;":"";
+@endphp
+<div class=""  style="{{ $check_ref }}">
     <div class="">
         <p class="pt-3 @if(isset($new) && (!$new)) booking-laber-padding @else font-weight-bold  @endif">{{config('booking.payment_method.label')}}</p>
     </div>
@@ -16,7 +19,7 @@
 {{--        <label class="custom-control-label" for="credit-card">クレジットカード</label>--}}
 {{--    </div>--}}
 {{--</div>--}}
-<div id="accordion" class="mb-2">
+<div id="accordion" class="mb-2"  style="{{ $check_ref }}">
     <div class="card payment">
         <div class="card-header" id="headingOne"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <h5 class="mb-0">

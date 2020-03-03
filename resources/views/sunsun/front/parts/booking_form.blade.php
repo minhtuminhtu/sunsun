@@ -35,7 +35,6 @@
                 </div> -->
 
                 <div class="booking-block-top">
-
                     @if(isset($new) && (!$new))
                         @include('sunsun.front.parts.payment_form', ['new' => '0', 'data_booking' => $data_booking])
                         @include('sunsun.front.parts.payment_method', ['new' => '0', 'data_booking' => $data_booking])
