@@ -910,6 +910,20 @@ class BookingController extends Controller
                 Yoyaku::where('booking_id', $data['booking_id'])->update(['history_id' => $booking_id]);
                 Yoyaku::where('ref_booking_id', $data['booking_id'])->update(['ref_booking_id' => $booking_id]);
                 Yoyaku::where('history_id', $data['booking_id'])->update(['history_id' => $booking_id]);
+
+                $name = isset($data['name'])?$data['name']:null;
+                $phone = isset($data['phone'])?$data['phone']:null;
+                $email = isset($data['email'])?$data['email']:null;
+                $payment_method = isset($data['payment-method'])?$data['payment-method']:null;
+                if(isset($data['ref_booking_id']) === false) {
+                    Yoyaku::where('ref_booking_id', $booking_id)
+                    ->update(['name' => $name, 'phone' => $phone, 'email' => $email, 'payment_method' => $payment_method]);
+                } else {
+                    Yoyaku::where('booking_id', $data['ref_booking_id'])
+                    ->update(['name' => $name, 'phone' => $phone, 'email' => $email, 'payment_method' => $payment_method]);
+                    Yoyaku::where('ref_booking_id', $data['ref_booking_id'])
+                    ->update(['name' => $name, 'phone' => $phone, 'email' => $email, 'payment_method' => $payment_method]);
+                }
                 // Check thời gian xe bus và thời gian của các hành khách đi cùng có hợp lệ không.
                 $this->new_booking($data, $request, $send_mail, $from_admin, $booking_id, $data['booking_id'], $ref_booking_id);
             } catch (\Exception $failed) {
@@ -1010,7 +1024,6 @@ class BookingController extends Controller
                 }
                 //Log::debug('toi');
                 $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
-                $request->session()->forget($this->session_price);
 
                 DB::commit();
                 if(($send_mail === true) || ($from_admin === false)){
@@ -1067,45 +1080,28 @@ class BookingController extends Controller
             // So sanh thoi gian book, phuong tien, thoi gian don xe bus, co don hay khong
             // Flag check co thay doi may thu ben tren hay khong?
             $change_check = false;
-            $booking_id_diff = [];
-            $transport_diff = [];
             $list_booking = null;
             $admin_customer = [];
             if(isset($yo->ref_booking_id)){
                 $yo_temp = Yoyaku::where('booking_id', $yo->ref_booking_id)->first();
-                $booking_id_diff[] = $yo_temp->service_date_start;
-                $transport_diff[] = $yo_temp->transport;
                 $admin_customer[] = $yo_temp;
                 $list_booking = Yoyaku::where('ref_booking_id', $yo_temp->booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
             }else{
-                $booking_id_diff[] = $yo->service_date_start;
-                $transport_diff[] = $yo->transport;
                 $admin_customer[] = $yo;
                 $list_booking = Yoyaku::where('ref_booking_id', $booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
             }
 
             foreach ($list_booking as $key => $li_bo) {
-                $booking_id_diff[] = $li_bo->service_date_start;
-                $transport_diff[] = $li_bo->transport;
                 $admin_customer[] = $li_bo;
-                if(isset($li_bo->bus_arrive_time_slide) === true || isset($li_bo->pick_up) === true){
-                    $change_check = true;
-                }
             }
-
-
-            if((max($booking_id_diff) !== min($booking_id_diff)) || (max($transport_diff) !== min($transport_diff))){
-                $change_check = true;
-            }
-
-
 
             $admin_data['admin_customer'] = $admin_customer;
             $admin_data['change_check'] = $change_check;
 
             $this->convert_booking_2_value($admin_data['admin_customer'], $admin_data);
             $bill_text = null;
-            $this->yoyaku_2_bill($request, $admin_customer, $bill_text);
+            $admin_price = null;
+            $this->yoyaku_2_bill($request, $admin_customer, $bill_text, $admin_price);
 
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
@@ -1118,7 +1114,7 @@ class BookingController extends Controller
 
     }
 
-    private function yoyaku_2_bill($request, $yoyaku, &$bill_text){
+    public function yoyaku_2_bill($request, $yoyaku, &$bill_text, &$admin_price){
         $new_bill = [];
         $MsKubun = MsKubun::all();
         for($i = 1; $i <  21; $i++){
@@ -1195,6 +1191,9 @@ class BookingController extends Controller
         $total = 0;
         foreach ($new_bill as $bi){
             $total += $bi['price'];
+        }
+        if($admin_price  !== null){
+            $admin_price = $total;
         }
         $request->session()->put($this->session_price_admin, $total);
         foreach($new_bill as $key => $n_bill){
@@ -1467,15 +1466,19 @@ class BookingController extends Controller
         $Yoyaku->save();
     }
     private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
-        $amount = 1;
-        // if ($request->session()->has($this->session_price)) {
-        //     $amount = $request->session()->get($this->session_price);
-        // }else{
-        //     throw new \ErrorException('Token error!');
-        // }
+        // $amount = 1;
+        if ($request->session()->has($this->session_price)) {
+            $amount = $request->session()->get($this->session_price);
+        } else if ($request->session()->has($this->session_price_admin)) {
+            $amount = $request->session()->get($this->session_price_admin);
+        } else {
+            throw new \ErrorException('Token error!');
+        }
+        $request->session()->forget($this->session_price);
+        $request->session()->forget($this->session_price_admin);
 
-        // Log::debug('$data');
-        // Log::debug($data);
+        Log::debug('$data');
+        Log::debug($amount);
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             Log::debug('$old_booking_id');
             Log::debug($old_booking_id);
@@ -1484,6 +1487,7 @@ class BookingController extends Controller
                 $accessPass = null;
                 $old_payment = Payment::where('booking_id', $old_booking_id)->first();
                 if($old_payment){
+                    Log::debug('change');
                     $accessID = $old_payment->access_id;
                     $accessPass = $old_payment->access_pass;
                     $this->change_tran($accessID, $accessPass, $amount, $booking_id);

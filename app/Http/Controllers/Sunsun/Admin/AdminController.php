@@ -19,6 +19,8 @@ class AdminController extends Controller
     private $session_info = 'SESSION_BOOKING_USER';
     private $session_html = 'SESSION_BOOKING_DATA';
     private $payment_html = 'SESSION_PAYMENT_DATA';
+    private $session_price = "SESSION_PRICE";
+    private $session_price_admin = "SESSION_PRICE_ADMIN";
     public function index() {
         return view('sunsun.admin.index');
     }
@@ -946,6 +948,8 @@ class AdminController extends Controller
             // $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
             // $request->session()->put($this->session_html, view('sunsun.front.confirm',$data)->render());
         }
+        $admin_price = $this->admin_get_price($request, $booking_id);
+        $request->session()->put($this->session_price_admin, $admin_price);
         $ref_booking_id = isset($data['ref_booking_id'])?$data['ref_booking_id']:null;
         $booking->update_or_new_booking($data, $request, true, $ref_booking_id, $send_mail);
         return [
@@ -953,6 +957,29 @@ class AdminController extends Controller
             'type' => 'update',
             'message' => null
         ];
+    }
+    private function admin_get_price($request, $booking_id){
+        $booking = new BookingController();
+        $admin_price = 0;
+        $bill_text = null;
+        $yo = Yoyaku::where('booking_id', $booking_id)->first();
+        $list_booking = null;
+        $admin_customer = [];
+        if(isset($yo->ref_booking_id)){
+            $yo_temp = Yoyaku::where('booking_id', $yo->ref_booking_id)->first();
+            $admin_customer[] = $yo_temp;
+            $list_booking = Yoyaku::where('ref_booking_id', $yo_temp->booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
+        }else{
+            $admin_customer[] = $yo;
+            $list_booking = Yoyaku::where('ref_booking_id', $booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
+        }
+        foreach ($list_booking as $key => $li_bo) {
+            $admin_customer[] = $li_bo;
+        }
+        $booking->yoyaku_2_bill($request, $admin_customer, $bill_text, $admin_price);
+        Log::debug('$admin_price');
+        Log::debug($admin_price);
+        return $admin_price;
     }
     public function delete_booking(Request $request) {
         $data = $request->all();
