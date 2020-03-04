@@ -1466,16 +1466,16 @@ class BookingController extends Controller
         $Yoyaku->save();
     }
     private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
-        // $amount = 1;
-        if ($request->session()->has($this->session_price)) {
-            $amount = $request->session()->get($this->session_price);
-        } else if ($request->session()->has($this->session_price_admin)) {
-            $amount = $request->session()->get($this->session_price_admin);
-        } else {
-            throw new \ErrorException('Token error!');
-        }
-        $request->session()->forget($this->session_price);
-        $request->session()->forget($this->session_price_admin);
+        $amount = 1;
+        // if ($request->session()->has($this->session_price)) {
+        //     $amount = $request->session()->get($this->session_price);
+        // } else if ($request->session()->has($this->session_price_admin)) {
+        //     $amount = $request->session()->get($this->session_price_admin);
+        // } else {
+        //     throw new \ErrorException('Token error!');
+        // // }
+        // $request->session()->forget($this->session_price);
+        // $request->session()->forget($this->session_price_admin);
 
         Log::debug('$data');
         Log::debug($amount);
@@ -1553,10 +1553,13 @@ class BookingController extends Controller
         parse_str($response->body, $params);
         if(isset($params['ACS']) && ($params['ACS'] == 0)){
             // Lưu lại access_id và access_pass dùng cho change price
+            Log::debug('$params');
+            Log::debug($params);
             $payment = new Payment();
             $payment->booking_id =  $booking_id;
             $payment->access_id = $accessID;
             $payment->access_pass = $accessPass;
+            $payment->payment_id = $params['TranID'];
             $payment->save();
             return [
                 'tranID' => $params['TranID'],
@@ -1588,6 +1591,7 @@ class BookingController extends Controller
             $payment->booking_id =  $booking_id;
             $payment->access_id = $accessID;
             $payment->access_pass = $accessPass;
+            $payment->payment_id = $params['TranID'];
             $payment->save();
 
             return [

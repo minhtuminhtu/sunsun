@@ -26,9 +26,9 @@ use Illuminate\Support\Facades\Auth;
 //     $payment->access_pass = "1";
 //     $payment->save();
 // });
-Route::get('/phantom', function () {
-
-});
+// Route::get('/phantom', function () {
+//
+// });
 
 
 // Route::get('/demo_lock', function () {

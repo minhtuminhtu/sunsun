@@ -658,3 +658,6 @@ li.list-group-item.list-head {
     margin-top: 0.5vw;
     margin-bottom: -1vw;
 }
+button.swal2-close:focus {
+    outline: none;
+}

@@ -2,6 +2,7 @@
     @if(is_object($time['data']['wt']))
         @if(isset($time['data'][$row]->booking_id))
             <input type="hidden" class="booking-id" value="{{ $time['data'][$row]->booking_id }}">
+            <input type="hidden" class="payment_id" value="{{ isset($payments[$time['data'][$row]->booking_id])?$payments[$time['data'][$row]->booking_id]:"" }}">
         @endif
         <span>[{{ $time['data'][$row]->course }}]</span>
         <span>{{ $time['data'][$row]->gender }}</span>
@@ -24,6 +25,8 @@
             @if(isset($time['data'][$row]->booking_id))
                 <input type="hidden" class="booking-id" value="{{ $time['data'][$row]->booking_id }}">
                 <input type="hidden" class="time" value="{{ $time['data'][$row]->time }}">
+                <input type="hidden" class="payment_id" value="{{ isset($payments[$time['data'][$row]->booking_id])?$payments[$time['data'][$row]->booking_id]:"" }}">
+
             @endif
             <span>[{{ $time['data'][$row]->course }}{{  config('const.laber.bed')[$time['data'][$row]->turn] }}]</span>
             <span>{{ $time['data'][$row]->gender }}</span>

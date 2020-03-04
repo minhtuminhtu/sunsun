@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\MsKubun;
 use App\Models\MsHoliday;
+use App\Models\Payment;
 use App\Http\Controllers\Sunsun\Front\BookingController;
 use Illuminate\Support\Facades\Log;
 use App\Exports\UsersExport;
@@ -53,7 +54,13 @@ class AdminController extends Controller
         $this->set_pick_up($data, $date);
         $data['bookingSeclect'] = $request->has('bookingSeclect')?$request->post('bookingSeclect'):null;
         $data['timeSeclect'] = $request->has('timeSeclect')?$request->post('timeSeclect'):null;
-        // dd($data);
+
+        $payments = [];
+        $li_pays = Payment::all();
+        foreach ($li_pays as $li) {
+            $payments[$li->booking_id] = $li->payment_id;
+        }
+        $data['payments'] = $payments;
         return view('sunsun.admin.day',$data);
     }
     private function getWhere_search($course,$name,$date) {

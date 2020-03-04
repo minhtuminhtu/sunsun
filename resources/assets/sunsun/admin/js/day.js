@@ -499,5 +499,62 @@ $(function () {
         });
     }
 
+    $(document).bind('contextmenu', function(e) {
+        e.preventDefault();
+    });
 
+    $('.main-col__data').not(".bg-free").not(".bg-dis").contextmenu(function() {
+        var payment_id = $(this).find(".payment_id").val();
+        if(payment_id !== ""){
+            Swal.fire({
+                html: "Payment ID: " + payment_id,
+                // icon: 'info',
+                showCloseButton: true,
+                showConfirmButton: false,
+                showClass: {
+                    popup: 'animated zoomIn faster'
+                },
+                hideClass: {
+                    popup: 'animated zoomOut faster'
+                },
+                allowOutsideClick: false
+            })
+        }
+    });
+    $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").contextmenu(function() {
+        var payment_id = $(this).find(".payment_id").val();
+        if(payment_id !== ""){
+            Swal.fire({
+                html: "Payment ID: " + payment_id,
+                // icon: 'info',
+                showCloseButton: true,
+                showConfirmButton: false,
+                showClass: {
+                    popup: 'animated zoomIn faster'
+                },
+                hideClass: {
+                    popup: 'animated zoomOut faster'
+                },
+                allowOutsideClick: false
+            })
+        }
+    });
+    $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").contextmenu(function() {
+        var payment_id = $(this).find(".payment_id").val();
+        if(payment_id !== ""){
+            Swal.fire({
+                html: "Payment ID: " + payment_id,
+                // icon: 'info',
+                showCloseButton: true,
+                showConfirmButton: false,
+                showClass: {
+                    popup: 'animated zoomIn faster'
+                },
+                hideClass: {
+                    popup: 'animated zoomOut faster'
+                },
+                allowOutsideClick: false
+            })
+        }
+    });
 });

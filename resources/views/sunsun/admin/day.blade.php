@@ -523,6 +523,7 @@
                                                 @if(isset($time['data']['pet']->booking_id))
                                                     <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
                                                     <input type="hidden" class="time" value="{{  $time['data']['pet']->time }}">
+                                                    <input type="hidden" class="payment_id" value="{{ isset($payments[$time['data']['pet']->booking_id])?$payments[$time['data']['pet']->booking_id]:"" }}">
                                                 @endif
                                                 @if(isset($time['data']['pet']->ref_booking_id))
                                                     <span>{{ $time['data']['pet']->name }}同行者様</span>
@@ -554,6 +555,7 @@
                                         @if(isset($time['data']['pet']->booking_id))
                                             <input type="hidden" class="booking-id" value="{{ $time['data']['pet']->booking_id }}">
                                             <input type="hidden" class="time" value="{{  $time['data']['pet']->time }}">
+                                            <input type="hidden" class="payment_id" value="{{ isset($payments[$time['data']['pet']->booking_id])?$payments[$time['data']['pet']->booking_id]:"" }}">
                                         @endif
                                         <span>{{ $time['data']['pet']->service_pet_num }}匹 {{ $time['data']['pet']->notes }}</span>
                                         @if(!isset($time['data']['pet']->ref_booking_id))
