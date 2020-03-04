@@ -1003,11 +1003,11 @@ class BookingController extends Controller
                         //Log::debug('di kem');
                         //Log::debug($parent_date);
                         if(isset($customer['fake_booking'])){
-                            $return_booking_id = $booking_id;
+                            // $return_booking_id = $booking_id;
                             $Yoyaku->booking_id = $booking_id;
                         }else{
                             $booking_id = $this->get_booking_id();
-                            $return_booking_id = $booking_id;
+                            // $return_booking_id = $booking_id;
                             $Yoyaku->booking_id = $booking_id;
                         }
                         $Yoyaku->ref_booking_id = $parent_id;
