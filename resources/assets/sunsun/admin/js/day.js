@@ -505,7 +505,7 @@ $(function () {
 
     $('.main-col__data').not(".bg-free").not(".bg-dis").contextmenu(function() {
         var payment_id = $(this).find(".payment_id").val();
-        if(payment_id !== ""){
+        if((payment_id !== "") && (payment_id !== undefined)){
             Swal.fire({
                 html: "Payment ID: " + payment_id,
                 // icon: 'info',
@@ -523,7 +523,7 @@ $(function () {
     });
     $('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").contextmenu(function() {
         var payment_id = $(this).find(".payment_id").val();
-        if(payment_id !== ""){
+        if((payment_id !== "") && (payment_id !== undefined)){
             Swal.fire({
                 html: "Payment ID: " + payment_id,
                 // icon: 'info',
@@ -541,7 +541,7 @@ $(function () {
     });
     $('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").contextmenu(function() {
         var payment_id = $(this).find(".payment_id").val();
-        if(payment_id !== ""){
+        if((payment_id !== "") && (payment_id !== undefined)){
             Swal.fire({
                 html: "Payment ID: " + payment_id,
                 // icon: 'info',
