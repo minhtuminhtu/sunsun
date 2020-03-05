@@ -156,6 +156,9 @@ Route::get('/cache', function () {
 });
 
 
+Route::get('/law', function () {
+    return view('sunsun.front.law');
+})->name('law');
 Route::middleware('begin.auth')->group(function(){
     Route::namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){

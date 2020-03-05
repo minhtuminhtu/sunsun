@@ -47,8 +47,11 @@
                         </div>
                     </div>
                     <div class="foot-confirm">
-                        <div class="confirm-button-payment">
+                        <div class="confirm-button-payment mb-3">
                             <button type="submit" id="confirm-rules" class="btn btn-block btn-booking text-white disabled">予約入力へ</button>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-4">
+                            <a class="center-link" href="{{ route('law') }}">特定商取引法に基づく表記</a>
                         </div>
                     </div>
             </div>
