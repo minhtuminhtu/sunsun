@@ -331,7 +331,7 @@
             display: flex;
             margin: 7.5vw 0!important;
             .button-left-mix {
-                width: 50%;
+                width: 45%;
                 margin-right: 1.5vw;
             }
             .button-left{
@@ -647,6 +647,11 @@
         width: 85%;
     }
 
+}
+@media only screen and (max-width: 400px){
+    .select_mini_padding{
+        padding: 0.175rem .375rem;
+    }
 }
 @media only screen and (min-width: 768px){
     .mean-bar{

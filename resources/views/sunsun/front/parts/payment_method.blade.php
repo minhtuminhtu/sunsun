@@ -54,7 +54,7 @@
                     <div class="booking-field-content">
                         <div class="row100">
                             <div class="row50" style="width:30%">
-                                <select class="form-control" id="expire-month">
+                                <select class="form-control select_mini_padding" id="expire-month">
                                     <option value="01">01</option>
                                     <option value="02">02</option>
                                     <option value="03">03</option>
@@ -73,7 +73,7 @@
                                 <div>月／</div>
                             </div>
                             <div class="row50" style="width:38%">
-                                <select class="form-control" id="expire-year">
+                                <select class="form-control select_mini_padding" id="expire-year">
                                     <option value="01">2020</option>
                                     <option value="01">2021</option>
                                     <option value="01">2022</option>

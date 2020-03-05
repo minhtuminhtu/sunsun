@@ -352,7 +352,7 @@ label.form-check-label {
         display: flex;
         margin: 2.25vw 0;
         .button-left-mix {
-            width: 50%;
+            width: 45%;
             margin-right: 0.5vw;
         }
         .button-left {
@@ -845,4 +845,7 @@ span.checkmark.index {
 }
 .btn-delete {
     background: #a6a6a6;
+}
+button.swal2-close:focus {
+    outline: none;
 }
