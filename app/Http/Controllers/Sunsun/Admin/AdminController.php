@@ -387,16 +387,32 @@ class AdminController extends Controller
     }
     private function set_lunch(&$data, $date){
         $data['lunch'] = DB::select("
-        SELECT  main.name,
-                main.lunch,
-                main.ref_booking_id,
-                main.lunch_guest_num
-        FROM    tr_yoyaku as main
-        WHERE   (main.lunch <> '01' OR main.lunch_guest_num <> '01')
-        AND main.service_date_start = $date
-        AND main.history_id IS NULL
-        AND main.fake_booking_flg IS NULL
-        AND main.del_flg IS NULL
+        (
+            SELECT  main.name,
+                    main.lunch,
+                    main.ref_booking_id,
+                    main.lunch_guest_num
+            FROM    tr_yoyaku as main
+            WHERE   (main.lunch <> '01' OR main.lunch_guest_num <> '01')
+            AND main.service_date_start = $date
+            AND main.history_id IS NULL
+            AND main.fake_booking_flg IS NULL
+            AND main.del_flg IS NULL
+        )
+        UNION
+        (
+            SELECT  main.name,
+                    '02' AS lunch,
+                    main.ref_booking_id,
+                    main.lunch_guest_num
+            FROM    tr_yoyaku as main
+            WHERE   main.course = '02'
+            AND main.service_date_start = $date
+            AND main.history_id IS NULL
+            AND main.fake_booking_flg IS NULL
+            AND main.del_flg IS NULL
+        )
+
         ");
         for($i = 0; $i < count($data['lunch']); $i++){
             if($data['lunch'][$i]->lunch_guest_num != NULL){
