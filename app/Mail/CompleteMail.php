@@ -29,7 +29,7 @@ class CompleteMail extends Mailable {
         $user_data = $this->user_data;
         $app_url = config('app.url');
         return $this->text('sunsun.mails.user.complete')
-            ->subject('【ぬか天国Sun燦】ユーザー登録完了のお知らせ')
+            ->subject('【ぬか酸素Sun燦】ユーザー登録完了のお知らせ')
             ->with(
                 [
                     'user_data' => $user_data,

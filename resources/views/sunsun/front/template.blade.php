@@ -1,6 +1,6 @@
 @extends("sunsun.template")
 
-@section('title', 'ぬか天国 Sun燦')
+@section('title', 'ぬか酸素 Sun燦')
 
 @section("head")
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

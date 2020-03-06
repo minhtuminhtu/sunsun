@@ -31,7 +31,7 @@ class ForgotMail extends Mailable {
     public function build() {
         $app_url = config('app.url');
         return $this->text('sunsun.mails.user.forgot')
-            ->subject('【ぬか天国Sun燦】パスワード変更受付')
+            ->subject('【ぬか酸素Sun燦】パスワード変更受付')
             ->with(
                 [
                     'token' => $this->token,

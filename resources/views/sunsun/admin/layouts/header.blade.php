@@ -4,7 +4,7 @@
             <div class="col-2 mt-4">
                 <h1>
                     <a href="http://sun-sun33.com/">
-                        <img src="/sunsun/imgs/logo.png" class="img-fluid" alt="ぬか天国 Sun燦 淡路島の酵素風呂">
+                        <img src="/sunsun/imgs/logo.png" class="img-fluid" alt="ぬか酸素 Sun燦 淡路島の酵素風呂">
                     </a>
                 </h1>
             </div>

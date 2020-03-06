@@ -27,7 +27,7 @@ class ReminderMail extends Mailable {
     public function build() {
         $booking_data = $this->booking_data;
         return $this->text('sunsun.mails.booking.reminder')
-            ->subject('【ぬか天国Sun燦】ご予約日のお知らせ')
+            ->subject('【ぬか酸素Sun燦】ご予約日のお知らせ')
             ->with(
                 [
                     'booking_data' => $booking_data

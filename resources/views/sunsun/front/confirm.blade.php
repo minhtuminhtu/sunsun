@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </form>
-            <form id="back_2_booking" action="{{route('.back_2_booking')}}" method="POST">
+            <form id="back_2_booking" action="{{route('.back_2_booking')}}" method="POST" style="display : none;">
                 @csrf
                 <input type="submit" value=""/>
             </form>
