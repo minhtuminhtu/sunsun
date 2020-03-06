@@ -92,7 +92,7 @@ $(function() {
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -271,9 +271,9 @@ $(function() {
                         }
                         // console.log(html.date_selected);
                         // console.log(html.date_start);
-                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
+                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.indexOf(item) >= 0);
                         // console.log(disabled_day_arr)
-                        if(window.location.href.includes("admin")){
+                        if(window.location.href.indexOf("admin") >= 0){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
                                 language: 'ja',
@@ -336,7 +336,7 @@ $(function() {
                     },
                     error: function(jqXHR){
                         if(jqXHR.status === 419){
-                            if (window.location.href.includes("admin")) {
+                            if(window.location.href.indexOf("admin") >= 0){
                                 Swal.fire({
                                     target: '#edit_booking',
                                     text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -429,7 +429,7 @@ $(function() {
             }
             return _off_set;
         }
-        if(window.location.href.includes("admin")){
+        if(window.location.href.indexOf("admin") >= 0){
             // console.log('admin');
             $('#date').datepicker({
                 container: '.mail-booking',
@@ -532,9 +532,9 @@ $(function() {
                         }
                         // console.log(html.date_selected);
                         // console.log(html.date_start);
-                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.includes(item));
+                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.indexOf(item) >= 0);
                         // console.log(disabled_day_arr)
-                        if(window.location.href.includes("admin")){
+                        if(window.location.href.indexOf("admin") >= 0){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
                                 language: 'ja',
@@ -596,7 +596,7 @@ $(function() {
                     },
                     error: function(jqXHR){
                         if(jqXHR.status === 419){
-                            if (window.location.href.includes("admin")) {
+                            if(window.location.href.indexOf("admin") >= 0){
                                 Swal.fire({
                                     target: '#edit_booking',
                                     text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -660,7 +660,7 @@ $(function() {
             }
             return end_date;
         }
-        if(window.location.href.includes("admin")){
+        if(window.location.href.indexOf("admin") >= 0){
             $('#plan_date_start').datepicker({
                 container: '.mail-booking',
                 language: 'ja',
@@ -686,7 +686,7 @@ $(function() {
                 orientation: 'bottom',
             });
         }
-        if(window.location.href.includes("admin")){
+        if(window.location.href.indexOf("admin") >= 0){
             $('#plan_date_end').datepicker({
                 container: '.mail-booking',
                 language: 'ja',
@@ -721,7 +721,7 @@ $(function() {
             if($.inArray(moment(new Date($('#plan_date_start').val())).format('YYYY-MM-DD'), range_date_temp) == -1){
                 $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
             }
-            if(window.location.href.includes("admin")){
+            if(window.location.href.indexOf("admin") >= 0){
                 $('#plan_date_end').datepicker({
                     container: '.mail-booking',
                     language: 'ja',
@@ -843,14 +843,14 @@ $(function() {
         $('.modal .modal-dialog').attr('class', 'modal-dialog modal-dialog-centered zoomIn  animated faster');
     })
     modal_choice_time.on('hide.bs.modal', function (e) {
-        if(window.location.href.includes("admin")){
+        if(window.location.href.indexOf("admin") >= 0){
             // console.log("admin");
         }else{
             // setTimeout(function(){ alert("Hello"); }, 5000);
         }
     })
     let modal_time_hidden = function(){
-        if(window.location.href.includes("admin")){
+        if(window.location.href.indexOf("admin") >= 0){
             $('.modal .modal-dialog').first().attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
         }else{
             $('.modal .modal-dialog').attr('class', 'modal-dialog  modal-dialog-centered  zoomOut  animated faster');
@@ -880,7 +880,7 @@ $(function() {
     modal_choice_time.on('hidden.bs.modal', function () {
         modal_choice_time.find('.modal-body-time').empty();
         $('.set-time').removeClass('edit');
-        if(window.location.href.includes("admin")){
+        if(window.location.href.indexOf("admin") >= 0){
             $('#edit_booking').css("z-index", "");
             $('body').addClass('modal-open');
         }
@@ -935,7 +935,7 @@ $(function() {
             return n.length >= width ? n :
                 new Array(width - n.length + 1).join('0') + n;
         }
-        if(time.includes("～")){
+        if(time.indexOf("～") >= 0){
             var res = time.split("～");
             $('.set-time.edit input.time').parent().find('#time_room_time1').val(pad(res[0].replace(/[^0-9]/g,''), 4));
             $('.set-time.edit input.time').parent().find('#time_room_time2').val(pad(res[1].replace(/[^0-9]/g,''), 4));
@@ -968,7 +968,7 @@ $(function() {
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1047,7 +1047,7 @@ $(function() {
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1126,7 +1126,7 @@ $(function() {
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1214,7 +1214,7 @@ $(function() {
                 },
                 error: function(jqXHR){
                     if(jqXHR.status === 419){
-                        if (window.location.href.includes("admin")) {
+                        if(window.location.href.indexOf("admin") >= 0){
                             Swal.fire({
                                 target: '#edit_booking',
                                 text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1444,7 +1444,7 @@ $(function() {
 let load_time_delete_event = function(){
     $('.svg-button').off('click');
     $('.svg-button').on('click', function() {
-        if (window.location.href.includes("admin")) {
+        if(window.location.href.indexOf("admin") >= 0){
             Swal.fire({
                 target: '#edit_booking',
                 text: "予約時間を削除します、よろしいですか?",
@@ -1543,7 +1543,7 @@ let load_pick_time_event = function(){
                 },
                 success: function (html) {
                     set_time_click.closest('.set-time').addClass('edit')
-                    if(window.location.href.includes("admin")){
+                    if(window.location.href.indexOf("admin") >= 0){
                         modal_choice_time.find('.modal-body-time').html(html);
                         modal_choice_time.modal({
                             show: true,
@@ -1570,7 +1570,7 @@ let load_pick_time_event = function(){
                 },
                 error: function(jqXHR){
                     if(jqXHR.status === 419){
-                        if (window.location.href.includes("admin")) {
+                        if(window.location.href.indexOf("admin") >= 0){
                             Swal.fire({
                                 target: '#edit_booking',
                                 text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1649,7 +1649,7 @@ let load_pick_time_room_event = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                if(window.location.href.includes("admin")){
+                if(window.location.href.indexOf("admin") >= 0){
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal({
                         show: true,
@@ -1671,7 +1671,7 @@ let load_pick_time_room_event = function(){
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1745,7 +1745,7 @@ let load_pick_time_wt_event = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                if(window.location.href.includes("admin")){
+                if(window.location.href.indexOf("admin") >= 0){
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal({
                         show: true,
@@ -1763,7 +1763,7 @@ let load_pick_time_wt_event = function(){
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1841,7 +1841,7 @@ let load_pick_time_pet_event = function(){
             },
             success: function (html) {
                 set_time_click.closest('.set-time').addClass('edit')
-                if(window.location.href.includes("admin")){
+                if(window.location.href.indexOf("admin") >= 0){
                     modal_choice_time.find('.modal-body-time').html(html);
                     modal_choice_time.modal({
                         show: true,
@@ -1864,7 +1864,7 @@ let load_pick_time_pet_event = function(){
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -1957,7 +1957,7 @@ let load_after_ajax = function(){
                 },
                 success: function (html) {
                     set_time_click.closest('.set-time').addClass('edit')
-                    if(window.location.href.includes("admin")){
+                    if(window.location.href.indexOf("admin") >= 0){
                         modal_choice_time.find('.modal-body-time').html(html);
                         modal_choice_time.modal({
                             show: true,
@@ -1974,7 +1974,7 @@ let load_after_ajax = function(){
                 },
                 error: function(jqXHR){
                     if(jqXHR.status === 419){
-                        if (window.location.href.includes("admin")) {
+                        if(window.location.href.indexOf("admin") >= 0){
                             Swal.fire({
                                 target: '#edit_booking',
                                 text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -2048,7 +2048,7 @@ let load_after_ajax = function(){
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
@@ -2230,7 +2230,7 @@ let load_after_ajax = function(){
             },
             error: function(jqXHR){
                 if(jqXHR.status === 419){
-                    if (window.location.href.includes("admin")) {
+                    if(window.location.href.indexOf("admin") >= 0){
                         Swal.fire({
                             target: '#edit_booking',
                             text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
