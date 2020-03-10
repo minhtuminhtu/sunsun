@@ -4,7 +4,7 @@
         <p class="fz-1_2 text-white d-block d-md-none">© 2019 ぬか酸素 Sun燦</p>
     </div>
     <div class="container-fluid fz-1 old-footer">
-        <img src="/sunsun/imgs/license.png" alt="イラスト：アイツ">
+        <img src="{{ asset('sunsun/imgs/license.png') }}" alt="イラスト：アイツ">
         アイツの著作権は林美華に帰属します。
     </div>
 </footer>

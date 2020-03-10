@@ -10,7 +10,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <link rel="stylesheet" href="{{ url(mix('css/app.css'))  }}">
     <link rel="stylesheet" href="{{asset('common/css/reset.css')}}">
     <link rel="stylesheet" href="{{asset('sunsun/front/css/base.css').config('version_files.html.css')}}">
     <script src="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.js')}}"></script>
