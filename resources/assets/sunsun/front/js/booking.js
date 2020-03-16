@@ -2318,23 +2318,33 @@ function get_dates(startDate, stopDate) {
     return dateArray;
 }
 function change_stay_guest_num() {
-    var obj_room = document.getElementById("room");
-    if (obj_room == null || obj_room == undefined) return;
-    var room = JSON.parse(obj_room.value);
-    var obj = document.getElementById("stay_guest_num");
-    var count_obj = obj.length;
-    for (var i = 0 ; i < count_obj; i++) {
-        obj[i].hidden = false;
-        var val = JSON.parse(obj[i].value);
+    var room = $('#room').val();
+    if (room == null || room == undefined) return;
+    room = JSON.parse(room);
+
+    $('#stay_guest_num').html($('#stay_guest_num_temp').html());
+    var sl_index = $('#stay_guest_num_temp').prop('selectedIndex');
+
+    var guest_num = $('#stay_guest_num option').length;
+    var guest_num_op_obj = $('#stay_guest_num option');
+    var guest_num_obj = $('#stay_guest_num');
+
+    for (var i = 0 ; i < guest_num; i++) {
+        var val = JSON.parse(guest_num_op_obj[i].value);
         if (val.kubun_id == "02" && room.kubun_id == "04") {
-            obj[i].hidden = true;
+            guest_num_op_obj[i].remove();
         }
         if (val.kubun_id == "03" && (room.kubun_id == "03" ||  room.kubun_id == "04")) {
-            obj[i].hidden = true;
+            guest_num_op_obj[i].remove();
         }
     }
-    if (room.kubun_id != '01' && !setClickCollapse("btn-collapse-finish"))
-        obj.value = obj[0].value;
+
+    if (room.kubun_id != '01' && !setClickCollapse("btn-collapse-finish")){
+        guest_num_obj.val(guest_num_op_obj[0].value);
+    }
+    if(sl_index <= ($('#stay_guest_num option').length - 1)){
+        $('#stay_guest_num').prop('selectedIndex', sl_index);
+    }
 }
 function checkShowWhite() {
     var obj_course = document.getElementById("course");
