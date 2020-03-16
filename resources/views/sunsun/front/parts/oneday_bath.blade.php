@@ -345,6 +345,17 @@
                                 @endif
                             @endforeach
                         </select>
+                        <select id="stay_guest_num_temp" style="display : none;">
+                            @foreach($stay_guest_num as $value)
+                                @if(isset($course_data['stay_guest_num']) && ($value->kubun_id == $course_data['stay_guest_num']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @elseif(isset($pop_data['stay_guest_num']) && ($value->kubun_id == json_decode($pop_data['stay_guest_num'], true)['kubun_id']))
+                                    <option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @else
+                                    <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="booking-field room"  @if($room_whitening) style="display:none;" @endif>
