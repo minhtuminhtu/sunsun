@@ -2242,6 +2242,7 @@ class BookingController extends Controller
         }
         $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate,$data["time_whitening"]);
         $data_time['course'] = $course['kubun_id'];
+        $data_time['week_day'] = Carbon::createFromFormat('Ymd', $day_book_time)->dayOfWeek;
         return view('sunsun.front.parts.booking_time',$data_time)->render();
     }
     public function get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate, $time_whitening = null ) {

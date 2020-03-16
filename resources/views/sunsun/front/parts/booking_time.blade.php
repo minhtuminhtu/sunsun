@@ -53,6 +53,10 @@
                         <div class="time-col">
                             @if(isset($time->status_time_validate) && $time->status_time_validate == 0)
                                 ×
+                            @elseif((isset($week_day) === true) && ($week_day === 5) && ($time->notes === '1845'))
+                                ×
+                            @elseif(((isset($week_day) === true) && ($week_day !== 5)) && (($time->notes === '1745') || ($time->notes === '1815') || ($time->notes === '1845')))
+                                ×
                             @else
                                 <div>
                                     <label class="container-radio">
