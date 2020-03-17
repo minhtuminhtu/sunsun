@@ -23,6 +23,15 @@
 ■アクセス・詳細情報
 http://sun-sun33.com/shop
 
+@if((isset($booking_data->check_has_couse_oneday) === true) && ($booking_data->check_has_couse_oneday === true))
+■お持ちいただく物
+・基礎化粧品、メイク用品、ヘアブラシなど
+・季節に合わせてリラックスできるお洋服（リラックスタイムに使用）
+@elseif((isset($booking_data->check_has_note) === true) && ($booking_data->check_has_note === true))
+■お持ちいただく物
+基礎化粧品、メイク用品、ヘアブラシなど
+@endif
+
 何かご不明な点等ございましたら、下記お問合せ先までご連絡いただければ幸いです。
 
 どうぞよろしくお願い申し上げます。

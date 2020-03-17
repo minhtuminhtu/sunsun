@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'noreply.sun.sun33@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@sun-sun33.com'),
         'name' => env('MAIL_FROM_NAME', 'ぬか酸素 Sun燦 Reservations'),
     ],
 

@@ -855,7 +855,7 @@ class BookingController extends Controller
         $result = $this->update_or_new_booking($data, $request);
         Log::debug('$result');
         Log::debug($result);
-        $request->session()->forget($this->session_info);
+
         return isset($result)?$result:$success;
     }
     private function check_valid_email($email){
@@ -953,14 +953,19 @@ class BookingController extends Controller
             $result_arr = [
                 'status' => 'error'
             ];
-            if($result == 'booking_error')
+            if($result == 'booking_error'){
+                $request->session()->forget($this->session_info);
                 $result_arr['message'] = '申し訳ありません。別の日時で予約してください。';
-            else if($result == 'payment_error')
-                $result_arr['message'] = '支払処理が失敗しました。予約したデータはキャンセルされます。';
-            else if($result == 'booking_error_holiday')
+            }else if($result == 'payment_error'){
+                $result_arr['message'] = '支払処理が失敗しました。';
+            }else if($result == 'booking_error_holiday'){
+                $request->session()->forget($this->session_info);
                 $result_arr['message'] = '定休日が含まれているため予約できません。';
-            else if($result == 'booking_error_stay')
+            }else if($result == 'booking_error_stay'){
+                $request->session()->forget($this->session_info);
                 $result_arr['message'] = '選択された日は予約できません。';
+            }
+            $this->add_column_null($this->get_booking_id());
             $result = $result_arr;
         }
         return  $result;
@@ -1029,7 +1034,9 @@ class BookingController extends Controller
                     $Yoyaku->save();
                 }
                 //Log::debug('toi');
-                $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
+                if($from_admin === false){
+                    $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
+                }
 
                 DB::commit();
                 if(($send_mail === true) || ($from_admin === false)){
@@ -1498,22 +1505,17 @@ class BookingController extends Controller
         $Yoyaku->save();
     }
     private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
-        $amount = 1;
-        // if ($request->session()->has($this->session_price)) {
-        //     $amount = $request->session()->get($this->session_price);
-        // } else if ($request->session()->has($this->session_price_admin)) {
-        //     $amount = $request->session()->get($this->session_price_admin);
-        // } else {
-        //     throw new \ErrorException('Token error!');
-        // // }
-        // $request->session()->forget($this->session_price);
-        // $request->session()->forget($this->session_price_admin);
-
-        Log::debug('$data');
-        Log::debug($amount);
+        // $amount = 1;
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             Log::debug('$old_booking_id');
             Log::debug($old_booking_id);
+
+            if ($request->session()->has($this->session_price)) {
+                $amount = $request->session()->get($this->session_price);
+            } else {
+                throw new \ErrorException('Token error!');
+            }
+
             if(isset($old_booking_id)){
                 $accessID = null;
                 $accessPass = null;
@@ -1581,7 +1583,7 @@ class BookingController extends Controller
         $response = \Requests::post('https://p01.mul-pay.jp/payment/ExecTran.idPass', $this->headers, $data);
         //Log::debug('Exec tran body');
         //Log::debug('Token: ' .  $token);
-        //Log::debug($response->body);
+        Log::debug($response->body);
         parse_str($response->body, $params);
         if(isset($params['ACS']) && ($params['ACS'] == 0)){
             // Lưu lại access_id và access_pass dùng cho change price
@@ -1593,6 +1595,9 @@ class BookingController extends Controller
             $payment->access_pass = $accessPass;
             $payment->payment_id = $params['TranID'];
             $payment->save();
+
+            $request->session()->forget($this->session_price);
+            
             return [
                 'tranID' => $params['TranID'],
                 'bookingID' => $booking_id
