@@ -346,7 +346,7 @@ let callBackMakePayment = function() {
 function doPurchase() {
     if(getCardType($('#card-number').val().replace(/\D/g, '')) != ""){
         payment_init();
-        // Multipayment.init("tshop00042155");
+        // Multipayment.init("9200001880651");
         let cardNumber = $('#card-number').val().replace(/\D/g, '');
         let cardExpire =  $('#expire-year').val().toString() +  $('#expire-month').val().toString();
         let cardSecure = $('#card-secret').val().replace(/\D/g,'');

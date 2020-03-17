@@ -8,7 +8,7 @@
     <script src="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('sunsun/lib/animate.css/animate.min.css')}}"/>
-    <script  type="text/javascript" src="https://stg.static.mul-pay.jp/ext/js/token.js" ></script>
+    <script  type="text/javascript" src="https://p01.mul-pay.jp/ext/js/token.js" ></script>
     <style>
         th {
             background-image: url("/sunsun/imgs/bg_2.png");
@@ -75,7 +75,7 @@
                         </table>
                     </div>
                     @include('sunsun.front.parts.payment_form', ['new' => '1'])
-                    @include('sunsun.front.parts.payment_method', ['new' => '1'])
+                    @include('sunsun.front.parts.payment_method', ['new' => '1', 'check_using_coupon' => $check_using_coupon])
 
                     <div class="pl-4 pr-1">
                         <p class="text-left pt-2">回数券をご利用の場合は、回数券ご利用分以外は、当日現地でお支払いください。</p>
@@ -106,4 +106,3 @@
     <script  type="text/javascript" src="{{asset('sunsun/front/js/base.js').config('version_files.html.css')}}"></script>
     <script  type="text/javascript" src="{{asset('sunsun/front/js/payment.js').config('version_files.html.css')}}"></script>
 @endsection
-

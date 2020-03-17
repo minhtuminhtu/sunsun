@@ -118,7 +118,7 @@
             </div>
         </div>
     </div>
-    <div class="card payment">
+    <div class="card payment" @if((isset($check_using_coupon) === true) && ($check_using_coupon === false)) style="border-bottom: 0px;" @endif>
         <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <h5 class="mb-0">
                 <div class="btn">
@@ -133,22 +133,25 @@
 {{--            </div>--}}
         </div>
     </div>
-    <div class="card payment" style="border-bottom: 0px;">
-        <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <h5 class="mb-0">
-                <div class="btn">
-                    <input type="radio" class="custom-control-input payment-method" name="payment-method" value="3"  {{ isset($data_booking->payment_method)?(($data_booking->payment_method == 3)?'checked':''):'' }}  id="coupon">
-                    <label class="custom-control-label" for="coupon">回数券</label>
-                </div>
-            </h5>
+    @if((isset($check_using_coupon) === true) && ($check_using_coupon === true))
+        <div class="card payment" style="border-bottom: 0px;">
+            <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <h5 class="mb-0">
+                    <div class="btn">
+                        <input type="radio" class="custom-control-input payment-method" name="payment-method" value="3"  {{ isset($data_booking->payment_method)?(($data_booking->payment_method == 3)?'checked':''):'' }}  id="coupon">
+                        <label class="custom-control-label" for="coupon">回数券</label>
+                    </div>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+    {{--            <div class="card-body">--}}
+    {{--                Content 3--}}
+    {{--            </div>--}}
+            </div>
         </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-{{--            <div class="card-body">--}}
-{{--                Content 3--}}
-{{--            </div>--}}
-        </div>
-    </div>
+    @endif
 </div>
+
 <div class="credit-card" @if(isset($new) && (!$new))  style="display:none;"  @endif>
     <div class="cc-block">
         <!-- <div class="credit-card-line">

@@ -446,7 +446,13 @@ class BookingController extends Controller
         Log::debug($data);
         $request->session()->put($this->session_price, $data['total']);
         Log::debug($this->session_price);
-//        dd($data);
+        $check_using_coupon = false;
+        foreach ($data['customer']['info'] as $value) {
+            if(json_decode($value['course'], true)['kubun_id'] == '01'){
+                $check_using_coupon = true;
+            }
+        }
+        $data['check_using_coupon'] = $check_using_coupon;
         $request->session()->put($this->payment_html, view('sunsun.front.payment',$data)->render());
         return view('sunsun.front.payment',$data);
     }
@@ -1062,6 +1068,9 @@ class BookingController extends Controller
             $delay_time = $start->diffInMinutes($end);
         }
 
+        $check_has_note = false;
+        $check_has_couse_oneday = false;
+
 
 
         if($from_admin === false){
@@ -1070,6 +1079,24 @@ class BookingController extends Controller
             $booking_data->booking_data = $data;
             $booking_data->booking_html = $request->session()->get($this->session_html);
             $booking_data->payment_html = $request->session()->get($this->payment_html);
+
+            foreach ($data['customer']['info'] as $value) {
+                if(
+                    (json_decode($value['course'] , true)['kubun_id'] === '01')
+                    ||(json_decode($value['course'] , true)['kubun_id'] === '02')
+                    ||(json_decode($value['course'] , true)['kubun_id'] === '03')
+                    ||(json_decode($value['course'] , true)['kubun_id'] === '04')
+                ){
+                    $check_has_note = true;
+                }
+                if((json_decode($value['course'] , true)['kubun_id'] === '02')){
+                    $check_has_couse_oneday = true;
+                }
+            }
+            $booking_data->check_has_note = $check_has_note;
+            $booking_data->check_has_couse_oneday = $check_has_couse_oneday;
+
+
             ConfirmJob::dispatch($email, $booking_data);
             ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
             $request->session()->forget($this->session_html);
@@ -1108,6 +1135,11 @@ class BookingController extends Controller
             $booking_data->booking_data = $data;
             $booking_data->booking_html = view('sunsun.front.confirm',$admin_data)->render();
             $booking_data->payment_text = $bill_text;
+
+            $booking_data->check_has_note = null;
+            $booking_data->check_has_couse_oneday = null;
+
+
             ConfirmJob::dispatch($email, $booking_data);
             ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
         }
@@ -1528,7 +1560,7 @@ class BookingController extends Controller
         );
         //Log::debug('data');
         //Log::debug($data);
-        $response = \Requests::post('https://pt01.mul-pay.jp/payment/EntryTran.idPass', $this->headers, $data);
+        $response = \Requests::post('https://p01.mul-pay.jp/payment/EntryTran.idPass', $this->headers, $data);
         parse_str($response->body, $params);
         if(!isset($params['AccessID']) || !isset($params['AccessPass'])){
             //Log::debug('Create tran body');
@@ -1546,7 +1578,7 @@ class BookingController extends Controller
             'PayTimes' => '1',
             'Token' => $token
         );
-        $response = \Requests::post('https://pt01.mul-pay.jp/payment/ExecTran.idPass', $this->headers, $data);
+        $response = \Requests::post('https://p01.mul-pay.jp/payment/ExecTran.idPass', $this->headers, $data);
         //Log::debug('Exec tran body');
         //Log::debug('Token: ' .  $token);
         //Log::debug($response->body);
@@ -1579,7 +1611,7 @@ class BookingController extends Controller
             'Amount' => $amount,
             'JobCd' => 'CAPTURE'
         );
-        $response = \Requests::post('https://pt01.mul-pay.jp/payment/ChangeTran.idPass', $this->headers, $data);
+        $response = \Requests::post('https://p01.mul-pay.jp/payment/ChangeTran.idPass', $this->headers, $data);
         //Log::debug('Exec tran body');
         //Log::debug('Token: ' .  $token);
         //Log::debug($response->body);
