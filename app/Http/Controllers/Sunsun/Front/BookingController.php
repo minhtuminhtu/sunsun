@@ -1129,6 +1129,21 @@ class BookingController extends Controller
                 $admin_customer[] = $li_bo;
             }
 
+
+            foreach ($admin_customer as $value) {
+                if(
+                    ($value->course === '01')
+                    ||($value->course === '02')
+                    ||($value->course === '03')
+                    ||($value->course === '04')
+                ){
+                    $check_has_note = true;
+                }
+                if($value->course === '02'){
+                    $check_has_couse_oneday = true;
+                }
+            }
+
             $admin_data['admin_customer'] = $admin_customer;
             $admin_data['change_check'] = $change_check;
 
@@ -1143,8 +1158,8 @@ class BookingController extends Controller
             $booking_data->booking_html = view('sunsun.front.confirm',$admin_data)->render();
             $booking_data->payment_text = $bill_text;
 
-            $booking_data->check_has_note = null;
-            $booking_data->check_has_couse_oneday = null;
+            $booking_data->check_has_note = $check_has_note;
+            $booking_data->check_has_couse_oneday = $check_has_couse_oneday;
 
 
             ConfirmJob::dispatch($email, $booking_data);
@@ -1597,7 +1612,7 @@ class BookingController extends Controller
             $payment->save();
 
             $request->session()->forget($this->session_price);
-            
+
             return [
                 'tranID' => $params['TranID'],
                 'bookingID' => $booking_id
