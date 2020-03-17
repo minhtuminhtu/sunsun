@@ -133,7 +133,7 @@
 {{--            </div>--}}
         </div>
     </div>
-    @if((isset($check_using_coupon) === true) && ($check_using_coupon === true))
+    @if(((isset($check_using_coupon) === true) && ($check_using_coupon === true)) || (isset($check_using_coupon) === false))
         <div class="card payment" style="border-bottom: 0px;">
             <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 <h5 class="mb-0">
