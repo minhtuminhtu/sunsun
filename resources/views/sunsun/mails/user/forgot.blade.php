@@ -20,6 +20,5 @@
 ぬか酸素 Sun燦
 〒656-0131 兵庫県南あわじ市広田中筋296-1
 ホームページ http://sun-sun33.com
-メールアドレス：pac@printpac.co.jp
+メールアドレス：arigatoukouso@sun-sun33.com
 TEL：0799-20-7801　FAX：0799-20-7802
-
