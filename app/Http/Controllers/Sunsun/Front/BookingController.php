@@ -1096,7 +1096,8 @@ class BookingController extends Controller
                 ){
                     $check_has_note = true;
                 }
-                if((json_decode($value['course'] , true)['kubun_id'] === '02')){
+                if((json_decode($value['course'] , true)['kubun_id'] === '02')
+                    ||(json_decode($value['course'] , true)['kubun_id'] === '04')){
                     $check_has_couse_oneday = true;
                 }
             }
@@ -1139,7 +1140,7 @@ class BookingController extends Controller
                 ){
                     $check_has_note = true;
                 }
-                if($value->course === '02'){
+                if(($value->course === '02') || ($value->course === '04')){
                     $check_has_couse_oneday = true;
                 }
             }
