@@ -2726,9 +2726,9 @@ class BookingController extends Controller
                   )
             AND
                 (
-                    ( (ty.course = '01' OR ty.course = '04')  AND tydj.service_date = ':date_booking' )
-                    OR (ty.service_date_start =  ':date_booking' )
-                    OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' )
+                    ( (ty.course = '01' OR ty.course = '04')  AND ( tydj.service_date = ':date_booking') )
+                    OR  ( (ty.course <> '04') AND (ty.service_date_start =  ':date_booking' ) )
+                    -- OR (ty.service_date_start <=  ':date_booking' AND ty.service_date_end >= ':date_booking' )
                 )
             AND ty.history_id IS NULL
             AND ty.del_flg IS NULL
