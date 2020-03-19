@@ -1041,15 +1041,15 @@ class BookingController extends Controller
                     $Yoyaku->save();
                     Log::debug('TRACE SAVE YOYAKU');
                 }
-                //Log::debug('toi');
-                DB::commit();
-                Log::debug('$request before send mail');
-                Log::debug($request);
                 Log::debug('TRACE CHECK PAYMENT');
                 if($from_admin === false){
                     $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
                 }
                 Log::debug('TRACE FINISH PAYMENT');
+                DB::commit();
+                Log::debug('$request before send mail');
+                Log::debug($request);
+
                 Log::debug('TRACE CHECK SENDMAIL');
                 if(($send_mail === true) || ($from_admin === false)){
                     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
