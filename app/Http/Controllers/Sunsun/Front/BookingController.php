@@ -445,7 +445,7 @@ class BookingController extends Controller
         Log::debug('$data');
         Log::debug($data);
         $request->session()->put($this->session_price, $data['total']);
-        Log::debug($this->session_price);
+        // Log::debug($this->session_price);
         $check_using_coupon = false;
         foreach ($data['customer']['info'] as $value) {
             if(json_decode($value['course'], true)['kubun_id'] == '01'){
@@ -1600,7 +1600,7 @@ class BookingController extends Controller
             Log::debug($response->body);
             throw new \ErrorException('payment_error');
         }
-        return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
+        return $this->exec_tran($request, $params['AccessID'], $params['AccessPass'], $booking_id, $token);
     }
     private function exec_tran($request, $accessID, $accessPass, $booking_id, $token){
         $data = array(
