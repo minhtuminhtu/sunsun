@@ -983,12 +983,13 @@ class BookingController extends Controller
         $email = null;
         DB::unprepared("LOCK TABLE tr_yoyaku READ, tr_yoyaku_danjiki_jikan READ");
         try{
-            // //Log::debug($data);
             $email = trim($data['email']);
+            Log::debug('TRACE BEFORE' . $email);
             DB::beginTransaction();
             if(isset($data['customer']['info']) == false){
                 throw new \Exception('Course not found!');
             }
+            Log::debug('TRACE HAS CUSTOMER');
             try {
                 foreach($data['customer']['info'] as $customer){
                     //Log::debug('data number : '.$i);
@@ -997,6 +998,7 @@ class BookingController extends Controller
                     if($booking_id == 0){
                         $booking_id = $this->get_booking_id();
                     }
+                    Log::debug('TRACE BOOKING_ID: ' . $booking_id);
                     if($parent){
                         //Log::debug('parent');
                         $parent_id = $booking_id;
@@ -1008,13 +1010,14 @@ class BookingController extends Controller
                         $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
                         $return_date = $parent_date;
-                        //Log::debug('set_booking_course ' . $return_booking_id);
+                        Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
-                        //Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
+                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
+                        Log::debug('TRACE SET PARENT');
                     }else{
-                        //Log::debug('di kem');
+                        Log::debug('di kem');
                         //Log::debug($parent_date);
                         if(isset($customer['fake_booking'])){
                             // $return_booking_id = $booking_id;
@@ -1025,16 +1028,18 @@ class BookingController extends Controller
                             $Yoyaku->booking_id = $booking_id;
                         }
                         $Yoyaku->ref_booking_id = $parent_id;
-                        //Log::debug('set_booking_course ' . $return_booking_id);
+                        Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
-                        //Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
+                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
-                        //Log::debug('finish set_yoyaku_danjiki_jikan');
+                        Log::debug('finish set_yoyaku_danjiki_jikan');
                     }
                     if(\Auth::check()){
                         $Yoyaku->ms_user_id = \Auth::user()->ms_user_id;
+                        Log::debug('TRACE USER_ID' . \Auth::user()->ms_user_id);
                     }
                     $Yoyaku->save();
+                    Log::debug('TRACE SAVE YOYAKU');
                 }
                 //Log::debug('toi');
                 DB::commit();
