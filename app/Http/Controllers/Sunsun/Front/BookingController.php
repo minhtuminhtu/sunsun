@@ -442,8 +442,8 @@ class BookingController extends Controller
             return redirect()->route('home');
         }
         $this->make_bill($data);
-        Log::debug('$data');
-        Log::debug($data);
+        // Log::debug('$data');
+        // Log::debug($data);
         $request->session()->put($this->session_price, $data['total']);
         Log::debug($this->session_price);
         $check_using_coupon = false;
@@ -949,7 +949,8 @@ class BookingController extends Controller
                 'message' => $result
             ];
         } else if(isset($result)){
-            // Log::debug("khong ton tai result booking id");
+            Log::debug('$result');
+            Log::debug($result);
             $result_arr = [
                 'status' => 'error'
             ];
@@ -1034,11 +1035,10 @@ class BookingController extends Controller
                     $Yoyaku->save();
                 }
                 //Log::debug('toi');
+                DB::commit();
                 if($from_admin === false){
                     $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
                 }
-
-                DB::commit();
                 if(($send_mail === true) || ($from_admin === false)){
                     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
                 }
@@ -1250,7 +1250,7 @@ class BookingController extends Controller
         if($admin_price  !== null){
             $admin_price = $total;
         }
-        $request->session()->put($this->session_price_admin, $total);
+        // $request->session()->put($this->session_price_admin, $total);
         foreach($new_bill as $key => $n_bill){
             if($n_bill['quantity'] > 0){
                 $bill_text .= $n_bill['name'] . "：" . $n_bill['quantity'].$n_bill['unit'] . " " . number_format($n_bill['price']) ."円
@@ -1523,8 +1523,8 @@ class BookingController extends Controller
     private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
         // $amount = 1;
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
-            Log::debug('$old_booking_id');
-            Log::debug($old_booking_id);
+            // Log::debug('$old_booking_id');
+            // Log::debug($old_booking_id);
 
             if ($request->session()->has($this->session_price)) {
                 $amount = $request->session()->get($this->session_price);
@@ -1581,8 +1581,8 @@ class BookingController extends Controller
         $response = \Requests::post('https://p01.mul-pay.jp/payment/EntryTran.idPass', $this->headers, $data);
         parse_str($response->body, $params);
         if(!isset($params['AccessID']) || !isset($params['AccessPass'])){
-            //Log::debug('Create tran body');
-            //Log::debug($response->body);
+            Log::debug('Create tran body');
+            Log::debug($response->body);
             throw new \ErrorException('payment_error');
         }
         return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
@@ -1597,8 +1597,7 @@ class BookingController extends Controller
             'Token' => $token
         );
         $response = \Requests::post('https://p01.mul-pay.jp/payment/ExecTran.idPass', $this->headers, $data);
-        //Log::debug('Exec tran body');
-        //Log::debug('Token: ' .  $token);
+        Log::debug('Exec tran body');
         Log::debug($response->body);
         parse_str($response->body, $params);
         if(isset($params['ACS']) && ($params['ACS'] == 0)){
@@ -1633,12 +1632,10 @@ class BookingController extends Controller
             'JobCd' => 'CAPTURE'
         );
         $response = \Requests::post('https://p01.mul-pay.jp/payment/ChangeTran.idPass', $this->headers, $data);
-        //Log::debug('Exec tran body');
-        //Log::debug('Token: ' .  $token);
-        //Log::debug($response->body);
+        Log::debug('Exec tran body');
         parse_str($response->body, $params);
-        Log::debug('$params');
-        Log::debug($params);
+        // Log::debug('$params');
+        // Log::debug($params);
         if(isset($params['AccessID'])){
             $payment = new Payment();
             $payment->booking_id =  $booking_id;
