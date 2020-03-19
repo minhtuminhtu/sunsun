@@ -193,7 +193,8 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                <p class="text-left mt-2 mb-2 node-text">バスの方は洲本ICのバス停に送迎を行います。</p>
+                                <p class="text-left mt-2 node-text">バスの方は洲本ICのバス停に送迎を行います。</p>
+                                <p class="text-left mb-2 node-text">※バスのチケット予約ではありません。</p>
                             </div>
                         </div>
                         <div class="booking-field">
