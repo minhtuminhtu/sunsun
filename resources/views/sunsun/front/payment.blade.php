@@ -78,7 +78,9 @@
                     @include('sunsun.front.parts.payment_method', ['new' => '1', 'check_using_coupon' => $check_using_coupon])
 
                     <div class="pl-4 pr-1">
-                        <p class="text-left pt-2">回数券をご利用の場合は、回数券ご利用分以外は、当日現地でお支払いください。</p>
+                        <p class="text-left pt-2">回数券をお持ちの方へ</p>
+                        <p class="text-left">酵素浴以外のメニューは現地でお支払いください。</p>
+                        <p class="text-left">回数券の購入は、クレジットカードをご利用いただけません。</p>
                     </div>
                 </div>
                 <div class="foot-confirm">
