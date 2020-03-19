@@ -1039,9 +1039,9 @@ class BookingController extends Controller
                 if($from_admin === false){
                     $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
                 }
-                if(($send_mail === true) || ($from_admin === false)){
-                    $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
-                }
+                // if(($send_mail === true) || ($from_admin === false)){
+                //     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
+                // }
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
