@@ -1524,7 +1524,7 @@ class BookingController extends Controller
         $Yoyaku->course = 0;
         $Yoyaku->save();
     }
-    private function call_payment_api(&$data, $booking_id, $old_booking_id = null){
+    private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
 
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             // Log::debug('$old_booking_id');
