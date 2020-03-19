@@ -1045,12 +1045,16 @@ class BookingController extends Controller
                 DB::commit();
                 Log::debug('$request before send mail');
                 Log::debug($request);
+                Log::debug('TRACE CHECK PAYMENT');
                 if($from_admin === false){
                     $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
                 }
+                Log::debug('TRACE FINISH PAYMENT');
+                Log::debug('TRACE CHECK SENDMAIL');
                 if(($send_mail === true) || ($from_admin === false)){
                     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
                 }
+                Log::debug('TRACE FINISH SENDMAIL');
             } catch (\Exception $e1) {
                 Log::debug("before error");
                 DB::rollBack();
