@@ -939,7 +939,7 @@ class BookingController extends Controller
             }
         //New
         }else{
-            Log::debug('$request');
+            Log::debug('$request booking');
             Log::debug($request);
             $result = $this->new_booking($data, $request, $send_mail, $from_admin);
             Log::debug("new booking");
@@ -1038,8 +1038,10 @@ class BookingController extends Controller
                 }
                 //Log::debug('toi');
                 DB::commit();
+                Log::debug('$request before send mail');
+                Log::debug($request);
                 if($from_admin === false){
-                    $result = $this->call_payment_api($data, $return_booking_id, $old_booking_id);
+                    $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
                 }
                 if(($send_mail === true) || ($from_admin === false)){
                     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
