@@ -939,6 +939,8 @@ class BookingController extends Controller
             }
         //New
         }else{
+            Log::debug('$request');
+            Log::debug($request);
             $result = $this->new_booking($data, $request, $send_mail, $from_admin);
             Log::debug("new booking");
             Log::debug($result);
