@@ -1037,7 +1037,7 @@ class BookingController extends Controller
                 //Log::debug('toi');
                 DB::commit();
                 if($from_admin === false){
-                    $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
+                    $result = $this->call_payment_api($data, $return_booking_id, $old_booking_id);
                 }
                 if(($send_mail === true) || ($from_admin === false)){
                     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
@@ -1520,7 +1520,7 @@ class BookingController extends Controller
         $Yoyaku->course = 0;
         $Yoyaku->save();
     }
-    private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
+    private function call_payment_api(&$data, $booking_id, $old_booking_id = null){
 
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             // Log::debug('$old_booking_id');
