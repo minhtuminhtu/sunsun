@@ -1046,13 +1046,13 @@ class BookingController extends Controller
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
                 DB::unprepared("UNLOCK TABLE");
-                // Log::debug('$e1->getMessage()');
-                // Log::debug($e1->getMessage());
+                Log::debug('$e1->getMessage()');
+                Log::debug($e1->getMessage());
                 $result = $e1->getMessage();
                 return  $result;
             }
         }catch(\Exception $e2){
-            // Log::debug('$e2->getMessage()');
+            Log::debug('$e2->getMessage()');
             Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
