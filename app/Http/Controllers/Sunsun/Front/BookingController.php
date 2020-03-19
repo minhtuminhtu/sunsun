@@ -939,7 +939,7 @@ class BookingController extends Controller
             }
         //New
         }else{
-            $result = $this->new_booking($data, $request, $send_mail, $from_admin);
+            $result = $this->new_booking($data, $send_mail, $from_admin);
             Log::debug("new booking");
             Log::debug($result);
         }
@@ -971,7 +971,7 @@ class BookingController extends Controller
         }
         return  $result;
     }
-    private function new_booking($data, $request, $send_mail = false, $from_admin = false, $booking_id = 0, $old_booking_id = null, $ref_booking_id = null){
+    private function new_booking($data, $send_mail = false, $from_admin = false, $booking_id = 0, $old_booking_id = null, $ref_booking_id = null){
         $parent = true;
         $parent_id = NULL;
         $parent_date = NULL;
@@ -1040,7 +1040,7 @@ class BookingController extends Controller
                     $result = $this->call_payment_api($data, $return_booking_id, $old_booking_id);
                 }
                 if(($send_mail === true) || ($from_admin === false)){
-                    $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
+                    $this->send_email($data, $return_booking_id, $return_date, $email, $from_admin);
                 }
             } catch (\Exception $e1) {
                 DB::rollBack();
@@ -1060,7 +1060,7 @@ class BookingController extends Controller
         // Log::debug($result);
         return  $result;
     }
-    private function send_email($request, $data, $booking_id, $return_date, $email, $from_admin){
+    private function send_email($data, $booking_id, $return_date, $email, $from_admin){
         $end = Carbon::createFromFormat('Ymd h:i:s', $return_date."09:00:00")->subDays(2);
         // Log::debug('time end');
         // Log::debug($end->toDateTimeString());
@@ -1084,8 +1084,8 @@ class BookingController extends Controller
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
             $booking_data->booking_data = $data;
-            $booking_data->booking_html = $request->session()->get($this->session_html);
-            $booking_data->payment_html = $request->session()->get($this->payment_html);
+            $booking_data->booking_html = Request::session()->get($this->session_html);
+            $booking_data->payment_html = Request::session()->get($this->payment_html);
 
             foreach ($data['customer']['info'] as $value) {
                 if(
@@ -1107,8 +1107,8 @@ class BookingController extends Controller
 
             ConfirmJob::dispatch($email, $booking_data);
             ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
-            $request->session()->forget($this->session_html);
-            $request->session()->forget($this->payment_html);
+            Request::session()->forget($this->session_html);
+            Request::session()->forget($this->payment_html);
         }else{
 
             $yo = Yoyaku::where('booking_id', $booking_id)->first();
@@ -1151,7 +1151,7 @@ class BookingController extends Controller
             $this->convert_booking_2_value($admin_data['admin_customer'], $admin_data);
             $bill_text = null;
             $admin_price = null;
-            $this->yoyaku_2_bill($request, $admin_customer, $bill_text, $admin_price);
+            $this->yoyaku_2_bill($admin_customer, $bill_text, $admin_price);
 
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
@@ -1169,7 +1169,7 @@ class BookingController extends Controller
 
     }
 
-    public function yoyaku_2_bill($request, $yoyaku, &$bill_text, &$admin_price){
+    public function yoyaku_2_bill($yoyaku, &$bill_text, &$admin_price){
         $new_bill = [];
         $MsKubun = MsKubun::all();
         for($i = 1; $i <  21; $i++){
@@ -1525,12 +1525,12 @@ class BookingController extends Controller
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             // Log::debug('$old_booking_id');
             // Log::debug($old_booking_id);
-            $amount = 1;
-            // if ($request->session()->has($this->session_price)) {
-            //     $amount = $request->session()->get($this->session_price);
-            // } else {
-            //     throw new \ErrorException('Token error!');
-            // }
+            // $amount = 1;
+            if (Request::session()->has($this->session_price)) {
+                $amount = Request::session()->get($this->session_price);
+            } else {
+                throw new \ErrorException('Token error!');
+            }
 
             if(isset($old_booking_id)){
                 $accessID = null;
