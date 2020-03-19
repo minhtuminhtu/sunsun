@@ -1535,7 +1535,7 @@ class BookingController extends Controller
         $Yoyaku->save();
     }
     private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
-
+        Log::debug('TRACE OPEN PAYMENT API');
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             // Log::debug('$old_booking_id');
             // Log::debug($old_booking_id);
@@ -1560,7 +1560,8 @@ class BookingController extends Controller
                 if(!isset($data['Token'])){
                     throw new \ErrorException('Token error!');
                 }
-                return $this->create_tran($booking_id, $amount, $data['Token']);
+                Log::debug('TRACE OPEN TRAN API');
+                return $this->create_tran($request, $booking_id, $amount, $data['Token']);
             }
         }else{
             return [
@@ -1582,7 +1583,7 @@ class BookingController extends Controller
         'Accept-Encoding' => 'gzip, deflate, br',
         'Accept-Language' => 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5,zh-CN;q=0.4,zh;q=0.3'
     );
-    private function create_tran($booking_id, $amount, $token){
+    private function create_tran($request, $booking_id, $amount, $token){
         $data = array(
             'ShopID' =>  env("SHOP_ID"),
             'ShopPass' => env("SHOP_PASS"),
@@ -1601,7 +1602,7 @@ class BookingController extends Controller
         }
         return $this->exec_tran($params['AccessID'], $params['AccessPass'], $booking_id, $token);
     }
-    private function exec_tran($accessID, $accessPass, $booking_id, $token){
+    private function exec_tran($request, $accessID, $accessPass, $booking_id, $token){
         $data = array(
             'AccessID' => $accessID,
             'AccessPass' => $accessPass,
