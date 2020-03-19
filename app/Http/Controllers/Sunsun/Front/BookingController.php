@@ -1539,12 +1539,12 @@ class BookingController extends Controller
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             // Log::debug('$old_booking_id');
             // Log::debug($old_booking_id);
-            $amount = 1;
-            // if ($request->session()->has($this->session_price)) {
-            //     $amount = $request->session()->get($this->session_price);
-            // } else {
-            //     throw new \ErrorException('Token error!');
-            // }
+            // $amount = 1;
+            if ($request->session()->has($this->session_price)) {
+                $amount = $request->session()->get($this->session_price);
+            } else {
+                throw new \ErrorException('Token error!');
+            }
 
             if(isset($old_booking_id)){
                 $accessID = null;
