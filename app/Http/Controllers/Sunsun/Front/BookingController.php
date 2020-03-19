@@ -442,8 +442,8 @@ class BookingController extends Controller
             return redirect()->route('home');
         }
         $this->make_bill($data);
-        // Log::debug('$data');
-        // Log::debug($data);
+        Log::debug('$data');
+        Log::debug($data);
         $request->session()->put($this->session_price, $data['total']);
         Log::debug($this->session_price);
         $check_using_coupon = false;
