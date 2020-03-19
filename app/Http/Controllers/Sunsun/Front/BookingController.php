@@ -1036,12 +1036,12 @@ class BookingController extends Controller
                 }
                 //Log::debug('toi');
                 DB::commit();
-                // if($from_admin === false){
-                //     $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
-                // }
-                // if(($send_mail === true) || ($from_admin === false)){
-                //     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
-                // }
+                if($from_admin === false){
+                    $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
+                }
+                if(($send_mail === true) || ($from_admin === false)){
+                    $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
+                }
             } catch (\Exception $e1) {
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
@@ -1521,16 +1521,16 @@ class BookingController extends Controller
         $Yoyaku->save();
     }
     private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
-        // $amount = 1;
+
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
             // Log::debug('$old_booking_id');
             // Log::debug($old_booking_id);
-
-            if ($request->session()->has($this->session_price)) {
-                $amount = $request->session()->get($this->session_price);
-            } else {
-                throw new \ErrorException('Token error!');
-            }
+            $amount = 1;
+            // if ($request->session()->has($this->session_price)) {
+            //     $amount = $request->session()->get($this->session_price);
+            // } else {
+            //     throw new \ErrorException('Token error!');
+            // }
 
             if(isset($old_booking_id)){
                 $accessID = null;
