@@ -223,20 +223,35 @@ $(function() {
         get_service($('#pick_course').val(), $('#course_data').val(), $('#course_time').val(), $('#pop_data').val());
     }
     let load_event = function() {
-        var strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
-        var strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
+        var strToday;
+        var strTomorrow;
+        strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
+        strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
+        if(JSON.parse($('#course').val()).kubun_id == '04'){
+            if(today.weekday() == '2'){
+                var today_4 = moment(today).add(3, 'days');
+                var tomorrow_4 = moment(today_4).add(1, 'days');
+                strToday = today_4.format('Y') + "/" + today_4.format('MM') + "/" + today_4.format('DD');
+                strTomorrow = tomorrow_4.format('Y') + "/" + tomorrow_4.format('MM') + "/" + tomorrow_4.format('DD');
+
+            }
+            if($('#plan_date_start').val() == ""){
+                $('#plan_date_start').val(strToday);
+            }
+            if($('#plan_date_end').val() == ""){
+                $('#plan_date_end').val(strTomorrow);
+            }
+        }
         if(($('#date').val() == "") && ($('#date').val() !== undefined)){
             $('#date').val(strToday);
         }
-        if($('#plan_date_start').val() == ""){
-            $('#plan_date_start').val(strToday);
-        }
-        if($('#plan_date_end').val() == ""){
-            $('#plan_date_end').val(strTomorrow);
-        }
+
         $('#room').off('change');
         $('#room').on('change', function() {
             var room =  JSON.parse($('#room').val());
+            $('#range_date_start').removeClass('validate_failed');
+            $('#range_date_end').removeClass('validate_failed');
+            $('p.note-error').remove();
             if(room.kubun_id == '01'){
                 $('.room').hide();
             }else{
@@ -257,14 +272,16 @@ $(function() {
                         // $('.input-daterange').datepicker('destroy');
                         $('#range_date_start').datepicker('destroy');
                         $('#range_date_end').datepicker('destroy');
-                        $('#range_date_start').val(html.now);
-                        let valid_date = moment(new Date(html.now));
-                        // console.log(valid_date.weekday());
-                        if(valid_date.weekday() == 2){
-                            $('#range_date_end').val(valid_date.add(3, 'days').format('Y/MM/DD'));
-                        }else{
-                            $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
-                        }
+                        // $('#range_date_start').val(html.now);
+                        $('#range_date_start').val('－');
+                        // let valid_date = moment(new Date(html.now));
+                        // // console.log(valid_date.weekday());
+                        // if(valid_date.weekday() == 2){
+                        //     $('#range_date_end').val(valid_date.add(3, 'days').format('Y/MM/DD'));
+                        // }else{
+                        //     $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
+                        // }
+                        $('#range_date_end').val('－');
                         var _off_set = _off_def;
                         if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
                             _off_set += "1";
@@ -272,7 +289,6 @@ $(function() {
                         // console.log(html.date_selected);
                         // console.log(html.date_start);
                         var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.indexOf(item) >= 0);
-                        // console.log(disabled_day_arr)
                         if(window.location.href.indexOf("admin") >= 0){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -280,7 +296,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -291,7 +307,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: disabled_day_arr,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -302,7 +318,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -312,7 +328,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: disabled_day_arr,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -420,11 +436,13 @@ $(function() {
                 DatePicker.hideNewDays();
             }
         };
-        function get_off_def() {
+        function get_off_def(stay = false) {
             var _off_set = _off_def;
             if (typeof $('#course') != "undefined" && $('#course') != null) {
-                if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
-                    _off_set += "6,0";
+                if(stay === false){
+                    if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
+                        _off_set += ",6,0";
+                    }
                 }
             }
             return _off_set;
@@ -533,7 +551,6 @@ $(function() {
                         // console.log(html.date_selected);
                         // console.log(html.date_start);
                         var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.indexOf(item) >= 0);
-                        // console.log(disabled_day_arr)
                         if(window.location.href.indexOf("admin") >= 0){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -541,7 +558,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -552,7 +569,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: disabled_day_arr,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -563,7 +580,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -573,7 +590,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(),
+                                daysOfWeekDisabled: get_off_def(true),
                                 datesDisabled: disabled_day_arr,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -1186,7 +1203,20 @@ $(function() {
         if($('select[name=gender]').val() === "0"){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
-        }else{
+        } else if(
+            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            &&(
+                ($('#range_date_start').val() == '')
+                || ($('#range_date_start').val() == '－')
+                || ($('#range_date_end').val() == '')
+                || ($('#range_date_end').val() == '－')
+            )
+        ) {
+            $('#range_date_start').addClass('validate_failed');
+            $('#range_date_end').addClass('validate_failed');
+            var text_err = "宿泊日は空白できません。";
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        } else {
             $('select[name=gender]').removeClass('validate_failed');
             let btn_click = $(this);
             $.ajax({
@@ -1516,7 +1546,20 @@ let load_pick_time_event = function(){
         if($('select[name=gender]').val() === "0"){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
-        }else{
+        } else if(
+            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            &&(
+                ($('#range_date_start').val() == '')
+                || ($('#range_date_start').val() == '－')
+                || ($('#range_date_end').val() == '')
+                || ($('#range_date_end').val() == '－')
+            )
+        ) {
+            $('#range_date_start').addClass('validate_failed');
+            $('#range_date_end').addClass('validate_failed');
+            var text_err = "宿泊日は空白できません。";
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        } else{
             $('select[name=gender]').removeClass('validate_failed');
             let $data = $('form.booking').serializeArray();
             let $get_date = {};
@@ -1935,7 +1978,20 @@ let load_after_ajax = function(){
         if($('select[name=gender]').val() === "0"){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
-        }else{
+        } else if(
+            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            &&(
+                ($('#range_date_start').val() == '')
+                || ($('#range_date_start').val() == '－')
+                || ($('#range_date_end').val() == '')
+                || ($('#range_date_end').val() == '－')
+            )
+        ) {
+            $('#range_date_start').addClass('validate_failed');
+            $('#range_date_end').addClass('validate_failed');
+            var text_err = "宿泊日は空白できません。";
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        } else{
             $('select[name=gender]').removeClass('validate_failed');
             let set_time_click = $(this);
             let $data = $('form.booking').serializeArray();

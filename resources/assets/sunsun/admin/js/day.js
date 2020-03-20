@@ -243,74 +243,94 @@ $(function () {
     $('#edit_booking').off('click','.btn-update');
     $('#edit_booking').on('click','.btn-update',function (e) {
         e.preventDefault();
-        let data = $('form.booking').serializeArray();
-        // console.log(data);
-        $.ajax({
-            url: $site_url +'/admin/update_booking',
-            type: 'POST',
-            data: data,
-            dataType: 'JSON',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (html) {
-                // console.log(html);
-                if((html.status == false) && (html.type == 'validate')){
-                    make_color_input_error(html.message.booking);
-                    make_payment_validate(html.message.payment);
-                    Swal.fire({
-                        icon: 'warning',
-                        // title: 'エラー',
-                        text: '入力した内容を確認してください。',
-                        confirmButtonColor: '#d7751e',
-                        confirmButtonText: '閉じる',
-                        width: 350,
-                        showClass: {
-                            popup: 'animated zoomIn faster'
-                        },
-                        hideClass: {
-                            popup: 'animated zoomOut faster'
-                        },
-                        allowOutsideClick: false
-                    })
-                }else{
-                    $('#edit_booking').modal('hide');
-                    window.location.reload();
+        $('p.note-error').remove();
+        if($('select[name=gender]').val() === "0"){
+            $('select[name=gender]').addClass('validate_failed');
+            $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
+        } else if(
+            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            &&(
+                ($('#range_date_start').val() == '')
+                || ($('#range_date_start').val() == '－')
+                || ($('#range_date_end').val() == '')
+                || ($('#range_date_end').val() == '－')
+            )
+        ) {
+            $('#range_date_start').addClass('validate_failed');
+            $('#range_date_end').addClass('validate_failed');
+            var text_err = "宿泊日は空白できません。";
+            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        } else {
+            let data = $('form.booking').serializeArray();
+            // console.log(data);
+            $.ajax({
+                url: $site_url +'/admin/update_booking',
+                type: 'POST',
+                data: data,
+                dataType: 'JSON',
+                beforeSend: function () {
+                    loader.css({'display': 'block'});
+                },
+                success: function (html) {
+                    // console.log(html);
+                    if((html.status == false) && (html.type == 'validate')){
+                        make_color_input_error(html.message.booking);
+                        make_payment_validate(html.message.payment);
+                        Swal.fire({
+                            icon: 'warning',
+                            // title: 'エラー',
+                            text: '入力した内容を確認してください。',
+                            confirmButtonColor: '#d7751e',
+                            confirmButtonText: '閉じる',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            allowOutsideClick: false
+                        })
+                    }else{
+                        $('#edit_booking').modal('hide');
+                        window.location.reload();
+                    }
+                },
+                complete: function () {
+                    loader.css({'display': 'none'});
+                },
+                error: function(jqXHR){
+                    if(jqXHR.status === 419){
+                        Swal.fire({
+                            target: '#edit_booking',
+                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d7751e',
+                            cancelButtonColor: '#343a40',
+                            confirmButtonText: 'はい',
+                            cancelButtonText: 'いいえ',
+                            width: 350,
+                            showClass: {
+                                popup: 'animated zoomIn faster'
+                            },
+                            hideClass: {
+                                popup: 'animated zoomOut faster'
+                            },
+                            // customClass: {
+                            //     popup: 'modal-dialog'
+                            // },
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.reload(true);
+                            }
+                        })
+                    }
                 }
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-            error: function(jqXHR){
-                if(jqXHR.status === 419){
-                    Swal.fire({
-                        target: '#edit_booking',
-                        text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d7751e',
-                        cancelButtonColor: '#343a40',
-                        confirmButtonText: 'はい',
-                        cancelButtonText: 'いいえ',
-                        width: 350,
-                        showClass: {
-                            popup: 'animated zoomIn faster'
-                        },
-                        hideClass: {
-                            popup: 'animated zoomOut faster'
-                        },
-                        // customClass: {
-                        //     popup: 'modal-dialog'
-                        // },
-                        allowOutsideClick: false
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.reload(true);
-                        }
-                    })
-                }
-            }
-        });
+            });
+        }
+
     })
     $('#edit_booking').on('click','#credit-card',function (e) {
         return false;
@@ -507,7 +527,7 @@ $(function () {
         var payment_id = $(this).find(".payment_id").val();
         if((payment_id !== "") && (payment_id !== undefined)){
             Swal.fire({
-                html: "Payment ID: " + payment_id,
+                html: "オーダーID: " + payment_id,
                 // icon: 'info',
                 showCloseButton: true,
                 showConfirmButton: false,
@@ -525,7 +545,7 @@ $(function () {
         var payment_id = $(this).find(".payment_id").val();
         if((payment_id !== "") && (payment_id !== undefined)){
             Swal.fire({
-                html: "Payment ID: " + payment_id,
+                html: "オーダーID: " + payment_id,
                 // icon: 'info',
                 showCloseButton: true,
                 showConfirmButton: false,
@@ -543,7 +563,7 @@ $(function () {
         var payment_id = $(this).find(".payment_id").val();
         if((payment_id !== "") && (payment_id !== undefined)){
             Swal.fire({
-                html: "Payment ID: " + payment_id,
+                html: "オーダーID: " + payment_id,
                 // icon: 'info',
                 showCloseButton: true,
                 showConfirmButton: false,

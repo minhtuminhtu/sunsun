@@ -58,8 +58,16 @@ class AdminController extends Controller
         $payments = [];
         $li_pays = Payment::all();
         foreach ($li_pays as $li) {
-            $payments[$li->booking_id] = $li->payment_id;
+
+            $yo = Yoyaku::where('booking_id', $li->booking_id)->first();
+            if(isset($yo->history_id)){
+                $payments[$yo->history_id] = $li->booking_id;
+            }else{
+                $payments[$li->booking_id] = $li->booking_id;
+            }
         }
+        Log::debug('$payments');
+        Log::debug($payments);
         $data['payments'] = $payments;
         return view('sunsun.admin.day',$data);
     }
