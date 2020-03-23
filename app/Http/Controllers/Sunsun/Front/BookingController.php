@@ -1084,7 +1084,7 @@ class BookingController extends Controller
         // Log::debug($start->toDateTimeString());
         // Log::debug('time sub');
 
-        $delay_time = 0;
+        $delay_time = 1;
         if($end->gt($start)){
             $delay_time = $start->diffInMinutes($end);
         }
