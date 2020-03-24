@@ -42,6 +42,9 @@ class AdminController extends Controller
         $data['kubun'] = MsKubun::where('kubun_type', '013')->get();
         $time_value = $this->get_time_value_array();
         $data['time_range'] = config('const.time_admin');
+
+        $date_obj = new Carbon($date);
+        $data['week_day'] = $date_obj->dayOfWeek;
         // $data['time_data'] = DB::table('tr_yoyaku')
         //     ->select(['email as title', 'service_date_start as start', 'service_date_start as end'])
         //     ->whereYear('service_date_start',2019)

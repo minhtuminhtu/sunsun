@@ -326,6 +326,15 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
+                                    @php
+                                    if (($week_day == 3) || ($week_day == 4)){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day == 5) && ($time['time_value'] == '1845')){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                      echo ' bg-dis ';
+                                    }
+                                    @endphp
                                     " id="bed{{$i}}_1">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'male_1'])
@@ -340,6 +349,15 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
+                                    @php
+                                    if (($week_day == 3) || ($week_day == 4)){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day == 5) && ($time['time_value'] == '1845')){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                      echo ' bg-dis ';
+                                    }
+                                    @endphp
                                     " id="bed{{$i}}_2">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'male_2'])
@@ -353,6 +371,15 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
+                                    @php
+                                    if (($week_day == 3) || ($week_day == 4)){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day == 5) && ($time['time_value'] == '1845')){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                      echo ' bg-dis ';
+                                    }
+                                    @endphp
                                     " id="bed{{$i}}_3">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'male_3'])
@@ -378,7 +405,17 @@
                                     }
                                     @endphp
                                     first
-                                    @php echo $disable_1; @endphp"
+                                    @php echo $disable_1; @endphp
+                                    @php
+                                    if (($week_day == 3) || ($week_day == 4)){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day == 5) && ($time['time_value'] == '1845')){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                      echo ' bg-dis ';
+                                    }
+                                    @endphp
+                                    "
                                     id="bedfemale{{$i}}_1"
                                 >
                                     <div>
@@ -396,6 +433,15 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
+                                    @php
+                                    if (($week_day == 3) || ($week_day == 4)){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day == 5) && ($time['time_value'] == '1845')){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                      echo ' bg-dis ';
+                                    }
+                                    @endphp
                                     " id="bedfemale{{$i}}_2">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_2'])
@@ -412,6 +458,15 @@
                                     }
                                     @endphp
                                     @php echo $disable_1; @endphp
+                                    @php
+                                    if (($week_day == 3) || ($week_day == 4)){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day == 5) && ($time['time_value'] == '1845')){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                      echo ' bg-dis ';
+                                    }
+                                    @endphp
                                     " id="bedfemale{{$i}}_3">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_3'])
@@ -428,6 +483,15 @@
                                     }
                                     @endphp
                                     last
+                                    @php
+                                    if (($week_day == 3) || ($week_day == 4)){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day == 5) && ($time['time_value'] == '1845')){
+                                      echo ' bg-dis ';
+                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                      echo ' bg-dis ';
+                                    }
+                                    @endphp
                                     @php echo $disable_1; @endphp" id="bedfemale{{$i}}_4">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
@@ -476,6 +540,11 @@
                                 echo ' wt-new_user ';
                             }
                             @endphp
+                            @php
+                            if (($week_day == 3) || ($week_day == 4)){
+                              echo ' bg-dis ';
+                            }
+                            @endphp
                             " style="height: 100%;padding: .3vw;">
                             @include('sunsun.admin.layouts.day_data', ['row' => 'wt'])
                             </div>
@@ -514,7 +583,13 @@
                             <div class="main-col__pet pet-col_first @if($i == 2) head-col_pet @endif
                             @php echo $disable_2;
                                 $dis_tmp = $disable_2;
-                            @endphp " id="r_pet_{{ $time['pet_time_value'] }}">
+                            @endphp
+                            @php
+                            if (($week_day == 3) || ($week_day == 4)){
+                              echo ' bg-dis ';
+                            }
+                            @endphp
+                            " id="r_pet_{{ $time['pet_time_value'] }}">
                                 <div class="pet-top_ele">
                                     <div class="pet-top_head">{{ $time['pet_time'] }}</div>
                                     <div class="pet-top_content">
@@ -547,7 +622,13 @@
                             </div>
                             @else
                             <div class="main-col__pet pet-col_second
-                                @php echo $dis_tmp; $dis_tmp = ''; @endphp"
+                                @php echo $dis_tmp; $dis_tmp = ''; @endphp
+                                @php
+                                if (($week_day == 3) || ($week_day == 4)){
+                                  echo ' bg-dis ';
+                                }
+                                @endphp
+                                "
                                 id="r_pet_{{ $time['pet_time_value'] }}">
                                 <div class="pet-bottom_content">
                                     <div class="pet-bottom_content">
