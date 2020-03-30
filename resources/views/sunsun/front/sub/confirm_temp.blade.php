@@ -7,11 +7,13 @@
         <p>ご利用： {{ $admin_value_customer[$i - 1]['repeat_user'] }}</p>
         @if($repeat_user != '02')
             <p>{!! config('const.message.please_15_minus') !!}</p>
+            <p>※バスのチケット予約ではありません。</p>
         @endif
     @else
         <p>ご利用： {{ $repeat_user->kubun_value }}</p>
         @if($repeat_user->kubun_id != '02')
             <p>{!! config('const.message.please_15_minus') !!}</p>
+            <p>※バスのチケット予約ではありません。</p>
         @endif
     @endif
 
