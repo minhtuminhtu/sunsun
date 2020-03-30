@@ -382,16 +382,6 @@ return [
             'wt_time_value' => NULL,
             'not_wt' => 1,
         ],
-        '17' =>  [
-            'time' => '18:45',
-            'time_value' => '1845',
-            'time_range' => '19:00～',
-            'pet_time_type' => NULL,
-            'pet_time' => NULL,
-            'pet_time_value' => NULL,
-            'wt_time_value' => NULL,
-            'not_wt' => 1,
-        ],
     ]
 
 

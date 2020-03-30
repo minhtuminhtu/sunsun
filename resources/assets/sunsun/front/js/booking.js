@@ -296,7 +296,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(true),
+                                daysOfWeekDisabled: get_off_def(true, true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -318,7 +318,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(true),
+                                daysOfWeekDisabled: get_off_def(true, true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -436,9 +436,12 @@ $(function() {
                 DatePicker.hideNewDays();
             }
         };
-        function get_off_def(stay = false) {
+        function get_off_def(stay = false, start_stay = false) {
             var _off_set = _off_def;
             if (typeof $('#course') != "undefined" && $('#course') != null) {
+                if(start_stay === true){
+                    _off_set += ",2";
+                }
                 if(stay === false){
                     if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
                         _off_set += ",6,0";
@@ -558,7 +561,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(true),
+                                daysOfWeekDisabled: get_off_def(true, true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
@@ -580,7 +583,7 @@ $(function() {
                                 dateFormat: 'yyyy/mm/dd',
                                 autoclose: true,
                                 startDate: new Date(),
-                                daysOfWeekDisabled: get_off_def(true),
+                                daysOfWeekDisabled: get_off_def(true, true),
                                 datesDisabled: html.date_selected,
                                 weekStart: 1,
                                 orientation: 'bottom',
