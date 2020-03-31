@@ -1380,53 +1380,107 @@ $(function() {
     let load_time_list = function(check = null) {
         let check_admin_set = $(".time-list").attr("value");
         if((!check) && !(check_admin_set == 1)){
-            $('.time-list').append('' +
-                '<div class="booking-field choice-time">' +
-                '<input value="0" class="time_index" type="hidden" >' +
-                '<div class="booking-field-label label-data pt-2">' +
-                '<label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label>' +
-                '<input name="date['+ 0 +'][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" >' +
-                '<input name="date['+ 0 +'][day][value]" value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" type="hidden" >' +
-                '</div>    <div class="booking-field-content date-time">' +
-                '<div class="choice-data-time set-time time-start">    ' +
-                '<div class="set-time">' +
-                '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
-                '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly"  value="－" />    ' +
-                '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
-                '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
-                '<input class="bus_first" type="hidden" value="1">' +
-                '</div>    <div class="icon-time mt-1">' +
-                '</div>' +
-                '</div>' +
-                '<div class="choice-data-time set-time time-end">    ' +
-                '<div class="set-time">' +
-                '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
-                '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to"  readonly="readonly"  value="－" />    ' +
-                '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
-                '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
-                '<input class="bus_first" type="hidden" value="1">' +
-                '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-            $('.time-list').append('' +
-                '<div class="booking-field choice-time">' +
-                '<input value="1" class="time_index" type="hidden" >' +
-                '<div class="booking-field-label label-data pt-2">' +
-                '<label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label>' +
-                '<input name="date['+ 1 +'][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" >' +
-                '<input name="date['+ 1 +'][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
-                '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
-                '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
-                '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="－" />   ' +
-                '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
-                '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
-                ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
-                '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
-                '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
-                '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
-                '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+            if(JSON.parse($('#course').val()).kubun_id == '04'){
+                if(today.weekday() == '2'){
+                    var today_4 = moment(today).add(3, 'days');
+                    var tomorrow_4 = moment(today_4).add(1, 'days');
+                    $('.time-list').append('' +
+                        '<div class="booking-field choice-time">' +
+                        '<input value="0" class="time_index" type="hidden" >' +
+                        '<div class="booking-field-label label-data pt-2">' +
+                        '<label class="">' + today_4.format('MM') + '/' + today_4.format('DD') + '(' + days_short[today_4.weekday()] + ')</label>' +
+                        '<input name="date['+ 0 +'][day][view]" value="' + today_4.format('MM') + '/' + today_4.format('DD') + '(' + days_short[today_4.weekday()] + ')" type="hidden" >' +
+                        '<input name="date['+ 0 +'][day][value]" value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" type="hidden" >' +
+                        '</div>    <div class="booking-field-content date-time">' +
+                        '<div class="choice-data-time set-time time-start">    ' +
+                        '<div class="set-time">' +
+                        '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" data-date_type="form" readonly="readonly"  value="－" />    ' +
+                        '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
+                        '<input class="bus_first" type="hidden" value="1">' +
+                        '</div>    <div class="icon-time mt-1">' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="choice-data-time set-time time-end">    ' +
+                        '<div class="set-time">' +
+                        '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" data-date_type="to"  readonly="readonly"  value="－" />    ' +
+                        '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
+                        '<input class="bus_first" type="hidden" value="1">' +
+                        '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+                    $('.time-list').append('' +
+                        '<div class="booking-field choice-time">' +
+                        '<input value="1" class="time_index" type="hidden" >' +
+                        '<div class="booking-field-label label-data pt-2">' +
+                        '<label class="">' + tomorrow_4.format('MM') + '/' + tomorrow_4.format('DD') + '(' + days_short[tomorrow_4.weekday()] + ')</label>' +
+                        '<input name="date['+ 1 +'][day][view]" value="' + tomorrow_4.format('MM') + '/' + tomorrow_4.format('DD') + '(' + days_short[tomorrow_4.weekday()] + ')" type="hidden" >' +
+                        '<input name="date['+ 1 +'][day][value]" value="' + tomorrow_4.format('YYYY') + tomorrow_4.format('MM') +  tomorrow_4.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
+                        '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
+                        '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow_4.format('YYYY') + tomorrow.format('MM') +  tomorrow_4.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="－" />   ' +
+                        '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
+                        ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
+                        '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
+                        '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow_4.format('YYYY') + tomorrow_4.format('MM') +  tomorrow_4.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+                }else{
+                    $('.time-list').append('' +
+                        '<div class="booking-field choice-time">' +
+                        '<input value="0" class="time_index" type="hidden" >' +
+                        '<div class="booking-field-label label-data pt-2">' +
+                        '<label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label>' +
+                        '<input name="date['+ 0 +'][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" >' +
+                        '<input name="date['+ 0 +'][day][value]" value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" type="hidden" >' +
+                        '</div>    <div class="booking-field-content date-time">' +
+                        '<div class="choice-data-time set-time time-start">    ' +
+                        '<div class="set-time">' +
+                        '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly"  value="－" />    ' +
+                        '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
+                        '<input class="bus_first" type="hidden" value="1">' +
+                        '</div>    <div class="icon-time mt-1">' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="choice-data-time set-time time-end">    ' +
+                        '<div class="set-time">' +
+                        '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to"  readonly="readonly"  value="－" />    ' +
+                        '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
+                        '<input class="bus_first" type="hidden" value="1">' +
+                        '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+                    $('.time-list').append('' +
+                        '<div class="booking-field choice-time">' +
+                        '<input value="1" class="time_index" type="hidden" >' +
+                        '<div class="booking-field-label label-data pt-2">' +
+                        '<label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label>' +
+                        '<input name="date['+ 1 +'][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" >' +
+                        '<input name="date['+ 1 +'][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
+                        '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
+                        '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="－" />   ' +
+                        '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
+                        ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
+                        '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+                        '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+                        '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+                        '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
+                        '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+                }
+            }
         }
         $(".range_date").change(function(){
             var date_arr = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
