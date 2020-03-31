@@ -7,17 +7,13 @@
         <p>ご利用： {{ $admin_value_customer[$i - 1]['repeat_user'] }}</p>
         @if($repeat_user != '02')
             <p>{!! config('const.message.please_15_minus') !!}</p>
-            <p>※バスのチケット予約ではありません。</p>
         @endif
     @else
         <p>ご利用： {{ $repeat_user->kubun_value }}</p>
         @if($repeat_user->kubun_id != '02')
             <p>{!! config('const.message.please_15_minus') !!}</p>
-            <p>※バスのチケット予約ではありません。</p>
         @endif
     @endif
-
-
 </div>
 @if(($key == 0) && isset($change_check) === false)
     @php
@@ -53,6 +49,9 @@
                     <p>送迎なし</p>
                 @endif
             </div>
+        </div>
+        <div class="line">
+            <p>※バスのチケット予約ではありません。</p>
         </div>
     @endif
     <span style="display: none">mark_newline</span>
