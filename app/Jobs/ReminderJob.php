@@ -10,6 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Models\Yoyaku;
 
 class ReminderJob implements ShouldQueue
 {
@@ -34,6 +36,14 @@ class ReminderJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new ReminderMail($this->booking_data));
+        Log::debug("Dang gui mail");
+        $yo = Yoyaku::where('booking_id', $this->booking_data->booking_id)->first();
+        Log::debug($this->booking_data->booking_id);
+        if(isset($yo->history_id)  === false){
+            Log::debug("Chua bi sua");
+            Mail::to($this->email)->send(new ReminderMail($this->booking_data));
+        }else{
+            Log::debug("Da bi sua");
+        }
     }
 }
