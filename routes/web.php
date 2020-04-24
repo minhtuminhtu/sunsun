@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/clear_yoyaku', function () {
+    DB::table('tr_jobs')->truncate();
+    DB::table('tr_failed_jobs')->truncate();
     Yoyaku::truncate();
     \App\Models\YoyakuDanjikiJikan::truncate();
     echo "done";
