@@ -31,37 +31,15 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 
-// Route::get('/demo_lock', function () {
-
-
-//     DB::unprepared("LOCK TABLE tr_yoyaku WRITE, tr_yoyaku_danjiki_jikan WRITE");
-//     try{
-//         DB::beginTransaction();
-//         try {
-//             $Yoyaku1 = new Yoyaku();
-//             $Yoyaku1->booking_id = 2;
-//             $Yoyaku1->course = 7;
-//             $Yoyaku1->save();
-
-//             new_test();
-
-
-//             get_exeption();
-
-//             DB::commit();
-//         } catch (Exception $e) {
-//             DB::rollBack();
-
-//             // throw new Exception($e->getMessage());
-//         }
-//     }catch(Exception $e){
-//         dd($e);
-//     }
-//     DB::unprepared("UNLOCK TABLE");
-// });
-// function get_exeption(){
-//     throw new \ErrorException('Error found');
-// }
+Route::get('/clear_yoyaku', function () {
+    Yoyaku::truncate();
+    \App\Models\YoyakuDanjikiJikan::truncate();
+    echo "done";
+});
+Route::get('/clear_nomal_user', function () {
+    \App\Models\MsUser::where('user_type', '<>', "admin")->delete();
+    echo "done";
+});
 
 // function new_test(){
 //     $Yoyaku1 = new Yoyaku();
@@ -70,67 +48,6 @@ use Illuminate\Support\Facades\Auth;
 //     $Yoyaku1->save();
 // }
 
-// Route::get('/clear', function () {
-//     $booking_id = date("Ymd")."0001";
-//     DB::select("
-//         UPDATE `tr_yoyaku`
-//         SET
-//             `booking_id`= '$booking_id'
-//             ,`ref_booking_id`= null
-//             ,`history_id`=null
-//             ,`name`=null
-//             ,`phone`=null
-//             ,`email`=null
-//             ,`repeat_user`=null
-//             ,`transport`=null
-//             ,`bus_arrive_time_slide`=null
-//             ,`bus_arrive_time_value`=null
-//             ,`pick_up`=null
-//             ,`course`='00'
-//             ,`gender`=null
-//             ,`age_type`=null
-//             ,`age_value`=null
-//             ,`service_date_start`=null
-//             ,`service_date_end`=null
-//             ,`service_time_1`=null
-//             ,`service_time_2`=null
-//             ,`time_json`=null
-//             ,`bed`=null
-//             ,`service_guest_num`=null
-//             ,`service_pet_num`=null
-//             ,`lunch`=null
-//             ,`lunch_guest_num`=null
-//             ,`whitening`=null
-//             ,`whitening_repeat`=null
-//             ,`whitening_time`=null
-//             ,`pet_keeping`=null
-//             ,`stay_room_type`=null
-//             ,`stay_guest_num`=null
-//             ,`stay_checkin_date`=null
-//             ,`stay_checkout_date`=null
-//             ,`breakfast`=null
-//             ,`payment_method`=null
-//             ,`notes`=null
-//             ,`created_at`=null
-//             ,`updated_at`=null
-//         WHERE 1
-//     ");
-//     DB::select("
-//         UPDATE
-//             `tr_yoyaku_danjiki_jikan`
-//         SET
-//             `booking_id`='$booking_id'
-//             ,`service_date`=0
-//             ,`service_time_1`=null
-//             ,`service_time_2`=null
-//             ,`notes`=null
-//             ,`time_json`=null
-//             ,`created_at`=null
-//             ,`updated_at`=null
-//         WHERE 1
-//     ");
-//     echo "Clear done!";
-// });
 
 Route::get('/migrate', function () {
     exec("alias php=\'/usr/local/php7.3/bin/php\'");
