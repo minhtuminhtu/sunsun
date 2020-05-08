@@ -45,6 +45,9 @@
         if($field_email == ''){
             $field_email = ((isset($new) && ($new == 1)) && isset($auth_email) && $auth_email != '')?$auth_email:'';
         }
+        if($field_email == ''){
+            $field_email = "arigatoukouso@sun-sun33.com";
+        }
     @endphp
     <div class="booking-field-content">
         <div>
