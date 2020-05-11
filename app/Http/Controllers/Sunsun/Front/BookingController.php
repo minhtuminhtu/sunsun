@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use App\Mail\ConfirmMail;
 use Illuminate\Support\Facades\Mail;
 use \Session;
+use App\Models\Setting;
 class BookingController extends Controller
 {
     private $session_info = 'SESSION_BOOKING_USER';
@@ -3217,6 +3218,7 @@ class BookingController extends Controller
                                                         substr($data['course_data']['whitening_time'], 7, 2);
         }
 //        dd($data);
+        $data["setting"] = Setting::find(1)->pluck('accommodation_flg')->first();
         if ($json->kubun_id == "01") {
             return view('sunsun.front.parts.enzyme_bath',$data)->render();
         } elseif ($json->kubun_id == "02") {
