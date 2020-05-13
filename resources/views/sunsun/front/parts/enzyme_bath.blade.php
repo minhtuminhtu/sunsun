@@ -429,7 +429,7 @@
                         <p class="text-left pt-2">宿泊<span class="node-text">(部屋ﾀｲﾌﾟ)</span></p>
                     </div>
                     <div class="booking-field-content">
-                        <select name="stay_room_type" id="room" class="form-control">
+                        <select name="stay_room_type" id="room" class="form-control" <?php if($setting == "0") echo "disabled" ?>>
                             @foreach($stay_room_type as $value)
                                 @if(isset($course_data['stay_room_type']) && ($value->kubun_id == $course_data['stay_room_type']))
                                     <option selected value='@json($value)'>{{ $value->kubun_value }}</option>

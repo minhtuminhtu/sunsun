@@ -9,6 +9,9 @@ return [
         'err_not_user' => 'アカウントをお持ちでない方はこちら',
     ],
     'db' => [
+        'ms_setting' => [
+            'ACCOMMODATION_FLG' => 'accommodation_flg',
+        ],
         'ms_user' => [
             'MS_USER_ID' => 'ms_user_id',
             'USERNAME' => 'username',

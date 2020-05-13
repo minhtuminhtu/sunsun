@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Setting;
 class AdminController extends Controller
 {
     private $session_info = 'SESSION_BOOKING_USER';
@@ -1731,5 +1732,14 @@ class AdminController extends Controller
                 'data' => $view
             ];
         }
+    }
+    public function setting() {
+        $data['data'] = Setting::find(1)->pluck('accommodation_flg')->first();
+        return view('sunsun.admin.setting_accommodation_flg',$data);
+    }
+    public function update_setting(Request $request) {
+        $data = $request->all();
+        Setting::where('ms_setting_id', "1")->update(['accommodation_flg' => $data["accommodation_flg"]]);
+        return redirect()->route('admin.setting');
     }
 }
