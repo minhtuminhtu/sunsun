@@ -81,20 +81,22 @@
         var count_list = list_kubun.length;
         var count_holiday = list_holiday.length;
         var listCombo = [];
+        var first_page = true;
         (function($) {
             Date.prototype.addDays = function(days) {
                 var date = new Date(this.valueOf());
                 date.setDate(date.getDate() + days);
                 return date;
             }
-            // start page
-            createListKubun();
-
             var today = new Date();
             var day = today.getDay();
             if (day == 3 || day == 4) {
                 today = (day == 3) ? today.addDays(2) : today.addDays(1);
+            } else {
+                first_page = false;
             }
+                // start page
+                createListKubun();
             $('#show_current_date').datepicker({
                 language: 'ja',
                 weekStart: 1,
@@ -102,6 +104,10 @@
                 datesDisabled: _date_holiday,
                 dateFormat: 'yyyy/mm/dd'
             }).on("changeDate", function(e) {
+                if (first_page) {
+                    first_page = false;
+                    return;
+                }
                 searchDate(e.date);
                 checkDateDisableButton();
             }).datepicker("setDate", today);
@@ -249,7 +255,8 @@
                 }
             }
             function handleDate() {
-                var date_now = today.toISOString().slice(0,10);
+                var _current_day = new Date();
+                var date_now = _current_day.toISOString().slice(0,10);
                 date_now = date_now.replace(/-/g,"");
                 var date_search = $('#date_search').val();
                 date_search = date_search.split("-");
