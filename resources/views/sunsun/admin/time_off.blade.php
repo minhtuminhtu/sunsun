@@ -94,9 +94,8 @@
                 today = (day == 3) ? today.addDays(2) : today.addDays(1);
             } else {
                 first_page = false;
-            }
-                // start page
                 createListKubun();
+            }
             $('#show_current_date').datepicker({
                 language: 'ja',
                 weekStart: 1,
@@ -104,17 +103,18 @@
                 datesDisabled: _date_holiday,
                 dateFormat: 'yyyy/mm/dd'
             }).on("changeDate", function(e) {
+                searchDate(e.date);
                 if (first_page) {
+                    createListKubun();
                     first_page = false;
                     return;
                 }
-                searchDate(e.date);
+                refeshPage();
                 checkDateDisableButton();
             }).datepicker("setDate", today);
             function searchDate(date_select) {
                 var _date_search = date_select.getFullYear()+"-"+(date_select.getMonth()+1)+"-"+date_select.getDate();
                 $("#date_search").val(_date_search);
-                refeshPage();
             }
             $(document).on("click", "#submitButton", function(e){
                 e.preventDefault();
@@ -178,33 +178,42 @@
                 var html = "<table>" + item + "</table>";
                 $("#div"+index).html(html);
             }
+            var check_roll = false;
             function _listCombo(item, index) {
+                setDefaultCombo(item);
                 new DG.OnOffSwitch({
                     el: "#"+item,
                     height: 20,
                     textOn:'ON',
                     textOff:'OFF',
                     listener:function(name, checked){
-                        var arr_date = handleDate();
-                        if (arr_date.date_search <= arr_date.date_now) {
-                            $('.on-off-switch-track>div').attr('style','left:0px');
-                            $('.on-off-switch-thumb').addClass('disable-checkbox');
-                            alert("休日が未来の日付のみに設定できます。");
-                            return false;
+                        if (!check_roll) {
+                            var arr_date = handleDate();
+                            if (arr_date.date_search <= arr_date.date_now) {
+                                //$('.on-off-switch-track>div').attr('style','left:0px');
+                                // $('.on-off-switch-thumb').addClass('disable-checkbox');
+                                if (!this.checked) {
+                                    this.animateRight();
+                                } else {
+                                    this.animateLeft();
+                                }
+                                alert("休日が未来の日付のみに設定できます。");
+                                check_roll = true;
+                            } else {
+                                var id_tr = "#"+name.replace("cmb_", "tr_");
+                                if (!checked) {
+                                    $("#"+name).val("off");
+                                    $(id_tr).addClass("tr_disable");
+                                }
+                                else {
+                                    $("#"+name).val("on");
+                                    $(id_tr).removeClass("tr_disable");
+                                }
+                            }
                         }
-
-                        var id_tr = "#"+name.replace("cmb_", "tr_");
-                        if (!checked) {
-                            $("#"+name).val("off");
-                            $(id_tr).addClass("tr_disable");
-                        }
-                        else {
-                            $("#"+name).val("on");
-                            $(id_tr).removeClass("tr_disable");
-                        }
+                        else check_roll = false;
                     }
                 });
-                setDefaultCombo(item);
             }
             function setDefaultCombo(item) {
                 var id = "#"+item;
@@ -215,6 +224,9 @@
                     var row = list_holiday[i];
                     if (row.type_holiday == type && row.time_holiday == time_holiday) {
                         $(id).click();
+                        var id_tr = id.replace("cmb_", "tr_");
+                        $(id_tr).addClass("tr_disable");
+                        break;
                     }
                 }
             }
@@ -244,7 +256,6 @@
                     },
                 });
             }
-
             // rule time off
             function checkDateDisableButton() {
                 var arr_data = handleDate();
