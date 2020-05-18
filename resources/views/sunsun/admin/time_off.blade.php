@@ -224,6 +224,7 @@
                     var row = list_holiday[i];
                     if (row.type_holiday == type && row.time_holiday == time_holiday) {
                         $(id).click();
+                        $(id).val("off");
                         var id_tr = id.replace("cmb_", "tr_");
                         $(id_tr).addClass("tr_disable");
                         break;
