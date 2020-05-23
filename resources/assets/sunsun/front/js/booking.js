@@ -10,6 +10,14 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
+function setDateFormat(date_string) {
+    var new_day = moment(new Date(date_string));
+    var days_short = new Array("日","月","火","水","木","金","土");
+    $('#date').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
+    $('#date-value').val(new_day.format('YYYYMMDD'));
+    $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
+}
+
 function formatDate(date) {
      var d = new Date(date),
          month = '' + (d.getMonth() + 1),
@@ -207,7 +215,9 @@ $(function() {
     });
     $('#course').off('change');
     $('#course').on('change', function() {
-        if ((typeof _date_admin === "undefined" || _date_admin == "") && admin_check) { // admin edit, confirm
+        if ((typeof _date_admin === "undefined" || _date_admin == "") && admin_check
+            && (document.getElementById("booking_id") !== null)
+        ) { // admin edit, confirm
             result_confirm = false;
             modal_confirm.modal({
                 show: true,
@@ -243,7 +253,7 @@ $(function() {
             }
         }
         if(($('#date').val() == "") && ($('#date').val() !== undefined)){
-            $('#date').val(strToday);
+            setDateFormat(strToday);
         }
 
         $('#room').off('change');
@@ -467,7 +477,7 @@ $(function() {
                 if (!admin_check)
                     setDefAdmin();
                 if (typeof $("#date") !== "undefined" && $("#date") != null)
-                    $("#date").val(_date_admin);
+                    setDateFormat(_date_admin);
             }
             admin_check = true;
         }else{
@@ -495,7 +505,7 @@ $(function() {
             else if (current_day == 0) {
                 date_change = formatDate(date.addDays(1));
             }
-            $("#date").val(date_change);
+            setDateFormat(date_change);
         }
         $('#date').datepicker().off('hide');
         $('#date').datepicker().on('hide', function(e) {
@@ -518,7 +528,7 @@ $(function() {
                 //
                 //
                 let current_date = date_value.format('Y') + '/' + date_value.format('MM') + '/' + date_value.format('DD') + "(" + days_short[date_value.weekday()] + ")";
-                $('#date').val(current_date);
+                setDateFormat($('#date').val());
                 // console.log(date_value.weekday());
                 //
                 //
@@ -838,11 +848,7 @@ $(function() {
             $('#whitening-time_view').val('－');
             $('#whitening-time_value').val('0');
             $('#whitening_data\\[json\\]').val('');
-            let new_day = moment(new Date($('#date').val()));
-            let days_short = new Array("日","月","火","水","木","金","土");
-            $('#date').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
-            $('#date-value').val(new_day.format('YYYYMMDD'));
-            $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
+            setDateFormat($('#date').val());
         }
         $(".room_range_date").on('change blur', function() {
             let range_start = moment(new Date($('#range_date_start').val()));
@@ -2405,10 +2411,7 @@ let load_after_ajax = function(){
     });
     // $('#date-value').val(today.format('YYYYMMDD'));
     // $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
-    var current_date = $('#date').val();
-    var current_date_check = moment(new Date(current_date));
-    $('#date-value').val(current_date_check.format('YYYY') + current_date_check.format('MM') + current_date_check.format('DD'));
-    $('#date-view').val(current_date);
+    setDateFormat($('#date').val());
     var plan_date_start = $('#plan_date_start').val();
     var plan_date_end = $('#plan_date_end').val();
     var plan_date_start_check = moment(new Date(plan_date_start));

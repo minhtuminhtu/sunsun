@@ -189,7 +189,20 @@
                     listener:function(name, checked){
                         if (!check_roll) {
                             var arr_date = handleDate();
-                            if (arr_date.date_search <= arr_date.date_now) {
+                            var error_check = false;
+                            if (arr_date.date_search == arr_date.date_now) {
+                                var today = new Date();
+                                var h = today.getHours();
+                                var m = today.getMinutes();
+                                if (m < 10) m = "0"+m;
+                                var time_check = parseInt(""+h+m);
+                                var arr_name = name.split("_");
+                                var time = parseInt(arr_name[arr_name.length - 1]);
+                                if (time_check >= time) {
+                                    error_check = true;
+                                }
+                            }
+                            if (arr_date.date_search < arr_date.date_now || error_check) {
                                 //$('.on-off-switch-track>div').attr('style','left:0px');
                                 // $('.on-off-switch-thumb').addClass('disable-checkbox');
                                 if (!this.checked) {
@@ -260,7 +273,7 @@
             // rule time off
             function checkDateDisableButton() {
                 var arr_data = handleDate();
-                if (arr_data.date_search <= arr_data.date_now) {
+                if (arr_data.date_search < arr_data.date_now) {
                     $("#submitButton").addClass('disabled');
                 }else{
                     $("#submitButton").removeClass('disabled');
