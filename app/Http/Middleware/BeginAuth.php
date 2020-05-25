@@ -18,9 +18,9 @@ class BeginAuth
      */
     public function handle($request, Closure $next)
     {
+	$bookCon = new BookingController();
+        Session::put("date_holiday",$bookCon->get_free_holiday());
         return $next($request);
-        // $bookCon = new BookingController();
-        // Session::put("date_holiday",$bookCon->get_free_holiday());
         // $AUTH_USER = 'sunsunad';
         // $AUTH_PASS = '123456';
         // header('Cache-Control: no-cache, must-revalidate, max-age=0');
