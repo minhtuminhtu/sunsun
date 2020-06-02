@@ -78,6 +78,9 @@ Route::get('/cache', function () {
 Route::get('/law', function () {
     return view('sunsun.front.law');
 })->name('law');
+Route::get('/cancellation_policy', function () {
+    return view('sunsun.front.cancellation_policy');
+})->name('cancellation_policy');
 Route::middleware('begin.auth')->group(function(){
     Route::namespace('Sunsun\Front')->group(function (){
         Route::get('/main', function (){
