@@ -15,6 +15,10 @@ class TimeOffController extends Controller
         $data = [];
         $data['list_holiday'] = $this->Search($postdata);
         $data['list_kubun'] = MsKubun::GetTimeKubunHoliday();
+        $data['list_kubun_hotel'] = MsKubun::GetKubunHotelHoliday();
+        foreach ($data['list_kubun_hotel'] as $row) {
+            $data['list_kubun'][] = $row;
+        }
         return $data;
     }
     public function Create()

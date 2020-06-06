@@ -4,6 +4,10 @@ var admin_check = false;
 var result_confirm = false;
 var course_tmp = "";
 var time_check = false;
+var date_view_tmp = "";
+var date_value_tmp = "";
+var date_tmp = "";
+var date_def = "";
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
@@ -94,6 +98,14 @@ $(function() {
                     else
                         $('.js-set-time').click();
                 }
+                if (typeof $('#date').val() != "undefined" && date_tmp != "") {
+                    $('#date-view').val(date_view_tmp);
+                    $('#date-value').val(date_value_tmp);
+                    $('#date').val(date_tmp);
+                }
+                date_view_tmp = "";
+                date_value_tmp = "";
+                date_tmp = "";
             },
             complete: function () {
                 loader.css({'display': 'none'});
@@ -210,11 +222,16 @@ $(function() {
     $('#course').off('focusin');
     $('#course').on('focusin', function() {
         course_tmp = $('#course').val();
-        console.log('abv');
-        console.log(course_tmp);
     });
     $('#course').off('change');
     $('#course').on('change', function() {
+        var course_obj = $('#course').val();
+        if (typeof $('#date').val() != "undefined" && date_tmp == "") {
+            date_view_tmp = $('#date-view').val();
+            date_value_tmp = $('#date-value').val();
+            date_tmp = $('#date').val();
+            date_def = date_tmp;
+        }
         if ((typeof _date_admin === "undefined" || _date_admin == "") && admin_check
             && (document.getElementById("booking_id") !== null)
         ) { // admin edit, confirm
@@ -237,7 +254,7 @@ $(function() {
         var strTomorrow;
         strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
         strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
-        if(JSON.parse($('#course').val()).kubun_id == '04'){
+        if(JSON.parse($('#course').val()).kubun_id == '04' || JSON.parse($('#course').val()).kubun_id == '06'){ // 2020/06/05
             if(today.weekday() == '2'){
                 var today_4 = moment(today).add(3, 'days');
                 var tomorrow_4 = moment(today_4).add(1, 'days');
@@ -1213,7 +1230,8 @@ $(function() {
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         } else if(
-            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            $('#room').val()  !== undefined
+            && (JSON.parse($('#room').val())['kubun_id'] != '01')
             &&(
                 ($('#range_date_start').val() == '')
                 || ($('#range_date_start').val() == '－')
@@ -1386,7 +1404,7 @@ $(function() {
     let load_time_list = function(check = null) {
         let check_admin_set = $(".time-list").attr("value");
         if((!check) && !(check_admin_set == 1)){
-            if(JSON.parse($('#course').val()).kubun_id == '04'){
+            if(JSON.parse($('#course').val()).kubun_id == '04' || JSON.parse($('#course').val()).kubun_id == '06'){ // 2020/06/05
                 if(today.weekday() == '2'){
                     var today_4 = moment(today).add(3, 'days');
                     var tomorrow_4 = moment(today_4).add(1, 'days');
@@ -1610,7 +1628,8 @@ let load_pick_time_event = function(){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         } else if(
-            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            $('#room').val()  !== undefined
+            && (JSON.parse($('#room').val())['kubun_id'] != '01')
             &&(
                 ($('#range_date_start').val() == '')
                 || ($('#range_date_start').val() == '－')
@@ -2042,7 +2061,8 @@ let load_after_ajax = function(){
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         } else if(
-            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            $('#room').val()  !== undefined
+            && (JSON.parse($('#room').val())['kubun_id'] != '01')
             &&(
                 ($('#range_date_start').val() == '')
                 || ($('#range_date_start').val() == '－')
@@ -2411,7 +2431,12 @@ let load_after_ajax = function(){
     });
     // $('#date-value').val(today.format('YYYYMMDD'));
     // $('#date-view').val(today.format('YYYY') + "年" + today.format('MM') + "月" + today.format('DD') + "日(" + days_short[today.weekday()] + ")");
-    setDateFormat($('#date').val());
+    if (date_def != "" && date_tmp == "") {
+        setDateFormat(date_def);
+    }
+    else
+        setDateFormat($('#date').val());
+
     var plan_date_start = $('#plan_date_start').val();
     var plan_date_end = $('#plan_date_end').val();
     var plan_date_start_check = moment(new Date(plan_date_start));

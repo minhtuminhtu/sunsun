@@ -22,7 +22,7 @@
 <div class="booking-field" style="{{ $check_ref }}">
     <div class="booking-field-label @if(isset($new) && (!$new)) {{ 'booking-laber-padding' }} @endif">
         <p class="text-md-left" style="line-height: 115%;">{{config('booking.phone.label')}}<span class="text-red">*</span></p>
-        <p class="node-text pt-2" style="line-height: 100%;">当日の連絡先</p>
+        <p class="node-text pt-2" style="line-height: 100%;">（携帯番号）</p>
     </div>
     @php
         $field_tel = isset($data_booking->name)?$data_booking->phone:'';
@@ -45,7 +45,7 @@
         if($field_email == ''){
             $field_email = ((isset($new) && ($new == 1)) && isset($auth_email) && $auth_email != '')?$auth_email:'';
         }
-        if($field_email == ''){
+        if($field_email == '' && isset($type_admin)){
             $field_email = "arigatoukouso@sun-sun33.com";
         }
     @endphp

@@ -17,8 +17,13 @@ $(function () {
     $('#button-current__date').on('click', function(e) {
         $('#input-current__date').focus();
     });
+    $('#input-current__view').off('click');
+    $('#input-current__view').on('click', function(e) {
+        $('#input-current__date').focus();
+    });
     current_day.on('input change',function (e) {
         let date = $(this).val().split('/').join('');
+        setDateView();
         window.location.href = $curent_url+"?date="+date;
     });
     if (current_day.val() === '') {
@@ -188,6 +193,11 @@ $(function () {
             }
         });
     };
+    function setDateView() {
+        var new_day = moment(new Date($('#input-current__date').val()));
+        var days_short = new Array("日","月","火","水","木","金","土");
+        $('#input-current__view').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
+    }
     function getBed(id) {
         if (id != null && id != "") {
             var arr_id = id.split("_");
@@ -236,10 +246,6 @@ $(function () {
         let timeoff_url = $curent_url.substring(0, $curent_url.length - 9) + "admin/time_off";
         window.location.href = timeoff_url;
     })
-
-
-
-
     $('#edit_booking').off('click','.btn-update');
     $('#edit_booking').on('click','.btn-update',function (e) {
         e.preventDefault();
@@ -248,7 +254,7 @@ $(function () {
             $('select[name=gender]').addClass('validate_failed');
             $('select[name=gender]').after('<p class="note-error node-text">性別が空白できません。</p>');
         } else if(
-            (JSON.parse($('#room').val())['kubun_id'] != '01')
+            (   $('#room').val()  !== undefined && JSON.parse($('#room').val())['kubun_id'] != '01')
             &&(
                 ($('#range_date_start').val() == '')
                 || ($('#range_date_start').val() == '－')
@@ -330,7 +336,6 @@ $(function () {
                 }
             });
         }
-
     })
     $('#edit_booking').on('click','#credit-card',function (e) {
         return false;
@@ -435,10 +440,13 @@ $(function () {
                             course_re = '貸切';
                             break;
                         case '04':
-                            course_re = '断食';
+                            course_re = '断食初';
                             break;
                         case '05':
                             course_re = 'Pet';
+                            break;
+                        case '06': // 2020/06/05
+                            course_re = '断食り';
                             break;
                         default:
                             course_re = '';
@@ -489,13 +497,10 @@ $(function () {
                     $("#bookingSeclect").val($(this).find(".bookingSeclect").val());
                     $("#timeSeclect").val($(this).find(".timeSeclect").val());
                     $("#selectCourse").attr('action', $("#selectCourse").attr('action') + "?date=" + $(this).find(".dateSeclect").val()).submit()
-
                 })
             });
         };
     }
-
-
     let load_payment_event = function () {
         $('#collapseOne').collapse('hide');
         $('#headingOne').on('click', function (e) {
@@ -518,11 +523,9 @@ $(function () {
             }
         });
     }
-
     $(document).bind('contextmenu', function(e) {
         e.preventDefault();
     });
-
     $('.main-col__data').not(".bg-free").not(".bg-dis").contextmenu(function() {
         var payment_id = $(this).find(".payment_id").val();
         if((payment_id !== "") && (payment_id !== undefined)){
@@ -576,5 +579,18 @@ $(function () {
                 allowOutsideClick: false
             })
         }
+    });
+    $("#txt_notes").focusout(function(){
+        $.ajax({
+            url: '/admin/ajax_save_notes',
+            type: 'POST',
+            data: {
+                'date_notes' : $("#input-current__date").val(),
+                'txt_notes' : $("#txt_notes").val().trim()
+            },
+            success: function (html) {
+                console.log(html);
+            }
+        });
     });
 });

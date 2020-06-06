@@ -161,6 +161,7 @@
                                             $disable_1 = \Helper::setHoliday($time_holiday[$day_arr],$time['time_value'],"1",$disable_all[$day_arr]);
                                             $disable_2 = \Helper::setHoliday($time_holiday[$day_arr],$time['time_value'],"2",$disable_all[$day_arr]);
                                             $disable_3 = \Helper::setHoliday($time_holiday[$day_arr],$time['time_value'],"3",$disable_all[$day_arr]);
+                                            $disable_4 = \Helper::setHoliday($time_holiday[$day_arr],$time['time_value'],"4",$disable_all[$day_arr]);
                                         ?>
                                         <div class="table-col body-content content  select-marked {{ 'date' . $day['full_date']  }} @php if($key == (count($time_range) - 1)){ echo 'last'; }  @endphp">
                                             <input type="hidden" class="full_date" value="{{ $day['full_date'] }}">
@@ -223,9 +224,9 @@
                                                                 echo ' week_bottom ';
                                                             }
                                                         }
-                                                        echo $disable_1;
+                                                        echo $disable_4;
                                                         @endphp">
-                                                        @if (empty($disable_1))
+                                                        @if (empty($disable_4))
                                                         @include('sunsun.admin.layouts.weekly_data', ['type' => 'female'])
                                                         @endif
                                                     </div>

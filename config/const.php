@@ -38,6 +38,14 @@ return [
             'TYPE_HOLIDAY' => 'type_holiday',
             'NOTE_HOLIDAY' => 'note_holiday'
         ],
+        'ms_holiday_acom' => [
+            'DATE_HOLIDAY' => 'date_holiday',
+            'NOTE_HOLIDAY' => 'note_holiday'
+        ],
+        'tr_notes' => [
+            'DATE_NOTES' => 'date_notes',
+            'TXT_NOTES' => 'txt_notes'
+        ],
         'tr_payments' => [
             'BOOKING_ID' => 'email_target',
             'ACCESS_ID' => 'access_id',
@@ -143,7 +151,8 @@ return [
                 '1_DAY_REFRESH' => '02',
                 'BOTH_ALL_ROOM'=> '03',
                 'FASTING_PLAN' => '04',
-                'PET' => '05'
+                'PET' => '05',
+                'FASTING_PLAN2' => '06'
             ],
             'gender' => [
                 'MALE' => '01',

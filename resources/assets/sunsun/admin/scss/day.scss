@@ -609,7 +609,7 @@ li.list-group-item.list-head {
     cursor: pointer;
 }
 .day-width__value{
-    width: 25%;
+    width: 35%;
 }
 .bg-time {
     background-color: #e6e6e6;
@@ -660,4 +660,19 @@ li.list-group-item.list-head {
 }
 button.swal2-close:focus {
     outline: none;
+}
+.div_notes {
+    position: absolute;
+    left: 37%;
+    width: 34%;
+    top: -106%;
+    #txt_notes {
+        resize: none;
+        height: 5.7vw;
+    }
+}
+#edit_booking {
+    .modal-dialog {
+        min-width: 32vw;
+    }
 }

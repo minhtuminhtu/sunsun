@@ -1,6 +1,6 @@
 <div>
     <div class="title-table-time">
-        <span class="font-weight-bold">ホワイトニング時間</span>
+        <span class="font-weight-bold">{{ config('booking.whitening.label_time') }}</span>
     </div>
     <table class="table-statistics">
         <!-- <thead>

@@ -3,7 +3,7 @@
 @section('head')
     @parent
     <link rel="stylesheet" href="{{asset('sunsun/lib/bootstrap-datepicker-master/css/bootstrap-datepicker.css')}}">
-    <link rel="stylesheet" href="{{asset('sunsun/admin/css/day_off.css').config('version_files.html.css') }}">
+    <link rel="stylesheet" href="{{asset('sunsun/admin/css/day_off.css').config('version_files.html.js') }}">
 @endsection
 @section('main')
     <main>
@@ -25,7 +25,7 @@
             </div>
             <div class="main-content" style="display: flex">
                 <div class="main-content-result">
-                    <form id="formSubmitDayOff" method="post" action="{{ route('admin.submit_day_off') }}">
+                    <form id="formSubmitDayOff" method="post" action="{{ route('admin.submit_day_off_acom') }}">
                         @csrf
                         <div class="col-items-date">
                             <div id="date_01"></div>
@@ -96,8 +96,8 @@
     <script type="text/javascript">
         var list_holiday = <?php echo json_encode($list_holiday); ?>;
         var count_holiday = list_holiday.length;
-        var url_ajax = $site_url +'/admin/ajax_day_off';
-        var url_submit = $site_url +'/admin/submit_day_off';
+        var url_ajax = $site_url +'/admin/ajax_day_off_acom';
+        var url_submit = $site_url +'/admin/submit_day_off_acom';
     </script>
     <script src="{{asset('sunsun/admin/js/day_off.js').config('version_files.html.js')}}"></script>
 @endsection

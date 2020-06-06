@@ -1,16 +1,22 @@
 @php
-    if( (!isset($course_data['course'])) || ($course_data['course'] != '04') ){
+    if( (!isset($course_data['course'])) || ($course_data['course'] != '04' && $course_data['course'] != '06') ){
         $course_data = NULL;
         $date_unique_time = NULL;
     }
     if(isset($pop_data)){
         $pop_data = json_decode($pop_data, true);
     }
-
-    if(!isset($pop_data) || (json_decode($pop_data['course'], true)['kubun_id'] != '04')){
+    if(!isset($pop_data) || (json_decode($pop_data['course'], true)['kubun_id'] != '04' && json_decode($pop_data['course'], true)['kubun_id'] != '06')){
         $pop_data = NULL;
     }
+    $note_plus = "";
+    if  (isset($service)){
+        $get_service = json_decode($service);
+        if ($get_service->kubun_id == '04')
+            $note_plus = "断食プラン（初めて）の方には、準備食などの添付ファイルを送らせていただきます。必ずお読みになり、ご来店ください。";
+    }
 @endphp
+<?php // 2020/06/05 ?>
 <div class="booking-block">
     <div class="collapse collapse-top show">
         <div class="booking-field">
@@ -18,6 +24,9 @@
             </div>
             <div class="booking-field-content">
                 <p class="node-text text-left mb-2">断食プランには、1時間程度のミニ講座が含まれます。</p>
+                <?php if (!empty($note_plus)) { ?>
+                    <p class="node-text text-left mb-2">{{ $note_plus }}</p>
+                <?php } ?>
             </div>
         </div>
         <div class="booking-field">
@@ -43,8 +52,6 @@
                 </select>
             </div>
         </div>
-
-
         <div class="booking-field mb-2">
             <div class="booking-field-label  booking-laber-padding">
                 <p class="text-left pt-2">{{config('booking.age.label')}}</p>
@@ -70,22 +77,16 @@
                 </div>
             </div>
         </div>
-
-
         @php
             if(isset($course_data["service_date_start"]) && isset($course_data["service_date_end"])){
                 $plan_date_start= substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
                 $plan_date_end = substr($course_data['service_date_end'], 0, 4).'/'.substr($course_data['service_date_end'], 4, 2).'/'.substr($course_data['service_date_end'], 6, 2);
             }
-
-
             if(isset($pop_data["plan_date_start-value"]) && isset($pop_data["plan_date_end-value"])){
                 $plan_date_start= substr($pop_data['plan_date_start-value'], 0, 4).'/'.substr($pop_data['plan_date_start-value'], 4, 2).'/'.substr($pop_data['plan_date_start-value'], 6, 2);
                 $plan_date_end = substr($pop_data['plan_date_end-value'], 0, 4).'/'.substr($pop_data['plan_date_end-value'], 4, 2).'/'.substr($pop_data['plan_date_end-value'], 6, 2);
             }
-
         @endphp
-
         <div class="row">
             <div class="col-5">
                 <p class="text-left pt-2   booking-laber-padding">{{config('booking.range_date_eat.label')}}</p>
@@ -117,8 +118,6 @@
                 @endif
             </div>
         </div>
-
-
         <input type="hidden" name="bus_first" id="bus_first" value="0">
         <div>
             <div class="booking-field-100  booking-laber-padding">
@@ -150,12 +149,9 @@
                         $time_end = substr($time['service_time_2'], 0, 2) . ":" . substr($time['service_time_2'], 2, 2);
                         $bed_start = substr($time['notes'], 0, 1);
                         $bed_end = substr($time['notes'], 2, 3);
-
-
                         if(isset($time['time_json'])){
                             $temp_time_json = explode('-', $time['time_json']);
                             $time1_json = isset($temp_time_json[0])?$temp_time_json[0]:'';
-
                             $time2_json = isset($temp_time_json[1])?$temp_time_json[1]:'';
                         }
                     @endphp
@@ -205,18 +201,12 @@
                             $time_end = substr($unique_time['to']['value'], 0, 2) . ":" . substr($unique_time['to']['value'], 2, 2);
                             $bed_start = $unique_time['from']['bed'];
                             $bed_end = $unique_time['to']['bed'];
-
                             $time1_json = $pop_data['time'][$key]['from']['json'];
                             $time2_json = $pop_data['time'][$key]['to']['json'];
-
                             $time_start_value = $unique_time['from']['value'];
                             $time_end_value = $unique_time['to']['value'];
-
                             $date_value = $unique_time['day']['value'];
                             $date_view = $unique_time['day']['view'];
-
-
-
                         @endphp
                         <div class="booking-field choice-time">
                             <input value="0" class="time_index" type="hidden">
@@ -344,7 +334,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="booking-field room" @if($room_whitening) style="display:none;" @endif>
                     <div class="booking-field-label  booking-laber-padding">
                         <p class="text-left pt-2">{{config('booking.stay_guest_num.label')}}</p>

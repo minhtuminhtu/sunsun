@@ -359,7 +359,7 @@
 
                 </div>
                 <div class="booking-field-content">
-                    <div class="node-text">ホワイトニング時間</div>
+                    <div class="node-text">{{ config('booking.whitening.label_time') }}</div>
                     <div class="timedate-block set-time">
                         <input name='whitening-time_view' type="text" class="form-control time js-set-room_wt bg-white"  readonly="readonly" id="whitening-time_view"  value="{{ $whitening_view }}" />
                         <input name='whitening-time_value' id="whitening-time_value" type="hidden" value="{{ $whitening_time }}"/>

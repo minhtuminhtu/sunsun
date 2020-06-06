@@ -75,7 +75,10 @@ return [
         ]
     ],
     'whitening' => [
-        'label' => 'ホワイトニング',
+        // 2020/05/29 son edit 138
+        'label' => 'ニュースキャン',
+        'label_time' => 'ニュースキャン時間',
+        // 2020/05/29 son edit end
         'options' => [
             'no' => '追加しない',
             'yes' => '追加する',
@@ -183,6 +186,4 @@ return [
     'payment_method' => [
         'label' => 'お支払い方法',
     ],
-
-
 ];

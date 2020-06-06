@@ -127,7 +127,7 @@
         @include('sunsun.front.sub.confirm2_admin')
     @elseif($course == '03')
         @include('sunsun.front.sub.confirm3_admin')
-    @elseif($course == '04')
+    @elseif($course == '04' || $course == '06')
         @include('sunsun.front.sub.confirm4_admin')
     @elseif($course == '05')
         @include('sunsun.front.sub.confirm5_admin')
@@ -139,9 +139,10 @@
         @include('sunsun.front.sub.confirm2')
     @elseif($course->kubun_id == '03')
         @include('sunsun.front.sub.confirm3')
-    @elseif($course->kubun_id == '04')
+    @elseif($course->kubun_id == '04' || $course->kubun_id == '06')
         @include('sunsun.front.sub.confirm4')
     @elseif($course->kubun_id == '05')
         @include('sunsun.front.sub.confirm5')
     @endif
 @endif
+<?php // 2020/06/05 ?>

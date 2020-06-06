@@ -39,7 +39,7 @@
     </div>
     <div class="line2">
         <p>{{ ($lunch_guest_num != "")?"ランチ：" . $lunch_guest_num:"" }}</p>
-        <p>{{ ($whitening_data != "")?"ホワイトニング：" . $whitening_data:"" }}</p>
+        <p>{{ ($whitening_data != "")?config('booking.whitening.label')."：". $whitening_data:"" }}</p>
         <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p>
     </div>
 </div>

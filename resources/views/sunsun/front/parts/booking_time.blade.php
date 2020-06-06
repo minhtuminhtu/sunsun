@@ -1,8 +1,11 @@
-
+<?php
+    $gender_val = isset($gender['kubun_value']) ? $gender['kubun_value'] : '予約時間';
+    $gender_id = isset($gender['kubun_id']) ? $gender['kubun_id'] : '00';
+?>
 <div>
     <input type="hidden" id="new-time" value="{{ isset($new)?$new:'' }}">
     <div class="title-table-time">
-        <span class="font-weight-bold">{{isset($gender['kubun_value'])?$gender['kubun_value']:'予約時間'}}</span> {{----}}
+        <span class="font-weight-bold">{{ $gender_val }}</span> {{----}}
     </div>
     <table class="table-statistics">
         @if($course != '03')
@@ -56,6 +59,12 @@
                             @elseif((isset($week_day) === true) && ($week_day === 5) && ($time->notes === '1845'))
                                 ×
                             @elseif(((isset($week_day) === true) && ($week_day !== 5)) && (($time->notes === '1745') || ($time->notes === '1815') || ($time->notes === '1845')))
+                                ×
+                            @elseif($gender_id == '02' && $time->kubun_value_room == "3"
+                                && ($time->notes === '1045' || $time->notes === '1315' || $time->notes === '1515'))
+                                ×
+                            @elseif($gender_id == '02' && $time->kubun_value_room == "4"
+                                && !($time->notes === '1045' || $time->notes === '1315' || $time->notes === '1515'))
                                 ×
                             @else
                                 <div>

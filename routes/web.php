@@ -184,6 +184,12 @@ Route::middleware('begin.auth')->group(function(){
             // setting
             Route::get('/setting',['as' => '.setting', 'uses' => 'AdminController@setting']);
             Route::post('/update_setting',['as' => '.update_setting', 'uses' => 'AdminController@update_setting']);
+            // day off holiday_acom
+            Route::get('/day_off_acom',['as' => '.dayoff_acom', 'uses' => 'DayOffController@CreateAcom']);
+            Route::post('/submit_day_off_acom',['as' => '.submit_day_off_acom', 'uses' => 'DayOffController@SubmitAcom']);
+            Route::post('/ajax_day_off_acom',['as' => '.ajax_day_off_acom', 'uses' => 'DayOffController@GetAjaxAcom']);
+            // notes
+            Route::post('/ajax_save_notes',['as' => '.ajax_save_notes', 'uses' => 'AdminController@ajax_save_notes']);
         });
     });
 });

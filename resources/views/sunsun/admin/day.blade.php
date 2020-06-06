@@ -44,14 +44,15 @@
                     </div>
                 </div>
                 <div class="main-head__top" style="display: flex;">
-                    <div class="main-head__left">
+                    <div class="main-head__left" style="position: relative;">
                         <div class="control-view">
                             <div class="control-align_center">
                                 <button class="btn btn-block btn-main control-date control-date-left prev-date" href="javascript:void(0)">〈  前日</button>
                             </div>
                             <div class="control-align_center day-width__value">
                                 <span class="">
-                                    <input class="bg-white input-date__value" id="input-current__date" readonly="readonly" type="text" value="{{$date}}">
+                                    <input class="bg-white input-date__value" id="input-current__date" readonly="readonly" type="text" value="{{ $date }}" style="opacity: 0; width: 1px; position: absolute;">
+                                    <input class="bg-white input-date__value" id="input-current__view" readonly="readonly" type="text" value="{{ $date.'('.$date_view.')' }}">
                                 </span>
                             </div>
                             <div class="control-align_center">
@@ -62,6 +63,9 @@
                             <div class="control-align_center">
                                 <button class="btn btn-block btn-main control-date control-date-right next-date" href="javascript:void(0)">翌日 〉</button>
                             </div>
+                        </div>
+                        <div class="div_notes">
+                            <textarea type="text" class="form-control" placeholder="【メモ」】" id="txt_notes">{{ ($notes == null) ? '' : $notes->txt_notes }}</textarea>
                         </div>
                         <div class="node-day">
                             <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
@@ -162,14 +166,14 @@
                         </div>
                     </div>
                     <div class="main-col__space-2 head"></div>
-                    <div class="main-col__wt head bg-title__wt">ホワイトニング</div>
+                    <div class="main-col__wt head bg-title__wt">{{ config('booking.whitening.label') }}</div>
                     <div class="main-col__space-3"></div>
                     <div class="main-col__pet head bg-title__pet">ペット酵素浴</div>
                 </div>
                 @php $i = 1;
                     $format_date = 'Y/m/d H:i';
                     $date_now = date($format_date);
-                    function setDisTimeNow(&$disable_1,&$disable_2,&$disable_3, $col, $_time, $date_cur, $date_now) {
+                    function setDisTimeNow(&$disable_1,&$disable_2,&$disable_3,&$disable_4, $col, $_time, $date_cur, $date_now) {
                         $format_date = 'Y/m/d H:i';
                         if (!empty($_time)) {
                             $time_col = $_time;
@@ -183,6 +187,7 @@
                                     $disable_1 = " bg-dis ";
                                     $disable_2 = " bg-dis ";
                                     $disable_3 = " bg-dis ";
+                                    $disable_4 = " bg-dis ";
                                 } else if ($col == "pet_time_value") {
                                     $disable_2 = " bg-dis ";
                                 } else if ($col == "wt_time_value") {
@@ -200,18 +205,16 @@
                             $disable_2 = \Helper::setHoliday($time_holiday, $time_check, "2", $disable_all);
                         }
                         $disable_1 = \Helper::setHoliday($time_holiday, $time['time_value'],"1", $disable_all);
+                        $disable_4 = \Helper::setHoliday($time_holiday, $time['time_value'],"4", $disable_all);
                         $disable_3 = "";
                         if(!empty($time['wt_time_value'])){
                             $time_check_wt = explode("-", $time["wt_time_value"])[0];
                             $disable_3 = \Helper::setHoliday($time_holiday, $time_check_wt, "3", $disable_all);
                         }
-
-                        setDisTimeNow($disable_1,$disable_2,$disable_3,"time", $time["time"],$date, $date_now);
-                        setDisTimeNow($disable_1,$disable_2,$disable_3,"pet_time_value", $time["pet_time_value"],$date, $date_now);
-                        setDisTimeNow($disable_1,$disable_2,$disable_3,"wt_time_value", $time["wt_time_value"],$date, $date_now);
+                        setDisTimeNow($disable_1,$disable_2,$disable_3,$disable_4,"time", $time["time"],$date, $date_now);
+                        setDisTimeNow($disable_1,$disable_2,$disable_3,$disable_4,"pet_time_value", $time["pet_time_value"],$date, $date_now);
+                        setDisTimeNow($disable_1,$disable_2,$disable_3,$disable_4,"wt_time_value", $time["wt_time_value"],$date, $date_now);
                     @endphp
-
-
                     <div class="main-content__table" id="row_{{ $time['time_value'] }}">
                         <div class="main-col__time d-flex justify-content-center align-items-center
                             @php
@@ -405,7 +408,7 @@
                                     }
                                     @endphp
                                     first
-                                    @php echo $disable_1; @endphp
+                                    @php echo $disable_4; @endphp
                                     @php
                                     if (($week_day == 3) || ($week_day == 4)){
                                       echo ' bg-dis ';
@@ -432,7 +435,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
-                                    @php echo $disable_1; @endphp
+                                    @php echo $disable_4; @endphp
                                     @php
                                     if (($week_day == 3) || ($week_day == 4)){
                                       echo ' bg-dis ';
@@ -457,7 +460,7 @@
                                         echo 'begin_free';
                                     }
                                     @endphp
-                                    @php echo $disable_1; @endphp
+                                    @php echo $disable_4; @endphp
                                     @php
                                     if (($week_day == 3) || ($week_day == 4)){
                                       echo ' bg-dis ';
@@ -466,6 +469,8 @@
                                     }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
+                                    if ($time['time_value'] === '1045' || $time['time_value'] === '1315' || $time['time_value'] === '1515')
+                                        echo ' bg-dis ';
                                     @endphp
                                     " id="bedfemale{{$i}}_3">
                                     <div>
@@ -491,8 +496,10 @@
                                     }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
+                                    else if (!($time['time_value'] === '1045' || $time['time_value'] === '1315' || $time['time_value'] === '1515'))
+                                        echo ' bg-dis ';
                                     @endphp
-                                    @php echo $disable_1; @endphp" id="bedfemale{{$i}}_4">
+                                    @php echo $disable_4; @endphp" id="bedfemale{{$i}}_4">
                                     <div>
                                         @include('sunsun.admin.layouts.day_data', ['row' => 'female_4'])
                                     </div>
@@ -721,23 +728,18 @@
                     // $('.search-button').html('<div class="input-group-text"><i class="fas fa-times"></i></div>');
                 }
             });
-
-
             var top_x = null;
             $(".main-col__item, .pet-bottom_content").find(".booking-id").each(function(){
                 if($(this).val() == "{{ $bookingSeclect }}") {
                     if($(this).parent().find(".time").val() == "{{ $timeSeclect }}") {
                         $(this).parent().addClass("bookingHasSelect");
-
                         top_x = $(this).parent().position().top;
-
                         let scrollToTop = setInterval(function(){
                             $(window).scrollTop(top_x - 200);
                             clearInterval(scrollToTop);
                         }, 500);
                     }else if($(this).parent().find(".time").val().replace("-", '') == "{{ $timeSeclect }}") {
                         $(this).parent().addClass("bookingPetHasSelect");
-
                         top_x = $(this).parent().position().top;
                         let scrollToTopPet = setInterval(function(){
                             $(window).scrollTop(top_x - 200);
@@ -753,7 +755,6 @@
                     }
                 }
             });
-
         });
     </script>
 @endsection

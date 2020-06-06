@@ -16,6 +16,7 @@ use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Setting;
+use App\Models\TrNotes;
 class AdminController extends Controller
 {
     private $session_info = 'SESSION_BOOKING_USER';
@@ -37,6 +38,7 @@ class AdminController extends Controller
             $data['date'] =  $time_now->format('Y/m/d');
             $date = $time_now->format('Ymd');
         }
+        $data['date_view'] = $this->get_week_day(Carbon::parse($data['date']));
         $data['data_date'] = Yoyaku::where('service_date_start',$date)->get();
         $data['pick_up'] = $data['data_date']->where('pick_up','01');
         $data['lunch'] = $data['data_date']->where('lunch','02');
@@ -73,6 +75,9 @@ class AdminController extends Controller
         Log::debug('$payments');
         Log::debug($payments);
         $data['payments'] = $payments;
+        // get notes
+        $data_notes = TrNotes::where('date_notes','=', $date)->first();
+        $data["notes"] = $data_notes;
         return view('sunsun.admin.day',$data);
     }
     private function getWhere_search($course,$name,$date) {
@@ -81,6 +86,7 @@ class AdminController extends Controller
         //     $where_plus = " AND time.service_date = $date ";
         if ($course == "02_1") $course = "02";
         else if ($course == "04_1") $course = "04";
+        else if ($course == "06_1") $course = "06"; // 2020/06/05
         return "
                 WHERE   main.course = '$course'
                 AND main.history_id IS NULL
@@ -175,7 +181,7 @@ class AdminController extends Controller
                         , 0 as turn
                         , main.bed ";
                 break;
-            case '04':
+            case '04': case '06': // 2020/06/05
                 $select = " SELECT  main.booking_id
                       , main.ref_booking_id
                       , main.repeat_user
@@ -200,7 +206,7 @@ class AdminController extends Controller
                       , 1 as turn
                       , SUBSTRING(time.notes, 1, 1) as bed ";
                 break;
-            case '04_1':
+            case '04_1': case '06_1': // 2020/06/05
                 $select = " SELECT  main.booking_id
                       , main.ref_booking_id
                       , main.repeat_user
@@ -287,6 +293,8 @@ class AdminController extends Controller
             $sel_plus3 = $this->getSelect_search("03");
             $sel_plus4 = $this->getSelect_search("04");
             $sel_plus4_1 = $this->getSelect_search("04_1");
+            $sel_plus6 = $this->getSelect_search("06"); // 2020/06/05
+            $sel_plus6_1 = $this->getSelect_search("06_1"); // 2020/06/05
             $sel_plus5 = $this->getSelect_search("05");
             $where_plus1 = $this->getWhere_search("01",$name,$date);
             $where_plus2 = $this->getWhere_search("02",$name,$date);
@@ -294,6 +302,8 @@ class AdminController extends Controller
             $where_plus3 = $this->getWhere_search("03",$name,$date);
             $where_plus4 = $this->getWhere_search("04",$name,$date);
             $where_plus4_1 = $this->getWhere_search("04_1",$name,$date);
+            $where_plus6 = $this->getWhere_search("06",$name,$date); // 2020/06/05
+            $where_plus6_1 = $this->getWhere_search("06_1",$name,$date); // 2020/06/05
             $where_plus5 = $this->getWhere_search("05",$name,$date);
             $form1 = $this->getForm_search();
             $form2 = $this->getForm_search("2");
@@ -337,13 +347,25 @@ class AdminController extends Controller
                 )
                 UNION
                 (
+                    $sel_plus6
+                    $form2
+                    $where_plus6
+                )
+                UNION
+                (
+                    $sel_plus6_1
+                    $form2
+                    $where_plus6_1
+                )
+                UNION
+                (
                     $sel_plus5
                     $form1
                     $where_plus5
                 )
             ) temp_table
             ORDER BY service_date DESC , time ASC
-            ");
+            "); // 2020/06/05
 //             Log::debug('$expert_data');
 //             Log::debug($expert_data);
         return $expert_data;
@@ -385,7 +407,7 @@ class AdminController extends Controller
         for($i = 0; $i < count($stay_room_raw); $i++){
             $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
             $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
-            if($stay_room_raw[$i]->breakfast != '01'){
+            if($stay_room_raw[$i]->breakfast == '02'){
                 $stay_room_raw[$i]->breakfast = preg_replace('/[^0-9]+/', '', $stay_room_raw[$i]->stay_guest_num);
             }else{
                 $stay_room_raw[$i]->breakfast = NULL;
@@ -395,6 +417,7 @@ class AdminController extends Controller
         $data['stay_room']['A'] =  $collect_stay_room->firstWhere('stay_room_type', '02');
         $data['stay_room']['B'] =  $collect_stay_room->firstWhere('stay_room_type', '03');
         $data['stay_room']['C'] =  $collect_stay_room->firstWhere('stay_room_type', '04');
+
         // dd($stay_room_raw);
     }
     private function set_lunch(&$data, $date){
@@ -482,6 +505,8 @@ class AdminController extends Controller
         $sel_plus3 = $this->getSelect_search("03","1");
         $sel_plus4 = $this->getSelect_search("04","1");
         $sel_plus4_1 = $this->getSelect_search("04_1","1");
+        $sel_plus6 = $this->getSelect_search("06","1"); // 2020/06/05
+        $sel_plus6_1 = $this->getSelect_search("06_1","1"); // 2020/06/05
         $from1 = $this->getForm_search();
         $from2 = $this->getForm_search("2");
         $where1 = $this->getWherePlus_course($date);
@@ -528,7 +553,21 @@ class AdminController extends Controller
             WHERE   main.course = '04'
             $where2
         )
-        ");
+        UNION
+        (
+            $sel_plus6
+            $from2
+            WHERE   main.course = '06'
+            $where2
+        )
+        UNION
+        (
+            $sel_plus6_1
+            $from2
+            WHERE   main.course = '06'
+            $where2
+        )
+        "); // 2020/06/05
         $course_1_to_4 = collect($course_1_to_4_query);
         $course_1_unique_id = $course_1_to_4->where('course', '01')->unique('booking_id');
         foreach($course_1_unique_id as $c_1_u_id){
@@ -559,7 +598,8 @@ class AdminController extends Controller
                 case '01': $course_1_to_4[$i]->course = '入浴'; break;
                 case '02': $course_1_to_4[$i]->course = 'リ'; break;
                 case '03': $course_1_to_4[$i]->course = '貸切'; break;
-                case '04': $course_1_to_4[$i]->course = '断食'; break;
+                case '04': $course_1_to_4[$i]->course = '断食初'; break;
+                case '06': $course_1_to_4[$i]->course = '断食り'; break; // 2020/06/05
             }
             switch($course_1_to_4[$i]->repeat_user){
                 case '01': $course_1_to_4[$i]->repeat_user = '新規'; break;
@@ -743,7 +783,8 @@ class AdminController extends Controller
                 case '01': $course_wt[$i]->course = '入浴'; break;
                 case '02': $course_wt[$i]->course = 'リ'; break;
                 case '03': $course_wt[$i]->course = '貸切'; break;
-                case '04': $course_wt[$i]->course = '断食'; break;
+                case '04': $course_wt[$i]->course = '断食初'; break;
+                case '06': $course_wt[$i]->course = '断食り'; break;
             }
             switch($course_wt[$i]->repeat_user){
                 case '01': $course_wt[$i]->repeat_user = '新規'; break;
@@ -820,7 +861,8 @@ class AdminController extends Controller
                     case '01': $history_booking[$i]->course = '入浴'; break;
                     case '02': $history_booking[$i]->course = 'リ'; break;
                     case '03': $history_booking[$i]->course = '貸切'; break;
-                    case '04': $history_booking[$i]->course = '断食'; break;
+                    case '04': $history_booking[$i]->course = '断食初'; break;
+                    case '06': $history_booking[$i]->course = '断食り'; break; // 2020/06/05
                 }
                 switch($history_booking[$i]->repeat_user){
                     case '01': $history_booking[$i]->repeat_user = '新規'; break;
@@ -1135,6 +1177,36 @@ class AdminController extends Controller
                 SELECT  main.booking_id
                     , main.course
                     , main.gender
+                    , time.service_date
+                    , time.service_time_1 as time
+                    , SUBSTRING(time.notes, 1, 1) as bed
+                FROM        tr_yoyaku as main
+                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                ON          main.booking_id = time.booking_id
+                WHERE   main.course = '06'
+                AND main.history_id IS NULL
+                AND main.del_flg IS NULL
+            )
+            UNION
+            (
+                SELECT  main.booking_id
+                    , main.course
+                    , main.gender
+                    , time.service_date
+                    , time.service_time_2 as time
+                    , SUBSTRING(time.notes, 3, 1) as bed
+                FROM        tr_yoyaku as main
+                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                ON          main.booking_id = time.booking_id
+                WHERE   main.course = '06'
+                AND main.history_id IS NULL
+                AND main.del_flg IS NULL
+            )
+            UNION
+            (
+                SELECT  main.booking_id
+                    , main.course
+                    , main.gender
                     , main.service_date_start as service_date
                     , main.service_time_1 as time
                     , SUBSTRING(main.bed, 1, 1) as bed
@@ -1169,7 +1241,7 @@ class AdminController extends Controller
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
             )
-        ");
+        "); // 2020/06/05 son add
         $week_course = collect($week_course_query);
         $course_5_query = DB::select("
             SELECT  main.booking_id
@@ -1361,7 +1433,38 @@ class AdminController extends Controller
             AND main.del_flg IS NULL
             AND main.fake_booking_flg IS NULL
         )
-        ");
+        UNION
+        (
+            SELECT  main.booking_id
+                  , main.course
+                  , main.gender
+                  , time.service_date
+                  , time.service_time_1 as time
+                  , SUBSTRING(time.notes, 1, 1) as bed
+            FROM        tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON          main.booking_id = time.booking_id
+            WHERE   main.course = '06'
+            AND main.history_id IS NULL
+            AND main.del_flg IS NULL
+        )
+        UNION
+        (
+            SELECT  main.booking_id
+                  , main.course
+                  , main.gender
+                  , time.service_date
+                  , time.service_time_2 as time
+                  , SUBSTRING(time.notes, 3, 1) as bed
+            FROM        tr_yoyaku as main
+            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            ON          main.booking_id = time.booking_id
+            WHERE   main.course = '06'
+            AND main.history_id IS NULL
+            AND main.del_flg IS NULL
+            AND main.fake_booking_flg IS NULL
+        )
+        "); // 2020/06/05 son add
         $week_course = collect($week_course_query);
         $course_5_query = DB::select("
             SELECT  main.booking_id
@@ -1741,5 +1844,25 @@ class AdminController extends Controller
         $data = $request->all();
         Setting::where('ms_setting_id', "1")->update(['accommodation_flg' => $data["accommodation_flg"]]);
         return redirect()->route('admin.setting');
+    }
+    public function ajax_save_notes(Request $request)
+    {
+        $status = true;
+        try {
+            $date_notes = str_replace("/","",str_replace("-","",$request->date_notes));
+            $rowNotes = TrNotes::where('date_notes','=', $date_notes)->first();
+            if ($rowNotes === null) {
+                $rowNotes = new TrNotes;
+                $rowNotes->date_notes = $date_notes;
+            }
+            $rowNotes->txt_notes = $request->txt_notes;
+            $rowNotes->save();
+        } catch (Exception $ex) {
+            $status = false;
+            Log::debug($ex->getMessage());
+        }
+        return [
+            'status' => $status
+        ];
     }
 }
