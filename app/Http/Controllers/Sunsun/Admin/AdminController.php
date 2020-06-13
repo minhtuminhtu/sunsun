@@ -983,56 +983,30 @@ class AdminController extends Controller
             $temp_json['kubun_value_room'] = '3';
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
-            // 6 ô trống phía dưới
-            $time_row2 = "";
-            $time_row3 = "";
+            // 3 ô trống phía dưới
             if($temp_json['notes'] == '0945'){
-                $time_row2 = '1015';
-                $time_row3 = '1045';
+                $temp_json['notes'] = '1015';
+                $data['time_room_value'] = '1015';
             }else if($temp_json['notes'] == '1315'){
-                $time_row2 = '1345';
-                $time_row3 = '1415';
+                $temp_json['notes'] = '1345';
+                $data['time_room_value'] = '1345';
             }else if($temp_json['notes'] == '1515'){
-                $time_row2 = '1545';
-                $time_row3 = '1615';
+                $temp_json['notes'] = '1545';
+                $data['time_room_value'] = '1545';
             }
-            // row 2
-            $temp_json['notes'] = $time_row2;
-            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 1;
             $temp_json['kubun_id_room'] = '01';
             $temp_json['kubun_value_room'] = '1';
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
-            //row 3
-            $temp_json['notes'] = $time_row3;
-            $data['time_room_value'] = $time_row3;
-            $data['time'][0]['json'] = json_encode($temp_json);
-            array_push($customer_info, $data);
-            //row 2
-            $temp_json['notes'] = $time_row2;
-            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 2;
             $temp_json['kubun_id_room'] = '02';
             $temp_json['kubun_value_room'] = '2';
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
-            //row 3
-            $temp_json['notes'] = $time_row3;
-            $data['time_room_value'] = $time_row3;
-            $data['time'][0]['json'] = json_encode($temp_json);
-            array_push($customer_info, $data);
-            //row 2
-            $temp_json['notes'] = $time_row2;
-            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 3;
             $temp_json['kubun_id_room'] = '03';
             $temp_json['kubun_value_room'] = '3';
-            $data['time'][0]['json'] = json_encode($temp_json);
-            array_push($customer_info, $data);
-            //row 3
-            $temp_json['notes'] = $time_row3;
-            $data['time_room_value'] = $time_row3;
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
         }
