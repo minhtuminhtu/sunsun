@@ -72,8 +72,8 @@ class AdminController extends Controller
                 $payments[$li->booking_id] = $li->booking_id;
             }
         }
-        Log::debug('$payments');
-        Log::debug($payments);
+        //Log::debug('$payments');
+        //Log::debug($payments);
         $data['payments'] = $payments;
         // get notes
         $data_notes = TrNotes::where('date_notes','=', $date)->first();
@@ -366,8 +366,8 @@ class AdminController extends Controller
             ) temp_table
             ORDER BY service_date DESC , time ASC
             "); // 2020/06/05
-//             Log::debug('$expert_data');
-//             Log::debug($expert_data);
+            //Log::debug('$expert_data');
+            //Log::debug($expert_data);
         return $expert_data;
     }
     private function get_search($date){
@@ -383,42 +383,56 @@ class AdminController extends Controller
         ");
         // AND         main.service_date_start = $date
         for($i = 0; $i < count($all_data); $i++){
-            // Log::debug($all_data[$i]->booking_id);
+            //Log::debug($all_data[$i]->booking_id);
             $all_data[$i]->expert_data = $this->get_search_expert($all_data[$i]->name, $date);
         }
-        // Log::debug($all_data);
+        //Log::debug($all_data);
         return  collect($all_data);
     }
     private function set_stay_room(&$data, $date){
         $stay_room_raw = DB::select("
         SELECT  main.name,
                 main.stay_room_type,
-                main.stay_guest_num,
-                main.breakfast
+                (case
+                    when main.stay_checkout_date = $date then 'end_stay'
+                    else main.stay_guest_num
+                end) as stay_guest_num,
+                (case
+                    when main.stay_checkin_date = $date then null
+                    else main.breakfast
+                end) as breakfast,
+                main.stay_guest_num as stay_guest_num_tmp
         FROM        tr_yoyaku as main
         WHERE   main.stay_room_type <> '01'
         AND main.stay_room_type IS NOT NULL
         AND main.stay_checkin_date <= $date
-        AND main.stay_checkout_date > $date
+        AND main.stay_checkout_date >= $date
         AND main.history_id IS NULL
         AND main.fake_booking_flg IS NULL
         AND main.del_flg IS NULL
         ");
         for($i = 0; $i < count($stay_room_raw); $i++){
-            $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
-            $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
+            $check_stay_end = false;
+            if ($stay_room_raw[$i]->stay_guest_num == 'end_stay') {
+                $check_stay_end = true;
+                $stay_room_raw[$i]->stay_guest_num = $stay_room_raw[$i]->stay_guest_num_tmp;
+            }
+            if (!empty($stay_room_raw[$i]->stay_guest_num)) {
+                $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
+                $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
+            }
             if($stay_room_raw[$i]->breakfast == '02'){
                 $stay_room_raw[$i]->breakfast = preg_replace('/[^0-9]+/', '', $stay_room_raw[$i]->stay_guest_num);
             }else{
                 $stay_room_raw[$i]->breakfast = NULL;
             }
+            if ($check_stay_end)
+                $stay_room_raw[$i]->stay_guest_num = null;
         }
         $collect_stay_room = collect($stay_room_raw);
         $data['stay_room']['A'] =  $collect_stay_room->firstWhere('stay_room_type', '02');
         $data['stay_room']['B'] =  $collect_stay_room->firstWhere('stay_room_type', '03');
         $data['stay_room']['C'] =  $collect_stay_room->firstWhere('stay_room_type', '04');
-
-        // dd($stay_room_raw);
     }
     private function set_lunch(&$data, $date){
         $data['lunch'] = DB::select("
@@ -969,30 +983,56 @@ class AdminController extends Controller
             $temp_json['kubun_value_room'] = '3';
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
-            // 3 ô trống phía dưới
+            // 6 ô trống phía dưới
+            $time_row2 = "";
+            $time_row3 = "";
             if($temp_json['notes'] == '0945'){
-                $temp_json['notes'] = '1015';
-                $data['time_room_value'] = '1015';
+                $time_row2 = '1015';
+                $time_row3 = '1045';
             }else if($temp_json['notes'] == '1315'){
-                $temp_json['notes'] = '1345';
-                $data['time_room_value'] = '1345';
+                $time_row2 = '1345';
+                $time_row3 = '1415';
             }else if($temp_json['notes'] == '1515'){
-                $temp_json['notes'] = '1545';
-                $data['time_room_value'] = '1545';
+                $time_row2 = '1545';
+                $time_row3 = '1615';
             }
+            // row 2
+            $temp_json['notes'] = $time_row2;
+            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 1;
             $temp_json['kubun_id_room'] = '01';
             $temp_json['kubun_value_room'] = '1';
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
+            //row 3
+            $temp_json['notes'] = $time_row3;
+            $data['time_room_value'] = $time_row3;
+            $data['time'][0]['json'] = json_encode($temp_json);
+            array_push($customer_info, $data);
+            //row 2
+            $temp_json['notes'] = $time_row2;
+            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 2;
             $temp_json['kubun_id_room'] = '02';
             $temp_json['kubun_value_room'] = '2';
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
+            //row 3
+            $temp_json['notes'] = $time_row3;
+            $data['time_room_value'] = $time_row3;
+            $data['time'][0]['json'] = json_encode($temp_json);
+            array_push($customer_info, $data);
+            //row 2
+            $temp_json['notes'] = $time_row2;
+            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 3;
             $temp_json['kubun_id_room'] = '03';
             $temp_json['kubun_value_room'] = '3';
+            $data['time'][0]['json'] = json_encode($temp_json);
+            array_push($customer_info, $data);
+            //row 3
+            $temp_json['notes'] = $time_row3;
+            $data['time_room_value'] = $time_row3;
             $data['time'][0]['json'] = json_encode($temp_json);
             array_push($customer_info, $data);
         }
@@ -1054,8 +1094,8 @@ class AdminController extends Controller
             $admin_customer[] = $li_bo;
         }
         // $booking->yoyaku_2_bill($request, $admin_customer, $bill_text, $admin_price);
-        // Log::debug('$admin_price');
-        // Log::debug($admin_price);
+        //Log::debug('$admin_price');
+        //Log::debug($admin_price);
         return $admin_price;
     }
     public function delete_booking(Request $request) {
@@ -1514,8 +1554,8 @@ class AdminController extends Controller
             $monthly_data[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
         }
         // dd($week_list_day);
-        Log::debug("abc");
-        Log::debug($monthly_data);
+        //Log::debug("abc");
+        //Log::debug($monthly_data);
         $data['monthly_data'] = $monthly_data;
     }
     private function get_list_dates($from , $to, $month){
@@ -1859,7 +1899,7 @@ class AdminController extends Controller
             $rowNotes->save();
         } catch (Exception $ex) {
             $status = false;
-            Log::debug($ex->getMessage());
+            //Log::debug($ex->getMessage());
         }
         return [
             'status' => $status

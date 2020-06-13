@@ -28,6 +28,11 @@ http://sun-sun33.com/shop
 ・基礎化粧品、メイク用品、ヘアブラシなど
 ・季節に合わせてリラックスできるお洋服（リラックスタイムに使用）
 
+@if($booking_data->check_note_mail)
+■ファスティング（断食）準備食
+断食プラン（初めて）の方には、準備食などの添付ファイルを送らせていただいております。必ずお読みになり、ご来店ください。
+@endif
+
 ＜＜ご購入金額＞＞
 @elseif((isset($booking_data->check_has_note) === true) && ($booking_data->check_has_note === true))
 ■お持ちいただく物

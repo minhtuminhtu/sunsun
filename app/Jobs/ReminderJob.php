@@ -39,10 +39,10 @@ class ReminderJob implements ShouldQueue
         Log::debug("Dang gui mail");
         $yo = Yoyaku::where('booking_id', $this->booking_data->booking_id)->first();
         Log::debug($this->booking_data->booking_id);
-        if(isset($yo->history_id)  === false){
+        if(isset($yo->history_id)  === false && isset($yo->del_flg)  === false){
             Log::debug("Chua bi sua");
             Mail::to($this->email)->send(new ReminderMail($this->booking_data));
-        }else{
+        } else {
             Log::debug("Da bi sua");
         }
     }

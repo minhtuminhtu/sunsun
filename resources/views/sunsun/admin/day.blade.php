@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="div_notes">
-                            <textarea type="text" class="form-control" placeholder="【メモ」】" id="txt_notes">{{ ($notes == null) ? '' : $notes->txt_notes }}</textarea>
+                            <textarea type="text" class="form-control" placeholder="【メモ】" id="txt_notes">{{ ($notes == null) ? '' : $notes->txt_notes }}</textarea>
                         </div>
                         <div class="node-day">
                             <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
@@ -116,22 +116,22 @@
                     <div class="middle_box">
                         <div class="item">
                             <span>【宿泊】</span> <br>
-                            <span>A：{{ isset($stay_room['A'])?$stay_room['A']->name." 様     ".$stay_room['A']->stay_guest_num:"" }}</span> <br>
-                            <span>B：{{ isset($stay_room['B'])?$stay_room['B']->name." 様     ".$stay_room['B']->stay_guest_num:"" }}</span> <br>
-                            <span>C：{{ isset($stay_room['C'])?$stay_room['C']->name." 様     ".$stay_room['C']->stay_guest_num:"" }}</span> <br>
+                            <span>A：{{ isset($stay_room['A']) && !empty($stay_room['A']->stay_guest_num) ? $stay_room['A']->name." 様     ".$stay_room['A']->stay_guest_num:"" }}</span> <br>
+                            <span>B：{{ isset($stay_room['B']) && !empty($stay_room['B']->stay_guest_num) ? $stay_room['B']->name." 様     ".$stay_room['B']->stay_guest_num:"" }}</span> <br>
+                            <span>C：{{ isset($stay_room['C']) && !empty($stay_room['C']->stay_guest_num) ? $stay_room['C']->name." 様     ".$stay_room['C']->stay_guest_num:"" }}</span> <br>
                         </div>
                     </div>
                     <div class="middle_box">
                         <div class="item">
                             @php
-                            $room_a = isset($stay_room['A']->breakfast)?$stay_room['A']->breakfast:intval(0);
-                            $room_b = isset($stay_room['B']->breakfast)?$stay_room['B']->breakfast:intval(0);
-                            $room_c = isset($stay_room['C']->breakfast)?$stay_room['C']->breakfast:intval(0);
+                            $room_a = isset($stay_room['A']->breakfast)  && !empty($stay_room['A']->breakfast) ? $stay_room['A']->breakfast:intval(0);
+                            $room_b = isset($stay_room['B']->breakfast)  && !empty($stay_room['B']->breakfast) ? $stay_room['B']->breakfast:intval(0);
+                            $room_c = isset($stay_room['C']->breakfast) && !empty($stay_room['C']->breakfast) ? $stay_room['C']->breakfast:intval(0);
                             @endphp
                             <span>【モーニング】　{{ $room_a + $room_b + $room_c }}食</span> <br>
-                            <span>A：{{ isset($stay_room['A']->breakfast)?$stay_room['A']->name." 様     ".$stay_room['A']->breakfast."名":"" }}</span> <br>
-                            <span>B：{{ isset($stay_room['B']->breakfast)?$stay_room['B']->name." 様     ".$stay_room['B']->breakfast."名":"" }}</span> <br>
-                            <span>C：{{ isset($stay_room['C']->breakfast)?$stay_room['C']->name." 様     ".$stay_room['C']->breakfast."名":"" }}</span> <br>
+                            <span>A：{{ isset($stay_room['A']->breakfast)  && !empty($stay_room['A']->breakfast) ?$stay_room['A']->name." 様     ".$stay_room['A']->breakfast."名":"" }}</span> <br>
+                            <span>B：{{ isset($stay_room['B']->breakfast)  && !empty($stay_room['B']->breakfast) ?$stay_room['B']->name." 様     ".$stay_room['B']->breakfast."名":"" }}</span> <br>
+                            <span>C：{{ isset($stay_room['C']->breakfast)  && !empty($stay_room['C']->breakfast) ?$stay_room['C']->name." 様     ".$stay_room['C']->breakfast."名":"" }}</span> <br>
                         </div>
                     </div>
                 </div>
@@ -469,8 +469,6 @@
                                     }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
-                                    if ($time['time_value'] === '1045' || $time['time_value'] === '1315' || $time['time_value'] === '1515')
-                                        echo ' bg-dis ';
                                     @endphp
                                     " id="bedfemale{{$i}}_3">
                                     <div>

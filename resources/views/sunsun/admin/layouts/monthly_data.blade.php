@@ -4,7 +4,7 @@
         ×
         @elseif((count($data['monthly_data'][$day['full_date']][$type][$time]) == 18) && ($time == 1))
         ×
-        @elseif((count($data['monthly_data'][$day['full_date']][$type][$time]) == 6) && ($time == 2))
+        @elseif((count($data['monthly_data'][$day['full_date']][$type][$time]) == 3) && ($time == 2))
         ×
         @elseif(count($data['monthly_data'][$day['full_date']][$type][$time]) == 0)
         ●
@@ -12,11 +12,11 @@
         ▲
         @endif
     @elseif($type == 'female')
-        @if((count($data['monthly_data'][$day['full_date']][$type][$time]) == 12) && ($time == 0))
+        @if((count($data['monthly_data'][$day['full_date']][$type][$time]) == 14) && ($time == 0))
         ×
-        @elseif((count($data['monthly_data'][$day['full_date']][$type][$time]) == 18) && ($time == 1))
+        @elseif((count($data['monthly_data'][$day['full_date']][$type][$time]) == 19) && ($time == 1))
         ×
-        @elseif((count($data['monthly_data'][$day['full_date']][$type][$time]) == 6) && ($time == 2))
+        @elseif((count($data['monthly_data'][$day['full_date']][$type][$time]) == 3) && ($time == 2))
         ×
         @elseif(count($data['monthly_data'][$day['full_date']][$type][$time]) == 0)
         ●

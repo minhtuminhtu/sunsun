@@ -60,9 +60,6 @@
                                 ×
                             @elseif(((isset($week_day) === true) && ($week_day !== 5)) && (($time->notes === '1745') || ($time->notes === '1815') || ($time->notes === '1845')))
                                 ×
-                            @elseif($gender_id == '02' && $time->kubun_value_room == "3"
-                                && ($time->notes === '1045' || $time->notes === '1315' || $time->notes === '1515'))
-                                ×
                             @elseif($gender_id == '02' && $time->kubun_value_room == "4"
                                 && !($time->notes === '1045' || $time->notes === '1315' || $time->notes === '1515'))
                                 ×

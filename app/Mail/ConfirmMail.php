@@ -29,11 +29,18 @@ class ConfirmMail extends Mailable {
      */
     public function build() {
         $booking_data = $this->booking_data;
-        return $this->text('sunsun.mails.booking.confirm')
+        $send_mail = $this->text('sunsun.mails.booking.confirm')
                     ->subject('【ぬか酸素Sun燦】予約確認のお知らせ')
                     ->with(
                       [
                             'booking_data' => $booking_data
                       ]);
+        if($booking_data->check_note_mail) {
+            $send_mail->attach(asset("sunsun/mail/ファスティングの準備食.pdf"), [
+                        'as' => 'ファスティングの準備食.pdf',
+                        'mime' => 'application/pdf',
+                    ]);
+        }
+        return $send_mail;
     }
 }

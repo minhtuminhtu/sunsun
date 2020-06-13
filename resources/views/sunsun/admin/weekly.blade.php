@@ -225,9 +225,15 @@
                                                             }
                                                         }
                                                         echo $disable_4;
+                                                        $max_bed_female = 3;
+                                                        if ($time['time_value'] === '1045' || $time['time_value'] === '1315' || $time['time_value'] === '1515')
+                                                            $max_bed_female = 4;
                                                         @endphp">
                                                         @if (empty($disable_4))
                                                         @include('sunsun.admin.layouts.weekly_data', ['type' => 'female'])
+                                                        @php
+                                                            unset($max_bed_female);
+                                                        @endphp
                                                         @endif
                                                     </div>
                                                 @endif

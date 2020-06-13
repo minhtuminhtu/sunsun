@@ -280,8 +280,8 @@ class BookingController extends Controller
                 $error['room_select_error']['start']['element'] = 'range_date_start';
                 $error['room_select_error']['end']['element'] = 'range_date_end';
             } else {
-                Log::debug($range_date_start);
-                Log::debug($range_date_end);
+                //Log::debug($range_date_start);
+                //Log::debug($range_date_end);
                 $number_dup = DB::select("
                 SELECT  main.booking_id,
                         main.stay_checkin_date,
@@ -294,8 +294,8 @@ class BookingController extends Controller
                 AND main.del_flg IS NULL
                 AND main.booking_id <> $booking_id
                 ");
-                Log::debug('$number_dup');
-                Log::debug($number_dup);
+                //Log::debug('$number_dup');
+                //Log::debug($number_dup);
 
                 if((count($number_dup) != 0) || ($range_date_start >= $range_date_end)){
                     $error['room_error_holiday'] = "0";
@@ -445,10 +445,10 @@ class BookingController extends Controller
             return redirect()->route('home');
         }
         $this->make_bill($data);
-        Log::debug('$data');
-        Log::debug($data);
+        //Log::debug('$data');
+        //Log::debug($data);
         $request->session()->put($this->session_price, $data['total']);
-        // Log::debug($this->session_price);
+        //Log::debug($this->session_price);
         $check_using_coupon = false;
         foreach ($data['customer']['info'] as $value) {
             if(json_decode($value['course'], true)['kubun_id'] == '01'){
@@ -518,8 +518,8 @@ class BookingController extends Controller
                 }else if($booking_course['kubun_id'] == '03'){
                     $quantity = json_decode( $booking['service_guest_num'], true);
                     $number_customer = (int)$quantity['notes'];
-                    // Log::debug('$number_customer');
-                    // Log::debug($number_customer);
+                    //Log::debug('$number_customer');
+                    //Log::debug($number_customer);
                     // Lon hon 3 nguoi thi tinh them phu phi
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','06']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course($booking, $bill);
@@ -558,8 +558,8 @@ class BookingController extends Controller
                 //dd($info_booking['info']);
             }
         }
-        // Log::debug('$new_bill');
-        // Log::debug($new_bill);
+        //Log::debug('$new_bill');
+        //Log::debug($new_bill);
         //dd($bill);
         $total = 0;
         foreach ($new_bill as $bi){
@@ -897,8 +897,8 @@ class BookingController extends Controller
             'message' => $message
         ];
         $result = $this->update_or_new_booking($data, $request);
-        Log::debug('$result');
-        Log::debug($result);
+        //Log::debug('$result');
+        //Log::debug($result);
 
         return isset($result)?$result:$success;
     }
@@ -915,9 +915,9 @@ class BookingController extends Controller
     public function check_is_katakana($name) {
         $name = $this->remove_space($name);
         $check_name = preg_replace("/[^ァ-ヾｧ-ﾝﾞﾟヽ゛゜ー]/u", "", $name);
-        // Log::debug('check_name');
-        // Log::debug($check_name);
-        // Log::debug($name);
+        //Log::debug('check_name');
+        //Log::debug($check_name);
+        //Log::debug($name);
         if(strlen($check_name) == strlen($name)){
             return true;
         }
@@ -951,6 +951,7 @@ class BookingController extends Controller
         return $error;
     }
     public function update_or_new_booking($data, $request, $from_admin = false, $ref_booking_id = null, $send_mail = false){
+        //Log::debug(count($data['customer']['info']));
         $result = [];
         //Update
         if(isset($data['booking_id'])){
@@ -983,11 +984,11 @@ class BookingController extends Controller
             }
         //New
         }else{
-            Log::debug('$request booking');
-            Log::debug($request);
+            //Log::debug('$request booking');
+            //Log::debug($request);
             $result = $this->new_booking($data, $request, $send_mail, $from_admin);
-            Log::debug("new booking");
-            Log::debug($result);
+            //Log::debug("new booking");
+            //Log::debug($result);
         }
         if(isset($result['bookingID'])){
             $result = [
@@ -995,8 +996,8 @@ class BookingController extends Controller
                 'message' => $result
             ];
         } else if(isset($result)){
-            Log::debug('$result');
-            Log::debug($result);
+            //Log::debug('$result');
+            //Log::debug($result);
             $result_arr = [
                 'status' => 'error'
             ];
@@ -1028,12 +1029,12 @@ class BookingController extends Controller
         DB::unprepared("LOCK TABLE tr_yoyaku READ, tr_yoyaku_danjiki_jikan READ");
         try{
             $email = trim($data['email']);
-            Log::debug('TRACE BEFORE' . $email);
+            //Log::debug('TRACE BEFORE' . $email);
             DB::beginTransaction();
             if(isset($data['customer']['info']) == false){
                 throw new \Exception('Course not found!');
             }
-            Log::debug('TRACE HAS CUSTOMER');
+            //Log::debug('TRACE HAS CUSTOMER');
             try {
                 foreach($data['customer']['info'] as $customer){
                     //Log::debug('data number : '.$i);
@@ -1042,26 +1043,26 @@ class BookingController extends Controller
                     if($booking_id == 0){
                         $booking_id = $this->get_booking_id();
                     }
-                    Log::debug('TRACE BOOKING_ID: ' . $booking_id);
+                    //Log::debug('TRACE BOOKING_ID: ' . $booking_id);
                     if($parent){
                         //Log::debug('parent');
                         $parent_id = $booking_id;
-                        // Log::debug('$ref_booking_id');
-                        // Log::debug($ref_booking_id);
+                        //Log::debug('$ref_booking_id');
+                        //Log::debug($ref_booking_id);
                         $Yoyaku->booking_id = $booking_id;
                         $Yoyaku->ref_booking_id = isset($ref_booking_id)?$ref_booking_id:NULL;
                         $return_booking_id = $parent_id;
                         $parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
                         $parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
                         $return_date = $parent_date;
-                        Log::debug('set_booking_course ' . $return_booking_id);
+                        //Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);
-                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
+                        //Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $parent_id, $parent_date);
                         $parent = false;
-                        Log::debug('TRACE SET PARENT');
+                        //Log::debug('TRACE SET PARENT');
                     }else{
-                        Log::debug('di kem');
+                        //Log::debug('di kem');
                         //Log::debug($parent_date);
                         if(isset($customer['fake_booking'])){
                             // $return_booking_id = $booking_id;
@@ -1072,61 +1073,61 @@ class BookingController extends Controller
                             $Yoyaku->booking_id = $booking_id;
                         }
                         $Yoyaku->ref_booking_id = $parent_id;
-                        Log::debug('set_booking_course ' . $return_booking_id);
+                        //Log::debug('set_booking_course ' . $return_booking_id);
                         $this->set_booking_course($Yoyaku, $data, $customer,$parent, $parent_date);
-                        Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
+                        //Log::debug('set_yoyaku_danjiki_jikan ' . $return_booking_id);
                         $this->set_yoyaku_danjiki_jikan($customer, $parent, $booking_id, $parent_date);
-                        Log::debug('finish set_yoyaku_danjiki_jikan');
+                        //Log::debug('finish set_yoyaku_danjiki_jikan');
                     }
                     if(\Auth::check()){
                         $Yoyaku->ms_user_id = \Auth::user()->ms_user_id;
-                        Log::debug('TRACE USER_ID' . \Auth::user()->ms_user_id);
+                        //Log::debug('TRACE USER_ID' . \Auth::user()->ms_user_id);
                     }
                     $Yoyaku->save();
-                    Log::debug('TRACE SAVE YOYAKU');
+                    //Log::debug('TRACE SAVE YOYAKU');
                 }
-                Log::debug('TRACE CHECK PAYMENT');
+                //Log::debug('TRACE CHECK PAYMENT');
                 if($from_admin === false){
                     $result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
                 }
-                Log::debug('TRACE FINISH PAYMENT');
+                //Log::debug('TRACE FINISH PAYMENT');
                 DB::commit();
-                Log::debug('$request before send mail');
-                Log::debug($request);
+                //Log::debug('$request before send mail');
+                //Log::debug($request);
 
-                Log::debug('TRACE CHECK SENDMAIL');
+                //Log::debug('TRACE CHECK SENDMAIL');
                 if(($send_mail === true) || ($from_admin === false)){
                     $this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
                 }
-                Log::debug('TRACE FINISH SENDMAIL');
+                //Log::debug('TRACE FINISH SENDMAIL');
             } catch (\Exception $e1) {
-                Log::debug("before error");
+                //Log::debug("before error");
                 DB::rollBack();
                 $this->add_column_null($return_booking_id);
                 DB::unprepared("UNLOCK TABLE");
-                Log::debug('$e1->getMessage()');
-                Log::debug($e1->getMessage());
+                //Log::debug('$e1->getMessage()');
+                //Log::debug($e1->getMessage());
                 $result = $e1->getMessage();
                 return  $result;
             }
         }catch(\Exception $e2){
-            Log::debug('$e2->getMessage()');
-            Log::debug($e2->getMessage());
+            //Log::debug('$e2->getMessage()');
+            //Log::debug($e2->getMessage());
         }
         DB::unprepared("UNLOCK TABLE");
 
-        // Log::debug($result);
+        //Log::debug($result);
         return  $result;
     }
     private function send_email($request, $data, $booking_id, $return_date, $email, $from_admin){
         $end = Carbon::createFromFormat('Ymd h:i:s', $return_date."09:00:00")->subDays(2);
-        // Log::debug('time end');
-        // Log::debug($end->toDateTimeString());
+        //Log::debug('time end');
+        //Log::debug($end->toDateTimeString());
 
         $start = Carbon::now();
-        // Log::debug('time start');
-        // Log::debug($start->toDateTimeString());
-        // Log::debug('time sub');
+        //Log::debug('time start');
+        //Log::debug($start->toDateTimeString());
+        //Log::debug('time sub');
 
         $delay_time = 3;
         if($end->gt($start)){
@@ -1137,7 +1138,7 @@ class BookingController extends Controller
         $check_has_couse_oneday = false;
 
 
-
+        $check_note_mail = false;
         if($from_admin === false){
             $booking_data = new \stdClass();
             $booking_data->booking_id = $booking_id;
@@ -1160,10 +1161,13 @@ class BookingController extends Controller
                     ||(json_decode($value['course'] , true)['kubun_id'] === '06')){ // 2020/06/05
                     $check_has_couse_oneday = true;
                 }
+                if ((json_decode($value['course'] , true)['kubun_id'] === '04')) {
+                    $check_note_mail = true;
+                }
             }
             $booking_data->check_has_note = $check_has_note;
             $booking_data->check_has_couse_oneday = $check_has_couse_oneday;
-
+            $booking_data->check_note_mail = $check_note_mail;
 
             ConfirmJob::dispatch($email, $booking_data);
             ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
@@ -1204,6 +1208,9 @@ class BookingController extends Controller
                 if(($value->course === '02') || ($value->course === '04') || ($value->course === '06')){
                     $check_has_couse_oneday = true;
                 }
+                if(($value->course === '04')){
+                    $check_note_mail = true;
+                }
             }
 
             $admin_data['admin_customer'] = $admin_customer;
@@ -1222,7 +1229,7 @@ class BookingController extends Controller
 
             $booking_data->check_has_note = $check_has_note;
             $booking_data->check_has_couse_oneday = $check_has_couse_oneday;
-
+            $booking_data->check_note_mail = $check_note_mail;
 
             ConfirmJob::dispatch($email, $booking_data);
             ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
@@ -1266,8 +1273,8 @@ class BookingController extends Controller
                 }else if($yo->course == '03'){
                     $quantity = $MsKubun->where('kubun_type','015')->where('kubun_id', $yo->service_guest_num)->first();
                     $number_customer = (int)$quantity->notes;
-                    // Log::debug('$number_customer');
-                    // Log::debug($number_customer);
+                    //Log::debug('$number_customer');
+                    //Log::debug($number_customer);
                     // Lon hon 3 nguoi thi tinh them phu phi
                     $sort_no_temp = MsKubun::where([['kubun_type','030'],['kubun_id','06']])->get()->first();
                     $new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
@@ -1582,10 +1589,10 @@ class BookingController extends Controller
         $Yoyaku->save();
     }
     private function call_payment_api($request, &$data, $booking_id, $old_booking_id = null){
-        Log::debug('TRACE OPEN PAYMENT API');
+        //Log::debug('TRACE OPEN PAYMENT API');
         if((isset($data['payment-method']) === true) && ($data['payment-method'] == 1)){
-            // Log::debug('$old_booking_id');
-            // Log::debug($old_booking_id);
+            //Log::debug('$old_booking_id');
+            //Log::debug($old_booking_id);
             // $amount = 1;
             if ($request->session()->has($this->session_price)) {
                 $amount = $request->session()->get($this->session_price);
@@ -1598,7 +1605,7 @@ class BookingController extends Controller
                 $accessPass = null;
                 $old_payment = Payment::where('booking_id', $old_booking_id)->first();
                 if($old_payment){
-                    Log::debug('change');
+                    //Log::debug('change');
                     $accessID = $old_payment->access_id;
                     $accessPass = $old_payment->access_pass;
                     $this->change_tran($accessID, $accessPass, $amount, $booking_id);
@@ -1607,7 +1614,7 @@ class BookingController extends Controller
                 if(!isset($data['Token'])){
                     throw new \ErrorException('Token error!');
                 }
-                Log::debug('TRACE OPEN TRAN API');
+                //Log::debug('TRACE OPEN TRAN API');
                 return $this->create_tran($request, $booking_id, $amount, $data['Token']);
             }
         }else{
@@ -1643,8 +1650,8 @@ class BookingController extends Controller
         $response = \Requests::post('https://p01.mul-pay.jp/payment/EntryTran.idPass', $this->headers, $data);
         parse_str($response->body, $params);
         if(!isset($params['AccessID']) || !isset($params['AccessPass'])){
-            Log::debug('Create tran body');
-            Log::debug($response->body);
+            //Log::debug('Create tran body');
+            //Log::debug($response->body);
             throw new \ErrorException('payment_error');
         }
         return $this->exec_tran($request, $params['AccessID'], $params['AccessPass'], $booking_id, $token);
@@ -1659,13 +1666,13 @@ class BookingController extends Controller
             'Token' => $token
         );
         $response = \Requests::post('https://p01.mul-pay.jp/payment/ExecTran.idPass', $this->headers, $data);
-        Log::debug('Exec tran body');
-        Log::debug($response->body);
+        //Log::debug('Exec tran body');
+        //Log::debug($response->body);
         parse_str($response->body, $params);
         if(isset($params['ACS']) && ($params['ACS'] == 0)){
             // Lưu lại access_id và access_pass dùng cho change price
-            Log::debug('$params');
-            Log::debug($params);
+            //Log::debug('$params');
+            //Log::debug($params);
             $payment = new Payment();
             $payment->booking_id =  $booking_id;
             $payment->access_id = $accessID;
@@ -1694,10 +1701,10 @@ class BookingController extends Controller
             'JobCd' => 'CAPTURE'
         );
         $response = \Requests::post('https://p01.mul-pay.jp/payment/ChangeTran.idPass', $this->headers, $data);
-        Log::debug('Exec tran body');
+        //Log::debug('Exec tran body');
         parse_str($response->body, $params);
-        // Log::debug('$params');
-        // Log::debug($params);
+        //Log::debug('$params');
+        //Log::debug($params);
         if(isset($params['AccessID'])){
             $payment = new Payment();
             $payment->booking_id =  $booking_id;
@@ -1894,6 +1901,7 @@ class BookingController extends Controller
         }elseif($course->kubun_id == '05'){
             $this->set_course_5($parent, $parent_date, $customer, $Yoyaku);
         }
+        //Log::debug("--------set_booking_course-------");
     }
     private function isDate($date, $format = 'Y-m-d')
     {
@@ -1909,7 +1917,7 @@ class BookingController extends Controller
         $checkout_tmp = $checkout;
         while ($checkin <= $checkout) {
             $begin = $this->convertStringToDate($checkin);
-            // Log::debug($begin);
+            //Log::debug($begin);
             if (!$begin || !$this->isDate($begin)) return false;
             $what_day = date('w', strtotime($begin));
             if (in_array($what_day, [3,4]) )
@@ -1929,10 +1937,10 @@ class BookingController extends Controller
             WHERE mh.date_holiday >= $checkin AND mh.date_holiday <= $checkout
             $where_room_type
         ";
-        // Log::debug($sql_check);
+        //Log::debug($sql_check);
         $room_validate = DB::select($sql_check);
-         // Log::debug('$room_validate');
-         // Log::debug($room_validate);
+         //Log::debug('$room_validate');
+         //Log::debug($room_validate);
         if(isset($room_validate) && (count($room_validate) > 0)){
             return false;
         }
@@ -1956,8 +1964,8 @@ class BookingController extends Controller
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
             ");
-            Log::debug('$room_validate');
-            Log::debug($room_validate);
+            //Log::debug('$room_validate');
+            //Log::debug($room_validate);
             if(isset($room_validate) && (count($room_validate) != 0)){
                 throw new \ErrorException('booking_error_stay');
             }
@@ -2066,8 +2074,8 @@ class BookingController extends Controller
         $time0_json = isset($customer['time'][0]['json'])?$customer['time'][0]['json']:"";
         $time1_json = isset($customer['time'][1]['json'])?$customer['time'][1]['json']:"";
         $time_json = $time0_json . "-" . $time1_json;
-        // //Log::debug('course 2 debug');
-        // //Log::debug($customer);
+        //Log::debug('course 2 debug');
+        //Log::debug($customer);
         $Yoyaku->time_json = $time_json;
         $Yoyaku->gender = $gender->kubun_id;
         $Yoyaku->age_value = $age_value;
@@ -2382,10 +2390,10 @@ class BookingController extends Controller
                 }
             }
             $data["time_whitening"]["max"] = $this->plus_time_string($time_whitening_book, $time_wait_bath_max);
-            // Log::debug($time_whitening_book);
-            // Log::debug($time_wait_bath_min);
+            //Log::debug($time_whitening_book);
+            //Log::debug($time_wait_bath_min);
             $data["time_whitening"]["min"] = $this->minus_time_string($time_whitening_book, $time_wait_bath_min);
-            // Log::debug($data["time_whitening"]["min"]);
+            //Log::debug($data["time_whitening"]["min"]);
         }
         $data_time = $this->get_date_time($gender, $data, $validate_time, $day_book_time, $time_bus, $validate_ss_time, $course, $data_get_attr, $range_time_validate,$data["time_whitening"]);
         $data_time['course'] = $course['kubun_id'];
@@ -2438,7 +2446,7 @@ class BookingController extends Controller
     }
     public function get_validate_time_choice ($course, $data, $data_get_attr, &$validate_time, &$day_book_time) {
         if ($course['kubun_id'] == config('const.db.kubun_id_value.course.NORMAL')) { // Tắm bình thường
-            // Log::debug(' check normal');
+            //Log::debug(' check normal');
             if ((count($data['time']) > 0 && isset($data_get_attr['new'])) || (count($data['time']) > 1)) {
                 foreach ($data['time'] as $key => $time_book) {
                     if ($time_book['value'] != '0') {
@@ -2448,7 +2456,7 @@ class BookingController extends Controller
                 }
             }
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.1_DAY_REFRESH')) { // 1 day refresh
-            // Log::debug('check day refresh');
+            //Log::debug('check day refresh');
             if ($data_get_attr['date_type'] == 'shower_1' && $data['time2-value'] != '0') {
                 $validate_time['1_DAY_REFRESH']['max'] = $this->plus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
                 $validate_time['1_DAY_REFRESH']['min'] = $this->minus_time_string($data['time2-value'], 120); // plus 2h between 2 times shower
@@ -2459,7 +2467,7 @@ class BookingController extends Controller
             //dd($data);
         } else if ($course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')
             || $course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN2')) { // fasting plan // 2020/06/05
-            // Log::debug($data_get_attr);
+            //Log::debug($data_get_attr);
             $type = $data_get_attr['date_type'];
             $day_book_time = $data_get_attr['date'];
             //if ($type == 'to') {
@@ -2610,7 +2618,7 @@ class BookingController extends Controller
             }
         }
         $sql_whitening ="";
-        // Log::debug($time_whitening);
+        //Log::debug($time_whitening);
         if ($time_whitening != null) {
             $time_max = $time_whitening['max'];
             $time_min = $time_whitening['min'];
@@ -2621,7 +2629,7 @@ class BookingController extends Controller
             }
         }
         $sql_time_path .= $sql_whitening;
-        // Log::debug($sql_time_path);
+        //Log::debug($sql_time_path);
         $sql_validate_ss = "";
         if (count($validate_ss_time) > 0) { // time book lần sau không trùng time book trước
             $sql_validate_ss .= "WHEN '01' = '01'  AND (";
