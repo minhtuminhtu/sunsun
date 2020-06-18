@@ -8,12 +8,13 @@ var date_view_tmp = "";
 var date_value_tmp = "";
 var date_tmp = "";
 var date_def = "";
+var check_end = false;
+var check_start = false;
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
 }
-
 function setDateFormat(date_string) {
     var new_day = moment(new Date(date_string));
     var days_short = new Array("日","月","火","水","木","金","土");
@@ -21,7 +22,13 @@ function setDateFormat(date_string) {
     $('#date-value').val(new_day.format('YYYYMMDD'));
     $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
 }
-
+function setDateFormat2(date_string,id) {
+    var new_day = moment(new Date(date_string));
+    var days_short = new Array("日","月","火","水","木","金","土");
+    $(id).val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD'));
+    $(id+'-value').val(new_day.format('YYYYMMDD'));
+    $(id+'-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
+}
 function formatDate(date) {
      var d = new Date(date),
          month = '' + (d.getMonth() + 1),
@@ -85,7 +92,7 @@ $(function() {
                 $('.service-warp').empty().append(html).hide().fadeIn('slow');
                 load_event(true);
                 load_after_ajax();
-                load_time_list();
+                load_time_list(true);
                 checkShowWhite();
                 // set sex
                 var obj_sex = document.getElementById("gender");
@@ -99,9 +106,10 @@ $(function() {
                         $('.js-set-time').click();
                 }
                 if (typeof $('#date').val() != "undefined" && date_tmp != "") {
-                    $('#date-view').val(date_view_tmp);
-                    $('#date-value').val(date_value_tmp);
-                    $('#date').val(date_tmp);
+                    setDateFormat(date_tmp);
+                    // $('#date-view').val(date_view_tmp);
+                    // $('#date-value').val(date_value_tmp);
+                    // $('#date').val(date_tmp);
                 }
                 date_view_tmp = "";
                 date_value_tmp = "";
@@ -165,7 +173,6 @@ $(function() {
             }
         });
     }
-
     $('#btn-home').off('click');
     $('#btn-home').on('click', function() {
         var home_url = window.location.origin + "/clear_session";
@@ -175,8 +182,6 @@ $(function() {
     $('#btn-back').on('click', function() {
         history.back();
     });
-
-
     function setDefAdmin() {
         if (_type_admin == "05") {
             var obj_course = document.getElementById("course");
@@ -251,28 +256,27 @@ $(function() {
     }
     let load_event = function() {
         var strToday;
-        var strTomorrow;
+        //var strTomorrow;
         strToday = today.format('Y') + "/" + today.format('MM') + "/" + today.format('DD');
-        strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
+        //strTomorrow = tomorrow.format('Y') + "/" + tomorrow.format('MM') + "/" + tomorrow.format('DD');
         if(JSON.parse($('#course').val()).kubun_id == '04' || JSON.parse($('#course').val()).kubun_id == '06'){ // 2020/06/05
-            if(today.weekday() == '2'){
-                var today_4 = moment(today).add(3, 'days');
-                var tomorrow_4 = moment(today_4).add(1, 'days');
-                strToday = today_4.format('Y') + "/" + today_4.format('MM') + "/" + today_4.format('DD');
-                strTomorrow = tomorrow_4.format('Y') + "/" + tomorrow_4.format('MM') + "/" + tomorrow_4.format('DD');
-
-            }
+            // if(today.weekday() == '2'){
+            //     var today_4 = moment(today).add(3, 'days');
+            //     var tomorrow_4 = moment(today_4).add(1, 'days');
+            //     strToday = today_4.format('Y') + "/" + today_4.format('MM') + "/" + today_4.format('DD');
+            //     //strTomorrow = tomorrow_4.format('Y') + "/" + tomorrow_4.format('MM') + "/" + tomorrow_4.format('DD');
+            // }
             if($('#plan_date_start').val() == ""){
-                $('#plan_date_start').val(strToday);
+                var date_set = (date_tmp != "") ? date_tmp : ( (date_def != "") ? date_def : strToday );
+                setDateFormat2(date_set,'#plan_date_start');
             }
-            if($('#plan_date_end').val() == ""){
-                $('#plan_date_end').val(strTomorrow);
-            }
+            //if($('#plan_date_end').val() == ""){
+            //    $('#plan_date_end').val(strTomorrow);
+            //}
         }
         if(($('#date').val() == "") && ($('#date').val() !== undefined)){
             setDateFormat(strToday);
         }
-
         $('#room').off('change');
         $('#room').on('change', function() {
             var room =  JSON.parse($('#room').val());
@@ -766,7 +770,7 @@ $(function() {
         $('#plan_date_start').datepicker().on('hide', function () {
             $('#plan_date_end').datepicker('destroy');
             if($.inArray(moment(new Date($('#plan_date_start').val())).format('YYYY-MM-DD'), range_date_temp) == -1){
-                $('#plan_date_end').val(moment(new Date($('#plan_date_start').val())).add(0, 'days').format('YYYY/MM/DD'));
+                setDateFormat2($('#plan_date_start').val(),'#plan_date_end');
             }
             if(window.location.href.indexOf("admin") >= 0){
                 $('#plan_date_end').datepicker({
@@ -796,6 +800,9 @@ $(function() {
             }
             $('#plan_date_end').focus();
         });
+        $('#plan_date_start').datepicker().on('changeDate', function(e) {
+            check_start = true;
+        });
         let highlight = function(start){
             var highlight = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
             highlight.forEach(function(element,index) {
@@ -815,15 +822,27 @@ $(function() {
             });
         }
         $('#plan_date_start').datepicker().on('show', function(e) {
+            check_start = false;
             DatePicker.hideOtherMonthDays();
             highlight(true);
         });
         $('#plan_date_end').datepicker().on('show', function(e) {
+            check_end = false;
             DatePicker.hideOtherMonthDays();
             highlight(false);
         });
         $('#plan_date_end').datepicker().on('hide', function(e) {
             range_date_temp = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+            if (check_end || check_start) {
+                date_tmp = $('#plan_date_start').val();
+                if (check_start) $(".range_date").change();
+                checkValidateDate();
+            }
+            check_end = false;
+            check_start = false;
+        });
+        $('#plan_date_end').datepicker().on('changeDate', function(e) {
+            check_end = true;
         });
         $('#range_date_start, #range_date_end').datepicker().on('show', function(e) {
             DatePicker.hideOtherMonthDays();
@@ -993,76 +1012,7 @@ $(function() {
         $('#bus_arrive_time_slide').val($(this).find('.bus_arrive_time_slide').val());
         $("#bus_time_first").text($(this).find(".bus_time_first").text());
         $("#bus_time_second").text($(this).find(".bus_time_second").text());
-        let btn_click = $(this);
-        $.ajax({
-            url: $site_url +'/validate_before_booking',
-            type: 'POST',
-            data: $('form.booking').serializeArray(),
-            dataType: 'JSON',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (json) {
-                // console.log(json);
-                make_color_input_error(json , false);
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-            error: function(jqXHR){
-                if(jqXHR.status === 419){
-                    if(window.location.href.indexOf("admin") >= 0){
-                        Swal.fire({
-                            target: '#edit_booking',
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            // customClass: {
-                            //     popup: 'modal-dialog'
-                            // },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    } else {
-                        Swal.fire({
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    }
-                }
-            }
-        });
+        checkValidateDate();
     });
     $('#repeat_user').off('change');
     $('#repeat_user').on('change', function(e) {
@@ -1072,76 +1022,7 @@ $(function() {
         }else{
             $('#hint-repeat').text('※バスの場合、到着時間から15分以内の予約はできません。希望時間が選択できない場合は　バス到着時間をご確認ください。');
         }
-        let btn_click = $(this);
-        $.ajax({
-            url: $site_url +'/validate_before_booking',
-            type: 'POST',
-            data: $('form.booking').serializeArray(),
-            dataType: 'JSON',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (json) {
-                // console.log(json);
-                make_color_input_error(json , false);
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-            error: function(jqXHR){
-                if(jqXHR.status === 419){
-                    if(window.location.href.indexOf("admin") >= 0){
-                        Swal.fire({
-                            target: '#edit_booking',
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            // customClass: {
-                            //     popup: 'modal-dialog'
-                            // },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    } else {
-                        Swal.fire({
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    }
-                }
-            }
-        });
+        checkValidateDate();
     });
     $('#transport').off('change');
     $('#transport').on('change', function(e) {
@@ -1151,76 +1032,7 @@ $(function() {
         }else{
             $('.bus').show();
         }
-        let btn_click = $(this);
-        $.ajax({
-            url: $site_url +'/validate_before_booking',
-            type: 'POST',
-            data: $('form.booking').serializeArray(),
-            dataType: 'JSON',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (json) {
-                // console.log(json);
-                make_color_input_error(json , false);
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-            error: function(jqXHR){
-                if(jqXHR.status === 419){
-                    if(window.location.href.indexOf("admin") >= 0){
-                        Swal.fire({
-                            target: '#edit_booking',
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            // customClass: {
-                            //     popup: 'modal-dialog'
-                            // },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    } else {
-                        Swal.fire({
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    }
-                }
-            }
-        });
+        checkValidateDate();
     });
     $('.btn-booking').off('click');
     $('.btn-booking').on('click', function(e) {
@@ -1325,187 +1137,111 @@ $(function() {
             });
         }
     });
-    let make_color_input_error = (json, type = true) => {
-        $('p.note-error').remove();
-        // if (typeof json.clear_border_red !== "undefined" ) {
-        //     $.each(json.clear_border_red, function (index, item) {
-        //         $('#'+item.element).css({'border': 'solid 1px #ced4da'});
-        //         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
-        //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
-        //     })
-        // }
-        $('.validate_failed').removeClass('validate_failed');
-        if (((typeof json.error_time_transport !== "undefined" )
-            || (typeof json.error_time_gender  !== "undefined")
-            || (typeof json.error_time_empty  !== "undefined")
-            || (typeof json.room_select_error  !== "undefined")
-            || (typeof json.error_fasting_plan_holyday  !== "undefined")
-        ) && (type)){
-            Swal.fire({
-                icon: 'warning',
-                text: '入力した内容を確認してください。',
-                confirmButtonColor: '#d7751e',
-                confirmButtonText: '閉じる',
-                width: 350,
-                showClass: {
-                    popup: 'animated zoomIn faster'
-                },
-                hideClass: {
-                    popup: 'animated zoomOut faster'
-                },
-                allowOutsideClick: false
-            })
-        }
-        if (typeof json.error_time_transport !== "undefined" ) {
-            $.each(json.error_time_transport, function (index, item) {
-                let input_error_transport = $('#'+item.element);
-                input_error_transport.addClass('validate_failed');
-                let repeat_user = JSON.parse($('#repeat_user').val());
-                if(repeat_user.kubun_id == '01'){
-                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
-                }else if(repeat_user.kubun_id == '02'){
-                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
-                }
-                $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
-            })
-        }
-        if (typeof json.error_time_gender  !== "undefined") {
-            $.each(json.error_time_gender, function (index, item) {
-                let input_error_gender = $('#'+item.element);
-                input_error_gender.addClass('validate_failed');
-                input_error_gender.parent().after('<p class="note-error node-text"> 選択された時間は予約できません。</p>');
-                $('select[name=gender]').addClass('validate_failed');
-            })
-        }
-        if ((typeof json.error_time_empty  !== "undefined") && (type)) {
-            $.each(json.error_time_empty, function (index, item) {
-                let input_error_required = $('#'+item.element);
-                input_error_required.addClass('validate_failed');
-                input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
-            })
-        }
-        if (typeof json.room_select_error  !== "undefined") {
-            $.each(json.room_select_error, function (index, item) {
-                $('#'+item.element).addClass('validate_failed');
-            })
-            var text_err = "選択された日は予約できません";
-            if (json.room_error_holiday == "1")
-                text_err = "定休日が含まれているため予約できません";
-            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
-        }
-        if (typeof json.error_fasting_plan_holyday  !== "undefined") {
-            $.each(json.error_fasting_plan_holyday, function (index, item) {
-                $('#'+item.element).addClass('validate_failed');
-            });
-            var text_err = "定休日が含まれているため予約できません";
-            $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
-        }
-    };
     let load_time_list = function(check = null) {
         let check_admin_set = $(".time-list").attr("value");
-        if((!check) && !(check_admin_set == 1)){
-            if(JSON.parse($('#course').val()).kubun_id == '04' || JSON.parse($('#course').val()).kubun_id == '06'){ // 2020/06/05
-                if(today.weekday() == '2'){
-                    var today_4 = moment(today).add(3, 'days');
-                    var tomorrow_4 = moment(today_4).add(1, 'days');
-                    $('.time-list').append('' +
-                        '<div class="booking-field choice-time">' +
-                        '<input value="0" class="time_index" type="hidden" >' +
-                        '<div class="booking-field-label label-data pt-2">' +
-                        '<label class="">' + today_4.format('MM') + '/' + today_4.format('DD') + '(' + days_short[today_4.weekday()] + ')</label>' +
-                        '<input name="date['+ 0 +'][day][view]" value="' + today_4.format('MM') + '/' + today_4.format('DD') + '(' + days_short[today_4.weekday()] + ')" type="hidden" >' +
-                        '<input name="date['+ 0 +'][day][value]" value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" type="hidden" >' +
-                        '</div>    <div class="booking-field-content date-time">' +
-                        '<div class="choice-data-time set-time time-start">    ' +
-                        '<div class="set-time">' +
-                        '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" data-date_type="form" readonly="readonly"  value="－" />    ' +
-                        '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
-                        '<input class="bus_first" type="hidden" value="1">' +
-                        '</div>    <div class="icon-time mt-1">' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="choice-data-time set-time time-end">    ' +
-                        '<div class="set-time">' +
-                        '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" data-date_type="to"  readonly="readonly"  value="－" />    ' +
-                        '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
-                        '<input class="bus_first" type="hidden" value="1">' +
-                        '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-                    $('.time-list').append('' +
-                        '<div class="booking-field choice-time">' +
-                        '<input value="1" class="time_index" type="hidden" >' +
-                        '<div class="booking-field-label label-data pt-2">' +
-                        '<label class="">' + tomorrow_4.format('MM') + '/' + tomorrow_4.format('DD') + '(' + days_short[tomorrow_4.weekday()] + ')</label>' +
-                        '<input name="date['+ 1 +'][day][view]" value="' + tomorrow_4.format('MM') + '/' + tomorrow_4.format('DD') + '(' + days_short[tomorrow_4.weekday()] + ')" type="hidden" >' +
-                        '<input name="date['+ 1 +'][day][value]" value="' + tomorrow_4.format('YYYY') + tomorrow_4.format('MM') +  tomorrow_4.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
-                        '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
-                        '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow_4.format('YYYY') + tomorrow.format('MM') +  tomorrow_4.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="－" />   ' +
-                        '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
-                        ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
-                        '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
-                        '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow_4.format('YYYY') + tomorrow_4.format('MM') +  tomorrow_4.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-                }else{
-                    $('.time-list').append('' +
-                        '<div class="booking-field choice-time">' +
-                        '<input value="0" class="time_index" type="hidden" >' +
-                        '<div class="booking-field-label label-data pt-2">' +
-                        '<label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label>' +
-                        '<input name="date['+ 0 +'][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" >' +
-                        '<input name="date['+ 0 +'][day][value]" value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" type="hidden" >' +
-                        '</div>    <div class="booking-field-content date-time">' +
-                        '<div class="choice-data-time set-time time-start">    ' +
-                        '<div class="set-time">' +
-                        '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly"  value="－" />    ' +
-                        '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
-                        '<input class="bus_first" type="hidden" value="1">' +
-                        '</div>    <div class="icon-time mt-1">' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="choice-data-time set-time time-end">    ' +
-                        '<div class="set-time">' +
-                        '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to"  readonly="readonly"  value="－" />    ' +
-                        '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
-                        '<input class="bus_first" type="hidden" value="1">' +
-                        '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-                    $('.time-list').append('' +
-                        '<div class="booking-field choice-time">' +
-                        '<input value="1" class="time_index" type="hidden" >' +
-                        '<div class="booking-field-label label-data pt-2">' +
-                        '<label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label>' +
-                        '<input name="date['+ 1 +'][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" >' +
-                        '<input name="date['+ 1 +'][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
-                        '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
-                        '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="－" />   ' +
-                        '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
-                        ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
-                        '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
-                        '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
-                        '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
-                        '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
-                        '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
-                }
-            }
-        }
+        // if((!check) && !(check_admin_set == 1)){
+        //     if(JSON.parse($('#course').val()).kubun_id == '04' || JSON.parse($('#course').val()).kubun_id == '06'){ // 2020/06/05
+        //         if(today.weekday() == '2'){
+        //             var today_4 = moment(today).add(3, 'days');
+        //             var tomorrow_4 = moment(today_4).add(1, 'days');
+        //             $('.time-list').append('' +
+        //                 '<div class="booking-field choice-time">' +
+        //                 '<input value="0" class="time_index" type="hidden" >' +
+        //                 '<div class="booking-field-label label-data pt-2">' +
+        //                 '<label class="">' + today_4.format('MM') + '/' + today_4.format('DD') + '(' + days_short[today_4.weekday()] + ')</label>' +
+        //                 '<input name="date['+ 0 +'][day][view]" value="' + today_4.format('MM') + '/' + today_4.format('DD') + '(' + days_short[today_4.weekday()] + ')" type="hidden" >' +
+        //                 '<input name="date['+ 0 +'][day][value]" value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" type="hidden" >' +
+        //                 '</div>    <div class="booking-field-content date-time">' +
+        //                 '<div class="choice-data-time set-time time-start">    ' +
+        //                 '<div class="set-time">' +
+        //                 '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" data-date_type="form" readonly="readonly"  value="－" />    ' +
+        //                 '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
+        //                 '<input class="bus_first" type="hidden" value="1">' +
+        //                 '</div>    <div class="icon-time mt-1">' +
+        //                 '</div>' +
+        //                 '</div>' +
+        //                 '<div class="choice-data-time set-time time-end">    ' +
+        //                 '<div class="set-time">' +
+        //                 '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today_4.format('YYYY') + today_4.format('MM') +  today_4.format('DD') +'" data-date_type="to"  readonly="readonly"  value="－" />    ' +
+        //                 '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
+        //                 '<input class="bus_first" type="hidden" value="1">' +
+        //                 '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+        //             $('.time-list').append('' +
+        //                 '<div class="booking-field choice-time">' +
+        //                 '<input value="1" class="time_index" type="hidden" >' +
+        //                 '<div class="booking-field-label label-data pt-2">' +
+        //                 '<label class="">' + tomorrow_4.format('MM') + '/' + tomorrow_4.format('DD') + '(' + days_short[tomorrow_4.weekday()] + ')</label>' +
+        //                 '<input name="date['+ 1 +'][day][view]" value="' + tomorrow_4.format('MM') + '/' + tomorrow_4.format('DD') + '(' + days_short[tomorrow_4.weekday()] + ')" type="hidden" >' +
+        //                 '<input name="date['+ 1 +'][day][value]" value="' + tomorrow_4.format('YYYY') + tomorrow_4.format('MM') +  tomorrow_4.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
+        //                 '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
+        //                 '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow_4.format('YYYY') + tomorrow.format('MM') +  tomorrow_4.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="－" />   ' +
+        //                 '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
+        //                 ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
+        //                 '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
+        //                 '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow_4.format('YYYY') + tomorrow_4.format('MM') +  tomorrow_4.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+        //         }else{
+        //             $('.time-list').append('' +
+        //                 '<div class="booking-field choice-time">' +
+        //                 '<input value="0" class="time_index" type="hidden" >' +
+        //                 '<div class="booking-field-label label-data pt-2">' +
+        //                 '<label class="">' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')</label>' +
+        //                 '<input name="date['+ 0 +'][day][view]" value="' + today.format('MM') + '/' + today.format('DD') + '(' + days_short[today.weekday()] + ')" type="hidden" >' +
+        //                 '<input name="date['+ 0 +'][day][value]" value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" type="hidden" >' +
+        //                 '</div>    <div class="booking-field-content date-time">' +
+        //                 '<div class="choice-data-time set-time time-start">    ' +
+        //                 '<div class="set-time">' +
+        //                 '<input name="date['+ 0 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 0 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="date['+ 0 +'][from][view]" type="text" id="time_bath_10" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="form" readonly="readonly"  value="－" />    ' +
+        //                 '<input name="time['+ 0 +'][from][json]" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 0 +'][from][element]" type="hidden" value="time_bath_10" />' +
+        //                 '<input class="bus_first" type="hidden" value="1">' +
+        //                 '</div>    <div class="icon-time mt-1">' +
+        //                 '</div>' +
+        //                 '</div>' +
+        //                 '<div class="choice-data-time set-time time-end">    ' +
+        //                 '<div class="set-time">' +
+        //                 '<input name="date['+ 0 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 0 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="date['+ 0 +'][to][view]" type="text" id="time_bath_11" class="time form-control js-set-time bg-white" data-date_value="'  + today.format('YYYY') + today.format('MM') +  today.format('DD') +'" data-date_type="to"  readonly="readonly"  value="－" />    ' +
+        //                 '<input name="time['+ 0 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 0 +'][to][element]" type="hidden" value="time_bath_11" />' +
+        //                 '<input class="bus_first" type="hidden" value="1">' +
+        //                 '</div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+        //             $('.time-list').append('' +
+        //                 '<div class="booking-field choice-time">' +
+        //                 '<input value="1" class="time_index" type="hidden" >' +
+        //                 '<div class="booking-field-label label-data pt-2">' +
+        //                 '<label class="">' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')</label>' +
+        //                 '<input name="date['+ 1 +'][day][view]" value="' + tomorrow.format('MM') + '/' + tomorrow.format('DD') + '(' + days_short[tomorrow.weekday()] + ')" type="hidden" >' +
+        //                 '<input name="date['+ 1 +'][day][value]" value="' + today.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'" type="hidden" ></div>    <div class="booking-field-content date-time">' +
+        //                 '<div class="choice-data-time set-time time-start">    <div class="set-time">' +
+        //                 '<input name="date['+ 1 +'][from][value]" type="hidden" class="time_from time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 1 +'][from][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="date['+ 1 +'][from][view]" type="text" id="time_bath_21" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="form"  readonly="readonly"  value="－" />   ' +
+        //                 '<input name="time['+ 1 +'][from][json]" id="" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 1 +'][from][element]" type="hidden" value="time_bath_21" />' +
+        //                 ' </div>    <div class="icon-time mt-1"></div></div><div class="choice-data-time set-time time-end">    <div class="set-time">' +
+        //                 '<input name="date['+ 1 +'][to][value]" type="hidden" class="time_to time_value"  readonly="readonly"  value="0" />' +
+        //                 '<input name="date['+ 1 +'][to][bed]" type="hidden" class="time_bed"  readonly="readonly"  value="1" />' +
+        //                 '<input name="time['+ 1 +'][to][json]" type="hidden" class="data-json_input" value="" />' +
+        //                 '<input name="time['+ 1 +'][to][element]" type="hidden" value="time_bath_22" />' +
+        //                 '<input name="date['+ 1 +'][to][view]" type="text" id="time_bath_22" class="time form-control js-set-time bg-white" data-date_value="' + tomorrow.format('YYYY') + tomorrow.format('MM') +  tomorrow.format('DD') +'"  data-date_type="to" readonly="readonly"  value="－" />    </div>    <div class="icon-time mt-1"></div></div>    </div></div>');
+        //         }
+        //     }
+        // }
         $(".range_date").change(function(){
             var date_arr = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
             $('.time-list').empty();
@@ -1548,7 +1284,7 @@ $(function() {
             $('#plan_date_end-view').val(check1.format('YYYY') + "年" + check1.format('MM') + "月" + check1.format('DD') + "日(" + days_short[check1.weekday()] + ")");
             load_event();
         });
-        load_event();
+        if (check == null) load_event();
     };
     load_time_list();
 });
@@ -2169,153 +1905,8 @@ let load_after_ajax = function(){
     });
     $('#gender').off('change');
     $('#gender').on('change', function(e) {
-        let btn_click = $(this);
-        $.ajax({
-            url: $site_url +'/validate_before_booking',
-            type: 'POST',
-            data: $('form.booking').serializeArray(),
-            dataType: 'JSON',
-            beforeSend: function () {
-                loader.css({'display': 'block'});
-            },
-            success: function (json) {
-                // console.log(json);
-                make_color_input_error(json , false);
-            },
-            complete: function () {
-                loader.css({'display': 'none'});
-            },
-            error: function(jqXHR){
-                if(jqXHR.status === 419){
-                    if(window.location.href.indexOf("admin") >= 0){
-                        Swal.fire({
-                            target: '#edit_booking',
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            // customClass: {
-                            //     popup: 'modal-dialog'
-                            // },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    } else {
-                        Swal.fire({
-                            text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d7751e',
-                            cancelButtonColor: '#343a40',
-                            confirmButtonText: 'はい',
-                            cancelButtonText: 'いいえ',
-                            width: 350,
-                            showClass: {
-                                popup: 'animated zoomIn faster'
-                            },
-                            hideClass: {
-                                popup: 'animated zoomOut faster'
-                            },
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.reload(true);
-                            }
-                        })
-                    }
-                }
-            }
-        });
+        checkValidateDate();
     });
-    let make_color_input_error = (json, type = true) => {
-        $('p.note-error').remove();
-        // if (typeof json.clear_border_red !== "undefined" ) {
-        //     $.each(json.clear_border_red, function (index, item) {
-        //         $('#'+item.element).css({'border': 'solid 1px #ced4da'});
-        //         $('#bus_arrive_time_slide').closest('button').css({'border': 'solid 1px #ced4da'});
-        //         $('select[name=gender]').css({'border': 'solid 1px #ced4da'});
-        //     })
-        // }
-        $('.validate_failed').removeClass('validate_failed');
-        if (((typeof json.error_time_transport !== "undefined" )
-            || (typeof json.error_time_gender  !== "undefined")
-            || (typeof json.error_time_empty  !== "undefined")
-            || (typeof json.room_select_error  !== "undefined")
-            || (typeof json.error_fasting_plan_holyday  !== "undefined")
-        ) && (type)){
-            Swal.fire({
-                icon: 'warning',
-                text: '入力した内容を確認してください。',
-                confirmButtonColor: '#d7751e',
-                confirmButtonText: '閉じる',
-                width: 350,
-                showClass: {
-                    popup: 'animated zoomIn faster'
-                },
-                hideClass: {
-                    popup: 'animated zoomOut faster'
-                },
-                allowOutsideClick: false
-            })
-        }
-        if (typeof json.error_time_transport !== "undefined" ) {
-            $.each(json.error_time_transport, function (index, item) {
-                let input_error_transport = $('#'+item.element);
-                input_error_transport.addClass('validate_failed');
-                let repeat_user = JSON.parse($('#repeat_user').val());
-                if(repeat_user.kubun_id == '01'){
-                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
-                }else if(repeat_user.kubun_id == '02'){
-                    input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
-                }
-                $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
-            })
-        }
-        if (typeof json.error_time_gender  !== "undefined") {
-            $.each(json.error_time_gender, function (index, item) {
-                let input_error_gender = $('#'+item.element);
-                input_error_gender.addClass('validate_failed');
-                input_error_gender.parent().after('<p class="note-error node-text"> 選択された時間は予約できません。</p>');
-                $('select[name=gender]').addClass('validate_failed');
-            })
-        }
-        if ((typeof json.error_time_empty  !== "undefined") && (type)) {
-            $.each(json.error_time_empty, function (index, item) {
-                let input_error_required = $('#'+item.element);
-                input_error_required.addClass('validate_failed');
-                input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
-            })
-        }
-        if (typeof json.room_select_error  !== "undefined") {
-            $.each(json.room_select_error, function (index, item) {
-                $('#'+item.element).addClass('validate_failed');
-            })
-            var text_err = "選択された日は予約できません";
-            if (json.room_error_holiday == "1")
-                text_err = "定休日が含まれているため予約できません";
-            $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
-        }
-        if (typeof json.error_fasting_plan_holyday  !== "undefined") {
-            $.each(json.error_fasting_plan_holyday, function (index, item) {
-                $('#'+item.element).addClass('validate_failed');
-            });
-            var text_err = "定休日が含まれているため予約できません";
-            $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
-        }
-    };
     // $('.collapse-top').off('hidden.bs.collapse');
     // $('.collapse-top').on('hidden.bs.collapse', function () {
     //     $('#btn-collapse-top').attr("src","/sunsun/svg/plus.svg");
@@ -2436,7 +2027,6 @@ let load_after_ajax = function(){
     }
     else
         setDateFormat($('#date').val());
-
     var plan_date_start = $('#plan_date_start').val();
     var plan_date_end = $('#plan_date_end').val();
     var plan_date_start_check = moment(new Date(plan_date_start));
@@ -2462,14 +2052,11 @@ function change_stay_guest_num() {
     var room = $('#room').val();
     if (room == null || room == undefined) return;
     room = JSON.parse(room);
-
     $('#stay_guest_num').html($('#stay_guest_num_temp').html());
     var sl_index = $('#stay_guest_num_temp').prop('selectedIndex');
-
     var guest_num = $('#stay_guest_num option').length;
     var guest_num_op_obj = $('#stay_guest_num option');
     var guest_num_obj = $('#stay_guest_num');
-
     for (var i = 0 ; i < guest_num; i++) {
         var val = JSON.parse(guest_num_op_obj[i].value);
         if (val.kubun_id == "02" && room.kubun_id == "04") {
@@ -2479,7 +2066,6 @@ function change_stay_guest_num() {
             guest_num_op_obj[i].remove();
         }
     }
-
     if (room.kubun_id != '01' && !setClickCollapse("btn-collapse-finish")){
         guest_num_obj.val(guest_num_op_obj[0].value);
     }
@@ -2548,4 +2134,144 @@ function setSelectDefAdmin(modal_choice_time) {
         modal_choice_time.find('.modal-body-time').html('');
         $("#btn-cancel").click();
     }
+}
+function make_color_input_error(json, type = true) {
+    $('p.note-error').remove();
+    $('.validate_failed').removeClass('validate_failed');
+    if (((typeof json.error_time_transport !== "undefined" )
+        || (typeof json.error_time_gender  !== "undefined")
+        || (typeof json.error_time_empty  !== "undefined")
+        || (typeof json.room_select_error  !== "undefined")
+        || (typeof json.error_fasting_plan_holyday  !== "undefined")
+    ) && (type)){
+        Swal.fire({
+            icon: 'warning',
+            text: '入力した内容を確認してください。',
+            confirmButtonColor: '#d7751e',
+            confirmButtonText: '閉じる',
+            width: 350,
+            showClass: {
+                popup: 'animated zoomIn faster'
+            },
+            hideClass: {
+                popup: 'animated zoomOut faster'
+            },
+            allowOutsideClick: false
+        })
+    }
+    if (typeof json.error_time_transport !== "undefined" ) {
+        $.each(json.error_time_transport, function (index, item) {
+            let input_error_transport = $('#'+item.element);
+            input_error_transport.addClass('validate_failed');
+            let repeat_user = JSON.parse($('#repeat_user').val());
+            if(repeat_user.kubun_id == '01'){
+                input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動と初回説明の時間があるので、バスの到着時間から30分以内の予約はできません。</p>');
+            }else if(repeat_user.kubun_id == '02'){
+                input_error_transport.parent().after('<p class="note-error node-text">バス停からの移動があるので、バスの到着時間から15分以内の予約はできません。</p>');
+            }
+            $('#bus_arrive_time_slide').closest('button').addClass('validate_failed');
+        })
+    }
+    if (typeof json.error_time_gender  !== "undefined") {
+        $.each(json.error_time_gender, function (index, item) {
+            let input_error_gender = $('#'+item.element);
+            input_error_gender.addClass('validate_failed');
+            input_error_gender.parent().after('<p class="note-error node-text"> 選択された時間は予約できません。</p>');
+            $('select[name=gender]').addClass('validate_failed');
+        })
+    }
+    if ((typeof json.error_time_empty  !== "undefined") && (type)) {
+        $.each(json.error_time_empty, function (index, item) {
+            let input_error_required = $('#'+item.element);
+            input_error_required.addClass('validate_failed');
+            input_error_required.parent().after('<p class="note-error node-text"> 予約時間を選択してください。</p>');
+        })
+    }
+    if (typeof json.room_select_error  !== "undefined") {
+        $.each(json.room_select_error, function (index, item) {
+            $('#'+item.element).addClass('validate_failed');
+        })
+        var text_err = "選択された日は予約できません";
+        if (json.room_error_holiday == "1")
+            text_err = "定休日が含まれているため予約できません";
+        $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+    }
+    if (typeof json.error_fasting_plan_holyday  !== "undefined") {
+        $.each(json.error_fasting_plan_holyday, function (index, item) {
+            $('#'+item.element).addClass('validate_failed');
+        });
+        var text_err = "定休日が含まれているため予約できません";
+        $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+    }
+}
+function checkValidateDate() {
+    let btn_click = $(this);
+    $.ajax({
+        url: $site_url +'/validate_before_booking',
+        type: 'POST',
+        data: $('form.booking').serializeArray(),
+        dataType: 'JSON',
+        beforeSend: function () {
+            loader.css({'display': 'block'});
+        },
+        success: function (json) {
+            make_color_input_error(json , false);
+        },
+        complete: function () {
+            loader.css({'display': 'none'});
+        },
+        error: function(jqXHR){
+            if(jqXHR.status === 419){
+                if(window.location.href.indexOf("admin") >= 0){
+                    Swal.fire({
+                        target: '#edit_booking',
+                        text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d7751e',
+                        cancelButtonColor: '#343a40',
+                        confirmButtonText: 'はい',
+                        cancelButtonText: 'いいえ',
+                        width: 350,
+                        showClass: {
+                            popup: 'animated zoomIn faster'
+                        },
+                        hideClass: {
+                            popup: 'animated zoomOut faster'
+                        },
+                        // customClass: {
+                        //     popup: 'modal-dialog'
+                        // },
+                        allowOutsideClick: false
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.reload(true);
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        text: "セッションがタイムアウトされました。ウェブサイトをリロードしてください。",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d7751e',
+                        cancelButtonColor: '#343a40',
+                        confirmButtonText: 'はい',
+                        cancelButtonText: 'いいえ',
+                        width: 350,
+                        showClass: {
+                            popup: 'animated zoomIn faster'
+                        },
+                        hideClass: {
+                            popup: 'animated zoomOut faster'
+                        },
+                        allowOutsideClick: false
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.reload(true);
+                        }
+                    })
+                }
+            }
+        }
+    });
 }
