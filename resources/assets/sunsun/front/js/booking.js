@@ -319,7 +319,6 @@ $(function() {
                         }
                         // console.log(html.date_selected);
                         // console.log(html.date_start);
-                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.indexOf(item) >= 0);
                         if(window.location.href.indexOf("admin") >= 0){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -339,7 +338,7 @@ $(function() {
                                 autoclose: true,
                                 startDate: new Date(),
                                 daysOfWeekDisabled: get_off_def(true),
-                                datesDisabled: disabled_day_arr,
+                                datesDisabled: html.date_selected_end,
                                 weekStart: 1,
                                 orientation: 'bottom',
                             });
@@ -360,7 +359,7 @@ $(function() {
                                 autoclose: true,
                                 startDate: new Date(),
                                 daysOfWeekDisabled: get_off_def(true),
-                                datesDisabled: disabled_day_arr,
+                                datesDisabled: html.date_selected_end,
                                 weekStart: 1,
                                 orientation: 'bottom',
                             });
@@ -584,7 +583,6 @@ $(function() {
                         }
                         // console.log(html.date_selected);
                         // console.log(html.date_start);
-                        var disabled_day_arr = html.date_selected.filter((item) => !html.date_start.indexOf(item) >= 0);
                         if(window.location.href.indexOf("admin") >= 0){
                             $('#range_date_start').datepicker({
                                 container: '.mail-booking',
@@ -604,7 +602,7 @@ $(function() {
                                 autoclose: true,
                                 startDate: new Date(),
                                 daysOfWeekDisabled: get_off_def(true),
-                                datesDisabled: disabled_day_arr,
+                                datesDisabled: html.date_selected_end,
                                 weekStart: 1,
                                 orientation: 'bottom',
                             });
@@ -625,7 +623,7 @@ $(function() {
                                 autoclose: true,
                                 startDate: new Date(),
                                 daysOfWeekDisabled: get_off_def(true),
-                                datesDisabled: disabled_day_arr,
+                                datesDisabled: html.date_selected_end,
                                 weekStart: 1,
                                 orientation: 'bottom',
                             });
@@ -1053,7 +1051,7 @@ $(function() {
         ) {
             $('#range_date_start').addClass('validate_failed');
             $('#range_date_end').addClass('validate_failed');
-            var text_err = "宿泊日は空白できません。";
+            var text_err = "宿泊日は空白できません";
             $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         } else {
             $('select[name=gender]').removeClass('validate_failed');
@@ -1375,7 +1373,7 @@ let load_pick_time_event = function(){
         ) {
             $('#range_date_start').addClass('validate_failed');
             $('#range_date_end').addClass('validate_failed');
-            var text_err = "宿泊日は空白できません。";
+            var text_err = "宿泊日は空白できません";
             $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         } else{
             $('select[name=gender]').removeClass('validate_failed');
@@ -1808,7 +1806,7 @@ let load_after_ajax = function(){
         ) {
             $('#range_date_start').addClass('validate_failed');
             $('#range_date_end').addClass('validate_failed');
-            var text_err = "宿泊日は空白できません。";
+            var text_err = "宿泊日は空白できません";
             $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         } else{
             $('select[name=gender]').removeClass('validate_failed');

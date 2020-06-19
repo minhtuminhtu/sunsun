@@ -635,17 +635,19 @@ class BookingController extends Controller
         $date_selected_hotel = $this->get_free_holiday_hotel($data['room']);
         $date_selected = array_merge($date_selected,$date_selected_acom);
         $date_selected = array_merge($date_selected,$date_selected_hotel);
-        $date_start = [];
+        $date_selected_end = $date_selected;
         foreach($range_day as $da){
             foreach($this->get_list_days($da->stay_checkin_date, $da->stay_checkout_date) as $d){
                 array_push($date_selected, $d);
             }
-            $date_start[] = Carbon::parse($da->stay_checkin_date)->format('Y/m/d');
+            foreach($this->get_list_days_end($da->stay_checkin_date, $da->stay_checkout_date) as $d){
+                array_push($date_selected_end, $d);
+            }
         }
         return [
             'now' => $this->get_nearly_active(count($date_selected)!=0?max($date_selected):null, $date_selected),
             'date_selected' => $date_selected,
-            'date_start' => $date_start
+            'date_selected_end' => $date_selected_end
         ];
     }
     private function get_nearly_active($max_date_selected, $date_selected){
@@ -660,6 +662,15 @@ class BookingController extends Controller
     private function get_list_days($from , $to){
         $from = Carbon::parse($from);
         $to = Carbon::parse($to)->add(-1, 'day');
+        $dates = [];
+        for($d = $from; $d->lte($to); $d->addDay()) {
+            $dates[] = $d->format('Y/m/d');
+        }
+        return $dates;
+    }
+    private function get_list_days_end($from , $to){
+        $from = Carbon::parse($from)->add(+1, 'day');
+        $to = Carbon::parse($to);
         $dates = [];
         for($d = $from; $d->lte($to); $d->addDay()) {
             $dates[] = $d->format('Y/m/d');

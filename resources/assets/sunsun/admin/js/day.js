@@ -264,7 +264,7 @@ $(function () {
         ) {
             $('#range_date_start').addClass('validate_failed');
             $('#range_date_end').addClass('validate_failed');
-            var text_err = "宿泊日は空白できません。";
+            var text_err = "宿泊日は空白できません";
             $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
         } else {
             let data = $('form.booking').serializeArray();
