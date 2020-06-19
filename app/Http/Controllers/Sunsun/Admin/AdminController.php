@@ -391,32 +391,42 @@ class AdminController extends Controller
     }
     private function set_stay_room(&$data, $date){
         $stay_room_raw = DB::select("
-        SELECT  main.name,
-                main.stay_room_type,
-                (case
-                    when main.stay_checkout_date = $date then 'end_stay'
-                    else main.stay_guest_num
-                end) as stay_guest_num,
-                (case
-                    when main.stay_checkin_date = $date then null
-                    else main.breakfast
-                end) as breakfast,
-                main.stay_guest_num as stay_guest_num_tmp
-        FROM        tr_yoyaku as main
-        WHERE   main.stay_room_type <> '01'
-        AND main.stay_room_type IS NOT NULL
-        AND main.stay_checkin_date <= $date
-        AND main.stay_checkout_date >= $date
-        AND main.history_id IS NULL
-        AND main.fake_booking_flg IS NULL
-        AND main.del_flg IS NULL
+                SELECT COALESCE(DB1.name,DB2.name) as name,
+                    ms_kubun.kubun_id as stay_room_type,
+                    DB2.stay_guest_num as stay_guest_num,
+                    DB1.breakfast as breakfast
+                FROM
+                    ms_kubun
+                    LEFT JOIN
+                        (   SELECT  main.name,
+                                main.stay_room_type,
+                                main.breakfast
+                            FROM        tr_yoyaku as main
+                            WHERE   main.stay_room_type <> '01'
+                                AND main.stay_room_type IS NOT NULL
+                                AND main.stay_checkin_date < $date
+                                AND main.stay_checkout_date >= $date
+                                AND main.history_id IS NULL
+                                AND main.fake_booking_flg IS NULL
+                                AND main.del_flg IS NULL
+                        ) DB1 ON ms_kubun.kubun_id = DB1.stay_room_type
+                    LEFT JOIN
+                        (   SELECT  main.name,
+                                main.stay_room_type,
+                                main.stay_guest_num
+                            FROM        tr_yoyaku as main
+                            WHERE   main.stay_room_type <> '01'
+                                AND main.stay_room_type IS NOT NULL
+                                AND main.stay_checkin_date <= $date
+                                AND main.stay_checkout_date > $date
+                                AND main.history_id IS NULL
+                                AND main.fake_booking_flg IS NULL
+                                AND main.del_flg IS NULL
+                    ) DB2 ON ms_kubun.kubun_id = DB2.stay_room_type
+                where ms_kubun.kubun_type = '011' and ms_kubun.kubun_id <> '01'
+                    and COALESCE(DB1.name,DB2.name) is not null
         ");
         for($i = 0; $i < count($stay_room_raw); $i++){
-            $check_stay_end = false;
-            if ($stay_room_raw[$i]->stay_guest_num == 'end_stay') {
-                $check_stay_end = true;
-                $stay_room_raw[$i]->stay_guest_num = $stay_room_raw[$i]->stay_guest_num_tmp;
-            }
             if (!empty($stay_room_raw[$i]->stay_guest_num)) {
                 $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
                 $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
@@ -426,8 +436,6 @@ class AdminController extends Controller
             }else{
                 $stay_room_raw[$i]->breakfast = NULL;
             }
-            if ($check_stay_end)
-                $stay_room_raw[$i]->stay_guest_num = null;
         }
         $collect_stay_room = collect($stay_room_raw);
         $data['stay_room']['A'] =  $collect_stay_room->firstWhere('stay_room_type', '02');
