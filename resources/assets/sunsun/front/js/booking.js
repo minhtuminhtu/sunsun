@@ -2195,11 +2195,13 @@ function make_color_input_error(json, type = true) {
         $('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
     }
     if (typeof json.error_fasting_plan_holyday  !== "undefined") {
-        $.each(json.error_fasting_plan_holyday, function (index, item) {
-            $('#'+item.element).addClass('validate_failed');
-        });
-        var text_err = "定休日が含まれているため予約できません";
-        $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        if ($('#plan_date_start').val() != '' && $('#plan_date_end').val() != '') {
+            $.each(json.error_fasting_plan_holyday, function (index, item) {
+                $('#'+item.element).addClass('validate_failed');
+            });
+            var text_err = "定休日が含まれているため予約できません";
+            $('#plan_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
+        }
     }
 }
 function checkValidateDate() {

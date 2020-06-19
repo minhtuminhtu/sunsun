@@ -393,13 +393,14 @@ class AdminController extends Controller
         $stay_room_raw = DB::select("
                 SELECT COALESCE(DB1.name,DB2.name) as name,
                     ms_kubun.kubun_id as stay_room_type,
-                    DB2.stay_guest_num as stay_guest_num,
+                     COALESCE(DB2.stay_guest_num,DB1.stay_guest_num) as stay_guest_num,
                     DB1.breakfast as breakfast
                 FROM
                     ms_kubun
                     LEFT JOIN
                         (   SELECT  main.name,
                                 main.stay_room_type,
+                                main.stay_guest_num,
                                 main.breakfast
                             FROM        tr_yoyaku as main
                             WHERE   main.stay_room_type <> '01'

@@ -190,6 +190,7 @@ class BookingController extends Controller
                 }
             }
         }
+        if (isset($data['time'])) {
         $time_customer_choice = $data['time'];
         //return $time_customer_choice;
         foreach ($time_customer_choice as $key => $time) {
@@ -269,6 +270,7 @@ class BookingController extends Controller
                     }
                 }
             }
+        }
         }
         $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type'], true)['kubun_id']:'01';
         if($stay_room_type != '01'){
@@ -1938,7 +1940,7 @@ class BookingController extends Controller
         return $this->validate_holyday_special($checkin_tmp, $checkout_tmp, $room_type);
     }
     private function validate_holyday_special($checkin, $checkout, $room_type = null) {
-        $where_room_type = "";
+        $where_room_type = "  and mh.time_holiday is null ";
         if ($room_type != null) {
             $where_room_type = " and mh.time_holiday = '$room_type' ";
         }
