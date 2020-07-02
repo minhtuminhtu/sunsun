@@ -390,15 +390,14 @@ class AdminController extends Controller
         return  collect($all_data);
     }
     private function set_stay_room(&$data, $date){
-        $stay_room_raw = DB::select("
-                SELECT COALESCE(DB1.name,DB2.name) as name,
+        $stay_room_raw1 = DB::select("
+                SELECT DB1.name as name,
                     ms_kubun.kubun_id as stay_room_type,
-                     COALESCE(DB2.stay_guest_num,DB1.stay_guest_num) as stay_guest_num,
-                    DB1.breakfast as breakfast,
-                    DB2.stay_room_type as checkDB2
+                    DB1.stay_guest_num as stay_guest_num,
+                    DB1.breakfast as breakfast
                 FROM
                     ms_kubun
-                    LEFT JOIN
+                    INNER JOIN
                         (   SELECT  main.name,
                                 main.stay_room_type,
                                 main.stay_guest_num,
@@ -412,7 +411,15 @@ class AdminController extends Controller
                                 AND main.fake_booking_flg IS NULL
                                 AND main.del_flg IS NULL
                         ) DB1 ON ms_kubun.kubun_id = DB1.stay_room_type
-                    LEFT JOIN
+                where ms_kubun.kubun_type = '011' and ms_kubun.kubun_id <> '01'
+        ");
+        $stay_room_raw2 = DB::select("
+                SELECT DB2.name as name,
+                    ms_kubun.kubun_id as stay_room_type,
+                    DB2.stay_guest_num as stay_guest_num
+                FROM
+                    ms_kubun
+                    INNER JOIN
                         (   SELECT  main.name,
                                 main.stay_room_type,
                                 main.stay_guest_num
@@ -426,23 +433,32 @@ class AdminController extends Controller
                                 AND main.del_flg IS NULL
                     ) DB2 ON ms_kubun.kubun_id = DB2.stay_room_type
                 where ms_kubun.kubun_type = '011' and ms_kubun.kubun_id <> '01'
-                    and COALESCE(DB1.name,DB2.name) is not null
         ");
-        for($i = 0; $i < count($stay_room_raw); $i++){
-            if (!empty($stay_room_raw[$i]->stay_guest_num)) {
-                $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw[$i]->stay_guest_num)->first();
-                $stay_room_raw[$i]->stay_guest_num = $stay_room->kubun_value;
+        for($i = 0; $i < count($stay_room_raw1); $i++){
+            if (!empty($stay_room_raw1[$i]->stay_guest_num)) {
+                $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw1[$i]->stay_guest_num)->first();
+                $stay_room_raw1[$i]->stay_guest_num = $stay_room->kubun_value;
             }
-            if($stay_room_raw[$i]->breakfast == '02'){
-                $stay_room_raw[$i]->breakfast = preg_replace('/[^0-9]+/', '', $stay_room_raw[$i]->stay_guest_num);
+            if($stay_room_raw1[$i]->breakfast == '02'){
+                $stay_room_raw1[$i]->breakfast = preg_replace('/[^0-9]+/', '', $stay_room_raw1[$i]->stay_guest_num);
             }else{
-                $stay_room_raw[$i]->breakfast = NULL;
+                $stay_room_raw1[$i]->breakfast = NULL;
             }
         }
-        $collect_stay_room = collect($stay_room_raw);
-        $data['stay_room']['A'] =  $collect_stay_room->firstWhere('stay_room_type', '02');
-        $data['stay_room']['B'] =  $collect_stay_room->firstWhere('stay_room_type', '03');
-        $data['stay_room']['C'] =  $collect_stay_room->firstWhere('stay_room_type', '04');
+        for($i = 0; $i < count($stay_room_raw2); $i++){
+            if (!empty($stay_room_raw2[$i]->stay_guest_num)) {
+                $stay_room = MsKubun::where('kubun_type','012')->where('kubun_id', $stay_room_raw2[$i]->stay_guest_num)->first();
+                $stay_room_raw2[$i]->stay_guest_num = $stay_room->kubun_value;
+            }
+        }
+        $collect_stay_room1 = collect($stay_room_raw1);
+        $collect_stay_room2 = collect($stay_room_raw2);
+        $data['stay_room']['A_break'] =  $collect_stay_room1->firstWhere('stay_room_type', '02');
+        $data['stay_room']['B_break'] =  $collect_stay_room1->firstWhere('stay_room_type', '03');
+        $data['stay_room']['C_break'] =  $collect_stay_room1->firstWhere('stay_room_type', '04');
+        $data['stay_room']['A'] =  $collect_stay_room2->firstWhere('stay_room_type', '02');
+        $data['stay_room']['B'] =  $collect_stay_room2->firstWhere('stay_room_type', '03');
+        $data['stay_room']['C'] =  $collect_stay_room2->firstWhere('stay_room_type', '04');
     }
     private function set_lunch(&$data, $date){
         $data['lunch'] = DB::select("
