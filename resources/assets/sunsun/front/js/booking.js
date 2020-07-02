@@ -15,16 +15,26 @@ Date.prototype.addDays = function(days) {
     date.setDate(date.getDate() + days);
     return date;
 }
+function isValidDate(d) {
+    if(!isNaN(d.getTime())) {
+        return false;
+    }
+    return true;
+}
 function setDateFormat(date_string) {
-    var new_day = moment(new Date(date_string));
+    var new_day = new Date(date_string);
     var days_short = new Array("日","月","火","水","木","金","土");
+    if (isValidDate(new_day)) return;
+    new_day = moment(new_day);
     $('#date').val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD') + "(" + days_short[new_day.weekday()] + ")");
     $('#date-value').val(new_day.format('YYYYMMDD'));
     $('#date-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");
 }
 function setDateFormat2(date_string,id) {
-    var new_day = moment(new Date(date_string));
+    var new_day = new Date(date_string);
     var days_short = new Array("日","月","火","水","木","金","土");
+    if (isValidDate(new_day)) return;
+    new_day = moment(new_day);
     $(id).val(new_day.format('YYYY') + "/" + new_day.format('MM') + "/" + new_day.format('DD'));
     $(id+'-value').val(new_day.format('YYYYMMDD'));
     $(id+'-view').val(new_day.format('YYYY') + "年" + new_day.format('MM') + "月" + new_day.format('DD') + "日(" + days_short[new_day.weekday()] + ")");

@@ -394,7 +394,8 @@ class AdminController extends Controller
                 SELECT COALESCE(DB1.name,DB2.name) as name,
                     ms_kubun.kubun_id as stay_room_type,
                      COALESCE(DB2.stay_guest_num,DB1.stay_guest_num) as stay_guest_num,
-                    DB1.breakfast as breakfast
+                    DB1.breakfast as breakfast,
+                    DB2.stay_room_type as checkDB2
                 FROM
                     ms_kubun
                     LEFT JOIN
