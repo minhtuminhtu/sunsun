@@ -8,6 +8,9 @@
         <div class="">
             @csrf
             <div class="booking-warp booking" style="background-image: url('{{ asset('sunsun/imgs/bg.png') }}');">
+                @if (isset($customer['date-view']))
+                <input type="hidden" name="date-value" id="date-value" value="{{ $customer['date-value'] }}">
+                @endif
                 @if(isset($add_new_user) && $add_new_user == 'on')
                     <div class="data-field-day">
                         <span>
