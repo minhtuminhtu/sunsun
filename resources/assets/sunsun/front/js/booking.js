@@ -21,6 +21,13 @@ function isValidDate(d) {
     }
     return true;
 }
+function setDate03(date_string) {
+    var new_day = new Date(date_string);
+    if (isValidDate(new_day)) return false;
+    new_day = moment(new_day);
+    if (new_day.weekday() == 6 || new_day.weekday() == 0) return false;
+    return true;
+}
 function setDateFormat(date_string) {
     var new_day = new Date(date_string);
     var days_short = new Array("日","月","火","水","木","金","土");
@@ -1045,6 +1052,21 @@ $(function() {
     $('.btn-booking').off('click');
     $('.btn-booking').on('click', function(e) {
         e.preventDefault();
+        // check course 03 
+        var course_id = JSON.parse($('#course').val()).kubun_id;
+        if (course_id == "03") {
+            $('#date').removeClass('validate_failed');
+            var date_check = $("#date-value").val();
+            var check = false;
+            if (date_check.length >= 8) {
+                date_check = date_check.substring(0, 4)+"/"+date_check.substring(4, 6)+"/"+date_check.substring(6, 8);
+                check = setDate03(date_check);
+            }
+            if (!check) {
+                $("#date").addClass('validate_failed');
+                return;
+            }            
+        }
         $('p.note-error').remove();
         if($('select[name=gender]').val() === "0"){
             $('select[name=gender]').addClass('validate_failed');

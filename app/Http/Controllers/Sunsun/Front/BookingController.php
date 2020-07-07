@@ -100,30 +100,56 @@ class BookingController extends Controller
             $temp_json['kubun_value_room'] = '3';
             $data['time'][0]['json'] = json_encode($temp_json);
             $this->save_session($request, $data);
-            // 3 ô trống phía dưới
+            // 6 ô trống phía dưới
+            $time_row2 = "";
+            $time_row3 = "";
             if($temp_json['notes'] == '0945'){
-                $temp_json['notes'] = '1015';
-                $data['time_room_value'] = '1015';
+                $time_row2 = '1015';
+                $time_row3 = '1045';
             }else if($temp_json['notes'] == '1315'){
-                $temp_json['notes'] = '1345';
-                $data['time_room_value'] = '1345';
+                $time_row2 = '1345';
+                $time_row3 = '1415';
             }else if($temp_json['notes'] == '1515'){
-                $temp_json['notes'] = '1545';
-                $data['time_room_value'] = '1545';
+                $time_row2 = '1545';
+                $time_row3 = '1615';
             }
+            // row 2
+            $temp_json['notes'] = $time_row2;
+            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 1;
             $temp_json['kubun_id_room'] = '01';
             $temp_json['kubun_value_room'] = '1';
             $data['time'][0]['json'] = json_encode($temp_json);
             $this->save_session($request, $data);
+            //row 3
+            $temp_json['notes'] = $time_row3;
+            $data['time_room_value'] = $time_row3;
+            $data['time'][0]['json'] = json_encode($temp_json);
+            $this->save_session($request, $data);
+            //row 2
+            $temp_json['notes'] = $time_row2;
+            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 2;
             $temp_json['kubun_id_room'] = '02';
             $temp_json['kubun_value_room'] = '2';
             $data['time'][0]['json'] = json_encode($temp_json);
             $this->save_session($request, $data);
+            //row 3
+            $temp_json['notes'] = $time_row3;
+            $data['time_room_value'] = $time_row3;
+            $data['time'][0]['json'] = json_encode($temp_json);
+            $this->save_session($request, $data);
+            //row 2
+            $temp_json['notes'] = $time_row2;
+            $data['time_room_value'] = $time_row2;
             $data['time_room_bed'] = 3;
             $temp_json['kubun_id_room'] = '03';
             $temp_json['kubun_value_room'] = '3';
+            $data['time'][0]['json'] = json_encode($temp_json);
+            $this->save_session($request, $data);
+            //row 3
+            $temp_json['notes'] = $time_row3;
+            $data['time_room_value'] = $time_row3;
             $data['time'][0]['json'] = json_encode($temp_json);
             $this->save_session($request, $data);
         }
