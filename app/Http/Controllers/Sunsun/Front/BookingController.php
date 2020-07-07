@@ -217,86 +217,86 @@ class BookingController extends Controller
             }
         }
         if (isset($data['time'])) {
-        $time_customer_choice = $data['time'];
-        //return $time_customer_choice;
-        foreach ($time_customer_choice as $key => $time) {
-            if ($course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')
-            || $course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN2')) { // 2020/06/05
-                $data_json_time_1 = json_decode($time['from']['json'], true );//dd($time);
-                $data_json_time_2 = json_decode($time['to']['json'], true );
-                if ($data_json_time_1 == null) {
-                    $error['error_time_empty'][]['element'] = $time['from']['element'];
-                } else {
-                    if($data_json_time_1['date_booking'] === $data['plan_date_start-value']) {
-                        if ($check_bus) { // validate nếu đi xe bus
-                            if ($data_json_time_1['notes'] < $time_required) { // check required time. time choice always >= time required
-                                $error['error_time_transport'][]['element'] = $time['from']['element'];
-                            } else {
-                                $error['clear_border_red'][]['element'] = $time['from']['element'];
+            $time_customer_choice = $data['time'];
+            //return $time_customer_choice;
+            foreach ($time_customer_choice as $key => $time) {
+                if ($course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN')
+                || $course['kubun_id'] == config('const.db.kubun_id_value.course.FASTING_PLAN2')) { // 2020/06/05
+                    $data_json_time_1 = json_decode($time['from']['json'], true );//dd($time);
+                    $data_json_time_2 = json_decode($time['to']['json'], true );
+                    if ($data_json_time_1 == null) {
+                        $error['error_time_empty'][]['element'] = $time['from']['element'];
+                    } else {
+                        if($data_json_time_1['date_booking'] === $data['plan_date_start-value']) {
+                            if ($check_bus) { // validate nếu đi xe bus
+                                if ($data_json_time_1['notes'] < $time_required) { // check required time. time choice always >= time required
+                                    $error['error_time_transport'][]['element'] = $time['from']['element'];
+                                } else {
+                                    $error['clear_border_red'][]['element'] = $time['from']['element'];
+                                }
                             }
-                        }
-                        if ($check_gender) {
-                            if ($kubun_type_bed != $data_json_time_1['gender_type']) {
-                                //$error['error_time_transport'][$key]['data'] = $data_json_time;
-                                $error['error_time_gender'][]['element'] = $time['from']['element'];
-                            } else {
-                                $error['clear_border_red'][]['element'] = $time['from']['element'];
+                            if ($check_gender) {
+                                if ($kubun_type_bed != $data_json_time_1['gender_type']) {
+                                    //$error['error_time_transport'][$key]['data'] = $data_json_time;
+                                    $error['error_time_gender'][]['element'] = $time['from']['element'];
+                                } else {
+                                    $error['clear_border_red'][]['element'] = $time['from']['element'];
+                                }
                             }
                         }
                     }
-                }
-                if ($data_json_time_2 == null) {
-                    $error['error_time_empty'][]['element'] = $time['to']['element'];
-                } else {
-                    if($data_json_time_2['date_booking'] === $data['plan_date_start-value']){
-                        if ($check_bus) { // validate nếu đi xe bus
-                            if ($data_json_time_2['notes'] < $time_required) { // check required time. time choice always >= time required
+                    if ($data_json_time_2 == null) {
+                        $error['error_time_empty'][]['element'] = $time['to']['element'];
+                    } else {
+                        if($data_json_time_2['date_booking'] === $data['plan_date_start-value']){
+                            if ($check_bus) { // validate nếu đi xe bus
+                                if ($data_json_time_2['notes'] < $time_required) { // check required time. time choice always >= time required
+                                    $error['error_time_transport'][]['element'] = $time['to']['element'];
+                                } else {
+                                    $error['clear_border_red'][]['element'] = $time['to']['element'];
+                                }
+                            }
+                        }
+                        if ($check_gender) {
+                            if ($kubun_type_bed < $data_json_time_2['gender_type']) { // check required time. time choice always >= time required
                                 $error['error_time_transport'][]['element'] = $time['to']['element'];
                             } else {
                                 $error['clear_border_red'][]['element'] = $time['to']['element'];
                             }
                         }
                     }
-                    if ($check_gender) {
-                        if ($kubun_type_bed < $data_json_time_2['gender_type']) { // check required time. time choice always >= time required
-                            $error['error_time_transport'][]['element'] = $time['to']['element'];
-                        } else {
-                            $error['clear_border_red'][]['element'] = $time['to']['element'];
-                        }
-                    }
-                }
-            } else {
-                $data_json_time = json_decode($time['json'], true );
-                if ($data_json_time == null) { // check nếu chưa chọn time
-                    $error['error_time_empty'][$key]['element'] = $time['element'];
                 } else {
-                    if ($check_bus) { // validate nếu đi xe bus
-                        if ($course['kubun_id'] == config('const.db.kubun_id_value.course.PET')){
-                            $time_start_whitening = substr($data_json_time['notes'], 0,4);
-                            if ($time_start_whitening < $time_required) { // check required time. time choice always >= time required
-                                $error['error_time_transport'][$key]['element'] = $time['element'];
+                    $data_json_time = json_decode($time['json'], true );
+                    if ($data_json_time == null) { // check nếu chưa chọn time
+                        $error['error_time_empty'][$key]['element'] = $time['element'];
+                    } else {
+                        if ($check_bus) { // validate nếu đi xe bus
+                            if ($course['kubun_id'] == config('const.db.kubun_id_value.course.PET')){
+                                $time_start_whitening = substr($data_json_time['notes'], 0,4);
+                                if ($time_start_whitening < $time_required) { // check required time. time choice always >= time required
+                                    $error['error_time_transport'][$key]['element'] = $time['element'];
+                                } else {
+                                    $error['clear_border_red'][$key]['element'] = $time['element'];
+                                }
                             } else {
-                                $error['clear_border_red'][$key]['element'] = $time['element'];
-                            }
-                        } else {
-                            if ($data_json_time['notes'] < $time_required) { // check required time. time choice always >= time required
-                                //$error['error_time_transport'][$key]['data'] = $data_json_time;
-                                $error['error_time_transport'][$key]['element'] = $time['element'];
-                            } else {
-                                $error['clear_border_red'][$key]['element'] = $time['element'];
+                                if ($data_json_time['notes'] < $time_required) { // check required time. time choice always >= time required
+                                    //$error['error_time_transport'][$key]['data'] = $data_json_time;
+                                    $error['error_time_transport'][$key]['element'] = $time['element'];
+                                } else {
+                                    $error['clear_border_red'][$key]['element'] = $time['element'];
+                                }
                             }
                         }
-                    }
-                    if ($check_gender) { // check gender
-                        if ($kubun_type_bed != $data_json_time['gender_type']) {
-                            $error['error_time_gender'][$key]['element'] = $time['element'];
-                        } else {
-                            $error['clear_border_red'][$key]['element'] = $time['element'];
+                        if ($check_gender) { // check gender
+                            if ($kubun_type_bed != $data_json_time['gender_type']) {
+                                $error['error_time_gender'][$key]['element'] = $time['element'];
+                            } else {
+                                $error['clear_border_red'][$key]['element'] = $time['element'];
+                            }
                         }
                     }
                 }
             }
-        }
         }
         $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type'], true)['kubun_id']:'01';
         if($stay_room_type != '01'){
@@ -2329,7 +2329,8 @@ class BookingController extends Controller
             $day_book_time = $data_get_attr['date'];
         }
         $sections_booking = $this->get_booking($request);
-        if (count($sections_booking) > 0) { // Th add thêm người
+        if (count($sections_booking) > 0) { // Th add thêm người            
+            $validate_ss_time['date-value-first'] = $sections_booking["date-value"];
             $transport = json_decode($sections_booking['transport'], true);
             $bus_arrive_time_slide = json_decode($sections_booking['bus_arrive_time_slide'], true);
             //dd($sections_booking['info']);
@@ -2341,6 +2342,7 @@ class BookingController extends Controller
             $range_time_validate_pet = [];
             // check
             foreach ($sections_booking['info'] as $key => $booking_ss) {
+
                 $course_ss = json_decode($booking_ss['course'], true);
                 if ($course_ss['kubun_id'] !== config('const.db.kubun_id_value.course.PET')) {
                     if ($course_ss['kubun_id'] == config('const.db.kubun_id_value.course.BOTH_ALL_ROOM')) { // fasting plan
@@ -2464,6 +2466,7 @@ class BookingController extends Controller
             $tmp_time_room[$time_room->kubun_id][$time_room->kubun_value_room] = $time_room;
         }
         $data_time['time_room'] = $tmp_time_room;
+        
         //dd($data);
         $data_time['gender'] = $gender;
         if (isset($data_get_attr['new'])) {
@@ -2671,9 +2674,14 @@ class BookingController extends Controller
         //Log::debug($sql_time_path);
         $sql_validate_ss = "";
         if (count($validate_ss_time) > 0) { // time book lần sau không trùng time book trước
-            $sql_validate_ss .= "WHEN '01' = '01'  AND (";
+            $setdate = "WHEN '01' = '01' ";
+            if (isset($validate_ss_time["date-value-first"])) {
+                $setdate =  "WHEN '".$day_book_time."' = '".$validate_ss_time["date-value-first"]."' ";
+            }
+            $sql_validate_ss .= "$setdate  AND (";
             $count = 0;
             foreach ($validate_ss_time as $key_ss_t => $value_ss_t) {
+                if ($key_ss_t == 'date-value-first') continue;
                 foreach ($value_ss_t as $key_ss => $value_ss) {
                     $or = '';
                     if ($count != 0) {

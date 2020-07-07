@@ -1057,8 +1057,11 @@ $(function() {
         if (course_id == "03") {
             $('#date').removeClass('validate_failed');
             var date_check = $("#date-value").val();
+            if (date_check == undefined) {
+                date_check = $("#date-value-new").val();
+            }
             var check = false;
-            if (date_check.length >= 8) {
+            if (date_check !== undefined && date_check.length >= 8) {
                 date_check = date_check.substring(0, 4)+"/"+date_check.substring(4, 6)+"/"+date_check.substring(6, 8);
                 check = setDate03(date_check);
             }
