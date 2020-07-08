@@ -390,7 +390,7 @@ class BookingController extends Controller
         }
         $return_data['pop_data'] = array_pop($info['info']);
         if(json_decode($return_data['pop_data']['course'], true)['kubun_id'] === '03'){
-            for($i = 0; $i < 5; $i++){
+            for($i = 0; $i < 8; $i++){
                 $return_data['pop_data'] = array_pop($info['info']);
             }
         }
@@ -2704,7 +2704,7 @@ class BookingController extends Controller
                         $sql_bed = " AND mk2.kubun_id =  '$bed' ";
                     }
                     if (isset($course['kubun_id']) && $course['kubun_id'] == '03') {
-                        $time_2 = $this->minus_time_string($time, 60 - 1);
+                        $time_2 = $this->minus_time_string($time, 90 - 1);
                         $sql_validate_ss .= "
                         $or ( mk1.notes <= '$time' AND mk1.notes >= '$time_2'  $sql_bed )
                     ";

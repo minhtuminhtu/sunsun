@@ -69,7 +69,7 @@
 
                     <input name="time_room_value" id="time_room_value"  type="hidden" value="{{ isset($time_value)?$time_value:'0' }}">
                     <input name="time_room_bed" id="time_room_bed" type="hidden" value="{{ isset($bed)?$bed:'0' }}">
-                    <input name="time_room_view" type="text" id="time_room_view" class="form-control time js-set-room bg-white"  readonly="readonly" value="{{ isset($time)?$time.'～':'－' }}">
+                    <input name="time_room_view" type="text" id="time_room_view" class="form-control time js-set-room bg-white"  readonly="readonly" value="{{ isset($time)?$time:'－' }}">
                     <input name="time[0][json]" class="data-json_input" id="time[0][json]" type="hidden" value="{{ isset($time_json)?$time_json:'' }}">
                     <input name="time[0][element]" type="hidden" value="time_room_view">
                 </div>
