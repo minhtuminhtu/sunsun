@@ -992,6 +992,18 @@ class BookingController extends Controller
     public function update_or_new_booking($data, $request, $from_admin = false, $ref_booking_id = null, $send_mail = false){
         //Log::debug(count($data['customer']['info']));
         $result = [];
+        // check time off def
+        $off_def = "" ;
+       
+        $check = $this->validate_holyday_def($data["customer"]["date-value"]);
+        if (!$check) {
+            $result_arr = [
+                'status' => 'error',
+                'message' => '申し訳ありません。別の日時で予約してください。'
+            ];
+            $request->session()->forget($this->session_info);
+            return $result_arr;
+        }
         //Update
         if(isset($data['booking_id'])){
             try{
@@ -1951,6 +1963,15 @@ class BookingController extends Controller
     {
         return (strlen($date) >= 8) ? substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2) : false;
     }
+    private function validate_holyday_def($checkin) {
+        if (empty($checkin)) return true;
+        $begin = $this->convertStringToDate($checkin);
+        if (!$begin || !$this->isDate($begin)) return false;
+        $what_day = date('w', strtotime($begin));
+        if (in_array($what_day, [3,4]) )
+            return false;
+        return true;
+    }
     private function validate_holyday($checkin, $checkout, $room_type = null) {
         $checkin_tmp = $checkin;
         $checkout_tmp = $checkout;
@@ -2755,8 +2776,17 @@ class BookingController extends Controller
                                             )
                                     ) THEN 0 ";
         // sql display time
+        // check $time_date_booking off 
+        $off_def = "" ;
+        $check = $this->validate_holyday_def($time_date_booking);
+        if (!$check) {
+            $off_def ="
+                when 1=1 then 0
+            ";
+        }     
         $sql_get_check_room_free ="
             , CASE
+                    $off_def
                     $sql_holiday
                     $sql_range
                     $sql_validate_ss
