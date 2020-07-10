@@ -2694,12 +2694,8 @@ class BookingController extends Controller
         $sql_time_path .= $sql_whitening;
         //Log::debug($sql_time_path);
         $sql_validate_ss = "";
-        if (count($validate_ss_time) > 0) { // time book lần sau không trùng time book trước
-            $setdate = "WHEN '01' = '01' ";
-            if (isset($validate_ss_time["date-value-first"])) {
-                $setdate =  "WHEN '".$day_book_time."' = '".$validate_ss_time["date-value-first"]."' ";
-            }
-            $sql_validate_ss .= "$setdate  AND (";
+        if (count($validate_ss_time) > 1) { // time book lần sau không trùng time book trước
+            $sql_validate_ss_tmp = "";
             $count = 0;
             foreach ($validate_ss_time as $key_ss_t => $value_ss_t) {
                 if ($key_ss_t == 'date-value-first') continue;
@@ -2712,11 +2708,11 @@ class BookingController extends Controller
                         $time_boss_start = $value_ss['time'];
                         $time_boss_end = $this->plus_time_string($time_boss_start, 120);
                         $time_boss_start_validate = $this->minus_time_string($time_boss_start, 60);
-                        $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_boss_start_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_boss_end') ";
+                        $sql_validate_ss_tmp .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_boss_start_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_boss_end') ";
                     } else if ($key_ss_t == 'pet_ss' && count($validate_ss_time[$key_ss_t]) > 0) { // time pet not concomitant width time human book at the first
                         $time_start_pet_validate = $this->minus_time_string($value_ss['start_time'], 120); // - 120 p time tắm
                         $time_end_pet_validate = $value_ss['end_time'];
-                        $sql_validate_ss .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_start_pet_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_end_pet_validate') ";
+                        $sql_validate_ss_tmp .= " $or ( SUBSTRING(mk1.notes, 1 ,4) >= '$time_start_pet_validate' AND SUBSTRING(mk1.notes, 1 ,4) <= '$time_end_pet_validate') ";
                     } else {
                         $time = $value_ss['time'];
                     $sql_bed = "";
@@ -2726,11 +2722,11 @@ class BookingController extends Controller
                     }
                     if (isset($course['kubun_id']) && $course['kubun_id'] == '03') {
                         $time_2 = $this->minus_time_string($time, 90 - 1);
-                        $sql_validate_ss .= "
+                        $sql_validate_ss_tmp .= "
                         $or ( mk1.notes <= '$time' AND mk1.notes >= '$time_2'  $sql_bed )
                     ";
                     } else {
-                        $sql_validate_ss .= "
+                        $sql_validate_ss_tmp .= "
                         $or ( mk1.notes = '$time'  $sql_bed )
                     ";
                     }
@@ -2738,12 +2734,20 @@ class BookingController extends Controller
                     $count ++;
                 }
             }
-            $sql_validate_ss .= " ) THEN 0 ";
+            if (!empty($sql_validate_ss_tmp)) {
+                $setdate = "WHEN '01' = '01' ";
+                if (isset($validate_ss_time["date-value-first"])) {
+                    $setdate =  "WHEN '".$day_book_time."' = '".$validate_ss_time["date-value-first"]."' ";
+                }
+                $sql_validate_ss .= "$setdate  ";
+                $sql_validate_ss .= " and ( $sql_validate_ss_tmp ) then 0 ";
+
+            }
         }
         //dd($sql_validate_ss);
         $sql_range = '';
         if (count($range_time_validate) > 0) { // validate book nguyen room
-            $sql_range .= "WHEN '01' = '01'  AND (";
+            $sql_range_tmp = "";
             $count_range = 0;
             foreach ($range_time_validate as $key_range => $value_range) {
                 $start_time = $value_range['start_time'];  $or = '';
@@ -2752,12 +2756,14 @@ class BookingController extends Controller
                 if ($count_range != 0) {
                     $or = " OR ";
                 }
-                $sql_range .= "
+                $sql_range_tmp .= "
                         $or ( mk1.notes >= '$start_time' AND mk1.notes < '$end_time' AND mk2.kubun_id =  '$bed' AND mk2.kubun_type = '017' )
                     ";
                 $count_range ++;
             }
-            $sql_range .= " ) THEN 0 ";
+            if (!empty($sql_range_tmp)) {
+                $sql_range .= " WHEN  $sql_range_tmp THEN 0 ";
+            }
         }
         $data_sql['date_holiday'] = $time_date_booking;
         $sql_holiday = " WHEN exists (  select 1 from ms_holiday mh
