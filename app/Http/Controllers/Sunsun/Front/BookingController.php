@@ -994,15 +994,16 @@ class BookingController extends Controller
         $result = [];
         // check time off def
         $off_def = "" ;
-       
-        $check = $this->validate_holyday_def($data["customer"]["date-value"]);
-        if (!$check) {
-            $result_arr = [
-                'status' => 'error',
-                'message' => '申し訳ありません。別の日時で予約してください。'
-            ];
-            $request->session()->forget($this->session_info);
-            return $result_arr;
+        if (isset($data["customer"]["date-value"])) {
+            $check = $this->validate_holyday_def($data["customer"]["date-value"]);
+            if (!$check) {
+                $result_arr = [
+                    'status' => 'error',
+                    'message' => '申し訳ありません。別の日時で予約してください。'
+                ];
+                $request->session()->forget($this->session_info);
+                return $result_arr;
+            }
         }
         //Update
         if(isset($data['booking_id'])){
@@ -2605,8 +2606,8 @@ class BookingController extends Controller
              */
             $sql_join_on .= "
             OR  (
-                    (  ytm.service_time_1 < (mk1.notes + '0100')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1 AND mk2.kubun_type = '017')
-                    OR ( ytm.service_time_2  < (mk1.notes + '0100') AND ytm.service_time_2 >= mk1.notes AND mk2.kubun_value = ytm.bed_service_2 AND mk2.kubun_type = '017')
+                    (  ytm.service_time_1 < (mk1.notes + '0130')  AND  ytm.service_time_1 >= mk1.notes  AND mk2.kubun_value = ytm.bed_service_1 AND mk2.kubun_type = '017')
+                    OR ( ytm.service_time_2  < (mk1.notes + '0130') AND ytm.service_time_2 >= mk1.notes AND mk2.kubun_value = ytm.bed_service_2 AND mk2.kubun_type = '017')
                 ) ";
         }
         $data_sql = [
