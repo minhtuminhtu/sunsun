@@ -190,6 +190,8 @@ Route::middleware('begin.auth')->group(function(){
             Route::post('/ajax_day_off_acom',['as' => '.ajax_day_off_acom', 'uses' => 'DayOffController@GetAjaxAcom']);
             // notes
             Route::post('/ajax_save_notes',['as' => '.ajax_save_notes', 'uses' => 'AdminController@ajax_save_notes']);
+            Route::post('/ajax_name_search',['as' => '.ajax_name_search', 'uses' => 'AdminController@ajax_name_search']);
+
         });
     });
 });

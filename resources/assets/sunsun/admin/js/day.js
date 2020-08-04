@@ -450,10 +450,18 @@ $(function () {
             $('.list-group-item').off('click');
             $('.list-group-item').on('click',function (e) {
                 var name = $(this).find('.search-element').val();
-                var expert = JSON.parse($(this).find('.search-expert').val());
+                $.ajax({
+                    url: '/admin/ajax_name_search',
+                    type: 'POST',
+                    data: {
+                        'name' : name
+                    },
+                    success: function (expert) {
+                        // var expert = JSON.parse($(this).find('.search-expert').val());
                 // console.log(name);
                 // console.log(expert);
                 var data_expert = '';
+                        expert = expert.result;
                 $.each(expert, function(key, value) {
                     var check_re = value.ref_booking_id == null ? '' : '同行者';
                     var course_re = '';
@@ -526,6 +534,14 @@ $(function () {
                     $("#timeSeclect").val($(this).find(".timeSeclect").val());
                     $("#selectCourse").attr('action', $("#selectCourse").attr('action') + "?date=" + $(this).find(".dateSeclect").val()).submit()
                 })
+                    },
+                    beforeSend: function () {
+                        loader.css({'display': 'block'});
+                    },
+                    complete: function () {
+                        loader.css({'display': 'none'});
+                    }
+                });
             });
         };
     }

@@ -53,7 +53,8 @@ class AdminController extends Controller
         //     ->whereYear('service_date_start',2019)
         //     ->whereMonth('service_date_start',11)
         //     ->get();
-        $data['search'] = $this->get_search($date);
+        $data['search'] = $this->get_search();
+        //$data['search'] = [];
         $this->set_course($data, $date, $time_value);
         $this->set_stay_room($data, $date);
         $this->set_lunch($data, $date);
@@ -62,15 +63,27 @@ class AdminController extends Controller
         $data['timeSeclect'] = $request->has('timeSeclect')?$request->post('timeSeclect'):null;
 
         $payments = [];
-        $li_pays = Payment::all();
-        foreach ($li_pays as $li) {
 
-            $yo = Yoyaku::where('booking_id', $li->booking_id)->first();
-            if(isset($yo->history_id)){
-                $payments[$yo->history_id] = $li->booking_id;
-            }else{
-                $payments[$li->booking_id] = $li->booking_id;
-            }
+        // $li_pays = Payment::all();
+        // foreach ($li_pays as $li) {
+
+        //     $yo = Yoyaku::where('booking_id', $li->booking_id)->first();
+        //     if(isset($yo->history_id)){
+        //         $payments[$yo->history_id] = $li->booking_id;
+        //     }else{
+        //         $payments[$li->booking_id] = $li->booking_id;
+        //     }
+        // }
+
+        $li_pays = DB::select("
+            SELECT  COALESCE(yo.history_id,py.booking_id) as history_id, yo.booking_id
+            FROM        tr_payments py
+                INNER JOIN tr_yoyaku yo
+                    on py.booking_id = yo.booking_id
+            WHERE      service_date_start = '$date'
+        ");
+        foreach ($li_pays as $li) {
+            $payments[$li->history_id] = $li->booking_id;
         }
         //Log::debug('$payments');
         //Log::debug($payments);
@@ -80,7 +93,7 @@ class AdminController extends Controller
         $data["notes"] = $data_notes;
         return view('sunsun.admin.day',$data);
     }
-    private function getWhere_search($course,$name,$date) {
+    private function getWhere_search($course,$name) {
         // $where_plus = " AND main.service_date_start = $date ";
         // if ($course == "01" || $course == "04" || $course == "04_1")
         //     $where_plus = " AND time.service_date = $date ";
@@ -88,11 +101,10 @@ class AdminController extends Controller
         else if ($course == "04_1") $course = "04";
         else if ($course == "06_1") $course = "06"; // 2020/06/05
         return "
-                WHERE   main.course = '$course'
+                WHERE   main.name = '$name' and main.course = '$course'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
                 AND main.fake_booking_flg IS NULL
-                AND main.name = '$name'
         ";
     }
     private function getForm_search($type = "") {
@@ -286,7 +298,7 @@ class AdminController extends Controller
             $select .= " , main.fake_booking_flg ";
         return $select;
     }
-    private function get_search_expert($name, $date){
+    private function get_search_expert($name){
             $sel_plus1 = $this->getSelect_search("01");
             $sel_plus2 = $this->getSelect_search("02");
             $sel_plus2_1 = $this->getSelect_search("02_1");
@@ -296,18 +308,18 @@ class AdminController extends Controller
             $sel_plus6 = $this->getSelect_search("06"); // 2020/06/05
             $sel_plus6_1 = $this->getSelect_search("06_1"); // 2020/06/05
             $sel_plus5 = $this->getSelect_search("05");
-            $where_plus1 = $this->getWhere_search("01",$name,$date);
-            $where_plus2 = $this->getWhere_search("02",$name,$date);
-            $where_plus2_1 = $this->getWhere_search("02_1",$name,$date);
-            $where_plus3 = $this->getWhere_search("03",$name,$date);
-            $where_plus4 = $this->getWhere_search("04",$name,$date);
-            $where_plus4_1 = $this->getWhere_search("04_1",$name,$date);
-            $where_plus6 = $this->getWhere_search("06",$name,$date); // 2020/06/05
-            $where_plus6_1 = $this->getWhere_search("06_1",$name,$date); // 2020/06/05
-            $where_plus5 = $this->getWhere_search("05",$name,$date);
+        $where_plus1 = $this->getWhere_search("01",$name);
+        $where_plus2 = $this->getWhere_search("02",$name);
+        $where_plus2_1 = $this->getWhere_search("02_1",$name);
+        $where_plus3 = $this->getWhere_search("03",$name);
+        $where_plus4 = $this->getWhere_search("04",$name);
+        $where_plus4_1 = $this->getWhere_search("04_1",$name);
+        $where_plus6 = $this->getWhere_search("06",$name); // 2020/06/05
+        $where_plus6_1 = $this->getWhere_search("06_1",$name); // 2020/06/05
+        $where_plus5 = $this->getWhere_search("05",$name);
             $form1 = $this->getForm_search();
             $form2 = $this->getForm_search("2");
-            $expert_data = DB::select("
+        $expert_data = "
             SELECT *
             FROM (
                 (
@@ -365,15 +377,14 @@ class AdminController extends Controller
                 )
             ) temp_table
             ORDER BY service_date DESC , time ASC
-            "); // 2020/06/05
+        "; // 2020/06/05
             //Log::debug('$expert_data');
-            //Log::debug($expert_data);
-        return $expert_data;
+        Log::debug($expert_data);
+        return DB::select($expert_data);
     }
-    private function get_search($date){
+    private function get_search(){
         $all_data = DB::select("
-        SELECT  DISTINCT
-                    main.name
+        SELECT distinct main.name
         FROM        tr_yoyaku main
         WHERE       main.history_id IS NULL
         AND         main.name IS NOT NULL
@@ -384,7 +395,8 @@ class AdminController extends Controller
         // AND         main.service_date_start = $date
         for($i = 0; $i < count($all_data); $i++){
             //Log::debug($all_data[$i]->booking_id);
-            $all_data[$i]->expert_data = $this->get_search_expert($all_data[$i]->name, $date);
+            // $arr_booking_id = explode(",",$all_data[$i]->booking_id);
+            $all_data[$i]->expert_data = "";
         }
         //Log::debug($all_data);
         return  collect($all_data);
@@ -1929,6 +1941,18 @@ class AdminController extends Controller
         }
         return [
             'status' => $status
+        ];
+    }
+    public function ajax_name_search(Request $request)
+    {
+        $result = "";
+        try {
+            $result = $this->get_search_expert($request->name);
+        } catch (Exception $ex) {
+            $result = null;
+        }
+        return [
+            'result' => $result
         ];
     }
 }
