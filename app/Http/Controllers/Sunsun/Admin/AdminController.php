@@ -299,15 +299,15 @@ class AdminController extends Controller
         return $select;
     }
     private function get_search_expert($name){
-            $sel_plus1 = $this->getSelect_search("01");
-            $sel_plus2 = $this->getSelect_search("02");
-            $sel_plus2_1 = $this->getSelect_search("02_1");
-            $sel_plus3 = $this->getSelect_search("03");
-            $sel_plus4 = $this->getSelect_search("04");
-            $sel_plus4_1 = $this->getSelect_search("04_1");
-            $sel_plus6 = $this->getSelect_search("06"); // 2020/06/05
-            $sel_plus6_1 = $this->getSelect_search("06_1"); // 2020/06/05
-            $sel_plus5 = $this->getSelect_search("05");
+        $sel_plus1 = $this->getSelect_search("01");
+        $sel_plus2 = $this->getSelect_search("02");
+        $sel_plus2_1 = $this->getSelect_search("02_1");
+        $sel_plus3 = $this->getSelect_search("03");
+        $sel_plus4 = $this->getSelect_search("04");
+        $sel_plus4_1 = $this->getSelect_search("04_1");
+        $sel_plus6 = $this->getSelect_search("06"); // 2020/06/05
+        $sel_plus6_1 = $this->getSelect_search("06_1"); // 2020/06/05
+        $sel_plus5 = $this->getSelect_search("05");
         $where_plus1 = $this->getWhere_search("01",$name);
         $where_plus2 = $this->getWhere_search("02",$name);
         $where_plus2_1 = $this->getWhere_search("02_1",$name);
@@ -317,68 +317,68 @@ class AdminController extends Controller
         $where_plus6 = $this->getWhere_search("06",$name); // 2020/06/05
         $where_plus6_1 = $this->getWhere_search("06_1",$name); // 2020/06/05
         $where_plus5 = $this->getWhere_search("05",$name);
-            $form1 = $this->getForm_search();
-            $form2 = $this->getForm_search("2");
+        $form1 = $this->getForm_search();
+        $form2 = $this->getForm_search("2");
         $expert_data = "
-            SELECT *
-            FROM (
-                (
-                    $sel_plus1
-                    $form2
-                    $where_plus1
-                )
-                UNION
-                (
-                    $sel_plus2
-                    $form1
-                    $where_plus2
-                )
-                UNION
-                (
-                    $sel_plus2_1
-                    $form1
-                    $where_plus2_1
-                )
-                UNION
-                (
-                    $sel_plus3
-                    $form1
-                    $where_plus3
-                )
-                UNION
-                (
-                    $sel_plus4
-                    $form2
-                    $where_plus4
-                )
-                UNION
-                (
-                    $sel_plus4_1
-                    $form2
-                    $where_plus4_1
-                )
-                UNION
-                (
-                    $sel_plus6
-                    $form2
-                    $where_plus6
-                )
-                UNION
-                (
-                    $sel_plus6_1
-                    $form2
-                    $where_plus6_1
-                )
-                UNION
-                (
-                    $sel_plus5
-                    $form1
-                    $where_plus5
-                )
-            ) temp_table
-            ORDER BY service_date DESC , time ASC
+        SELECT *
+        FROM (
+            (
+                $sel_plus1
+                $form2
+                $where_plus1
+            )
+            UNION
+            (
+                $sel_plus2
+                $form1
+                $where_plus2
+            )
+            UNION
+            (
+                $sel_plus2_1
+                $form1
+                $where_plus2_1
+            )
+            UNION
+            (
+                $sel_plus3
+                $form1
+                $where_plus3
+            )
+            UNION
+            (
+                $sel_plus4
+                $form2
+                $where_plus4
+            )
+            UNION
+            (
+                $sel_plus4_1
+                $form2
+                $where_plus4_1
+            )
+            UNION
+            (
+                $sel_plus6
+                $form2
+                $where_plus6
+            )
+            UNION
+            (
+                $sel_plus6_1
+                $form2
+                $where_plus6_1
+            )
+            UNION
+            (
+                $sel_plus5
+                $form1
+                $where_plus5
+            )
+        ) temp_table
+        ORDER BY service_date DESC , time ASC
         "; // 2020/06/05
-            //Log::debug('$expert_data');
+        //Log::debug('$expert_data');
         Log::debug($expert_data);
         return DB::select($expert_data);
     }
@@ -1173,14 +1173,14 @@ class AdminController extends Controller
             $date_to = new Carbon($request->date_to);
             $data['date_from'] =  $date_from->format('Y/m/d');
             $data['date_to'] =  $date_to->format('Y/m/d');
-            $date_from_sql = $date_from->format('Ymd');
-            $date_to_sql = $date_to->format('Ymd');
+            $data['date_from_txt'] = $date_from->format('Ymd');
+            $data['date_to_txt'] = $date_to->format('Ymd');
         } else {
             $time_now = Carbon::now();
             $data['date_from'] =  $time_now->startOfWeek()->format('Y/m/d');
             $data['date_to'] =  $time_now->endOfWeek()->format('Y/m/d');
-            $date_from_sql = $time_now->startOfWeek()->format('Ymd');
-            $date_to_sql = $time_now->endOfWeek()->format('Ymd');
+            $data['date_from_txt']  = $time_now->startOfWeek()->format('Ymd');
+            $data['date_to_txt']  = $time_now->endOfWeek()->format('Ymd');
         }
         $data['day_range'] = $this->get_list_days($data['date_from'], $data['date_to']);
         $day_range = [];
@@ -1201,10 +1201,13 @@ class AdminController extends Controller
         }
         // dd($data);
         $this->set_week_course($data, $day_range_normal);
-        $data['data_date'] = DB::table('tr_yoyaku')->where([['service_date_start','>=',$date_from_sql],['service_date_start','<=',$date_to_sql]])->get();
+        //$data['data_date'] = DB::table('tr_yoyaku')->where([['service_date_start','>=',$date_from_sql],['service_date_start','<=',$date_to_sql]])->get();
         return view('sunsun.admin.weekly',$data);
     }
     private function set_week_course(&$data, $day_range_normal){
+        $start_day = $data['date_from_txt'];
+        $end_day = $data['date_to_txt'];
+
         $week_course_query = DB::select("
             (
                 SELECT  main.booking_id
@@ -1214,8 +1217,9 @@ class AdminController extends Controller
                     , time.service_time_1 as time
                     , SUBSTRING(time.notes, 1, 1) as bed
                 FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                INNER JOIN tr_yoyaku_danjiki_jikan as time
                 ON          main.booking_id = time.booking_id
+                    AND time.service_date between '$start_day' and '$end_day'
                 WHERE   main.course = '01'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
@@ -1229,8 +1233,9 @@ class AdminController extends Controller
                     , time.service_time_1 as time
                     , SUBSTRING(time.notes, 1, 1) as bed
                 FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                INNER JOIN tr_yoyaku_danjiki_jikan as time
                 ON          main.booking_id = time.booking_id
+                    AND time.service_date between '$start_day' and '$end_day'
                 WHERE   main.course = '04'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
@@ -1244,8 +1249,9 @@ class AdminController extends Controller
                     , time.service_time_2 as time
                     , SUBSTRING(time.notes, 3, 1) as bed
                 FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                INNER JOIN tr_yoyaku_danjiki_jikan as time
                 ON          main.booking_id = time.booking_id
+                    AND time.service_date between '$start_day' and '$end_day'
                 WHERE   main.course = '04'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
@@ -1259,8 +1265,9 @@ class AdminController extends Controller
                     , time.service_time_1 as time
                     , SUBSTRING(time.notes, 1, 1) as bed
                 FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                INNER JOIN tr_yoyaku_danjiki_jikan as time
                 ON          main.booking_id = time.booking_id
+                    AND time.service_date between '$start_day' and '$end_day'
                 WHERE   main.course = '06'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
@@ -1274,8 +1281,9 @@ class AdminController extends Controller
                     , time.service_time_2 as time
                     , SUBSTRING(time.notes, 3, 1) as bed
                 FROM        tr_yoyaku as main
-                LEFT JOIN tr_yoyaku_danjiki_jikan as time
+                INNER JOIN tr_yoyaku_danjiki_jikan as time
                 ON          main.booking_id = time.booking_id
+                    AND time.service_date between '$start_day' and '$end_day'
                 WHERE   main.course = '06'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
@@ -1290,6 +1298,7 @@ class AdminController extends Controller
                     , SUBSTRING(main.bed, 1, 1) as bed
                 FROM        tr_yoyaku as main
                 WHERE   main.course = '02'
+                AND main.service_date_start between '$start_day' and '$end_day'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
             )
@@ -1303,6 +1312,7 @@ class AdminController extends Controller
                     , SUBSTRING(main.bed, 3, 1) as bed
                 FROM        tr_yoyaku as main
                 WHERE   main.course = '02'
+                AND main.service_date_start between '$start_day' and '$end_day'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
             )
@@ -1316,6 +1326,7 @@ class AdminController extends Controller
                     , main.bed
                 FROM        tr_yoyaku as main
                 WHERE   main.course = '03'
+                AND main.service_date_start between '$start_day' and '$end_day'
                 AND main.history_id IS NULL
                 AND main.del_flg IS NULL
             )
@@ -1328,6 +1339,7 @@ class AdminController extends Controller
                     ,CONCAT(main.service_time_1, '-', main.service_time_2) as time
             FROM    tr_yoyaku as main
             WHERE   main.course = '05'
+            AND main.service_date_start between '$start_day' and '$end_day'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
         ");
@@ -1339,6 +1351,7 @@ class AdminController extends Controller
                     , main.whitening_time as time
             FROM    tr_yoyaku as main
             WHERE main.whitening <> '01'
+            AND main.service_date_start between '$start_day' and '$end_day'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
         ");
@@ -1386,24 +1399,24 @@ class AdminController extends Controller
     }
     public function monthly(Request $request) {
         $data = [];
+        $time_now = Carbon::now();
         if ($request->has('date') && $request->date != '') {
             $month = substr($request->date,4);
             $year = substr($request->date,0,4);
-            $datetime = Carbon::createFromDate($year, $month, 1);
-            $data['date'] =  $datetime->format('Y/m');
-            $date = $datetime->format('Ym');
+            $time_now = Carbon::createFromDate($year, $month, 1);
         } else {
             $time_now = Carbon::now();
-            $data['date'] =  $time_now->format('Y/m');
-            $date = $time_now->format('Ym');
         }
-        $year = substr($date,0,4);
-        $month = substr($date,4);
-        $data['data_date'] = DB::table('tr_yoyaku')
-            ->select(['email as title', 'service_date_start as start', 'service_date_start as end'])
-            ->whereYear('service_date_start',$year)
-            ->whereMonth('service_date_start',$month)
-            ->get()
+        $data['date'] =  $time_now->format('Y/m');
+        $data['date_txt'] =  $time_now->format('Ym');
+        // $date = $time_now->format('Ym');
+        // $year = substr($date,0,4);
+        // $month = substr($date,4);
+        // $data['data_date'] = DB::table('tr_yoyaku')
+        //     ->select(['email as title', 'service_date_start as start', 'service_date_start as end'])
+        //     ->whereYear('service_date_start',$year)
+        //     ->whereMonth('service_date_start',$month)
+        //     ->get()
             /*->groupBy(function($date) {
                 return Carbon::parse($date->service_date_start)->format('W');
             })*/;
@@ -1427,6 +1440,8 @@ class AdminController extends Controller
         return view('sunsun.admin.monthly',['data' => $data, 'month' => $month, 'year' => $year]);
     }
     private function set_monthly_course(&$data){
+        $start_day = $data['date_txt']."01";
+        $end_day = $data['date_txt']."31";
         $week_course_query = DB::select("
         (SELECT main.booking_id
                   , main.course
@@ -1435,8 +1450,9 @@ class AdminController extends Controller
                   , time.service_time_1 as time
                   , SUBSTRING(time.notes, 1, 1) as bed
             FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            INNER JOIN tr_yoyaku_danjiki_jikan as time
             ON          main.booking_id = time.booking_id
+                AND time.service_date between '$start_day' and '$end_day'
             WHERE   main.course = '01'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
@@ -1451,6 +1467,7 @@ class AdminController extends Controller
                     , SUBSTRING(main.bed, 1, 1) as bed
             FROM        tr_yoyaku as main
             WHERE   main.course = '02'
+            AND main.service_date_start between '$start_day' and '$end_day'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
         )
@@ -1464,6 +1481,7 @@ class AdminController extends Controller
                     , SUBSTRING(main.bed, 3, 1) as bed
             FROM        tr_yoyaku as main
             WHERE   main.course = '02'
+            AND main.service_date_start between '$start_day' and '$end_day'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
         )
@@ -1477,6 +1495,7 @@ class AdminController extends Controller
                     , main.bed
             FROM        tr_yoyaku as main
             WHERE   main.course = '03'
+            AND main.service_date_start between '$start_day' and '$end_day'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
         )
@@ -1489,8 +1508,9 @@ class AdminController extends Controller
                   , time.service_time_1 as time
                   , SUBSTRING(time.notes, 1, 1) as bed
             FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            INNER JOIN tr_yoyaku_danjiki_jikan as time
             ON          main.booking_id = time.booking_id
+                AND time.service_date between '$start_day' and '$end_day'
             WHERE   main.course = '04'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
@@ -1504,8 +1524,9 @@ class AdminController extends Controller
                   , time.service_time_2 as time
                   , SUBSTRING(time.notes, 3, 1) as bed
             FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            INNER JOIN tr_yoyaku_danjiki_jikan as time
             ON          main.booking_id = time.booking_id
+                AND time.service_date between '$start_day' and '$end_day'
             WHERE   main.course = '04'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
@@ -1520,8 +1541,9 @@ class AdminController extends Controller
                   , time.service_time_1 as time
                   , SUBSTRING(time.notes, 1, 1) as bed
             FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            INNER JOIN tr_yoyaku_danjiki_jikan as time
             ON          main.booking_id = time.booking_id
+                AND time.service_date between '$start_day' and '$end_day'
             WHERE   main.course = '06'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
@@ -1535,8 +1557,9 @@ class AdminController extends Controller
                   , time.service_time_2 as time
                   , SUBSTRING(time.notes, 3, 1) as bed
             FROM        tr_yoyaku as main
-            LEFT JOIN tr_yoyaku_danjiki_jikan as time
+            INNER JOIN tr_yoyaku_danjiki_jikan as time
             ON          main.booking_id = time.booking_id
+                AND time.service_date between '$start_day' and '$end_day'
             WHERE   main.course = '06'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
@@ -1551,6 +1574,7 @@ class AdminController extends Controller
                     , main.service_time_1 as time
             FROM    tr_yoyaku as main
             WHERE   main.course = '05'
+            AND main.service_date_start between '$start_day' and '$end_day'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
             AND main.fake_booking_flg IS NULL
@@ -1563,6 +1587,7 @@ class AdminController extends Controller
                     , SUBSTRING(main.whitening_time, 1, 4) as time
             FROM    tr_yoyaku as main
             WHERE main.whitening <> '01'
+            AND main.service_date_start between '$start_day' and '$end_day'
             AND main.history_id IS NULL
             AND main.del_flg IS NULL
             AND main.fake_booking_flg IS NULL
