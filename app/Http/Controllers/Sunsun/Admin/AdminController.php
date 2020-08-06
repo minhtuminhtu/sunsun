@@ -1594,29 +1594,66 @@ class AdminController extends Controller
         ");
         $course_wt = collect($course_wt_query);
         $monthly_data = [];
-        $week_list_day = [];
+        // $monthly_data2 = [];
+        // $week_list_day = [];
         foreach($week_course as $course){
-            $week_list_day[] = $course->service_date;
+            $day = $course->service_date;
+            // $week_list_day[] = $day;
+            $gender = $course->gender;
+            $time = $course->time;
+            if ($time >= '0930' && $time <= '1330') {
+                if ($gender == '01') {
+                    $monthly_data[$day]['male'][0][] = $course;
+                } else {
+                    $monthly_data[$day]['female'][0][] = $course;
+                }
+            } else if ($time > '1330' && $time <= '1800') {
+                if ($gender == '01') {
+                    $monthly_data[$day]['male'][1][] = $course;
+                } else {
+                    $monthly_data[$day]['female'][1][] = $course;
+                }
+            } else if ($time > '1800' && $time <= '2030') {
+                if ($gender == '01') {
+                    $monthly_data[$day]['male'][2][] = $course;
+                } else {
+                    $monthly_data[$day]['female'][2][] = $course;
+                }
+            }
         }
         foreach($course_5 as $course){
-            $week_list_day[] = $course->service_date;
+            $day = $course->service_date;
+            // $week_list_day[] = $day;
+            $time = $course->time;
+            if ($time >= '0930' && $time <= '1330') {
+                $monthly_data[$day]['pet'][0][] = $course;
+            } else if ($time > '1330' && $time <= '1800') {
+                $monthly_data[$day]['pet'][1][] = $course;
+            }
         }
         foreach($course_wt as $course){
-            $week_list_day[] = $course->service_date;
+            $day = $course->service_date;
+            // $week_list_day[] = $day;
+            $time = $course->time;
+            if ($time >= '0930' && $time <= '1330') {
+                $monthly_data[$day]['wt'][0][] = $course;
+            } else if ($time > '1330' && $time <= '1800') {
+                $monthly_data[$day]['wt'][1][] = $course;
         }
-        foreach($week_list_day as $day){
-            $monthly_data[$day]['male'][0] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '0930')->where('time','<=' , '1330');
-            $monthly_data[$day]['female'][0] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '0930')->where('time','<=' , '1330');
-            $monthly_data[$day]['male'][1] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1330')->where('time','<=' , '1800');
-            $monthly_data[$day]['female'][1] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1330')->where('time','<=' , '1800');
-            $monthly_data[$day]['male'][2] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1800')->where('time','<=' , '2030');
-            $monthly_data[$day]['female'][2] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1800')->where('time','<=' , '2030');
-            $monthly_data[$day]['pet'][0] = $course_5->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1330');
-            $monthly_data[$day]['pet'][1] = $course_5->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
-            $monthly_data[$day]['wt'][0] = $course_wt->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1330');
-            $monthly_data[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
         }
-        // dd($week_list_day);
+        // echo Carbon::now();
+        // foreach($week_list_day as $day){
+        //     $monthly_data2[$day]['male'][0] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '0930')->where('time','<=' , '1330');
+        //     $monthly_data2[$day]['female'][0] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '0930')->where('time','<=' , '1330');
+        //     $monthly_data2[$day]['male'][1] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1330')->where('time','<=' , '1800');
+        //     $monthly_data2[$day]['female'][1] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1330')->where('time','<=' , '1800');
+        //     $monthly_data2[$day]['male'][2] = $week_course->where('service_date', $day)->where('gender', '01')->where('time','>=' , '1800')->where('time','<=' , '2030');
+        //     $monthly_data2[$day]['female'][2] = $week_course->where('service_date', $day)->where('gender', '02')->where('time','>=' , '1800')->where('time','<=' , '2030');
+        //     $monthly_data2[$day]['pet'][0] = $course_5->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1330');
+        //     $monthly_data2[$day]['pet'][1] = $course_5->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
+        //     $monthly_data2[$day]['wt'][0] = $course_wt->where('service_date', $day)->where('time','>=' , '0930')->where('time','<=' , '1330');
+        //     $monthly_data2[$day]['wt'][1] = $course_wt->where('service_date', $day)->where('time','>=' , '1330')->where('time','<=' , '1800');
+        // }
         //Log::debug("abc");
         //Log::debug($monthly_data);
         $data['monthly_data'] = $monthly_data;
