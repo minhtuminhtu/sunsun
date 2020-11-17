@@ -184,7 +184,7 @@
                 @endforeach
                     </div>
                 </div>
-            @elseif(is_array($pop_data['time']))
+            @elseif($pop_data != null && is_array($pop_data['time']))
                         @foreach($pop_data['time'] as $key => $s_time)
                             @php
                                 $s_time_data = substr($s_time['value'], 0, 2) . ":" . substr($s_time['value'], 2, 2);
