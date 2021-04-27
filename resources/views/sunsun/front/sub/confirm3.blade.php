@@ -28,9 +28,8 @@
     $whitening = json_decode($data['whitening']);
     $whitening_repeat = ($data['whitening_repeat'] == 1)?"（はじめて）":"（リピート）";;
     $whitening_data = ($whitening->kubun_id == '02')?$data['whitening-time_view'] . $whitening_repeat:"";
-    $pet_keeping = (json_decode($data['pet_keeping'])->kubun_value == "追加しない")?"":"追加する";
 @endphp
-@if(($lunch_guest_num != "") || ($whitening_data != "") || ($pet_keeping != ""))
+@if(($lunch_guest_num != "") || ($whitening_data != ""))
 <hr class="line-x">
 <span style="display: none">mark_newline</span>
 <div class="line">
@@ -40,7 +39,6 @@
     <div class="line2">
         <p>{{ ($lunch_guest_num != "")?"ランチ：" . $lunch_guest_num:"" }}</p>
         <p>{{ ($whitening_data != "")?config('booking.whitening.label')."：". $whitening_data:"" }}</p>
-        <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p>
     </div>
 </div>
 @endif

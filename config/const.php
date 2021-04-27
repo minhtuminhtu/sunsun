@@ -152,7 +152,10 @@ return [
                 'BOTH_ALL_ROOM'=> '03',
                 'FASTING_PLAN' => '04',
                 'PET' => '05',
-                'FASTING_PLAN2' => '06'
+                'FASTING_PLAN2' => '06',
+                'REFRESH' => '07',
+                'SKIN' => '08',
+                'UP' => '09',
             ],
             'gender' => [
                 'MALE' => '01',

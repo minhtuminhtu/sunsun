@@ -119,4 +119,9 @@
             <textarea class="form-control" maxlength="255" name='notes' rows="3">{{ $pet_type }}</textarea>
         </div>
     </div>
+    <div class="booking-field">
+        <div class="node-text booking-laber-padding">
+            <div id="hint-repeat">※バスの場合、到着時間から30分以内の予約は出来ません。希望時間が選択できない場合は、バス到着時間をご確認ください。</div>
+        </div>
+    </div>
 </div>

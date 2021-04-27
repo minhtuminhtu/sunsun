@@ -491,7 +491,6 @@ body {
     cursor: pointer;
 }
 
-
 .pet-top_ele {
     height: 100%;
 }
@@ -574,8 +573,8 @@ span {
     width: 100%;
 }
 .main-head_right{
-    width: 30%;
-    margin-left: 3vw;
+    width: 20%;
+    margin-left: 1vw;
 }
 .name-search{
     position: absolute;
@@ -631,7 +630,7 @@ li.list-group-item.list-head {
     color: #fff !important;
 }
 .text-right{
-    font-size: 0.75vw !important;
+    font-size: 0.7vw !important;
 }
 .button-control{
     margin-left: 2vw;
@@ -663,8 +662,8 @@ button.swal2-close:focus {
 }
 .div_notes {
     position: absolute;
-    left: 37%;
-    width: 34%;
+    left: 32.5%;
+    width: 23%;
     top: -106%;
     #txt_notes {
         resize: none;

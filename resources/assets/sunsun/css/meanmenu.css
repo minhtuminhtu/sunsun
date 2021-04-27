@@ -16,7 +16,6 @@ nav>p {
     padding-left: 10px;
 }
 
-
 /* hide the link until viewport size is reached */
 a.meanmenu-reveal {
 	display: none;
@@ -32,7 +31,6 @@ a.meanmenu-reveal {
 	margin-bottom: 10px;
 	min-height: 30px;
 	z-index: 999999;
-	background-image: url();
 	background-position: left top;
 	background-repeat: no-repeat;
 }
@@ -173,7 +171,6 @@ a.meanmenu-reveal {
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
 }
-
 
 .mean-remove {
 	display: none !important;

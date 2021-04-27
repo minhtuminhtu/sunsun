@@ -68,8 +68,8 @@
                             <textarea type="text" class="form-control" placeholder="【メモ】" id="txt_notes">{{ ($notes == null) ? '' : $notes->txt_notes }}</textarea>
                         </div>
                         <div class="node-day">
-                            <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
-                            <div class="text-right">貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
+                            <div class="text-right">入浴：酵素浴　リ：1日リフレッシュコース　昼り：昼からリフレッシュコース</div>
+                            <div class="text-right">美：美肌コース　免疫：免疫力アップコース　貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
                         </div>
                     </div>
                     <div class="main-head_right">
@@ -110,6 +110,17 @@
                             @else
                             <span>{{ $lu->name }} 様　{{ isset($lu->lunch_guest_num)?"同行者".$lu->lunch."名":""}}</span> <br>
                             @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="middle_box">
+                        <div class="item">
+                            @php
+                            $number_tea = count($tea);
+                            @endphp
+                            <span>【カフェ】　{{ $number_tea }}食</span> <br>
+                            @foreach($tea as $te)
+                                <span>{{ $te->name }} 様</span> <br>
                             @endforeach
                         </div>
                     </div>
