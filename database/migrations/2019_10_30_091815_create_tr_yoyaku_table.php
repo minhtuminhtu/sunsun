@@ -53,7 +53,7 @@ class CreateTrYoyakuTable extends Migration
             $table->string('payment_method',1)->nullable();
             $table->string('fake_booking_flg',1)->nullable();
             $table->string('notes',255)->nullable();
-            $table->tinyInteger('tea')->default('0');
+            $table->tinyInteger('tea')->nullable()->default('0');
             $table->integer('ms_user_id')->nullable();
             $table->string('del_flg',1)->nullable();
             $table->timestamps();

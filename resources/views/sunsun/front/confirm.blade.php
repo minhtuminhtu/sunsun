@@ -7,6 +7,7 @@
 @endsection
 @section('page_title', '予約確認')
 @section('main')
+<?php $display = ""; ?>
     <main class="main-body confirm">
         <div class="">
             <form action="{{route('.payment')}}" method="POST" class="booking">
@@ -31,6 +32,7 @@
                                     @endif
                                     @php
                                         $course = json_decode($data['course']);
+                                        if (($course->kubun_id == "08" || $course->kubun_id == "09") && $i == 0) $display = "style='display:none'";
                                         $repeat_user = json_decode($data['repeat_user']);
                                         $i++;
                                     @endphp
@@ -53,6 +55,7 @@
                                     @endif
                                     @php
                                         $course = $data->course;
+                                        if (($course->kubun_id == "08" || $course->kubun_id == "09") && $i == 0) $display = "style='display:none'";
                                         $repeat_user = $data->repeat_user;
                                         $i++;
                                     @endphp
@@ -68,7 +71,7 @@
                         <div class="button-left-mix">
                             <button id="btn-back" type="button" class="btn btn-block text-white btn-back">戻る</button>
                         </div>
-                        <div class="button-center">
+                        <div class="button-center" {!! $display !!}>
                             <button type="button" class="btn btn-block btn-booking text-white add-new-people btn-confirm-left">予約追加
                             </button>
                         </div>
@@ -85,7 +88,6 @@
         </div>
     </main>
 @endsection
-
 
 @section('script')
     @parent
