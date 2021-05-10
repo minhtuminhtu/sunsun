@@ -156,8 +156,9 @@
 					<p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
 				</div>
 				<div class="booking-field-content">
-					<select name="whitening" id="whitening" class="form-control">
+					<select name="whitening" id="whitening" class="form-control white-up-skin">
 						@foreach($whitening as $value)
+							@if($value->kubun_id != '02') @continue @endif
 							@if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
 								<option selected value='@json($value)'>{{ $value->kubun_value }}</option>
 							@elseif(isset($pop_data['whitening']) && ($value->kubun_id == json_decode($pop_data['whitening'], true)['kubun_id']))

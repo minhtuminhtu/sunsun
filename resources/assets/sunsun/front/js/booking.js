@@ -2158,6 +2158,9 @@ function checkShowWhite() {
 	if (_lunch != '01' || _whitening != '01' || _lunch_guest_num != '01' || _pet_keeping != '01') {
 		setClickCollapse("btn-collapse-between");
 	}
+	if (course.kubun_id == "08" || course.kubun_id == "09") {
+		$('#whitening').change();
+	}
 }
 function getValueSelect(_obj) {
 	var json = JSON.parse(_obj.value);

@@ -839,7 +839,7 @@ class BookingController extends Controller
 				$new_bill[$course_price_op->sort_no]['quantity'] += $turn_number;
 			}
 		}
-		if (isset($booking['whitening'])) { // tắm trắng 06
+		if (isset($booking['whitening']) && $course['kubun_id'] != '08' && $course['kubun_id'] != '09') { // tắm trắng 06
 			$price_white = 0;
 			$whitening = json_decode($booking['whitening'], true);
 			if ($whitening['kubun_id'] !== '01') {
