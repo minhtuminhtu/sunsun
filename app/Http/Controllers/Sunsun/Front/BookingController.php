@@ -524,7 +524,7 @@ class BookingController extends Controller
 		$bill['options'] = [];
 		$bill['price_option'] = 0;
 		$new_bill = [];
-		$sort_no_temp = MsKubun::whereRaw("kubun_type = '030' and sort_no < 24 ")->get();
+		$sort_no_temp = MsKubun::whereRaw("kubun_type = '030' and sort_no < 25 ")->get();
 		foreach ($sort_no_temp as $row) {
 			$new_bill[$row->sort_no]['name'] = $row->notes;
 			$new_bill[$row->sort_no]['unit'] = preg_replace('/[0-9]/', '', $row->kubun_value);
@@ -1973,7 +1973,7 @@ class BookingController extends Controller
 			(
 				SELECT          main.booking_id
 				FROM            tr_yoyaku main
-				WHERE           main.course = '02'
+				WHERE           main.course = '10'
 				AND             main.gender = $gender
 				AND             main.service_date_start = $date
 				AND             main.service_time_1 = $time
@@ -1985,7 +1985,7 @@ class BookingController extends Controller
 			(
 				SELECT          main.booking_id
 				FROM            tr_yoyaku main
-				WHERE           main.course = '02'
+				WHERE           main.course = '10'
 				AND             main.gender = $gender
 				AND             main.service_date_start = $date
 				AND             main.service_time_2 = $time

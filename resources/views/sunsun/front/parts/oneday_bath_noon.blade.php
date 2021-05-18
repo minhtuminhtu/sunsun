@@ -12,7 +12,6 @@
 	if(!isset($pop_data) || (json_decode($pop_data['course'], true)['kubun_id'] != '02')){
 		$pop_data = NULL;
 	}
-	echo 'oneday';
 @endphp
 <div class="booking-block">
 	<div class="collapse collapse-top show">
