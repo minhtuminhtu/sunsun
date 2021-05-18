@@ -152,13 +152,31 @@
 	<div class="booking-block-between">
 		<div class="">
 			<div class="booking-field">
+				<div class="booking-field-label booking-laber-padding">
+					<p class="text-left pt-2">{{config('booking.lunch.label')}}</p>
+				</div>
+				<div class="booking-field-content">
+					<select name="lunch" id="lunch" class="form-control">
+						@foreach($lunch as $value)
+							@if(isset($course_data['lunch']) && ($value->kubun_id == $course_data['lunch']))
+								<option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+							@elseif(isset($pop_data['lunch']) && ($value->kubun_id == json_decode($pop_data['lunch'], true)['kubun_id']))
+								<option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+							@else
+								<option value='@json($value)'>{{ $value->kubun_value }}</option>
+							@endif
+						@endforeach
+					</select>
+					<p class="node-text text-left mt-2 mb-2">ランチは11:30～12:30にご用意させていただきます</p>
+				</div>
+			</div>
+			<div class="booking-field" style="display: none">
 				<div class="booking-field-label  booking-laber-padding">
 					<p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
 				</div>
 				<div class="booking-field-content">
 					<select name="whitening" id="whitening" class="form-control white-up-skin">
 						@foreach($whitening as $value)
-							@if($value->kubun_id != '02') @continue @endif
 							@if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
 								<option selected value='@json($value)'>{{ $value->kubun_value }}</option>
 							@elseif(isset($pop_data['whitening']) && ($value->kubun_id == json_decode($pop_data['whitening'], true)['kubun_id']))

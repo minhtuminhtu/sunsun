@@ -2145,7 +2145,8 @@ function checkShowWhite() {
 		if (obj_lunch == null || obj_lunch == undefined) return;
 		_lunch = getValueSelect(obj_lunch);
 	}
-	if (course.kubun_id == "01" || course.kubun_id == "02" || course.kubun_id == "03" || course.kubun_id == "07" || course.kubun_id == "08" || course.kubun_id == "09") {
+	if (course.kubun_id == "01" || course.kubun_id == "02" || course.kubun_id == "03" || course.kubun_id == "07" || course.kubun_id == "08" || course.kubun_id == "09"
+		|| course.kubun_id == "10") {
 		if (obj_whitening == null || obj_whitening == undefined) return;
 		_whitening = getValueSelect(obj_whitening);
 	}
@@ -2157,9 +2158,6 @@ function checkShowWhite() {
 	_pet_keeping = getValueSelect(obj_pet_keeping);
 	if (_lunch != '01' || _whitening != '01' || _lunch_guest_num != '01' || _pet_keeping != '01') {
 		setClickCollapse("btn-collapse-between");
-	}
-	if (course.kubun_id == "08" || course.kubun_id == "09") {
-		$('#whitening').change();
 	}
 }
 function getValueSelect(_obj) {

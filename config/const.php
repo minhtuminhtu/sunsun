@@ -156,6 +156,7 @@ return [
                 'REFRESH' => '07',
                 'SKIN' => '08',
                 'UP' => '09',
+                '1_DAY_REFRESH_NOON' => '10',
             ],
             'gender' => [
                 'MALE' => '01',
@@ -398,6 +399,5 @@ return [
             'not_wt' => 1,
         ],
     ]
-
 
 ];

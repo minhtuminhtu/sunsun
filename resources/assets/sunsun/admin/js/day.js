@@ -493,6 +493,9 @@ $(function () {
 								case '09':
 									course_re = '免疫';
 									break;
+								case '10':
+									course_re = 'リ_noon';
+									break;
 								default:
 									course_re = '';
 									break;
