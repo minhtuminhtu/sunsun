@@ -26,7 +26,6 @@
                 <input type="hidden" class="booking-id" value="{{ $time['data'][$row]->booking_id }}">
                 <input type="hidden" class="time" value="{{ $time['data'][$row]->time }}">
                 <input type="hidden" class="payment_id" value="{{ isset($payments[$time['data'][$row]->booking_id])?$payments[$time['data'][$row]->booking_id]:"" }}">
-
             @endif
             <span>[{{ $time['data'][$row]->course }}{{  config('const.laber.bed')[$time['data'][$row]->turn] }}]</span>
             <span>{{ $time['data'][$row]->gender }}</span>
@@ -46,26 +45,42 @@
                 <span class="text-red">{{ $time['data'][$row]->pick_up }}</span>
                 @endif
             @endif
-            @if(($time['data'][$row]->lunch != NULL)||($time['data'][$row]->whitening != NULL)||($time['data'][$row]->pet_keeping != NULL)||($time['data'][$row]->stay_room_type != NULL))
-                <br>
+            @if(($time['data'][$row]->lunch != NULL)||($time['data'][$row]->whitening != NULL)||($time['data'][$row]->whitening2 != NULL)
+            ||($time['data'][$row]->pet_keeping != NULL)||($time['data'][$row]->stay_room_type != NULL)
+            ||($time['data'][$row]->core_tuning != NULL)||($time['data'][$row]->tea != NULL))
                 @if(isset($time['data'][$row]->lunch))
-                <span>{{ $time['data'][$row]->lunch }}</span>
+                <br><span>{{ $time['data'][$row]->lunch }}</span>
+                @endif
+                @if(isset($time['data'][$row]->tea))
+                <br><span>{{ $time['data'][$row]->tea }}</span>
                 @endif
                 @if(isset($time['data'][$row]->whitening))
-                <span>{{ $time['data'][$row]->whitening }}</span>
+                <br><span>{{ $time['data'][$row]->whitening }}</span>
+                    @if(isset($time['data'][$row]->whitening_repeat) && $time['data'][$row]->whitening_repeat == "1")
+                        <span class="text-red">{{ config('const.text_simple.repeat2') }}</span>
+                    @endif
+                @endif
+                @if(isset($time['data'][$row]->whitening2))
+                <br><span>{{ $time['data'][$row]->whitening2 }}</span>
+                    @if(isset($time['data'][$row]->whitening_repeat2) && $time['data'][$row]->whitening_repeat2 == "1")
+                        <span class="text-red">{{ config('const.text_simple.repeat2') }}</span>
+                    @endif
+                @endif
+                @if(isset($time['data'][$row]->core_tuning))
+                <br><span>{{ $time['data'][$row]->core_tuning }}</span>
                 @endif
                 @if(isset($time['data'][$row]->pet_keeping))
-                <span>{{ $time['data'][$row]->pet_keeping }}</span>
+                <br><span>{{ $time['data'][$row]->pet_keeping }}</span>
                 @endif
                 @if(!isset($time['data'][$row]->ref_booking_id))
                     @if(isset($time['data'][$row]->stay_room_type))
                         <?php
-                            $title_stay = "畳";
+                            $title_stay = "デラックスルーム";
                             $type_room = $time['data'][$row]->stay_room_type;
                             if ($type_room == "03") $title_stay = "ツイン";
-                            elseif ($type_room == "04") $title_stay = "セミダブル";
+                            elseif ($type_room == "04") $title_stay = "シングル";
                         ?>
-                        <span>{{ $title_stay }}({{ $time['data'][$row]->stay_guest_num }})</span>
+                        <br><span>{{ $title_stay }}({{ $time['data'][$row]->stay_guest_num }})</span>
                         @if(isset($time['data'][$row]->breakfast))
                             <span>{{ $time['data'][$row]->breakfast }}</span>
                         @endif

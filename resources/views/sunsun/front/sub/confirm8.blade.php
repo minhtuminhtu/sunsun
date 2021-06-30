@@ -23,13 +23,6 @@
 	<div class="line2">
 	</div>
 </div>
-<div class="linex">
-	<p>※ランチは11:30～12:30にご用意させていただきます。</p>
-	<div class="line1">
-	</div>
-	<div class="line2">
-	</div>
-</div>
 <div class="line">
 	<div class="line1">
 	予約時間:
@@ -37,11 +30,10 @@
 	<div class="line2">
 		<span style="display: none">mark_space</span>
 		<p>{{ $data['time1-view'] }}</p>
-		<span style="display: none">mark_space</span>
-		<p>{{ $data['time2-view'] }}</p>
 	</div>
 </div>
 @php
+	$lunch = (json_decode($data['lunch'])->kubun_value == "無し")?"":"1名";
 	$whitening = json_decode($data['whitening']);
 	$whitening_repeat = ($data['whitening_repeat'] == 1)?config('booking.repeat_user.options.no'):config('booking.repeat_user.options.yes');
 	$whitening_data = ($whitening->kubun_id == '02')?$whitening_repeat:"";
@@ -50,7 +42,7 @@
     $whitening_data2 = ($whitening2->kubun_id == '02')?$whitening_repeat2:"";
     $core_tuning = json_decode($data['core_tuning'])->kubun_id;
 @endphp
-@if($whitening_data != "" || $whitening_data2 != "" || $core_tuning == "02")
+@if($lunch != "" || $whitening_data2 != "" || $core_tuning == "02")
 <hr class="line-x">
 <span style="display: none">mark_newline</span>
 <div class="line">
@@ -58,7 +50,7 @@
 	オプション
 	</div>
 	<div class="line2">
-		<p>{{ ($whitening_data != "")?config('booking.whitening.label')."：".$whitening_data:"" }}</p>
+		<p>{{ ($lunch != "")?"ランチ：" . $lunch:"" }}</p>
 		<p>{{ ($whitening_data2 != "")?config('booking.whitening2.label')."：".$whitening_data2:"" }}</p>
 		<p>{{ ($core_tuning == "02")?config('booking.core_tuning.label'):"" }}</p>
 	</div>

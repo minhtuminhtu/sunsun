@@ -171,7 +171,6 @@ main {
         }
     }
 
-
 }
 
 .btn-back {
@@ -260,7 +259,6 @@ a.no-effect{
     background-color: #fff;
     padding: 0.75vw 0.75vw 0.25vw 0.75vw;
 }
-
 
 .data-field-day{
     margin-left: 0px;
@@ -371,7 +369,6 @@ label.form-check-label {
     }
 }
 
-
 .breadc {
     margin: 0 34vw;
     width: 32vw;
@@ -388,7 +385,6 @@ label.form-check-label {
 .breadc-link:hover{
     color: #402106;
 }
-
 
 .mean-container .mean-bar {
     float: left;
@@ -555,7 +551,6 @@ a.no-effect{
     border-top: 0px;
 }
 
-
 .line{
     display: flex;
     padding: 0 0px 0px 1.5rem;
@@ -577,7 +572,6 @@ a.no-effect{
     margin-top: 10px;
 }
 
-
 .title-table-time {
     padding: 0.75vw 0;
 }
@@ -588,7 +582,7 @@ a.no-effect{
     margin-left: 5px;
 }
 body{
-    font-size: 1.15vw;
+    font-size: 1vw;
 }
 
 .form-control{
@@ -754,7 +748,6 @@ p.note-error {
     background: rgba(0,0,0,.8);
 }
 
-
 .floatinglabel > :nth-child(1) {
     position: absolute;
     top: 5px;
@@ -858,4 +851,17 @@ button.swal2-close:focus {
     font-weight: bold;
     margin: 20px 0 0;
     padding: 0 0 20px;
+}
+.white-up-skin {
+    background-color: #e9ecef;
+    pointer-events: none;
+}
+.room_hd {
+    display: none !important;
+}
+.whiteninghd {
+    display: none !important;
+}
+.main-body.confirm {
+    margin-bottom: 20px !important;
 }

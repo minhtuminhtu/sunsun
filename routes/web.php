@@ -31,17 +31,17 @@ use Illuminate\Support\Facades\Auth;
 // });
 
 
-Route::get('/clear_yoyaku', function () {
-    DB::table('tr_jobs')->truncate();
-    DB::table('tr_failed_jobs')->truncate();
-    Yoyaku::truncate();
-    \App\Models\YoyakuDanjikiJikan::truncate();
-    echo "done";
-});
-Route::get('/clear_nomal_user', function () {
-    \App\Models\MsUser::where('user_type', '<>', "admin")->delete();
-    echo "done";
-});
+// Route::get('/clear_yoyaku', function () {
+//     DB::table('tr_jobs')->truncate();
+//     DB::table('tr_failed_jobs')->truncate();
+//     Yoyaku::truncate();
+//     \App\Models\YoyakuDanjikiJikan::truncate();
+//     echo "done";
+// });
+// Route::get('/clear_nomal_user', function () {
+//     \App\Models\MsUser::where('user_type', '<>', "admin")->delete();
+//     echo "done";
+// });
 
 // function new_test(){
 //     $Yoyaku1 = new Yoyaku();

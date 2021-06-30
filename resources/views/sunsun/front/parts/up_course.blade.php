@@ -3,13 +3,13 @@
 	if(isset($course_data['service_date_start'])){
 		$disable_booking_date = substr($course_data['service_date_start'], 0, 4).'/'.substr($course_data['service_date_start'], 4, 2).'/'.substr($course_data['service_date_start'], 6, 2);
 	}
-	if( (!isset($course_data['course'])) || ($course_data['course'] != '02') ){
+	if( (!isset($course_data['course'])) || ($course_data['course'] != '09') ){
 		$course_data = NULL;
 	}
 	if(isset($pop_data)){
 		$pop_data = json_decode($pop_data, true);
 	}
-	if(!isset($pop_data) || (json_decode($pop_data['course'], true)['kubun_id'] != '02')){
+	if(!isset($pop_data) || (json_decode($pop_data['course'], true)['kubun_id'] != '09')){
 		$pop_data = NULL;
 	}
 @endphp
@@ -133,20 +133,6 @@
 			</div>
 		</div>
 		<div class="booking-field">
-			<div class="booking-field-label  booking-laber-padding pl-1">
-				<p class="text-left pt-2 pl-3 node-text">{{config('booking.time.laber2')}}</p>
-			</div>
-			<div class="booking-field-content">
-				<div class="timedate-block set-time">
-					<input name="time2-value" id="time2-value" class="time_value" type="hidden" value="{{ isset($time2_value)?$time2_value:'0' }}">
-					<input name="time2-bed" id="time2-bed" class="time2-bed" type="hidden" value="{{ isset($bed2)?$bed2:'0' }}">
-					<input name="time2-view" type="text" class="form-control time js-set-time bg-white"  readonly="readonly"  id="time2-view" value="{{ isset($time2)?$time2:'－' }}" data-date_type="shower_2">
-					<input name="time[1][json]" class="data-json_input" id="time[1][json]"  type="hidden" value="{{ isset($time2_json)?$time2_json:'' }}">
-					<input name="time[1][element]" type="hidden" value="time2-view">
-				</div>
-			</div>
-		</div>
-		<div class="booking-field">
 			<div class="node-text booking-laber-padding">
 				<div id="hint-repeat">※バスの場合、到着時間から30分以内の予約は出来ません。希望時間が選択できない場合は、バス到着時間をご確認ください。</div>
 			</div>
@@ -166,11 +152,30 @@
 	<div class="booking-block-between">
 		<div class="">
 			<div class="booking-field">
+				<div class="booking-field-label booking-laber-padding">
+					<p class="text-left pt-2">{{config('booking.lunch.label')}}</p>
+				</div>
+				<div class="booking-field-content">
+					<select name="lunch" id="lunch" class="form-control">
+						@foreach($lunch as $value)
+							@if(isset($course_data['lunch']) && ($value->kubun_id == $course_data['lunch']))
+								<option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+							@elseif(isset($pop_data['lunch']) && ($value->kubun_id == json_decode($pop_data['lunch'], true)['kubun_id']))
+								<option selected value='@json($value)'>{{ $value->kubun_value }}</option>
+							@else
+								<option value='@json($value)'>{{ $value->kubun_value }}</option>
+							@endif
+						@endforeach
+					</select>
+					<p class="node-text text-left mt-2 mb-2">ランチは11:30～12:30にご用意させていただきます</p>
+				</div>
+			</div>
+			<div class="booking-field" style="display: none">
 				<div class="booking-field-label  booking-laber-padding">
 					<p class="text-left pt-2 custom-font-size">{{config('booking.whitening.label')}}</p>
 				</div>
 				<div class="booking-field-content">
-					<select name="whitening" id="whitening" class="form-control">
+					<select name="whitening" id="whitening" class="form-control white-up-skin">
 						@foreach($whitening as $value)
 							@if(isset($course_data['whitening']) && ($value->kubun_id == $course_data['whitening']))
 								<option selected value='@json($value)'>{{ $value->kubun_value }}</option>
@@ -441,7 +446,7 @@
 						<p class="text-left pt-2">モーニング</p>
 					</div>
 					<div class="booking-field-content">
-						<select name="breakfast" class="form-control">
+						<select name="breakfast" id="breakfast" class="form-control">
 							@foreach($breakfast as $value)
 								@if(isset($course_data['breakfast']) && ($value->kubun_id == $course_data['breakfast']))
 									<option selected value='@json($value)'>{{ $value->kubun_value }}</option>

@@ -45,7 +45,7 @@
                 </div>
                 <div class="main-head__top" style="display: flex;">
                     <div class="main-head__left" style="position: relative;">
-                        <div class="control-view">
+                        <div class="control-view" style="margin-top: .75vw;">
                             <div class="control-align_center">
                                 <button class="btn btn-block btn-main control-date control-date-left prev-date" href="javascript:void(0)">〈  前日</button>
                             </div>
@@ -68,11 +68,12 @@
                             <textarea type="text" class="form-control" placeholder="【メモ】" id="txt_notes">{{ ($notes == null) ? '' : $notes->txt_notes }}</textarea>
                         </div>
                         <div class="node-day">
-                            <div class="text-right">入浴：酵素浴　リ：1日リフレッシュプラン</div>
-                            <div class="text-right">貸切：酵素部屋1部屋貸切プラン　断食：断食プラン</div>
+                            <div class="text-right">{{ config('const.text_simple.c01') }}：酵素浴　{{ config('const.text_simple.c02') }}：朝からリフレッシュコース　{{ config('const.text_simple.c10') }}：お昼からリフレッシュコース</div>
+                            <div class="text-right">{{ config('const.text_simple.c07') }}：お昼からのスイーツコース　{{ config('const.text_simple.c08') }}：美肌コース　{{ config('const.text_simple.c09') }}：免疫力アップコース　{{ config('const.text_simple.c04_06') }}：断食コース</div>
+                            <div class="text-right">{{ config('const.text_simple.c03') }}：酵素部屋１部屋貸切コース　{{ config('const.text_simple.new_scan') }}：ニュースキャン　{{ config('const.text_simple.whitening') }}：ホワイトニング　{{ config('const.text_simple.core_tuning') }}：コアチューニング</div>
                         </div>
                     </div>
-                    <div class="main-head_right">
+                    <div class="main-head_right" style="margin-top: 1.35vw;">
                         <div class="bs-example">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="予約名前" name="search" id="search" disabled>
@@ -103,13 +104,24 @@
                                 }
                             }
                             @endphp
-                            <span>【昼食】　{{ $number_lunch }}食</span> <br>
+                            <span>【{{ config('const.text_simple.lunch') }}】　{{ $number_lunch }}食</span> <br>
                             @foreach($lunch as $lu)
                             @if(isset($lu->ref_booking_id))
                             <span>{{ $lu->name }} 同行者 様　{{ isset($lu->lunch_guest_num)?"同行者".$lu->lunch."名":""}}</span> <br>
                             @else
                             <span>{{ $lu->name }} 様　{{ isset($lu->lunch_guest_num)?"同行者".$lu->lunch."名":""}}</span> <br>
                             @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="middle_box">
+                        <div class="item">
+                            @php
+                            $number_tea = count($tea);
+                            @endphp
+                            <span>【{{ config('const.text_simple.tea') }}】　{{ $number_tea }}食</span> <br>
+                            @foreach($tea as $te)
+                                <span>{{ $te->name }} 様</span> <br>
                             @endforeach
                         </div>
                     </div>

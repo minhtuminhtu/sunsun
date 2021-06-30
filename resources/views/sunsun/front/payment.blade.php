@@ -8,7 +8,7 @@
     <script src="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('sunsun/lib/animate.css/animate.min.css')}}"/>
-    <script  type="text/javascript" src="https://p01.mul-pay.jp/ext/js/token.js" ></script>
+    <script  type="text/javascript" src="https://static.mul-pay.jp/ext/js/token.js" ></script>
     <style>
         th {
             background-image: url("/sunsun/imgs/bg_2.png");

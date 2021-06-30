@@ -152,7 +152,11 @@ return [
                 'BOTH_ALL_ROOM'=> '03',
                 'FASTING_PLAN' => '04',
                 'PET' => '05',
-                'FASTING_PLAN2' => '06'
+                'FASTING_PLAN2' => '06',
+                'REFRESH' => '07',
+                'SKIN' => '08',
+                'UP' => '09',
+                '1_DAY_REFRESH_NOON' => '10',
             ],
             'gender' => [
                 'MALE' => '01',
@@ -394,7 +398,24 @@ return [
             'wt_time_value' => NULL,
             'not_wt' => 1,
         ],
+    ],
+    'text_simple' => [
+        'c01' => '入浴',
+        'c02' => '朝リ',
+        'c03' => '貸切',
+        'c04' => '断食初',
+        'c06' => '断食リ',
+        'c07' => '昼ス',
+        'c08' => '美肌',
+        'c09' => '免疫',
+        'c10' => '昼り',
+        'c04_06' => '断食',
+        'new_scan' => 'NS',
+        'whitening' => '歯白',
+        'core_tuning' => 'CT',
+        'tea' => 'カフェ',
+        'lunch' => '昼食',
+        'repeat' => '新規',
+        'repeat2' => '（初）'
     ]
-
-
 ];

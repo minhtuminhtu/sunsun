@@ -42,6 +42,6 @@ class MsKubun extends Model
         return MsKubun::selectRaw("kubun_value, kubun_id as time_holiday,
                 5 as type_holiday
             ")
-        ->whereRaw(" kubun_type = '011' and kubun_id <> '01' ")->orderBy("kubun_id")->get();
+        ->whereRaw(" kubun_type = '011' and kubun_id <> '01' and kubun_id <> '03' ")->orderBy("kubun_id")->get();
     }
 }

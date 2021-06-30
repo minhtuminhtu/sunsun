@@ -43,7 +43,7 @@
         if ($(window).width() >= 768) {
             var height_header = $('header').outerHeight();
             var height_footer = $('footer').outerHeight();
-            var height_window = $(window).height();
+            var height_window = $(window).height() - 90;
             $('main').css('min-height', height_window - (height_footer + height_header) +"px" )
         }
     </script>

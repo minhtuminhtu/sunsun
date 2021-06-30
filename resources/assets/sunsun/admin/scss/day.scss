@@ -227,14 +227,14 @@ body {
         border-bottom: 2px solid #fff;
     }
     .main-col__time{
-        width: 8.5%;
+        width: 9.85%;
         border-left: 1px solid #ced4da;
         border-right: 2px solid #fff;
         border-bottom: 2px solid #fff;
         padding: 0.5rem 0;
     }
     .main-col__male{
-        width: 31.8%;
+        width: 35.85%;
         display: flex;
         .main-col__item{
             flex-basis: 100%;
@@ -251,10 +251,10 @@ body {
         width: 0.8%;
     }
     .main-col__space-3{
-        width: 0.8%;
+        width: 0%;
     }
     .main-col__famale{
-        width: 42.4%;
+        width: 46.45%;
         display: flex;
         .main-col__item{
             flex-basis: 100%;
@@ -279,7 +279,7 @@ body {
         border-right: 1px solid #ced4da;
         border-bottom: 2px solid #fff;
         background-color: rgb(176, 244, 230);
-        display: block;
+        display: none;
         .main-col__pet__body{
             height: 100%;
             background-color: #ffe8cb!important;
@@ -491,7 +491,6 @@ body {
     cursor: pointer;
 }
 
-
 .pet-top_ele {
     height: 100%;
 }
@@ -574,8 +573,8 @@ span {
     width: 100%;
 }
 .main-head_right{
-    width: 30%;
-    margin-left: 3vw;
+    width: 18%;
+    margin-left: 1vw;
 }
 .name-search{
     position: absolute;
@@ -631,7 +630,7 @@ li.list-group-item.list-head {
     color: #fff !important;
 }
 .text-right{
-    font-size: 0.75vw !important;
+    font-size: 0.7vw !important;
 }
 .button-control{
     margin-left: 2vw;
@@ -663,12 +662,12 @@ button.swal2-close:focus {
 }
 .div_notes {
     position: absolute;
-    left: 37%;
-    width: 34%;
-    top: -106%;
+    left: 31%;
+    width: 24%;
+    top: -61%;
     #txt_notes {
         resize: none;
-        height: 5.7vw;
+        height: 6.7vw;
     }
 }
 #edit_booking {

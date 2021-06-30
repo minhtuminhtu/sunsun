@@ -55,7 +55,7 @@
         </div>
     @endif
     <span style="display: none">mark_newline</span>
-    @if($course->kubun_id == '01' || $course->kubun_id == '02' || $course->kubun_id == '03')
+    @if($course->kubun_id == '01' || $course->kubun_id == '02' || $course->kubun_id == '03' || $course->kubun_id == '07' || $course->kubun_id == '08' || $course->kubun_id == '09' || $course->kubun_id == '10')
     <div class="linex">
         <p>予約日: {{ $data['date-view'] }}</p>
         <div class="line1"></div>
@@ -111,7 +111,7 @@
             ];
         @endphp
         <span style="display: none">mark_newline</span>
-        @if($course == '01' || $course == '02' || $course == '03')
+        @if($course == '01' || $course == '02' || $course == '03' || $course == '07' || $course == '08' || $course == '09' || $course == '10' )
         <div class="linex">
             <p>予約日: <span style="display: none">mark_space</span>{{ substr($data->service_date_start, 0, 4) . "年" . substr($data->service_date_start, 4, 2) . "月" . substr($data->service_date_start, 6, 2) . "日" ."(" . $weekMap[date('w', strtotime($data->service_date_start))] . ")" }}</p>
             <div class="line1"></div>
@@ -131,6 +131,14 @@
         @include('sunsun.front.sub.confirm4_admin')
     @elseif($course == '05')
         @include('sunsun.front.sub.confirm5_admin')
+    @elseif($course == '07')
+        @include('sunsun.front.sub.confirm7_admin')
+    @elseif($course == '08')
+        @include('sunsun.front.sub.confirm8_admin')
+    @elseif($course == '09')
+        @include('sunsun.front.sub.confirm9_admin')
+    @elseif($course == '10')
+        @include('sunsun.front.sub.confirm10_admin')
     @endif
 @else
     @if($course->kubun_id == '01')
@@ -143,6 +151,14 @@
         @include('sunsun.front.sub.confirm4')
     @elseif($course->kubun_id == '05')
         @include('sunsun.front.sub.confirm5')
+    @elseif($course->kubun_id == '07')
+        @include('sunsun.front.sub.confirm7')
+    @elseif($course->kubun_id == '08')
+        @include('sunsun.front.sub.confirm8')
+    @elseif($course->kubun_id == '09')
+        @include('sunsun.front.sub.confirm9')
+    @elseif($course->kubun_id == '10')
+        @include('sunsun.front.sub.confirm10')
     @endif
 @endif
 <?php // 2020/06/05 ?>

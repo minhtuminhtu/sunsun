@@ -65,11 +65,15 @@
 @php
     $lunch = ($admin_value_customer[$i - 1]['lunch'] == "無し")?"":"1名";
     $whitening = $data->whitening;
-    $whitening_repeat = ($data->whitening_repeat == 1)?"（はじめて）":"（リピート）";
-    $whitening_data = ($whitening == '02')?substr($data->whitening_time, 0, 2) . ":" . substr($data->whitening_time, 2, 2) . "～" . substr($data->whitening_time, 5, 2) . ":" . substr($data->whitening_time, 7, 2) . $whitening_repeat:"";
+    $whitening_repeat = ($data->whitening_repeat == 1)?config('booking.repeat_user.options.no'):config('booking.repeat_user.options.yes');
+    $whitening_data = ($whitening == '02')?$whitening_repeat:"";
     $pet_keeping = ($admin_value_customer[$i - 1]['pet_keeping'] == "追加しない")?"":"追加する";
+    $whitening2 = $data->whitening2;
+    $whitening_repeat2 = ($data->whitening_repeat2 == 1)?config('booking.repeat_user.options.no'):config('booking.repeat_user.options.yes');
+    $whitening_data2 = ($whitening2 == '02')?$whitening_repeat2:"";
+    $core_tuning = $data->core_tuning;
 @endphp
-@if(($lunch != "") || ($whitening_data != "") || ($pet_keeping != ""))
+@if(($lunch != "") || ($whitening_data != "") || ($pet_keeping != "") || $whitening_data2 != "" || $core_tuning == "02")
     <hr class="line-x">
     <span style="display: none">mark_newline</span>
     <div class="line">
@@ -79,6 +83,8 @@
         <div class="line2">
             <p>{{ ($lunch != "")?"ランチ：" . $lunch:"" }}</p>
             <p>{{ ($whitening_data != "")?config('booking.whitening.label')."：". $whitening_data:"" }}</p>
+            <p>{{ ($whitening_data2 != "")?config('booking.whitening2.label')."：". $whitening_data2:"" }}</p>
+            <p>{{ ($core_tuning == "02")?config('booking.core_tuning.label'):"" }}</p>
             <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p>
         </div>
     </div>

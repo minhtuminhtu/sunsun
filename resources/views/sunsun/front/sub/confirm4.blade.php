@@ -44,21 +44,6 @@
         @endif
     </div>
 </div>
-@php
-    $pet_keeping = (json_decode($data['pet_keeping'])->kubun_value == "追加しない")?"":"追加する";
-@endphp
-@if($pet_keeping != "")
-<hr class="line-x">
-<span style="display: none">mark_newline</span>
-<div class="line">
-    <div class="line1">
-    オプション
-    </div>
-    <div class="line2">
-        <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p>
-    </div>
-</div>
-@endif
 @if($key == 0)
     @php
         $stay_room_type = isset($data['stay_room_type'])?json_decode($data['stay_room_type']):"";

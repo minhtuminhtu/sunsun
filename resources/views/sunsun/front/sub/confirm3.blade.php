@@ -26,11 +26,14 @@
 @php
     $lunch_guest_num = (json_decode($data['lunch_guest_num'])->kubun_value == "無し")?"":json_decode($data['lunch_guest_num'])->kubun_value;
     $whitening = json_decode($data['whitening']);
-    $whitening_repeat = ($data['whitening_repeat'] == 1)?"（はじめて）":"（リピート）";;
-    $whitening_data = ($whitening->kubun_id == '02')?$data['whitening-time_view'] . $whitening_repeat:"";
-    $pet_keeping = (json_decode($data['pet_keeping'])->kubun_value == "追加しない")?"":"追加する";
+    $whitening_repeat = ($data['whitening_repeat'] == 1)?config('booking.repeat_user.options.no'):config('booking.repeat_user.options.yes');
+    $whitening_data = ($whitening->kubun_id == '02')?$whitening_repeat:"";
+    $whitening2 = json_decode($data['whitening2']);
+    $whitening_repeat2 = ($data['whitening_repeat2'] == 1)?config('booking.repeat_user.options.no'):config('booking.repeat_user.options.yes');
+    $whitening_data2 = ($whitening2->kubun_id == '02')?$whitening_repeat2:"";
+    $core_tuning = json_decode($data['core_tuning'])->kubun_id;
 @endphp
-@if(($lunch_guest_num != "") || ($whitening_data != "") || ($pet_keeping != ""))
+@if(($lunch_guest_num != "") || ($whitening_data != "") || $whitening_data2 != "" || $core_tuning == "02")
 <hr class="line-x">
 <span style="display: none">mark_newline</span>
 <div class="line">
@@ -40,7 +43,8 @@
     <div class="line2">
         <p>{{ ($lunch_guest_num != "")?"ランチ：" . $lunch_guest_num:"" }}</p>
         <p>{{ ($whitening_data != "")?config('booking.whitening.label')."：". $whitening_data:"" }}</p>
-        <p>{{ ($pet_keeping != "")?"ペット預かり：" . $pet_keeping:"" }}</p>
+        <p>{{ ($whitening_data2 != "")?config('booking.whitening2.label')."：". $whitening_data2:"" }}</p>
+        <p>{{ ($core_tuning == "02")?config('booking.core_tuning.label'):"" }}</p>
     </div>
 </div>
 @endif
