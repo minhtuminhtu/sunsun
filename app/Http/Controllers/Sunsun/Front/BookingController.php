@@ -3294,6 +3294,7 @@ class BookingController extends Controller
 		$sql_get_check_room_free ="
 			, CASE
 					$off_def
+					when mk1.kubun_type = '013' AND mk1.kubun_id IN ('10','11') then '0'
 					$sql_holiday
 					$sql_range
 					$sql_validate_ss
