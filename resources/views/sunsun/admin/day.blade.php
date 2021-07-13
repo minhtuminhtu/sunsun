@@ -346,7 +346,7 @@
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
-                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                    }else if ((($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
                                     @endphp
@@ -369,7 +369,7 @@
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
-                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                    }else if ((($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
                                     @endphp
@@ -391,7 +391,7 @@
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
-                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                    }else if ((($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
                                     @endphp
@@ -426,7 +426,7 @@
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
-                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                    }else if ((($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
                                     @endphp
@@ -453,7 +453,7 @@
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
-                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                    }else if ((($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
                                     @endphp
@@ -478,7 +478,7 @@
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
-                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                    }else if ((($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
                                     @endphp
@@ -503,7 +503,7 @@
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
-                                    }else if (($week_day != 5) && (($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
+                                    }else if ((($time['time_value'] == '1745') || ($time['time_value'] == '1815') | ($time['time_value'] == '1845'))){
                                       echo ' bg-dis ';
                                     }
                                     else if (!($time['time_value'] === '1045' || $time['time_value'] === '1315' || $time['time_value'] === '1515'))
