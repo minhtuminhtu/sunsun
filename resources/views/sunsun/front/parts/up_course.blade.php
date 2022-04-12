@@ -254,7 +254,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="booking-field">
+			<div class="booking-field option_hd">
 				<div class="booking-field-label booking-laber-padding">
 					<p class="text-left pt-2 custom-font-size">{{config('booking.whitening2.label')}}</p>
 				</div>
@@ -297,7 +297,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="booking-field">
+			<div class="booking-field option_hd">
 				<div class="booking-field-label booking-laber-padding">
 					<p class="text-left pt-2 custom-font-size">{{config('booking.core_tuning.label')}}</p>
 				</div>

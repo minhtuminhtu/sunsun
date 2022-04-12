@@ -137,15 +137,29 @@
                                         $i = false;
                                         @endphp
                                         @foreach($bus_arrive_time_slide as $value)
+                                            @php
+                                                $check_dis = "";
+                                                if ($value->kubun_id ==  '03'
+                                                || $value->kubun_id == '06'
+                                                || $value->kubun_id == '09'
+                                                || $value->kubun_id == '13'
+                                                || $value->kubun_id == '18') {
+                                                    $check_dis = "dis_time_bus";
+                                                }
+                                                if(!empty($check_dis)) {
+                                                    if (!isset($data_booking) || $data_booking == null)
+                                                        continue;
+                                                }
+                                            @endphp
                                             @if(isset($data_booking->bus_arrive_time_slide))
                                                 @if($value->kubun_id == $data_booking->bus_arrive_time_slide)
-                                                    <li class="dropdown-item @if($i) {{ 'body-content' }} @endif active">
+                                                    <li class="dropdown-item @if($i) {{ 'body-content' }} @endif active {{ $check_dis }}">
                                                         <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
                                                         <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
                                                         <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
                                                     </li>
                                                 @else
-                                                    <li class="dropdown-item @if($i) body-content @endif ">
+                                                    <li class="dropdown-item @if($i) body-content @endif {{ $check_dis }}">
                                                         <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
                                                         <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
                                                         <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
@@ -153,20 +167,20 @@
                                                 @endif
                                             @elseif(isset($pop_data['bus_arrive_time_slide']))
                                                 @if($value->kubun_id == json_decode($pop_data['bus_arrive_time_slide'], true)['kubun_id'])
-                                                    <li class="dropdown-item @if($i) {{ 'body-content' }} @endif active">
+                                                    <li class="dropdown-item @if($i) {{ 'body-content' }} @endif active {{ $check_dis }}">
                                                         <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
                                                         <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
                                                         <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
                                                     </li>
                                                 @else
-                                                    <li class="dropdown-item @if($i) body-content @endif ">
+                                                    <li class="dropdown-item @if($i) body-content @endif {{ $check_dis }}">
                                                         <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
                                                         <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
                                                         <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>
                                                     </li>
                                                 @endif
                                             @else
-                                                <li class="dropdown-item @if($i) body-content @else active @endif ">
+                                                <li class="dropdown-item @if($i) body-content @else active @endif {{ $check_dis }}">
                                                     <input type="hidden" class="bus_arrive_time_slide" value='@json($value)'>
                                                     <div class="bus_time_first">{{ substr($value->kubun_value, 0, 8) }}</div>
                                                     <div class="bus_time_second node-text">{{ trim(str_replace(substr($value->kubun_value, 0, 8), '', $value->kubun_value)) }}</div>

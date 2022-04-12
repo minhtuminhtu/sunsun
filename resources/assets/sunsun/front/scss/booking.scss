@@ -700,6 +700,13 @@ ul.dropdown-menu {
     background-color: #e0a800;
 }
 
+.dropdown-item.dis_time_bus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #c5c5c5 !important;
+    pointer-events: none !important;
+}
+
 .btn.btn-border:focus{
     border-color: rgb(224, 168, 0) !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(224, 168, 0);
@@ -864,4 +871,7 @@ button.swal2-close:focus {
 }
 .main-body.confirm {
     margin-bottom: 20px !important;
+}
+.option_hd {
+    display: none !important;
 }

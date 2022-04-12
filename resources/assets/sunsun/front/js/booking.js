@@ -71,6 +71,7 @@ function showHidePet() {
 		if (typeof div_pet_plus != "undefined")
 			div_pet_plus.show();
 		document.getElementById("div_pet").style.display = "";
+		$(".option_hd").removeClass("option_hd");
 	}
 }
 $(function() {
