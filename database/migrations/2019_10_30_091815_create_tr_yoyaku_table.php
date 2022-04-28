@@ -56,6 +56,9 @@ class CreateTrYoyakuTable extends Migration
             $table->tinyInteger('tea')->nullable()->default('0');
             $table->integer('ms_user_id')->nullable();
             $table->string('del_flg',1)->nullable();
+            $table->string('whitening2',2)->nullable();
+            $table->string('whitening_repeat2',1)->nullable();
+            $table->string('core_tuning',2)->nullable();
             $table->timestamps();
         });
     }

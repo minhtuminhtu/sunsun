@@ -51,7 +51,8 @@ class Yoyaku extends Model
             config('const.db.tr_yoyaku.STAY_CHECKIN_DATE'),
             config('const.db.tr_yoyaku.STAY_CHECKOUT_DATE'),
             config('const.db.tr_yoyaku.PAYMENT_METHOD'),
-            config('const.db.tr_yoyaku.MS_USER_ID')
+            config('const.db.tr_yoyaku.MS_USER_ID'),
+            config('const.db.tr_yoyaku.CREATED_AT')
         ];
         parent::__construct($attributes);
     }

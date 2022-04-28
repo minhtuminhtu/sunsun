@@ -3,6 +3,7 @@ namespace App\Http\Helpers;
 use \Session;
 use App\Models\MsHoliday;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 class Helper
 {
     public static function getDisableAll($date) {
@@ -38,5 +39,14 @@ class Helper
     public static function getTimeHoliday($date) {
         $date = str_replace("/","",$date);
         return MsHoliday::whereRaw("type_holiday is not null and date_holiday = '$date' ")->get();
+    }
+    public static function getKubunTypePrice($service_date_start,$created_at = null) {
+        $cre_check = ($created_at == null) ? Carbon::now() : new Carbon($created_at);
+        $cre_check = $cre_check->format('Ymd');
+        if ($cre_check < '20220501') {
+            return '030';
+        } else if ($service_date_start < '20220601') {
+            return '030';
+        } else return '031';
     }
 }
