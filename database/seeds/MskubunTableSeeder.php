@@ -142,7 +142,7 @@ class MskubunTableSeeder extends Seeder
                   ,('030', '27', '7000泊', '22','レンタルルーム（シングル、1名）')
                   ,('030', '28', '3500回', '17','ホワイトニング')
                   ,('030', '29', '5000回', '18','コアチューニング')
-                  ,('030', '30', '3900回', '1','酵素浴（大人）')
+                  ,('030', '30', '3500回', '1','酵素浴（大人）')
             ");
             DB::insert("
                 INSERT INTO ms_kubun (kubun_type,kubun_id,kubun_value,sort_no, notes,time_holiday)

@@ -1,4 +1,4 @@
-INSERT INTO ms_kubun (ms_kubun_id, kubun_type, kubun_id, kubun_value, sort_no, notes, time_holiday) VALUES (154, '030', '30', '3900回', 1, '酵素浴（大人）', NULL);
+INSERT INTO ms_kubun (ms_kubun_id, kubun_type, kubun_id, kubun_value, sort_no, notes, time_holiday) VALUES (154, '030', '30', '3500回', 1, '酵素浴（大人）', NULL);
 INSERT INTO `ms_kubun` (`ms_kubun_id`, `kubun_type`, `kubun_id`, `kubun_value`, `sort_no`, `notes`, `time_holiday`) VALUES (155, '031', '01', '3900回', 1, '酵素浴（大人）', NULL);
 INSERT INTO `ms_kubun` (`ms_kubun_id`, `kubun_type`, `kubun_id`, `kubun_value`, `sort_no`, `notes`, `time_holiday`) VALUES (156, '031', '02', '3000回', 2, '酵素浴（学生）', NULL);
 INSERT INTO `ms_kubun` (`ms_kubun_id`, `kubun_type`, `kubun_id`, `kubun_value`, `sort_no`, `notes`, `time_holiday`) VALUES (157, '031', '03', '2300回', 3, '酵素浴（小学生）', NULL);
