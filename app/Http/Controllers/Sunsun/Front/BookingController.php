@@ -912,7 +912,8 @@ class BookingController extends Controller
 		}
 	}
 	public function get_price_course ($booking, &$bill, $overflow = false) {
-		$date_value_kbn = empty($booking['date-value']) ? $booking['plan_date_start-value'] : $booking['date-value'];
+		$date_value_kbn = empty($booking['date-value-new']) ? $booking['date-value'] : $booking['date-value-new'];
+		$date_value_kbn = empty($date_value_kbn) ? $booking['plan_date_start-value'] : $date_value_kbn;		
 		$kubun_type_price = \Helper::getKubunTypePrice($date_value_kbn);
 		$course = json_decode($booking['course'], true);
 		$course_price = 0;
