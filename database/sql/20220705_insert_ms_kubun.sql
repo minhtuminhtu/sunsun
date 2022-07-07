@@ -23,3 +23,9 @@ insert into tr_notes select * from tr_notes_bk;
 DROP TABLE ms_holiday_acom_bk;
 DROP TABLE ms_setting_bk;
 DROP TABLE tr_notes_bk;
+
+----create index tr_yoyaku-----
+ALTER TABLE tr_yoyaku ADD INDEX tr_yoyaku_1 (booking_id);
+ALTER TABLE tr_yoyaku ADD INDEX tr_yoyaku_2 (service_date_start);
+ALTER TABLE tr_yoyaku ADD INDEX tr_yoyaku_3 (service_date_end);
+ALTER TABLE tr_yoyaku ADD INDEX tr_yoyaku_4 (service_date_start,service_date_end);
