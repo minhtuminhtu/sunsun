@@ -212,5 +212,12 @@ class MskubunTableSeeder extends Seeder
                         ,('031', '29', '5000回', '18','コアチューニング')
                         ,('031', '30', '3900回', '1','酵素浴（大人）')
             ");
+            DB::insert("
+                INSERT INTO ms_kubun (kubun_type,kubun_id,kubun_value,sort_no, notes)
+                VALUES
+                        ('032', '1', 'カード', '1', 'クレジットカード')
+                        ,('032', '2', '現金', '2', '現地現金')
+                        ,('032', '3', '回数券', '3', '回数券')
+            ");
       }
 }

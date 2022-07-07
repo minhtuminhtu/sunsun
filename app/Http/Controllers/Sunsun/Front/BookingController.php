@@ -16,6 +16,7 @@ use App\Mail\ConfirmMail;
 use Illuminate\Support\Facades\Mail;
 use \Session;
 use App\Models\Setting;
+use App\Models\PaymentHistory;
 class BookingController extends Controller
 {
 	private $session_info = 'SESSION_BOOKING_USER';
@@ -1225,12 +1226,21 @@ class BookingController extends Controller
 					$result = $this->call_payment_api($request, $data, $return_booking_id, $old_booking_id);
 				}
 				//Log::debug('TRACE FINISH PAYMENT');
+				$bill_text = null;
+				$admin_data = null;
+				$admin_price = null;
+				if ($return_booking_id != null) {
+					$result_save = $this->save_tr_payments_history($return_booking_id);
+					$bill_text = $result_save["bill_text"];
+					$admin_data = $result_save["admin_data"];
+					$admin_price = $result_save["admin_price"];
+				}
 				DB::commit();
 				//Log::debug('$request before send mail');
 				//Log::debug($request);
 				//Log::debug('TRACE CHECK SENDMAIL');
 				if(($send_mail === true) || ($from_admin === false)){
-					$this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin);
+					$this->send_email($request, $data, $return_booking_id, $return_date, $email, $from_admin, $admin_data, $bill_text, $admin_price);
 				}
 				//Log::debug('TRACE FINISH SENDMAIL');
 			} catch (\Exception $e1) {
@@ -1251,7 +1261,7 @@ class BookingController extends Controller
 		//Log::debug($result);
 		return  $result;
 	}
-	private function send_email($request, $data, $booking_id, $return_date, $email, $from_admin){
+	private function send_email($request, $data, $booking_id, $return_date, $email, $from_admin, $admin_data = null, $bill_text = null, $admin_price = null){
 		$end = Carbon::createFromFormat('Ymd h:i:s', $return_date."09:00:00")->subDays(2);
 		//Log::debug('time end');
 		//Log::debug($end->toDateTimeString());
@@ -1303,48 +1313,6 @@ class BookingController extends Controller
 			$request->session()->forget($this->session_html);
 			$request->session()->forget($this->payment_html);
 		}else{
-			$yo = Yoyaku::where('booking_id', $booking_id)->first();
-			// So sanh thoi gian book, phuong tien, thoi gian don xe bus, co don hay khong
-			// Flag check co thay doi may thu ben tren hay khong?
-			$change_check = false;
-			$list_booking = null;
-			$admin_customer = [];
-			if(isset($yo->ref_booking_id)){
-				$yo_temp = Yoyaku::where('booking_id', $yo->ref_booking_id)->first();
-				$admin_customer[] = $yo_temp;
-				$list_booking = Yoyaku::where('ref_booking_id', $yo_temp->booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
-			}else{
-				$admin_customer[] = $yo;
-				$list_booking = Yoyaku::where('ref_booking_id', $booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
-			}
-			foreach ($list_booking as $key => $li_bo) {
-				$admin_customer[] = $li_bo;
-			}
-			foreach ($admin_customer as $value) {
-				if(
-					($value->course === '01')
-					||($value->course === '02')
-					||($value->course === '07')
-					||($value->course === '10')
-					||($value->course === '03')
-					||($value->course === '04')
-					||($value->course === '06') // 2020/06/05
-				){
-					$check_has_note = true;
-				}
-				if(($value->course === '02') || ($value->course === '04') || ($value->course === '06') || ($value->course === '07') || ($value->course === '10')){
-					$check_has_couse_oneday = true;
-				}
-				if(($value->course === '04')){
-					$check_note_mail = true;
-				}
-			}
-			$admin_data['admin_customer'] = $admin_customer;
-			$admin_data['change_check'] = $change_check;
-			$this->convert_booking_2_value($admin_data['admin_customer'], $admin_data);
-			$bill_text = null;
-			$admin_price = null;
-			$this->yoyaku_2_bill($request, $admin_customer, $bill_text, $admin_price);
 			$booking_data = new \stdClass();
 			$booking_data->booking_id = $booking_id;
 			$booking_data->booking_data = $data;
@@ -1357,7 +1325,7 @@ class BookingController extends Controller
 			ReminderJob::dispatch($email, $booking_data)->delay(now()->addMinutes($delay_time));
 		}
 	}
-	public function yoyaku_2_bill($request, $yoyaku, &$bill_text, &$admin_price){
+	public function yoyaku_2_bill($yoyaku, &$bill_text, &$admin_price){
 		$kubun_type_price = \Helper::getKubunTypePrice($yoyaku[0]['service_date_start'],$yoyaku[0]['created_at']);
 		$new_bill = [];
 		$MsKubun = MsKubun::all();
@@ -1467,6 +1435,7 @@ class BookingController extends Controller
 			}
 		}
 		$bill_text .= config('booking.total.label') . " " . $total ."円";
+		return $new_bill;
 	}
 	public function get_price_course_admin ($booking, $overflow = false) {
 		$kubun_type_price = \Helper::getKubunTypePrice($booking['service_date_start'],$booking['created_at']);
@@ -3958,7 +3927,7 @@ class BookingController extends Controller
 	}
 	public function complete(Request $request) {
 		$data = $request->all();
-//        dd($data);
+		// dd($data);
 		if(isset($data['bookingID']) == false){
 			return redirect()->route('home');
 		}
@@ -3973,5 +3942,142 @@ class BookingController extends Controller
 	}
 	public function remove_space($value) {
 		return preg_replace('/\s+|　/', '', $value);
+	}
+	public function get_data_payment_history($data_pr,$data_info,$data_age) {
+		$sql_insert = "";
+		$data_ss = [];
+		foreach ($data_pr as $row) {
+			if ($row["price"] != 0) {
+				$data_ss["info_price"][] = $row;
+			}
+		}		
+		$plus = "";
+		$info_book = [];
+		foreach ($data_age as $i_age => $row_age) {
+			if (isset($row_age->age_value) && !empty($row_age->age_value)) {
+				$info_book[config('const.db.tr_payments_history.AGE_VALUE')] .= $plus . $row_age->age_value;
+			}
+			$plus = ",";
+		}
+		$plus = "";
+		foreach ($data_info as $i_info => $row_info) {
+			if (isset($row_info['repeat_user']) && !empty($row_info['repeat_user'])) {
+				$info_book[config('const.db.tr_payments_history.REPEAT_USER')] .= $plus . $row_info['repeat_user'];
+			}
+			if (isset($row_info['gender']) && !empty($row_info['gender'])) {
+				$info_book[config('const.db.tr_payments_history.GENDER')] .= $plus . $row_info['gender'];
+			}
+			if(isset($row_info['date']) && !empty($row_info['date']) && count($row_info['date']) > 0) {
+				// $count_date = count($row_info['date']) - 1;
+				$date_value = "";
+				foreach ($row_info['date'] as $i_date => $row_date) {
+					// if ($i_date == 0 || $i_date == $count_date) {
+						if(isset($row_date->service_date) && !empty($row_date->service_date)) {
+							if (empty($date_value))
+								$date_value = Carbon::createFromFormat('Ymd', $row_date->service_date)->format('Y/m/d');
+							else
+								$date_value .= "," .Carbon::createFromFormat('Ymd', $row_date->service_date)->format('Y/m/d');
+						}
+					// }
+				}
+				$info_book[config('const.db.tr_payments_history.DATE_VALUE')] .= $plus . $date_value;
+			} else if(isset($row_info['date-view']) && !empty($row_info['date-view'])) {
+				$info_book[config('const.db.tr_payments_history.DATE_VALUE')] .= $plus . $row_info['date-view'];
+			}
+			$plus = ",";
+		}
+		foreach ($info_book as $key=>$val) {
+			$info_book[$key] = $this->changeValueUnique($val);
+		}
+		$data_ss["info_book"] = $info_book;
+		return $data_ss;
+	}
+	public function changeValueUnique($val) {
+		$result = "";
+		if (empty($val)) return "";
+		$arr = explode(",",$val);
+		$arr = array_unique($arr);
+		$arr = array_filter($arr, function($value) { return !is_null($value) && $value !== ''; });
+		return implode(",",$arr);
+	}
+	public function getDataPrice($booking_id) {
+		$yo = Yoyaku::where('booking_id', $booking_id)->first();
+		// So sanh thoi gian book, phuong tien, thoi gian don xe bus, co don hay khong
+		// Flag check co thay doi may thu ben tren hay khong?
+		$change_check = false;
+		$list_booking = null;
+		$admin_customer = [];
+		if(isset($yo->ref_booking_id)){
+			$yo_temp = Yoyaku::where('booking_id', $yo->ref_booking_id)->first();
+			$admin_customer[] = $yo_temp;
+			$list_booking = Yoyaku::where('ref_booking_id', $yo_temp->booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
+		}else{
+			$admin_customer[] = $yo;
+			$list_booking = Yoyaku::where('ref_booking_id', $booking_id)->whereNull('history_id')->whereNull('del_flg')->get();
+		}
+		foreach ($list_booking as $key => $li_bo) {
+			$admin_customer[] = $li_bo;
+		}
+		foreach ($admin_customer as $value) {
+			if(
+				($value->course === '01')
+				||($value->course === '02')
+				||($value->course === '07')
+				||($value->course === '10')
+				||($value->course === '03')
+				||($value->course === '04')
+				||($value->course === '06') // 2020/06/05
+			){
+				$check_has_note = true;
+			}
+			if(($value->course === '02') || ($value->course === '04') || ($value->course === '06') || ($value->course === '07') || ($value->course === '10')){
+				$check_has_couse_oneday = true;
+			}
+			if(($value->course === '04')){
+				$check_note_mail = true;
+			}
+		}
+		$admin_data['admin_customer'] = $admin_customer;
+		$admin_data['change_check'] = $change_check;
+		return $admin_data;
+	}
+	public function save_tr_payments_history($return_booking_id) {
+		//create data admin
+		$admin_data = "";
+		$admin_customer = "";
+		$bill_text = null;
+		$admin_price = null;
+		$admin_data = $this->getDataPrice($return_booking_id);
+		$admin_customer = $admin_data['admin_customer'];
+		$this->convert_booking_2_value($admin_data['admin_customer'], $admin_data);
+		$new_bill = $this->yoyaku_2_bill($admin_customer,$bill_text,$admin_price);
+		$payment_history = $this->get_data_payment_history($new_bill,$admin_data["admin_value_customer"],$admin_customer);
+		//Save payment history				
+		$info_price = $payment_history["info_price"];
+		$info_book = $payment_history["info_book"];
+		if ($info_price != null) {
+			foreach ($info_price as $row) {
+				$ph = new PaymentHistory;
+				$ph->booking_id = $return_booking_id;
+				if ($info_book != null) {
+					$ph->gender = $info_book[config('const.db.tr_payments_history.GENDER')];
+					$ph->age_value = $info_book[config('const.db.tr_payments_history.AGE_VALUE')];
+					$ph->repeat_user = $info_book[config('const.db.tr_payments_history.REPEAT_USER')];
+					$ph->date_value = $info_book[config('const.db.tr_payments_history.DATE_VALUE')];
+				}
+				$ph->product_name = $row["name"];
+				$ph->quantity = $row["quantity"];
+				$ph->unit = $row["unit"];
+				$ph->money = $row["price"];
+				$ph->price = $ph->money / $ph->quantity;
+				$ph->save();
+			}
+		}
+		$arr_return = [
+			'bill_text' => $bill_text
+			,'admin_price' => $admin_price
+			,'admin_data' => $admin_data
+		];
+		return $arr_return;
 	}
 }

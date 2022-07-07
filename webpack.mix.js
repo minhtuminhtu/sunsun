@@ -48,6 +48,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/assets/sunsun/admin/js/month.js', 'public/sunsun/admin/js')
     .js('resources/assets/sunsun/admin/js/time_off.js', 'public/sunsun/admin/js')
     .js('resources/assets/sunsun/admin/js/day_off.js', 'public/sunsun/admin/js')
+    .js('resources/assets/sunsun/admin/js/sales_list.js', 'public/sunsun/admin/js')
 
     .copyDirectory('resources/assets/sunsun/imgs', 'public/sunsun/imgs')
     .copyDirectory('resources/assets/sunsun/lib', 'public/sunsun/lib')

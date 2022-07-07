@@ -188,6 +188,19 @@ return [
 
         ],
 
+        'tr_payments_history' => [
+            'BOOKING_ID' => 'booking_id',
+            'REPEAT_USER' => 'repeat_user',
+            'GENDER' => 'gender',
+            'AGE_VALUE' => 'age_value',
+            'DATE_VALUE' => 'date_value',
+            'PRODUCT_NAME' => 'product_name',
+            'PRICE' => 'price',
+            'QUANTITY' => 'quantity',
+            'UNIT' => 'unit',            
+            'MONEY' => 'money',
+        ],
+
     ],
 
     'auth' => [

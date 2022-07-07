@@ -17,6 +17,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Setting;
 use App\Models\TrNotes;
+use App\Exports\SalesListExport;
+use App\Models\PaymentHistory;
 class AdminController extends Controller
 {
 	private $session_info = 'SESSION_BOOKING_USER';
@@ -1345,6 +1347,14 @@ class AdminController extends Controller
 					$ref_booking->update(['del_flg' => '1']);
 				}
 			}
+			// create new payments_history
+			$parent_booking = Yoyaku::where('booking_id',$booking_id)->whereNull("ref_booking_id")->get();
+			foreach ($parent_booking as $row) {
+				PaymentHistory::where('booking_id',$row->ref_booking_id)->delete();
+				$booking = new BookingController();
+				$booking->save_tr_payments_history($row->ref_booking_id);
+				break;
+			}
 			return [
 				'status' => true
 			];
@@ -2045,7 +2055,7 @@ class AdminController extends Controller
 		if($request->ajax())
 		{
 			$data = $request->all();
-				}
+		}
 		$list_data = $this->get_list_search_user($data);
 		// return create
 		if ($data == null) return view('sunsun.admin.user', ['data' => $list_data, 'type' => 0]);
@@ -2057,7 +2067,7 @@ class AdminController extends Controller
 					'status' => true,
 					'data' => $view
 				];
-			}
+	}
 	public function get_list_search_user($data=null, $type=null){
 		$where = array();
 		if ($data != null) {
@@ -2371,5 +2381,172 @@ class AdminController extends Controller
 		return [
 			'result' => $result
 		];
+	}
+	// payments_history
+	public function create_payments_history()
+	{
+		#get booking id is not exit tr_payemnts_history
+		$list_id = DB::select("
+			SELECT DISTINCT booking_id
+			FROM tr_yoyaku
+			WHERE history_id is null and ref_booking_id is null and name is not null
+			and not exists (select 1 from tr_payments_history ph where ph.booking_id = tr_yoyaku.booking_id )
+		");
+		foreach($list_id as $row) {
+			#create tr_payments_history
+			$booking = new BookingController();
+			$booking->save_tr_payments_history($row->booking_id);
+		}		
+	}
+	public function sales_list(Request $request)
+	{
+		$check_view = true;
+		$data = null;
+		if($request->ajax())
+		{
+			$data = $request->all();
+			$check_view = false;
+		}
+		// return create
+		if ($data == null) {
+			$data = $request->all();
+			$page = isset($data["page"]) ? $data["page"] : 1;
+			if ($request->session()->has('key_sales_list')) {
+				$data = $request->session()->get('key_sales_list');
+			} else {
+				$data = [
+					'date_start' => date("Y/m/d"),
+					'date_end' => date("Y/m/d"),
+					'notshowdeleted' => '1'
+				];
+			}
+			$data["page"] = $page;
+			$data['date_start_view'] = $this->get_week_day(Carbon::parse($data['date_start']));
+			$data['date_end_view'] = $this->get_week_day(Carbon::parse($data['date_end']));
+		}
+		$list_data = $this->get_salse_list($data);
+		if ($check_view) return view('sunsun.admin.sales_list', ['data' => $list_data, 'type' => 0, 'data_search' => $data]);		
+		// return ajax
+		$request->session()->forget('key_sales_list');
+		$request->session()->put('key_sales_list',$data);
+		$view = view('sunsun.admin.layouts.sales_list_data',['data' => $list_data, 'type' => 1])->render();
+		return [
+			'status' => true,
+			'data' => $view
+		];
+	}
+	public function pagination_sales_list(Request $request)
+	{
+		if($request->ajax())
+		{
+			$data = $request->all();
+			$_data_paginate = $this->get_salse_list($data);
+			$view = view('sunsun.admin.layouts.sales_list_data',['data' => $_data_paginate,'type' => 1])->render();
+			return [
+				'status' => true,
+				'data' => $view
+			];
+		}
+	}
+	public function export_sales_list(Request $request){
+		$data = $request->session()->get('key_sales_list');
+		$date_down = now();
+		return Excel::download(new SalesListExport($data), $date_down.'_sales_list.csv');
+	}
+	public function get_salse_list($data=null, $type=null){
+		$where = "";
+		$where_date = "";
+		if ($data != null) {
+			$date_start = isset($data['date_start']) ? $data['date_start'] : '';
+			$date_start = str_replace("/","",$date_start);
+			$date_end = isset($data['date_end']) ? $data['date_end'] : '';
+			$date_end = str_replace("/","",$date_end);
+			$check_del = isset($data['notshowdeleted']) ? $data['notshowdeleted'] : 0;
+			$where_join = "";
+			if (!empty($date_start) && !empty($date_end)) {
+				$where_date = " (yo.service_date_end is null and yo.service_date_start >= '$date_start' and yo.service_date_start <= '$date_end')
+								or 
+								(yo.service_date_end is not null and
+									(
+										(yo.service_date_start <= '$date_start' and yo.service_date_end >= '$date_start')
+										or
+										(yo.service_date_start <= '$date_end' and yo.service_date_end >= '$date_end')
+										or
+										(yo.service_date_start >= '$date_start' and yo.service_date_end <= '$date_end')
+									)
+								) ";
+			}
+			else if (!empty($date_start)) {
+				$where_date = " (yo.service_date_end is null and yo.service_date_start >= '$date_start' )
+								or 
+								(yo.service_date_end is not null and
+									(
+										(yo.service_date_start <= '$date_start' and yo.service_date_end >= '$date_start')
+									)
+								) ";
+			} 
+			else if (!empty($date_end)) {
+				$where_date = " (yo.service_date_end is null and yo.service_date_start <= '$date_end' )
+								or 
+								(yo.service_date_end is not null and
+									(
+										(yo.service_date_start <= '$date_end' and yo.service_date_end >= '$date_end')
+									)
+								) ";
+			}
+			if (!empty($where_date)) {
+				$where_date = " ($where_date) ";
+			}
+			if ($check_del == 1) {
+				$where = " (yo.del_flg is null) ";
+			}
+		}
+		$data = DB::table('tr_payments_history as ph')->selectRaw("
+					yo.name
+					, yo.phone
+					, yo.email
+					, ph.gender
+					, ph.age_value
+					, ph.date_value
+					, ph.repeat_user
+					, mk1.kubun_value as transport
+					, ph.product_name
+					, ph.price
+					, CONCAT(ph.quantity,ph.unit) as quantity
+					, ph.money
+					, mk2.kubun_value as payment_method
+				")
+				->join('tr_yoyaku as yo', function($join) use ($where,$where_date)
+				{
+					$join->on('yo.booking_id', '=', 'ph.booking_id');
+					$join->whereNull('yo.history_id')->whereNull('yo.ref_booking_id');
+					if (!empty($where)) {
+						$join->whereRaw($where);
+					}
+					if (!empty($where_date)) {
+						$join->whereRaw($where_date);
+					}
+				})
+				->leftJoin('ms_kubun as mk1', function($join) use ($on)
+				{
+					$join->on('mk1.kubun_id','=','yo.transport')
+						->where('mk1.kubun_type','=','002');
+				})
+				->leftJoin('ms_kubun as mk2', function($join) use ($on)
+				{
+					$join->on('mk2.kubun_id','=','yo.payment_method')
+						->where('mk2.kubun_type','=','032');
+				})
+				->orderBy('yo.service_date_start', 'DESC')
+				->orderBy('ph.booking_id', 'DESC')
+				->orderBy('ph.tr_payments_history_id', 'ASC');
+		//$booking = new BookingController();
+		//Log::debug($booking::getEloquentSqlWithBindings($data));
+		if (!empty($type)) {
+			$data = $data->get();
+		}else{
+			$data = $data->paginate(20);
+		}
+		return $data;
 	}
 }

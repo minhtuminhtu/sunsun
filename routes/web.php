@@ -191,7 +191,11 @@ Route::middleware('begin.auth')->group(function(){
             // notes
             Route::post('/ajax_save_notes',['as' => '.ajax_save_notes', 'uses' => 'AdminController@ajax_save_notes']);
             Route::post('/ajax_name_search',['as' => '.ajax_name_search', 'uses' => 'AdminController@ajax_name_search']);
-
+            // payments_history
+            Route::get('/create_payments_history',['as' => '.create_payments_history', 'uses' => 'AdminController@create_payments_history']);
+            Route::get('/sales_list',['as' => '.sales_list', 'uses' => 'AdminController@sales_list']);
+            Route::get('/pagination_sales_list',['as' => '.pagination_sales_list', 'uses' => 'AdminController@pagination_sales_list']);
+            Route::get('/export_sales_list',['as' => '.export_sales_list', 'uses' => 'AdminController@export_sales_list']);
         });
     });
 });
