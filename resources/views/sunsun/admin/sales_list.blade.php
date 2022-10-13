@@ -6,6 +6,9 @@
 @section('head')
 	@parent
 	<style>
+		.container {
+			max-width: 1440px;
+		}
 		.form-control:focus{
 			border-color:#49505757;
 			box-shadow:none;
@@ -95,16 +98,16 @@
 		}
 		.input_date {
 			float: left;
-			width: 18%;
+			width: 11%;
 		}
 		.input_del {
-			margin: 5px 0 10px 64.5%;
+			margin: 5px 0 10px 35%;
 		}
 		.control_form {
 			padding:1rem;
 		}
 		.icon_date {
-			padding: 3px 1%;
+			padding: 4px 10px;
 		}
 		.txt_r {
 			text-align: right;
@@ -121,10 +124,10 @@
 				@include('sunsun.admin.layouts.breadcrumb')
 			</div>
 			<div class="main-head">
-				<div class="control_form" style="display: flex; padding:1%; border:1px solid #dee2e6">
+				<div class="control_form" style="display: flex; padding:1% 1% .5% 1%; border:1px solid #dee2e6">
 					<form id="searchform" style="width: 100%">
 						<div class="form-group" style="display: flex">
-							<label for="staticName" style="width: 15%; float: left;" class="col-form-label font_label">予約日</label>
+							<label for="staticName" style="width: 3%; float: left;" class="col-form-label font_label">予約日</label>
 							<span class="input_date">
 								<input class="bg-white input-date__value" id="input-start__date" name="date_start" readonly="readonly" type="text" style="opacity: 0; width: 1px; position: absolute;" value="{{ $data_search['date_start'] }}" />
 								<input class="bg-white input-date__value" id="input-start__view" readonly="readonly" type="text" value="{{ $data_search['date_start'].'('.$data_search['date_start_view'].')' }}" />
@@ -132,7 +135,7 @@
 							<span class="icon_date" id="button-start__date">
 								<i data-time-icon="icon-time" data-date-icon="icon-calendar" class="fa fa-calendar-alt icon-calendar"></i>
 							</span>
-							<label style="width: 4%; float: left; text-align: center;" class="col-form-label font_label">～</label>
+							<label style="width: 2%; float: left; text-align: center;" class="col-form-label font_label">～</label>
 							<span class="input_date">
 								<input class="bg-white input-date__value" id="input-end__date" name="date_end" readonly="readonly" type="text" style="opacity: 0; width: 1px; position: absolute;" value="{{ $data_search['date_end'] }}" />
 								<input class="bg-white input-date__value" id="input-end__view" readonly="readonly" type="text"

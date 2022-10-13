@@ -196,6 +196,9 @@ Route::middleware('begin.auth')->group(function(){
             Route::get('/sales_list',['as' => '.sales_list', 'uses' => 'AdminController@sales_list']);
             Route::get('/pagination_sales_list',['as' => '.pagination_sales_list', 'uses' => 'AdminController@pagination_sales_list']);
             Route::get('/export_sales_list',['as' => '.export_sales_list', 'uses' => 'AdminController@export_sales_list']);
+            Route::get('/day_on',['as' => '.dayon', 'uses' => 'DayOnController@Create']);
+            Route::post('/submit_day_on',['as' => '.submit_day_on', 'uses' => 'DayOnController@Submit']);
+            Route::post('/ajax_day_on',['as' => '.ajax_day_on', 'uses' => 'DayOnController@GetAjax']);
         });
     });
 });

@@ -1,18 +1,36 @@
 $(function () {
     (function($) {
-        Date.prototype.addDays = function(days) {
-            var date = new Date(this.valueOf());
-            date.setDate(date.getDate() + days);
+        // Date.prototype.addDays = function(days) {
+        //     var date = new Date(this.valueOf());
+        //     date.setDate(date.getDate() + days);
+        //     return date;
+        // }
+        // var today = new Date();
+        // var day = today.getDay();
+        // if (day == 3 || day == 4) {
+        //     today = (day == 3) ? today.addDays(2) : today.addDays(1);
+        // } else {
+        //     first_page = false;
+        //     createListKubun();
+        // }
+        function addDayNow(today) {
+            return moment(today).add(1, 'days');
+        }
+        function getToDay(today) {
+            var date = today.format('Y/MM/DD');
+            var date_day = today.weekday();
+            if (_date_enable.indexOf(date) >= 0) {
+                return date;
+            }
+            if (_off_def.indexOf(date_day) >= 0) {
+                date = getToDay(addDayNow(today));
+            }
             return date;
         }
-        var today = new Date();
-        var day = today.getDay();
-        if (day == 3 || day == 4) {
-            today = (day == 3) ? today.addDays(2) : today.addDays(1);
-        } else {
-            first_page = false;
-            createListKubun();
-        }
+        var date = getToDay(moment())
+        var today = new Date(date);
+        first_page = false;
+        createListKubun();
         $('#go-day').off('click');
         $('#go-day').on('click',function (e) {
             let day_url = $curent_url.substring(0, $curent_url.length - 8) + "day";
@@ -31,7 +49,7 @@ $(function () {
         $('#show_current_date').datepicker({
             language: 'ja',
             weekStart: 1,
-            daysOfWeekDisabled: "3,4",
+            beforeShowDay: disableDates,
             datesDisabled: _date_holiday,
             dateFormat: 'yyyy/mm/dd'
         }).on("changeDate", function(e) {
@@ -44,6 +62,18 @@ $(function () {
             refeshPage();
             checkDateDisableButton();
         }).datepicker("setDate", today);
+        function disableDates(date) {
+            let shouldDisable = true;
+            var date_day = date.getDay();
+            if(_off_def.indexOf(date_day) >= 0){
+                shouldDisable = false;
+            }
+            var string_date = jQuery.datepicker.formatDate('yy/mm/dd', date);
+            if (_date_enable.indexOf(string_date) >= 0) {
+                shouldDisable = true;
+            }
+            return shouldDisable;
+        }
         function searchDate(date_select) {
             var _date_search = date_select.getFullYear()+"-"+(date_select.getMonth()+1)+"-"+date_select.getDate();
             $("#date_search").val(_date_search);
@@ -157,6 +187,7 @@ $(function () {
                                 }
                                 alert("休日が未来の日付のみに設定できます。");
                                 check_roll = true;
+                                return;
                             }
                         }
                         if (!error_check) {

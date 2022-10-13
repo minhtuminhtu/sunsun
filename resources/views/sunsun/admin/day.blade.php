@@ -9,7 +9,7 @@
     @include('sunsun.front.parts.booking_modal')
     <?php
         $disable_all = \Helper::getDisableAll($date);
-        $time_holiday = \Helper::getTimeHoliday($date) ?>
+        $time_holiday = \Helper::getTimeHoliday($date); ?>
     <main>
         <form style="display: none" action="{{route('admin.day')}}" method="POST" id="selectCourse">
             @csrf
@@ -29,13 +29,16 @@
                     <div class="">
                         <div class="control-view">
                             <div class="control-align_center button-control">
+                                <button class="btn btn-block btn-main control-date" id="go-sales_list">売上リスト</button>
+                            </div>
+                            <div class="control-align_center button-control">
                                 <button class="btn btn-block btn-main control-date" id="go-weekly">週間表示</button>
                             </div>
                             <div class="control-align_center button-control">
-                                <button class="btn btn-block btn-main control-date" id="go-monthly">月間表示</button>
+                                <button class="btn btn-block btn-main control-date" id="go-user">ユーザー 管理</button>
                             </div>
                             <div class="control-align_center button-control">
-                                <button class="btn btn-block btn-main control-date" id="go-user">ユーザー 管理</button>
+                                <button class="btn btn-block btn-main control-date" id="go-day_on">休日設定</button>
                             </div>
                             <div class="control-align_center button-control">
                                 <button class="btn btn-block btn-main control-date" id="go-timeoff">予約不可設定</button>
@@ -342,7 +345,7 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     @php
-                                    if (($week_day == 3) || ($week_day == 4)){
+                                    if (!empty($chech_date_dis)){
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
@@ -365,7 +368,7 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     @php
-                                    if (($week_day == 3) || ($week_day == 4)){
+                                    if (!empty($chech_date_dis)){
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
@@ -387,7 +390,7 @@
                                     @endphp
                                     @php echo $disable_1; @endphp
                                     @php
-                                    if (($week_day == 3) || ($week_day == 4)){
+                                    if (!empty($chech_date_dis)){
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
@@ -422,7 +425,7 @@
                                     first
                                     @php echo $disable_4; @endphp
                                     @php
-                                    if (($week_day == 3) || ($week_day == 4)){
+                                    if (!empty($chech_date_dis)){
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
@@ -449,7 +452,7 @@
                                     @endphp
                                     @php echo $disable_4; @endphp
                                     @php
-                                    if (($week_day == 3) || ($week_day == 4)){
+                                    if (!empty($chech_date_dis)){
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
@@ -474,7 +477,7 @@
                                     @endphp
                                     @php echo $disable_4; @endphp
                                     @php
-                                    if (($week_day == 3) || ($week_day == 4)){
+                                    if (!empty($chech_date_dis)){
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
@@ -499,7 +502,7 @@
                                     @endphp
                                     last
                                     @php
-                                    if (($week_day == 3) || ($week_day == 4)){
+                                    if (!empty($chech_date_dis)){
                                       echo ' bg-dis ';
                                     }else if (($week_day == 5) && ($time['time_value'] == '1845')){
                                       echo ' bg-dis ';
@@ -558,7 +561,7 @@
                             }
                             @endphp
                             @php
-                            if (($week_day == 3) || ($week_day == 4)){
+                            if (!empty($chech_date_dis)){
                               echo ' bg-dis ';
                             }
                             @endphp
@@ -602,7 +605,7 @@
                                 $dis_tmp = $disable_2;
                             @endphp
                             @php
-                            if (($week_day == 3) || ($week_day == 4)){
+                            if (!empty($chech_date_dis)){
                               echo ' bg-dis ';
                             }
                             @endphp
@@ -641,7 +644,7 @@
                             <div class="main-col__pet pet-col_second
                                 @php echo $dis_tmp; $dis_tmp = ''; @endphp
                                 @php
-                                if (($week_day == 3) || ($week_day == 4)){
+                                if (!empty($chech_date_dis)){
                                   echo ' bg-dis ';
                                 }
                                 @endphp

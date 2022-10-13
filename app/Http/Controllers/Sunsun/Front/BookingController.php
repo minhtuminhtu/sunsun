@@ -914,7 +914,7 @@ class BookingController extends Controller
 	}
 	public function get_price_course ($booking, &$bill, $overflow = false) {
 		$date_value_kbn = empty($booking['date-value-new']) ? $booking['date-value'] : $booking['date-value-new'];
-		$date_value_kbn = empty($date_value_kbn) ? $booking['plan_date_start-value'] : $date_value_kbn;		
+		$date_value_kbn = empty($date_value_kbn) ? $booking['plan_date_start-value'] : $date_value_kbn;
 		$kubun_type_price = \Helper::getKubunTypePrice($date_value_kbn);
 		$course = json_decode($booking['course'], true);
 		$course_price = 0;
@@ -1336,6 +1336,8 @@ class BookingController extends Controller
 			$new_bill[$row->sort_no]['price'] = 0;
 			$new_bill[$row->sort_no]['quantity'] = 0;
 		}
+		$bill_tmp = null;
+		$check_new = true;
 		foreach ($yoyaku as $key => $yo) {
 			if((!isset($yo->fake_booking_flg)) || ($yo->fake_booking_flg != '1')){
 				if($yo->course == '01'){
@@ -1418,6 +1420,21 @@ class BookingController extends Controller
 					$new_bill[$sort_no_temp->sort_no]['quantity']++;
 				}
 				$this->get_price_option_admin($yo, $new_bill);
+			}
+			foreach ($new_bill as $key_bill => $row_bill) {
+				if ($row_bill["price"] != 0) {
+					if ($check_new
+						|| ($bill_tmp != null && $row_bill["price"] != $bill_tmp[$key_bill]["price"]) ){
+						if (isset($new_bill[$key_bill][config('const.db.tr_payments_history.YOYAKU_INDEX')]))
+							$new_bill[$key_bill][config('const.db.tr_payments_history.YOYAKU_INDEX')] .= "," . $key;
+						else
+							$new_bill[$key_bill][config('const.db.tr_payments_history.YOYAKU_INDEX')] = $key;
+					}
+				}
+			}
+			if ($bill_tmp == null) {
+				$bill_tmp = $new_bill;
+				$check_new = false;
 			}
 		}
 		$total = 0;
@@ -2153,9 +2170,18 @@ class BookingController extends Controller
 		if (empty($checkin)) return true;
 		$begin = $this->convertStringToDate($checkin);
 		if (!$begin || !$this->isDate($begin)) return false;
+		return $this->checkDateOff($begin);
+	}
+	private function checkDateOff($begin) {
+		$begin = str_replace("-","/",$begin);
+		$date_enable = \Helper::getDayOn();
+		if (in_array($begin, $date_enable) ) {
+			return true;
+		}
 		$what_day = date('w', strtotime($begin));
-		if (in_array($what_day, [3,4]) )
+		if (in_array($what_day, config('const.off_def')) ) {
 			return false;
+		}
 		return true;
 	}
 	private function validate_holyday($checkin, $checkout, $room_type = null) {
@@ -2165,9 +2191,8 @@ class BookingController extends Controller
 			$begin = $this->convertStringToDate($checkin);
 			//Log::debug($begin);
 			if (!$begin || !$this->isDate($begin)) return false;
-			$what_day = date('w', strtotime($begin));
-			if (in_array($what_day, [3,4]) )
-				return false;
+			$check_off = $this->checkDateOff($begin);
+			if (!$check_off) return false;
 			$checkin = date('Ymd', strtotime($begin. ' + 1 days'));
 		};
 		return $this->validate_holyday_special($checkin_tmp, $checkout_tmp, $room_type);
@@ -3171,7 +3196,7 @@ class BookingController extends Controller
 			}
 		}
 		$sql_time_path = "";
-		if (count($time_bath) > 0) { // mỗi lần tắm cách nhau 2h
+		if ($time_bath != null && count($time_bath) > 0) { // mỗi lần tắm cách nhau 2h
 			foreach ($time_bath as $time) {
 				$time_max = $time['max'];
 				$time_min = $time['min'];
@@ -3943,53 +3968,86 @@ class BookingController extends Controller
 	public function remove_space($value) {
 		return preg_replace('/\s+|　/', '', $value);
 	}
-	public function get_data_payment_history($data_pr,$data_info,$data_age) {
-		$sql_insert = "";
-		$data_ss = [];
-		foreach ($data_pr as $row) {
-			if ($row["price"] != 0) {
-				$data_ss["info_price"][] = $row;
-			}
-		}		
-		$plus = "";
+	public function get_data_payment_history(&$data_pr,$data_info,$data_age) {
+		$plus = ",";
 		$info_book = [];
 		foreach ($data_age as $i_age => $row_age) {
 			if (isset($row_age->age_value) && !empty($row_age->age_value)) {
-				$info_book[config('const.db.tr_payments_history.AGE_VALUE')] .= $plus . $row_age->age_value;
+				$data_info[$i_age][config('const.db.tr_payments_history.AGE_VALUE')] = $row_age->age_value;
 			}
-			$plus = ",";
 		}
-		$plus = "";
-		foreach ($data_info as $i_info => $row_info) {
-			if (isset($row_info['repeat_user']) && !empty($row_info['repeat_user'])) {
-				$info_book[config('const.db.tr_payments_history.REPEAT_USER')] .= $plus . $row_info['repeat_user'];
-			}
-			if (isset($row_info['gender']) && !empty($row_info['gender'])) {
-				$info_book[config('const.db.tr_payments_history.GENDER')] .= $plus . $row_info['gender'];
-			}
-			if(isset($row_info['date']) && !empty($row_info['date']) && count($row_info['date']) > 0) {
-				// $count_date = count($row_info['date']) - 1;
+		$data_ss = [];
+		foreach ($data_pr as $i_pr => $row) {
+			if ($row["price"] != 0) {
+				$yo_index = $row[config('const.db.tr_payments_history.YOYAKU_INDEX')];
+				$split_yo_index = explode(",",$yo_index);
+				$count_index = count($split_yo_index);
+				$gender = "";
+				$age_value = "";
+				$repeat_user = "";
 				$date_value = "";
-				foreach ($row_info['date'] as $i_date => $row_date) {
-					// if ($i_date == 0 || $i_date == $count_date) {
-						if(isset($row_date->service_date) && !empty($row_date->service_date)) {
-							if (empty($date_value))
-								$date_value = Carbon::createFromFormat('Ymd', $row_date->service_date)->format('Y/m/d');
-							else
-								$date_value .= "," .Carbon::createFromFormat('Ymd', $row_date->service_date)->format('Y/m/d');
+				for ($i = 0; $i < $count_index ;$i++) {
+					$yo_index_cur = $split_yo_index[$i];
+					$info_cur = $data_info[$yo_index_cur];
+					if ($gender == "")
+						$gender = $info_cur[config('const.db.tr_payments_history.GENDER')];
+					else {
+						$gender .= $plus . $info_cur[config('const.db.tr_payments_history.GENDER')];
+					}
+					if ($age_value == "")
+						$age_value = $info_cur[config('const.db.tr_payments_history.AGE_VALUE')];
+					else {
+						$age_value .= $plus . $info_cur[config('const.db.tr_payments_history.AGE_VALUE')];
+					}
+					if ($repeat_user == "")
+						$repeat_user = $info_cur[config('const.db.tr_payments_history.REPEAT_USER')];
+					else {
+						$repeat_user .= $plus . $info_cur[config('const.db.tr_payments_history.REPEAT_USER')];
+					}
+					$date_value_info = "";
+					if(isset($info_cur['date']) && !empty($info_cur['date']) && count($info_cur['date']) > 0) {
+						// $count_date = count($row_info['date']) - 1;
+						$date_value_info = "";
+						foreach ($info_cur['date'] as $i_date => $row_date) {
+							// if ($i_date == 0 || $i_date == $count_date) {
+								if(isset($row_date->service_date) && !empty($row_date->service_date)) {
+									if (empty($date_value))
+										$date_value_info = Carbon::createFromFormat('Ymd', $row_date->service_date)->format('Y/m/d');
+									else
+										$date_value_info .= $plus .Carbon::createFromFormat('Ymd', $row_date->service_date)->format('Y/m/d');
+								}
+							// }
 						}
-					// }
+					} else if(isset($info_cur['date-view']) && !empty($info_cur['date-view'])) {
+						$date_value_info = $info_cur['date-view'];
+					}
+					if ($date_value == "")
+						$date_value = $date_value_info;
+					else {
+						$date_value .= $plus . $date_value_info;
+					}
 				}
-				$info_book[config('const.db.tr_payments_history.DATE_VALUE')] .= $plus . $date_value;
-			} else if(isset($row_info['date-view']) && !empty($row_info['date-view'])) {
-				$info_book[config('const.db.tr_payments_history.DATE_VALUE')] .= $plus . $row_info['date-view'];
+				if ($gender != "") {
+					$gender = $this->changeValueUnique($gender);
+					$row[config('const.db.tr_payments_history.GENDER')] = $gender;
+				}
+				if ($age_value != "") {
+					$age_value = $this->changeValueUnique($age_value);
+					$row[config('const.db.tr_payments_history.AGE_VALUE')] = $age_value;
+				}
+				if ($repeat_user != "") {
+					$repeat_user = $this->changeValueUnique($repeat_user);
+					$row[config('const.db.tr_payments_history.REPEAT_USER')] = $repeat_user;
+				}
+				Log::debug($date_value);
+				if ($date_value != "") {
+					$date_value = $this->changeValueUnique($date_value);
+					$row[config('const.db.tr_payments_history.DATE_VALUE')] = $date_value;
+					Log::debug("set date view");
+				}
+				$data_ss[$i_pr] = $row;
 			}
-			$plus = ",";
 		}
-		foreach ($info_book as $key=>$val) {
-			$info_book[$key] = $this->changeValueUnique($val);
-		}
-		$data_ss["info_book"] = $info_book;
 		return $data_ss;
 	}
 	public function changeValueUnique($val) {
@@ -4051,20 +4109,20 @@ class BookingController extends Controller
 		$admin_customer = $admin_data['admin_customer'];
 		$this->convert_booking_2_value($admin_data['admin_customer'], $admin_data);
 		$new_bill = $this->yoyaku_2_bill($admin_customer,$bill_text,$admin_price);
-		$payment_history = $this->get_data_payment_history($new_bill,$admin_data["admin_value_customer"],$admin_customer);
-		//Save payment history				
-		$info_price = $payment_history["info_price"];
-		$info_book = $payment_history["info_book"];
-		if ($info_price != null) {
-			foreach ($info_price as $row) {
+		$data_ss = $this->get_data_payment_history($new_bill,$admin_data["admin_value_customer"],$admin_customer);
+		//Save payment history
+		if ($data_ss != null) {
+			foreach ($data_ss as $row) {
 				$ph = new PaymentHistory;
 				$ph->booking_id = $return_booking_id;
-				if ($info_book != null) {
-					$ph->gender = $info_book[config('const.db.tr_payments_history.GENDER')];
-					$ph->age_value = $info_book[config('const.db.tr_payments_history.AGE_VALUE')];
-					$ph->repeat_user = $info_book[config('const.db.tr_payments_history.REPEAT_USER')];
-					$ph->date_value = $info_book[config('const.db.tr_payments_history.DATE_VALUE')];
-				}
+				if (isset($row[config('const.db.tr_payments_history.GENDER')]))
+					$ph->gender = $row[config('const.db.tr_payments_history.GENDER')];
+				if (isset($row[config('const.db.tr_payments_history.AGE_VALUE')]))
+					$ph->age_value = $row[config('const.db.tr_payments_history.AGE_VALUE')];
+				if (isset($row[config('const.db.tr_payments_history.REPEAT_USER')]))
+					$ph->repeat_user = $row[config('const.db.tr_payments_history.REPEAT_USER')];
+				if (isset($row[config('const.db.tr_payments_history.DATE_VALUE')]))
+					$ph->date_value = $row[config('const.db.tr_payments_history.DATE_VALUE')];
 				$ph->product_name = $row["name"];
 				$ph->quantity = $row["quantity"];
 				$ph->unit = $row["unit"];

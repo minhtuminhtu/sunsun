@@ -1,4 +1,6 @@
-var _off_def = "3,4";
+// var _off_def = "3,4";
+// var _date_enable = ["2022/09/14","2022/09/15"];
+var _off_def_new = _off_def.slice();
 var date_check = false;
 var admin_check = false;
 var result_confirm = false;
@@ -74,6 +76,24 @@ function showHidePet() {
 		$(".option_hd").removeClass("option_hd");
 	}
 }
+function addDayNow(today) {
+	return moment(today).add(1, 'days');
+}
+function getToDay(today) {
+		var date_day = today.weekday();
+		var date = today.format('Y/MM/DD');
+		if (_date_enable.indexOf(date) >= 0) {
+			return today;
+		}
+		if (_off_def.indexOf(date_day) >= 0) {
+			today = getToDay(addDayNow(today));
+		}
+		var date = today.format('Y/MM/DD');
+		if (_date_holiday.indexOf(date) >= 0) {
+			today = getToDay(addDayNow(today));
+		}
+	return today;
+}
 $(function() {
 	let init_event = 0;
 	var modal_confirm = $('#modal_confirm');
@@ -93,12 +113,7 @@ $(function() {
 	history.back();
 	let modal_choice_time = $('#choice_date_time');
 	var days_short = ["日","月","火","水","木","金","土"];
-	var today = moment();
-	if(today.weekday() == 3){
-		today = moment(today).add(2, 'days');
-	}else if(today.weekday() == 4){
-		today = moment(today).add(1, 'days');
-	}
+	var today = getToDay(moment());
 	var tomorrow = moment(today).add(1, 'days');
 	let get_service = function(course, course_data, course_time, pop_data) {
 		// delete validate color
@@ -351,10 +366,10 @@ $(function() {
 						//     $('#range_date_end').val(valid_date.add(1, 'days').format('Y/MM/DD'));
 						// }
 						$('#range_date_end').val('－');
-						var _off_set = _off_def;
-						if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
-							_off_set += "1";
-						}
+						// var _off_set = _off_def;
+						// if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
+						// 	_off_set += "1";
+						// }
 						// console.log(html.date_selected);
 						// console.log(html.date_start);
 						if(window.location.href.indexOf("admin") >= 0){
@@ -364,7 +379,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true, true),
+								beforeShowDay: disableDates2,
 								datesDisabled: html.date_selected,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -375,7 +390,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true),
+								beforeShowDay: disableDates1,
 								datesDisabled: html.date_selected_end,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -386,7 +401,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true, true),
+								beforeShowDay: disableDates2,
 								datesDisabled: html.date_selected,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -396,7 +411,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true),
+								beforeShowDay: disableDates1,
 								datesDisabled: html.date_selected_end,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -515,18 +530,55 @@ $(function() {
 			}
 		};
 		function get_off_def(stay = false, start_stay = false) {
-			var _off_set = _off_def;
+			var _off_set = _off_def.slice();
 			if (typeof $('#course') != "undefined" && $('#course') != null) {
 				if(start_stay === true){
-					_off_set += ",2";
+					_off_set.push(2);
 				}
 				if(stay === false){
 					if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
-						_off_set += ",6,0";
+						_off_set.push(6);
+						_off_set.push(0);
 					}
 				}
 			}
 			return _off_set;
+		}
+		function disableDates(date) {
+			_off_def_new = get_off_def();
+			return _exeDisableDates(date);
+		}
+		// true
+		function disableDates1(date) {
+			_off_def_new = get_off_def(true);
+			return _exeDisableDates(date);
+		}
+		// true,true
+		function disableDates2(date) {
+			_off_def_new = get_off_def(true,true);
+			return _exeDisableDates(date);
+		}
+		function _exeDisableDates(date) {
+			let shouldDisable = true;
+			var date_day = date.getDay();
+			if(_off_def_new.indexOf(date_day) >= 0){
+				shouldDisable = false;
+			}
+			var string_date = jQuery.datepicker.formatDate('yy/mm/dd', date);
+			if (_date_enable.indexOf(string_date) >= 0) {
+				shouldDisable = true;
+			}
+			// special
+			if (shouldDisable == false) {
+				if (date_day == 2) {
+					date = date.addDays(1);
+					string_date = jQuery.datepicker.formatDate('yy/mm/dd', date);
+					if (_date_enable.indexOf(string_date) >= 0) {
+						shouldDisable = true;
+					}
+				}
+			}
+			return shouldDisable;
 		}
 		if(window.location.href.indexOf("admin") >= 0){
 			// console.log('admin');
@@ -536,7 +588,7 @@ $(function() {
 				dateFormat: "yyyy/mm/dd",
 				startDate: new Date(),
 				autoclose: true,
-				daysOfWeekDisabled: get_off_def(),
+				beforeShowDay: disableDates,
 				datesDisabled: _date_holiday,
 				weekStart: 1,
 				orientation: 'bottom',
@@ -554,7 +606,7 @@ $(function() {
 				dateFormat: "yyyy/mm/dd",
 				startDate: new Date(),
 				autoclose: true,
-				daysOfWeekDisabled: get_off_def(),
+				beforeShowDay: disableDates,
 				datesDisabled: _date_holiday,
 				weekStart: 1,
 				orientation: 'bottom',
@@ -625,10 +677,10 @@ $(function() {
 						// $('.input-daterange').datepicker('destroy');
 						$('#range_date_start').datepicker('destroy');
 						$('#range_date_end').datepicker('destroy');
-						var _off_set = _off_def;
-						if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
-							_off_set += "1";
-						}
+						// var _off_set = _off_def;
+						// if ($('#course').val().indexOf('"kubun_id":"03"') >= 0) {
+						// 	_off_set += "1";
+						// }
 						// console.log(html.date_selected);
 						// console.log(html.date_start);
 						if(window.location.href.indexOf("admin") >= 0){
@@ -638,7 +690,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true, true),
+								beforeShowDay: disableDates2,
 								datesDisabled: html.date_selected,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -649,7 +701,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true),
+								beforeShowDay: disableDates1,
 								datesDisabled: html.date_selected_end,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -660,7 +712,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true, true),
+								beforeShowDay: disableDates2,
 								datesDisabled: html.date_selected,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -670,7 +722,7 @@ $(function() {
 								dateFormat: 'yyyy/mm/dd',
 								autoclose: true,
 								startDate: new Date(),
-								daysOfWeekDisabled: get_off_def(true),
+								beforeShowDay: disableDates1,
 								datesDisabled: html.date_selected_end,
 								weekStart: 1,
 								orientation: 'bottom',
@@ -765,7 +817,7 @@ $(function() {
 				dateFormat: 'yyyy/mm/dd',
 				autoclose: true,
 				startDate: new Date(),
-				daysOfWeekDisabled: _off_def,
+				beforeShowDay: disableDates,
 				datesDisabled: _date_holiday,
 				// daysOfWeekHighlighted: "1,2",
 				weekStart: 1,
@@ -777,7 +829,7 @@ $(function() {
 				dateFormat: 'yyyy/mm/dd',
 				autoclose: true,
 				startDate: new Date(),
-				daysOfWeekDisabled: _off_def,
+				beforeShowDay: disableDates,
 				datesDisabled: _date_holiday,
 				// daysOfWeekHighlighted: "1,2",
 				weekStart: 1,
@@ -792,7 +844,7 @@ $(function() {
 				autoclose: true,
 				startDate: new Date(),
 				endDate: get_end_date(),
-				daysOfWeekDisabled: _off_def,
+				dbeforeShowDay: disableDates,
 				datesDisabled: _date_holiday,
 				weekStart: 1,
 				orientation: 'bottom',
@@ -804,7 +856,7 @@ $(function() {
 				autoclose: true,
 				startDate: new Date(),
 				endDate: get_end_date(),
-				daysOfWeekDisabled: _off_def,
+				beforeShowDay: disableDates,
 				datesDisabled: _date_holiday,
 				weekStart: 1,
 				orientation: 'bottom',
@@ -827,7 +879,7 @@ $(function() {
 					autoclose: true,
 					startDate: new Date($('#plan_date_start').val()),
 					endDate: get_end_date(),
-					daysOfWeekDisabled: _off_def,
+					beforeShowDay: disableDates,
 					datesDisabled: _date_holiday,
 					weekStart: 1,
 					orientation: 'bottom',
@@ -839,7 +891,7 @@ $(function() {
 					autoclose: true,
 					startDate: new Date($('#plan_date_start').val()),
 					endDate: get_end_date(),
-					daysOfWeekDisabled: _off_def,
+					beforeShowDay: disableDates,
 					datesDisabled: _date_holiday,
 					weekStart: 1,
 					orientation: 'bottom',
@@ -852,6 +904,10 @@ $(function() {
 		});
 		let highlight = function(start){
 			var highlight = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+			if (highlight.length > 5) {
+				$('#plan_date_end').val(highlight[4]);
+				highlight.splice(5, 2);
+			}
 			highlight.forEach(function(element,index) {
 				let date_hl = moment(element + " 00:00 +0000", 'YYYY-MM-DD HH:mm Z').utc().format("X") + "000";
 				if((index == 0) || (index == (highlight.length - 1))){
@@ -880,6 +936,10 @@ $(function() {
 		});
 		$('#plan_date_end').datepicker().on('hide', function(e) {
 			range_date_temp = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+			if (range_date_temp.length > 5) {
+				$('#plan_date_end').val(range_date_temp[4]);
+				range_date_temp.splice(5, 2);
+			}
 			if (check_end || check_start) {
 				date_tmp = $('#plan_date_start').val();
 				if (check_start) $(".range_date").change();
@@ -1084,7 +1144,7 @@ $(function() {
 	$('.btn-booking').off('click');
 	$('.btn-booking').on('click', function(e) {
 		e.preventDefault();
-		// check course 03 
+		// check course 03
 		var course_id = JSON.parse($('#course').val()).kubun_id;
 		if (course_id == "03") {
 			$('#date').removeClass('validate_failed');
@@ -1100,7 +1160,7 @@ $(function() {
 			if (!check) {
 				$("#date").addClass('validate_failed');
 				return;
-			}            
+			}
 		}
 		$('p.note-error').remove();
 		if($('select[name=gender]').val() === "0"){
@@ -1309,6 +1369,10 @@ $(function() {
 		// }
 		$(".range_date").change(function(){
 			var date_arr = get_dates($('#plan_date_start').val(), $('#plan_date_end').val());
+			if (date_arr.length > 5) {
+				date_arr.splice(5, 2);
+				$('#plan_date_end').val(date_arr[4]);
+			}
 			$('.time-list').empty();
 			moment.locale('ja');
 			date_arr.forEach(function(element,index) {
@@ -1850,12 +1914,7 @@ let load_after_ajax = function(){
 	let modal_choice_time = $('#choice_date_time');
 	load_time_delete_event();
 	var days_short = ["日","月","火","水","木","金","土"];
-	var today = moment();
-	if(today.weekday() == 3){
-		today = moment(today).add(2, 'days');
-	}else if(today.weekday() == 4){
-		today = moment(today).add(1, 'days');
-	}
+	var today = getToDay(moment());
 	var tomorrow = moment(today).add(1, 'days');
 	$('#add-time').off('click');
 	$('#add-time').on('click', function() {
@@ -2109,8 +2168,12 @@ function get_dates(startDate, stopDate) {
 	var currentDate = moment(new Date(startDate));
 	var stopDate = moment(new Date(stopDate));
 	while (currentDate <= stopDate) {
+		var date_check = moment(currentDate).format('YYYY/MM/DD');
+		if (_date_enable.indexOf(date_check) >= 0) {
+			dateArray.push(date_check);
+		}
 		if((moment(currentDate).weekday() != 3) && (moment(currentDate).weekday() != 4)){
-			dateArray.push( moment(currentDate).format('YYYY-MM-DD'))
+			dateArray.push(date_check)
 		}
 		currentDate = moment(currentDate).add(1, 'days');
 	}

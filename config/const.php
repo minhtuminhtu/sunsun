@@ -197,8 +197,14 @@ return [
             'PRODUCT_NAME' => 'product_name',
             'PRICE' => 'price',
             'QUANTITY' => 'quantity',
-            'UNIT' => 'unit',            
+            'UNIT' => 'unit',
             'MONEY' => 'money',
+            'YOYAKU_INDEX' => 'yoyaku_index'
+        ],
+
+        'ms_day_on' => [
+            'DATE_ON' => 'date_on',
+            'NOTE_DATE_ON' => 'note_date_on'
         ],
 
     ],
@@ -432,4 +438,5 @@ return [
         'repeat' => '新規',
         'repeat2' => '（初）'
     ]
+    ,'off_def' => [3,4]
 ];

@@ -16,6 +16,10 @@
     <script src="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('sunsun/lib/sweetalert2/sweetalert2.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('sunsun/lib/animate.css/animate.min.css')}}"/>
+    <script>
+        let _off_def = <?php echo json_encode(config('const.off_def')); ?>;
+        let _date_enable = <?php echo json_encode(\Helper::getDayOn()); ?>;
+    </script>
 @yield('admincss')
 @endsection
 
@@ -49,4 +53,3 @@
     </script>
     <script src="{{asset('sunsun/auth/js/validate-form.js').config('version_files.html.js')}}"></script>
 @endsection
-

@@ -1,15 +1,17 @@
 <table class="result_data_user table table-striped table-hover table-bordered">
 	<thead>
 		<tr>
+			<th scope="col" style="width: 8%">オーダーID</th>
+			<th scope="col" style="width: 7%">オーダー日</th>
 			<th scope="col" style="width: 8%">名前</th>
-			<th scope="col" style="width: 10%">電話番号</th>
+			<th scope="col" style="width: 8%">電話番号</th>
 			<th scope="col" >メールアドレス</th>
+			<th scope="col" style="width: 5.5%">交通手段</th>
+			<th scope="col" style="width: 5%">ご利用</th>
 			<th scope="col" style="width: 5%">性別</th>
-			<th scope="col" style="width: 5%">年齢</th>
-			<th scope="col" style="width: 9%">予約日</th>
-			<th scope="col" style="width: 8%">ご利用</th>
-			<th scope="col" style="width: 7%">交通手段</th>
-			<th scope="col" style="width: 8%">商品名</th>
+			<th scope="col" style="width: 4%">年齢</th>
+			<th scope="col" style="width: 7%">予約日</th>
+			<th scope="col" style="width: 10%">商品名</th>
 			<th scope="col" style="width: 5%">単価</th>
 			<th scope="col" style="width: 5%">数量</th>
 			<th scope="col" style="width: 5%">金額</th>
@@ -20,8 +22,16 @@
 		@if(sizeof($data) > 0)
 			<?php $i = 1;?>
 			@foreach($data as $items)
-				<?php $i++; ?>
+				<?php $i++;
+				$datetime_cre = new Carbon\Carbon($items->created_at);
+				$datetime_cre =  $datetime_cre->format('Y/m/d'); ?>
 				<tr>
+					<td class="txt_r">
+						<span>{{ $items->booking_id }}</span>
+					</td>
+					<td class="txt_c">
+						<span>{{ $datetime_cre }}</span>
+					</td>
 					<td>
 						<span>{{ $items->name }}</span>
 					</td>
@@ -32,6 +42,12 @@
 						<span>{{ $items->email }}</span>
 					</td>
 					<td class="txt_c">
+						<span>{{ $items->transport }}</span>
+					</td>
+					<td class="txt_c">
+						<span>{{ $items->repeat_user }}</span>
+					</td>
+					<td class="txt_c">
 						<span>{{ $items->gender }}</span>
 					</td>
 					<td class="txt_r">
@@ -39,12 +55,6 @@
 					</td>
 					<td class="txt_c">
 						<span>{{ $items->date_value }}</span>
-					</td>
-					<td class="txt_c">
-						<span>{{ $items->repeat_user }}</span>
-					</td>
-					<td class="txt_c">
-						<span>{{ $items->transport }}</span>
 					</td>
 					<td>
 						<span>{{ $items->product_name }}</span>

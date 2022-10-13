@@ -49,6 +49,7 @@ class AdminController extends Controller
 		$data['time_range'] = config('const.time_admin');
 		$date_obj = new Carbon($date);
 		$data['week_day'] = $date_obj->dayOfWeek;
+		$data['chech_date_dis'] = \Helper::CheckDayDis($data['week_day'],$date);
 		// $data['time_data'] = DB::table('tr_yoyaku')
 		//     ->select(['email as title', 'service_date_start as start', 'service_date_start as end'])
 		//     ->whereYear('service_date_start',2019)
@@ -2396,7 +2397,7 @@ class AdminController extends Controller
 			#create tr_payments_history
 			$booking = new BookingController();
 			$booking->save_tr_payments_history($row->booking_id);
-		}		
+		}
 	}
 	public function sales_list(Request $request)
 	{
@@ -2425,7 +2426,7 @@ class AdminController extends Controller
 			$data['date_end_view'] = $this->get_week_day(Carbon::parse($data['date_end']));
 		}
 		$list_data = $this->get_salse_list($data);
-		if ($check_view) return view('sunsun.admin.sales_list', ['data' => $list_data, 'type' => 0, 'data_search' => $data]);		
+		if ($check_view) return view('sunsun.admin.sales_list', ['data' => $list_data, 'type' => 0, 'data_search' => $data]);
 		// return ajax
 		$request->session()->forget('key_sales_list');
 		$request->session()->put('key_sales_list',$data);
@@ -2465,7 +2466,7 @@ class AdminController extends Controller
 			$where_join = "";
 			if (!empty($date_start) && !empty($date_end)) {
 				$where_date = " (yo.service_date_end is null and yo.service_date_start >= '$date_start' and yo.service_date_start <= '$date_end')
-								or 
+								or
 								(yo.service_date_end is not null and
 									(
 										(yo.service_date_start <= '$date_start' and yo.service_date_end >= '$date_start')
@@ -2478,16 +2479,16 @@ class AdminController extends Controller
 			}
 			else if (!empty($date_start)) {
 				$where_date = " (yo.service_date_end is null and yo.service_date_start >= '$date_start' )
-								or 
+								or
 								(yo.service_date_end is not null and
 									(
 										(yo.service_date_start <= '$date_start' and yo.service_date_end >= '$date_start')
 									)
 								) ";
-			} 
+			}
 			else if (!empty($date_end)) {
 				$where_date = " (yo.service_date_end is null and yo.service_date_start <= '$date_end' )
-								or 
+								or
 								(yo.service_date_end is not null and
 									(
 										(yo.service_date_start <= '$date_end' and yo.service_date_end >= '$date_end')
@@ -2502,7 +2503,9 @@ class AdminController extends Controller
 			}
 		}
 		$data = DB::table('tr_payments_history as ph')->selectRaw("
-					yo.name
+					yo.booking_id
+					,yo.created_at
+					,yo.name
 					, yo.phone
 					, yo.email
 					, ph.gender
@@ -2527,12 +2530,12 @@ class AdminController extends Controller
 						$join->whereRaw($where_date);
 					}
 				})
-				->leftJoin('ms_kubun as mk1', function($join) use ($on)
+				->leftJoin('ms_kubun as mk1', function($join)
 				{
 					$join->on('mk1.kubun_id','=','yo.transport')
 						->where('mk1.kubun_type','=','002');
 				})
-				->leftJoin('ms_kubun as mk2', function($join) use ($on)
+				->leftJoin('ms_kubun as mk2', function($join)
 				{
 					$join->on('mk2.kubun_id','=','yo.payment_method')
 						->where('mk2.kubun_type','=','032');

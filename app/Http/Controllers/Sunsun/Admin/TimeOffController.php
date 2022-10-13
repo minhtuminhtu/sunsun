@@ -32,8 +32,8 @@ class TimeOffController extends Controller
     	$datetime = ($data == null) ? Carbon::now() : new Carbon($data["date_search"]);
         $dayOfWeek = $datetime->dayOfWeek;
         $day_diff = 0;
-        if ($dayOfWeek == 3) $day_diff = 2;
-        else if ($dayOfWeek == 4) $day_diff = 1;
+        // if ($dayOfWeek == 3) $day_diff = 2;
+        // else if ($dayOfWeek == 4) $day_diff = 1;
         $datetime = $datetime->addDays($day_diff);
     	$date_search = $datetime->format('Ymd');
 		$where = " type_holiday is not null and date_holiday = '$date_search' ";

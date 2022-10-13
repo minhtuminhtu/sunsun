@@ -22,6 +22,10 @@
             background-color: #d9d9d9!important;
         }
     </style>
+    <script>
+        let _off_def = <?php echo json_encode(config('const.off_def')); ?>;
+        let _date_enable = <?php echo json_encode(\Helper::getDayOn()); ?>;
+    </script>
 @endsection
 @section("header")
     @include('sunsun.admin.layouts.header')

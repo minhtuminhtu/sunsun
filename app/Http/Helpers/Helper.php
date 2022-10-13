@@ -2,6 +2,7 @@
 namespace App\Http\Helpers;
 use \Session;
 use App\Models\MsHoliday;
+use App\Models\MsDayOn;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 class Helper
@@ -48,5 +49,42 @@ class Helper
         } else if ($service_date_start < '20220601') {
             return '030';
         } else return '031';
+    }
+    public static function getDayOn($year = null) {
+        $date_selected = [];
+        $where_year = "";
+        $range_day = MsDayOn::Select("date_on");
+        if (!empty($year)) {
+            $where_year = " SUBSTR(date_on,1,4) = '$year' ";
+            $range_day->whereRaw($where_year);
+        }
+        $range_day = $range_day->get();
+        if (!empty($range_day)) {
+            foreach($range_day as $da){
+                array_push($date_selected, Carbon::parse($da->date_on)->format('Y/m/d'));
+            }
+        }
+        return $date_selected;
+    }
+    public static function CheckDayDis($day_week,$date) {
+        $return = "";
+
+        if (in_array($day_week, config('const.off_def')) ) {
+            $return = " bg-dis ";
+        }
+
+        if (empty($date)) return $return;
+        $date_selected = [];
+        $where_date = "";
+        $range_day = MsDayOn::Select("date_on");
+        if (!empty($date)) {
+            $where_date = " date_on = '$date' ";
+            $range_day->whereRaw($where_date);
+        }
+        $range_day = $range_day->get();
+        if (empty($range_day) || count($range_day) == 0) {
+            return $return;
+        }
+        return "";
     }
 }

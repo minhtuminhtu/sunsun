@@ -227,7 +227,7 @@ $(function () {
 		let end_weekly = moment(weekStart).add(6, 'days').format("YMMDD");
 		let weekly_url = $curent_url.substring(0, $curent_url.length - 3) + "weekly";
 		window.location.href = weekly_url + "?date_from=" + start_weekly + "&date_to=" + end_weekly;
-	})
+	});
 	$('#go-monthly').off('click');
 	$('#go-monthly').on('click',function (e) {
 		let date = date_day.datepicker('getDate');
@@ -649,4 +649,12 @@ $(function () {
 			}
 		});
 	});
+	$('#go-sales_list').off('click');
+	$('#go-sales_list').on('click',function (e) {
+		window.location.href = $curent_url.substring(0, $curent_url.length - 3) + "sales_list";
+	});
+	$('#go-day_on').off('click');
+	$('#go-day_on').on('click',function (e) {
+		window.location.href = $curent_url.substring(0, $curent_url.length - 3) + "day_on";
+	})
 });

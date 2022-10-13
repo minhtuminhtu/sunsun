@@ -33,10 +33,22 @@
             autoclose: false,
             weekStart: 1,
             maxViewMode: 0,
-            daysOfWeekDisabled: "3,4",
+            beforeShowDay: disableDates,
             }).datepicker("setDate", new Date(year, index, null));
         }
     };
+    function disableDates(date) {
+        let shouldDisable = true;
+        var date_day = date.getDay();
+        if(_off_def.indexOf(date_day) >= 0){
+            shouldDisable = false;
+        }
+        var string_date = jQuery.datepicker.formatDate('yy/mm/dd', date);
+        if (_date_enable.indexOf(string_date) >= 0) {
+            shouldDisable = true;
+        }
+        return shouldDisable;
+    }
     function setDefaultCombo() {
         for (var i = 0; i<count_holiday; i++) {
             var value = list_holiday[i];
