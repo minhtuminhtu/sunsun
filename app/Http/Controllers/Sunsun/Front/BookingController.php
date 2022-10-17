@@ -445,6 +445,8 @@ class BookingController extends Controller
 				$info_customer['date-value'] = $data['date-value'];
 			} elseif (isset($data['plan_date_start-value'])){
 				$info_customer['date-value'] = $data['plan_date_start-value'];
+			} elseif (isset($data['date-value-new'])){
+				$info_customer['date-value'] = $data['date-value-new'];
 			};
 			if (isset($data['time'])) {
 				$info_customer['time_first_booking'] = $data['time'];
@@ -743,7 +745,11 @@ class BookingController extends Controller
 		return $dates;
 	}
 	public function get_price_option ($booking, &$new_bill) {
-		$date_value_kbn = empty($booking['date-value']) ? $booking['plan_date_start-value'] : $booking['date-value'];
+		$date_value_kbn = !empty($booking['date-value']) ? $booking['date-value'] :
+			(!empty($booking['plan_date_start-value']) ? $booking['plan_date_start-value'] :
+				(!empty($booking['date-value-new']) ? $booking['date-value-new'] : NULL)
+			)
+		;
 		$kubun_type_price = \Helper::getKubunTypePrice($date_value_kbn);
 		$course = json_decode($booking['course'], true);
 		$c_id = $course['kubun_id'];
@@ -913,8 +919,11 @@ class BookingController extends Controller
 		}
 	}
 	public function get_price_course ($booking, &$bill, $overflow = false) {
-		$date_value_kbn = empty($booking['date-value-new']) ? $booking['date-value'] : $booking['date-value-new'];
-		$date_value_kbn = empty($date_value_kbn) ? $booking['plan_date_start-value'] : $date_value_kbn;
+		$date_value_kbn = !empty($booking['date-value']) ? $booking['date-value'] :
+			(!empty($booking['plan_date_start-value']) ? $booking['plan_date_start-value'] :
+				(!empty($booking['date-value-new']) ? $booking['date-value-new'] : NULL)
+			)
+		;
 		$kubun_type_price = \Helper::getKubunTypePrice($date_value_kbn);
 		$course = json_decode($booking['course'], true);
 		$course_price = 0;
@@ -1184,8 +1193,11 @@ class BookingController extends Controller
 						$Yoyaku->booking_id = $booking_id;
 						$Yoyaku->ref_booking_id = isset($ref_booking_id)?$ref_booking_id:NULL;
 						$return_booking_id = $parent_id;
-						$parent_date = isset($customer['date-value'])?$customer['date-value']:NULL;
-						$parent_date = !isset($parent_date)?$customer['plan_date_start-value']:$parent_date;
+						$parent_date = isset($customer['date-value']) ? $customer['date-value'] :
+							(isset($customer['plan_date_start-value']) ? $customer['plan_date_start-value'] :
+								(isset($customer['date-value-new']) ? $customer['date-value-new'] : NULL)
+							)
+						;
 						$return_date = $parent_date;
 						//Log::debug('set_booking_course ' . $return_booking_id);
 						$this->set_booking_course($Yoyaku, $data, $customer,$parent, NULL);

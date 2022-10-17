@@ -149,7 +149,8 @@
 							</div>
 						</div>
 						<div style="display: flex">
-							<input class="input_del" checked="checked" type="checkbox" name="notshowdeleted" value="1">
+							<?php $set_check = isset($data_search['notshowdeleted']) ? "checked='checked'" : ''; ?>
+							<input class="input_del" {{ $set_check }} type="checkbox" name="notshowdeleted" value="1">
 							<span class="font_label">&nbsp;削除データは表示しない</span>
 						</div>
 					</form>
