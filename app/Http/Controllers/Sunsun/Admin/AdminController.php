@@ -1347,14 +1347,15 @@ class AdminController extends Controller
 				if($ref_booking){
 					$ref_booking->update(['del_flg' => '1']);
 				}
-			}
-			// create new payments_history
-			$parent_booking = Yoyaku::where('booking_id',$booking_id)->whereNull("ref_booking_id")->get();
-			foreach ($parent_booking as $row) {
-				PaymentHistory::where('booking_id',$row->ref_booking_id)->delete();
-				$booking = new BookingController();
-				$booking->save_tr_payments_history($row->ref_booking_id);
-				break;
+			} else {
+				// create new payments_history
+				$parent_booking = Yoyaku::where('booking_id',$booking_id)->get();
+				foreach ($parent_booking as $row) {
+					PaymentHistory::where('booking_id',$row->ref_booking_id)->delete();
+					$booking = new BookingController();
+					$booking->save_tr_payments_history($row->ref_booking_id);
+					break;
+				}
 			}
 			return [
 				'status' => true
