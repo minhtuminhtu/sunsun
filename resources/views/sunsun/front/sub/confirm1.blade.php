@@ -12,7 +12,8 @@
 </div>
 @if($age_type == '3' || $age_type == '30')
 <div class="linex">
-    <p>年齢：大人 {{ $age_value }}歳</p>
+    <!-- <p>年齢：大人 {{ $age_value }}歳</p> -->
+    <p>年齢：大人</p>
     <div class="line1">
     </div>
     <div class="line2">

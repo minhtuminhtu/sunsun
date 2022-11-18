@@ -9,13 +9,13 @@
 	<div class="line2">
 	</div>
 </div>
-<div class="linex" style="display:none !important">
+<!-- <div class="linex">
 	<p>年齢：{{ $age_value }}歳</p>
 	<div class="line1">
 	</div>
 	<div class="line2">
 	</div>
-</div>
+</div> -->
 <div class="linex">
 	<p>コース: {{ $course->kubun_value }}</p>
 	<div class="line1">
