@@ -2296,11 +2296,11 @@ class BookingController extends Controller
 		$Yoyaku->whitening_time_json = $whitening_time_json;
 		$Yoyaku->gender = $gender->kubun_id;
 		$Yoyaku->age_type = $age_type;
-		if($age_type == 3 || $age_type == 30){
-			$Yoyaku->age_value = $age_value;
-		}else{
-			$Yoyaku->age_value = NULL;
-		}
+		// if($age_type == 3 || $age_type == 30){
+		// 	$Yoyaku->age_value = $age_value;
+		// }else{
+		// 	$Yoyaku->age_value = NULL;
+		// }
 		$Yoyaku->bed = $bed;
 		$Yoyaku->lunch = $lunch->kubun_id;
 		$Yoyaku->whitening = $whitening->kubun_id;
@@ -2370,7 +2370,7 @@ class BookingController extends Controller
 		//Log::debug($customer);
 		$Yoyaku->time_json = $time_json;
 		$Yoyaku->gender = $gender->kubun_id;
-		$Yoyaku->age_value = $age_value;
+		// $Yoyaku->age_value = $age_value;
 		$Yoyaku->service_time_1 = $time1;
 		$Yoyaku->service_time_2 = $time2;
 		$Yoyaku->bed = $bed1 . "-" . $bed2;
@@ -2501,7 +2501,7 @@ class BookingController extends Controller
 		$stay_checkin_date = isset($customer['range_date_start-value'])?$customer['range_date_start-value']:"";
 		$stay_checkout_date = isset($customer['range_date_end-value'])?$customer['range_date_end-value']:"";
 		$Yoyaku->gender = $gender->kubun_id;
-		$Yoyaku->age_value = $age_value;
+		// $Yoyaku->age_value = $age_value;
 		$Yoyaku->pet_keeping = $pet_keeping->kubun_id;
 		$Yoyaku->service_date_start = $plan_date_start;
 		$Yoyaku->service_date_end = $plan_date_end;
@@ -2572,7 +2572,7 @@ class BookingController extends Controller
 		//Log::debug($customer);
 		$Yoyaku->time_json = $time_json;
 		$Yoyaku->gender = $gender->kubun_id;
-		$Yoyaku->age_value = $age_value;
+		// $Yoyaku->age_value = $age_value;
 		$Yoyaku->service_time_1 = $time1;
 		$Yoyaku->service_time_2 = $time2;
 		$Yoyaku->bed = $bed1 . "-" . $bed2;
@@ -2647,7 +2647,7 @@ class BookingController extends Controller
 		//Log::debug($customer);
 		$Yoyaku->time_json = $time_json;
 		$Yoyaku->gender = $gender->kubun_id;
-		$Yoyaku->age_value = $age_value;
+		// $Yoyaku->age_value = $age_value;
 		$Yoyaku->service_time_1 = $time1;
 		$Yoyaku->bed = $bed1;
 		$Yoyaku->lunch = $lunch->kubun_id;
@@ -2719,7 +2719,7 @@ class BookingController extends Controller
 		//Log::debug($customer);
 		$Yoyaku->time_json = $time_json;
 		$Yoyaku->gender = $gender->kubun_id;
-		$Yoyaku->age_value = $age_value;
+		// $Yoyaku->age_value = $age_value;
 		$Yoyaku->service_time_1 = $time1;
 		$Yoyaku->bed = $bed1;
 		$Yoyaku->lunch = $lunch->kubun_id;
@@ -2792,7 +2792,7 @@ class BookingController extends Controller
 		//Log::debug($customer);
 		$Yoyaku->time_json = $time_json;
 		$Yoyaku->gender = $gender->kubun_id;
-		$Yoyaku->age_value = $age_value;
+		// $Yoyaku->age_value = $age_value;
 		$Yoyaku->service_time_1 = $time1;
 		$Yoyaku->service_time_2 = $time2;
 		$Yoyaku->bed = $bed1 . "-" . $bed2;
@@ -4129,8 +4129,8 @@ class BookingController extends Controller
 				$ph->booking_id = $return_booking_id;
 				if (isset($row[config('const.db.tr_payments_history.GENDER')]))
 					$ph->gender = $row[config('const.db.tr_payments_history.GENDER')];
-				if (isset($row[config('const.db.tr_payments_history.AGE_VALUE')]))
-					$ph->age_value = $row[config('const.db.tr_payments_history.AGE_VALUE')];
+				// if (isset($row[config('const.db.tr_payments_history.AGE_VALUE')]))
+				// 	$ph->age_value = $row[config('const.db.tr_payments_history.AGE_VALUE')];
 				if (isset($row[config('const.db.tr_payments_history.REPEAT_USER')]))
 					$ph->repeat_user = $row[config('const.db.tr_payments_history.REPEAT_USER')];
 				if (isset($row[config('const.db.tr_payments_history.DATE_VALUE')]))

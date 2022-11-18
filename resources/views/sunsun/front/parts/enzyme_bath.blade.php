@@ -70,7 +70,7 @@
 					</div>
 					<div class="button-age-right">
 						<button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck @if($age_type == 2) color-active @else btn-outline-warning   @endif" value="2">学生<span class="node-text">(中学生以上)</span></button>
-						<div class="age-col margin-top-mini">
+						<div class="age-col margin-top-mini" style="display:none">
 							<div class="age-left"  @if(!$show_age_value) style="visibility: hidden;" @endif>
 								<select id="age_value" name="age_value" class="form-control">
 									@for($j = 18; $j < 100; $j++ )
