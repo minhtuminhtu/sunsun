@@ -229,7 +229,9 @@
                                         @elseif(isset($data_booking->course) && ($data_booking->course != "04" || $data_booking->course != "06") && ($value->kubun_id == "04" || $value->kubun_id == "06"))
                                             <option disabled>{{ $value->kubun_value }}</option>
                                         @else
-                                            <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                                            @if ($value->kubun_id != "07" || (isset($data_booking->course) && $data_booking->course == "07"))
+                                                <option value='@json($value)'>{{ $value->kubun_value }}</option>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </select>

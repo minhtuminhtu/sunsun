@@ -19,7 +19,7 @@
     <div class="line2">
     </div>
 </div>
-<div class="linex">
+<div class="linex" style="display:none !important">
     <p>年齢：{{ $age_value }}歳</p>
     <div class="line1">
     </div>

@@ -52,7 +52,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="booking-field mb-2">
+		<div class="booking-field mb-2" style="display:none !important">
 			<div class="booking-field-label  booking-laber-padding">
 				<p class="text-left pt-2">{{config('booking.age.label')}}</p>
 			</div>

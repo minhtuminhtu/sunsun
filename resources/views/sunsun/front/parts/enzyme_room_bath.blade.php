@@ -196,6 +196,7 @@
 							<option value='0'>{{ config('booking.repeat_user.options.yes') }}</option>
 						@endif
 					</select>
+					<div class="node-text pt-2">{{ config('booking.whitening.note') }}</div>
 				</div>
 			</div>
 			<div class="booking-field whitening whiteninghd">

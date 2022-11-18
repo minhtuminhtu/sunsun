@@ -276,7 +276,7 @@
 							@endif
 						@endforeach
 					</select>
-					<p class="node-text text-left mt-2 mb-2">ランチは11:30～12:30にご用意させていただきます</p>
+					<p class="node-text text-left mt-2 mb-2">{!! config('booking.lunch.note') !!}{!! config('booking.lunch.note_confirm1') !!}</p>
 				</div>
 			</div>
 			<div class="booking-field">
@@ -348,6 +348,7 @@
 							<option value='0'>{{ config('booking.repeat_user.options.yes') }}</option>
 						@endif
 					</select>
+					<div class="node-text pt-2">{{ config('booking.whitening.note') }}</div>
 				</div>
 			</div>
 			<div class="booking-field whitening whiteninghd">

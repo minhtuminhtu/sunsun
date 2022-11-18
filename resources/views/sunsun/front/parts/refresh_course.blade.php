@@ -38,7 +38,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="booking-field">
+		<div class="booking-field" style="display:none !important">
 			<div class="booking-field-label  booking-laber-padding">
 				<p class="text-left pt-2">{{config('booking.age.label')}}</p>
 			</div>
@@ -234,6 +234,7 @@
 							<option value='0'>{{ config('booking.repeat_user.options.yes') }}</option>
 						@endif
 					</select>
+					<div class="node-text pt-2">{{ config('booking.whitening.note') }}</div>
 				</div>
 			</div>
 			<div class="booking-field whitening whiteninghd">

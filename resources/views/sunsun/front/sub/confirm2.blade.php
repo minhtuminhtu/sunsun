@@ -9,7 +9,7 @@
 	<div class="line2">
 	</div>
 </div>
-<div class="linex">
+<div class="linex" style="display:none !important">
 	<p>年齢：{{ $age_value }}歳</p>
 	<div class="line1">
 	</div>
@@ -24,7 +24,7 @@
 	</div>
 </div>
 <div class="linex">
-	<p>※ランチは11:30～12:30にご用意させていただきます。</p>
+	{!! config('booking.lunch.note_confirm') !!}<p>{!! config('booking.lunch.note_confirm1') !!}</p>
 	<div class="line1">
 	</div>
 	<div class="line2">
