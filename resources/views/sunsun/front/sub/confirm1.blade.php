@@ -10,32 +10,21 @@
     <div class="line2">
     </div>
 </div>
-@if($age_type == '3' || $age_type == '30')
 <div class="linex">
-    <!-- <p>年齢：大人 {{ $age_value }}歳</p> -->
-    <p>年齢：大人</p>
+    @if($age_type == '3' || $age_type == '30')
+        <p>年齢：{{config('booking.age.age3')}}</p>
+    @elseif($age_type == '1')
+        <p>年齢：{{config('booking.age.age1')}}</p>
+    @elseif($age_type == '2')
+        <p>年齢：学生<span class="node-text">(中学生以上)</span></p>
+    @elseif($age_type == '31')
+        <p>年齢：{{config('booking.age.age4')}}</p>
+    @endif
     <div class="line1">
     </div>
     <div class="line2">
     </div>
 </div>
-@elseif($age_type == '1')
-<div class="linex">
-    <p>年齢：小学生</p>
-    <div class="line1">
-    </div>
-    <div class="line2">
-    </div>
-</div>
-@elseif($age_type == '2')
-<div class="linex">
-    <p>年齢：学生<span class="node-text">(中学生以上)</span></p>
-    <div class="line1">
-    </div>
-    <div class="line2">
-    </div>
-</div>
-@endif
 <div class="linex">
     <p>コース: {{ $course->kubun_value }}</p>
     <div class="line1">

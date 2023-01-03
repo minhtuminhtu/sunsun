@@ -56,6 +56,7 @@
 				$show_age_value = false;
 			}
 			$val_age_type = isset($course_data['age_type']) ? $course_data['age_type'] : 30;
+			$display_old = ($age_type == 1 || $age_type == 2) ? "" : " style='display:none ! important' ";
 		@endphp
 		<div class="booking-field">
 			<div class="booking-field-label  booking-laber-padding">
@@ -65,12 +66,13 @@
 				<div class="button-age">
 					<input id="agecheck" name='age_type' type="hidden" value="{{  isset($age_type)?$age_type:$val_age_type  }}">
 					<div class="button-age-left">
-						<button type="button" class="btn btn-block form-control text-dark mx-0 agecheck @if($age_type == 1) color-active @else btn-outline-warning   @endif" value="1">{{config('booking.age.age1')}}</button>
-						<button type="button" class="btn btn-block form-control text-dark  margin-top-mini mx-0 agecheck @if(($age_type == 1) || ($age_type == 2)) btn-outline-warning @else  color-active  @endif" value="{{ $val_age_type }}">{{config('booking.age.age3')}}</button>
+						<button type="button" class="btn btn-block form-control text-dark mx-0 agecheck @if($age_type == 1) color-active @else btn-outline-warning   @endif" 
+						{!! $display_old !!} value="1">{{config('booking.age.age1')}}</button>
+						<button type="button" class="btn btn-block form-control text-dark  margin-top-mini mx-0 agecheck @if($age_type == 30 ||$age_type == 3) color-active @else btn-outline-warning  @endif" value="{{ $val_age_type }}">{{config('booking.age.age3')}}</button>
 					</div>
 					<div class="button-age-right">
-						<button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck @if($age_type == 2) color-active @else btn-outline-warning   @endif" value="2">学生<span class="node-text">(中学生以上)</span></button>
-						<div class="age-col margin-top-mini" style="display:none">
+						<button type="button" class="btn btn-block form-control btn-outline-warning text-dark mx-0 agecheck @if($age_type == 2) color-active @else btn-outline-warning   @endif" {!! $display_old !!} value="2">学生<span class="node-text">(中学生以上)</span></button>
+						<div class="age-col margin-top-mini" style="display:none !important">
 							<div class="age-left"  @if(!$show_age_value) style="visibility: hidden;" @endif>
 								<select id="age_value" name="age_value" class="form-control">
 									@for($j = 18; $j < 100; $j++ )
@@ -88,6 +90,7 @@
 								</div>
 							</div>
 						</div>
+						<button type="button" class="btn btn-block form-control text-dark  margin-top-mini mx-0 agecheck @if($age_type == 31) color-active @else btn-outline-warning @endif" value="31">{{config('booking.age.age4')}}</button>
 					</div>
 				</div>
 			</div>

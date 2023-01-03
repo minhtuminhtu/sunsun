@@ -560,6 +560,10 @@ class BookingController extends Controller
 							$sort_no_temp = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','30']])->get()->first();
 							$new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course($booking, $bill);
 							$new_bill[$sort_no_temp->sort_no]['quantity']++;
+						}else if(isset($booking['age_type']) && $booking['age_type'] == 31){
+							$sort_no_temp = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','31']])->get()->first();
+							$new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course($booking, $bill);
+							$new_bill[$sort_no_temp->sort_no]['quantity']++;
 						}
 					}
 				}else if($booking_course['kubun_id'] == '02'){
@@ -941,6 +945,9 @@ class BookingController extends Controller
 				}
 				else if ($booking['age_type'] == '30') {
 					$course_price_op = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','30']])->get()->first();
+				}
+				else if ($booking['age_type'] == '31') {
+					$course_price_op = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','31']])->get()->first();
 				}
 				$course_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
 				break;
@@ -1371,6 +1378,10 @@ class BookingController extends Controller
 							$sort_no_temp = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','30']])->get()->first();
 							$new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
 							$new_bill[$sort_no_temp->sort_no]['quantity']++;
+						}else if(isset($yo->age_type) && $yo->age_type == 31){
+							$sort_no_temp = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','31']])->get()->first();
+							$new_bill[$sort_no_temp->sort_no]['price'] += $this->get_price_course_admin($yo);
+							$new_bill[$sort_no_temp->sort_no]['quantity']++;
 						}
 					}
 				}else if($yo->course == '02'){
@@ -1484,6 +1495,9 @@ class BookingController extends Controller
 				}
 				else if ($booking->age_type == '30') {
 					$course_price_op = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','30']])->get()->first();
+				}
+				else if ($booking->age_type == '31') {
+					$course_price_op = MsKubun::where([['kubun_type',$kubun_type_price],['kubun_id','31']])->get()->first();
 				}
 				$course_price = preg_replace( '/[^0-9]/', '', $course_price_op->kubun_value);
 				break;
