@@ -118,7 +118,8 @@
                                                         }
                                                     }
                                                 }else{
-                                                    foreach ($bus_arrive_time_slide as  $first_bus_time) {
+                                                    foreach ($bus_arrive_time_slide as $first_bus_time) {
+                                                        if ($first_bus_time->kubun_id == '01') continue;
                                                         break;
                                                     }
                                                 }
@@ -143,7 +144,8 @@
                                                 || $value->kubun_id == '06'
                                                 || $value->kubun_id == '09'
                                                 || $value->kubun_id == '13'
-                                                || $value->kubun_id == '18') {
+                                                || $value->kubun_id == '18'
+                                                || $value->kubun_id == '01') {
                                                     $check_dis = "dis_time_bus";
                                                 }
                                                 if(!empty($check_dis)) {

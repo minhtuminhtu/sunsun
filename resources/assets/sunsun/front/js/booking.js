@@ -95,6 +95,18 @@ function getToDay(today) {
 	return today;
 }
 $(function() {
+	// function disDiv() {
+	// 	if ($("#checkDisEdit").val() > 1) {
+	// 		$("#name").attr('disabled','disabled');
+	// 		$("#phone").attr('disabled','disabled');
+	// 		$("#email").attr('disabled','disabled');
+	// 		$("#repeat_user").attr('disabled','disabled');
+	// 		$("#transport").attr('disabled','disabled');
+	// 		$("#course").attr('disabled','disabled');
+	// 		$(".service-warp").find('input, textarea, button, select').attr('disabled','disabled');
+	// 		$(".booking-field.bus").find('input, textarea, button, select').attr('disabled','disabled');
+	// 	}
+	// }
 	let init_event = 0;
 	var modal_confirm = $('#modal_confirm');
 	window.onpopstate = function(event) {
@@ -170,6 +182,7 @@ $(function() {
 			complete: function () {
 				loader.css({'display': 'none'});
 				showHidePet();
+				// disDiv();
 			},
 			error: function(jqXHR){
 				if(jqXHR.status === 419){

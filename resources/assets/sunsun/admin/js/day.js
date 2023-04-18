@@ -204,18 +204,30 @@ $(function () {
 			return arr_id[1];
 		}
 	}
-	$('.main-col__data').not(".bg-free").not(".bg-dis").off('click');
-	$('.main-col__data').not(".bg-free").not(".bg-dis").on('click', function (e) {
+	function checkShow(obj) {
+		var checkDisEdit = 1;
+		if (obj.hasClass("bg-dis")) {
+			var booking_id = obj.find(".booking-id");
+			checkDisEdit = (booking_id.length > 0) ? 2 : 0;
+		}
+		$("#checkDisEdit").val(checkDisEdit);
+		return checkDisEdit;
+	}
+	$('.main-col__data').not(".bg-free").off('click');
+	$('.main-col__data').not(".bg-free").on('click', function (e) {
+		if (checkShow($(this)) == 0) return;
 		if(!$(this).find('.control-align_center').text()){
 			show_booking(this,"01",getBed(this.id));
 		}
 	});
-	$('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").off('click');
-	$('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").on('click', function (e) {
+	$('.main-col__pet').not(".space-white").not(".head").off('click');
+	$('.main-col__pet').not(".space-white").not(".head").on('click', function (e) {
+		if (checkShow($(this)) == 0) return;
 		show_booking(this,"05","");
 	});
-	$('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").off('click');
-	$('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").on('click', function (e) {
+	$('.main-col__wt').not(".not-wt").not(".head").off('click');
+	$('.main-col__wt').not(".not-wt").not(".head").on('click', function (e) {
+		if (checkShow($(this)) == 0) return;
 		show_booking(this,"02",getBed(this.id));
 	});
 	$('#go-weekly').off('click');
@@ -259,6 +271,30 @@ $(function () {
 		if (new_day.weekday() == 6 || new_day.weekday() == 0) return false;
 		return true;
 	}
+	// function beforeSave() {
+	// 	if ($("#checkDisEdit").val() > 1) {
+	// 		$("#name").removeAttr('disabled');
+	// 		$("#phone").removeAttr('disabled');
+	// 		$("#email").removeAttr('disabled');
+	// 		$("#repeat_user").removeAttr('disabled');
+	// 		$("#transport").removeAttr('disabled');
+	// 		$("#course").removeAttr('disabled');
+	// 		$(".service-warp").find('input, textarea, button, select').removeAttr('disabled');
+	// 		$(".booking-field.bus").find('input, textarea, button, select').removeAttr('disabled');
+	// 	}
+	// }
+	// function disDiv() {
+	// 	if ($("#checkDisEdit").val() > 1) {
+	// 		$("#name").attr('disabled','disabled');
+	// 		$("#phone").attr('disabled','disabled');
+	// 		$("#email").attr('disabled','disabled');
+	// 		$("#repeat_user").attr('disabled','disabled');
+	// 		$("#transport").attr('disabled','disabled');
+	// 		$("#course").attr('disabled','disabled');
+	// 		$(".service-warp").find('input, textarea, button, select').attr('disabled','disabled');
+	// 		$(".booking-field.bus").find('input, textarea, button, select').attr('disabled','disabled');
+	// 	}
+	// }
 	$('#edit_booking').off('click','.btn-update');
 	$('#edit_booking').on('click','.btn-update',function (e) {
 		e.preventDefault();
@@ -295,6 +331,7 @@ $(function () {
 			var text_err = "宿泊日は空白できません";
 			$('#range_date_start').parent().parent().after('<p class="note-error node-text booking-laber-padding"> '+text_err+'。</p>');
 		} else {
+			// beforeSave();
 			let data = $('form.booking').serializeArray();
 			// console.log(data);
 			$.ajax({
@@ -332,6 +369,7 @@ $(function () {
 				},
 				complete: function () {
 					loader.css({'display': 'none'});
+					// disDiv();
 				},
 				error: function(jqXHR){
 					if(jqXHR.status === 419){
@@ -361,6 +399,7 @@ $(function () {
 							}
 						})
 					}
+					// disDiv();
 				}
 			});
 		}
@@ -582,7 +621,8 @@ $(function () {
 	$(document).bind('contextmenu', function(e) {
 		e.preventDefault();
 	});
-	$('.main-col__data').not(".bg-free").not(".bg-dis").contextmenu(function() {
+	$('.main-col__data').not(".bg-free").contextmenu(function() {
+		if (checkShow($(this)) == 0) return;
 		var payment_id = $(this).find(".payment_id").val();
 		if((payment_id !== "") && (payment_id !== undefined)){
 			Swal.fire({
@@ -600,7 +640,8 @@ $(function () {
 			})
 		}
 	});
-	$('.main-col__pet').not(".space-white").not(".head").not(".bg-dis").contextmenu(function() {
+	$('.main-col__pet').not(".space-white").not(".head").contextmenu(function() {
+		if (checkShow($(this)) == 0) return;
 		var payment_id = $(this).find(".payment_id").val();
 		if((payment_id !== "") && (payment_id !== undefined)){
 			Swal.fire({
@@ -618,7 +659,8 @@ $(function () {
 			})
 		}
 	});
-	$('.main-col__wt').not(".not-wt").not(".head").not(".bg-dis").contextmenu(function() {
+	$('.main-col__wt').not(".not-wt").not(".head").contextmenu(function() {
+		if (checkShow($(this)) == 0) return;
 		var payment_id = $(this).find(".payment_id").val();
 		if((payment_id !== "") && (payment_id !== undefined)){
 			Swal.fire({

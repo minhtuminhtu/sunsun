@@ -8,16 +8,6 @@
         <span class="font-weight-bold">{{ $gender_val }}</span> {{----}}
     </div>
     <table class="table-statistics">
-        @if($course != '03')
-            <thead>
-                <tr>
-                    <th></th>
-                    @foreach($beds as $bed)
-                        <th>{{ config('const.laber.bed')[$bed->sort_no] }}</th>
-                    @endforeach
-                </tr>
-            </thead>
-        @endif
         <tbody>
         @foreach($time_room as $key_r => $times)
             <tr>

@@ -15,6 +15,7 @@
             @csrf
             <input type="hidden" id="bookingSeclect" name="bookingSeclect" value=""/>
             <input type="hidden" id="timeSeclect" name="timeSeclect" value=""/>
+            <input type="hidden" id="checkDisEdit" value="1"/>
         </form>
         <div class="container">
         </div>
